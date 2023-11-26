@@ -1,0 +1,21 @@
+// @use '../../styles/_mixins' as *;
+.footer{
+    padding: rem(32) rem(16);
+
+    &_top{
+        padding-bottom: rem(32);
+        border-bottom: 1px solid #BEBBBE;
+        font-weight: var(--font-demi);
+
+        &_heading{
+            font-size: rem(33);
+            margin-bottom: rem(8);
+            text-transform: uppercase;
+        }
+
+        &_subheading{
+            font-size: rem(17);
+            color: var(--color-primary);
+        }
+    }
+}

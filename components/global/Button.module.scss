@@ -1,0 +1,28 @@
+.button{
+  padding: 16px 32px;
+  border-radius: 4px;
+  background: black;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+
+  &.transparent{
+      background: rgba(250, 250, 250, .2);
+  }
+
+  &.transparent-black{
+    background: rgba(0, 0, 0, .2);
+  }
+
+  &.primary{
+    background: var(--color-primary);
+  }
+
+  &--small{
+      padding: 12px 32px;
+  }
+
+  &:hover{
+    
+  }
+}

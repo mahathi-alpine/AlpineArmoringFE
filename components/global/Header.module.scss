@@ -1,0 +1,62 @@
+.header{
+    padding: 16px 24px;
+    height: 72px;
+    @include breakpoint(medium){
+        padding: 16px 48px;
+    }
+
+    &_wrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &_logo{
+        @include breakpoint("large"){
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 12px;
+            margin: auto;
+            width: 140px;
+            img{
+                width: 140px;
+            }
+        }
+    }
+
+    &_burger{
+        display: block;
+        background: #000;
+        height: 3px;
+        width: 30px;
+        transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+        border-radius: 2px;
+        &:before, &:after{
+            content: "";
+            display: block;
+            background: #000;
+            position: absolute;
+            height: 3px;
+            width: 30px;
+            transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+            border-radius: 2px;
+        }
+        &:before{
+            margin-top: -8px;
+        }
+        &:after{
+            margin-top: 8px;
+        }
+    }
+
+    &_right{
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+
+    &_lang{        
+        font-weight: 500;
+    }
+}
