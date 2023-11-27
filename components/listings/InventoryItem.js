@@ -7,10 +7,10 @@ const InventoryItem = ({props}) => {
 
     return (
         <div className={`${styles.inventory_item}`}>
-            <Link href={`/inventory-vehicles/${data.slug}`}>
+            <Link href={`/inventory/${data.slug}`}>
                 <div className={`${styles.inventory_item_image}`}>
                     <Image 
-                        src={`http://localhost:1337${data.mainListImage.data[0].attributes.url}`} 
+                        src={`http://localhost:1337${data.featuredImage.data.attributes.url}`} 
                         alt="Description of the image" 
                         width={475} 
                         height={320} 

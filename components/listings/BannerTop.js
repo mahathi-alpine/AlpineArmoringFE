@@ -12,8 +12,8 @@ const TopBanner = ({props}) => {
                 backgroundRepeat: "no-repeat",
             }}>
             <div className={`${styles.banner_top_content}`}>
-                <h1 className={`${styles.banner_top_title}`}>{data.Heading}</h1>  
-                <p className={`${styles.banner_top_text}`}>{data.BannerText}</p>   
+                <h1 className={`${styles.banner_top_title}`}>{data.heading}</h1>  
+                <p className={`${styles.banner_top_text}`}>{data.bannerText}</p>   
             </div>        
         </div>
     );

@@ -1,0 +1,74 @@
+.inventory{
+    &_banner{
+        padding-top: rem(24);
+        @include breakpoint(large){
+            display: flex;
+            gap: 120px;
+            padding-top: rem(100);
+        } 
+
+        &_content{
+            margin-bottom: rem(60);
+            @include breakpoint(large){
+                width: 50%;
+            } 
+        }
+
+        &_availability{
+            display: inline-block;
+            margin: 0 0 rem(30) rem(-16);
+            padding: rem(12) rem(36);
+            background: var(--color-primary);
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: var(--font-demi);
+            @include breakpoint(large){
+                font-size: rem(18);
+            } 
+        }
+
+        &_title{
+            text-transform: uppercase;
+            font-size: rem(32);
+            font-weight: var(--font-demi);
+            margin-bottom: rem(16);
+            @include breakpoint(large){
+                font-size: rem(53);
+            } 
+        }
+
+        &_description{
+            font-size: rem(18);
+            font-weight: var(--font-regular);
+            margin-bottom: rem(24);
+            @include breakpoint(large){
+                font-size: rem(22);
+            } 
+        }
+
+        &_protection{
+            margin: 0 rem(16) rem(16) auto;
+            padding-right: rem(16);
+            max-width: 300px;
+            font-weight: var(--font-medium);
+            text-align: right;
+            border-right: 10px solid var(--color-primary);
+            span{
+                display: block;
+                font-weight: var(--font-bold);
+                font-size: rem(24);
+            }
+        }
+
+        &_image{
+            margin: 0 rem(-16) 0 rem(-16);
+            @include breakpoint(large){
+                width: 50%;
+            } 
+            img{
+                width: 100%;
+            }
+        }
+    }
+}

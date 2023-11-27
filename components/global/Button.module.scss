@@ -1,10 +1,11 @@
 .button{
   padding: 16px 32px;
   border-radius: 4px;
-  background: black;
+  background: var(--color-dark);
   color: white;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: rem(14);
+  font-weight: var(--font-medium);
 
   &.transparent{
       background: rgba(250, 250, 250, .2);
@@ -19,7 +20,37 @@
   }
 
   &--small{
-      padding: 12px 32px;
+    padding: 12px 32px;
+  }
+
+  &.icon{    
+    display: inline-flex;
+    align-items: center;
+    border-radius: rem(32);
+    padding: rem(6) rem(6) rem(6) rem(32);
+
+    span{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-left: rem(24);
+      width: 43px;
+      height: 43px;
+      background: white;
+      border-radius: 100%;
+      &:after{
+        content: '';
+        right: 0;
+        top: 0;
+        background-image: url('/assets/arrow.svg');
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+
   }
 
   &:hover{

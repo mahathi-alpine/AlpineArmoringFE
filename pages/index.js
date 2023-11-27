@@ -1,14 +1,14 @@
 import HpBanner from '../components/homepage/HpBanner';
 import Categories from '../components/homepage/Categories';
+import { getPageData } from '../lib/api';
 
 function Home( props ) {
-
   // if (error) {
   //   return null;
   // }
 
-  const topBanner = props.propsMainPage.data.attributes.topBanner;
-  const categories = props.propsCategories.data;
+  const topBanner = props.homepageData.data.attributes.topBanner;
+  const categories = props.categories.data;
 
   return (
     <div>
@@ -21,30 +21,44 @@ function Home( props ) {
 }
 
 export async function getServerSideProps(context) {
-  const headers = {
-    'Content-Type': 'application/json',
-  };
- 
-  try {
-    const [mainPageRes, categoriesRes] = await Promise.all([
-      fetch('http://localhost:1337/api/homepage?populate=deep'),
-      fetch('http://localhost:1337/api/categories?populate=deep'),
-    ]);
 
-    const propsMainPage = await mainPageRes.json();
-    const propsCategories = await categoriesRes.json();
-  
-    return {
-      props: { propsMainPage, propsCategories },
-    };
-  } catch (error) {
-    return {
-      props: {
-        error: error.message,
-      },
-    };
-  }
+  const homepageData = await getPageData(
+    'homepage'
+  );
+  const categories = await getPageData(
+    'categories'
+  );
+
+  return {
+    props: { homepageData, categories },
+  };
 }
+
+// export async function getServerSideProps(context) {
+//   const headers = {
+//     'Content-Type': 'application/json',
+//   };
+ 
+//   try {
+//     const [mainPageRes, categoriesRes] = await Promise.all([
+//       fetch('http://localhost:1337/api/homepage?populate=deep'),
+//       fetch('http://localhost:1337/api/categories?populate=deep'),
+//     ]);
+
+//     const propsMainPage = await mainPageRes.json();
+//     const propsCategories = await categoriesRes.json();
+  
+//     return {
+//       props: { propsMainPage, propsCategories },
+//     };
+//   } catch (error) {
+//     return {
+//       props: {
+//         error: error.message,
+//       },
+//     };
+//   }
+// }
 
 // export async function getServerSideProps(context) {
 //   const headers = {

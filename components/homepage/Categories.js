@@ -22,7 +22,12 @@ const Categories = ( props ) => {
                         /> : null }
 
                         <div className={`${styles.categories_item_buttons}`}>
-                            <Button href={`/inventory-vehicles/${data.slug}`} className="primary">View In Stock</Button>
+                            <Button 
+                                // onClick={() => router.push({ pathname: '/inventory', query: { category: 'suvs' } })} 
+                                // href='/inventory?category=${data.slug}'
+                                href={`/inventory?category=${data.slug}`}
+                                className="primary"
+                            >View In Stock</Button>
                             <Button href="/contact" className="primary">Vehicles we Armor</Button>
                         </div>
                     </div>
