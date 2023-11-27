@@ -1,0 +1,32 @@
+.categories{
+    padding-top: rem(60);
+    padding-bottom: rem(60);
+    background: var(--color-dark);
+    @include breakpoint(medium){
+        display: flex;
+        gap: 15px;
+    }
+
+    &_item{
+        background: var(--color-background);
+        margin-bottom: rem(24);
+        padding-top: rem(24);
+        @include breakpoint(medium){
+            width: calc(100% / 3);
+        }
+
+        &_title{
+            text-align: center;
+            font-size: rem(19);
+            font-weight: var(--font-medium);
+            margin-bottom: rem(16);
+        }
+
+        &_buttons{
+            display: flex;
+            &>a{
+                width: 50%;
+            }
+        }
+    }
+}

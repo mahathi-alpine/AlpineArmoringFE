@@ -2,7 +2,7 @@ import styles from './BannerTop.module.scss';
 
 const TopBanner = ({props}) => {
     const data = props.data.attributes;
-    const bannerImage = data.BannerImage.data.attributes.url;
+    const bannerImage = data.bannerImage.data?.attributes.url;
 
     return (
         <div className={`${styles.banner_top}`}  

@@ -6,28 +6,7 @@ import Button from './Button';
 import Navigation from './Navigation';
 import styles from './Header.module.scss';
 
-// import { useRouter } from 'next/router';
-// import { useEffect, useState } from 'react';
-// import SearchIcon from '../icons/SearchIcon.js';
-
 const Header = () => {
-//   const router = useRouter();
-//   const { locale, locales, pathname, query } = router;
-
-//   useEffect(() => {
-//     const scrollNav = () => {
-//       setScrollState(window.scrollY);
-//     };
-
-//     if (window.innerWidth >= 1024) {
-//       window.addEventListener('scroll', scrollNav);
-
-//       return () => {
-//         window.removeEventListener('scroll', scrollNav);
-//       };
-//     }
-//   });
-
   return (
     <>
       <header className={`${styles.header}`}>

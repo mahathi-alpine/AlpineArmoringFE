@@ -4,7 +4,6 @@ import styles from './InventoryItem.module.scss';
 
 const InventoryItem = ({props}) => {
     const data = props.attributes;
-    console.log(data)
 
     return (
         <div className={`${styles.inventory_item}`}>

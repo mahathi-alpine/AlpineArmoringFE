@@ -6,7 +6,7 @@ const Button = ({color, href, className, children}) => {
     <nav className={`${styles.navigation}`}>
         <ul className={`${styles.navigation_list}`}>
             <li className={`${styles.navigation_item}`}>
-                <Link href="list-inventory">New Inventory</Link>
+                <Link href="inventory">New Inventory</Link>
             </li>
             <li className={`${styles.navigation_item}`}>
                 <Link href="/">Rentals </Link>
