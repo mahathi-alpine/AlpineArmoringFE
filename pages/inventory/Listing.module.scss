@@ -1,0 +1,14 @@
+.listing{
+    &_wrap{
+        @include breakpoint(large){
+            display: flex;
+        } 
+    }
+    &_list{
+        padding-top: rem(50);
+        @include breakpoint(large){
+            display: flex;
+            gap: 24px;
+        } 
+    }
+}

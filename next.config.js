@@ -6,6 +6,8 @@ module.exports = {
         // includePaths: [path.join(__dirname, 'src', 'styles')],
         // prependData: fs.readFileSync(path.join(__dirname, 'styles/_mixins.scss'), 'utf8'),
         prependData: `@import './styles/_mixins.scss';`
-
+    },
+    images: {
+        domains: ['localhost'],
     },
 };

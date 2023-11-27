@@ -2,6 +2,9 @@
     padding: rem(400) rem(16) rem(24) rem(16);
     color: white;
     position: relative;
+    @include breakpoint(large){
+        padding: rem(400) rem(50) rem(50) rem(50);
+    }
 
     &:before{
         position: absolute;
@@ -11,17 +14,31 @@
         right: 0;
         bottom: 0;
         background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+        @include breakpoint(large){
+            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+        }
     } 
 
     &_content{
         position: relative;
+        @include breakpoint(large){
+            max-width: 780px;
+            margin-left: auto;
+        }
     }
 
     &_title{
         font-size: rem(40);
         margin-bottom: rem(10);
+        font-weight: var(--font-medium);
+        @include breakpoint(large){
+            font-size: rem(60);
+        }
     }
     &_text{
         font-size: rem(18);
+        @include breakpoint(large){
+            font-size: rem(25);
+        }
     }
 }

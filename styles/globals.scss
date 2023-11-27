@@ -4,6 +4,7 @@
 body{
   font-family: Termina, sans-serif;
   background: var(--color-background);
+  color: var(--color-text);
 }
 
 em, i{
@@ -30,6 +31,7 @@ a:focus {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 .desktop-only{
@@ -45,6 +47,13 @@ img {
   }
 }
 
+.container{
+  padding: 0 rem(16);
+  @include breakpoint(large){
+    padding: 0 rem(56);
+  } 
+}
+
 .section_bordered{
   padding: rem(8);
   padding-top: 0;    
@@ -53,3 +62,4 @@ img {
     padding-top: 0;    
   }
 }
+
