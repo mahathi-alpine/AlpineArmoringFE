@@ -5,7 +5,6 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {  
-  // console.log(props)
 
   return (
     <div className={`${styles.listing}`}>
@@ -13,11 +12,11 @@ function Inventory(props) {
 
         <div className={`${styles.listing_wrap} container`}>
 
-          <Sidebar props={props.types} />
+          <Sidebar />
 
-          {props.vehicles.data? <div  className={`${styles.listing_list}`} >
+          {props.vehicles.data? <div className={`${styles.listing_list}`} >
             {props.vehicles.data.map((item) => (
-              <InventoryItem stock key={item.id} props={item} />
+              <InventoryItem key={item.id} props={item} />
             ))}          
           </div> : null }
 
@@ -39,23 +38,19 @@ export async function getServerSideProps(context) {
     topBanner = topBanner.data[0];
   } else {
     topBanner = await getPageData(
-      'list-inventory'
+      'list-vehicles-we-armor'
     );
     topBanner = topBanner.data;
   }
 
   const vehicles = await getPageData(
-    'inventories',
+    'vehicles-we-armors',
     context.query.category,
     '[category][slug]'
   );
 
-  const types = await getPageData(
-    'categories'
-  );
-
   return {
-    props: { topBanner, vehicles, types },
+    props: { topBanner, vehicles },
   };
 }
 

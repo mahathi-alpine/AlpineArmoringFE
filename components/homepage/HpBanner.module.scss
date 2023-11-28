@@ -1,5 +1,11 @@
 .hp_banner{
     height: calc(100vH - var(--header-height));
+    max-height: 700px;
+    @include breakpoint(large){
+        max-height: 1000px;
+        // max-width: calc(1920px - rem(56));
+        // margin: auto;
+    }
 
     &_inner{
         position: relative;

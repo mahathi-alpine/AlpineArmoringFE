@@ -1,10 +1,10 @@
-// @use '../../styles/_mixins' as *;
 .footer{
-    padding: rem(32) rem(16);
+    padding-top: rem(32);
+    padding-bottom: rem(32);
 
     &_top{
         padding-bottom: rem(32);
-        border-bottom: 1px solid #BEBBBE;
+        border-bottom: 1px solid var(--color-grayDark);
         font-weight: var(--font-demi);
 
         &_heading{
@@ -16,6 +16,47 @@
         &_subheading{
             font-size: rem(17);
             color: var(--color-primary);
+        }
+    }
+
+    &_column{
+        padding-top: rem(32);
+
+        &_title{
+            margin-bottom: rem(32);
+            font-size: rem(20);
+            font-weight: var(--font-medium);
+    
+        }
+        &_list{
+            &_item{
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                margin-bottom: rem(16);
+            }
+        }
+    }
+    &_socials{
+        display: flex;
+        justify-content: space-between;
+        max-width: 315px;
+        // path{
+        //     fill: var(--color-dark);
+        // }
+    }
+
+    &_bottom{
+        padding-top: rem(32);
+        margin-top: rem(64);
+        border-top: 1px solid var(--color-grayDark);  
+        text-align: center;
+        
+        &_nav{
+            margin-bottom: rem(50);
+            &_item{
+                margin-bottom: rem(20);
+            }
         }
     }
 }

@@ -52,12 +52,15 @@ img {
   @include breakpoint(large){
     max-width: 1920px;
     margin: auto;
-    padding: 0 rem(56);
+    padding: 0 rem(32);
   } 
+  // @include breakpoint(huge){
+  //   padding: 0 rem(48);
+  // } 
 }
 
 .section_bordered{
-  padding: rem(8);
+  padding: rem(16);
   padding-top: 0;    
   @include breakpoint(large){
     padding: rem(32);
@@ -65,3 +68,6 @@ img {
   }
 }
 
+.background-dark{
+  background: var(--color-dark);
+}

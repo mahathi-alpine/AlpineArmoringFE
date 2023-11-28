@@ -1,21 +1,27 @@
 import HpBanner from '../components/homepage/HpBanner';
 import Categories from '../components/homepage/Categories';
 import { getPageData } from '../lib/api';
+import styles from '/components/listing/Listing.module.scss';
 
 function Home( props ) {
   // if (error) {
   //   return null;
   // }
 
-  const topBanner = props.homepageData.data.attributes.topBanner;
+  const topBanner = props.homepageData.data?.attributes.topBanner;
   const categories = props.categories.data;
 
   return (
     <div>
-      <div className="">
-        {topBanner ? <HpBanner props={topBanner}/> : null}
-        {categories ? <Categories props={categories}/> : null}
+      {topBanner ? <HpBanner props={topBanner}/> : null}
+      <div>
+
       </div>
+      {categories ? 
+        <div className="background-dark">
+          <Categories props={categories}/> 
+        </div>
+      : null}
     </div>
   );
 }

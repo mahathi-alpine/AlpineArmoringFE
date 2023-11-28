@@ -1,9 +1,13 @@
 .banner_top{
-    padding: rem(400) rem(16) rem(24) rem(16);
-    color: white;
+    padding: rem(24) rem(16) rem(24) rem(16);
     position: relative;
+    display: flex;
+    height: 400px;
+    color: white;
+    margin-bottom: rem(50);
     @include breakpoint(large){
-        padding: rem(400) rem(50) rem(50) rem(50);
+        padding: rem(50);
+        height: 580px;
     }
 
     &:before{
@@ -21,6 +25,7 @@
 
     &_content{
         position: relative;
+        margin-top: auto;
         @include breakpoint(large){
             max-width: 780px;
             margin-left: auto;

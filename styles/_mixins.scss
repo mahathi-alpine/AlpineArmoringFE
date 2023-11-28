@@ -4,6 +4,7 @@ $breakpoints: (
   'untilLarge':  ( max-width:  1279px ),
   'large':  ( min-width:  1280px ),
   'huge':  ( min-width:  1600px ),
+  'max':  ( min-width:  1920px )
 ) !default;
 
 @mixin breakpoint($breakpoint) {

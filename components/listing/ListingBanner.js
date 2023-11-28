@@ -1,7 +1,7 @@
-import styles from './BannerTop.module.scss';
+import styles from './ListingBanner.module.scss';
 
 const TopBanner = ({props}) => {
-    const data = props.data.attributes;
+    const data = props.attributes;
     const bannerImage = data.bannerImage.data?.attributes.url;
 
     return (

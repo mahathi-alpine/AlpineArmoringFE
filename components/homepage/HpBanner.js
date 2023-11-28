@@ -1,4 +1,5 @@
 import styles from './HpBanner.module.scss';
+import Button from '/components/global/Button';
 
 const HpBanner = ({ props, error }) => {
 
@@ -12,13 +13,13 @@ const HpBanner = ({ props, error }) => {
           loop={true}
           className={`${styles.hp_banner_video}`}
         >          
-          <source src={`http://localhost:1337` + props.media?.data.attributes.url} />
+          <source src='/hpVideo.mp4' />
         </video>
 
         <div className={`${styles.hp_banner_content}`}>
           <h2 className={`${styles.hp_banner_subtitle} desktop-only`}>{props.subtitle}</h2>        
           <h1 className={`${styles.hp_banner_title}`}>{props.title}</h1>
-          <button>View Inventory</button>
+          <Button href="http://localhost:3000/inventory" className="transparent">View Inventory</Button>
         </div>
 
       </div>

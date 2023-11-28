@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './InventoryItem.module.scss';
+import styles from './ListingItem.module.scss';
 
-const InventoryItem = ({props}) => {
+const InventoryItem = ({props, stock}) => {
     const data = props.attributes;
 
     return (
-        <div className={`${styles.inventory_item}`}>
-            <Link href={`/inventory/${data.slug}`}>
+        <div className={`${styles.inventory_item} ${stock ? styles.inventory_item_stock : ''}`}>
+            <Link href={`${stock ? 'inventory' : 'vehicles-we-armor'}/${data.slug}`}>
                 <div className={`${styles.inventory_item_image}`}>
                     <Image 
                         src={`http://localhost:1337${data.featuredImage.data.attributes.url}`} 
@@ -18,7 +18,7 @@ const InventoryItem = ({props}) => {
                 </div>
                 <div className={`${styles.inventory_item_content}`}>
                     <h2 className={`${styles.inventory_item_title}`}>{ data.title }</h2>
-                    <h3 className={`${styles.inventory_item_level}`}>Armored to <span>level A9</span></h3>
+                    {stock ? <h3 className={`${styles.inventory_item_level}`}>Armored to <span>level A9</span></h3> : null }
                     <ul className={`${styles.inventory_item_info}`}>
                         {data.VIN? <li className={`${styles.inventory_item_info_item}`}>
                             <span>VIN</span>
@@ -33,7 +33,7 @@ const InventoryItem = ({props}) => {
                             { data.engine }
                         </li> : null}
                     </ul>
-                </div>
+                </div>                
             </Link>
         </div>
     );

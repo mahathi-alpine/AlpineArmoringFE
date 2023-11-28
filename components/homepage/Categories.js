@@ -11,7 +11,17 @@ const Categories = ( props ) => {
                 return (
                     <div className={`${styles.categories_item}`} key={item.id}>    
 
-                        {data.title ? <h3 className={`${styles.categories_item_title}`}>{ data.title }</h3> : null }
+                        {data.heading ? <h3 className={`${styles.categories_item_title}`}>{ data.heading }</h3> : null }
+
+                        <div className={`${styles.categories_item_buttons}`}>
+                            <Button 
+                                href={`/inventory?category=${data.slug}`}
+                                className="primary"
+                            >View In Stock</Button>
+                            <Button 
+                                href={`/vehicles-we-armor?category=${data.slug}`}
+                            >Vehicles we Armor</Button>
+                        </div>
 
                         {data.image.data ? <Image 
                             src={`http://localhost:1337${data.image.data.attributes.url}`} 
@@ -20,16 +30,6 @@ const Categories = ( props ) => {
                             height={320} 
                             className={`${styles.categories_item_image}`}
                         /> : null }
-
-                        <div className={`${styles.categories_item_buttons}`}>
-                            <Button 
-                                // onClick={() => router.push({ pathname: '/inventory', query: { category: 'suvs' } })} 
-                                // href='/inventory?category=${data.slug}'
-                                href={`/inventory?category=${data.slug}`}
-                                className="primary"
-                            >View In Stock</Button>
-                            <Button href="/contact" className="primary">Vehicles we Armor</Button>
-                        </div>
                     </div>
                 );
             })}     

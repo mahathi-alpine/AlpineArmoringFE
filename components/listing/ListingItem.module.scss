@@ -1,14 +1,38 @@
 .inventory_item{
     margin-bottom: rem(16);
-    background: white;   
+    position: relative;
+
+    &:before{
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        background: white;   
+        bottom: 0;
+        top: 100px;
+        z-index: -1;
+        border-radius: 12px;
+    }
     @include breakpoint(large){
-        width: calc(100% / 3);
-    } 
+        width: calc(100% / 3 - 16px);
+    }  
+
+    &_stock{
+        &:before{
+            border-radius: 0;
+        }
+        .inventory_item_content{
+            padding: rem(24) rem(16);
+            @include breakpoint(large){
+                padding: rem(32) rem(24);
+            } 
+        }
+    }
 
     &_content{
         padding: rem(16);
         @include breakpoint(large){
-            padding: rem(32) rem(24);
+            padding: rem(24);
         } 
     }
 
@@ -22,7 +46,7 @@
         display: inline-block;
         padding: rem(7) rem(12);
         text-transform: uppercase;
-        background: var(--color-gray);
+        background: var(--color-grayLight);
         font-size: rem(14);
         letter-spacing: 5%;
         margin-bottom: rem(24);
@@ -54,6 +78,12 @@
                 font-size: rem(15);
                 font-weight: var(--font-regular);
             }
+        }
+    }
+    
+    &_image{
+        img{
+            width: 100%;
         }
     }
 }
