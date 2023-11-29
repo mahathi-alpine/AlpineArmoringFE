@@ -4,15 +4,16 @@ import Button from './Button';
 import Navigation from './Navigation';
 import styles from './Header.module.scss';
 
-const Header = () => {
+const Header = ({className}) => {
+  const classNames = className?.split(' ').map(name => styles[name]).join(' ');
   return (
-    <header className={`${styles.header} container`}>
+    <header className={`${styles.header} ${classNames} container`}>
       <div className={`${styles.header_wrapper}`}>
 
         <div className={`${styles.header_logo}`}>
           <Link href={'/'}>
               <Image
-                  src="/AlpineArmoringLogoDark.svg"
+                  src="/AlpineArmoringLogoWhite.svg"
                   width={125}                    
                   height={42}
                   alt="Alpine Armoring"
@@ -27,7 +28,7 @@ const Header = () => {
           <Button href="/contact" desktopOnly className="primary button--small desktop-only">Contact</Button>
 
           <Image
-            src="/assets/Search.png"
+            src="/assets/Search.svg"
             width={20}                    
             height={20}
             alt="Alpine Armoring Search"

@@ -68,6 +68,50 @@ img {
   }
 }
 
+.inline-block{
+  display: inline-block;
+}
+
 .background-dark{
   background: var(--color-dark);
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translate3d(0, 50px, 0);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in-up.in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translate3d(-50px, 0, 0);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in-left.in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.fade-in-scale{
+  opacity: 0;
+  transform: scale(.5);
+  transition: opacity .5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in-scale.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.delay-3{
+  transition-delay: .3s;
+}
+.delay-5{
+  transition-delay: .5s;
+}
+.delay-8{
+  transition-delay: .8s;
 }

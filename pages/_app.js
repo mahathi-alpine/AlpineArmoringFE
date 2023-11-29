@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }) {
   return (
     // <Layout>
       <main className={termina.className}>
-        <Header />
+        <Header className="header--white" />
         <Component {...pageProps} />
         <Footer />
       </main>

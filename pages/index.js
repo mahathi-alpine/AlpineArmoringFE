@@ -2,14 +2,25 @@ import HpBanner from '../components/homepage/HpBanner';
 import Categories from '../components/homepage/Categories';
 import { getPageData } from '../lib/api';
 import styles from '/components/listing/Listing.module.scss';
+import { useEffect } from 'react';
+import useIntersectionObserver from '/intersectionObserver';
 
 function Home( props ) {
   // if (error) {
   //   return null;
   // }
-
-  const topBanner = props.homepageData.data?.attributes.topBanner;
+  // console.log(props)
+  const topBanner = props.homepageData?.data.attributes.topBanner;
   const categories = props.categories.data;
+
+  const observer = useIntersectionObserver();
+
+  useEffect(() => {
+    const targets = document.querySelectorAll('.animate');
+    targets.forEach((target) => {
+      observer.current.observe(target);
+    });
+  }, []);
 
   return (
     <div>
@@ -27,74 +38,13 @@ function Home( props ) {
 }
 
 export async function getServerSideProps(context) {
-
-  const homepageData = await getPageData(
-    'homepage'
-  );
-  const categories = await getPageData(
-    'categories'
-  );
+  const homepageData = await getPageData('homepage');
+  const categories = await getPageData('categories');
 
   return {
+    props: { categories, homepageData },
     props: { homepageData, categories },
   };
 }
-
-// export async function getServerSideProps(context) {
-//   const headers = {
-//     'Content-Type': 'application/json',
-//   };
- 
-//   try {
-//     const [mainPageRes, categoriesRes] = await Promise.all([
-//       fetch('http://localhost:1337/api/homepage?populate=deep'),
-//       fetch('http://localhost:1337/api/categories?populate=deep'),
-//     ]);
-
-//     const propsMainPage = await mainPageRes.json();
-//     const propsCategories = await categoriesRes.json();
-  
-//     return {
-//       props: { propsMainPage, propsCategories },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         error: error.message,
-//       },
-//     };
-//   }
-// }
-
-// export async function getServerSideProps(context) {
-//   const headers = {
-//     'Content-Type': 'application/json',
-//   };
- 
-//   try {
-//     const response = await fetch('http://localhost:1337/api/homepage?populate=deep', {
-//       method: 'GET',
-//       headers,
-//     });
-  
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-  
-//     const props = await response.json();
-  
-//     return {
-//       props: {
-//         props: props,
-//       },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         error: error.message,
-//       },
-//     };
-//   }
-// }
 
 export default Home;
