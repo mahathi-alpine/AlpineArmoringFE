@@ -63,17 +63,18 @@
         padding: rem(32) rem(16);        
         z-index: 1;
         @include breakpoint(large){
-            padding: rem(48);
+            padding: rem(90);
         }
     }
 
     &_subtitle{
         @include breakpoint(medium){
             margin-bottom: rem(16);
-            font-size: rem(20);
-            font-weight: var(--font-bold);
+            font-size: rem(32);
+            font-weight: var(--font-medium);
             color: var(--color-primary);
             text-transform: uppercase;
+            color: white;
         }
     }
 

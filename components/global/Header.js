@@ -14,8 +14,8 @@ const Header = ({className}) => {
           <Link href={'/'}>
               <Image
                   src="/AlpineArmoringLogoWhite.svg"
-                  width={125}                    
-                  height={42}
+                  width={100}                    
+                  height={30}
                   alt="Alpine Armoring"
                   priority='true'
               />

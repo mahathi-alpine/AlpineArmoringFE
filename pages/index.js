@@ -65,11 +65,11 @@ function Home( props ) {
 
       {topBanner ? <HpBanner props={topBanner}/> : null}
 
+      <TextReveal text="ALPINE" />
+
       <VideoScale props="hpVideo.mp4" />
 
       <TextTransform text1="Alpine Armoring" text2="Triple Certification Process"/>
-
-      <TextReveal text="ALPINE" />
       
       {categories ? 
         <div className="background-dark">
