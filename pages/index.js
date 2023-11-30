@@ -3,7 +3,6 @@ import Categories from '../components/homepage/Categories';
 import { getPageData } from '../lib/api';
 import styles from '/components/listing/Listing.module.scss';
 import { useEffect, useRef } from 'react';
-import useIntersectionObserver from '/intersectionObserver';
 import VideoScale, { animateVideo } from '/components/global/VideoScale';
 import TextReveal from '/components/global/TextReveal';
 import TextTransform, { textTransformAnimate } from '/components/global/TextTransform';
