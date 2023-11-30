@@ -1,0 +1,15 @@
+.textTransform{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    color: black;
+    will-change: transform;        
+    font-size: rem(56);
+    font-weight: var(--font-medium);
+    p:nth-child(2){
+        color: var(--color-primary);
+    } 
+}

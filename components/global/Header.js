@@ -17,6 +17,7 @@ const Header = ({className}) => {
                   width={125}                    
                   height={42}
                   alt="Alpine Armoring"
+                  priority='true'
               />
           </Link>
         </div>

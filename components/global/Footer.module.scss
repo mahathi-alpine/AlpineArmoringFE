@@ -19,14 +19,29 @@
         }
     }
 
+    &_middle{        
+        @include breakpoint(large){
+            display: flex;
+            &_info{
+                flex: 1;
+                display: flex;
+                flex-flow: column;
+                gap: 24px;
+            }
+        }
+    }
+
     &_column{
-        padding-top: rem(32);
+        padding-top: rem(32);      
+        @include breakpoint(large){
+            flex: 1;
+        }
 
         &_title{
             margin-bottom: rem(32);
             font-size: rem(20);
             font-weight: var(--font-medium);
-    
+            text-transform: uppercase;
         }
         &_list{
             &_item{
@@ -36,14 +51,20 @@
                 margin-bottom: rem(16);
             }
         }
+        &_nav{  
+            @include breakpoint(large){
+                display: flex;
+                flex-wrap: wrap;
+                .footer_column_list_item{
+                    width: 50%;
+                }
+            }
+        }
     }
     &_socials{
         display: flex;
         justify-content: space-between;
         max-width: 315px;
-        // path{
-        //     fill: var(--color-dark);
-        // }
     }
 
     &_bottom{
@@ -51,11 +72,26 @@
         margin-top: rem(64);
         border-top: 1px solid var(--color-grayDark);  
         text-align: center;
+        @include breakpoint(large){
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
         
         &_nav{
             margin-bottom: rem(50);
+            @include breakpoint(large){
+                display: flex;
+                align-items: center;
+                margin-bottom: 0;
+                order: 1;
+                gap: 40px;
+            }
             &_item{
                 margin-bottom: rem(20);
+                @include breakpoint(large){
+                    margin-bottom: 0;
+                }
             }
         }
     }
