@@ -1,11 +1,24 @@
 import styles from './HpBanner.module.scss';
 import Button from '/components/global/Button';
+import { useEffect } from 'react';
 
 const HpBanner = ({ props, error }) => {
-  // useEffect(() => {
-  //   const heading = document.querySelector('.fade-in-left');
-  //   heading.classList.add('show');
-  // }, []);
+
+  useEffect(() => {     
+    function stepAnimateText(element, animation, delay){
+      const textReveals = [...document.querySelectorAll('.animateLetter')];
+        
+      textReveals.forEach(text => {
+        let string = text.innerText;
+        let html = '';
+        for(let i = 0; i < string.length; i++){
+          html += `<span class="`+animation+`" style="animation-delay: `+i*delay+`s">${string[i]}</span>`;
+        }
+        text.innerHTML = html;
+      })
+     }
+     stepAnimateText(document.querySelector('.animateLetter'),'fadeInDown', 0.1);     
+  })
 
   return (
     <div className={`${styles.hp_banner}`}>
@@ -21,9 +34,9 @@ const HpBanner = ({ props, error }) => {
         </video>
 
         <div className={`${styles.hp_banner_content}`}>
-          <h2 className={`${styles.hp_banner_subtitle} observe animate fade-in-up desktop-only`}>{props.subtitle}</h2>        
-          <h1 className={`${styles.hp_banner_title} delay-3 observe animate fade-in-left`}>{props.title}</h1>
-          <div className="observe delay-12 animate fade-in-scale inline-block">
+          <h2 className={`${styles.hp_banner_subtitle} animateLetter desktop-only`}>{props.subtitle}</h2>        
+          <h1 className={`${styles.hp_banner_title} observe animate fade-in-left`}>{props.title}</h1>
+          <div className="observe delay-8 animate fade-in-scale inline-block">
             <Button href="/inventory" className="transparent">View Inventory</Button>
           </div>
         </div>

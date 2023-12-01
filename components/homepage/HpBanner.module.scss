@@ -1,11 +1,23 @@
 .hp_banner{
     // height: calc(100vH - var(--header-height));
-    height: 100vH;
+    position: relative;
+    height: calc(100vH + 3vW);
     max-height: 700px;
     @include breakpoint(large){
         max-height: 1000px;
         // max-width: calc(1920px - rem(56));
         // margin: auto;
+    }
+
+    &:after{
+        position: absolute;
+        content: '';
+        background: url('/assets/shapeRounded.svg');
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3vW;
+        background-size: cover;
     }
 
     &_inner{
@@ -57,13 +69,15 @@
 
     &_content{
         position: absolute;
-        bottom: 0;
+        bottom: 3vW;
         left: 0;
         right: 0;
         padding: rem(32) rem(16);        
         z-index: 1;
         @include breakpoint(large){
             padding: rem(90);
+            max-width: 2010px;
+            margin: auto;
         }
     }
 
@@ -75,6 +89,15 @@
             color: var(--color-primary);
             text-transform: uppercase;
             color: white;
+            color: transparent;
+            span{      
+                opacity: 0;
+                -webkit-animation: fadeInDown 1s;
+                animation: fadeInDown 1s;
+                -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+                color: white;
+            }
         }
     }
 
@@ -101,3 +124,17 @@
         padding: rem(16) rem(32);
     }
 }
+
+@keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+              transform: translate3d(0, -100%, 0);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+              transform: none;
+    }
+  }

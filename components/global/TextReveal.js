@@ -40,9 +40,7 @@ const TextReveal = ({text}) => {
 
 
   return (   
-    <section className={`${styles.textReveal}`}>
-      <h2 className={`${styles.textReveal_text} text_reveal`}>{ text }</h2>
-    </section>
+    <p className={`${styles.textReveal} text_reveal`}>{ text }</p>
   );
 };
 
