@@ -29,7 +29,7 @@ const Header = ({className}) => {
           <Button href="/contact" desktopOnly className="primary button--small desktop-only">Contact</Button>
 
           <Image
-            src="/assets/Search.svg"
+            src="/assets/search.svg"
             width={20}                    
             height={20}
             alt="Alpine Armoring Search"
