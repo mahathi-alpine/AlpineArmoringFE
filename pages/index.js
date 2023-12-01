@@ -8,6 +8,7 @@ import TextReveal from '/components/global/TextReveal';
 import TextTransform, { textTransformAnimate } from '/components/global/TextTransform';
 
 function Home( props ) {
+  // console.log(props)
   const topBanner = props.homepageData?.data?.attributes.topBanner;
   const categories = props.categories?.data;
 
