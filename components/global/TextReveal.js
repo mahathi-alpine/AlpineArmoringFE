@@ -24,7 +24,6 @@ const TextReveal = ({text}) => {
               span.style.transform = `translateY(0)`;
             }, (idx+1) * 50)
           })          
-          console.log(entry)
          }
        });
      }

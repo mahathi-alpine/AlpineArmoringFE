@@ -6,7 +6,6 @@ import Link from "next/link";
 
 
 const Sidebar = ( props ) => {
-  // console.log(props)
   const router = useRouter();
   const currentFilter = router.query.category;
 

@@ -5,7 +5,6 @@ import Image from 'next/image';
 
 function InventoryVehicle(props) {
   const data = props.data.data[0].attributes;
-  // console.log(data)
 
   return (
     <div className={`${styles.inventory}`}>

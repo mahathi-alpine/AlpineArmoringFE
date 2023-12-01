@@ -8,8 +8,9 @@ import TextReveal from '/components/global/TextReveal';
 import TextTransform, { textTransformAnimate } from '/components/global/TextTransform';
 
 function Home( props ) {
+  console.log(props)
   const topBanner = props.homepageData?.data?.attributes.topBanner;
-  const categories = props.categories.data;
+  const categories = props.categories?.data;
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -83,10 +84,11 @@ function Home( props ) {
 export async function getServerSideProps(context) {
   const homepageData = await getPageData('homepage');
   const categories = await getPageData('categories');
+  const asd = process.env.NEXT_PUBLIC_API_URL;
 
   return {
-    props: { categories, homepageData },
-    props: { homepageData, categories },
+    props: { asd }
+    // props: { homepageData, categories }
   };
 }
 
