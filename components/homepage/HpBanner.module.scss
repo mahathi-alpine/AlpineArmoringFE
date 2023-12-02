@@ -3,6 +3,7 @@
     position: relative;
     height: calc(100vH + 3vW);
     max-height: 700px;
+    overflow: hidden;
     @include breakpoint(large){
         max-height: 1000px;
         // max-width: calc(1920px - rem(56));

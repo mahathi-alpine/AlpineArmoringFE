@@ -20,7 +20,7 @@ export function animateVideo(entry) {
 
 const VideoScale = ({props}) => {
   return (   
-    <section className={`${styles.videoScale} observe videoScaleContainer background-dark`}>
+    <section className={`${styles.videoScale} observe videoScaleContainer`}>
         <div className={`${styles.videoScale_shim}`}></div>
         <div className={`${styles.videoScale_sticky}`}>
             <video className={`${styles.videoScale_video} videoScaleVideo`} autoPlay muted loop playsInline src={props}></video>

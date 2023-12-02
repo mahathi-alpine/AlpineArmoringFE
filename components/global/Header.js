@@ -26,7 +26,7 @@ const Header = ({className}) => {
 
         <div className={`${styles.header_right}`}>
 
-          <Button href="/contact" desktopOnly className="primary button--small desktop-only">Contact</Button>
+          <Button href="/contact" desktopOnly className="button--small desktop-only">Contact</Button>
 
           <Image
             src="/assets/search.svg"

@@ -1,19 +1,43 @@
 .introText{
     padding: rem(160) 0;
+    overflow: hidden;
     &_subheading{
         text-align: center;
         color: var(--color-primary);
         font-size: clamp(1rem, 0.7573rem + 1.0356vw, 2rem);
+        margin-top: 70px;
+        text-transform: uppercase;
+
+        animation-name: pulse;
+        animation-duration: 0.5s;
+        opacity: 0;
+         animation-fill-mode:forwards;
+        animation-delay: 2s;
     }
     &_text{
         text-align: center;
-        max-width: 850px;
+        max-width: 1100px;
         margin: auto;
         margin-top: rem(40);
         font-size: clamp(1rem, 0.7573rem + 1.0356vw, 2rem);
         a{
-            color: var(--color-primary);
+            // color: var(--color-primary);
             font-weight: var(--font-medium);
         }
     }
+}
+
+@keyframes pulse{
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity:.50;
+    transform: scale(2);
+    transition: all .3s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  }
+  100%{
+    opacity:1;
+    transform: scale(1);
+  }
 }

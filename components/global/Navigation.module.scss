@@ -22,5 +22,21 @@
     }
     &_item{
         font-weight: 500;
+        position: relative;
+        &:after{
+            position: absolute;
+            content: '';
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 2px;
+            background: var(--color-primary);
+            opacity: 0;
+        }
+        &_active{
+            &:after{
+                opacity: 1;
+            }
+        }
     }
 }
