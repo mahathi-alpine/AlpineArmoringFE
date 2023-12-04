@@ -1,6 +1,6 @@
 import styles from './Sidebar.module.scss';
 import Image from 'next/image';
-import filtersIcon from '../../public/assets/filters.svg';
+// import filtersIcon from '../../public/assets/filters.svg';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -14,7 +14,7 @@ const Sidebar = (props) => {
         <div className={`${styles.sidebar_top_title}`}>
           Filters
           <Image
-            src={filtersIcon}
+            src={'public/assets/filters.svg'}
             width={21}
             height={12}
             alt="Alpine Armoring Filters"
