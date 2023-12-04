@@ -1,17 +1,17 @@
-.listing{
-    &_wrap{
-        @include breakpoint(large){
-            display: flex;
-            gap: 50px
-        } 
+.listing {
+  &_wrap {
+    @include breakpoint(large) {
+      display: flex;
+      gap: 50px;
     }
-    &_list{
-        padding-top: rem(50);
-        @include breakpoint(large){
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            flex: 1;
-        } 
+  }
+  &_list {
+    padding-top: rem(50);
+    @include breakpoint(large) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      flex: 1;
     }
+  }
 }
