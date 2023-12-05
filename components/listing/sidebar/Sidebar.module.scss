@@ -1,0 +1,63 @@
+.sidebar {
+  width: 300px;
+
+  &_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-grayDark);
+    padding-bottom: rem(30);
+    margin-bottom: rem(30);
+
+    &_title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: rem(18);
+    }
+  }
+
+  &_clear {
+    font-size: rem(15);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &_column {
+    display: flex;
+    flex-flow: column;
+    font-size: rem(15);
+    border-bottom: 1px solid var(--color-grayDark);
+    padding-bottom: rem(30);
+
+    &_title {
+      font-size: rem(18);
+      font-weight: var(--font-regular);
+      margin-bottom: rem(20);
+    }
+
+    &_item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: rem(15);
+      cursor: pointer;
+
+      &_checkbox {
+        display: inline-block;
+        width: rem(24);
+        height: rem(24);
+        background: white;
+        border: 1px solid var(--color-grayDark);
+        border-radius: 3px;
+      }
+    }
+  }
+
+  .selected_filter {
+    .sidebar_column_item_checkbox {
+      background: var(--color-primary) url('/assets/check.svg') center center
+        no-repeat;
+    }
+  }
+}

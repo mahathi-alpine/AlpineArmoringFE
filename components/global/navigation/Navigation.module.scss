@@ -1,0 +1,41 @@
+.navigation {
+  @include breakpoint('untilLarge') {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 1;
+    padding: 40px;
+    display: none;
+  }
+
+  &_list {
+    display: flex;
+    flex-flow: column;
+    gap: 32px;
+    @include breakpoint(medium) {
+      flex-flow: row;
+    }
+  }
+  &_item {
+    font-weight: 500;
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 2px;
+      background: var(--color-primary);
+      opacity: 0;
+    }
+    &_active {
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}

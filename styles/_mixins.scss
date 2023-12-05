@@ -1,10 +1,22 @@
 $breakpoints: (
-  'small':  ( max-width:  767px ),
-  'medium':  ( min-width:  768px ),
-  'untilLarge':  ( max-width:  1279px ),
-  'large':  ( min-width:  1280px ),
-  'huge':  ( min-width:  1600px ),
-  'max':  ( min-width:  1920px )
+  'small': (
+    max-width: 767px,
+  ),
+  'medium': (
+    min-width: 768px,
+  ),
+  'untilLarge': (
+    max-width: 1279px,
+  ),
+  'large': (
+    min-width: 1280px,
+  ),
+  'huge': (
+    min-width: 1600px,
+  ),
+  'max': (
+    min-width: 1920px,
+  ),
 ) !default;
 
 @mixin breakpoint($breakpoint) {
@@ -15,7 +27,7 @@ $breakpoints: (
       @content;
     }
   }
- 
+
   // If the key doesn't exist in the map
   @else {
     @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
@@ -28,6 +40,6 @@ $breakpoints: (
   @if not unitless($pxval) {
     $pxval: strip-units($pxval);
   }
-  
+
   @return ($pxval / 16) * 1rem;
 }
