@@ -84,7 +84,7 @@
 
     &_subtitle{
         @include breakpoint(medium){
-            margin-bottom: rem(16);
+            margin-bottom: rem(8);
             font-size: rem(32);
             font-weight: var(--font-medium);
             color: var(--color-primary);
@@ -110,7 +110,7 @@
         letter-spacing: -1px;
         color: white;
         text-transform: uppercase;
-        margin-bottom: rem(16);
+        margin-bottom: rem(24);
         // @include breakpoint(medium){
         //     font-size: rem(53);
         // }

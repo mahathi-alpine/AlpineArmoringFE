@@ -66,9 +66,9 @@ function Home( props ) {
 
       <IntroText />
 
-      <VideoScale props="hpVideo.mp4" />
+      <VideoScale props="masserati.mp4" />
 
-      <TextTransform text1="Alpine Armoring" text2="Triple Certification Process"/>
+      {/* <TextTransform text1="Alpine Armoring" text2="Triple Certification Process"/> */}
       
       {categories ? 
         <div className="background-dark">
