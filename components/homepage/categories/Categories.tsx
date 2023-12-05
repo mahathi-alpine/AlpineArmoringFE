@@ -4,9 +4,11 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 
 const Categories = (props) => {
+  let data = props.props.data;
+  
   return (
     <div className={`${styles.categories} container`}>
-      {props.props.map((item) => {
+      {data.map((item) => {
         const data = item.attributes;
         return (
           <div className={`${styles.categories_item}`} key={item.id}>

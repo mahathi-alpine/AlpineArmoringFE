@@ -12,7 +12,7 @@ import TextTransform, {
 import IntroText from 'components/homepage/intro-text/IntroText';
 
 function Home({ homepageData, categories }) {
-  // console.log(props)
+  // console.log(categoriesData)
   const topBanner = homepageData?.data?.attributes.topBanner;
   const categoriesData = categories?.data;
 
@@ -100,7 +100,7 @@ function Home({ homepageData, categories }) {
 }
 
 export async function getServerSideProps() {
-  const homepageData = await getPageData({ route: 'homeapage' });
+  const homepageData = await getPageData({ route: 'homepage' });
   const categories = await getPageData({ route: 'categories' });
 
   return {

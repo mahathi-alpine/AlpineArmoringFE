@@ -14,7 +14,7 @@ const Sidebar = (props) => {
         <div className={`${styles.sidebar_top_title}`}>
           Filters
           <Image
-            src={'public/assets/filters.svg'}
+            src={'/assets/filters.svg'}
             width={21}
             height={12}
             alt="Alpine Armoring Filters"
