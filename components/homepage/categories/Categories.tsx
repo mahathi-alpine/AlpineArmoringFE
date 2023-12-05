@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 
 const Categories = (props) => {
-  let data = props.props.data;
+  const data = props.props.data;
   
   return (
     <div className={`${styles.categories} container`}>
