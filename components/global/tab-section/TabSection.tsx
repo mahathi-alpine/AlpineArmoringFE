@@ -1,7 +1,7 @@
 import styles from './TabSection.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import ArrowIcon from '../../icons/Arrow';
 
 
@@ -30,7 +30,7 @@ const TabSection = ({ props }) => {
         </div>
 
         <div className={`${styles.tabSection_content}`}>
-            {props.map((item, index) => (
+            {props.map((item) => (
                 <div 
                     key={item.id} 
                     className={`${styles.tabSection_item} ${activeDiv === item.id ? styles.tabSection_item_active: ''}`}

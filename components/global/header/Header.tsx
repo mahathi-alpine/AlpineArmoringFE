@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 
 interface HeaderProps {

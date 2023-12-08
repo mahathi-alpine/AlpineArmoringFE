@@ -4,6 +4,7 @@ import '../styles/globals.scss';
 import localFont from 'next/font/local';
 import Header from '../components/global/header/Header';
 import Footer from '../components/global/footer/Footer';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const termina = localFont({
   src: [
