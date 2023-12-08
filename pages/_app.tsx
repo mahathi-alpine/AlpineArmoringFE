@@ -46,6 +46,7 @@ function MyApp({ Component, pageProps }) {
       <Header className="header--white" />
       <Component {...pageProps} />
       <Footer />
+      <SpeedInsights/>
     </main>
     // </Layout>
   );
