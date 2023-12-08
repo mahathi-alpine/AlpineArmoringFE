@@ -21,7 +21,12 @@ const Button = () => {
         </li>
         <li className={`${styles.navigation_item}`}>
           <Link className={router.pathname === '/' ? 'active' : ''} href="/">
-            Vehicles We Can Armor
+            Vehicles We Armor
+          </Link>
+        </li>
+        <li className={`${styles.navigation_item}`}>
+          <Link className={router.pathname === '/' ? 'active' : ''} href="/">
+            Ballistic Chart
           </Link>
         </li>
       </ul>

@@ -1,6 +1,8 @@
 import React from 'react';
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import Categories from 'components/homepage/categories/Categories';
+import TabSection from 'components/global/tab-section/TabSection';
+
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import VideoScale, {
@@ -12,9 +14,10 @@ import TextTransform, {
 import IntroText from 'components/homepage/intro-text/IntroText';
 
 function Home({ homepageData, categories }) {
-  // console.log(categoriesData)
   const topBanner = homepageData?.data?.attributes.topBanner;
   const categoriesData = categories?.data;
+  const tabSectionData = homepageData?.data?.attributes.TabSection;
+  // console.log(tabSectionData)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -80,6 +83,10 @@ function Home({ homepageData, categories }) {
   return (
     <div>
       {topBanner ? <HpBanner props={topBanner} /> : null}
+
+      <div className="background-dark">
+        <TabSection props={tabSectionData} />
+      </div>
 
       <IntroText />
 

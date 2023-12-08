@@ -7,7 +7,7 @@ const IntroText = () => {
     <div className={`${styles.introText} container`}>
       {/* <h3 className={`${styles.introText_subheading} observe animate fade-in-up`}>No one protects you better®</h3> */}
 
-      <TextReveal text="Alpine Armoring" />
+      <TextReveal text="Alpine" />
       <p className={`${styles.introText_text} observe animate fade-in-up`}>
         We offer a wide array of armored vehicles including{' '}
         <a href="">VIP luxury armored sedans</a>, <a href="">SUVs</a>,{' '}

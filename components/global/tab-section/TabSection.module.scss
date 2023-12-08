@@ -1,0 +1,159 @@
+.tabSection{
+    padding-top: rem(50);
+    color: white;
+    @include breakpoint(large) {
+        padding-top: rem(80);
+    }
+
+    &_heading{
+        text-align: center;
+        font-weight: var(--font-medium);
+        font-size: rem(20);
+        @include breakpoint(large) {
+            font-size: rem(36);
+            max-width: 1040px;
+            margin: auto;
+        }
+    }
+
+    &_nav{
+        display: flex;
+        gap: rem(40);
+        flex: 0 0 auto;
+        padding: rem(50) 0;
+        @include breakpoint(large) {
+            padding: rem(50) 0 rem(80) 0;
+        }
+
+        &_wrap{
+            display: flex;
+            overflow-x: auto;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            @include breakpoint(large) {
+                justify-content: center;
+            }
+        }
+
+        &_item{
+            position: relative;
+            cursor: pointer;
+
+            &:after{
+                position: absolute;
+                content: '';
+                left: 0;
+                right: 0;
+                bottom: -7px;
+                background: var(--color-primary);
+                height: 2px;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform .3s cubic-bezier(.4,0,0,1);
+            }
+
+            &_active{
+                &:after{
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+    
+    &_content{
+        position: relative;
+        min-height: 600px;
+    }
+
+    &_item{
+        padding-bottom: rem(50);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        @include breakpoint(large) {
+            display: flex;
+            align-items: center;
+            max-width: 1400px;
+            margin: auto;
+            padding-bottom: rem(80);
+        }
+
+        &_active{
+            z-index: 1;
+            .tabSection_item_image{
+                transform: scale(1);
+                opacity: 1;
+            }
+            .tabSection_item_content{
+                opacity: 1;
+            }
+        }
+
+        &_content{
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            @include breakpoint(large) {
+                padding-left: 8%;
+                width: 50%;
+            }
+        }
+
+        &_image{
+            border-radius: 4px;
+            margin-bottom: rem(40);
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            @include breakpoint(large) {
+                width: 50%;
+                margin-bottom: 0;
+                height: 550px;
+                object-fit: cover;
+            }
+        }
+        &_title{
+            font-size: rem(24);
+            margin-bottom: rem(16);
+            font-weight: var(--font-regular);
+            @include breakpoint(large) {
+                font-size: rem(32);
+            }
+        }
+        &_description{
+            font-size: rem(14);
+            margin-bottom: rem(24);
+            color: rgb(190, 187, 187);
+            @include breakpoint(large) {
+                margin-bottom: rem(40);
+                font-size: rem(16);
+            }
+        }
+        &_link{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-transform: uppercase;
+            font-size: rem(12);
+            transition: color .2s ease-in-out;
+
+            @include breakpoint(large) {
+                font-size: rem(14);
+            }
+            svg{                
+                transition: margin .2s ease-in-out;
+                path{
+                    stroke: var(--color-primary);
+                }
+            }
+            &:hover{
+                color: var(--color-primary);
+                svg{
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
