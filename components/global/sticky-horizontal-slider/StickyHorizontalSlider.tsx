@@ -9,7 +9,7 @@ const StickyHorizontalSlider = ({ props }) => {
 
     if(windowWidth > 767){
       const container = document.querySelector(".sticky-container") as HTMLElement;
-      const elementWrapper = container.querySelector(".sticky-container-inner");      
+      const elementWrapper = container.querySelector(".sticky-container-inner") as HTMLElement;      
       const horLength = elementWrapper.scrollWidth;
       const distFromTop = container.offsetTop;
       const scrollDistance = distFromTop + horLength - windowWidth;
