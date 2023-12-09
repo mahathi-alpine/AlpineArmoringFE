@@ -9,28 +9,30 @@ const StickyHorizontalSlider = ({ props }) => {
 
     if(windowWidth > 767){
       const container = document.querySelector(".sticky-container");
-      const elementWrapper = container.querySelector(".sticky-container-inner");      
-      const horLength = elementWrapper.scrollWidth;
-      const distFromTop = container.offsetTop;
-      const scrollDistance = distFromTop + horLength - windowWidth;
-   
-      container.style.height = horLength + "px";
-   
-      const onScroll = () => {
-        const scrollTop = window.scrollY;
-        if (scrollTop >= distFromTop && scrollTop <= scrollDistance) {
-          elementWrapper.style.transform = "translateX(-"+(scrollTop - distFromTop)+"px)";
+      if (container !== null) {
+        const elementWrapper = container.querySelector(".sticky-container-inner");      
+        const horLength = elementWrapper.scrollWidth;
+        const distFromTop = container.offsetTop;
+        const scrollDistance = distFromTop + horLength - windowWidth;
+     
+        container.style.height = horLength + "px";
+     
+        const onScroll = () => {
+          const scrollTop = window.scrollY;
+          if (scrollTop >= distFromTop && scrollTop <= scrollDistance) {
+            elementWrapper.style.transform = "translateX(-"+(scrollTop - distFromTop)+"px)";
+          }
         }
+    
+        const obr = new IntersectionObserver(function(entries) {
+          if (entries[0].isIntersecting) { 
+            window.addEventListener('scroll', onScroll);
+          } else{
+            window.removeEventListener('scroll', onScroll);
+          }
+        });
+        obr.observe(container);        
       }
-  
-      const obr = new IntersectionObserver(function(entries) {
-        if (entries[0].isIntersecting) { 
-          window.addEventListener('scroll', onScroll);
-        } else{
-          window.removeEventListener('scroll', onScroll);
-        }
-      });
-      obr.observe(container);
     }
 
   }, []);
