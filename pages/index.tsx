@@ -1,10 +1,11 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { getPageData } from 'lib/api';
+
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/global/tab-section/TabSection';
-
-import { getPageData } from 'lib/api';
-import { useEffect } from 'react';
+import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
@@ -16,8 +17,9 @@ import IntroText from 'components/homepage/intro-text/IntroText';
 function Home({ homepageData, categories }) {
   const topBanner = homepageData?.data?.attributes.topBanner;
   const categoriesData = categories?.data;
-  const tabSectionData = homepageData?.data?.attributes.TabSection;
-  // console.log(tabSectionData)
+  const tabSectionData = homepageData?.data?.attributes.tabSection;
+  const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
+  // console.log(homepageData)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -32,7 +34,7 @@ function Home({ homepageData, categories }) {
               observer.unobserve(entry.target);
             }
 
-            // Video Scale
+            // VideoScale
             if (entry.target.classList.contains('videoScaleContainer')) {
               window.addEventListener(
                 'scroll',
@@ -50,12 +52,12 @@ function Home({ homepageData, categories }) {
               );
             }
           } else {
-            // Unset Video Scale
             if (entry.target.classList.contains('videoScaleContainer')) {
               window.removeEventListener('scroll', () =>
                 animateVideo(entry.target)
               );
             }
+
             if (entry.target.classList.contains('textTransform')) {
               window.removeEventListener('scroll', () =>
                 textTransformAnimate(entry.target)
@@ -86,6 +88,7 @@ function Home({ homepageData, categories }) {
 
       <div className="background-dark">
         <TabSection props={tabSectionData} />
+        <StickyHorizontalSlider props={horizontalSlider} />
       </div>
 
       <IntroText />

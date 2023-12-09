@@ -9,6 +9,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const termina = localFont({
   src: [
     {
+      path: '../public/fonts/Termina-Light.woff2',
+      weight: '300',
+      style: 'normal',
+      // display: 'swap',
+      // preload: true,
+    },
+    {
       path: '../public/fonts/Termina-Regular.woff2',
       weight: '400',
       style: 'normal',

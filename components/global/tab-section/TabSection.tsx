@@ -13,7 +13,7 @@ const TabSection = ({ props }) => {
     };
 
   return (
-    <section className={`${styles.tabSection}`}>
+    <section className={`${styles.tabSection} container`}>
         <h3 className={`${styles.tabSection_heading}`}>Designed, engineered and manufactured like no OTHER armored vehicles in the world</h3>
         <div className={`${styles.tabSection_nav_wrap}`}>
             <ul className={`${styles.tabSection_nav}`}>
