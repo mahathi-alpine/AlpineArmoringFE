@@ -14,6 +14,7 @@
       align-items: center;
       gap: 10px;
       font-size: rem(18);
+      font-weight: var(--font-medium);
     }
   }
 
@@ -21,6 +22,7 @@
     font-size: rem(15);
     text-decoration: underline;
     cursor: pointer;
+    font-weight: var(--font-medium);
   }
 
   &_column {
@@ -32,32 +34,75 @@
 
     &_title {
       font-size: rem(18);
-      font-weight: var(--font-regular);
+      font-weight: var(--font-medium);
       margin-bottom: rem(20);
     }
 
-    &_item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: rem(15);
-      cursor: pointer;
+    // &_item {
 
-      &_checkbox {
-        display: inline-block;
-        width: rem(24);
-        height: rem(24);
-        background: white;
-        border: 1px solid var(--color-grayDark);
-        border-radius: 3px;
-      }
-    }
+    //   &_checkbox {
+    //     display: inline-block;
+    //     width: rem(24);
+    //     height: rem(24);
+    //     background: white;
+    //     border: 1px solid var(--color-grayDark);
+    //     border-radius: 3px;
+    //   }
+    // }
+  }
+}
+
+.checkbox_link{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: rem(15);
+  cursor: pointer;
+  font-weight: var(--font-medium);
+  overflow: hidden;
+
+}
+// .checkbox_input{
+//   position: absolute;
+//   left: -9999px;
+// }
+.checkbox_span{
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px;
+
+  &:before {
+    content: "";
+    width: rem(24);
+    height: rem(24);
+    border-radius: 3px;
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: inset 0 0 0 1px var(--color-primary);
+    overflow: hidden;
+  }
+  &:after{
+    position: absolute;
+    content: '';
+    left: 2px;
+    top: 2px;
+    width: rem(24);
+    height: rem(24);
+    background: url('/assets/check.svg') center center
+      no-repeat;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+}
+
+.selected_filter {
+  .checkbox_span:before {
+    box-shadow: inset 0 0 0 24px var(--color-primary);
+  }
+  .checkbox_span:after {
+    opacity: 1;
   }
 
-  .selected_filter {
-    .sidebar_column_item_checkbox {
-      background: var(--color-primary) url('/assets/check.svg') center center
-        no-repeat;
-    }
-  }
 }

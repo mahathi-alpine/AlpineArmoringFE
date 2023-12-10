@@ -32,8 +32,26 @@ const Sidebar = (props) => {
 
       <div className={`${styles.sidebar_column}`}>
         <h4 className={`${styles.sidebar_column_title}`}>Type</h4>
+        {/* <form> */}
+          {props.props?.data.map((item) => (
+            <Link
+              className={`${styles.checkbox_link} ${
+                item.attributes.slug === currentFilter
+                  ? styles.selected_filter
+                  : ''
+              }`}
+              href={`/inventory?category=${item.attributes.slug}`}
+              scroll={false}
+              key={item.id}
+            >
+              {/* <input type="radio" name="radio" className={`${styles.checkbox_input}`} /> */}
+              <span className={`${styles.checkbox_span}`}>{item.attributes.heading}</span>
+           
+          </Link>
+          ))}
+        {/* </form> */}
 
-        {props.props?.data.map((item) => (
+        {/* {props.props?.data.map((item) => (
           <Link
             className={`${styles.sidebar_column_item} ${
               item.attributes.slug === currentFilter
@@ -47,15 +65,7 @@ const Sidebar = (props) => {
             <span className={`${styles.sidebar_column_item_checkbox}`}></span>
             {item.attributes.heading}
           </Link>
-          // <div
-          //   className={`${styles.sidebar_column_item} ${item.attributes.slug === currentFilter ? styles.selected_filter : ''}`}
-          //   key={item.id}
-          //   onClick={() => router.push({ pathname: '/inventory', query: { category: item.attributes.slug } })}
-          // >
-          //   <span className={`${styles.sidebar_column_item_checkbox}`}></span>
-          //   { item.attributes.heading }
-          // </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
