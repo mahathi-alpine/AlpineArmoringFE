@@ -14,6 +14,8 @@ import TextTransform, {
 } from 'components/global/text-transform/TextTransform';
 import IntroText from 'components/homepage/intro-text/IntroText';
 
+import Button from 'components/global/button/Button';
+
 function Home({ homepageData, categories }) {
   const topBanner = homepageData?.data?.attributes.topBanner;
   const categoriesData = categories?.data;
@@ -29,10 +31,12 @@ function Home({ homepageData, categories }) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Fade-ins
-            if (entry.target.classList.contains('animate')) {
-              entry.target.classList.toggle('in-view', entry.isIntersecting);
-              observer.unobserve(entry.target);
-            }
+            // if (entry.target.classList.contains('animate')) {
+            //   entry.target.classList.toggle('in-view', entry.isIntersecting);
+            //   observer.unobserve(entry.target);
+            // }
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
 
             // VideoScale
             if (entry.target.classList.contains('videoScaleContainer')) {
@@ -84,7 +88,14 @@ function Home({ homepageData, categories }) {
 
   return (
     <div>
-      {topBanner ? <HpBanner props={topBanner} /> : null}
+      {topBanner ? <HpBanner props={topBanner} /> : null}  
+
+      <Button
+        href="/contact"
+        className="button-shiny"
+      >
+        Contact
+      </Button>
 
       <div className="background-dark">
         <TabSection props={tabSectionData} />

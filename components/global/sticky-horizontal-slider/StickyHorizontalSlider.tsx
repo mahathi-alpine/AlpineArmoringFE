@@ -14,7 +14,7 @@ const StickyHorizontalSlider = ({ props }) => {
       const distFromTop = container.offsetTop;
       const scrollDistance = distFromTop + horLength - windowWidth;
     
-      container.style.height = horLength + "px";
+      container.style.height = horLength - windowWidth/3 + "px";
     
       const onScroll = () => {
         const scrollTop = window.scrollY;
@@ -39,7 +39,9 @@ const StickyHorizontalSlider = ({ props }) => {
     <section className={`${styles.stickyHorizontalSlider} sticky-container`}>
       <div className={`${styles.stickyHorizontalSlider_sticky}`}>
 
-        <h2 className={`${styles.stickyHorizontalSlider_heading} container`}>Triple Certification Process</h2>
+        <div className={`${styles.stickyHorizontalSlider_heading} container`}>
+          <h2 className={`block-reveal observe`}><span>Triple Certification Process</span></h2>            
+        </div>      
 
         <div className={`${styles.stickyHorizontalSlider_inner} sticky-container-inner`}>
 
