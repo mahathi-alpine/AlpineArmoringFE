@@ -43,7 +43,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
           loop={true}
           className={`${styles.hp_banner_video}`}
         >
-          <source src="/masserati.mp4" />
+          <source src="/hpVideo.mp4" />
         </video>
 
         <div className={`${styles.hp_banner_content}`}>
