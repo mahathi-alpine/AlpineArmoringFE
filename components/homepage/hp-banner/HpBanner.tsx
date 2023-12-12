@@ -10,10 +10,9 @@ interface HPBannerProps {
 
 const HpBanner = ({ props }: HPBannerProps) => {
   useEffect(() => {
+    console.log('as')
     function stepAnimateText(props, animation, delay) {
-      const textReveals = [...document.querySelectorAll('.animateLetter')];
-
-      textReveals.forEach((text) => {
+      props.forEach((text) => {
         const string = text.innerHTML;
         let html = '';
         for (let i = 0; i < string.length; i++) {
@@ -28,11 +27,11 @@ const HpBanner = ({ props }: HPBannerProps) => {
       });
     }
     stepAnimateText(
-      document.querySelector('.animateLetter'),
+      [...document.querySelectorAll('.animateLetter')],
       'fadeInDown',
       0.1
     );
-  });
+  }, []);
 
   return (
     <div className={`${styles.hp_banner}`}>
@@ -58,11 +57,11 @@ const HpBanner = ({ props }: HPBannerProps) => {
           >
             {props.title}
           </h1>
-          <div className="observe delay-8 animate fade-in-scale inline-block">
-            <Button href="/inventory" className="transparent">
+          {/* <div className="observe delay-8 animate fade-in-scale inline-block">
+            <Button href="/inventory" className="button-shiny transparent">
               View Inventory
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+// import React, { FC } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
-import {useState, useEffect} from 'react';
+import { useEffect} from 'react';
 
 
 interface HeaderProps {
@@ -17,13 +18,13 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
 // const Header: FC<HeaderProps> = ({ className, setNavOpen, isNavOpen }) => {
   const [isScrolling, setIsScrolling] = React.useState(false);
 
-  useEffect(() => {
-    if (isNavOpen) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-    }
-  }, [isNavOpen]);
+  // useEffect(() => {
+  //   if (isNavOpen) {
+  //     document.body.classList.add('no-scroll');
+  //   } else {
+  //     document.body.classList.remove('no-scroll');
+  //   }
+  // }, [isNavOpen]);
 
   useEffect(() => {
     const checkScroll = () => {
@@ -63,7 +64,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
           <Button
             href="/contact"
             desktopOnly
-            className="button--small desktop-only"
+            className="button-shiny button--small desktop-only"
           >
             Contact
           </Button>

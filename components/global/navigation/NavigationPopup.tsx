@@ -4,10 +4,9 @@ import styles from './NavigationPopup.module.scss';
 
 interface NavigationPopupProps {
   isNavOpen? : boolean;
-  setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NavigationPopup = ({ setNavOpen, isNavOpen }: NavigationPopupProps) => {
+const NavigationPopup = ({ isNavOpen }: NavigationPopupProps) => {
   const router = useRouter();
 
   const links = [

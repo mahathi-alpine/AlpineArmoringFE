@@ -90,16 +90,9 @@ function Home({ homepageData, categories }) {
     <div>
       {topBanner ? <HpBanner props={topBanner} /> : null}  
 
-      <Button
-        href="/contact"
-        className="button-shiny"
-      >
-        Contact
-      </Button>
-
       <div className="background-dark">
-        {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
-        {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
+        {tabSectionData.length ? <TabSection props={tabSectionData} /> : null} 
+        {horizontalSlider.length ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
       </div>
 
       <IntroText />
@@ -111,7 +104,7 @@ function Home({ homepageData, categories }) {
         text2="Triple Certification Process"
       />
 
-      {categoriesData && (
+      {categoriesData.length && (
         <div className="background-dark">
           <Categories props={categories} />
         </div>
