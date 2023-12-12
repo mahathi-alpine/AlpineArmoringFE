@@ -14,8 +14,6 @@ import TextTransform, {
 } from 'components/global/text-transform/TextTransform';
 import IntroText from 'components/homepage/intro-text/IntroText';
 
-import Button from 'components/global/button/Button';
-
 function Home({ homepageData, categories }) {
   const topBanner = homepageData.data?.attributes.topBanner;
   const categoriesData = categories?.data;

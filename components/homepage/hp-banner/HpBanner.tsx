@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './HpBanner.module.scss';
-import Button from 'components/global/button/Button';
+// import Button from 'components/global/button/Button';
 import { useEffect } from 'react';
 
 interface HPBannerProps {
