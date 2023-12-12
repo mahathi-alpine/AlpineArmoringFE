@@ -35,13 +35,13 @@ const TabSection = ({ props }) => {
                     key={item.id} 
                     className={`${styles.tabSection_item} ${activeDiv === item.id ? styles.tabSection_item_active: ''}`}
                 >
-                    <Image
+                    {item.image.data?.attributes.url ? <Image
                         src={`http://localhost:1337${item.image.data.attributes.url}`}
                         alt="Description of the image"
                         width={475}
                         height={320}
                         className={`${styles.tabSection_item_image}`}
-                    />
+                    /> : null} 
                     <div className={`${styles.tabSection_item_content}`}>
                         <h4 className={`${styles.tabSection_item_title}`}>{item.title}</h4>
                         <p className={`${styles.tabSection_item_description}`}>{item.description}</p>

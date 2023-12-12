@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
-import {useEffect} from 'react';
+import {useState, useEffect} from 'react';
 
 
 interface HeaderProps {
   className?: string;
+  isNavOpen? : boolean;
+  setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Header = ({ className }: HeaderProps) => {
+const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
+// const Header: FC<HeaderProps> = ({ className, setNavOpen, isNavOpen }) => {
   const [isScrolling, setIsScrolling] = React.useState(false);
+
+  useEffect(() => {
+    if (isNavOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }, [isNavOpen]);
 
   useEffect(() => {
     const checkScroll = () => {
@@ -24,12 +35,13 @@ const Header = ({ className }: HeaderProps) => {
     return () => {
       window.removeEventListener('scroll', checkScroll);
     };
-   }, []);
+  }, []);
 
   const classNames = className
     ?.split(' ')
     .map((name) => styles[name])
     .join(' ');
+
   return (
     <header className={`${styles.header} ${classNames} container ${isScrolling ? styles.header_sticky : ''}`}>
       <div className={`${styles.header_wrapper}`}>
@@ -66,7 +78,12 @@ const Header = ({ className }: HeaderProps) => {
 
           <div className={`${styles.header_lang} desktop-only`}>EN</div>
 
-          <div className={`${styles.header_burger}`}>
+          <div 
+            className={
+              `${styles.header_burger} ${isNavOpen ? styles.header_burger_open : ''}`
+             }
+            onClick={() => setNavOpen(prevState => !prevState)}
+          >
             <div className={`${styles.header_burger_inner}`}></div>
           </div>
         </div>

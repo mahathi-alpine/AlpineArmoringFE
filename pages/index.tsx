@@ -17,11 +17,11 @@ import IntroText from 'components/homepage/intro-text/IntroText';
 import Button from 'components/global/button/Button';
 
 function Home({ homepageData, categories }) {
-  const topBanner = homepageData?.data?.attributes.topBanner;
+  const topBanner = homepageData.data?.attributes.topBanner;
   const categoriesData = categories?.data;
-  const tabSectionData = homepageData?.data?.attributes.tabSection;
+  const tabSectionData = homepageData.data?.attributes.tabSection;
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
-  // console.log(homepageData)
+  // console.log(tabSectionData)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -98,8 +98,8 @@ function Home({ homepageData, categories }) {
       </Button>
 
       <div className="background-dark">
-        <TabSection props={tabSectionData} />
-        <StickyHorizontalSlider props={horizontalSlider} />
+        {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
+        {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
       </div>
 
       <IntroText />

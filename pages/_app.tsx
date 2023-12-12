@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/globals.scss';
 // import Layout from '../components/global/Layout';
 import localFont from 'next/font/local';
 import Header from '../components/global/header/Header';
+import NavigationPopup from 'components/global/navigation/NavigationPopup';
 import Footer from '../components/global/footer/Footer';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -47,10 +48,13 @@ const termina = localFont({
 });
 
 function MyApp({ Component, pageProps }) {
+  const [isNavOpen, setNavOpen] = useState(false);
+
   return (
     // <Layout>
     <main className={termina.className}>
-      <Header className="header--white" />
+      <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} className="header--white" />
+      <NavigationPopup setNavOpen={setNavOpen} isNavOpen={isNavOpen} />
       <Component {...pageProps} />
       <Footer />
       <SpeedInsights/>
