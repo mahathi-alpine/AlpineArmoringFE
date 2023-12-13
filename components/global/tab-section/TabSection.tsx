@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {useState} from 'react';
 import ArrowIcon from '../../icons/Arrow';
+import { API_URL } from 'config/index';
 
 
 const TabSection = ({ props }) => {
@@ -35,7 +36,7 @@ const TabSection = ({ props }) => {
                     className={`${styles.tabSection_item} ${activeDiv === item.id ? styles.tabSection_item_active: ''}`}
                 >
                     {item.image.data?.attributes.url ? <Image
-                        src={`http://localhost:1337${item.image.data.attributes.url}`}
+                        src={`${API_URL}${item.image.data.attributes.url}`}
                         alt="Description of the image"
                         width={475}
                         height={320}

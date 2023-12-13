@@ -10,7 +10,6 @@ interface HPBannerProps {
 
 const HpBanner = ({ props }: HPBannerProps) => {
   useEffect(() => {
-    console.log('as')
     function stepAnimateText(props, animation, delay) {
       props.forEach((text) => {
         const string = text.innerHTML;

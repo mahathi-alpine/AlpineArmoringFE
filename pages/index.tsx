@@ -89,8 +89,8 @@ function Home({ homepageData, categories }) {
       {topBanner ? <HpBanner props={topBanner} /> : null}  
 
       <div className="background-dark">
-        {tabSectionData.length ? <TabSection props={tabSectionData} /> : null} 
-        {horizontalSlider.length ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
+        {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
+        {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
       </div>
 
       <IntroText />
@@ -102,7 +102,7 @@ function Home({ homepageData, categories }) {
         text2="Triple Certification Process"
       />
 
-      {categoriesData.length && (
+      {categoriesData && (
         <div className="background-dark">
           <Categories props={categories} />
         </div>
