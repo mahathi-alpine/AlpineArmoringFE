@@ -8,6 +8,6 @@ module.exports = {
     prependData: `@import './styles/_mixins.scss';`,
   },
   images: {
-    domains: ['assets.vercel.com', 'localhost', 'herokuapp.com', 'my-api-link.herokuapp.com'],
+    domains: ['assets.vercel.com', 'localhost', 'herokuapp.com', 'alpine-armoring-e7d249d45874.herokuapp.com'],
   },
 };
