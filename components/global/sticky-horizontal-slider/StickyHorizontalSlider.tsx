@@ -1,15 +1,17 @@
+import React, { useRef } from "react";
 import styles from './StickyHorizontalSlider.module.scss';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { API_URL } from 'config/index';
 
 const StickyHorizontalSlider = ({ props }) => { 
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const windowWidth = window.innerWidth;
 
     if(windowWidth > 767){
-      const container = document.querySelector(".sticky-container") as HTMLElement;
+      const container = containerRef.current;
       const elementWrapper = container.querySelector(".sticky-container-inner") as HTMLElement;      
       const horLength = elementWrapper.scrollWidth;
       const distFromTop = container.offsetTop;
@@ -37,7 +39,7 @@ const StickyHorizontalSlider = ({ props }) => {
   }, []);
 
   return (
-    <section className={`${styles.stickyHorizontalSlider} sticky-container`}>
+    <section className={`${styles.stickyHorizontalSlider} sticky-container`} ref={containerRef}>
       <div className={`${styles.stickyHorizontalSlider_sticky}`}>
 
         <div className={`${styles.stickyHorizontalSlider_heading} container`}>
@@ -50,13 +52,15 @@ const StickyHorizontalSlider = ({ props }) => {
 
           {props.map((item, index) => (
             <div className={`${styles.stickyHorizontalSlider_item}`} key={item.id}>
-                {item.image.data?.attributes.url ? <Image
+                {item.image.data?.attributes.url ? 
+                  <Image
                     src={`${API_URL}${item.image.data.attributes.url}`}
                     alt="Description of the image"
                     width={475}
                     height={320}
                     className={`${styles.stickyHorizontalSlider_item_image}`}
-                /> : null} 
+                  /> 
+                : null} 
                 <div className={`${styles.stickyHorizontalSlider_item_content}`}>
                   <div className={`${styles.stickyHorizontalSlider_item_number}`}>0{index + 1}</div>
                   <div className={`${styles.stickyHorizontalSlider_item_text}`}>
