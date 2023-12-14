@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from 'types';
 
-const PhoneIcon = ({ color, className }: IconProps) => {
+const PhoneIcon = ({ className }: IconProps) => {
   return (
     <svg 
       className={className}

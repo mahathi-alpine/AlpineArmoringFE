@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './NavigationPopup.module.scss';
 
-import Image from 'next/image';
 import FacebookIcon from '../../icons/Facebook';
 import TiktokIcon from '../../icons/Tiktok';
 import XIcon from '../../icons/X';

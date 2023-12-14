@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from 'types';
 
-const MailIcon = ({ color, className }: IconProps) => {
+const MailIcon = ({ className }: IconProps) => {
   return (
     <svg 
       className={className}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from 'types';
 
-const MapIcon = ({ color, className }: IconProps) => {
+const MapIcon = ({ className }: IconProps) => {
   return (
     <svg 
       className={className}
