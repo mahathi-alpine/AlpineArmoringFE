@@ -83,37 +83,37 @@
             font-weight: var(--font-regular);
         }
 
-        @for $i from 1 through 10 {
-            .navigationPopup_open &:nth-child(#{$i}) .navigationPopup_link{
-                transition-delay: #{$i * 0.07}s;
-            }
-            // .navigationPopup_open .navigationPopup_list_right &:nth-child(#{$i}) .navigationPopup_link{
-            //     transition-delay: #{$i * 0.03}s;
-            // }
-        }
+        // @for $i from 1 through 10 {
+        //     .navigationPopup_open &:nth-child(#{$i}) .navigationPopup_link{
+        //         transition-delay: #{$i * 0.07}s;
+        //     }
+        //     .navigationPopup_open .navigationPopup_list_right &:nth-child(#{$i}) .navigationPopup_link{
+        //         transition-delay: #{$i * 0.03}s;
+        //     }
+        // }
     }
 
     &_link{
         display: inline-block;
-        left: -20px;
-        opacity: 0;
-        transition: opacity .1s ease, left .1s ease;
+        // left: -20px;
+        // opacity: 0;
+        // transition: opacity .1s ease, left .1s ease;
         position: relative;
         padding: rem(8);
         @include breakpoint(large) {
             padding: rem(16);
         }
 
-        .navigationPopup_open &{
-            opacity: 1;
-            left: 0;
-            transition: opacity .2s cubic-bezier(0.16, 1, 0.3, 1), left .2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        // .navigationPopup_open &{
+        //     opacity: 1;
+        //     left: 0;
+        //     transition: opacity .2s cubic-bezier(0.16, 1, 0.3, 1), left .2s cubic-bezier(0.16, 1, 0.3, 1);
+        // }
 
         .navigationPopup_list_right &{
             padding: rem(8);
-            left: 0;
-            opacity: 1;
+            // left: 0;
+            // opacity: 1;
         }
     }
 
