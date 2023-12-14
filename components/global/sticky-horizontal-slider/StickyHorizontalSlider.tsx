@@ -6,13 +6,15 @@ import { API_URL } from 'config/index';
 
 const StickyHorizontalSlider = ({ props }) => { 
   const containerRef = useRef(null);
+  const containerInnerRef = useRef(null);
 
   useEffect(() => {
     const windowWidth = window.innerWidth;
 
     if(windowWidth > 767){
       const container = containerRef.current;
-      const elementWrapper = container.querySelector(".sticky-container-inner") as HTMLElement;      
+      const elementWrapper = containerInnerRef.current;     
+
       const horLength = elementWrapper.scrollWidth;
       const distFromTop = container.offsetTop;
       const scrollDistance = distFromTop + horLength - windowWidth;
@@ -46,7 +48,7 @@ const StickyHorizontalSlider = ({ props }) => {
           <h2 className={`block-reveal observe`}><span>Triple Certification Process</span></h2>            
         </div>      
 
-        <div className={`${styles.stickyHorizontalSlider_inner} sticky-container-inner`}>
+        <div className={`${styles.stickyHorizontalSlider_inner} sticky-container-inner`} ref={containerInnerRef}>
 
           <div className={`${styles.stickyHorizontalSlider_item} ${styles.stickyHorizontalSlider_item_empty} desktop-only`}></div>
 

@@ -83,8 +83,8 @@
         }
       }
     }
-    
-    &_open{
+
+    .header_navOpen &{
       background: white;
       transform: scale(.9);
       transition: transform .2s ease;
@@ -105,6 +105,10 @@
           transform: rotate(225deg);
         }
       }
+
+    }
+    
+    &_open{
     }
 
     // .header--white & {

@@ -44,8 +44,15 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
     .join(' ');
 
   return (
-    <header className={`${styles.header} ${classNames} container ${isScrolling ? styles.header_sticky : ''}`}>
-      <div className={`${styles.header_wrapper}`}>
+    <header 
+      className={`
+        ${styles.header} 
+        ${classNames} 
+        ${isScrolling ? styles.header_sticky : ''}
+        ${isNavOpen ? styles.header_navOpen : ''}
+      `}
+    >
+      <div className={`${styles.header_wrapper} container`}>
         <div className={`${styles.header_logo}`}>
           <Link href={'/'}>
             <Image
@@ -58,7 +65,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
           </Link>
         </div>
 
-        <Navigation />
+        <Navigation isNavOpen={isNavOpen} />
 
         <div className={`${styles.header_right}`}>
           <Button
@@ -80,9 +87,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
           <div className={`${styles.header_lang} desktop-only`}>EN</div>
 
           <div 
-            className={
-              `${styles.header_burger} ${isNavOpen ? styles.header_burger_open : ''}`
-             }
+            className={`${styles.header_burger}`}
             onClick={() => setNavOpen(prevState => !prevState)}
           >
             <div className={`${styles.header_burger_inner}`}></div>

@@ -11,6 +11,10 @@
     display: none;
   }
 
+  &_navOpen{
+    visibility: hidden;
+  }
+
   &_list {
     display: flex;
     flex-flow: column;

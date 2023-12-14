@@ -3,30 +3,33 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './Navigation.module.scss';
 
-const Navigation = () => {
+interface NavigationProps {
+  isNavOpen? : boolean;
+}
+
+const Navigation = ({ isNavOpen }: NavigationProps) => {
   const router = useRouter();
 
+  const links = [
+    { path: "/about", text: "About Us" },
+    { path: "/inventory", text: "New Inventory" },
+    { path: "/vehicles-we-armor", text: "Vehicles We Armor" }
+  ];
+
   return (
-    <nav className={`${styles.navigation}`}>
+    <nav className={`${styles.navigation} ${isNavOpen ? styles.navigation_navOpen : ''}`}>
       <ul className={`${styles.navigation_list}`}>
-        <li className={`
-          ${styles.navigation_item} 
-          ${router.pathname === '/inventory' ? `${styles.navigation_item_active}` : ''}`}
-        >
-          <Link href="/inventory">New Inventory</Link>
-        </li>
-        <li className={`
-          ${styles.navigation_item} 
-          ${router.pathname === '/vehicles-we-armor' ? `${styles.navigation_item_active}` : ''}`}
-        >
-          <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
-        </li>
-        <li className={`
-          ${styles.navigation_item} 
-          ${router.pathname === '/ballisticchart' ? `${styles.navigation_item_active}` : ''}`}
-        >
-          <Link href="/ballisticchart">Ballistic Chart</Link>
-        </li>
+        {links.map((link, index) => (
+          <li key={index} className={`
+            ${styles.navigation_item} 
+            ${router.pathname === link.path ? `${styles.navigation_item_active}` : ''}`}
+          >
+            <Link 
+              className={`${styles.navigationPopup_link}`}
+              href={link.path}  
+            >{link.text}</Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
