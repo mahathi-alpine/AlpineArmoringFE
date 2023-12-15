@@ -10,16 +10,16 @@
     // margin: auto;
   }
 
-  &:after {
-    position: absolute;
-    content: '';
-    background: url('/assets/shapeRounded.svg');
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3vw;
-    background-size: cover;
-  }
+  // &:after {
+  //   position: absolute;
+  //   content: '';
+  //   background: url('/assets/shapeRounded1.svg');
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+  //   height: 3vw;
+  //   background-size: cover;
+  // }
 
   &_inner {
     position: relative;
@@ -91,22 +91,23 @@
   }
 
   &_subtitle {
-    @include breakpoint(medium) {
-      margin-bottom: rem(8);
+    margin-bottom: rem(8);
+    font-size: rem(18);
+    font-weight: var(--font-regular);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    color: white;
+    color: transparent;
+    @include breakpoint(large) {
       font-size: rem(32);
-      font-weight: var(--font-medium);
-      color: var(--color-primary);
-      text-transform: uppercase;
+    }
+    span {
+      opacity: 0;
+      -webkit-animation: fadeInDown 1s;
+      animation: fadeInDown 1s;
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
       color: white;
-      color: transparent;
-      span {
-        opacity: 0;
-        -webkit-animation: fadeInDown 1s;
-        animation: fadeInDown 1s;
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
-        color: white;
-      }
     }
   }
 

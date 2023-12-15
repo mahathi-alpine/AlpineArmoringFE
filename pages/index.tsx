@@ -28,11 +28,7 @@ function Home({ homepageData, categories }) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Fade-ins
-            // if (entry.target.classList.contains('animate')) {
-            //   entry.target.classList.toggle('in-view', entry.isIntersecting);
-            //   observer.unobserve(entry.target);
-            // }
+            
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observer.unobserve(entry.target);
 
@@ -68,11 +64,11 @@ function Home({ homepageData, categories }) {
           }
         });
       },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.4,
-      }
+      // {
+      //   root: null,
+      //   rootMargin: '0px',
+      //   threshold: 0.4,
+      // }
     );
 
     targets.forEach((item) => observer.observe(item));
