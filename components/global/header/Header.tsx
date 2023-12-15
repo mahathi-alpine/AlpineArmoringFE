@@ -18,13 +18,13 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
 // const Header: FC<HeaderProps> = ({ className, setNavOpen, isNavOpen }) => {
   const [isScrolling, setIsScrolling] = React.useState(false);
 
-  // useEffect(() => {
-  //   if (isNavOpen) {
-  //     document.body.classList.add('no-scroll');
-  //   } else {
-  //     document.body.classList.remove('no-scroll');
-  //   }
-  // }, [isNavOpen]);
+  useEffect(() => {
+    if (isNavOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }, [isNavOpen]);
 
   useEffect(() => {
     const checkScroll = () => {

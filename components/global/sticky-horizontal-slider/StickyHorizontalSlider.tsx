@@ -45,7 +45,7 @@ const StickyHorizontalSlider = ({ props }) => {
       <div className={`${styles.stickyHorizontalSlider_sticky}`}>
 
         <div className={`${styles.stickyHorizontalSlider_heading} container`}>
-          <h2 className={`block-reveal observe`}><span>Triple Certification Process</span></h2>            
+          <h2 className={`block-reveal observe`}><span>Latest News</span></h2>            
         </div>      
 
         <div className={`${styles.stickyHorizontalSlider_inner} sticky-container-inner`} ref={containerInnerRef}>

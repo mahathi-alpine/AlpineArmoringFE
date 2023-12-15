@@ -47,7 +47,7 @@
 
     &_heading{
         margin-bottom: rem(30);
-        font-size: rem(22);
+        font-size: rem(24);
         @include breakpoint(large) {
             max-width: 800px;
             margin-bottom: rem(50);

@@ -14,12 +14,10 @@
   &:after {
     position: absolute;
     content: '';
-    // background: url('/assets/shapeRounded1.svg');
     bottom: 0;
     left: 0;
     right: 0;
-    height: 3vw;
-    // background-size: cover;
+    height: 20px;
     background: var(--color-black) url('/assets/noise.png');
     border-radius: 50% / 100% 100% 0 0;
   }
