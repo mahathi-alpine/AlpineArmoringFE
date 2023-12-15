@@ -1,7 +1,8 @@
 .hp_banner {
   // height: calc(100vH - var(--header-height));
   position: relative;
-  height: calc(100vh + 3vw);
+  // height: calc(100vh + 3vw);
+  height: 100vh;
   max-height: 700px;
   overflow: hidden;
   @include breakpoint(large) {
@@ -10,16 +11,18 @@
     // margin: auto;
   }
 
-  // &:after {
-  //   position: absolute;
-  //   content: '';
-  //   background: url('/assets/shapeRounded1.svg');
-  //   bottom: 0;
-  //   left: 0;
-  //   right: 0;
-  //   height: 3vw;
-  //   background-size: cover;
-  // }
+  &:after {
+    position: absolute;
+    content: '';
+    // background: url('/assets/shapeRounded1.svg');
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3vw;
+    // background-size: cover;
+    background: var(--color-black) url('/assets/noise.png');
+    border-radius: 50% / 100% 100% 0 0;
+  }
 
   &_inner {
     position: relative;
