@@ -1,16 +1,6 @@
-import { ReactNode } from 'react';
 import styles from './Button.module.scss';
 import Link from 'next/link';
-
-interface ButtonProps {
-  desktopOnly?: boolean;
-  animate?: boolean;
-  fadeInScale?: boolean;
-  icon?: boolean;
-  href?: string;
-  className?: string;
-  children?: ReactNode;
-}
+import { ButtonProps } from 'types';
 
 const Button = ({
   desktopOnly,
@@ -20,14 +10,16 @@ const Button = ({
   href,
   className,
   children,
-}: ButtonProps) => {
+  disabled
+}: ButtonProps) => {  
   const classNames = className
     ?.split(' ')
     .map((name) => styles[name])
     .join(' ');
-  return (
-    <Link href={href} className={`${styles.button_wrap}`}>
-      <div
+
+  if (disabled){
+    return <button disabled={disabled} className={`${styles.button_wrap} ${styles.button_disabled}`}>
+      <span
         className={`
           ${styles.button} 
           ${classNames} 
@@ -37,7 +29,23 @@ const Button = ({
       >
         {children}
         {icon ? <span></span> : null}
-      </div>
+      </span>
+    </button>;
+  }
+
+  return (
+    <Link href={href} className={`${styles.button_wrap}`}>
+      <span
+        className={`
+          ${styles.button} 
+          ${classNames} 
+          ${desktopOnly ? 'desktop-only' : ''} 
+          ${fadeInScale ? 'fade-in-scale' : ''} 
+          ${animate ? 'animate' : ''}`}
+      >
+        {children}
+        {icon ? <span></span> : null}
+      </span>
     </Link>
   );
 };

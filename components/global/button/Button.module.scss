@@ -57,6 +57,11 @@
     }
   }
 
+  &_disabled{
+    opacity: .3;
+    pointer-events: none;
+  }
+
   &-shiny{
     position: relative;
     // background: none;

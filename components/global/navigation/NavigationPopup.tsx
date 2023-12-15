@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { NavigationProps } from 'types';
 import styles from './NavigationPopup.module.scss';
 
 import FacebookIcon from '../../icons/Facebook';
@@ -11,11 +12,7 @@ import MailIcon from '../../icons/Mail';
 import MapIcon from '../../icons/Map';
 import PhoneIcon from '../../icons/Phone';
 
-interface NavigationPopupProps {
-  isNavOpen? : boolean;
-}
-
-const NavigationPopup = ({ isNavOpen }: NavigationPopupProps) => {
+const NavigationPopup = ({ isNavOpen }: NavigationProps) => {
   const router = useRouter();
 
   const links = [
@@ -39,7 +36,7 @@ const NavigationPopup = ({ isNavOpen }: NavigationPopupProps) => {
   return (
     <nav className={`${styles.navigationPopup} ${isNavOpen ? styles.navigationPopup_open : ''}`}>   
 
-      <div className={`${styles.navigationPopup_inner}`}>
+      <div className={`${styles.navigationPopup_inner} container`}>
         <div className={`${styles.navigationPopup_nav}`}>
           <ul className={`${styles.navigationPopup_list_left} ${styles.navigationPopup_list}`}>
               {links.map((link, index) => (

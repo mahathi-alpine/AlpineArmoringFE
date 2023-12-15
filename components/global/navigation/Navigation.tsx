@@ -2,10 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './Navigation.module.scss';
-
-interface NavigationProps {
-  isNavOpen? : boolean;
-}
+import { NavigationProps } from 'types';
 
 const Navigation = ({ isNavOpen }: NavigationProps) => {
   const router = useRouter();

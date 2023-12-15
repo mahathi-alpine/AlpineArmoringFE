@@ -1,6 +1,10 @@
 @import './reset.css';
 @import './_design_tokens.scss';
 
+html{
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Termina, sans-serif;
   // background: var(--color-background);

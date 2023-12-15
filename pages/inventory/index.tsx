@@ -44,11 +44,20 @@ export async function getServerSideProps(context) {
     topBanner = topBanner.data;
   }
 
-  const vehicles = await getPageData({
-    route: 'inventories',
-    slug: context.query.category,
-    type: '[category][slug]',
-  });
+  let vehicles = {};
+  if (context.query.vehicles_we_armor) {
+    vehicles = await getPageData({
+      route: 'inventories',
+      slug: context.query.vehicles_we_armor,
+      type: '[vehicles_we_armor][slug]',
+    });
+  } else {    
+    vehicles = await getPageData({
+      route: 'inventories',
+      slug: context.query.category,
+      type: '[category][slug]',
+    });
+  }
 
   const types = await getPageData({ route: 'categories' });
 
@@ -56,81 +65,5 @@ export async function getServerSideProps(context) {
     props: { topBanner, vehicles, types },
   };
 }
-
-// export async function getServerSideProps(context) {
-//   const query = context.query.category ? `?filters[category][slug][$eq]=${context.query.category}&populate=deep` : '?populate=deep';
-
-//   const headers = {
-//     'Content-Type': 'application/json',
-//   };
-
-//   try {
-//     const [vehiclesRes] = await Promise.all([
-//       fetch(`http://localhost:1337/api/inventories${query}`)
-//       // fetch(`http://localhost:1337/api/inventories?populate=deep`)
-//     ]);
-
-//     const propsVehicles = await vehiclesRes.json();
-
-//     return {
-//       props: { propsVehicles },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         error: error.message,
-//       },
-//     };
-//   }
-// }
-
-// export async function getServerSideProps(context) {
-//   const headers = {
-//     'Content-Type': 'application/json',
-//   };
-
-//   const categorySlug = context.query.category ? `?category=${context.query.category}&populate=deep` : '';
-
-//   try {
-//     const vehiclesRes = await fetch(`http://localhost:1337/api/inventories${categorySlug}?populate=deep`);
-//     const propsVehicles = await vehiclesRes.json();
-
-//     return {
-//       props: { propsVehicles },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         error: error.message,
-//       },
-//     };
-//   }
-//  }
-
-// export async function getServerSideProps(context) {
-//   const headers = {
-//     'Content-Type': 'application/json',
-//   };
-
-//   try {
-//     const [mainPageRes, vehiclesRes] = await Promise.all([
-//       fetch('http://localhost:1337/api/list-inventory?populate=deep'),
-//       fetch('http://localhost:1337/api/inventory-vehicles?populate=deep'),
-//     ]);
-
-//     const propsMainPage = await mainPageRes.json();
-//     const propsVehicles = await vehiclesRes.json();
-
-//     return {
-//       props: { propsMainPage, propsVehicles },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         error: error.message,
-//       },
-//     };
-//   }
-// }
 
 export default Inventory;

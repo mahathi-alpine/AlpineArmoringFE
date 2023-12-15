@@ -4,11 +4,11 @@ import Button from 'components/global/button/Button';
 import Image from 'next/image';
 
 function InventoryVehicle(props) {
-  const data = props.data.data[0].attributes;
+  const data = props.data.data[0]?.attributes;
+  const inventory = data.stock.data;
 
   return (
     <div className={`${styles.inventory}`}>
-      {/* <div className={`${styles.inventory_banner} background-dark container`}> */}
       <div className={`${styles.inventory_banner} container`}>
         <div className={`${styles.inventory_banner_content}`}>
           <h3 className={`${styles.inventory_banner_availability}`}>
@@ -20,6 +20,9 @@ function InventoryVehicle(props) {
           </p>
           <Button href="/contact" icon className="icon">
             Request a quote
+          </Button>
+          <Button href={`/inventory?vehicles_we_armor=${data.slug}`} icon {...!inventory.length ? {disabled: true} : {}} className="icon">
+            View in-stock availability 
           </Button>
         </div>
 

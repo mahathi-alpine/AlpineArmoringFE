@@ -6,13 +6,13 @@ import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
 import { useEffect} from 'react';
+import { HeaderProps } from 'types';
 
-
-interface HeaderProps {
-  className?: string;
-  isNavOpen? : boolean;
-  setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}
+// interface HeaderProps {
+//   className?: string;
+//   isNavOpen? : boolean;
+//   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+// }
 
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
 // const Header: FC<HeaderProps> = ({ className, setNavOpen, isNavOpen }) => {
