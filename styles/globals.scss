@@ -103,6 +103,48 @@ img {
   background: var(--color-black) url('/assets/noise.png');
 }
 
+.shape-before{
+  position: relative;
+  overflow-x: clip;
+  &:after{
+    position: absolute;
+    content: '';
+    background: var(--color-black) url('/assets/noise.png');
+    border-radius: 50% / 100% 100% 0 0;
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    height: 50px;  
+    @include breakpoint(large) {
+      top: -100px;
+      left: -100px;
+      right: -100px;
+      height: 100px;  
+    }
+  }  
+}
+
+.shape-after{
+  position: relative;
+  overflow-x: clip;
+  &:after{
+    position: absolute;
+    content: '';
+    background: var(--color-black) url('/assets/noise.png');
+    border-radius: 50% / 0 0 100% 100%;
+    bottom: -50px;
+    left: -50px;
+    right: -50px;
+    height: 50px;  
+    @include breakpoint(large) {
+      bottom: -100px;
+      left: -100px;
+      right: -100px;
+      height: 100px;  
+    }
+  }  
+}
+
 .fade-in-up {
   opacity: 0;
   transform: translate3d(0, 50px, 0);

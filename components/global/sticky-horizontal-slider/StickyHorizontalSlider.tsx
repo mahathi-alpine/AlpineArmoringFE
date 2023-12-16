@@ -64,10 +64,11 @@ const StickyHorizontalSlider = ({ props }) => {
                   /> 
                 : null} 
                 <div className={`${styles.stickyHorizontalSlider_item_content}`}>
-                  <div className={`${styles.stickyHorizontalSlider_item_number}`}>0{index + 1}</div>
+                  {/* <div className={`${styles.stickyHorizontalSlider_item_number}`}>0{index + 1}</div> */}
                   <div className={`${styles.stickyHorizontalSlider_item_text}`}>
                     <h5 className={`${styles.stickyHorizontalSlider_item_title}`}>{ item.title }</h5>
-                    <p className={`${styles.stickyHorizontalSlider_item_description}`}>{ item.description }</p>
+                    {/* <p className={`${styles.stickyHorizontalSlider_item_description}`}>{ item.description }</p> */}
+                    <p className={`${styles.stickyHorizontalSlider_item_date}`}>OCT 14, 2023</p>
                   </div>
                 </div>
             </div>

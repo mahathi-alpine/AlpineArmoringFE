@@ -85,8 +85,10 @@ function Home({ homepageData, categories }) {
       {topBanner ? <HpBanner props={topBanner} /> : null}  
 
       <div className="background-dark">
+        <div className="shape-before"></div>
         {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
         {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
+        <div className="shape-after"></div>
       </div>
 
       <IntroText />

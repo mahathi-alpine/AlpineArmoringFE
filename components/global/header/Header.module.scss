@@ -81,7 +81,7 @@
       &:after {
         margin-top: 6px;
         @include breakpoint(large) {
-          margin-top: -4px;
+          margin-top: 4px;
         }
       }
     }
