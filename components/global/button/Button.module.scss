@@ -1,11 +1,11 @@
 .button {
+  display: block;
   padding: 16px 32px;
   border-radius: 4px;
-  background: var(--color-text);
+  background: var(--color-dark);
   color: white;
-  text-transform: uppercase;
   font-size: rem(14);
-  font-weight: var(--font-medium);
+  // font-weight: var(--font-medium);
   text-align: center;
 
   &_wrap {
@@ -24,8 +24,15 @@
     background: var(--color-primary);
   }
 
-  &--small {
-    padding: 12px 32px;
+  &_small {
+    padding: 12px 16px;
+    @include breakpoint(large) {
+      padding: 12px 32px;
+    }
+  }
+
+  &_uppercase{
+    text-transform: uppercase;
   }
 
   &.icon {

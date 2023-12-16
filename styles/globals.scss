@@ -58,15 +58,15 @@ img {
 }
 
 .desktop-only {
-  display: none;
+  display: none !important;
   @include breakpoint(medium) {
-    display: block;
+    display: inline-block !important;
   }
 }
 
 .mobile-only {
   @include breakpoint(medium) {
-    display: none;
+    display: none !important;
   }
 }
 

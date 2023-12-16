@@ -85,10 +85,21 @@ function Home({ homepageData, categories }) {
       {topBanner ? <HpBanner props={topBanner} /> : null}  
 
       <div className="background-dark">
+        
         <div className="shape-before"></div>
+
+        {categoriesData && (
+          <div className="background-dark">
+            <Categories props={categories} />
+          </div>
+        )}
+
         {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
+
         {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
+
         <div className="shape-after"></div>
+
       </div>
 
       <IntroText />
@@ -99,12 +110,6 @@ function Home({ homepageData, categories }) {
         text1="Alpine Armoring"
         text2="Triple Certification Process"
       />
-
-      {categoriesData && (
-        <div className="background-dark">
-          <Categories props={categories} />
-        </div>
-      )}
     </div>
   );
 }

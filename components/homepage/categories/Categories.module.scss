@@ -4,30 +4,41 @@
   @include breakpoint(large) {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 16px;
   }
 
   &_item {
     display: flex;
     flex-flow: column;
-    margin: 0 auto rem(24) auto;
-    padding: rem(24) 0 rem(24) 0;
-    max-width: 600px;
-    background: var(--color-background);
+    margin: 0 auto rem(32) auto;
+    max-width: 475px;
     @include breakpoint(large) {
-      width: calc(100% / 2 - 7.5px);
+      width: calc(100% / 3 - 12px);
+      margin: 0 auto rem(64) auto;
+      max-width: 608px;
     }
-    @include breakpoint(huge) {
-      width: calc(100% / 3 - 10px);
+    // @include breakpoint(huge) {
+    //   width: calc(100% / 3 - 10px);
+    // }
+
+    &_content{
+      background: white;
+      padding: rem(16) rem(8) rem(16) rem(8);
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      text-align: center;
+      @include breakpoint(large) {        
+        padding: rem(24) rem(8) rem(24) rem(8);
+      }
     }
 
     &_title {
       margin-bottom: rem(16);
-      text-align: center;
-      font-size: rem(19);
+      font-size: rem(18);
       font-weight: var(--font-medium);
+      text-transform: uppercase;
       @include breakpoint(medium) {
-        font-size: rem(23);
+        font-size: rem(22);
         margin-bottom: rem(24);
       }
     }
@@ -35,11 +46,20 @@
     &_buttons {
       display: flex;
       justify-content: center;
-      gap: 5px;
-      margin-bottom: rem(30);
-      & > a {
-        width: 50%;
-        max-width: 260px;
+      flex-flow: column;
+      gap: 8px;
+      max-width: 265px;
+      margin: auto;
+      @include breakpoint(medium) {
+        flex-flow: row;
+        align-items: center;
+        max-width: unset;
+        gap: 16px;
+
+        a span{
+          padding: 13px 16px;
+          width: 188px;
+        }
       }
     }
 
