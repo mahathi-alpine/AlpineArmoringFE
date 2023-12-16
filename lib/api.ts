@@ -22,12 +22,14 @@ interface PageDataProps {
   route?: string;
   slug?: string;
   type?: string;
+  order?: boolean;
 }
 
-export async function getPageData({ route, slug, type }: PageDataProps) {
+export async function getPageData({ route, slug, type, order }: PageDataProps) {
+  const sort = order ? '&sort=order:asc' : '';
   const query = slug
-    ? `/${route}?filters${type}[$eq]=${slug}&populate=deep`
-    : `/${route}?populate=deep`;
+    ? `/${route}?filters${type}[$eq]=${slug}&populate=deep${sort}`
+    : `/${route}?populate=deep${sort}`;
 
   const pagesData = await fetchAPI(`/api${query}`);
 

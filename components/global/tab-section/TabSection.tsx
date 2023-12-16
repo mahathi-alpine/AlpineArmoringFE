@@ -14,8 +14,8 @@ const TabSection = ({ props }) => {
 
   return (
     <section className={`${styles.tabSection} container`}>
-        <h3 className={`${styles.tabSection_heading}`}>Designed, engineered and manufactured like no OTHER armored vehicles in the world</h3>
-        <div className={`${styles.tabSection_nav_wrap}`}>
+        <h3 className={`${styles.tabSection_heading} observe fade-in-up`}>Designed, engineered and manufactured like no OTHER armored vehicles in the world</h3>
+        <div className={`${styles.tabSection_nav_wrap} observe fade-in-up`}>
             <ul className={`${styles.tabSection_nav}`}>
                 {props.map((item) => (
                     <li 
@@ -40,13 +40,13 @@ const TabSection = ({ props }) => {
                         alt="Description of the image"
                         width={475}
                         height={320}
-                        className={`${styles.tabSection_item_image}`}
+                        className={`${styles.tabSection_item_image} observe fade-in`}
                     /> : null} 
                     <div className={`${styles.tabSection_item_content}`}>
-                        <h4 className={`${styles.tabSection_item_title}`}>{item.title}</h4>
-                        <p className={`${styles.tabSection_item_description}`}>{item.description}</p>
+                        <h4 className={`${styles.tabSection_item_title} observe fade-in-up`}>{item.title}</h4>
+                        <p className={`${styles.tabSection_item_description} observe fade-in-up`}>{item.description}</p>
                         <Link 
-                            className={`${styles.tabSection_item_link}`} 
+                            className={`${styles.tabSection_item_link} observe fade-in-up`} 
                             href="/"
                         >
                             Learn more

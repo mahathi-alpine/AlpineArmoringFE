@@ -1,27 +1,62 @@
 .categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding-top: rem(60);
   padding-bottom: rem(60);
+  row-gap: 32px;
+  @include breakpoint(medium) {
+    column-gap: 16px;
+  }
   @include breakpoint(large) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    column-gap: 16px;
+    row-gap: 64px;
   }
 
   &_item {
+    position: relative;
     display: flex;
     flex-flow: column;
-    margin: 0 auto rem(32) auto;
-    max-width: 475px;
+    max-width: 500px;
     @include breakpoint(large) {
-      width: calc(100% / 3 - 12px);
-      margin: 0 auto rem(64) auto;
-      max-width: 608px;
+      width: calc(100% / 2 - 12px);
+      max-width: unset;
+      padding-bottom: 74px;
+
+      &:last-child,
+      &:nth-last-child(2){
+        width: calc(50% - 12px);
+        max-width: 916px;
+      }
     }
-    // @include breakpoint(huge) {
-    //   width: calc(100% / 3 - 10px);
-    // }
+
+    @include breakpoint(huge) {
+      width: calc(100% / 3 - 12px);
+      max-width: 608px;
+
+      &:last-child,
+      &:nth-last-child(2){
+        width: calc(50% - 12px);
+        max-width: 916px;
+      }
+    }
+
+    &:hover{
+      // .categories_item_title{
+      //   visibility: hidden;
+      //   opacity: 0;
+      // }
+      // .categories_item_buttons{
+      //   visibility: visible;
+      //   opacity: 1;
+      // }
+      .categories_item_content{
+        max-height: 150px;
+      }
+    }
 
     &_content{
+      position: relative;
       background: white;
       padding: rem(16) rem(8) rem(16) rem(8);
       border-bottom-left-radius: 8px;
@@ -29,6 +64,13 @@
       text-align: center;
       @include breakpoint(large) {        
         padding: rem(24) rem(8) rem(24) rem(8);
+        max-height: 74px;
+        overflow: hidden;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transition: max-height .3s ease-in-out;
       }
     }
 
@@ -37,6 +79,7 @@
       font-size: rem(18);
       font-weight: var(--font-medium);
       text-transform: uppercase;
+      // transition: opacity .3s ease-in;
       @include breakpoint(medium) {
         font-size: rem(22);
         margin-bottom: rem(24);
@@ -50,6 +93,15 @@
       gap: 8px;
       max-width: 265px;
       margin: auto;
+
+      // position: absolute;
+      // top: 16px;
+      // left: 0;
+      // right: 0;
+      // margin: auto;
+      // visibility: hidden;
+      // opacity: 0;
+      // transition: opacity .3s ease-out;
       @include breakpoint(medium) {
         flex-flow: row;
         align-items: center;
@@ -65,6 +117,7 @@
 
     &_image {
       margin: auto auto 0 auto;
+      width: 100%;
     }
   }
 }

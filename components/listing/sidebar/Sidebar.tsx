@@ -8,6 +8,15 @@ const Sidebar = (props) => {
   const router = useRouter();
   const currentFilter = router.query.category;
 
+  const handleClearFilters = () => {
+    const { category, ...otherQueryParams } = router.query;
+
+    router.push({
+      pathname: router.pathname,
+      query: otherQueryParams,
+    }, undefined, { scroll: false });
+  }
+
   return (
     <div className={`${styles.sidebar}`}>
       <div className={`${styles.sidebar_top}`}>
@@ -21,13 +30,12 @@ const Sidebar = (props) => {
           />
         </div>
 
-        <Link
+        <div
           className={`${styles.sidebar_clear}`}
-          href="/inventory"
-          scroll={false}
+          onClick={handleClearFilters}
         >
           Clear all filters
-        </Link>
+        </div>
       </div>
 
       <div className={`${styles.sidebar_column}`}>
@@ -40,12 +48,12 @@ const Sidebar = (props) => {
                   ? styles.selected_filter
                   : ''
               }`}
-              href={`/inventory?category=${item.attributes.slug}`}
+              href={`?category=${item.attributes.slug}`}
               scroll={false}
               key={item.id}
             >
               {/* <input type="radio" name="radio" className={`${styles.checkbox_input}`} /> */}
-              <span className={`${styles.checkbox_span}`}>{item.attributes.heading}</span>
+              <span className={`${styles.checkbox_span}`}>{item.attributes.title}</span>
            
           </Link>
           ))}

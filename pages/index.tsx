@@ -19,7 +19,8 @@ function Home({ homepageData, categories }) {
   const categoriesData = categories?.data;
   const tabSectionData = homepageData.data?.attributes.tabSection;
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
-  // console.log(tabSectionData)
+  const allVehiclesImage = homepageData?.data?.attributes.allVehiclesImage?.data.attributes;
+  // console.log(homepageData)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -88,10 +89,10 @@ function Home({ homepageData, categories }) {
         
         <div className="shape-before"></div>
 
+        <IntroText />
+
         {categoriesData && (
-          <div className="background-dark">
-            <Categories props={categories} />
-          </div>
+          <Categories props={categories} allVehiclesImage={allVehiclesImage} />
         )}
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
@@ -101,8 +102,6 @@ function Home({ homepageData, categories }) {
         <div className="shape-after"></div>
 
       </div>
-
-      <IntroText />
 
       <VideoScale props="hpVideo.mp4" />
 
@@ -116,7 +115,7 @@ function Home({ homepageData, categories }) {
 
 export async function getServerSideProps() {
   const homepageData = await getPageData({ route: 'homepage' });
-  const categories = await getPageData({ route: 'categories' });
+  const categories = await getPageData({ route: 'categories', order: true });
 
   return {
     props: { homepageData, categories },
