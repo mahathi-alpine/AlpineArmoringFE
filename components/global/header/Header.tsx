@@ -57,8 +57,8 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
           <Link href={'/'}>
             <Image
               src="/AlpineArmoringLogoWhite.svg"
-              width={100}
-              height={30}
+              width={125}
+              height={42}
               alt="Alpine Armoring"
               priority={true}
             />

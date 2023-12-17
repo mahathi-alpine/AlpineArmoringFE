@@ -38,24 +38,36 @@
   }
 
   &_burger {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 100%;  
     cursor: pointer;
-    transition: background .3s ease-out;
+    @include breakpoint(large) {
+      width: 48px;
+      height: 48px;
+    }
+
+    &:before{
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 100%;  
+      transition: background .3s ease-in-out;
+    }
 
     &_inner{
+      position: relative;
       display: block;
       background: white;
       height: 2px;
-      width: 22px;
-      transition: background .3s ease;
-      @include breakpoint(large) {
-        width: 14px;
-      }
+      width: 24px;
+      transition: background .3s ease-in-out;
 
       &:before,
       &:after {
@@ -64,30 +76,28 @@
         background: white;
         position: absolute;
         height: 2px;
-        width: 22px;
+        width: 24px;
         border-radius: 2px;
-        transition: background .3s ease, transform .3s ease;
-        // transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
-        @include breakpoint(large) {
-          width: 14px;
-        }
+        transition: background .3s ease-in-out, transform .3s ease-in-out;
       }
       &:before {
-        margin-top: -6px;
+        margin-top: -7px;
         @include breakpoint(large) {
-          margin-top: -4px;
+          margin-top: -6px;
         }
       }
       &:after {
-        margin-top: 6px;
+        margin-top: 7px;
         @include breakpoint(large) {
-          margin-top: 4px;
+          margin-top: 6px;
         }
       }
     }
 
     &:hover{
-      background: white;
+      &:before{
+        background: white;
+      }
       .header_burger_inner{
         background: var(--color-dark);
         &:before,
@@ -98,10 +108,12 @@
     }
 
     .header_navOpen &{
-      background: white;
-      transform: scale(.9);
-      transition: transform .2s ease;
-      &:hover{
+      &:before{
+        background: white;
+        transform: scale(.9);
+        transition: transform .2s ease-in-out;
+      }
+      &:hover:before{
         transform: scale(1);
       }
       .header_burger_inner{

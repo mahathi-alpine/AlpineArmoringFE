@@ -42,7 +42,7 @@ const Categories = ({props, allVehiclesImage}) => {
                   href={`/inventory?category=${data.slug}`}
                   className="primary button_small"
                 >
-                  View In Stock
+                  View in stock
                 </Button>
 
                 <Image
@@ -92,7 +92,7 @@ const Categories = ({props, allVehiclesImage}) => {
               href={`/inventory`}
               className="primary button_small"
             >
-              View In Stock
+              View in stock
             </Button>
 
             <Image

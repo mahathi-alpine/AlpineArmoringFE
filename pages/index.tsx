@@ -3,16 +3,11 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
+import IntroText from 'components/homepage/intro-text/IntroText';
 import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/global/tab-section/TabSection';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
-import VideoScale, {
-  animateVideo,
-} from 'components/global/video-scale/VideoScale';
-import TextTransform, {
-  textTransformAnimate,
-} from 'components/global/text-transform/TextTransform';
-import IntroText from 'components/homepage/intro-text/IntroText';
+import Partners from 'components/homepage/partners/Partners';
 
 function Home({ homepageData, categories }) {
   const topBanner = homepageData.data?.attributes.topBanner;
@@ -20,6 +15,7 @@ function Home({ homepageData, categories }) {
   const tabSectionData = homepageData.data?.attributes.tabSection;
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
   const allVehiclesImage = homepageData?.data?.attributes.allVehiclesImage?.data.attributes;
+  const partners = homepageData?.data?.attributes.industryPartners?.data;
   // console.log(homepageData)
 
   useEffect(() => {
@@ -33,35 +29,7 @@ function Home({ homepageData, categories }) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observer.unobserve(entry.target);
 
-            // VideoScale
-            if (entry.target.classList.contains('videoScaleContainer')) {
-              window.addEventListener(
-                'scroll',
-                () => animateVideo(entry.target),
-                { passive: true }
-              );
-            }
-
-            // TextTransform
-            if (entry.target.classList.contains('textTransform')) {
-              window.addEventListener(
-                'scroll',
-                () => textTransformAnimate(entry.target),
-                { passive: true }
-              );
-            }
           } else {
-            if (entry.target.classList.contains('videoScaleContainer')) {
-              window.removeEventListener('scroll', () =>
-                animateVideo(entry.target)
-              );
-            }
-
-            if (entry.target.classList.contains('textTransform')) {
-              window.removeEventListener('scroll', () =>
-                textTransformAnimate(entry.target)
-              );
-            }
           }
         });
       },
@@ -103,12 +71,8 @@ function Home({ homepageData, categories }) {
 
       </div>
 
-      <VideoScale props="hpVideo.mp4" />
+      { partners ? <Partners props={partners} /> : null }
 
-      <TextTransform
-        text1="Alpine Armoring"
-        text2="Triple Certification Process"
-      />
     </div>
   );
 }

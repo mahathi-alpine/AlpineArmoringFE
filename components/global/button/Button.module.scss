@@ -26,6 +26,7 @@
 
   &_small {
     padding: 12px 16px;
+    font-size: 13px;
     @include breakpoint(large) {
       padding: 12px 32px;
     }

@@ -1,7 +1,5 @@
 .hp_banner {
-  // height: calc(100vH - var(--header-height));
   position: relative;
-  // height: calc(100vh + 3vw);
   height: 100vh;
   height: calc(100svh + 50px);
   max-height: 700px;
@@ -9,26 +7,12 @@
   @include breakpoint(large) {
     max-height: 1200px;
     height: calc(100vh + 100px);
-    // max-width: calc(1920px - rem(56));
-    // margin: auto;
   }
-
-  // &:after {
-  //   position: absolute;
-  //   content: '';
-  //   bottom: 0;
-  //   left: 0;
-  //   right: 0;
-  //   height: 20px;
-  //   background: var(--color-black) url('/assets/noise.png');
-  //   border-radius: 50% / 100% 100% 0 0;
-  // }
 
   &_inner {
     position: relative;
     height: 100%;
     overflow: hidden;
-    // border-radius: 16px;
 
     &:before {
       position: absolute;
@@ -57,19 +41,9 @@
         rgba(0, 0, 0, 1) 100%
       );
     }
-    // &:after{
-    //     position: absolute;
-    //     content: '';
-    //     left: 0;
-    //     top: 0;
-    //     right: 0;
-    //     bottom: 0;
-    //     background: rgba(0, 0, 0, .3);
-    // }
   }
 
   &_video {
-    // filter: brightness(70%);
     position: absolute;
     height: 100%;
     top: 0;
@@ -84,7 +58,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: rem(32) rem(16) rem(100) rem(16);
+    padding: rem(32) rem(16) rem(116) rem(16);
     z-index: 1;
     @include breakpoint(large) {
       padding: rem(90) rem(90) rem(200) rem(90);
@@ -95,20 +69,16 @@
 
   &_subtitle {
     margin-bottom: rem(8);
-    font-size: rem(18);
+    font-size: rem(22);
     font-weight: var(--font-regular);
-    color: var(--color-primary);
     text-transform: uppercase;
-    color: white;
     color: transparent;
     @include breakpoint(large) {
       font-size: rem(32);
     }
     span {
       opacity: 0;
-      -webkit-animation: fadeInDown 1s;
       animation: fadeInDown 1s;
-      -webkit-animation-fill-mode: forwards;
       animation-fill-mode: forwards;
       color: white;
     }
@@ -116,16 +86,9 @@
 
   &_title {
     font-weight: var(--font-bold);
-    // font-size: rem(40);
-    // font-size: clamp(2.5rem, 2.3028rem + 0.8414vw, 3.3125rem);
     font-size: clamp(2.5rem, 2.1208rem + 1.6181vw, 4.0625rem);
-    letter-spacing: -1px;
     color: white;
     text-transform: uppercase;
-    // margin-bottom: rem(24);
-    // @include breakpoint(medium){
-    //     font-size: rem(53);
-    // }
   }
 
   button {
@@ -139,15 +102,15 @@
 }
 
 @keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
   }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
