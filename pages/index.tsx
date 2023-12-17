@@ -14,7 +14,7 @@ function Home({ homepageData, categories }) {
   const categoriesData = categories?.data;
   const tabSectionData = homepageData.data?.attributes.tabSection;
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
-  const allVehiclesImage = homepageData?.data?.attributes.allVehiclesImage?.data.attributes;
+  const allVehiclesImage = homepageData?.data?.attributes?.allVehiclesImage?.data.attributes;
   const partners = homepageData?.data?.attributes.industryPartners?.data;
   // console.log(homepageData)
 
