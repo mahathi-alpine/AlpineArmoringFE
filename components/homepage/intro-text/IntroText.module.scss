@@ -1,12 +1,11 @@
 .introText {
-  // padding: rem(160) 0;
   overflow: hidden;
   padding-top: rem(50);
   padding-bottom: rem(80);
   color: white;
   @include breakpoint(large) {
-    padding-top: rem(160);
-    padding-bottom: rem(160);
+    padding-top: rem(120);
+    padding-bottom: rem(100);
   }
 
   &_heading{

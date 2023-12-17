@@ -61,7 +61,7 @@ img {
 .desktop-only {
   display: none !important;
   @include breakpoint(medium) {
-    display: inline-block !important;
+    display: unset !important;
   }
 }
 

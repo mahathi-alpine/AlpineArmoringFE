@@ -11,34 +11,40 @@
         font-size: rem(24);
         @include breakpoint(large) {
             font-size: rem(36);
-            max-width: 1040px;
+            max-width: 985px;
             margin: auto;
         }
     }
 
     &_nav{
         display: flex;
-        gap: rem(40);
+        gap: rem(32);
         flex: 0 0 auto;
         padding: rem(50) 0;
         @include breakpoint(large) {
-            padding: rem(50) 0 rem(80) 0;
+            padding: rem(50) 0 rem(110) 0;
         }
 
         &_wrap{
             display: flex;
             overflow-x: auto;
+            margin-right: rem(-16);
             &::-webkit-scrollbar {
                 display: none;
             }
             @include breakpoint(large) {
                 justify-content: center;
+                margin-right: unset;
             }
         }
 
         &_item{
             position: relative;
             cursor: pointer;
+            font-size: rem(14);
+            @include breakpoint(large) {
+                font-size: rem(16);
+            }
 
             &:after{
                 position: absolute;
@@ -75,7 +81,7 @@
         @include breakpoint(large) {
             display: flex;
             align-items: center;
-            max-width: 1400px;
+            max-width: 1250px;
             margin: auto;
         }
 
@@ -94,13 +100,13 @@
             opacity: 0;
             transition: opacity 0.4s ease-in-out;
             @include breakpoint(large) {
-                padding-left: 8%;
+                padding-left: rem(80);
                 width: 50%;
             }
         }
 
         &_image{
-            border-radius: 4px;
+            border-radius: 8px;
             margin-bottom: rem(40);
             opacity: 0;
             transform: scale(0.95);
@@ -117,12 +123,13 @@
             margin-bottom: rem(16);
             font-weight: var(--font-regular);
             @include breakpoint(large) {
-                font-size: rem(32);
+                margin-bottom: rem(24);
+                font-size: rem(26);
             }
         }
         &_description{
             font-size: rem(14);
-            margin-bottom: rem(24);
+            margin-bottom: rem(32);
             color: rgb(190, 187, 187);
             @include breakpoint(large) {
                 margin-bottom: rem(40);
@@ -134,7 +141,7 @@
             align-items: center;
             gap: 20px;
             text-transform: uppercase;
-            font-size: rem(12);
+            font-size: rem(13);
             transition: color .2s ease-in-out;
 
             @include breakpoint(large) {

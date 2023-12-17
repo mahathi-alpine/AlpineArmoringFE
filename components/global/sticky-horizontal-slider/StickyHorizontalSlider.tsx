@@ -44,7 +44,7 @@ const StickyHorizontalSlider = ({ props }) => {
     <section className={`${styles.stickyHorizontalSlider} sticky-container`} ref={containerRef}>
       <div className={`${styles.stickyHorizontalSlider_sticky}`}>
 
-        <div className={`${styles.stickyHorizontalSlider_heading} container`}>
+        <div className={`${styles.stickyHorizontalSlider_heading}`}>
           <h2 className={`c-title block-reveal observe`}><span>Latest News</span></h2>            
         </div>      
 

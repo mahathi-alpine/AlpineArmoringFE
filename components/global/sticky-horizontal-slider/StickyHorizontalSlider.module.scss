@@ -1,18 +1,19 @@
 .stickyHorizontalSlider{
     position: relative;
     max-width: 100%; 
-    padding: rem(100) 0 rem(48) rem(20);
+    padding: rem(150) 0 rem(70) rem(16);
     color: white;
 
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     scrollbar-width: none;  
+
     @include breakpoint(large) {
         overflow: unset;
         padding-left: 0;
-        padding-top: rem(200);
-        padding-bottom: rem(100);
+        padding-top: rem(150);
+        padding-bottom: rem(75);
     }
 
     &::-webkit-scrollbar {
@@ -50,7 +51,8 @@
 
     &_heading{
         @include breakpoint(large) {
-            max-width: 800px;
+            max-width: 1130px;
+            margin: auto;
         }
     }
 
@@ -58,14 +60,15 @@
         margin-right: rem(16);
         min-width: 280px;
         @include breakpoint(large) {
-            min-width: 40vw;
+            margin-right: rem(24);
+            min-width: 36vw;
             flex-shrink: 0;
         }
         &:last-child{
             margin-right: rem(15);
         }
         &_empty{
-            min-width: 25vW;
+            min-width: 16vW;
         }
 
         &_image{
@@ -101,7 +104,7 @@
             font-weight: var(--font-regular);
             font-size: rem(18);
             @include breakpoint(large) {
-                font-size: rem(21);
+                font-size: rem(25);
             }
         }
 

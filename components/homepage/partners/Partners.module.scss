@@ -1,7 +1,9 @@
 .partners{
     padding-top: rem(130);
+    padding-bottom: rem(50);
     @include breakpoint(large) {
-        padding-top: rem(290);
+        padding-top: rem(340);
+        padding-bottom: rem(180);
     }
 
     &_wrap{

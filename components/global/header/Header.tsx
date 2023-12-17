@@ -15,8 +15,7 @@ import { HeaderProps } from 'types';
 // }
 
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
-// const Header: FC<HeaderProps> = ({ className, setNavOpen, isNavOpen }) => {
-  const [isScrolling, setIsScrolling] = React.useState(false);
+  // const [isScrolling, setIsScrolling] = React.useState(false);
 
   useEffect(() => {
     if (isNavOpen) {
@@ -26,17 +25,17 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
     }
   }, [isNavOpen]);
 
-  useEffect(() => {
-    const checkScroll = () => {
-      setIsScrolling(window.scrollY > 0);
-    };
+  // useEffect(() => {
+  //   const checkScroll = () => {
+  //     setIsScrolling(window.scrollY > 0);
+  //   };
    
-    window.addEventListener('scroll', checkScroll);
+  //   window.addEventListener('scroll', checkScroll);
    
-    return () => {
-      window.removeEventListener('scroll', checkScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', checkScroll);
+  //   };
+  // }, []);
 
   const classNames = className
     ?.split(' ')
@@ -48,9 +47,9 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
       className={`
         ${styles.header} 
         ${classNames} 
-        ${isScrolling ? styles.header_sticky : ''}
         ${isNavOpen ? styles.header_navOpen : ''}
       `}
+      // ${isScrolling ? styles.header_sticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
         <div className={`${styles.header_logo}`}>
@@ -71,15 +70,15 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
           <Button
             href="/contact"
             desktopOnly
-            className="button-shiny button_small button_uppercase desktop-only"
+            className="button-shiny transparent button_small button_uppercase desktop-only"
           >
             Contact
           </Button>
 
           <Image
             src="/assets/search.svg"
-            width={20}
-            height={20}
+            width={25}
+            height={32}
             alt="Alpine Armoring Search"
             className="desktop-only"
           />

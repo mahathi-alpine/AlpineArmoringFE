@@ -1,21 +1,29 @@
 .footer {
-  padding-top: rem(32);
+  padding-top: rem(64);
   padding-bottom: rem(32);
 
   &_top {
     padding-bottom: rem(32);
+    margin-bottom: rem(32);
     border-bottom: 1px solid var(--color-grayDark);
-    font-weight: var(--font-demi);
 
     &_heading {
       font-size: rem(33);
       margin-bottom: rem(8);
       text-transform: uppercase;
+      font-weight: var(--font-demi);
+      @include breakpoint(large) {
+        font-size: rem(40);
+      }
     }
 
     &_subheading {
       font-size: rem(17);
       color: var(--color-primary);
+      font-weight: var(--font-demi);
+      @include breakpoint(large) {
+        font-size: rem(20);
+      }
     }
   }
 
@@ -32,9 +40,10 @@
   }
 
   &_column {
-    padding-top: rem(32);
+    padding-bottom: rem(40);
     @include breakpoint(large) {
       flex: 1;
+      padding-bottom: rem(20);
     }
 
     &_title {
