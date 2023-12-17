@@ -29,7 +29,6 @@ function Home({ homepageData, categories }) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observer.unobserve(entry.target);
 
-          } else {
           }
         });
       },
@@ -65,7 +64,7 @@ function Home({ homepageData, categories }) {
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
 
-        {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} />  : null} 
+        {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} /> : null} 
 
         <div className="shape-after"></div>
 
