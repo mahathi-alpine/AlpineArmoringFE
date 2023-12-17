@@ -1,4 +1,4 @@
-import TextReveal from 'components/global/text-reveal/TextReveal';
+// import TextReveal from 'components/global/text-reveal/TextReveal';
 import styles from './IntroText.module.scss';
 
 // const IntroText = ({ props, error }) => {

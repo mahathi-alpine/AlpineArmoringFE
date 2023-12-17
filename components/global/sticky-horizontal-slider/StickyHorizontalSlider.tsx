@@ -52,7 +52,7 @@ const StickyHorizontalSlider = ({ props }) => {
 
           <div className={`${styles.stickyHorizontalSlider_item} ${styles.stickyHorizontalSlider_item_empty} desktop-only`}></div>
 
-          {props.map((item, index) => (
+          {props.map((item) => (
             <div className={`${styles.stickyHorizontalSlider_item}`} key={item.id}>
                 {item.image.data?.attributes.url ? 
                   <Image

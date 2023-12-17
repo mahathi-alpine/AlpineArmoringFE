@@ -9,11 +9,11 @@ const Sidebar = (props) => {
   const currentFilter = router.query.category;
 
   const handleClearFilters = () => {
-    const { category, ...otherQueryParams } = router.query;
+    // const { category, ...otherQueryParams } = router.query;
 
     router.push({
       pathname: router.pathname,
-      query: otherQueryParams,
+      // query: otherQueryParams,
     }, undefined, { scroll: false });
   }
 
