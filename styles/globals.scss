@@ -59,9 +59,8 @@ img {
 }
 
 .desktop-only {
-  display: none !important;
-  @include breakpoint(medium) {
-    display: unset !important;
+  @include breakpoint(small) {
+    display: none !important;
   }
 }
 
