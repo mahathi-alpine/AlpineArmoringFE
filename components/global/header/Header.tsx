@@ -8,12 +8,6 @@ import styles from './Header.module.scss';
 import { useEffect} from 'react';
 import { HeaderProps } from 'types';
 
-// interface HeaderProps {
-//   className?: string;
-//   isNavOpen? : boolean;
-//   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-// }
-
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
   // const [isScrolling, setIsScrolling] = React.useState(false);
 
@@ -52,7 +46,10 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
       // ${isScrolling ? styles.header_sticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
-        <div className={`${styles.header_logo}`}>
+        <div 
+          className={`${styles.header_logo}`}
+          onClick={() => setNavOpen(false)}
+        >
           <Link href={'/'}>
             <Image
               src="/AlpineArmoringLogoWhite.svg"

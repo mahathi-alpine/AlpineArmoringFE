@@ -61,9 +61,11 @@
                 margin-bottom: 0;
             }
         }
-        &:hover .navigationPopup_item:not(:hover){
-            opacity: .3;
-            transform: translateX(10px);
+        @include breakpoint(large) {
+            &:hover .navigationPopup_item:not(:hover){
+                opacity: .3;
+                transform: translateX(10px);
+            }
         }
     }
 
@@ -82,6 +84,10 @@
         .navigationPopup_list_right &{
             font-size: rem(16);
             font-weight: var(--font-regular);
+        }
+
+        &_active{
+            color: var(--color-primary);
         }
 
         // @for $i from 1 through 10 {

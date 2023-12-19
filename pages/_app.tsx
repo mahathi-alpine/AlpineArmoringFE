@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
     // <Layout>
     <main className={termina.className}>
       <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} className="header--white" />
-      <NavigationPopup isNavOpen={isNavOpen} />
+      <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
       <Component {...pageProps} />
       <Footer />
       <SpeedInsights/>

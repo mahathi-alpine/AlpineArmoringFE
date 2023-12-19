@@ -12,7 +12,7 @@ import MailIcon from '../../icons/Mail';
 import MapIcon from '../../icons/Map';
 import PhoneIcon from '../../icons/Phone';
 
-const NavigationPopup = ({ isNavOpen }: NavigationProps) => {
+const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();
 
   const links = [
@@ -23,14 +23,12 @@ const NavigationPopup = ({ isNavOpen }: NavigationProps) => {
 
   const linksRight = [
     { path: "/ballisticchart", text: "Ballistic Chart" },
-    { path: "/inventory", text: "Rental vehicles" },
-    { path: "/vehicles-we-armor", text: "Design and Engineering" },
-    { path: "/ballisticchart", text: "Manufacturing" },
-    { path: "/ballisticchart", text: "Shipping and Logistics" },
-    { path: "/ballisticchart", text: "Parts and Accessories" },
-    { path: "/ballisticchart", text: "Careers" },
-    { path: "/ballisticchart", text: "Become a Dealer" },
-    { path: "/ballisticchart", text: "FAQs" }
+    { path: "/rental", text: "Rental vehicles" },
+    { path: "/design", text: "Design and Engineering" },
+    { path: "/manufacturing", text: "Manufacturing" },
+    { path: "/shipping", text: "Shipping and Logistics" },
+    { path: "/parts", text: "Parts and Accessories" },
+    { path: "/dealer", text: "Become a Dealer" }
   ];
 
   return (
@@ -43,10 +41,11 @@ const NavigationPopup = ({ isNavOpen }: NavigationProps) => {
                 <li key={index} className={`
                   ${styles.navigationPopup_item} 
                   ${router.pathname === link.path ? `${styles.navigationPopup_item_active}` : ''}`}
+                  onClick={() => setNavOpen(false)}
                 >
                   <Link 
                     className={`${styles.navigationPopup_link}`}
-                    href={link.path}  
+                    href={link.path}
                   >{link.text}</Link>
                 </li>
               ))}

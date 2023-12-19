@@ -24,6 +24,7 @@ export interface HeaderProps {
 
 export interface NavigationProps {
   isNavOpen? : boolean;
+  setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
