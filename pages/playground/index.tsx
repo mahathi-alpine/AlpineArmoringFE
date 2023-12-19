@@ -71,7 +71,7 @@ function Playground() {
 
   return (
     <div>
-      <VideoScale props="hpVideo.mp4" />
+      <VideoScale props="HpvideoCompressed.mp4" />
 
       <TextTransform
         text1="Alpine Armoring"

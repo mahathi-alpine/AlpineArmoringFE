@@ -18,6 +18,7 @@
     display: flex;
     flex-flow: column;
     max-width: 500px;
+    padding-bottom: 70px;
     @include breakpoint(large) {
       width: calc(100% / 2 - 12px);
       max-width: unset;
@@ -41,6 +42,28 @@
       }
     }
 
+    &:before{
+      position: absolute;
+      content: '';
+      left: -8px;
+      right: -8px;
+      top: -10px;
+      background: url('/assets/topCurve.svg') no-repeat;
+      height: 50px;
+      background-size: cover;
+      z-index: -1;
+    }
+    &:after{
+      position: absolute;
+      content: '';
+      left: -8px;
+      right: -8px;
+      bottom: 0;
+      top: 20px;
+      background: white;
+      z-index: -1;
+    }
+
     &:hover{
       // .categories_item_title{
       //   visibility: hidden;
@@ -62,15 +85,16 @@
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
       text-align: center;
+      
+      max-height: 70px;
+      overflow: hidden;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transition: max-height .3s ease-in-out;
       @include breakpoint(large) {        
         padding: rem(24) rem(8) rem(24) rem(8);
-        max-height: 74px;
-        overflow: hidden;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        transition: max-height .3s ease-in-out;
       }
     }
 
