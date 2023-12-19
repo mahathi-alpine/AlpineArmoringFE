@@ -40,25 +40,25 @@ const Categories = ({props, allVehiclesImage}) => {
               <div className={`${styles.categories_item_buttons}`}>
                 <Button
                   href={`/inventory?category=${data.slug}`}
-                  className="primary button_small"
+                  className="primary button_small button-shiny"
                 >
-                  View in stock
+                  Available Now 
                 </Button>
 
-                <Image
+                {/* <Image
                   src={'/assets/logoAlpine.png'}
                   alt="Logo Alpine"
                   width={37}
                   height={44}
                   quality={100}
                   className={`${styles.categories_item_buttons_logo} desktop-only`}
-                />
+                /> */}
 
                 <Button 
                   href={`/vehicles-we-armor?category=${data.slug}`}
-                  className="button_small"
+                  className="button_small button-shiny"
                 >
-                  Vehicles we armor
+                  {data.title.replace("Armored ", "")} we armor
                 </Button>
               </div>
 
@@ -90,23 +90,23 @@ const Categories = ({props, allVehiclesImage}) => {
           <div className={`${styles.categories_item_buttons}`}>
             <Button
               href={`/inventory`}
-              className="primary button_small"
+              className="primary button_small button-shiny"
             >
-              View in stock
+              Available Now
             </Button>
 
-            <Image
+            {/* <Image
               src={'/assets/logoAlpine.png'}
               alt="Logo Alpine"
               width={37}
               height={44}
               quality={100}
               className={`${styles.categories_item_buttons_logo} desktop-only`}
-            />
+            /> */}
 
             <Button 
               href={`/vehicles-we-armor`}
-              className="button_small"
+              className="button_small button-shiny"
             >
               Vehicles we armor
             </Button>
