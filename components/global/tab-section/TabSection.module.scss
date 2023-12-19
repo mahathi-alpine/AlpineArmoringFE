@@ -1,8 +1,22 @@
 .tabSection{
+    position: relative;
+    // overflow-x: hidden;
     padding-top: rem(64);
     color: white;
     @include breakpoint(large) {
         padding-top: rem(140);
+    }
+
+    &:before{
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 65px;
+        bottom: -150px;
+        background: url('/assets/shieldGray.svg') center center no-repeat;
+        background-size: contain;
+        opacity: .1;
     }
 
     &_heading{
