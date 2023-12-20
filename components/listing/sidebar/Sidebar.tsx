@@ -14,7 +14,16 @@ const Sidebar = (props) => {
   };
 
   const openFilters = () => {
-    setFiltersOpen(filtersOpen => !filtersOpen);
+    // setFiltersOpen(filtersOpen => !filtersOpen);
+    setFiltersOpen(filtersOpen => {
+      const newValue = !filtersOpen;
+      if (newValue) {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+      }
+      return newValue;
+    });
    };
 
   const router = useRouter();
@@ -102,14 +111,14 @@ const Sidebar = (props) => {
           </div>
           <div className={`
             ${styles.sidebar_column}
-            ${'type' === activeFilterItem ? styles.sidebar_column_active : ''}
+            ${'model' === activeFilterItem ? styles.sidebar_column_active : ''}
           `}>
 
             <h4 
               className={`${styles.sidebar_column_title}`}
-              onClick={() => activateFilterItem('type')}
+              onClick={() => activateFilterItem('model')}
             > 
-              Type
+              Model
               <ChevronIcon className={`${styles.sidebar_column_chevron} mobile-only`} />
             </h4>
 

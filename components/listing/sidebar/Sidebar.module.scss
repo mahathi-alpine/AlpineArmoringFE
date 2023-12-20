@@ -14,7 +14,7 @@
       align-items: center;
       padding-bottom: rem(30);
       margin-bottom: rem(30);
-      border-bottom: 1px solid var(--color-grayDark);
+      border-bottom: 1px solid var(--color-gray);
     }
 
     &_title {
@@ -35,8 +35,9 @@
     @include breakpoint(small) {
       position: fixed;
       z-index: 1;
-      padding: rem(80) rem(16);
+      padding: rem(88) rem(16) rem(16) rem(16);
       top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
       background: rgba(0, 0, 0, .7);
@@ -45,6 +46,7 @@
       visibility: hidden;
       opacity: 0.2;
       transition: opacity .1s ease-in, visibility .1s ease-in;
+      overflow: auto;
 
       &_open{
         visibility: visible;
@@ -67,7 +69,7 @@
         transform: scale(.8);
         transform-origin: center;
         transition: transform .3s ease-in, opacity .1s ease-in, visibility .1s ease-in;
-        overflow: auto;
+        // overflow: auto;
       }
 
       &_close{
@@ -97,11 +99,9 @@
     display: flex;
     flex-flow: column;
     font-size: rem(15);
-    // border-bottom: 1px solid var(--color-grayDark);
-
     @include breakpoint(small) {
-      border-top: 1px solid var(--color-grayDark);
-      border-bottom: 1px solid var(--color-grayDark);
+      border-top: 1px solid var(--color-gray);
+      border-bottom: 1px solid var(--color-gray);
 
       &:last-child{
         border-bottom: none;
