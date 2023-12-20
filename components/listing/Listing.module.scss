@@ -1,15 +1,16 @@
 .listing {
   &_wrap {
     padding-top: rem(120);
+    padding-bottom: rem(120);
 
-    @include breakpoint(large) {
-      display: flex;
+    @include breakpoint(medium) {
+      display: flex; 
       gap: 50px;
     }
   }
   &_list {
     padding-top: rem(50);
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       display: flex;
       flex-wrap: wrap;
       gap: 24px;

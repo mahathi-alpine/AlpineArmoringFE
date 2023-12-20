@@ -109,36 +109,6 @@ const Sidebar = (props) => {
               ))}
             </div>
           </div>
-          <div className={`
-            ${styles.sidebar_column}
-            ${'model' === activeFilterItem ? styles.sidebar_column_active : ''}
-          `}>
-
-            <h4 
-              className={`${styles.sidebar_column_title}`}
-              onClick={() => activateFilterItem('model')}
-            > 
-              Model
-              <ChevronIcon className={`${styles.sidebar_column_chevron} mobile-only`} />
-            </h4>
-
-            <div className={`${styles.sidebar_column_wrap}`}>
-              {props.props?.data.map((item) => (
-                <Link
-                  className={`${styles.checkbox_link} ${
-                    item.attributes.slug === currentFilter
-                      ? styles.selected_filter
-                      : ''
-                  }`}
-                  href={`?category=${item.attributes.slug}`}
-                  scroll={false}
-                  key={item.id}
-                >
-                  <span className={`${styles.checkbox_span}`}>{item.attributes.title}</span>          
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
