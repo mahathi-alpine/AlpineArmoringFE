@@ -2,7 +2,7 @@ import styles from './TabSection.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useState} from 'react';
-import ArrowIcon from '/components/icons/Arrow';
+import ArrowIcon from 'components/icons/Arrow';
 import { API_URL } from 'config/index';
 
 
