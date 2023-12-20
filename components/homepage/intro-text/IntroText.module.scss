@@ -25,6 +25,8 @@
     font-size: rem(16);
     text-transform: uppercase;
     font-weight: var(--font-demi);
+    letter-spacing: -.6px;
+
     @include breakpoint(large) {
       font-size: rem(24);
     }
