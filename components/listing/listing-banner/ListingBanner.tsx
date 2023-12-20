@@ -1,4 +1,5 @@
 import styles from './ListingBanner.module.scss';
+import { API_URL } from 'config/index';
 
 const TopBanner = ({ props }) => {
   const data = props.attributes;
@@ -8,13 +9,13 @@ const TopBanner = ({ props }) => {
     <div
       className={`${styles.banner_top}`}
       style={{
-        backgroundImage: `url(http://localhost:1337${bannerImage})`,
+        backgroundImage: `url(${API_URL}${bannerImage})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       }}
     >
       <div className={`${styles.banner_top_content}`}>
-        <h1 className={`${styles.banner_top_title}`}>{data.heading}</h1>
+        {/* <h1 className={`${styles.banner_top_title}`}>{data.heading}</h1> */}
         <p className={`${styles.banner_top_text}`}>{data.bannerText}</p>
       </div>
     </div>

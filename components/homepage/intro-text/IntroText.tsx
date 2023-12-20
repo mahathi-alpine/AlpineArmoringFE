@@ -27,9 +27,11 @@ const IntroText = () => {
     }
 
     window.addEventListener('scroll', () => {
-      if(introTextRef.current.getBoundingClientRect().top < (window.innerHeight / 2 + 300) && 
-      !(window.scrollY > (introTextRef.current.offsetTop + introTextRef.current.offsetHeight))){
-        revealSpans();
+      if(introTextRef.current){
+        if(introTextRef.current.getBoundingClientRect().top < (window.innerHeight / 2 + 300) && 
+        !(window.scrollY > (introTextRef.current.offsetTop + introTextRef.current.offsetHeight))){
+          revealSpans();
+        }
       }
     })
 

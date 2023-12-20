@@ -1,4 +1,6 @@
 .inventory {
+  padding-top: rem(160);
+
   &_banner {
     padding-top: rem(24);
     @include breakpoint(large) {

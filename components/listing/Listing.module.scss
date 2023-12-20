@@ -1,5 +1,7 @@
 .listing {
   &_wrap {
+    padding-top: rem(120);
+
     @include breakpoint(large) {
       display: flex;
       gap: 50px;
