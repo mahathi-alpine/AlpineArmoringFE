@@ -1,5 +1,4 @@
 import styles from './Sidebar.module.scss';
-import Image from 'next/image';
 import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
