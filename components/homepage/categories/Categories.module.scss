@@ -6,8 +6,12 @@
   padding-bottom: rem(60);
   row-gap: 32px;
   @include breakpoint(medium) {
+    padding-bottom: rem(160);
     column-gap: 32px;
     row-gap: 64px;
+  }
+  @include breakpoint(large) {
+    padding-bottom: rem(335);
   }
 
   &_item {

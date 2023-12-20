@@ -44,7 +44,7 @@ const IntroText = () => {
           className={`${styles.introText_text} observe`} 
           ref={introTextRef}
         >Alpine Armoring Inc., headquartered in the suburb of Washington D.C., is a high-quality custom-manufacturer of a variety of bulletproof armoured vehicles (armoured sedans, SUVs, pickup trucks, SWAT trucks and more).</p>
-        <h3 className={`${styles.introText_subheading} observe fade-in`}>
+        <h3 className={`${styles.introText_subheading} observe block-reveal`}>
           No one protects you better®
         </h3>
       </div>

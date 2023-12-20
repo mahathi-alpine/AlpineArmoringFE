@@ -38,8 +38,8 @@ const TabSection = ({ props }) => {
                     {item.image.data?.attributes.url ? <Image
                         src={`${API_URL}${item.image.data.attributes.url}`}
                         alt="Description of the image"
-                        width={475}
-                        height={320}
+                        width={530}
+                        height={405}
                         className={`${styles.tabSection_item_image} observe fade-in`}
                     /> : null} 
                     <div className={`${styles.tabSection_item_content}`}>
