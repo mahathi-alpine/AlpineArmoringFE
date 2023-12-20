@@ -7,7 +7,7 @@ const IntroText = () => {
   useEffect(() => {
     let spans = [];
     let htmlString = '';
-    let pArray = introTextRef.current.textContent.split('');
+    const pArray = introTextRef.current.textContent.split('');
     for(let i = 0; i < pArray.length; i++){
       htmlString += `<span>${pArray[i]}</span>`;
     }
@@ -17,7 +17,8 @@ const IntroText = () => {
 
     function revealSpans(){
       for(let i = 0; i < spans.length; i++){
-        let {left, top} = spans[i].getBoundingClientRect();
+        const left = spans[i].getBoundingClientRect();
+        let top = spans[i].getBoundingClientRect();
         top = top - (window.innerHeight * .7);
         let opacityValue = 1 - ((top * .01) + (left * 0.001)) < 0.1 ? 0.1 : Number((1 - ((top * .01) + (left * 0.001))).toFixed(3));
         opacityValue = opacityValue > 1 ? 1 : Number(opacityValue.toFixed(3));
