@@ -17,7 +17,7 @@ const IntroText = () => {
 
     function revealSpans(){
       for(let i = 0; i < spans.length; i++){
-        let left = spans[i].getBoundingClientRect().left;
+        const left = spans[i].getBoundingClientRect().left;
         let top = spans[i].getBoundingClientRect().top;
         top = top - (window.innerHeight * .7);
         let opacityValue = 1 - ((top * .01) + (left * 0.001)) < 0.1 ? 0.1 : Number((1 - ((top * .01) + (left * 0.001))).toFixed(3));
@@ -44,7 +44,7 @@ const IntroText = () => {
           className={`${styles.introText_text} observe`} 
           ref={introTextRef}
         >Alpine Armoring Inc., headquartered in the suburb of Washington D.C., is a high-quality custom-manufacturer of a variety of bulletproof armoured vehicles (armoured sedans, SUVs, pickup trucks, SWAT trucks and more).</p>
-        <h3 className={`${styles.introText_subheading} observe`}>
+        <h3 className={`${styles.introText_subheading} observe fade-in`}>
           No one protects you better®
         </h3>
       </div>
