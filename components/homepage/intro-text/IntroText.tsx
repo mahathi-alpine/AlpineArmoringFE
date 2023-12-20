@@ -17,8 +17,8 @@ const IntroText = () => {
 
     function revealSpans(){
       for(let i = 0; i < spans.length; i++){
-        const left = spans[i].getBoundingClientRect();
-        let top = spans[i].getBoundingClientRect();
+        let left = spans[i].getBoundingClientRect().left;
+        let top = spans[i].getBoundingClientRect().top;
         top = top - (window.innerHeight * .7);
         let opacityValue = 1 - ((top * .01) + (left * 0.001)) < 0.1 ? 0.1 : Number((1 - ((top * .01) + (left * 0.001))).toFixed(3));
         opacityValue = opacityValue > 1 ? 1 : Number(opacityValue.toFixed(3));
