@@ -2,9 +2,13 @@
   padding-top: rem(100);
   padding-bottom: rem(100);
   color: white;
+
   @include breakpoint(large) {
-    padding-top: rem(200);
     padding-bottom: rem(200);
+  }
+  @include breakpoint(huge) {
+    padding-top: rem(200);
+    // padding-bottom: rem(200);
   }
 
   &_text {
