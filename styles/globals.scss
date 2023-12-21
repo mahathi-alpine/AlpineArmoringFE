@@ -158,7 +158,7 @@ img {
   margin-bottom: rem(32);
   font-size: rem(24);
   @include breakpoint(large) {
-    margin-bottom: rem(50);
+    margin-bottom: rem(48);
     font-size: rem(36);
   }
 }

@@ -44,7 +44,7 @@
   &_sticky {
     @include breakpoint(large) {
       position: sticky;
-      top: 122px;
+      top: 100px;
       overflow: hidden;
     }
   }
@@ -52,8 +52,9 @@
   &_heading {
     padding-left: rem(16);
     @include breakpoint(large) {
-      max-width: 1130px;
-      margin: auto;
+      // max-width: 1130px;
+      // margin: auto;
+      padding-left: 23vW;
     }
   }
 
@@ -74,11 +75,12 @@
 
     &_image {
       width: 100%;
-      height: 200px;
+      // height: 200px;
       object-fit: cover;
       border-radius: 8px;
+      max-height: 50vH;
       @include breakpoint(large) {
-        height: 400px;
+        // height: 400px;
       }
     }
 
