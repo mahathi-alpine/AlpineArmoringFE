@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Categories.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
-import { API_URL } from 'config/index';
+// import { API_URL } from 'config/index';
 
 const Categories = ({ props, allVehiclesImage }) => {
   // if (!props) {
@@ -21,8 +21,16 @@ const Categories = ({ props, allVehiclesImage }) => {
               key={item.id}
             >
               {data.image.data ? (
+                // <Image
+                //   src={`${API_URL}${data.image.data.attributes.url}`}
+                //   alt="Description of the image"
+                //   width={608}
+                //   height={236}
+                //   quality={100}
+                //   className={`${styles.categories_item_image}`}
+                // />
                 <Image
-                  src={`${API_URL}${data.image.data.attributes.url}`}
+                  src={`${data.image.data.attributes.url}`}
                   alt="Description of the image"
                   width={608}
                   height={236}
@@ -69,8 +77,16 @@ const Categories = ({ props, allVehiclesImage }) => {
 
         <div className={`${styles.categories_item} observe fade-in-up`}>
           {allVehiclesImage ? (
+            // <Image
+            //   src={`${API_URL}${allVehiclesImage.url}`}
+            //   alt="Description of the image"
+            //   width={608}
+            //   height={236}
+            //   quality={100}
+            //   className={`${styles.categories_item_image}`}
+            // />
             <Image
-              src={`${API_URL}${allVehiclesImage.url}`}
+              src={`${allVehiclesImage.url}`}
               alt="Description of the image"
               width={608}
               height={236}

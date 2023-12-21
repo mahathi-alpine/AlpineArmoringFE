@@ -2,16 +2,16 @@
 //   return `${process.env.NEXT_PUBLIC_API_URL}${path}`;
 // }
 import { API_URL } from 'config/index';
+
 export async function fetchAPI(path) {
   // const requestUrl = getStrapiURL(path);
   const requestUrl = `${API_URL}${path}`;
+  // console.log(requestUrl)
   try {
     const [response] = await Promise.all([fetch(requestUrl)]);
-    console.log(response);
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
     return {
       props: {
         error: error.message,
