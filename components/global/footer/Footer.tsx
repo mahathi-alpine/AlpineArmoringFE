@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './Footer.module.scss';
-import Image from 'next/image';
-import FacebookIcon from '../../icons/Facebook';
-import TiktokIcon from '../../icons/Tiktok';
-import XIcon from '../../icons/X';
-import InstagramIcon from '../../icons/Instagram';
-import YoutubeIcon from '../../icons/Youtube';
+import FacebookIcon from 'components/icons/Facebook';
+import TiktokIcon from 'components/icons/Tiktok';
+import XIcon from 'components/icons/X';
+import InstagramIcon from 'components/icons/Instagram';
+import YoutubeIcon from 'components/icons/Youtube';
+import MapIcon from 'components/icons/Map';
+import PhoneIcon from 'components/icons/Phone';
+import MailIcon from 'components/icons/Mail';
 import Link from 'next/link';
 
 const Footer = () => {
@@ -26,34 +28,19 @@ const Footer = () => {
             <ul className={`${styles.footer_column_list}`}>
               <li>
                 <Link href="/" className={`${styles.footer_column_list_item}`}>
-                  <Image
-                    src="/assets/phone.svg"
-                    width={23}
-                    height={23}
-                    alt="Alpine Armoring Phone"
-                  />
+                  <PhoneIcon color="#2d2d27" />
                   1.703.471.0002
                 </Link>
               </li>
               <li>
                 <Link href="/" className={`${styles.footer_column_list_item}`}>
-                  <Image
-                    src="/assets/mail.svg"
-                    width={23}
-                    height={23}
-                    alt="Alpine Armoring Email"
-                  />
+                  <MailIcon color="#2d2d27" />
                   sales@AlpineCo.com
                 </Link>
               </li>
               <li>
                 <Link href="/" className={`${styles.footer_column_list_item}`}>
-                  <Image
-                    src="/assets/location.svg"
-                    width={23}
-                    height={23}
-                    alt="Alpine Armoring Location"
-                  />
+                  <MapIcon color="#2d2d27" />
                   Chantilly, Virginia, USA
                 </Link>
               </li>

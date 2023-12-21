@@ -5,8 +5,9 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { HeaderProps } from 'types';
+import SearchIcon from 'components/icons/Search';
 
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
   // const [isScrolling, setIsScrolling] = React.useState(false);
@@ -23,9 +24,9 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
   //   const checkScroll = () => {
   //     setIsScrolling(window.scrollY > 0);
   //   };
-   
+
   //   window.addEventListener('scroll', checkScroll);
-   
+
   //   return () => {
   //     window.removeEventListener('scroll', checkScroll);
   //   };
@@ -37,7 +38,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
     .join(' ');
 
   return (
-    <header 
+    <header
       className={`
         ${styles.header} 
         ${classNames} 
@@ -46,13 +47,13 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
       // ${isScrolling ? styles.header_sticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
-        <div 
+        <div
           className={`${styles.header_logo}`}
           onClick={() => setNavOpen(false)}
         >
           <Link href={'/'}>
             <Image
-              src="/AlpineArmoringLogoWhite.svg"
+              src="/assets/LogoWhite.svg"
               width={125}
               height={42}
               alt="Alpine Armoring"
@@ -72,19 +73,13 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
             Contact
           </Button>
 
-          <Image
-            src="/assets/search.svg"
-            width={25}
-            height={32}
-            alt="Alpine Armoring Search"
-            className="desktop-only"
-          />
+          <SearchIcon className={`${styles.header_search} desktop-only`} />
 
           <div className={`${styles.header_lang} desktop-only`}>EN</div>
 
-          <div 
+          <div
             className={`${styles.header_burger}`}
-            onClick={() => setNavOpen(prevState => !prevState)}
+            onClick={() => setNavOpen((prevState) => !prevState)}
           >
             <div className={`${styles.header_burger_inner}`}></div>
           </div>
