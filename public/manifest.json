@@ -1,0 +1,16 @@
+{
+  "name": "Alpine Armoring",
+  "short_name": "Alpine Armoring",
+  "theme_color": "#7d6e4d",
+  "background_color": "#f3f3f3",
+  "display": "browser",
+  "description": "Alpine Armoring",
+  "icons": [
+    {
+      "src": "/assets/logoAlpine.png",
+      "sizes": "36x36",
+      "type": "image/png",
+      "density": "0.75"
+    }
+  ]
+}

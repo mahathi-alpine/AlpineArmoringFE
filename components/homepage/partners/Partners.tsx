@@ -1,5 +1,5 @@
 import styles from './Partners.module.scss';
-import { API_URL } from 'config/index';
+// import { API_URL } from 'config/index';
 import Image from 'next/image';
 
 const Partners = (props) => {
@@ -13,7 +13,7 @@ const Partners = (props) => {
         {props.props.map((item) => (
           <div className={`${styles.partners_item}`} key={item.id}>
             <Image
-              src={`${API_URL}${item.attributes.url}`}
+              src={`${item.attributes.url}`}
               alt={`Alpine Partner${
                 item.attributes.alternativeText
                   ? ' | ' + item.attributes.alternativeText

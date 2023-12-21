@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItem.module.scss';
-import { API_URL } from 'config/index';
+// import { API_URL } from 'config/index';
 
 interface InventoryItemProps {
   props: any;
@@ -20,7 +20,7 @@ const InventoryItem = ({ props, stock }: InventoryItemProps) => {
       <Link href={`${stock ? 'inventory' : 'vehicles-we-armor'}/${data.slug}`}>
         <div className={`${styles.inventory_item_image}`}>
           <Image
-            src={`${API_URL}${data.featuredImage.data.attributes.url}`}
+            src={`${data.featuredImage.data.attributes.url}`}
             alt="Description of the image"
             width={475}
             height={320}

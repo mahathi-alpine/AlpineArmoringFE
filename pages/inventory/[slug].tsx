@@ -3,7 +3,7 @@ import styles from './InventoryVehicle.module.scss';
 import { getPageData } from '../../lib/api';
 import Button from 'components/global/button/Button';
 import Image from 'next/image';
-import { API_URL } from 'config/index';
+// import { API_URL } from 'config/index';
 
 function InventoryVehicle(props) {
   const data = props.data.data[0].attributes;
@@ -30,7 +30,7 @@ function InventoryVehicle(props) {
           </h3>
           {data.featuredImage.data ? (
             <Image
-              src={`${API_URL}${data.featuredImage.data.attributes.url}`}
+              src={`${data.featuredImage.data.attributes.url}`}
               alt="Description of the image"
               width={475}
               height={320}

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styles from './StickyHorizontalSlider.module.scss';
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { API_URL } from 'config/index';
+// import { API_URL } from 'config/index';
 
 const StickyHorizontalSlider = ({ props }) => {
   const containerRef = useRef(null);
@@ -67,7 +67,7 @@ const StickyHorizontalSlider = ({ props }) => {
             >
               {item.image.data?.attributes.url ? (
                 <Image
-                  src={`${API_URL}${item.image.data.attributes.url}`}
+                  src={`${item.image.data.attributes.url}`}
                   alt="Description of the image"
                   width={475}
                   height={320}
