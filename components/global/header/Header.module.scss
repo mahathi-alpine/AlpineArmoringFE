@@ -55,15 +55,15 @@
       // height: 48px;
     }
 
-    &:before{
+    &:before {
       position: absolute;
       content: '';
       left: 0;
       right: 0;
       top: 0;
       bottom: 0;
-      border-radius: 100%;  
-      transition: background .3s ease-in-out;
+      border-radius: 100%;
+      transition: background 0.3s ease-in-out;
       @include breakpoint(large) {
         left: -4px;
         right: -4px;
@@ -72,13 +72,13 @@
       }
     }
 
-    &_inner{
+    &_inner {
       position: relative;
       display: block;
       background: white;
       height: 2px;
       width: 24px;
-      transition: background .3s ease-in-out;
+      transition: background 0.3s ease-in-out;
 
       &:before,
       &:after {
@@ -89,7 +89,9 @@
         height: 2px;
         width: 24px;
         border-radius: 2px;
-        transition: background .3s ease-in-out, transform .3s ease-in-out;
+        transition:
+          background 0.3s ease-in-out,
+          transform 0.3s ease-in-out;
       }
       &:before {
         margin-top: -7px;
@@ -105,45 +107,44 @@
       }
     }
 
-    &:hover{
-      &:before{
+    &:hover {
+      &:before {
         background: white;
       }
-      .header_burger_inner{
+      .header_burger_inner {
         background: var(--color-dark);
         &:before,
-        &:after{
+        &:after {
           background: var(--color-dark);
         }
       }
     }
 
-    .header_navOpen &{
-      &:before{
+    .header_navOpen & {
+      &:before {
         background: white;
-        transform: scale(.9);
-        transition: transform .2s ease-in-out;
+        transform: scale(0.9);
+        transition: transform 0.2s ease-in-out;
       }
-      &:hover:before{
+      &:hover:before {
         transform: scale(1);
       }
-      .header_burger_inner{
+      .header_burger_inner {
         background: transparent !important;
         &:before,
-        &:after{
+        &:after {
           margin: 0;
           background: var(--color-dark);
         }
-        &:before{
+        &:before {
           transform: rotate(135deg);
         }
-        &:after{
+        &:after {
           transform: rotate(225deg);
         }
       }
-
     }
-    
+
     // &_open{
     // }
 
@@ -158,7 +159,7 @@
     gap: 32px;
   }
 
-  &_search{
+  &_search {
     width: 20px;
   }
 

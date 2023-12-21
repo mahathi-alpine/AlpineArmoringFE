@@ -2,13 +2,13 @@
   position: relative;
   padding: rem(8);
   margin-bottom: rem(24);
-  background: #2B2B2B;
+  background: #2b2b2b;
   color: #fff;
   border-radius: 8px;
   flex-basis: 470px;
   flex-grow: 1;
   max-width: 570px;
-  
+
   @include breakpoint(medium) {
     padding: rem(10);
     margin-bottom: 0;
@@ -39,7 +39,7 @@
 
   &_content {
     padding: rem(24) rem(14) rem(22) rem(14);
-    @include breakpoint(medium ) {
+    @include breakpoint(medium) {
       padding: rem(24) rem(8) rem(16) rem(8);
     }
   }

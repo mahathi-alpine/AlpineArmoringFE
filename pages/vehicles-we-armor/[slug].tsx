@@ -22,8 +22,13 @@ function InventoryVehicle(props) {
           <Button href="/contact" icon className="icon">
             Request a quote
           </Button>
-          <Button href={`/inventory?vehicles_we_armor=${data.slug}`} icon {...!inventory.length ? {disabled: true} : {}} className="icon">
-            View in-stock availability 
+          <Button
+            href={`/inventory?vehicles_we_armor=${data.slug}`}
+            icon
+            {...(!inventory.length ? { disabled: true } : {})}
+            className="icon"
+          >
+            View in-stock availability
           </Button>
         </div>
 

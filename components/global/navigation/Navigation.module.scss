@@ -11,7 +11,7 @@
     display: none;
   }
 
-  &_navOpen{
+  &_navOpen {
     visibility: hidden;
   }
 
@@ -39,10 +39,11 @@
       background: var(--color-primary);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform .3s cubic-bezier(.4,0,0,1);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
     }
 
-    &_active, &:hover {
+    &_active,
+    &:hover {
       &:after {
         transform: scaleX(1);
       }

@@ -46,9 +46,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
         </video>
 
         <div className={`${styles.hp_banner_content}`}>
-          <h2
-            className={`${styles.hp_banner_subtitle} animateLetter`}
-          >
+          <h2 className={`${styles.hp_banner_subtitle} animateLetter`}>
             {props.subtitle}
           </h2>
           <h1

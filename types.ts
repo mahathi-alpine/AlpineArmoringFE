@@ -13,18 +13,16 @@ export interface ButtonProps {
   href?: string;
   className?: string;
   children?: ReactNode;
-  disabled?: boolean;  
+  disabled?: boolean;
 }
 
 export interface HeaderProps {
   className?: string;
-  isNavOpen? : boolean;
+  isNavOpen?: boolean;
   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface NavigationProps {
-  isNavOpen? : boolean;
+  isNavOpen?: boolean;
   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-

@@ -31,7 +31,7 @@
     cursor: pointer;
   }
 
-  &_wrap{
+  &_wrap {
     @include breakpoint(small) {
       position: fixed;
       z-index: 1;
@@ -40,53 +40,61 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, .7);
+      background: rgba(0, 0, 0, 0.7);
       // display: flex;
       // align-items: center;
       visibility: hidden;
       opacity: 0.2;
-      transition: opacity .1s ease-in, visibility .1s ease-in;
+      transition:
+        opacity 0.1s ease-in,
+        visibility 0.1s ease-in;
       overflow: auto;
 
-      &_open{
+      &_open {
         visibility: visible;
         opacity: 1;
 
-        .sidebar_wrap_inner{
+        .sidebar_wrap_inner {
           visibility: visible;
           opacity: 1;
           transform: scale(1);
-          transition: transform .3s ease-out, opacity .3s ease-out, visibility .3s ease-out;
+          transition:
+            transform 0.3s ease-out,
+            opacity 0.3s ease-out,
+            visibility 0.3s ease-out;
         }
       }
 
-      &_inner{
+      &_inner {
         padding: rem(64) rem(16) rem(24) rem(16);
         background: var(--color-dark);
         border-radius: 8px;
         visibility: hidden;
         opacity: 0.2;
-        transform: scale(.8);
+        transform: scale(0.8);
         transform-origin: center;
-        transition: transform .3s ease-in, opacity .1s ease-in, visibility .1s ease-in;
+        transition:
+          transform 0.3s ease-in,
+          opacity 0.1s ease-in,
+          visibility 0.1s ease-in;
         // overflow: auto;
       }
 
-      &_close{
+      &_close {
         position: absolute;
         top: rem(16);
         right: rem(16);
         font-size: rem(20);
       }
-      
-      &_top{
+
+      &_top {
         display: flex;
         align-items: center;
         justify-content: space-between;
         font-size: rem(20);
         padding-bottom: rem(24);
 
-        &_title{
+        &_title {
           display: flex;
           align-items: center;
           gap: 16px;
@@ -103,15 +111,15 @@
       border-top: 1px solid var(--color-gray);
       border-bottom: 1px solid var(--color-gray);
 
-      &:last-child{
+      &:last-child {
         border-bottom: none;
       }
 
-      &_active{
-        .sidebar_column_wrap{
+      &_active {
+        .sidebar_column_wrap {
           max-height: 500px;
         }
-        .sidebar_column_chevron{
+        .sidebar_column_chevron {
           transform: rotate(-90deg);
         }
       }
@@ -128,7 +136,7 @@
       @include breakpoint(small) {
         display: flex;
         align-items: center;
-        justify-content: space-between;    
+        justify-content: space-between;
         padding: rem(24) rem(16);
       }
 
@@ -137,19 +145,19 @@
       }
     }
 
-    &_chevron{
+    &_chevron {
       transform: rotate(90deg);
-      transition: transform .1s ease;
+      transition: transform 0.1s ease;
     }
 
-    &_wrap{
+    &_wrap {
       @include breakpoint(small) {
         overflow: hidden;
-        max-height: 0px;   
+        max-height: 0px;
         padding: 0 rem(16);
-        transition: max-height .3s ease;
+        transition: max-height 0.3s ease;
 
-        .checkbox_link:first-child{
+        .checkbox_link:first-child {
           padding-top: rem(8);
         }
 
@@ -161,22 +169,21 @@
   }
 }
 
-.checkbox_link{
+.checkbox_link {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: rem(15);
   cursor: pointer;
   overflow: hidden;
-
 }
-.checkbox_span{
+.checkbox_span {
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 2px;  
+  padding: 2px;
   color: var(--color-grayDark);
   font-size: rem(14);
   @include breakpoint(medium) {
@@ -184,7 +191,7 @@
   }
 
   &:before {
-    content: "";
+    content: '';
     width: rem(24);
     height: rem(24);
     border-radius: 3px;
@@ -194,15 +201,14 @@
     background: var(--color-gray);
     overflow: hidden;
   }
-  &:after{
+  &:after {
     position: absolute;
     content: '';
     left: 4px;
     top: 4px;
     width: rem(20);
     height: rem(20);
-    background: url('/assets/check.svg') center center
-      no-repeat;
+    background: url('/assets/check.svg') center center no-repeat;
     background-size: contain;
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
@@ -217,5 +223,4 @@
   .checkbox_span:after {
     opacity: 1;
   }
-
 }

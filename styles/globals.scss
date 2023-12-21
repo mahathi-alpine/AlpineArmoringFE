@@ -2,7 +2,7 @@
 @import './_design_tokens.scss';
 @import './_animations.scss';
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -17,7 +17,7 @@ body {
   height: 100vh;
   // position: fixed;
   // width: 100%;
- }
+}
 
 em,
 i {
@@ -38,7 +38,7 @@ h6 {
   line-height: 1.2;
 }
 
-p{
+p {
   line-height: 1.4;
 }
 
@@ -82,7 +82,7 @@ img {
   // }
 }
 
-.center{
+.center {
   text-align: center;
 }
 
@@ -103,10 +103,10 @@ img {
   background: var(--color-black) url('/assets/noise.png');
 }
 
-.shape-before{
+.shape-before {
   position: relative;
   overflow-x: clip;
-  &:after{
+  &:after {
     position: absolute;
     content: '';
     background: var(--color-black) url('/assets/noise.png');
@@ -114,27 +114,27 @@ img {
     top: -50px;
     left: -50px;
     right: -50px;
-    height: 50px;  
+    height: 50px;
     @include breakpoint(large) {
       top: -100px;
       left: -100px;
       right: -100px;
-      height: 100px;  
+      height: 100px;
     }
-  }  
+  }
 }
 
-.shape-after{
+.shape-after {
   position: relative;
   overflow-x: clip;
-  span{
+  span {
     position: absolute;
     background: var(--color-black) url('/assets/noise.png');
     border-radius: 50% / 0 0 100% 100%;
     bottom: -50px;
     left: -50px;
     right: -50px;
-    height: 50px; 
+    height: 50px;
   }
   // &:after{
   //   position: absolute;
@@ -144,22 +144,21 @@ img {
   //   bottom: -50px;
   //   left: -50px;
   //   right: -50px;
-  //   height: 50px;  
+  //   height: 50px;
   //   @include breakpoint(large) {
   //     bottom: -100px;
   //     left: -100px;
   //     right: -100px;
-  //     height: 100px;  
+  //     height: 100px;
   //   }
-  // }  
+  // }
 }
 
-.c-title{
+.c-title {
   margin-bottom: rem(32);
   font-size: rem(24);
   @include breakpoint(large) {
     margin-bottom: rem(50);
     font-size: rem(36);
   }
-
 }

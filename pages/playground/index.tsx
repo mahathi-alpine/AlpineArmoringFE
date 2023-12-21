@@ -9,7 +9,6 @@ import TextTransform, {
 } from 'components/global/text-transform/TextTransform';
 
 function Playground() {
-
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
@@ -17,7 +16,6 @@ function Playground() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observer.unobserve(entry.target);
 
@@ -52,7 +50,7 @@ function Playground() {
             }
           }
         });
-      },
+      }
       // {
       //   root: null,
       //   rootMargin: '0px',

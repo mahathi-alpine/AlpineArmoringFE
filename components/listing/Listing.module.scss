@@ -4,7 +4,7 @@
     padding-bottom: rem(120);
 
     @include breakpoint(medium) {
-      display: flex; 
+      display: flex;
       gap: 50px;
     }
   }

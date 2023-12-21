@@ -6,7 +6,6 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
-
   return (
     <div className={`${styles.listing}`}>
       {props.topBanner ? <ListingBanner props={props.topBanner} /> : null}
@@ -38,7 +37,7 @@ export async function getServerSideProps(context) {
       route: 'categories',
       slug: context.query.category,
       type: '[slug]',
-      order: true
+      order: true,
     });
     topBanner = topBanner.data[0];
   } else {

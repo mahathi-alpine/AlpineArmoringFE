@@ -1,57 +1,57 @@
-.partners{
-    padding-top: rem(130);
-    padding-bottom: rem(50);
+.partners {
+  padding-top: rem(130);
+  padding-bottom: rem(50);
+  @include breakpoint(large) {
+    padding-top: rem(340);
+    padding-bottom: rem(180);
+  }
+
+  &_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     @include breakpoint(large) {
-        padding-top: rem(340);
-        padding-bottom: rem(180);
+      gap: 16px;
+    }
+  }
+
+  &_item {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex: 0 0 calc(50% - 4px);
+    background: var(--color-grayLight);
+    border-radius: 12px;
+    padding: rem(10);
+    height: 100px;
+    @include breakpoint(large) {
+      height: 160px;
+      &:nth-child(-n + 5) {
+        flex: 0 0 calc(100% / 5 - 13px);
+      }
+      &:nth-child(n + 6) {
+        flex: 0 0 calc(100% / 4 - 12px);
+        img {
+          height: 64px;
+        }
+      }
     }
 
-    &_wrap{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        @include breakpoint(large) {
-            gap: 16px;
-        }
+    img {
+      margin: auto;
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(100%);
+      @include breakpoint(large) {
+        height: 90px;
+      }
     }
 
-    &_item{
-        display: flex;
-        align-items: center;
-        justify-self: center;
-        flex: 0 0 calc(50% - 4px);
-        background: var(--color-grayLight);
-        border-radius: 12px;
-        padding: rem(10);
-        height: 100px;
-        @include breakpoint(large) {
-            height: 160px;
-            &:nth-child(-n+5){
-                flex: 0 0 calc(100% / 5 - 13px);
-            }
-            &:nth-child(n+6){
-                flex: 0 0 calc(100% / 4 - 12px);
-                img{
-                    height: 64px;
-                }
-            }
-        }
-
-        img{
-            margin: auto;
-            height: 56px;
-            width: auto;
-            object-fit: contain;
-            filter: grayscale(100%);
-            @include breakpoint(large) {
-                height: 90px;
-            }
-        }
-
-        &:hover{
-            img{
-                filter: grayscale(0);
-            }
-        }
+    &:hover {
+      img {
+        filter: grayscale(0);
+      }
     }
+  }
 }

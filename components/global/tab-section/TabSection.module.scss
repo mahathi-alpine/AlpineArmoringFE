@@ -1,188 +1,190 @@
-.tabSection{
-    // overflow-x: hidden;
-    position: relative;
-    padding-top: rem(64);
-    color: white;
+.tabSection {
+  // overflow-x: hidden;
+  position: relative;
+  padding-top: rem(64);
+  color: white;
 
+  @include breakpoint(medium) {
+    &:before {
+      position: absolute;
+      content: '';
+      left: 10px;
+      right: 10px;
+      top: -60px;
+      bottom: -385px;
+      background: url('/assets/shieldGray.svg') center center no-repeat;
+      background-size: contain;
+      opacity: 0.1;
+    }
+  }
+
+  &_heading {
+    text-align: center;
+    font-weight: var(--font-medium);
+    font-size: rem(24);
     @include breakpoint(medium) {
-        &:before{
-            position: absolute;
-            content: '';
-            left: 10px;
-            right: 10px;
-            top: -60px;
-            bottom: -385px;
-            background: url('/assets/shieldGray.svg') center center no-repeat;
-            background-size: contain;
-            opacity: .1;
-        }
+      font-size: rem(36);
+      max-width: 985px;
+      margin: auto;
+    }
+  }
+
+  &_nav {
+    display: flex;
+    gap: rem(32);
+    flex: 0 0 auto;
+    padding: rem(50) 0;
+    @include breakpoint(medium) {
+      padding: rem(50) 0 rem(70) 0;
     }
 
-    &_heading{
-        text-align: center;
-        font-weight: var(--font-medium);
-        font-size: rem(24);
-        @include breakpoint(medium) {
-            font-size: rem(36);
-            max-width: 985px;
-            margin: auto;
-        }
+    &_wrap {
+      display: flex;
+      overflow-x: auto;
+      margin-right: rem(-16);
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      @include breakpoint(medium) {
+        justify-content: center;
+        margin-right: unset;
+      }
     }
 
-    &_nav{
-        display: flex;
-        gap: rem(32);
-        flex: 0 0 auto;
-        padding: rem(50) 0;
-        @include breakpoint(medium) {
-            padding: rem(50) 0 rem(70) 0;
-        }
+    &_item {
+      position: relative;
+      cursor: pointer;
+      font-size: rem(14);
+      @include breakpoint(medium) {
+        font-size: rem(16);
+      }
 
-        &_wrap{
-            display: flex;
-            overflow-x: auto;
-            margin-right: rem(-16);
-            &::-webkit-scrollbar {
-                display: none;
-            }
-            @include breakpoint(medium) {
-                justify-content: center;
-                margin-right: unset;
-            }
-        }
-
-        &_item{
-            position: relative;
-            cursor: pointer;
-            font-size: rem(14);
-            @include breakpoint(medium) {
-                font-size: rem(16);
-            }
-
-            &:after{
-                position: absolute;
-                content: '';
-                left: 0;
-                right: 0;
-                bottom: -7px;
-                background: var(--color-primary);
-                height: 2px;
-                transform: scaleX(0);
-                transform-origin: left;
-                transition: transform .3s cubic-bezier(.4,0,0,1);
-            }
-
-            &_active{
-                &:after{
-                    transform: scaleX(1);
-                }
-            }
-        }
-    }
-    
-    &_content{
-        position: relative;
-        min-height: 500px;
-    }
-
-    &_item{
+      &:after {
         position: absolute;
-        top: 0;
+        content: '';
         left: 0;
         right: 0;
-        z-index: -1;
-        @include breakpoint(medium) {
-            display: flex;
-            align-items: center;
-            max-width: 1070px;
-            margin: auto;
-            padding: 0 rem(40);
-        }
-        @include breakpoint(large) {
-            padding: 0;
-        }
+        bottom: -7px;
+        background: var(--color-primary);
+        height: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+      }
 
-        &_active{
-            z-index: 1;
-            .tabSection_item_image{
-                transform: scale(1);
-                opacity: 1;
-            }
-            .tabSection_item_content{
-                opacity: 1;
-            }
+      &_active {
+        &:after {
+          transform: scaleX(1);
         }
-
-        &_content{
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            @include breakpoint(medium) {
-                padding-left: rem(32);
-                width: 50%;
-            }
-            @include breakpoint(large) {
-                padding-left: rem(64);
-            }
-        }
-
-        &_image{
-            border-radius: 8px;
-            margin-bottom: rem(40);
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-            @include breakpoint(medium) {
-                width: 50%;
-                margin-bottom: 0;
-                object-fit: cover;
-                border-radius: 16px;
-            }
-        }
-        &_title{
-            font-size: rem(22);
-            margin-bottom: rem(16);
-            font-weight: var(--font-regular);
-            @include breakpoint(medium) {
-                margin-bottom: rem(24);
-            }
-            @include breakpoint(large) {
-                font-size: rem(26);
-            }
-        }
-        &_description{
-            font-size: rem(14);
-            margin-bottom: rem(32);
-            color: rgb(190, 187, 187);
-            @include breakpoint(medium) {
-                margin-bottom: rem(40);
-            }
-            @include breakpoint(large) {
-                font-size: rem(16);
-            }
-        }
-        &_link{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            text-transform: uppercase;
-            font-size: rem(13);
-            transition: color .2s ease-in-out;
-
-            @include breakpoint(medium) {
-                font-size: rem(14);
-            }
-            svg{                
-                transition: margin .2s ease-in-out;
-                path{
-                    stroke: var(--color-primary);
-                }
-            }
-            &:hover{
-                color: var(--color-primary);
-                svg{
-                    margin-left: 10px;
-                }
-            }
-        }
+      }
     }
+  }
+
+  &_content {
+    position: relative;
+    min-height: 500px;
+  }
+
+  &_item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    @include breakpoint(medium) {
+      display: flex;
+      align-items: center;
+      max-width: 1070px;
+      margin: auto;
+      padding: 0 rem(40);
+    }
+    @include breakpoint(large) {
+      padding: 0;
+    }
+
+    &_active {
+      z-index: 1;
+      .tabSection_item_image {
+        transform: scale(1);
+        opacity: 1;
+      }
+      .tabSection_item_content {
+        opacity: 1;
+      }
+    }
+
+    &_content {
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+      @include breakpoint(medium) {
+        padding-left: rem(32);
+        width: 50%;
+      }
+      @include breakpoint(large) {
+        padding-left: rem(64);
+      }
+    }
+
+    &_image {
+      border-radius: 8px;
+      margin-bottom: rem(40);
+      opacity: 0;
+      transform: scale(0.95);
+      transition:
+        opacity 0.4s ease-in-out,
+        transform 0.4s ease-in-out;
+      @include breakpoint(medium) {
+        width: 50%;
+        margin-bottom: 0;
+        object-fit: cover;
+        border-radius: 16px;
+      }
+    }
+    &_title {
+      font-size: rem(22);
+      margin-bottom: rem(16);
+      font-weight: var(--font-regular);
+      @include breakpoint(medium) {
+        margin-bottom: rem(24);
+      }
+      @include breakpoint(large) {
+        font-size: rem(26);
+      }
+    }
+    &_description {
+      font-size: rem(14);
+      margin-bottom: rem(32);
+      color: rgb(190, 187, 187);
+      @include breakpoint(medium) {
+        margin-bottom: rem(40);
+      }
+      @include breakpoint(large) {
+        font-size: rem(16);
+      }
+    }
+    &_link {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-transform: uppercase;
+      font-size: rem(13);
+      transition: color 0.2s ease-in-out;
+
+      @include breakpoint(medium) {
+        font-size: rem(14);
+      }
+      svg {
+        transition: margin 0.2s ease-in-out;
+        path {
+          stroke: var(--color-primary);
+        }
+      }
+      &:hover {
+        color: var(--color-primary);
+        svg {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
 }

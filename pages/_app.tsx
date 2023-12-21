@@ -5,7 +5,7 @@ import localFont from 'next/font/local';
 import Header from '../components/global/header/Header';
 import NavigationPopup from 'components/global/navigation/NavigationPopup';
 import Footer from '../components/global/footer/Footer';
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const termina = localFont({
   src: [
@@ -53,11 +53,15 @@ function MyApp({ Component, pageProps }) {
   return (
     // <Layout>
     <main className={termina.className}>
-      <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} className="header--white" />
+      <Header
+        setNavOpen={setNavOpen}
+        isNavOpen={isNavOpen}
+        className="header--white"
+      />
       <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
       <Component {...pageProps} />
       <Footer />
-      <SpeedInsights/>
+      <SpeedInsights />
     </main>
     // </Layout>
   );

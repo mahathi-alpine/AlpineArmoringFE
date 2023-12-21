@@ -14,7 +14,8 @@ function Home({ homepageData, categories }) {
   const categoriesData = categories?.data;
   const tabSectionData = homepageData.data?.attributes.tabSection;
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
-  const allVehiclesImage = homepageData?.data?.attributes?.allVehiclesImage?.data.attributes;
+  const allVehiclesImage =
+    homepageData?.data?.attributes?.allVehiclesImage?.data.attributes;
   const partners = homepageData?.data?.attributes.industryPartners?.data;
   // console.log(homepageData)
 
@@ -25,13 +26,11 @@ function Home({ homepageData, categories }) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observer.unobserve(entry.target);
-
           }
         });
-      },
+      }
       // {
       //   root: null,
       //   rootMargin: '0px',
@@ -50,10 +49,9 @@ function Home({ homepageData, categories }) {
 
   return (
     <div>
-      {topBanner ? <HpBanner props={topBanner} /> : null}  
+      {topBanner ? <HpBanner props={topBanner} /> : null}
 
       <div className="background-dark">
-        
         <div className="shape-before"></div>
 
         <IntroText />
@@ -62,16 +60,16 @@ function Home({ homepageData, categories }) {
           <Categories props={categories} allVehiclesImage={allVehiclesImage} />
         )}
 
-        {tabSectionData ? <TabSection props={tabSectionData} /> : null} 
+        {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
-        {horizontalSlider ? <StickyHorizontalSlider props={horizontalSlider} /> : null} 
+        {horizontalSlider ? (
+          <StickyHorizontalSlider props={horizontalSlider} />
+        ) : null}
 
         <div className="shape-after"></div>
-
       </div>
 
-      { partners ? <Partners props={partners} /> : null }
-
+      {partners ? <Partners props={partners} /> : null}
     </div>
   );
 }

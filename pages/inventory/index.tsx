@@ -6,18 +6,18 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
-  
   return (
     <div className={`${styles.listing} background-dark`}>
-
       {props.topBanner ? <ListingBanner props={props.topBanner} /> : null}
 
-      <div className="shape-after"><span style={{background: '#2B2B2B'}}></span></div>
+      <div className="shape-after">
+        <span style={{ background: '#2B2B2B' }}></span>
+      </div>
 
       <div className={`${styles.listing_wrap} container`}>
-        <Sidebar props={props.types} />
+        {props.types ? <Sidebar props={props.types} /> : null}
 
-        {props.vehicles.data ? (
+        {props.vehicles?.data ? (
           <div className={`${styles.listing_list}`}>
             {props.vehicles.data.map((item) => (
               <InventoryItem stock key={item.id} props={item} />
@@ -40,12 +40,12 @@ export async function getServerSideProps(context) {
     topBanner = await getPageData({
       route: 'categories',
       slug: context.query.category,
-      type: '[slug]'
+      type: '[slug]',
     });
-    topBanner = topBanner.data[0];
+    topBanner = topBanner.data[0] || null;
   } else {
     topBanner = await getPageData({ route: 'list-inventory' });
-    topBanner = topBanner.data;
+    topBanner = topBanner.data || null;
   }
 
   let vehicles = {};
@@ -55,7 +55,7 @@ export async function getServerSideProps(context) {
       slug: context.query.vehicles_we_armor,
       type: '[vehicles_we_armor][slug]',
     });
-  } else {    
+  } else {
     vehicles = await getPageData({
       route: 'inventories',
       slug: context.query.category,

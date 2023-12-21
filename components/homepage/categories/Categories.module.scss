@@ -33,12 +33,12 @@
       width: calc(100% / 3 - 22px);
 
       &:last-child,
-      &:nth-last-child(2){
+      &:nth-last-child(2) {
         width: calc(50% - 16px);
       }
     }
 
-    &:before{
+    &:before {
       position: absolute;
       content: '';
       left: -8px;
@@ -49,7 +49,7 @@
       background-size: cover;
       z-index: -1;
     }
-    &:after{
+    &:after {
       position: absolute;
       content: '';
       left: -8px;
@@ -62,38 +62,38 @@
       border-bottom-right-radius: 8px;
     }
 
-    &:hover{
-      .categories_item_content{
+    &:hover {
+      .categories_item_content {
         max-height: 155px;
       }
-      @include breakpoint(large) {   
-        .categories_item_content{
-          max-height: 182px;  
-        } 
+      @include breakpoint(large) {
+        .categories_item_content {
+          max-height: 182px;
+        }
       }
-      
-      .categories_item_buttons{
+
+      .categories_item_buttons {
         visibility: visible;
       }
     }
 
-    &_content{
+    &_content {
       position: relative;
       background: white;
       padding: rem(16) 0 rem(16) 0;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
       text-align: center;
-      
+
       max-height: 51px;
       overflow: hidden;
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      transition: max-height .3s ease-in-out;
-      
-      @include breakpoint(large) {        
+      transition: max-height 0.3s ease-in-out;
+
+      @include breakpoint(large) {
         max-height: 71px;
         padding: rem(24) rem(8) rem(24) rem(8);
       }
@@ -120,14 +120,14 @@
       max-width: 275px;
       margin: auto;
       visibility: hidden;
-      transition: visibility .3s ease-out;
-      a:first-child{
+      transition: visibility 0.3s ease-out;
+      a:first-child {
         margin-top: rem(16);
       }
       @include breakpoint(medium) {
         max-width: 293px;
 
-        a span{
+        a span {
           padding: 13px 16px;
         }
       }

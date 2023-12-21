@@ -7,9 +7,11 @@ export async function fetchAPI(path) {
   const requestUrl = `${API_URL}${path}`;
   try {
     const [response] = await Promise.all([fetch(requestUrl)]);
+    console.log(response);
     const data = await response.json();
     return data;
   } catch (error) {
+    console.log(error);
     return {
       props: {
         error: error.message,
