@@ -73,6 +73,7 @@
       }
 
       &_active {
+        font-weight: var(--font-medium);
         &:after {
           transform: scaleX(1);
         }

@@ -54,7 +54,7 @@
     @include breakpoint(large) {
       // max-width: 1130px;
       // margin: auto;
-      padding-left: 23vW;
+      padding-left: 23vw;
     }
   }
 
@@ -78,7 +78,7 @@
       // height: 200px;
       object-fit: cover;
       border-radius: 8px;
-      max-height: 50vH;
+      max-height: 50vh;
       @include breakpoint(large) {
         // height: 400px;
       }

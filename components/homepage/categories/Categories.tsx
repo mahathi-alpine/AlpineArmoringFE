@@ -121,7 +121,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 href={`/vehicles-we-armor`}
                 className="button_small button-shiny"
               >
-                Vehicles we armor
+                All Vehicles We Armor
               </Button>
             </div>
           </div>
