@@ -11,12 +11,12 @@ const StickyHorizontalSlider = ({ props }) => {
   useEffect(() => {
     const windowWidth = window.innerWidth;
 
-    if (windowWidth > 767) {
+    if (windowWidth >= 1280) {
       const container = containerRef.current;
       const elementWrapper = containerInnerRef.current;
 
       const horLength = elementWrapper.scrollWidth;
-      const distFromTop = container.offsetTop;
+      const distFromTop = container.offsetTop + 300;
       const scrollDistance = distFromTop + horLength - windowWidth;
 
       container.style.height = horLength - windowWidth / 3 + 'px';
@@ -56,10 +56,6 @@ const StickyHorizontalSlider = ({ props }) => {
           className={`${styles.stickyHorizontalSlider_inner} sticky-container-inner`}
           ref={containerInnerRef}
         >
-          <div
-            className={`${styles.stickyHorizontalSlider_item} ${styles.stickyHorizontalSlider_item_empty} desktop-only`}
-          ></div>
-
           {props.map((item) => (
             <div
               className={`${styles.stickyHorizontalSlider_item}`}

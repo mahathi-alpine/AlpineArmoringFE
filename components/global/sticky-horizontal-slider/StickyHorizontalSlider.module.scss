@@ -23,6 +23,7 @@
       margin-bottom: rem(40);
       font-size: rem(16);
       position: relative;
+      padding-left: 16vw;
       &:after {
         display: none;
       }
@@ -51,7 +52,7 @@
 
   &_heading {
     padding-left: rem(16);
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       // max-width: 1130px;
       // margin: auto;
       padding-left: 23vw;
@@ -68,9 +69,6 @@
     }
     &:last-child {
       margin-right: rem(15);
-    }
-    &_empty {
-      min-width: 16vw;
     }
 
     &_image {

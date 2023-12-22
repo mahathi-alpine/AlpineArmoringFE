@@ -2,8 +2,11 @@
   padding-top: rem(130);
   padding-bottom: rem(50);
   @include breakpoint(large) {
+    padding-top: rem(200);
+    padding-bottom: rem(200);
+  }
+  @include breakpoint(huge) {
     padding-top: rem(340);
-    padding-bottom: rem(180);
   }
 
   &_wrap {

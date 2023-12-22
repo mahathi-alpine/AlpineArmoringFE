@@ -47,7 +47,7 @@ const TabSection = ({ props }) => {
                 alt="Description of the image"
                 width={530}
                 height={405}
-                className={`${styles.tabSection_item_image} observe fade-in`}
+                className={`${styles.tabSection_item_image} observe fade-in-up`}
               />
             ) : null}
             <div className={`${styles.tabSection_item_content}`}>

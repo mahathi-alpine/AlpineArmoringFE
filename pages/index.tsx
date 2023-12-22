@@ -66,7 +66,9 @@ function Home({ homepageData, categories }) {
           <StickyHorizontalSlider props={horizontalSlider} />
         ) : null}
 
-        <div className="shape-after"></div>
+        <div className="shape-after">
+          <span></span>
+        </div>
       </div>
 
       {partners ? <Partners props={partners} /> : null}
