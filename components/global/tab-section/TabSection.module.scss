@@ -102,11 +102,11 @@
     @include breakpoint(large) {
       padding: 0;
     }
-    &:not(.tabSection_item_active){
-      .tabSection_item_content{
+    &:not(.tabSection_item_active) {
+      .tabSection_item_content {
         opacity: 0;
       }
-      .tabSection_item_image{
+      .tabSection_item_image {
         opacity: 0;
         transform: scale(0.95);
       }
