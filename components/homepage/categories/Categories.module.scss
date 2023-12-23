@@ -60,14 +60,19 @@
       z-index: -1;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
+      @include breakpoint(large) {
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
     }
 
     &:hover {
-      .categories_item_content {
+      .categories_item_content_inner {
         max-height: 155px;
       }
+
       @include breakpoint(large) {
-        .categories_item_content {
+        .categories_item_content_inner {
           max-height: 182px;
         }
       }
@@ -84,18 +89,56 @@
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
       text-align: center;
-
-      max-height: 51px;
-      overflow: hidden;
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      transition: max-height 0.3s ease-in-out;
 
       @include breakpoint(large) {
-        max-height: 71px;
         padding: rem(24) rem(8) rem(24) rem(8);
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+
+      &_inner{
+        overflow: hidden;
+        max-height: 20px;
+        transition: max-height 0.4s ease;
+        @include breakpoint(large) {
+          max-height: 24px;
+        }
+      }
+
+      &:before {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: -12px;
+        height: 12px;
+        width: 12px;
+        background: url('/assets/smallCurve.svg') no-repeat;
+        background-size: cover;
+        @include breakpoint(large) {
+          top: -24px;
+          height: 24px;
+          width: 24px;
+        }
+      }
+      &:after {
+        position: absolute;
+        content: '';
+        right: 0;
+        top: -12px;
+        height: 12px;
+        width: 12px;
+        background: url('/assets/smallCurve.svg') no-repeat;
+        background-size: cover;
+        transform: rotate(-90deg);
+        @include breakpoint(large) {
+          top: -24px;
+          height: 24px;
+          width: 24px;
+        }
       }
     }
 
@@ -136,8 +179,8 @@
     &_image {
       margin: 0 auto 0 auto;
       width: 100%;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
+      // border-bottom-left-radius: 16px;
+      // border-bottom-right-radius: 16px;
       object-fit: cover;
     }
   }

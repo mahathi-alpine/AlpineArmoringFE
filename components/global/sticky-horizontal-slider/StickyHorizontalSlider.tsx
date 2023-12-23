@@ -47,7 +47,7 @@ const StickyHorizontalSlider = ({ props }) => {
     >
       <div className={`${styles.stickyHorizontalSlider_sticky}`}>
         <div className={`${styles.stickyHorizontalSlider_heading}`}>
-          <h2 className={`c-title block-reveal observe`}>
+          <h2 className={`c-title fade-in-up observe`}>
             <span>Latest News</span>
           </h2>
         </div>
@@ -78,7 +78,7 @@ const StickyHorizontalSlider = ({ props }) => {
                   </h5>
                   {/* <p className={`${styles.stickyHorizontalSlider_item_description}`}>{ item.description }</p> */}
                   <p className={`${styles.stickyHorizontalSlider_item_date}`}>
-                    OCT 14, 2023
+                    {item.subtitle}
                   </p>
                 </div>
               </div>

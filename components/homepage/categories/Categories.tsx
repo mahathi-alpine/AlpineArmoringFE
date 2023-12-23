@@ -21,55 +21,52 @@ const Categories = ({ props, allVehiclesImage }) => {
               key={item.id}
             >
               {data.image.data ? (
-                // <Image
-                //   src={`${API_URL}${data.image.data.attributes.url}`}
-                //   alt="Description of the image"
-                //   width={608}
-                //   height={236}
-                //   quality={100}
-                //   className={`${styles.categories_item_image}`}
-                // />
                 <Image
                   src={`${data.image.data.attributes.url}`}
                   alt="Description of the image"
-                  width={608}
-                  height={236}
+                  width={912}
+                  height={355}
                   quality={100}
                   className={`${styles.categories_item_image}`}
                 />
               ) : null}
 
               <div className={`${styles.categories_item_content}`}>
-                {data.title ? (
-                  <h3 className={`${styles.categories_item_title}`}>
-                    {data.title}
-                  </h3>
-                ) : null}
 
-                <div className={`${styles.categories_item_buttons}`}>
-                  <Button
-                    href={`/inventory?category=${data.slug}`}
-                    className="primary button_small button-shiny"
-                  >
-                    Available Now
-                  </Button>
+                <div className={`${styles.categories_item_content_inner}`}>
+                  {data.title ? (
+                    <h3 className={`${styles.categories_item_title}`}>
+                      {data.title}
+                    </h3>
+                  ) : null}
 
-                  {/* <Image
-                  src={'/assets/logoAlpine.png'}
-                  alt="Logo Alpine"
-                  width={37}
-                  height={44}
-                  quality={100}
-                  className={`${styles.categories_item_buttons_logo} desktop-only`}
-                /> */}
+                  <div className={`${styles.categories_item_buttons}`}>
+                    <Button
+                      href={`/inventory?category=${data.slug}`}
+                      className="primary button_small button-shiny"
+                    >
+                      Available Now
+                    </Button>
 
-                  <Button
-                    href={`/vehicles-we-armor?category=${data.slug}`}
-                    className="button_small button-shiny"
-                  >
-                    {data.title.replace('Armored ', '')} we armor
-                  </Button>
+                    {/* <Image
+                    src={'/assets/logoAlpine.png'}
+                    alt="Logo Alpine"
+                    width={37}
+                    height={44}
+                    quality={100}
+                    className={`${styles.categories_item_buttons_logo} desktop-only`}
+                  /> */}
+
+                    <Button
+                      href={`/vehicles-we-armor?category=${data.slug}`}
+                      className="button_small button-shiny"
+                    >
+                      {data.title.replace('Armored ', '')} we armor
+                    </Button>
+                  </div>
+
                 </div>
+
               </div>
             </div>
           );
@@ -77,52 +74,38 @@ const Categories = ({ props, allVehiclesImage }) => {
 
         <div className={`${styles.categories_item} observe fade-in-up`}>
           {allVehiclesImage ? (
-            // <Image
-            //   src={`${API_URL}${allVehiclesImage.url}`}
-            //   alt="Description of the image"
-            //   width={608}
-            //   height={236}
-            //   quality={100}
-            //   className={`${styles.categories_item_image}`}
-            // />
             <Image
               src={`${allVehiclesImage.url}`}
               alt="Description of the image"
-              width={608}
-              height={236}
+              width={912}
+              height={355}
               quality={100}
               className={`${styles.categories_item_image}`}
             />
           ) : null}
 
           <div className={`${styles.categories_item_content}`}>
-            <h3 className={`${styles.categories_item_title}`}>
-              All Armored Vehicles
-            </h3>
+            
+            <div className={`${styles.categories_item_content_inner}`}>
+              <h3 className={`${styles.categories_item_title}`}>
+                All Armored Vehicles
+              </h3>
 
-            <div className={`${styles.categories_item_buttons}`}>
-              <Button
-                href={`/inventory`}
-                className="primary button_small button-shiny"
-              >
-                Available Now
-              </Button>
+              <div className={`${styles.categories_item_buttons}`}>
+                <Button
+                  href={`/inventory`}
+                  className="primary button_small button-shiny"
+                >
+                  Available Now
+                </Button>
 
-              {/* <Image
-              src={'/assets/logoAlpine.png'}
-              alt="Logo Alpine"
-              width={37}
-              height={44}
-              quality={100}
-              className={`${styles.categories_item_buttons_logo} desktop-only`}
-            /> */}
-
-              <Button
-                href={`/vehicles-we-armor`}
-                className="button_small button-shiny"
-              >
-                All Vehicles We Armor
-              </Button>
+                <Button
+                  href={`/vehicles-we-armor`}
+                  className="button_small button-shiny"
+                >
+                  All Vehicles We Armor
+                </Button>
+              </div>
             </div>
           </div>
         </div>
