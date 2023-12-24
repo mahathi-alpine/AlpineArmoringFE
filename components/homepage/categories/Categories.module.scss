@@ -118,11 +118,6 @@
         width: 12px;
         background: url('/assets/smallCurve.svg') no-repeat;
         background-size: cover;
-        @include breakpoint(large) {
-          top: -24px;
-          height: 24px;
-          width: 24px;
-        }
       }
       &:after {
         position: absolute;
@@ -134,11 +129,6 @@
         background: url('/assets/smallCurve.svg') no-repeat;
         background-size: cover;
         transform: rotate(-90deg);
-        @include breakpoint(large) {
-          top: -24px;
-          height: 24px;
-          width: 24px;
-        }
       }
     }
 

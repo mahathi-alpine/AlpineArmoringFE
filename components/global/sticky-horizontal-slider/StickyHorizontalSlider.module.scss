@@ -62,9 +62,12 @@
   &_item {
     margin-left: rem(16);
     min-width: 280px;
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       margin-left: rem(24);
       min-width: 36vw;
+    }
+    @include breakpoint(large) {
+      margin-left: rem(24);
       flex-shrink: 0;
     }
     &:last-child {

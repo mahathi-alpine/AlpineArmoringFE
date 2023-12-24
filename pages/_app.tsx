@@ -56,7 +56,6 @@ function MyApp({ Component, pageProps }) {
       <Header
         setNavOpen={setNavOpen}
         isNavOpen={isNavOpen}
-        className="header--white"
       />
       <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
       <Component {...pageProps} />

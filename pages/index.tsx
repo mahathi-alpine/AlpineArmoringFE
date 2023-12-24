@@ -8,8 +8,10 @@ import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/global/tab-section/TabSection';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Partners from 'components/homepage/partners/Partners';
+import VideosPopup from 'components/global/videos-popup/VideosPopup';
 
 function Home({ homepageData, categories }) {
+
   const topBanner = homepageData.data?.attributes.topBanner;
   const categoriesData = categories?.data;
   const tabSectionData = homepageData.data?.attributes.tabSection;
@@ -61,6 +63,8 @@ function Home({ homepageData, categories }) {
         )}
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
+
+        <VideosPopup />
 
         {horizontalSlider ? (
           <StickyHorizontalSlider props={horizontalSlider} />

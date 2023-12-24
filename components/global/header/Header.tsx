@@ -10,7 +10,7 @@ import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
-  // const [isScrolling, setIsScrolling] = React.useState(false);
+    const [hState,sethState] = React.useState("-top")
 
   useEffect(() => {
     if (isNavOpen) {
@@ -20,17 +20,16 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
     }
   }, [isNavOpen]);
 
-  // useEffect(() => {
-  //   const checkScroll = () => {
-  //     setIsScrolling(window.scrollY > 0);
-  //   };
-
-  //   window.addEventListener('scroll', checkScroll);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', checkScroll);
-  //   };
-  // }, []);
+  useEffect(()=>{
+    let lastVal = 0
+    window.onscroll = function(){
+      const y = window.scrollY
+      if(y > lastVal){sethState("down")}
+      if(y < lastVal) {sethState("up")}
+      if(y === 0) {sethState("top")}
+      lastVal = y
+    }        
+  },[])
 
   const classNames = className
     ?.split(' ')
@@ -42,6 +41,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
       className={`
         ${styles.header} 
         ${classNames} 
+        ${styles[hState]}
         ${isNavOpen ? styles.header_navOpen : ''}
       `}
       // ${isScrolling ? styles.header_sticky : ''}

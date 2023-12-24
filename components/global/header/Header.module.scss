@@ -7,15 +7,18 @@
   left: 0;
   right: 0;
   z-index: 3;
-  // transition: background-color .2s ease-in-out;
-  background-color: var(--color-dark);
+  background-color: rgba(23,23,23,.5);
+  backdrop-filter: blur(10px);
+  color: white;
+  transition: transform .4s ease-in-out;
+  // background-color: var(--color-dark);
 
-  @include breakpoint('large') {
-    height: unset;
-  }
+  // @include breakpoint('large') {
+  //   height: unset;
+  // }
 
-  &.header--white {
-    color: white;
+  &.down{
+    transform: translateY(-100px);
   }
 
   // &_sticky{
