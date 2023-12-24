@@ -12,6 +12,7 @@ import YoutubeIcon from 'components/icons/Youtube';
 import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
+import SearchIcon from 'components/icons/Search';
 
 const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
     { path: '/shipping', text: 'Shipping and Logistics' },
     { path: '/parts', text: 'Parts and Accessories' },
     { path: '/dealer', text: 'Become a Dealer' },
+    { path: '/contact', text: 'Contact' },
   ];
 
   return (
@@ -90,7 +92,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
           </ul>
         </div>
 
-        <div className={`${styles.navigationPopup_bottom}`}>
+        <div className={`${styles.navigationPopup_info}`}>
           <div className={`${styles.navigationPopup_contact}`}>
             <Link 
               href="tel:+17034710002" 
@@ -112,6 +114,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
               Chantilly, Virginia, USA
             </Link>
           </div>
+
           <ul className={`${styles.navigationPopup_socials}`}>
             <li className={`${styles.navigationPopup_socials_item}`}>
               <Link href="https://www.facebook.com/AlpineArmoring/" target="_blank">
@@ -139,6 +142,11 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
               </Link>
             </li>
           </ul>
+        </div>
+
+        <div className={`${styles.navigationPopup_bottom} mobile-only`}>
+          <SearchIcon className={`${styles.navigationPopup_bottom_search}`} />
+          <div className={`${styles.navigationPopup_bottom_lang}`}>EN</div>
         </div>
       </div>
     </nav>

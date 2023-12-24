@@ -91,6 +91,12 @@
     .navigationPopup_list_right & {
       font-size: rem(16);
       font-weight: var(--font-regular);
+
+      @include breakpoint(large) {  
+        &:last-child{
+          display: none;
+        }
+      }
     }
 
     &_active {
@@ -131,7 +137,7 @@
     }
   }
 
-  &_bottom {
+  &_info {
     align-items: center;
     flex-flow: column;
     padding: rem(8) 0;
@@ -207,6 +213,23 @@
           transition: fill .3s ease;
         }
       }
+    }
+  }
+
+  &_bottom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding-bottom: rem(16);
+
+    &_search {
+      width: 20px;
+      height: 20px;
+    }
+  
+    &_lang {
+      font-weight: 500;
     }
   }
 }
