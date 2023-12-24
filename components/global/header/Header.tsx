@@ -13,10 +13,15 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
     const [hState,sethState] = React.useState("-top")
 
   useEffect(() => {
-    if (isNavOpen) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
+    const windowWidth = window.innerWidth;
+    if (windowWidth < 1280) {
+      if (isNavOpen) {
+        // document.body.style.marginRight = (window.innerWidth - document.body.offsetWidth) + 'px';
+        document.body.classList.add('no-scroll');
+      } else {
+        // document.body.style.marginRight = '0';
+        document.body.classList.remove('no-scroll');
+      }
     }
   }, [isNavOpen]);
 

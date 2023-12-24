@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import React from 'react';
 import Link from 'next/link';
 import { NavigationProps } from 'types';
 import styles from './NavigationPopup.module.scss';
@@ -91,42 +92,49 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
 
         <div className={`${styles.navigationPopup_bottom}`}>
           <div className={`${styles.navigationPopup_contact}`}>
-            <Link href="/" className={`${styles.navigationPopup_contact_item}`}>
+            <Link 
+              href="tel:+17034710002" 
+              className={`${styles.navigationPopup_contact_item}`} 
+            >
               <PhoneIcon />
               1.703.471.0002
             </Link>
-            <Link href="/" className={`${styles.navigationPopup_contact_item}`}>
+            <Link 
+              href="mailto:sales@alpineco.com" 
+              className={`${styles.navigationPopup_contact_item}`} 
+            >
               <MailIcon />
               sales@AlpineCo.com
             </Link>
-            <Link href="/" className={`${styles.navigationPopup_contact_item}`}>
+
+            <Link href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA" target="_blank" className={`${styles.navigationPopup_contact_item}`}>
               <MapIcon />
               Chantilly, Virginia, USA
             </Link>
           </div>
           <ul className={`${styles.navigationPopup_socials}`}>
-            <li className={`${styles.footer_socials_item}`}>
-              <Link href="/">
+            <li className={`${styles.navigationPopup_socials_item}`}>
+              <Link href="https://www.facebook.com/AlpineArmoring/" target="_blank">
                 <FacebookIcon color="white" />
               </Link>
             </li>
-            <li className={`${styles.footer_socials_item}`}>
-              <Link href="/">
+            <li className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_tiktok}`}>
+              <Link href="https://www.tiktok.com/@alpinearmoring" target="_blank">
                 <TiktokIcon color="white" />
               </Link>
             </li>
-            <li className={`${styles.footer_socials_item}`}>
-              <Link href="/">
+            <li className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_x}`}>
+              <Link href="https://twitter.com/AlpineArmoring" target="_blank">
                 <XIcon color="white" />
               </Link>
             </li>
-            <li className={`${styles.footer_socials_item}`}>
-              <Link href="/">
+            <li className={`${styles.navigationPopup_socials_item}`}>
+              <Link href="https://www.instagram.com/alpinearmoring/" target="_blank">
                 <InstagramIcon color="white" />
               </Link>
             </li>
-            <li className={`${styles.footer_socials_item}`}>
-              <Link href="/">
+            <li className={`${styles.navigationPopup_socials_item}`}>
+              <Link href="https://www.youtube.com/c/AlpineArmoring" target="_blank">
                 <YoutubeIcon color="white" />
               </Link>
             </li>

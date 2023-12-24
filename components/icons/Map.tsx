@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from 'types';
 
-const MapIcon = ({ color, className }: IconProps) => {
+const MapIcon = ({ color, className, onMouseOver, onMouseOut }: IconProps) => {
   return (
     <svg
       className={className}
@@ -9,6 +9,8 @@ const MapIcon = ({ color, className }: IconProps) => {
       width="20"
       viewBox="0 0 30 30"
       xmlns="http://www.w3.org/2000/svg"
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
     >
       <path
         fill={`${color ? color : '#fff'}`}

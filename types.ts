@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 export interface IconProps {
   className?: string;
   color?: string;
+  onMouseOver?: () => void;
+  onMouseOut?: () => void;
 }
 
 export interface ButtonProps {
