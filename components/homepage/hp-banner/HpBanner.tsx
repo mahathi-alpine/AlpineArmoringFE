@@ -1,15 +1,18 @@
 import React from 'react';
+import useEffectOnce from '/hooks/useEffectOnce';
 import styles from './HpBanner.module.scss';
-// import Button from 'components/global/button/Button';
-import { useEffect } from 'react';
 
 interface HPBannerProps {
-  props: any;
-  error?: any;
-}
+  props: {
+    subtitle: string;
+    title: string;
+  };
+  error?: Error;
+ }
 
 const HpBanner = ({ props }: HPBannerProps) => {
-  useEffect(() => {
+  
+  useEffectOnce(() => {
     function stepAnimateText(props, animation, delay) {
       props.forEach((text) => {
         const string = text.innerHTML;

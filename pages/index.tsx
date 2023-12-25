@@ -50,7 +50,7 @@ function Home({ homepageData, categories }) {
   }, []);
 
   return (
-    <div>
+    <>
       {topBanner ? <HpBanner props={topBanner} /> : null}
 
       <div className="background-dark">
@@ -76,7 +76,7 @@ function Home({ homepageData, categories }) {
       </div>
 
       {partners ? <Partners props={partners} /> : null}
-    </div>
+    </>
   );
 }
 

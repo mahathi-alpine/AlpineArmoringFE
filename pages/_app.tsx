@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
-import '../styles/globals.scss';
-// import Layout from '../components/global/Layout';
+import '/styles/globals.scss';
 import localFont from 'next/font/local';
-import Header from '../components/global/header/Header';
-import NavigationPopup from 'components/global/navigation/NavigationPopup';
-import Footer from '../components/global/footer/Footer';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import Layout from '../components/Layout';
 
 const termina = localFont({
   src: [
@@ -47,23 +42,12 @@ const termina = localFont({
   ],
 });
 
-function MyApp({ Component, pageProps }) {
-  const [isNavOpen, setNavOpen] = useState(false);
-
+export default function App({ Component, pageProps }) {
   return (
-    // <Layout>
-    <main className={termina.className}>
-      <Header
-        setNavOpen={setNavOpen}
-        isNavOpen={isNavOpen}
-      />
-      <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
-      <Component {...pageProps} />
-      <Footer />
-      <SpeedInsights />
-    </main>
-    // </Layout>
-  );
+    <Layout>
+      <main className={termina.className}>
+        <Component {...pageProps} />
+      </main>
+   </Layout>
+  )
 }
-
-export default MyApp;
