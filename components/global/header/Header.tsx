@@ -10,7 +10,7 @@ import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
-    const [hState,sethState] = React.useState("-top")
+  const [hState,sethState] = React.useState("-top");
 
   useEffect(() => {
     const windowWidth = window.innerWidth;
@@ -52,6 +52,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
       // ${isScrolling ? styles.header_sticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
+
         <div
           className={`${styles.header_logo}`}
           onClick={() => setNavOpen(false)}
@@ -80,7 +81,15 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
 
           <SearchIcon className={`${styles.header_search} desktop-only`} />
 
-          <div className={`${styles.header_lang} desktop-only`}>EN</div>
+          <div className={`${styles.header_lang} desktop-only`}>
+            <div className={`${styles.header_lang_current}`}>EN</div>
+            {/* <div className={`${styles.header_lang_wrap}`}>
+              <ul className={`${styles.header_lang_wrap_list}`}>
+                <li>FR</li>
+                <li>BR</li>
+              </ul>              
+            </div> */}
+          </div>
 
           <div
             className={`${styles.header_burger}`}
