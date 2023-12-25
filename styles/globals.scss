@@ -10,6 +10,7 @@ body {
   font-family: Termina, sans-serif;
   background: var(--color-background);
   color: var(--color-text);
+  top: 0 !important;
 }
 
 .no-scroll {
@@ -162,4 +163,8 @@ img {
     margin-bottom: rem(48);
     font-size: rem(36);
   }
+}
+
+.skiptranslate {
+  display: none !important;
 }

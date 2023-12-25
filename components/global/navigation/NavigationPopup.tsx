@@ -13,6 +13,7 @@ import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
 import SearchIcon from 'components/icons/Search';
+import { LanguageSwitcher } from "components/global/lang-switcher/LangSwitcher";
 
 const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();
@@ -146,7 +147,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
 
         <div className={`${styles.navigationPopup_bottom} mobile-only`}>
           <SearchIcon className={`${styles.navigationPopup_bottom_search}`} />
-          <div className={`${styles.navigationPopup_bottom_lang}`}>EN</div>
+          <LanguageSwitcher />
         </div>
       </div>
     </nav>

@@ -8,6 +8,7 @@ import styles from './Header.module.scss';
 import { useEffect } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
+import { LanguageSwitcher } from "components/global/lang-switcher/LangSwitcher";
 
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
   const [hState,sethState] = React.useState("-top");
@@ -81,15 +82,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
 
           <SearchIcon className={`${styles.header_search} desktop-only`} />
 
-          <div className={`${styles.header_lang} desktop-only`}>
-            <div className={`${styles.header_lang_current}`}>EN</div>
-            {/* <div className={`${styles.header_lang_wrap}`}>
-              <ul className={`${styles.header_lang_wrap_list}`}>
-                <li>FR</li>
-                <li>BR</li>
-              </ul>              
-            </div> */}
-          </div>
+          <LanguageSwitcher className={`desktop-only`} />
 
           <div
             className={`${styles.header_burger}`}

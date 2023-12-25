@@ -1,6 +1,7 @@
 import '/styles/globals.scss';
 import localFont from 'next/font/local';
 import Layout from '../components/Layout';
+import Script from 'next/script';
 
 const termina = localFont({
   src: [
@@ -44,10 +45,22 @@ const termina = localFont({
 
 export default function App({ Component, pageProps }) {
   return (
-    <Layout>
-      <main className={termina.className}>
-        <Component {...pageProps} />
-      </main>
-   </Layout>
+    <>        
+      <Script
+        src="/translation.js"
+        strategy="afterInteractive"
+      />
+      {process.env.GOOGLE_TRANSLATION_CONFIG && (
+        <Script
+          src="//translate.google.com/translate_a/element.js?cb=TranslateInit"
+          strategy="afterInteractive"
+        />
+      )}
+      <Layout>
+        <main className={termina.className}>
+          <Component {...pageProps} />
+        </main>
+      </Layout>
+    </>
   )
 }
