@@ -44,7 +44,7 @@ export const LanguageSwitcher = ({ context, className }: LanguageSwitcherProps =
       )}
 
       <ul className={`${styles.langSwitcher_wrap}`}>
-        {otherLanguagesDiv.map((ld: LanguageDescriptor, i: number) => (
+        {otherLanguagesDiv.map((ld: LanguageDescriptor) => (
           <li key={`l_s_${ld.name}`}>
             <a onClick={switchLanguage(ld.name)} className={`${styles.langSwitcher_item}`}>
               <Image

@@ -1,10 +1,11 @@
 import styles from './IntroText.module.scss';
 import { useEffect, useRef } from 'react';
+import useEffectOnce from '/hooks/useEffectOnce';
 
 const IntroText = () => {
   const introTextRef = useRef(null);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     let spans = [];
     let htmlString = '';
     const pArray = introTextRef.current.textContent.split('');
@@ -46,7 +47,7 @@ const IntroText = () => {
   });
 
   return (
-    <div className={`${styles.introText} container`}>
+    <div className={`${styles.introText} notranslate container`}>
       {/* <TextReveal text="Alpine" /> */}
 
       <div className={`${styles.introText_content}`}>

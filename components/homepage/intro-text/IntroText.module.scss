@@ -2,6 +2,7 @@
   padding-top: rem(100);
   padding-bottom: rem(100);
   color: white;
+  overflow: hidden;
 
   @include breakpoint(large) {
     padding-bottom: rem(200);

@@ -6,9 +6,10 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
+
   return (
     <div className={`${styles.listing} background-dark`}>
-      {props.topBanner ? <ListingBanner props={props.topBanner} /> : null}
+      {props.topBanner?.bannerImage? <ListingBanner props={props.topBanner} /> : null}
 
       <div className="shape-after">
         <span style={{ background: '#2B2B2B' }}></span>
