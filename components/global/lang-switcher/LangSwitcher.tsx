@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import useLanguageSwitcher, {
   LanguageDescriptor,
-} from "/hooks/useLanguageSwitcher";
+} from "hooks/useLanguageSwitcher";
 import styles from './LangSwitcher.module.scss';
 import Image from 'next/image';
 import React from "react";
