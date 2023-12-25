@@ -1,6 +1,6 @@
 import styles from './IntroText.module.scss';
 import { useRef } from 'react';
-import useEffectOnce from '/hooks/useEffectOnce';
+import useEffectOnce from 'hooks/useEffectOnce';
 
 const IntroText = () => {
   const introTextRef = useRef(null);

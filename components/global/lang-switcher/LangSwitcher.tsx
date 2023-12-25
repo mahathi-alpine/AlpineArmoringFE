@@ -33,7 +33,7 @@ export const LanguageSwitcher = ({ context, className }: LanguageSwitcherProps =
       {currentLanguageDiv && (
         <div className={`${styles.langSwitcher_current}`}>
           <Image
-            src={`${currentLanguageDiv.flag}`}
+            src={`${currentLanguageDiv?.flag}`}
             alt="Alpine Armoring"
             width={30}
             height={16}

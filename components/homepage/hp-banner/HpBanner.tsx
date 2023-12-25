@@ -1,5 +1,5 @@
 import React from 'react';
-import useEffectOnce from '/hooks/useEffectOnce';
+import useEffectOnce from 'hooks/useEffectOnce';
 import styles from './HpBanner.module.scss';
 
 interface HPBannerProps {
