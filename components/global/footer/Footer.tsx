@@ -11,6 +11,19 @@ import MailIcon from 'components/icons/Mail';
 import Link from 'next/link';
 
 const Footer = () => {
+
+  const links = [
+    { path: '/about', text: 'Home' },
+    { path: '/inventory', text: 'Make & Models' },
+    { path: '/vehicles-we-armor', text: 'Rental & Lease' },
+    { path: '/vehicles-we-armor', text: 'Ballistic chart' },
+    { path: '/vehicles-we-armor', text: 'Become a Dealer' },
+    { path: '/vehicles-we-armor', text: 'Pre-Owned - Stock Vehicles' },
+    { path: '/vehicles-we-armor', text: 'Testimonials' },
+    { path: '/vehicles-we-armor', text: 'Special of the Month' },
+    { path: '/vehicles-we-armor', text: 'Contact' }
+  ];
+
   return (
     <footer className={`${styles.footer} container`}>
       <div className={`${styles.footer_top}`}>
@@ -27,19 +40,19 @@ const Footer = () => {
             <h3 className={`${styles.footer_column_title}`}>Contact</h3>
             <ul className={`${styles.footer_column_list}`}>
               <li>
-                <Link href="/" className={`${styles.footer_column_list_item}`}>
+                <Link href="tel:+17034710002" className={`${styles.footer_column_list_item}`}>
                   <PhoneIcon color="#2d2d27" />
                   1.703.471.0002
                 </Link>
               </li>
               <li>
-                <Link href="/" className={`${styles.footer_column_list_item}`}>
+                <Link href="mailto:sales@alpineco.com" className={`${styles.footer_column_list_item}`}>
                   <MailIcon color="#2d2d27" />
                   sales@AlpineCo.com
                 </Link>
               </li>
               <li>
-                <Link href="/" className={`${styles.footer_column_list_item}`}>
+                <Link href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA" target="_blank" className={`${styles.footer_column_list_item}`}>
                   <MapIcon color="#2d2d27" />
                   Chantilly, Virginia, USA
                 </Link>
@@ -52,31 +65,32 @@ const Footer = () => {
               FOLLOW US ON SOCIALS
             </h3>
             <ul className={`${styles.footer_socials}`}>
+              
               <li className={`${styles.footer_socials_item}`}>
-                <Link href="/">
+                <Link href="https://www.facebook.com/AlpineArmoring/" target="_blank">
                   <FacebookIcon />
                 </Link>
               </li>
-              <li className={`${styles.footer_socials_item}`}>
-                <Link href="/">
+              <li className={`${styles.footer_socials_item} ${styles.footer_socials_item_tiktok}`}>
+                <Link href="https://www.tiktok.com/@alpinearmoring" target="_blank">
                   <TiktokIcon />
                 </Link>
               </li>
-              <li className={`${styles.footer_socials_item}`}>
-                <Link href="/">
+              <li className={`${styles.footer_socials_item} ${styles.footer_socials_item_x}`}>
+                <Link href="https://twitter.com/AlpineArmoring" target="_blank">
                   <XIcon />
                 </Link>
               </li>
               <li className={`${styles.footer_socials_item}`}>
-                <Link href="/">
+                <Link href="https://www.instagram.com/alpinearmoring/" target="_blank">
                   <InstagramIcon />
                 </Link>
               </li>
               <li className={`${styles.footer_socials_item}`}>
-                <Link href="/">
+                <Link href="https://www.youtube.com/c/AlpineArmoring" target="_blank">
                   <YoutubeIcon />
                 </Link>
-              </li>
+              </li>             
             </ul>
           </div>
         </div>
@@ -84,35 +98,13 @@ const Footer = () => {
         <div className={`${styles.footer_column}`}>
           <h3 className={`${styles.footer_column_title}`}>QUICK LINKS</h3>
           <ul
-            className={`${styles.footer_column_list} ${styles.footer_column_nav}`}
+            className={`${styles.footer_column_list} ${styles.footer_nav}`}
           >
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Home</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Make & Models</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Rental & Lease</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Ballistic chart</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Become a Dealer</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Pre-Owned - Stock Vehicles</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Testimonials</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Special of the Month</Link>
-            </li>
-            <li className={`${styles.footer_column_list_item}`}>
-              <Link href="/">Contact</Link>
-            </li>
+            {links.map((link, index) => (
+              <li className={`${styles.footer_nav_item}`} key={index}>
+                <Link href={link.path} className={`${styles.footer_nav_link}`}>{link.text}</Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

@@ -14,20 +14,20 @@
     height: 100%;
     overflow: hidden;
 
-    &:before {
-      position: absolute;
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 70%;
-      background: linear-gradient(
-        0,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 1) 100%
-      );
-      z-index: 1;
-    }
+    // &:before {
+    //   position: absolute;
+    //   content: '';
+    //   left: 0;
+    //   top: 0;
+    //   right: 0;
+    //   bottom: 70%;
+    //   background: linear-gradient(
+    //     0,
+    //     rgba(0, 0, 0, 0) 0%,
+    //     rgba(0, 0, 0, 1) 100%
+    //   );
+    //   z-index: 1;
+    // }
     &:after {
       position: absolute;
       content: '';

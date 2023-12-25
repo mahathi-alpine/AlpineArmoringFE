@@ -58,23 +58,39 @@
         align-items: center;
         gap: 16px;
         margin-bottom: rem(16);
-      }
-    }
-    &_nav {
-      @include breakpoint(large) {
-        display: flex;
-        flex-wrap: wrap;
-        .footer_column_list_item {
-          width: 50%;
+        @include breakpoint(medium) {
+          &:hover{
+            color: var(--color-primary);
+            svg path{
+              fill: var(--color-primary)
+            }
+          }
+          svg path{
+            transition: fill .3s ease;
+          }
         }
       }
-      .footer_column_list_item {
-        position: relative;
-        // &:hover{
-        //   &:after {
-        //     transform: scaleX(1);
-        //   }
-        // }
+    }
+  }
+
+  &_nav {
+    @include breakpoint(large) {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+
+    &_item {
+      position: relative;
+      
+      @include breakpoint(large) {
+        width: 50%;
+      }
+    }
+
+    &_link{
+      position: relative;   
+      @include breakpoint(large) {
         &:after {
           position: absolute;
           content: '';
@@ -87,13 +103,44 @@
           transform-origin: left;
           transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
         }
+    
+        &:hover {
+          &:after {
+            transform: scaleX(1);
+          }
+        }
       }
     }
   }
+
   &_socials {
     display: flex;
     justify-content: space-between;
     max-width: 315px;
+    @include breakpoint(medium) {
+      &_item{
+        svg path,
+        svg rect{
+          transition: fill .3s ease, stroke .3s ease;
+        }
+        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x):hover{
+          svg path{
+            fill: var(--color-primary);
+          }
+        }
+        &_tiktok:hover{
+          svg rect{
+            fill: var(--color-primary);
+          }
+        }
+        &_x:hover{
+          svg path:first-child{
+            fill: var(--color-primary);
+            stroke: var(--color-primary);
+          }
+        }
+      }
+    }
   }
 
   &_bottom {
@@ -117,9 +164,30 @@
         gap: 40px;
       }
       &_item {
+        position: relative;
         margin-bottom: rem(20);
+
         @include breakpoint(large) {
           margin-bottom: 0;
+
+          &:after {
+            position: absolute;
+            content: '';
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 2px;
+            background: var(--color-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+          }
+      
+          &:hover {
+            &:after {
+              transform: scaleX(1);
+            }
+          }
         }
       }
     }

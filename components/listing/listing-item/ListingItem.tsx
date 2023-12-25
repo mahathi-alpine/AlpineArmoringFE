@@ -19,12 +19,14 @@ const InventoryItem = ({ props, stock }: InventoryItemProps) => {
     >
       <Link href={`${stock ? 'inventory' : 'vehicles-we-armor'}/${data.slug}`}>
         <div className={`${styles.inventory_item_image}`}>
-          <Image
-            src={`${data.featuredImage.data.attributes.url}`}
-            alt="Description of the image"
-            width={475}
-            height={320}
-          />
+          {data.featuredImage.data ? (
+            <Image
+              src={`${data.featuredImage.data.attributes.url}`}
+              alt="Description of the image"
+              width={475}
+              height={320}
+            />
+          ) : null}
         </div>
         <div className={`${styles.inventory_item_content}`}>
           <h2 className={`${styles.inventory_item_title}`}>{data.title}</h2>

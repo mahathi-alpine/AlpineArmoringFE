@@ -157,7 +157,6 @@
     margin-top: rem(24);
     @include breakpoint(medium) {
       &_item{
-        color: red;
         svg path,
         svg rect{
           transition: fill .3s ease, stroke .3s ease;
