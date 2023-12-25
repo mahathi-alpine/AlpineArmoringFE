@@ -39,7 +39,7 @@ export const LanguageSwitcher = ({ context, className }: LanguageSwitcherProps =
             height={16}
             className={`${styles.langSwitcher_flag}`}
           />
-          <span className="">{currentLanguage}</span>
+          <span className="">{currentLanguageDiv.name}</span>
         </div>
       )}
 

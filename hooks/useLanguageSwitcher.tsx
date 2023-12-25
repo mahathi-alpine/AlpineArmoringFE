@@ -7,6 +7,7 @@ export const COOKIE_NAME = "googtrans";
 export interface LanguageDescriptor {
   name: string;
   title: string;
+  flag: string;
 }
 
 export interface LanguageConfig {
