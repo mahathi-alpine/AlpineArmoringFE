@@ -106,7 +106,10 @@
     clip-path: url(#marker);
     height: 300px;
     max-height: 120px;
-    transition: clip-path 2s ease,  0.4s ease, max-height 0.4s ease;
+    transition:
+      clip-path 2s ease,
+      0.4s ease,
+      max-height 0.4s ease;
 
     .videoPopup_open & {
       clip-path: circle(100vh at center);
