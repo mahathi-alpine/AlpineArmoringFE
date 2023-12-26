@@ -48,22 +48,25 @@ export async function getServerSideProps(context) {
     topBanner = topBanner.data || null;
   }
 
-  let vehicles = {};
-  if (context.query.vehicles_we_armor) {
-    vehicles = await getPageData({
-      route: 'inventories',
-      slug: context.query.vehicles_we_armor,
-      type: '[vehicles_we_armor][slug]',
-    });
-  } else {
-    vehicles = await getPageData({
-      route: 'inventories',
-      slug: context.query.category,
-      type: '[category][slug]',
-    });
-  }
+  // Fetching Vehicles
+  const { category, vehicles_we_armor } = context.query;
 
-  const types = await getPageData({ route: 'categories', order: true });
+  let query = '';
+  if (category) {
+   query += `filters[category][slug][$eq]=${category}`;
+  }
+  if (vehicles_we_armor) {
+   query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
+  }
+  
+  const vehicles = await getPageData({
+   route: 'inventories',
+   params: query
+  });
+
+  // Fetching Categories
+  let types = await getPageData({ route: 'categories', order: true });
+  types = { type: types.data };
 
   return {
     props: { topBanner, vehicles, types },

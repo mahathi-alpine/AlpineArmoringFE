@@ -112,9 +112,7 @@
           transform 0.3s ease-in,
           opacity 0.1s ease-in,
           visibility 0.1s ease-in;
-        // overflow: auto;
       }
-
       &_close {
         position: absolute;
         top: rem(16);
@@ -136,6 +134,14 @@
         }
       }
     }
+    &_inner {
+      @include breakpoint(large) {
+        .sidebar_plain &{
+          display: flex;
+          gap: 32px;
+        }
+      }
+    }
   }
   
   &_top{
@@ -150,9 +156,7 @@
   &_wrap{
     @include breakpoint(large) {
       &_top{
-        &_title{
-          display: none;
-        }
+        display: none;
       }
     }
     &_close {
@@ -343,6 +347,12 @@
     background-size: contain;
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
+
+    @include breakpoint(large) {    
+      .sidebar_plain &{
+        display: none;
+      }
+    }
   }
 }
 

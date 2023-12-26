@@ -11,13 +11,14 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ props, plain }: SidebarProps) => {
+  // console.log(props)
   const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       if(window.innerWidth < 1280){
-        setActiveFilterItem('type');
+        // setActiveFilterItem('type');
       } else {
         setActiveFilterItem('default');
       }
@@ -46,7 +47,8 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
   };
 
   const router = useRouter();
-  const currentFilter = router.query.category;
+  const currentFilterCategory = router.query.category;
+  const currentFilterMake = router.query.make;
 
   const handleClearFilters = () => {
     router.push(
@@ -57,12 +59,41 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
       { scroll: false }
     );
   };
+  
+  const applyFilter = (item, paramKey) => {
+    const newQuery = { ...router.query };
+   
+    // Always remove the vehicles_we_armor parameter
+    delete newQuery['vehicles_we_armor'];
+   
+    if (newQuery[paramKey] === item) {
+    // If the clicked item is the same as the current value, remove it
+      delete newQuery[paramKey];
+    } else {
+    // Otherwise, update the query parameter
+      newQuery[paramKey] = item;
+    }
+
+    if(window.innerWidth < 768){
+      openFilters();
+    } else {
+      activateFilterItem('default');
+    }
+   
+    router.push({
+      pathname: router.pathname,
+      query: newQuery,
+    }, undefined, { scroll: false });
+  };
+   
+   
 
   return (
     <div
       className={`${styles.sidebar}
       ${plain ? `${styles.sidebar_plain}` : ''}
     `}>
+
       <div className={`${styles.sidebar_top}`}>
         <div className={`${styles.sidebar_top_title}`} onClick={openFilters}>
           Filters
@@ -115,31 +146,67 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
               className={`${styles.sidebar_column_title}`}
               onClick={() => activateFilterItem('type')}
             >
-              Type
+              <span>Type</span>
               <ChevronIcon
                 className={`${styles.sidebar_column_chevron}`}
               />
             </h4>
 
             <div className={`${styles.sidebar_column_wrap}`}>
-              {props?.data?.map((item) => (
-                <Link
+              {props?.type?.map((item) => (
+                <div
                   className={`${styles.checkbox_link} ${
-                    item.attributes.slug === currentFilter
+                    item.attributes.slug === currentFilterCategory
                       ? styles.selected_filter
                       : ''
                   }`}
-                  href={`?category=${item.attributes.slug}`}
-                  scroll={false}
+                  onClick={() => applyFilter(item.attributes.slug, 'category')}
                   key={item.id}
                 >
                   <span className={`${styles.checkbox_span}`}>
                     {item.attributes.title}
                   </span>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
+          
+          {props.make ?
+            <div
+              className={`
+              ${styles.sidebar_column}
+              ${'make' === activeFilterItem ? styles.sidebar_column_active : ''}
+            `}
+            >
+              <h4
+                className={`${styles.sidebar_column_title}`}
+                onClick={() => activateFilterItem('make')}
+              >
+                Make
+                <ChevronIcon
+                  className={`${styles.sidebar_column_chevron}`}
+                />
+              </h4>
+
+              <div className={`${styles.sidebar_column_wrap}`}>
+                {props.make.map((item) => (
+                  <div
+                    className={`${styles.checkbox_link} ${
+                      item.attributes.slug === currentFilterMake
+                        ? styles.selected_filter
+                        : ''
+                    }`}
+                    onClick={() => applyFilter(item.attributes.slug, 'make')}
+                    key={item.id}
+                  >
+                    <span className={`${styles.checkbox_span}`}>
+                      {item.attributes.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          : null }
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { API_URL } from 'config/index';
 export async function fetchAPI(path) {
   // const requestUrl = getStrapiURL(path);
   const requestUrl = `${API_URL}${path}`;
-  // console.log(requestUrl)
+  console.log(requestUrl)
   try {
     const [response] = await Promise.all([fetch(requestUrl)]);
     const data = await response.json();
@@ -22,15 +22,16 @@ export async function fetchAPI(path) {
 
 interface PageDataProps {
   route?: string;
-  slug?: string;
+  params?: string;
   type?: string;
   order?: boolean;
 }
 
-export async function getPageData({ route, slug, type, order }: PageDataProps) {
+export async function getPageData({ route, params, type, order }: PageDataProps) {
   const sort = order ? '&sort=order:asc' : '';
-  const query = slug
-    ? `/${route}?filters${type}[$eq]=${slug}&populate=deep${sort}`
+
+  const query = params
+    ? `/${route}?${params}&populate=deep${sort}`
     : `/${route}?populate=deep${sort}`;
 
   const pagesData = await fetchAPI(`/api${query}`);

@@ -8,6 +8,7 @@ import { getPageData } from '../../lib/api';
 function Inventory(props) {
   return (
     <div className={`${styles.listing}`}>
+
       {props.topBanner?.attributes?.bannerImage? <ListingBanner props={props.topBanner} /> : null}
 
       <div className="shape-before">
@@ -15,7 +16,8 @@ function Inventory(props) {
       </div>
 
       <div className={`${styles.listing_wrap} container`}>
-        {props.types ? <Sidebar props={props.types} plain /> : null}
+
+        {props.filters ? <Sidebar props={props.filters} plain /> : null}
 
         {props.vehicles.data ? (
           <div className={`${styles.listing_list}`}>
@@ -49,16 +51,27 @@ export async function getServerSideProps(context) {
     topBanner = topBanner.data;
   }
 
+  let query = '';
+  if (context.query.category) {
+    query += `&filters[category][slug][$eq]=${context.query.category}`;
+  }
+  if (context.query.make) {
+    query += `&filters[make][slug][$eq]=${context.query.make}`;
+  }
+
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
-    slug: context.query.category,
-    type: '[category][slug]',
+    params: query
   });
 
-  const types = await getPageData({ route: 'categories', order: true });
+  let type = await getPageData({ route: 'categories', order: true });
+  type = type.data;
+  let make = await getPageData({ route: 'makes', order: true });
+  make = make.data;
+  const filters = { type, make };
 
   return {
-    props: { topBanner, vehicles, types },
+    props: { topBanner, vehicles, filters },
   };
 }
 
