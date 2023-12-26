@@ -20,6 +20,7 @@
     "eslint-config-prettier": "^9.1.0",
     "next": "latest",
     "next-cloudinary": "^5.15.0",
+    "nookies": "^2.5.2",
     "prettier-eslint": "^16.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
