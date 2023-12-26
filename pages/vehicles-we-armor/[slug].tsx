@@ -55,7 +55,7 @@ export async function getServerSideProps(context) {
     route: 'vehicles-we-armors',
 
     slug: context.params.slug,
-    type: '[slug]',
+    // type: '[slug]',
   });
 
   return {

@@ -8,15 +8,15 @@ import { getPageData } from '../../lib/api';
 function Inventory(props) {
   return (
     <div className={`${styles.listing}`}>
-
-      {props.topBanner?.attributes?.bannerImage? <ListingBanner props={props.topBanner} /> : null}
+      {props.topBanner?.attributes?.bannerImage ? (
+        <ListingBanner props={props.topBanner} />
+      ) : null}
 
       <div className="shape-before">
         <span style={{ background: '#f3f3f3' }}></span>
       </div>
 
       <div className={`${styles.listing_wrap} container`}>
-
         {props.filters ? <Sidebar props={props.filters} plain /> : null}
 
         {props.vehicles.data ? (
@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
     topBanner = await getPageData({
       route: 'categories',
       slug: context.query.category,
-      type: '[slug]',
+      // type: '[slug]',
       order: true,
     });
     topBanner = topBanner.data[0];
@@ -61,7 +61,7 @@ export async function getServerSideProps(context) {
 
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
-    params: query
+    params: query,
   });
 
   let type = await getPageData({ route: 'categories', order: true });

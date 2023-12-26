@@ -46,7 +46,6 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'inventories',
     slug: context.params.slug,
-    type: '[slug]',
   });
 
   return {

@@ -59,14 +59,14 @@
         gap: 16px;
         margin-bottom: rem(16);
         @include breakpoint(medium) {
-          &:hover{
+          &:hover {
             color: var(--color-primary);
-            svg path{
-              fill: var(--color-primary)
+            svg path {
+              fill: var(--color-primary);
             }
           }
-          svg path{
-            transition: fill .3s ease;
+          svg path {
+            transition: fill 0.3s ease;
           }
         }
       }
@@ -82,14 +82,14 @@
 
     &_item {
       position: relative;
-      
+
       @include breakpoint(large) {
         width: 50%;
       }
     }
 
-    &_link{
-      position: relative;   
+    &_link {
+      position: relative;
       @include breakpoint(large) {
         &:after {
           position: absolute;
@@ -103,7 +103,7 @@
           transform-origin: left;
           transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
         }
-    
+
         &:hover {
           &:after {
             transform: scaleX(1);
@@ -118,23 +118,25 @@
     justify-content: space-between;
     max-width: 315px;
     @include breakpoint(medium) {
-      &_item{
+      &_item {
         svg path,
-        svg rect{
-          transition: fill .3s ease, stroke .3s ease;
+        svg rect {
+          transition:
+            fill 0.3s ease,
+            stroke 0.3s ease;
         }
-        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x):hover{
-          svg path{
+        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x):hover {
+          svg path {
             fill: var(--color-primary);
           }
         }
-        &_tiktok:hover{
-          svg rect{
+        &_tiktok:hover {
+          svg rect {
             fill: var(--color-primary);
           }
         }
-        &_x:hover{
-          svg path:first-child{
+        &_x:hover {
+          svg path:first-child {
             fill: var(--color-primary);
             stroke: var(--color-primary);
           }
@@ -182,7 +184,7 @@
             transform-origin: left;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
           }
-      
+
           &:hover {
             &:after {
               transform: scaleX(1);

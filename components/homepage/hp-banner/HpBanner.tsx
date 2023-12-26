@@ -8,10 +8,9 @@ interface HPBannerProps {
     title: string;
   };
   error?: Error;
- }
+}
 
 const HpBanner = ({ props }: HPBannerProps) => {
-  
   useEffectOnce(() => {
     function stepAnimateText(props, animation, delay) {
       props.forEach((text) => {
@@ -33,7 +32,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
       'fadeInDown',
       0.1
     );
-  }, []);
+  });
 
   return (
     <div className={`${styles.hp_banner}`}>

@@ -8,13 +8,17 @@ import { getPageData } from '../../lib/api';
 function Inventory(props) {
   return (
     <div className={`${styles.listing} background-dark`}>
-      {props.topBanner?.attributes?.bannerImage? <ListingBanner props={props.topBanner} overlay={true} /> : null}
+      {props.topBanner?.attributes?.bannerImage ? (
+        <ListingBanner props={props.topBanner} overlay={true} />
+      ) : null}
 
       <div className="shape-after">
         <span style={{ background: '#2B2B2B' }}></span>
       </div>
 
-      <div className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}>
+      <div
+        className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
+      >
         {props.types ? <Sidebar props={props.types} /> : null}
 
         {props.vehicles?.data ? (
@@ -40,7 +44,7 @@ export async function getServerSideProps(context) {
     topBanner = await getPageData({
       route: 'categories',
       slug: context.query.category,
-      type: '[slug]',
+      // type: '[slug]',
     });
     topBanner = topBanner.data[0] || null;
   } else {
@@ -53,15 +57,15 @@ export async function getServerSideProps(context) {
 
   let query = '';
   if (category) {
-   query += `filters[category][slug][$eq]=${category}`;
+    query += `filters[category][slug][$eq]=${category}`;
   }
   if (vehicles_we_armor) {
-   query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
+    query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
   }
-  
+
   const vehicles = await getPageData({
-   route: 'inventories',
-   params: query
+    route: 'inventories',
+    params: query,
   });
 
   // Fetching Categories
