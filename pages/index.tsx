@@ -54,7 +54,8 @@ function Home({ homepageData, categories }) {
       {topBanner ? <HpBanner props={topBanner} /> : null}
 
       <div className="background-dark">
-        <div className="shape-before"></div>
+
+        <div className="shape-before"><span></span></div>
 
         <IntroText />
 

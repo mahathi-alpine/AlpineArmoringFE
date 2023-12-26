@@ -2,19 +2,38 @@ import styles from './Sidebar.module.scss';
 import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const Sidebar = (props) => {
-  const [activeFilterItem, setactiveFilterItem] = useState('type');
+type SidebarProps = {
+  props: any;
+  plain?: any;
+};
+
+const Sidebar = ({ props, plain }: SidebarProps) => {
+  const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if(window.innerWidth < 1280){
+        setActiveFilterItem('type');
+      } else {
+        setActiveFilterItem('default');
+      }
+    };
+  
+    handleResize();
+    window.addEventListener('resize', handleResize);
+  
+    return () => window.removeEventListener('resize', handleResize);
+   }, []);
+
   const activateFilterItem = (slug) => {
-    setactiveFilterItem((current) => (current === slug ? null : slug));
+    setActiveFilterItem((current) => (current === slug ? null : slug));
   };
 
   const openFilters = () => {
-    // setFiltersOpen(filtersOpen => !filtersOpen);
     setFiltersOpen((filtersOpen) => {
       const newValue = !filtersOpen;
       if (newValue) {
@@ -40,11 +59,14 @@ const Sidebar = (props) => {
   };
 
   return (
-    <div className={`${styles.sidebar}`}>
+    <div
+      className={`${styles.sidebar}
+      ${plain ? `${styles.sidebar_plain}` : ''}
+    `}>
       <div className={`${styles.sidebar_top}`}>
         <div className={`${styles.sidebar_top_title}`} onClick={openFilters}>
           Filters
-          <FiltersIcon className={`mobile-only`} />
+          <FiltersIcon />
         </div>
 
         <div
@@ -64,13 +86,13 @@ const Sidebar = (props) => {
       >
         <div className={`${styles.sidebar_wrap_inner}`}>
           <div
-            className={`${styles.sidebar_wrap_close} mobile-only`}
+            className={`${styles.sidebar_wrap_close}`}
             onClick={openFilters}
           >
             X
           </div>
 
-          <div className={`${styles.sidebar_wrap_top} mobile-only`}>
+          <div className={`${styles.sidebar_wrap_top}`}>
             <div className={`${styles.sidebar_wrap_top_title}`}>
               Filters
               <FiltersIcon />
@@ -95,12 +117,12 @@ const Sidebar = (props) => {
             >
               Type
               <ChevronIcon
-                className={`${styles.sidebar_column_chevron} mobile-only`}
+                className={`${styles.sidebar_column_chevron}`}
               />
             </h4>
 
             <div className={`${styles.sidebar_column_wrap}`}>
-              {props.props?.data?.map((item) => (
+              {props?.data?.map((item) => (
                 <Link
                   className={`${styles.checkbox_link} ${
                     item.attributes.slug === currentFilter

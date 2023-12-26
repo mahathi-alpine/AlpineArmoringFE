@@ -1,17 +1,21 @@
 import React from 'react';
 import ListingBanner from 'components/listing/listing-banner/ListingBanner';
 import Sidebar from 'components/listing/sidebar/Sidebar';
-import InventoryItem from 'components/listing/listing-item/ListingItem';
+import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
   return (
     <div className={`${styles.listing}`}>
-      {props.topBanner ? <ListingBanner props={props.topBanner} /> : null}
+      {props.topBanner?.attributes?.bannerImage? <ListingBanner props={props.topBanner} /> : null}
+
+      <div className="shape-before">
+        <span style={{ background: '#f3f3f3' }}></span>
+      </div>
 
       <div className={`${styles.listing_wrap} container`}>
-        <Sidebar props={props.types} />
+        {props.types ? <Sidebar props={props.types} plain /> : null}
 
         {props.vehicles.data ? (
           <div className={`${styles.listing_list}`}>

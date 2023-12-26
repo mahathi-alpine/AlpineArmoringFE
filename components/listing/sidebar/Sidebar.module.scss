@@ -1,20 +1,44 @@
 .sidebar {
   color: white;
 
-  @include breakpoint(medium) {
+  @include breakpoint(large) {
     max-width: 320px;
+  }
+
+  &_plain{
+    @include breakpoint(large) {
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: rem(80);
+
+      .checkbox_span{
+        transition: font-weight .3s ease;
+        &:hover{
+          font-weight: var(--font-medium);
+        }
+      }
+    }
   }
 
   &_top {
     display: flex;
     justify-content: center;
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
       justify-content: space-between;
       align-items: center;
       padding-bottom: rem(30);
       margin-bottom: rem(30);
       border-bottom: 1px solid var(--color-gray);
+
+      .sidebar_plain &{
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
     }
 
     &_title {
@@ -22,6 +46,14 @@
       align-items: center;
       gap: 10px;
       font-size: rem(18);
+      font-weight: var(--font-medium);
+
+      .sidebar_plain &{
+        color: var(--color-dark);
+        svg path{
+          fill: var(--color-dark);          
+        }
+      }
     }
   }
 
@@ -29,10 +61,13 @@
     font-size: rem(15);
     text-decoration: underline;
     cursor: pointer;
+    @include breakpoint(large) {
+      display: none;
+    }
   }
 
   &_wrap {
-    @include breakpoint(small) {
+    @include breakpoint(untilLarge) {
       position: fixed;
       z-index: 1;
       padding: rem(88) rem(16) rem(16) rem(16);
@@ -102,12 +137,37 @@
       }
     }
   }
+  
+  &_top{
+    &_title{
+      svg{
+        @include breakpoint(large) {
+          display: none;
+        }
+      }
+    }
+  }
+  &_wrap{
+    @include breakpoint(large) {
+      &_top{
+        &_title{
+          display: none;
+        }
+      }
+    }
+    &_close {
+      @include breakpoint(large) {
+        display: none;
+      }
+    }
+  }
+
 
   &_column {
     display: flex;
     flex-flow: column;
     font-size: rem(15);
-    @include breakpoint(small) {
+    @include breakpoint(untilLarge) {
       border-top: 1px solid var(--color-gray);
       border-bottom: 1px solid var(--color-gray);
 
@@ -125,33 +185,108 @@
       }
     }
 
-    @include breakpoint(medium) {
+    &_active {
+      .sidebar_plain &{
+        .sidebar_column_wrap {
+          max-height: 500px;
+        }
+        .sidebar_column_chevron {
+          transform: rotate(-90deg);
+        }
+      }
+    }
+
+    @include breakpoint(large) {
       padding-bottom: rem(30);
+
+      .sidebar_plain &{
+        position: relative;
+        padding-bottom: 0;
+        border: 1px solid var(--color-grayDark);
+        background: white;
+        border-radius: 8px;
+        height: 40px;
+        width: 270px;
+        display: flex;
+        justify-content: center;
+        padding: 0 rem(16);
+        cursor: pointer;
+      }
     }
 
     &_title {
       font-size: rem(16);
       font-weight: var(--font-regular);
 
-      @include breakpoint(small) {
+      @include breakpoint(untilLarge) {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: rem(24) rem(16);
       }
 
-      @include breakpoint(medium) {
+      @include breakpoint(large) {
         margin-bottom: rem(20);
+        font-size: rem(18);
+
+        .sidebar_plain &{
+          margin-bottom: 0;
+          color: var(--color-dark);
+          // font-weight: var(--font-medium);
+          font-size: rem(15);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
       }
     }
 
     &_chevron {
       transform: rotate(90deg);
       transition: transform 0.1s ease;
+      @include breakpoint(large) {
+        display: none;
+        .sidebar_plain &{
+          display: block;
+          path{            
+            fill: var(--color-dark)
+          }
+        }
+      }
     }
 
-    &_wrap {
-      @include breakpoint(small) {
+    &_wrap {      
+      .sidebar_plain &{
+        @include breakpoint(large) {
+          position: absolute;
+          top: 33px;
+          left: -1px;
+          right: -1px;
+          background: white;
+          border-left: 1px solid var(--color-grayDark);
+          border-right: 1px solid var(--color-grayDark);
+          border-top: 0;
+          overflow: hidden;
+          max-height: 0px;
+          padding: 0 rem(16);
+          transition: max-height 0.3s ease;
+          z-index: 1;
+
+          .checkbox{
+            &_span{
+              color: var(--color-dark);
+              &:before {
+                display: none;
+              } 
+            }
+            &_link:first-child {
+              padding-top: rem(20);
+            }
+          }
+        }
+      }
+
+      @include breakpoint(untilLarge) {
         overflow: hidden;
         max-height: 0px;
         padding: 0 rem(16);
@@ -160,10 +295,6 @@
         .checkbox_link:first-child {
           padding-top: rem(8);
         }
-
-        // .checkbox_link:last-child{
-        //   padding-bottom: rem(24);
-        // }
       }
     }
   }
@@ -186,7 +317,7 @@
   padding: 2px;
   color: var(--color-grayDark);
   font-size: rem(14);
-  @include breakpoint(medium) {
+  @include breakpoint(large) {
     font-size: rem(15);
   }
 

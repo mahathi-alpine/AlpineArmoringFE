@@ -6,22 +6,21 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
-
   return (
     <div className={`${styles.listing} background-dark`}>
-      {props.topBanner?.bannerImage? <ListingBanner props={props.topBanner} /> : null}
+      {props.topBanner?.attributes?.bannerImage? <ListingBanner props={props.topBanner} overlay={true} /> : null}
 
       <div className="shape-after">
         <span style={{ background: '#2B2B2B' }}></span>
       </div>
 
-      <div className={`${styles.listing_wrap} container`}>
+      <div className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}>
         {props.types ? <Sidebar props={props.types} /> : null}
 
         {props.vehicles?.data ? (
           <div className={`${styles.listing_list}`}>
             {props.vehicles.data.map((item) => (
-              <InventoryItem stock key={item.id} props={item} />
+              <InventoryItem key={item.id} props={item} />
             ))}
           </div>
         ) : null}

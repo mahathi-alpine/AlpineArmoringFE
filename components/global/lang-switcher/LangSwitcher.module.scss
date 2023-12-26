@@ -37,7 +37,9 @@
     }
 
     &_wrap{
-      background-color: var(--color-dark);
+      // background-color: var(--color-dark);
+      background-color: rgba(23,23,23,.8);
+      backdrop-filter: blur(10px);
       /* display: none; */
       position: absolute;
       display: flex;

@@ -23,6 +23,11 @@
     background: var(--color-primary);
   }
 
+  &.white {
+    background: white;
+    color: var(--color-dark);
+  }
+
   &_small {
     padding: 12px 16px;
     font-size: 13px;

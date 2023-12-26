@@ -1,13 +1,20 @@
 import styles from './ListingBanner.module.scss';
-// import { API_URL } from 'config/index';
+import ReactMarkdown from "react-markdown";
 
-const TopBanner = ({ props }) => {
+type ListingBannerProps = {
+  props: any;
+  overlay?: any;
+};
+
+const TopBanner = ({ props, overlay }: ListingBannerProps) => {
   const data = props.attributes;
   const bannerImage = data.bannerImage.data?.attributes.url;
 
   return (
     <div
-      className={`${styles.banner_top}`}
+      className={`${styles.banner_top}
+      ${overlay ? `${styles.banner_top_overlay}` : ''}
+    `}
       style={{
         backgroundImage: `url(${bannerImage})`,
         backgroundSize: 'cover',
@@ -15,8 +22,7 @@ const TopBanner = ({ props }) => {
       }}
     >
       <div className={`${styles.banner_top_content}`}>
-        {/* <h1 className={`${styles.banner_top_title}`}>{data.heading}</h1> */}
-        <p className={`${styles.banner_top_text}`}>{data.bannerText}</p>
+        <ReactMarkdown className={`${styles.banner_top_text}`}>{data.bannerText}</ReactMarkdown>
       </div>
     </div>
   );
