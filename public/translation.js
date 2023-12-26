@@ -1,3 +1,3 @@
-function TranslateInit() {
-    new google.translate.TranslateElement();
-}
+window.TranslateInit = function () {
+  new window.google.translate.TranslateElement();
+};

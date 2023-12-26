@@ -13,7 +13,7 @@ import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
 import SearchIcon from 'components/icons/Search';
-import { LanguageSwitcher } from "components/global/lang-switcher/LangSwitcher";
+import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 
 const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();
@@ -95,22 +95,26 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
 
         <div className={`${styles.navigationPopup_info}`}>
           <div className={`${styles.navigationPopup_contact}`}>
-            <Link 
-              href="tel:+17034710002" 
-              className={`${styles.navigationPopup_contact_item}`} 
+            <Link
+              href="tel:+17034710002"
+              className={`${styles.navigationPopup_contact_item}`}
             >
               <PhoneIcon />
               1.703.471.0002
             </Link>
-            <Link 
-              href="mailto:sales@alpineco.com" 
-              className={`${styles.navigationPopup_contact_item}`} 
+            <Link
+              href="mailto:sales@alpineco.com"
+              className={`${styles.navigationPopup_contact_item}`}
             >
               <MailIcon />
               sales@AlpineCo.com
             </Link>
 
-            <Link href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA" target="_blank" className={`${styles.navigationPopup_contact_item}`}>
+            <Link
+              href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA"
+              target="_blank"
+              className={`${styles.navigationPopup_contact_item}`}
+            >
               <MapIcon />
               Chantilly, Virginia, USA
             </Link>
@@ -118,27 +122,43 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
 
           <ul className={`${styles.navigationPopup_socials}`}>
             <li className={`${styles.navigationPopup_socials_item}`}>
-              <Link href="https://www.facebook.com/AlpineArmoring/" target="_blank">
+              <Link
+                href="https://www.facebook.com/AlpineArmoring/"
+                target="_blank"
+              >
                 <FacebookIcon color="white" />
               </Link>
             </li>
-            <li className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_tiktok}`}>
-              <Link href="https://www.tiktok.com/@alpinearmoring" target="_blank">
+            <li
+              className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_tiktok}`}
+            >
+              <Link
+                href="https://www.tiktok.com/@alpinearmoring"
+                target="_blank"
+              >
                 <TiktokIcon color="white" />
               </Link>
             </li>
-            <li className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_x}`}>
+            <li
+              className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_x}`}
+            >
               <Link href="https://twitter.com/AlpineArmoring" target="_blank">
                 <XIcon color="white" />
               </Link>
             </li>
             <li className={`${styles.navigationPopup_socials_item}`}>
-              <Link href="https://www.instagram.com/alpinearmoring/" target="_blank">
+              <Link
+                href="https://www.instagram.com/alpinearmoring/"
+                target="_blank"
+              >
                 <InstagramIcon color="white" />
               </Link>
             </li>
             <li className={`${styles.navigationPopup_socials_item}`}>
-              <Link href="https://www.youtube.com/c/AlpineArmoring" target="_blank">
+              <Link
+                href="https://www.youtube.com/c/AlpineArmoring"
+                target="_blank"
+              >
                 <YoutubeIcon color="white" />
               </Link>
             </li>

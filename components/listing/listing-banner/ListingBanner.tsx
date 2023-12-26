@@ -1,5 +1,5 @@
 import styles from './ListingBanner.module.scss';
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 
 type ListingBannerProps = {
   props: any;
@@ -22,7 +22,9 @@ const TopBanner = ({ props, overlay }: ListingBannerProps) => {
       }}
     >
       <div className={`${styles.banner_top_content}`}>
-        <ReactMarkdown className={`${styles.banner_top_text}`}>{data.bannerText}</ReactMarkdown>
+        <ReactMarkdown className={`${styles.banner_top_text}`}>
+          {data.bannerText}
+        </ReactMarkdown>
       </div>
     </div>
   );

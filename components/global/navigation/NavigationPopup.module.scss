@@ -92,8 +92,8 @@
       font-size: rem(16);
       font-weight: var(--font-regular);
 
-      @include breakpoint(large) {  
-        &:last-child{
+      @include breakpoint(large) {
+        &:last-child {
           display: none;
         }
       }
@@ -156,23 +156,27 @@
     gap: 16px;
     margin-top: rem(24);
     @include breakpoint(medium) {
-      &_item{
+      &_item {
         svg path,
-        svg rect{
-          transition: fill .3s ease, stroke .3s ease;
+        svg rect {
+          transition:
+            fill 0.3s ease,
+            stroke 0.3s ease;
         }
-        &:not(.navigationPopup_socials_item_tiktok):not(.navigationPopup_socials_item_x):hover{
-          svg path{
+        &:not(.navigationPopup_socials_item_tiktok):not(
+            .navigationPopup_socials_item_x
+          ):hover {
+          svg path {
             fill: var(--color-primary);
           }
         }
-        &_tiktok:hover{
-          svg rect{
+        &_tiktok:hover {
+          svg rect {
             fill: var(--color-primary);
           }
         }
-        &_x:hover{
-          svg path:first-child{
+        &_x:hover {
+          svg path:first-child {
             fill: var(--color-primary);
             stroke: var(--color-primary);
           }
@@ -199,23 +203,23 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: color .3s ease;
+      transition: color 0.3s ease;
       // font-weight: var(--font-medium);
       @include breakpoint(medium) {
-        &:hover{
+        &:hover {
           color: var(--color-primary);
-          svg path{
-            fill: var(--color-primary)
+          svg path {
+            fill: var(--color-primary);
           }
         }
-        svg path{
-          transition: fill .3s ease;
+        svg path {
+          transition: fill 0.3s ease;
         }
       }
     }
   }
 
-  &_bottom{
+  &_bottom {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,7 +230,7 @@
       width: 20px;
       height: 20px;
     }
-  
+
     &_lang {
       font-weight: 500;
     }

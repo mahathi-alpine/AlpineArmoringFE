@@ -12,7 +12,7 @@
     height: 500px;
   }
 
-  &_overlay{
+  &_overlay {
     padding: rem(72) rem(16) 0 rem(16);
     @include breakpoint(large) {
       padding: rem(116) rem(50) 0 rem(50);

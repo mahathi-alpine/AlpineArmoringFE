@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
-import { NextPageContext } from "next";
+import { useEffect, useState } from 'react';
+import { parseCookies, setCookie } from 'nookies';
+import { NextPageContext } from 'next';
 
-export const COOKIE_NAME = "googtrans";
+export const COOKIE_NAME = 'googtrans';
 
 export interface LanguageDescriptor {
   name: string;
@@ -30,8 +30,10 @@ export const getLanguageConfig = (): LanguageConfig | undefined => {
 
   if (process.env.GOOGLE_TRANSLATION_CONFIG) {
     try {
-      cfg = JSON.parse(process.env.GOOGLE_TRANSLATION_CONFIG ?? "{}");
-    } catch (e) {}
+      cfg = JSON.parse(process.env.GOOGLE_TRANSLATION_CONFIG ?? '{}');
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return cfg;
@@ -40,16 +42,16 @@ export const getLanguageConfig = (): LanguageConfig | undefined => {
 export const useLanguageSwitcher = ({
   context,
 }: UseLanguageSwitcherOptions = {}): UseLanguageSwitcherResult => {
-  const [currentLanguage, setCurrentLanguage] = useState<string>("");
+  const [currentLanguage, setCurrentLanguage] = useState<string>('');
 
   useEffect(() => {
     const cfg = getLanguageConfig();
     const cookies = parseCookies(context);
     const existingLanguageCookieValue = cookies[COOKIE_NAME];
 
-    let languageValue = "";
+    let languageValue = '';
     if (existingLanguageCookieValue) {
-      const sp = existingLanguageCookieValue.split("/");
+      const sp = existingLanguageCookieValue.split('/');
       if (sp.length > 2) {
         languageValue = sp[2];
       }
@@ -61,7 +63,7 @@ export const useLanguageSwitcher = ({
   }, []);
 
   const switchLanguage = (lang: string) => () => {
-    setCookie(context, COOKIE_NAME, "/auto/" + lang);
+    setCookie(context, COOKIE_NAME, '/auto/' + lang);
     window.location.reload();
   };
 

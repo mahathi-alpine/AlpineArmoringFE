@@ -45,11 +45,8 @@ const termina = localFont({
 
 export default function App({ Component, pageProps }) {
   return (
-    <>        
-      <Script
-        src="/translation.js"
-        strategy="afterInteractive"
-      />
+    <>
+      <Script src="/translation.js" strategy="afterInteractive" />
       {process.env.GOOGLE_TRANSLATION_CONFIG && (
         <Script
           src="//translate.google.com/translate_a/element.js?cb=TranslateInit"
@@ -62,5 +59,5 @@ export default function App({ Component, pageProps }) {
         </main>
       </Layout>
     </>
-  )
+  );
 }

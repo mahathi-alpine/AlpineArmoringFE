@@ -7,17 +7,17 @@
   left: 0;
   right: 0;
   z-index: 3;
-  background-color: rgba(23,23,23,.8);
+  background-color: rgba(23, 23, 23, 0.8);
   backdrop-filter: blur(10px);
   color: white;
-  transition: transform .4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
   // background-color: var(--color-dark);
 
   // @include breakpoint('large') {
   //   height: unset;
   // }
 
-  &.down{
+  &.down {
     transform: translateY(-100px);
   }
 

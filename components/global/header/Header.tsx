@@ -8,10 +8,10 @@ import styles from './Header.module.scss';
 import { useEffect } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
-import { LanguageSwitcher } from "components/global/lang-switcher/LangSwitcher";
+import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 
 const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
-  const [hState,sethState] = React.useState("-top");
+  const [hState, sethState] = React.useState('-top');
 
   useEffect(() => {
     const windowWidth = window.innerWidth;
@@ -26,16 +26,22 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
     }
   }, [isNavOpen]);
 
-  useEffect(()=>{
-    let lastVal = 0
-    window.onscroll = function(){
-      const y = window.scrollY
-      if(y > lastVal){sethState("down")}
-      if(y < lastVal) {sethState("up")}
-      if(y === 0) {sethState("top")}
-      lastVal = y
-    }        
-  },[])
+  useEffect(() => {
+    let lastVal = 0;
+    window.onscroll = function () {
+      const y = window.scrollY;
+      if (y > lastVal) {
+        sethState('down');
+      }
+      if (y < lastVal) {
+        sethState('up');
+      }
+      if (y === 0) {
+        sethState('top');
+      }
+      lastVal = y;
+    };
+  }, []);
 
   const classNames = className
     ?.split(' ')
@@ -53,7 +59,6 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
       // ${isScrolling ? styles.header_sticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
-
         <div
           className={`${styles.header_logo}`}
           onClick={() => setNavOpen(false)}

@@ -5,7 +5,7 @@
     max-width: 320px;
   }
 
-  &_plain{
+  &_plain {
     @include breakpoint(large) {
       max-width: 100%;
       display: flex;
@@ -14,9 +14,9 @@
       gap: 32px;
       margin-bottom: rem(80);
 
-      .checkbox_span{
-        transition: font-weight .3s ease;
-        &:hover{
+      .checkbox_span {
+        transition: font-weight 0.3s ease;
+        &:hover {
           font-weight: var(--font-medium);
         }
       }
@@ -34,7 +34,7 @@
       margin-bottom: rem(30);
       border-bottom: 1px solid var(--color-gray);
 
-      .sidebar_plain &{
+      .sidebar_plain & {
         border: none;
         margin: 0;
         padding: 0;
@@ -48,10 +48,10 @@
       font-size: rem(18);
       font-weight: var(--font-medium);
 
-      .sidebar_plain &{
+      .sidebar_plain & {
         color: var(--color-dark);
-        svg path{
-          fill: var(--color-dark);          
+        svg path {
+          fill: var(--color-dark);
         }
       }
     }
@@ -136,26 +136,26 @@
     }
     &_inner {
       @include breakpoint(large) {
-        .sidebar_plain &{
+        .sidebar_plain & {
           display: flex;
           gap: 32px;
         }
       }
     }
   }
-  
-  &_top{
-    &_title{
-      svg{
+
+  &_top {
+    &_title {
+      svg {
         @include breakpoint(large) {
           display: none;
         }
       }
     }
   }
-  &_wrap{
+  &_wrap {
     @include breakpoint(large) {
-      &_top{
+      &_top {
         display: none;
       }
     }
@@ -165,7 +165,6 @@
       }
     }
   }
-
 
   &_column {
     display: flex;
@@ -190,7 +189,7 @@
     }
 
     &_active {
-      .sidebar_plain &{
+      .sidebar_plain & {
         .sidebar_column_wrap {
           max-height: 500px;
         }
@@ -203,7 +202,7 @@
     @include breakpoint(large) {
       padding-bottom: rem(30);
 
-      .sidebar_plain &{
+      .sidebar_plain & {
         position: relative;
         padding-bottom: 0;
         border: 1px solid var(--color-grayDark);
@@ -233,7 +232,7 @@
         margin-bottom: rem(20);
         font-size: rem(18);
 
-        .sidebar_plain &{
+        .sidebar_plain & {
           margin-bottom: 0;
           color: var(--color-dark);
           // font-weight: var(--font-medium);
@@ -250,17 +249,17 @@
       transition: transform 0.1s ease;
       @include breakpoint(large) {
         display: none;
-        .sidebar_plain &{
+        .sidebar_plain & {
           display: block;
-          path{            
-            fill: var(--color-dark)
+          path {
+            fill: var(--color-dark);
           }
         }
       }
     }
 
-    &_wrap {      
-      .sidebar_plain &{
+    &_wrap {
+      .sidebar_plain & {
         @include breakpoint(large) {
           position: absolute;
           top: 33px;
@@ -276,12 +275,12 @@
           transition: max-height 0.3s ease;
           z-index: 1;
 
-          .checkbox{
-            &_span{
+          .checkbox {
+            &_span {
               color: var(--color-dark);
               &:before {
                 display: none;
-              } 
+              }
             }
             &_link:first-child {
               padding-top: rem(20);
@@ -348,8 +347,8 @@
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
 
-    @include breakpoint(large) {    
-      .sidebar_plain &{
+    @include breakpoint(large) {
+      .sidebar_plain & {
         display: none;
       }
     }

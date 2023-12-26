@@ -3,7 +3,6 @@ import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 
 type SidebarProps = {
   props: any;
@@ -17,18 +16,18 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
 
   useEffect(() => {
     const handleResize = () => {
-      if(window.innerWidth < 1280){
+      if (window.innerWidth < 1280) {
         // setActiveFilterItem('type');
       } else {
         setActiveFilterItem('default');
       }
     };
-  
+
     handleResize();
     window.addEventListener('resize', handleResize);
-  
+
     return () => window.removeEventListener('resize', handleResize);
-   }, []);
+  }, []);
 
   const activateFilterItem = (slug) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
@@ -59,41 +58,43 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
       { scroll: false }
     );
   };
-  
+
   const applyFilter = (item, paramKey) => {
     const newQuery = { ...router.query };
-   
+
     // Always remove the vehicles_we_armor parameter
     delete newQuery['vehicles_we_armor'];
-   
+
     if (newQuery[paramKey] === item) {
-    // If the clicked item is the same as the current value, remove it
+      // If the clicked item is the same as the current value, remove it
       delete newQuery[paramKey];
     } else {
-    // Otherwise, update the query parameter
+      // Otherwise, update the query parameter
       newQuery[paramKey] = item;
     }
 
-    if(window.innerWidth < 768){
+    if (window.innerWidth < 768) {
       openFilters();
     } else {
       activateFilterItem('default');
     }
-   
-    router.push({
-      pathname: router.pathname,
-      query: newQuery,
-    }, undefined, { scroll: false });
+
+    router.push(
+      {
+        pathname: router.pathname,
+        query: newQuery,
+      },
+      undefined,
+      { scroll: false }
+    );
   };
-   
-   
 
   return (
     <div
       className={`${styles.sidebar}
       ${plain ? `${styles.sidebar_plain}` : ''}
-    `}>
-
+    `}
+    >
       <div className={`${styles.sidebar_top}`}>
         <div className={`${styles.sidebar_top_title}`} onClick={openFilters}>
           Filters
@@ -116,10 +117,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
       `}
       >
         <div className={`${styles.sidebar_wrap_inner}`}>
-          <div
-            className={`${styles.sidebar_wrap_close}`}
-            onClick={openFilters}
-          >
+          <div className={`${styles.sidebar_wrap_close}`} onClick={openFilters}>
             X
           </div>
 
@@ -147,9 +145,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
               onClick={() => activateFilterItem('type')}
             >
               <span>Type</span>
-              <ChevronIcon
-                className={`${styles.sidebar_column_chevron}`}
-              />
+              <ChevronIcon className={`${styles.sidebar_column_chevron}`} />
             </h4>
 
             <div className={`${styles.sidebar_column_wrap}`}>
@@ -170,8 +166,8 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
               ))}
             </div>
           </div>
-          
-          {props.make ?
+
+          {props.make ? (
             <div
               className={`
               ${styles.sidebar_column}
@@ -183,9 +179,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
                 onClick={() => activateFilterItem('make')}
               >
                 Make
-                <ChevronIcon
-                  className={`${styles.sidebar_column_chevron}`}
-                />
+                <ChevronIcon className={`${styles.sidebar_column_chevron}`} />
               </h4>
 
               <div className={`${styles.sidebar_column_wrap}`}>
@@ -206,7 +200,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
                 ))}
               </div>
             </div>
-          : null }
+          ) : null}
         </div>
       </div>
     </div>

@@ -14,14 +14,14 @@
     margin: unset;
     margin-bottom: 0;
     flex-basis: calc(50% - 16px);
-    transition: background .3s ease;
+    transition: background 0.3s ease;
 
-    &:hover{
+    &:hover {
       background: var(--color-primary);
-      .inventory_item_image:before{
-        opacity: .5;
+      .inventory_item_image:before {
+        opacity: 0.5;
       }
-      .inventory_item_button{
+      .inventory_item_button {
         opacity: 1;
       }
     }
@@ -42,7 +42,7 @@
     position: relative;
 
     @include breakpoint(large) {
-      &:before{
+      &:before {
         position: absolute;
         content: '';
         left: 0;
@@ -51,7 +51,7 @@
         bottom: 0;
         background: var(--color-dark);
         opacity: 0;
-        transition: opacity .3s ease;
+        transition: opacity 0.3s ease;
       }
     }
 
@@ -66,7 +66,7 @@
     }
   }
 
-  &_button{
+  &_button {
     @include breakpoint(large) {
       position: absolute;
       top: 50%;
@@ -75,8 +75,8 @@
       right: 0;
       text-align: center;
       opacity: 0;
-      transition: opacity .3s ease;
-      span{
+      transition: opacity 0.3s ease;
+      span {
         font-weight: var(--font-demi);
         padding: 16px 32px;
         border-radius: 4px;

@@ -11,7 +11,6 @@ import Partners from 'components/homepage/partners/Partners';
 import VideosPopup from 'components/global/videos-popup/VideosPopup';
 
 function Home({ homepageData, categories }) {
-
   const topBanner = homepageData.data?.attributes.topBanner;
   const categoriesData = categories?.data;
   const tabSectionData = homepageData.data?.attributes.tabSection;
@@ -54,8 +53,9 @@ function Home({ homepageData, categories }) {
       {topBanner ? <HpBanner props={topBanner} /> : null}
 
       <div className="background-dark">
-
-        <div className="shape-before"><span></span></div>
+        <div className="shape-before">
+          <span></span>
+        </div>
 
         <IntroText />
 

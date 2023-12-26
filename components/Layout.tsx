@@ -9,7 +9,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const Layout = ({ children }) => {
   const [isNavOpen, setNavOpen] = useState(false);
- 
+
   return (
     <>
       <Head>
@@ -17,20 +17,13 @@ const Layout = ({ children }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <Header
-        setNavOpen={setNavOpen}
-        isNavOpen={isNavOpen}
-      />
-      <NavigationPopup 
-        isNavOpen={isNavOpen} 
-        setNavOpen={setNavOpen} 
-      />
+      <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} />
+      <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
       {children}
       <Footer />
       <SpeedInsights />
     </>
- );
+  );
 };
 
- 
- export default Layout;
+export default Layout;

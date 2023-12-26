@@ -32,7 +32,6 @@ const Categories = ({ props, allVehiclesImage }) => {
               ) : null}
 
               <div className={`${styles.categories_item_content}`}>
-
                 <div className={`${styles.categories_item_content_inner}`}>
                   {data.title ? (
                     <h3 className={`${styles.categories_item_title}`}>
@@ -64,9 +63,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                       {data.title.replace('Armored ', '')} we armor
                     </Button>
                   </div>
-
                 </div>
-
               </div>
             </div>
           );
@@ -85,7 +82,6 @@ const Categories = ({ props, allVehiclesImage }) => {
           ) : null}
 
           <div className={`${styles.categories_item_content}`}>
-            
             <div className={`${styles.categories_item_content_inner}`}>
               <h3 className={`${styles.categories_item_title}`}>
                 All Armored Vehicles
