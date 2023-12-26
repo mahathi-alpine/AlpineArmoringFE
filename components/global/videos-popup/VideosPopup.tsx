@@ -39,6 +39,22 @@ const VideosPopup = () => {
       onClick={() => setVideoPopupOpen((prevState) => !prevState)}
     >
       <div className={`${styles.videoPopup_wrap}`}>
+        <svg
+          width="30"
+          height="30"
+          viewBox="0 0 30 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <clipPath
+            id="marker"
+            clipPathUnits="objectBoundingBox"
+            transform="scale(0.0625, 0.0625)"
+          >
+            <path d="M0,0.8v9c0,0.4,0.3,1,0.8,1.3l6.5,4.4c0.4,0.3,1.1,0.3,1.5,0l6.5-4.4c0.4-0.3,0.8-0.9,0.8-1.3v-9C16,0.3,15.5,0,14.9,0H1.1 C0.5,0,0,0.3,0,0.8L0,0.8z"></path>
+          </clipPath>
+        </svg>
+
         <div className={`${styles.videoPopup_wrap_media}`}>
           {currentMedia.type === 'video' ? (
             <video
@@ -164,7 +180,7 @@ const VideosPopup = () => {
         </div>
       </div>
       <div className={`${styles.videoPopup_text}`}>
-        <span data-text="See Our Ballistic Testings"></span>
+        <span data-text="Watch Our Ballistic Testings"></span>
       </div>
     </div>
   );

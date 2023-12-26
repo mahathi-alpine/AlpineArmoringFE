@@ -66,22 +66,24 @@
 
   &:not(.videoPopup_open):hover {
     .videoPopup_wrap {
-      clip-path: circle(80px at center);
+      // clip-path: circle(80px at center);
+      width: 190px;
+      max-height: 190px;
     }
 
     .videoPopup_text {
-      &::before {
-        --opacity: 1;
-        width: 100%;
-      }
-      &::after {
-        clip-path: circle(60px at center);
-      }
-      > span {
-        &::after {
-          clip-path: circle(63px at center);
-        }
-      }
+      // &::before {
+      //   --opacity: 1;
+      //   width: 100%;
+      // }
+      // &::after {
+      //   clip-path: circle(60px at center);
+      // }
+      // > span {
+      //   &::after {
+      //     clip-path: circle(63px at center);
+      //   }
+      // }
     }
   }
 
@@ -94,16 +96,21 @@
 
   &_wrap {
     position: absolute;
-    top: -100px;
+    top: -150px;
     left: 0;
     right: 0;
     bottom: 0;
-    clip-path: circle(32px at center);
-    transition: clip-path 0.4s ease;
+    margin: auto;
+    // clip-path: circle(32px at center);
+    width: 120px;
+    clip-path: url(#marker);
+    height: 300px;
+    max-height: 120px;
+    transition: clip-path 2s ease,  0.4s ease, max-height 0.4s ease;
 
     .videoPopup_open & {
       clip-path: circle(100vh at center);
-      width: calc(100% - 17px);
+      // width: calc(100% - 17px);
       transition: clip-path 0.8s ease;
       @include breakpoint(medium) {
         clip-path: circle(100vw at center);

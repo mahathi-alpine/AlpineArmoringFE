@@ -56,12 +56,14 @@ const Categories = ({ props, allVehiclesImage }) => {
                     className={`${styles.categories_item_buttons_logo} desktop-only`}
                   /> */}
 
-                    <Button
-                      href={`/vehicles-we-armor?category=${data.slug}`}
-                      className="button_small button-shiny"
-                    >
-                      {data.title.replace('Armored ', '')} we armor
-                    </Button>
+                    {data.slug !== 'pre-owned' && (
+                      <Button
+                        href={`/vehicles-we-armor?category=${data.slug}`}
+                        className="button_small button-shiny"
+                      >
+                        {data.title.replace('Armored ', '')} we armor
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -99,7 +101,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                   href={`/vehicles-we-armor`}
                   className="button_small button-shiny"
                 >
-                  All Vehicles We Armor
+                  All Types of vehicles we Armor
                 </Button>
               </div>
             </div>

@@ -158,10 +158,11 @@
         margin-top: rem(16);
       }
       @include breakpoint(medium) {
-        max-width: 293px;
+        max-width: 356px;
 
         a span {
           padding: 13px 16px;
+          text-transform: uppercase;
         }
       }
     }
