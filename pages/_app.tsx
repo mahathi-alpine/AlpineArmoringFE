@@ -57,7 +57,6 @@ export default function App({ Component, pageProps }) {
   const [oldPath, setOldPath] = useState('');
 
   useEffect(() => {
-    console.log('aa');
     const _oldPath = oldPath;
     if (_oldPath !== '' && _oldPath !== path) {
       document.body.classList.remove(_oldPath);
