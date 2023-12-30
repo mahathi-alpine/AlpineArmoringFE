@@ -63,6 +63,7 @@ export default function App({ Component, pageProps }) {
     }
     document.body.classList.add(path);
     setOldPath(path);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path]);
 
   return (
