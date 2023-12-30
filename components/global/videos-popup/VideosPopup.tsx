@@ -180,7 +180,7 @@ const VideosPopup = () => {
         </div>
       </div>
       <div className={`${styles.videoPopup_text}`}>
-        <span data-text="Watch Our Ballistic Testings"></span>
+        <span data-text="View some cool videos"></span>
       </div>
     </div>
   );

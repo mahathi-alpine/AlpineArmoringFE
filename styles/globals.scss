@@ -11,6 +11,15 @@ body {
   background: var(--color-background);
   color: var(--color-text);
   top: 0 !important;
+  padding-top: 72px;
+
+  @include breakpoint(medium) {
+    padding-top: 0;
+  }
+
+  &.home{
+    padding-top: 0;
+  }
 }
 
 .no-scroll {

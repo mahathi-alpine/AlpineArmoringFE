@@ -2,6 +2,15 @@ import '/styles/globals.scss';
 import localFont from 'next/font/local';
 import Layout from '../components/Layout';
 import Script from 'next/script';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
+export function usePathname() {
+  const router = useRouter();
+  const { pathname } = router;
+  return pathname === '/' ? 'home' : pathname.substring(1);
+  return pathname;
+}
 
 const termina = localFont({
   src: [
@@ -44,6 +53,17 @@ const termina = localFont({
 });
 
 export default function App({ Component, pageProps }) {
+  const path = usePathname();
+  const [oldPath, setOldPath] = useState('');
+
+  useEffect(() => {
+    if (oldPath !== '' && oldPath !== path) {
+      document.body.classList.remove(oldPath);
+    }
+    document.body.classList.add(path);
+    setOldPath(path);
+  }, [path]);
+
   return (
     <>
       <Script src="/translation.js" strategy="afterInteractive" />
