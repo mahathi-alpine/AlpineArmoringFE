@@ -1,7 +1,7 @@
 import React from 'react';
 // import ListingBanner from 'components/listing/listing-banner/ListingBanner';
 import Sidebar from 'components/listing/sidebar/Sidebar';
-// import InventoryItem from 'components/listing/listing-item/ListingItem';
+import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
@@ -26,13 +26,13 @@ function Inventory(props) {
       >
         {props.filters.type ? <Sidebar props={props.filters} /> : null}
 
-        {/* {props.vehicles.data ? (
+        {props.vehicles.data ? (
           <div className={`${styles.listing_list}`}>
             {props.vehicles.data.map((item) => (
               <InventoryItem key={item.id} props={item} />
             ))}
           </div>
-        ) : null} */}
+        ) : null}
       </div>
     </div>
   );
@@ -42,7 +42,7 @@ function Inventory(props) {
 //   data: any;
 // }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   // let topBanner: TopBannerProps;
 
   // if (context.query.category) {
@@ -63,21 +63,21 @@ export async function getServerSideProps() {
   // topBanner = topBanner.data || null;
 
   // Fetching Vehicles
-  // const { category, vehicles_we_armor } = context.query;
+  const { category, vehicles_we_armor } = context.query;
 
-  // let query = '';
-  // if (category) {
-  //   query += `filters[category][slug][$eq]=${category}`;
-  // }
-  // if (vehicles_we_armor) {
-  //   query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
-  // }
+  let query = '';
+  if (category) {
+    query += `filters[category][slug][$eq]=${category}`;
+  }
+  if (vehicles_we_armor) {
+    query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
+  }
 
-  // const vehicles = await getPageData({
-  //   route: 'inventories',
-  //   params: query,
-  //   populate: 'featuredImage',
-  // });
+  const vehicles = await getPageData({
+    route: 'inventories',
+    params: query,
+    populate: 'featuredImage',
+  });
 
   // Fetching Categories
   let type = await getPageData({ route: 'categories', order: true });
@@ -88,10 +88,10 @@ export async function getServerSideProps() {
   } else {
     // type = { type: [] };
   }
+  // const filters = { type };
 
   return {
-    // props: { topBanner, vehicles, filters },
-    props: { filters },
+    props: { vehicles, filters },
   };
 }
 
