@@ -1,5 +1,4 @@
 import styles from './ListingBanner.module.scss';
-// import ReactMarkdown from 'react-markdown';
 import Markdown from 'markdown-to-jsx';
 
 import Image from 'next/image';
@@ -29,9 +28,6 @@ const TopBanner = ({ props, overlay }: ListingBannerProps) => {
         <Markdown className={`${styles.banner_top_text}`}>
           {props.bannerText}
         </Markdown>
-        {/* <ReactMarkdown className={`${styles.banner_top_text}`}>
-          {props.bannerText}
-        </ReactMarkdown> */}
       </div>
     </div>
   );

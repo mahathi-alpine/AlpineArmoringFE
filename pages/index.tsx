@@ -21,6 +21,13 @@ function Home({ homepageData, categories }) {
   // console.log(homepageData)
 
   useEffect(() => {
+    document.body.classList.add('home');
+    return () => {
+      document.body.classList.remove('home');
+    };
+  }, []);
+
+  useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
     const observer = new IntersectionObserver(

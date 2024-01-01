@@ -74,19 +74,17 @@ export async function getServerSideProps(context) {
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
     params: query,
-    populate: 'deep',
+    populate: 'featuredImage',
   });
 
   let type = await getPageData({
     route: 'categories',
     order: true,
-    populate: 'deep',
   });
   type = type.data;
   let make = await getPageData({
     route: 'makes',
     order: true,
-    populate: 'deep',
   });
   make = make.data;
   let filters = {};
