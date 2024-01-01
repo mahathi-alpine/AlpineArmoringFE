@@ -1,5 +1,4 @@
 .inventory {
-
   &_top {
     @include breakpoint(medium) {
       display: flex;
@@ -12,7 +11,6 @@
         order: 2;
       }
     }
-
   }
 
   &_details {
@@ -22,39 +20,39 @@
       width: 50%;
     }
 
-    &_title{
+    &_title {
       margin-bottom: rem(16);
-     font-size: rem(30);
-     font-weight: var(--font-medium); 
-     @include breakpoint(medium) {
-      font-size: rem(48);
-     }
+      font-size: rem(30);
+      font-weight: var(--font-medium);
+      @include breakpoint(medium) {
+        font-size: rem(48);
+      }
     }
 
-    &_description{
+    &_description {
       margin-bottom: rem(40);
       color: var(--color-grayLight);
     }
   }
 
-  &_tabs{
-    &_nav{
+  &_tabs {
+    &_nav {
       display: flex;
-      gap: 32px;   
+      gap: 32px;
       flex: 0 0 auto;
       font-size: rem(14);
-      font-weight: var(--font-medium); 
+      font-weight: var(--font-medium);
       @include breakpoint(medium) {
-        justify-content: space-between;   
+        justify-content: space-between;
       }
 
-      &_wrap{
+      &_wrap {
         display: flex;
         overflow-x: auto;
         margin-right: rem(-16);
         margin-bottom: rem(40);
         padding-bottom: rem(8);
-        border-bottom: 1px solid var(--color-grayDark);;
+        border-bottom: 1px solid var(--color-grayDark);
         &::-webkit-scrollbar {
           display: none;
         }
