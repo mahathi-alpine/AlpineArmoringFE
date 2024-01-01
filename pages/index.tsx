@@ -85,8 +85,15 @@ function Home({ homepageData, categories }) {
 }
 
 export async function getServerSideProps() {
-  const homepageData = await getPageData({ route: 'homepage' });
-  const categories = await getPageData({ route: 'categories', order: true });
+  const homepageData = await getPageData({
+    route: 'homepage',
+    populate: 'deep',
+  });
+  const categories = await getPageData({
+    route: 'categories',
+    order: true,
+    populate: 'deep',
+  });
 
   return {
     props: { homepageData, categories },

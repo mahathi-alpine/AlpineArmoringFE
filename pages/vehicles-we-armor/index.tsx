@@ -53,7 +53,10 @@ export async function getServerSideProps(context) {
   //   topBanner = await getPageData({ route: 'list-vehicles-we-armor' });
   //   topBanner = topBanner.data;
   // }
-  let topBanner = await getPageData({ route: 'list-vehicles-we-armor' });
+  let topBanner = await getPageData({
+    route: 'list-vehicles-we-armor',
+    populate: 'deep',
+  });
   topBanner = topBanner.data || null;
   // if (topBanner && topBanner.data) {
   //   topBanner = topBanner.data;
@@ -71,11 +74,20 @@ export async function getServerSideProps(context) {
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
     params: query,
+    populate: 'deep',
   });
 
-  let type = await getPageData({ route: 'categories', order: true });
+  let type = await getPageData({
+    route: 'categories',
+    order: true,
+    populate: 'deep',
+  });
   type = type.data;
-  let make = await getPageData({ route: 'makes', order: true });
+  let make = await getPageData({
+    route: 'makes',
+    order: true,
+    populate: 'deep',
+  });
   make = make.data;
   let filters = {};
   if (type && make) {

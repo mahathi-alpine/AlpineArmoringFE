@@ -53,7 +53,7 @@ function InventoryVehicle(props) {
 export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
-
+    populate: 'deep',
     slug: context.params.slug,
     // type: '[slug]',
   });

@@ -14,7 +14,6 @@ function InventoryVehicle(props) {
   if (!props.data.data) {
     return null;
   }
-
   const data = props.data.data[0].attributes;
   const topGallery = data.gallery.data;
 
@@ -23,7 +22,9 @@ function InventoryVehicle(props) {
       <div className="background-dark">
         <div className={`${styles.inventory_top}`}>
           <div className={`${styles.inventory_top_gallery}`}>
-            <Carousel slides={topGallery} options={OPTIONS} />
+            {topGallery ? (
+              <Carousel slides={topGallery} options={OPTIONS} />
+            ) : null}
 
             <div className="shape-before">
               <span></span>
@@ -85,6 +86,7 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'inventories',
     params: `filters[slug][$eq]=${context.params.slug}`,
+    populate: 'deep',
   });
 
   return {

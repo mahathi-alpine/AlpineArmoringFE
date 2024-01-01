@@ -56,7 +56,10 @@ export async function getServerSideProps(context) {
   //   topBanner = await getPageData({ route: 'list-inventory' });
   //   topBanner = topBanner.data || null;
   // }
-  let topBanner = await getPageData({ route: 'list-inventory' });
+  let topBanner = await getPageData({
+    route: 'list-inventory',
+    populate: 'deep',
+  });
   topBanner = topBanner.data || null;
 
   // Fetching Vehicles
@@ -73,6 +76,7 @@ export async function getServerSideProps(context) {
   const vehicles = await getPageData({
     route: 'inventories',
     params: query,
+    populate: 'deep',
   });
 
   // Fetching Categories
