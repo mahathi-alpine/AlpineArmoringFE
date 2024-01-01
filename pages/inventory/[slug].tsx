@@ -1,41 +1,34 @@
-import React from 'react';
+// import React, { useState, useEffect, useCallback } from 'react'
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from '../../lib/api';
-import Button from 'components/global/button/Button';
-import Image from 'next/image';
-// import { API_URL } from 'config/index';
+// import Button from 'components/global/button/Button';
+// import Image from 'next/image';
+import Carousel from 'components/global/carousel/Carousel';
+import { EmblaOptionsType } from 'embla-carousel-react';
+
+const OPTIONS: EmblaOptionsType = {
+  loop: true,
+};
 
 function InventoryVehicle(props) {
+  if (!props.data) {
+    return null;
+  }
+
   const data = props.data.data[0].attributes;
+  const topGallery = data.gallery.data;
 
   return (
-    <div className={`${styles.inventory} container`}>
-      <div className={`${styles.inventory_banner}`}>
-        <div className={`${styles.inventory_banner_content}`}>
-          <h3 className={`${styles.inventory_banner_availability}`}>
-            Available now
-          </h3>
-          <h1 className={`${styles.inventory_banner_title}`}>{data.title}</h1>
-          <p className={`${styles.inventory_banner_description}`}>
-            {data.descriptionBanner}
-          </p>
-          <Button href="/contact" icon className="icon">
-            Request a quote
-          </Button>
-        </div>
+    <div className={`${styles.inventory}`}>
+      <div className="background-dark">
+        <div className={`${styles.inventory_top}`}>
+          <div className={`${styles.inventory_top_gallery}`}>
+            <Carousel slides={topGallery} options={OPTIONS} />
+          </div>
 
-        <div className={`${styles.inventory_banner_image}`}>
-          <h3 className={`${styles.inventory_banner_protection}`}>
-            ARMORED AT PROTECTION LEVEL <span>A9</span>
-          </h3>
-          {data.featuredImage.data ? (
-            <Image
-              src={`${data.featuredImage.data.attributes.url}`}
-              alt="Description of the image"
-              width={475}
-              height={320}
-            />
-          ) : null}
+          <div className={`${styles.inventory_top_details}`}>
+            <h1 className={`${styles.inventory_top_title}`}>{data.title}</h1>
+          </div>
         </div>
       </div>
     </div>
@@ -45,7 +38,7 @@ function InventoryVehicle(props) {
 export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'inventories',
-    slug: context.params.slug,
+    params: `filters[slug][$eq]=${context.params.slug}`,
   });
 
   return {

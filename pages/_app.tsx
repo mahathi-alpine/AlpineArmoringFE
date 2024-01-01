@@ -2,15 +2,14 @@ import '/styles/globals.scss';
 import localFont from 'next/font/local';
 import Layout from '../components/Layout';
 import Script from 'next/script';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+// import { useRouter } from 'next/router';
+// import { useEffect, useState } from 'react';
 
-export function usePathname() {
-  const router = useRouter();
-  const { pathname } = router;
-  return pathname === '/' ? 'home' : pathname.substring(1);
-  return pathname;
-}
+// export function usePathname() {
+//   const router = useRouter();
+//   const { pathname } = router;
+//   return pathname === '/' ? 'home' : pathname.substring(1);
+// }
 
 const termina = localFont({
   src: [
@@ -53,18 +52,18 @@ const termina = localFont({
 });
 
 export default function App({ Component, pageProps }) {
-  const path = usePathname();
-  const [oldPath, setOldPath] = useState('');
+  // const path = usePathname();
+  // const [oldPath, setOldPath] = useState('');
 
-  useEffect(() => {
-    const _oldPath = oldPath;
-    if (_oldPath !== '' && _oldPath !== path) {
-      document.body.classList.remove(_oldPath);
-    }
-    document.body.classList.add(path);
-    setOldPath(path);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path]);
+  // useEffect(() => {
+  //   const _oldPath = oldPath;
+  //   if (_oldPath !== '' && _oldPath !== path) {
+  //     document.body.classList.remove(_oldPath);
+  //   }
+  //   document.body.classList.add(path);
+  //   setOldPath(path);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [path]);
 
   return (
     <>

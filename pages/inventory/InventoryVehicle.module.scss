@@ -1,5 +1,24 @@
 .inventory {
-  padding-top: rem(160);
+  &_top{
+    @include breakpoint(medium) {
+      display: flex;
+      padding: rem(60) rem(60) rem(60) rem(60);
+    }
+
+    &_gallery{
+      @include breakpoint(medium) {
+        width: 50%;
+        order: 2;
+      }
+    }
+    
+    &_details{
+      width: 50%;
+    }
+
+  }
+
+
 
   &_banner {
     padding-top: rem(24);

@@ -6,6 +6,10 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
+  if (!props) {
+    return null;
+  }
+
   return (
     <div className={`${styles.listing} background-dark`}>
       {props.topBanner?.attributes?.bannerImage ? (
