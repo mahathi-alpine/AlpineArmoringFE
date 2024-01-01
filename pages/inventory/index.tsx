@@ -1,5 +1,5 @@
 import React from 'react';
-import ListingBanner from 'components/listing/listing-banner/ListingBanner';
+// import ListingBanner from 'components/listing/listing-banner/ListingBanner';
 import Sidebar from 'components/listing/sidebar/Sidebar';
 // import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
@@ -11,7 +11,7 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing} background-dark`}>
-      {props.topBanner ? (
+      {/* {props.topBanner ? (
         <>
           <ListingBanner props={props.topBanner.attributes} overlay={true} />
 
@@ -19,7 +19,7 @@ function Inventory(props) {
             <span style={{ background: '#2B2B2B' }}></span>
           </div>
         </>
-      ) : null}
+      ) : null} */}
 
       <div
         className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
@@ -56,11 +56,11 @@ export async function getServerSideProps() {
   //   topBanner = await getPageData({ route: 'list-inventory' });
   //   topBanner = topBanner.data || null;
   // }
-  let topBanner = await getPageData({
-    route: 'list-inventory',
-    populate: 'deep',
-  });
-  topBanner = topBanner.data || null;
+  // let topBanner = await getPageData({
+  //   route: 'list-inventory',
+  //   populate: 'deep',
+  // });
+  // topBanner = topBanner.data || null;
 
   // Fetching Vehicles
   // const { category, vehicles_we_armor } = context.query;
@@ -91,7 +91,7 @@ export async function getServerSideProps() {
 
   return {
     // props: { topBanner, vehicles, filters },
-    props: { topBanner, filters },
+    props: { filters },
   };
 }
 
