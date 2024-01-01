@@ -96,9 +96,9 @@
     margin-top: var(--thumbs-slide-spacing);
 
     @include breakpoint(medium) {
-      position: relative;  
+      position: relative;
       bottom: 0;
-      width: 190px;    
+      width: 190px;
       margin: 0;
       padding: rem(40) 0;
     }
@@ -131,7 +131,7 @@
       overflow: hidden;
       width: 10px;
       height: 10px;
-      transform: scale(.6);
+      transform: scale(0.6);
       transition: transform 0.2s;
 
       @include breakpoint(medium) {
@@ -160,7 +160,7 @@
         transition: opacity 0.2s;
       }
 
-      &_selected{
+      &_selected {
         background: white;
         transform: scale(1);
         @include breakpoint(medium) {
@@ -169,7 +169,7 @@
           background: unset;
         }
 
-        .carousel_thumbs_slide_button{
+        .carousel_thumbs_slide_button {
           opacity: 1;
           @include breakpoint(medium) {
           }
@@ -191,7 +191,7 @@
       }
     }
   }
-  
+
   &_button {
     position: absolute;
     top: 50%;
@@ -212,7 +212,7 @@
       margin: 0 auto;
     }
 
-    &_next{
+    &_next {
       left: auto;
       right: rem(16);
       @include breakpoint(medium) {
