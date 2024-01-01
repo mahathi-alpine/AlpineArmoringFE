@@ -11,6 +11,7 @@ type SidebarProps = {
 
 const Sidebar = ({ props, plain }: SidebarProps) => {
   // console.log(props)
+  // return null;
   const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [filtersOpen, setFiltersOpen] = useState(false);
 
@@ -149,7 +150,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
             </h4>
 
             <div className={`${styles.sidebar_column_wrap}`}>
-              {props?.type?.map((item) => (
+              {props.type.map((item) => (
                 <div
                   className={`${styles.checkbox_link} ${
                     item.attributes.slug === currentFilterCategory

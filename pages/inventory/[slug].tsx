@@ -1,7 +1,7 @@
 // import React, { useState, useEffect, useCallback } from 'react'
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from '../../lib/api';
-// import Button from 'components/global/button/Button';
+import Button from 'components/global/button/Button';
 // import Image from 'next/image';
 import Carousel from 'components/global/carousel/Carousel';
 import { EmblaOptionsType } from 'embla-carousel-react';
@@ -11,7 +11,7 @@ const OPTIONS: EmblaOptionsType = {
 };
 
 function InventoryVehicle(props) {
-  if (!props.data) {
+  if (!props.data.data) {
     return null;
   }
 
@@ -24,10 +24,56 @@ function InventoryVehicle(props) {
         <div className={`${styles.inventory_top}`}>
           <div className={`${styles.inventory_top_gallery}`}>
             <Carousel slides={topGallery} options={OPTIONS} />
+
+            <div className="shape-before">
+              <span></span>
+            </div>
           </div>
 
-          <div className={`${styles.inventory_top_details}`}>
-            <h1 className={`${styles.inventory_top_title}`}>{data.title}</h1>
+          <div className={`${styles.inventory_details}`}>
+            {/* <div className={`${styles.inventory_breadcrumbs}`}>
+
+            </div> */}
+
+            {/* <h3 className={`${styles.inventory_banner_protection}`}>
+              ARMORED AT PROTECTION LEVEL <span>A9</span>
+            </h3> */}
+
+            <h1 className={`${styles.inventory_details_title}`}>
+              {data.title}
+            </h1>
+
+            <p className={`${styles.inventory_details_description}`}>
+              {data.shortDescription}
+            </p>
+
+            <div className={`${styles.inventory_tabs}`}>
+              <div className={`${styles.inventory_tabs_nav_wrap}`}>
+                <ul className={`${styles.inventory_tabs_nav}`}>
+                  <li className={`${styles.inventory_tabs_nav_item}`}>
+                    Vehicle details
+                  </li>
+                  <li className={`${styles.inventory_tabs_nav_item}`}>
+                    Specifications
+                  </li>
+                  <li className={`${styles.inventory_tabs_nav_item}`}>
+                    Optional equipment
+                  </li>
+                </ul>
+              </div>
+
+              <div className={`${styles.inventory_tabs_content}`}>
+                <div className={`${styles.inventory_tabs_content_item}`}>
+                  <ul className={`${styles.inventory_tabs_content_list}`}>
+                    <li></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <Button href="/contact" icon className="icon">
+              Request a quote
+            </Button>
           </div>
         </div>
       </div>

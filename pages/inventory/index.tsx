@@ -6,26 +6,27 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
-  if (!props) {
-    return null;
-  }
+  // console.log(props)
+  // return null
 
   return (
     <div className={`${styles.listing} background-dark`}>
-      {props.topBanner?.attributes?.bannerImage ? (
-        <ListingBanner props={props.topBanner} overlay={true} />
-      ) : null}
+      {props.topBanner ? (
+        <>
+          <ListingBanner props={props.topBanner.attributes} overlay={true} />
 
-      <div className="shape-after">
-        <span style={{ background: '#2B2B2B' }}></span>
-      </div>
+          <div className="shape-after">
+            <span style={{ background: '#2B2B2B' }}></span>
+          </div>
+        </>
+      ) : null}
 
       <div
         className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
       >
-        {props.types ? <Sidebar props={props.types} /> : null}
+        {props.filters.type ? <Sidebar props={props.filters} /> : null}
 
-        {props.vehicles?.data ? (
+        {props.vehicles.data ? (
           <div className={`${styles.listing_list}`}>
             {props.vehicles.data.map((item) => (
               <InventoryItem key={item.id} props={item} />
@@ -37,24 +38,26 @@ function Inventory(props) {
   );
 }
 
-interface TopBannerProps {
-  data: any;
-}
+// interface TopBannerProps {
+//   data: any;
+// }
 
 export async function getServerSideProps(context) {
-  let topBanner: TopBannerProps;
+  // let topBanner: TopBannerProps;
 
-  if (context.query.category) {
-    topBanner = await getPageData({
-      route: 'categories',
-      slug: context.query.category,
-      // type: '[slug]',
-    });
-    topBanner = topBanner.data[0] || null;
-  } else {
-    topBanner = await getPageData({ route: 'list-inventory' });
-    topBanner = topBanner.data || null;
-  }
+  // if (context.query.category) {
+  //   topBanner = await getPageData({
+  //     route: 'categories',
+  //     slug: context.query.category,
+  //     // type: '[slug]',
+  //   });
+  //   topBanner = topBanner.data[0] || null;
+  // } else {
+  //   topBanner = await getPageData({ route: 'list-inventory' });
+  //   topBanner = topBanner.data || null;
+  // }
+  let topBanner = await getPageData({ route: 'list-inventory' });
+  topBanner = topBanner.data || null;
 
   // Fetching Vehicles
   const { category, vehicles_we_armor } = context.query;
@@ -73,11 +76,18 @@ export async function getServerSideProps(context) {
   });
 
   // Fetching Categories
-  let types = await getPageData({ route: 'categories', order: true });
-  types = { type: types.data };
+  let type = await getPageData({ route: 'categories', order: true });
+  let filters = {};
+  if (type && type.data) {
+    type = type.data;
+    filters = { type };
+  } else {
+    // type = { type: [] };
+  }
+  // const filters = { type };
 
   return {
-    props: { topBanner, vehicles, types },
+    props: { topBanner, vehicles, filters },
   };
 }
 

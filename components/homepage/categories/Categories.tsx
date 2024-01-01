@@ -5,15 +5,10 @@ import Button from 'components/global/button/Button';
 // import { API_URL } from 'config/index';
 
 const Categories = ({ props, allVehiclesImage }) => {
-  // if (!props) {
-  //   return false;
-  // }
-  const data = props.data;
-
   return (
     <>
       <div className={`${styles.categories} container`}>
-        {data.map((item) => {
+        {props.map((item) => {
           const data = item.attributes;
           return (
             <div

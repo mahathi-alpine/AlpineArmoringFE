@@ -7,8 +7,7 @@ type ListingBannerProps = {
 };
 
 const TopBanner = ({ props, overlay }: ListingBannerProps) => {
-  const data = props.attributes;
-  const bannerImage = data.bannerImage.data?.attributes.url;
+  const bannerImage = props.bannerImage.data?.attributes.url;
 
   return (
     <div
@@ -23,7 +22,7 @@ const TopBanner = ({ props, overlay }: ListingBannerProps) => {
     >
       <div className={`${styles.banner_top_content}`}>
         <ReactMarkdown className={`${styles.banner_top_text}`}>
-          {data.bannerText}
+          {props.bannerText}
         </ReactMarkdown>
       </div>
     </div>

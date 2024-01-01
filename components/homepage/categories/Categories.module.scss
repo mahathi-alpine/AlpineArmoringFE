@@ -137,6 +137,7 @@
       font-weight: var(--font-medium);
       text-transform: uppercase;
       letter-spacing: -0.8px;
+      color: var(--color-text);
       @include breakpoint(medium) {
         font-size: rem(16);
       }
