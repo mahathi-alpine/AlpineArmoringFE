@@ -6,7 +6,7 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from '../../lib/api';
 
 function Inventory(props) {
-  console.log(props);
+  // console.log(props);
   // return null;
 
   return (

@@ -76,7 +76,7 @@ export async function getServerSideProps(context) {
   const vehicles = await getPageData({
     route: 'inventories',
     params: query,
-    populate: 'deep',
+    populate: 'featuredImage',
   });
 
   // Fetching Categories
