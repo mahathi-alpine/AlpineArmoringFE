@@ -79,16 +79,14 @@ export async function getServerSideProps(context) {
     populate: 'featuredImage',
   });
 
-  // Fetching Categories
-  let type = await getPageData({ route: 'categories', order: true });
-  let filters = {};
-  if (type && type.data) {
-    type = type.data;
-    filters = { type };
-  } else {
-    // type = { type: [] };
-  }
-  // const filters = { type };
+  // Fetching Types for the Filters
+  const type = await getPageData({
+    route: 'categories',
+    order: true,
+    fields: 'fields[0]=title&fields[1]=slug',
+  }).then((response) => response.data);
+
+  const filters = type ? { type } : {};
 
   return {
     props: { topBanner, vehicles, filters },

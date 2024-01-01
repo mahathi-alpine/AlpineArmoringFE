@@ -77,21 +77,23 @@ export async function getServerSideProps(context) {
     populate: 'featuredImage',
   });
 
-  let type = await getPageData({
-    route: 'categories',
-    order: true,
-  });
-  type = type.data;
-  let make = await getPageData({
-    route: 'makes',
-    order: true,
-  });
-  make = make.data;
+  // Fetching Types and Makes for the Filters
+  const [type, make] = await Promise.all([
+    getPageData({
+      route: 'categories',
+      order: true,
+      fields: 'fields[0]=title&fields[1]=slug',
+    }).then((res) => res.data),
+    getPageData({
+      route: 'makes',
+      order: true,
+      fields: 'fields[0]=title&fields[1]=slug',
+    }).then((res) => res.data),
+  ]);
+
   let filters = {};
   if (type && make) {
     filters = { type, make };
-  } else {
-    // type = { type: [] };
   }
 
   return {
