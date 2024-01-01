@@ -12,6 +12,16 @@
     height: 500px;
   }
 
+  &_image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover;
+    height: 100%;
+  }
+
   &_overlay {
     padding: rem(72) rem(16) 0 rem(16);
     @include breakpoint(large) {
@@ -32,6 +42,7 @@
         rgba(43, 43, 43, 0) 0%,
         rgba(43, 43, 43, 1) 100%
       );
+      z-index: 1;
       @include breakpoint(large) {
         bottom: 0;
         // top: 0;
@@ -47,6 +58,7 @@
     border-radius: 12px;
     text-align: center;
     font-weight: var(--font-medium);
+    z-index: 2;
     @include breakpoint(large) {
       max-width: 780px;
       margin: auto;

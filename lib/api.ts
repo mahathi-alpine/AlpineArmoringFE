@@ -6,7 +6,7 @@ import { API_URL } from 'config/index';
 export async function fetchAPI(path) {
   // const requestUrl = getStrapiURL(path);
   const requestUrl = `${API_URL}${path}`;
-  console.log(requestUrl);
+  // console.log(requestUrl);
   try {
     const [response] = await Promise.all([fetch(requestUrl)]);
     const data = await response.json();

@@ -1,5 +1,6 @@
-// import styles from './ListingBanner.module.scss';
-// import ReactMarkdown from 'react-markdown';
+import styles from './ListingBanner.module.scss';
+import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
 
 type ListingBannerProps = {
   props: any;
@@ -7,12 +8,27 @@ type ListingBannerProps = {
 };
 
 const TopBanner = ({ props, overlay }: ListingBannerProps) => {
-  // const bannerImage = props.bannerImage.data?.attributes.url;
+  console.log(props);
+  const bannerImage = props.bannerImage.data?.attributes.url;
 
   return (
-    <div>
-      {props.bannerText}
-      <div className={`${overlay ? `asd` : ''}`}>asd</div>
+    <div
+      className={`${styles.banner_top}
+      ${overlay ? `${styles.banner_top_overlay}` : ''}
+    `}
+    >
+      <Image
+        src={`${bannerImage}`}
+        alt="Description of the image"
+        width={1920}
+        height={450}
+        className={`${styles.banner_top_image}`}
+      />
+      <div className={`${styles.banner_top_content}`}>
+        <ReactMarkdown className={`${styles.banner_top_text}`}>
+          {props.bannerText}
+        </ReactMarkdown>
+      </div>
     </div>
   );
 };
