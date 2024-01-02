@@ -1,4 +1,5 @@
 import styles from './Sidebar.module.scss';
+import Link from 'next/link';
 import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
@@ -10,25 +11,13 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ props, plain }: SidebarProps) => {
-  // console.log(props)
-  // return null;
   const [activeFilterItem, setActiveFilterItem] = useState('default');
+  const [activeFilterTitles, setActiveFilterTitles] = useState({
+    make: 'Make',
+    type: 'Type',
+  });
+
   const [filtersOpen, setFiltersOpen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1280) {
-        // setActiveFilterItem('type');
-      } else {
-        setActiveFilterItem('default');
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const activateFilterItem = (slug) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
@@ -47,37 +36,59 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
   };
 
   const router = useRouter();
-  const currentFilterCategory = router.query.category;
   const currentFilterMake = router.query.make;
 
+  const pathParts = router.pathname.split('/');
+  const baseUrl = pathParts.slice(0, 2).join('/');
+
+  const currentSlug = router.asPath.split('/').pop();
+
   const handleClearFilters = () => {
-    router.push(
-      {
-        pathname: router.pathname,
-      },
-      undefined,
-      { scroll: false }
-    );
+    router.push(`${baseUrl}`, undefined, { scroll: false });
   };
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    setActiveFilterItem(window.innerWidth < 1280 ? 'type' : 'default');
+
+    ['type', 'make'].forEach((paramKey) => {
+      const { [paramKey]: item } = router.query;
+
+      if (props[paramKey]) {
+        const selectedItem = props[paramKey].find(
+          (i) => i.attributes.slug === item
+        );
+        if (selectedItem) {
+          setActiveFilterTitles((prevTitles) => ({
+            ...prevTitles,
+            [paramKey]: selectedItem.attributes.title,
+          }));
+        }
+      }
+    });
+  }, [router.isReady, router.query]);
 
   const applyFilter = (item, paramKey) => {
     const newQuery = { ...router.query };
-
-    // Always remove the vehicles_we_armor parameter
     delete newQuery['vehicles_we_armor'];
 
     if (newQuery[paramKey] === item) {
-      // If the clicked item is the same as the current value, remove it
-      delete newQuery[paramKey];
-    } else {
-      // Otherwise, update the query parameter
-      newQuery[paramKey] = item;
+      return;
     }
 
-    if (window.innerWidth < 768) {
-      openFilters();
-    } else {
-      activateFilterItem('default');
+    newQuery[paramKey] = item;
+
+    setActiveFilterItem(window.innerWidth >= 768 ? 'default' : 'type');
+
+    const selectedItem = props[paramKey].find(
+      (i) => i.attributes.slug === item
+    );
+    if (selectedItem) {
+      setActiveFilterTitles((prevTitles) => ({
+        ...prevTitles,
+        [paramKey]: selectedItem.attributes.title,
+      }));
     }
 
     router.push(
@@ -102,13 +113,14 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
           <FiltersIcon />
         </div>
 
-        <div
-          className={`${styles.sidebar_clear}`}
-          onClick={handleClearFilters}
-          style={{ display: 'none' }}
-        >
-          Clear all filters
-        </div>
+        {Object.keys(router.query).length > 0 && (
+          <div
+            className={`${styles.sidebar_clear}`}
+            onClick={handleClearFilters}
+          >
+            Clear all filters
+          </div>
+        )}
       </div>
 
       <div
@@ -127,81 +139,93 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
               Filters
               <FiltersIcon />
             </div>
-            <div
-              className={`${styles.sidebar_clear}`}
-              onClick={handleClearFilters}
-            >
-              Clear all filters
-            </div>
-          </div>
 
-          <div
-            className={`
-            ${styles.sidebar_column}
-            ${'type' === activeFilterItem ? styles.sidebar_column_active : ''}
-          `}
-          >
-            <h4
-              className={`${styles.sidebar_column_title}`}
-              onClick={() => activateFilterItem('type')}
-            >
-              <span>Type</span>
-              <ChevronIcon className={`${styles.sidebar_column_chevron}`} />
-            </h4>
-
-            <div className={`${styles.sidebar_column_wrap}`}>
-              {props.type.map((item) => (
-                <div
-                  className={`${styles.checkbox_link} ${
-                    item.attributes.slug === currentFilterCategory
-                      ? styles.selected_filter
-                      : ''
-                  }`}
-                  onClick={() => applyFilter(item.attributes.slug, 'category')}
-                  key={item.id}
-                >
-                  <span className={`${styles.checkbox_span}`}>
-                    {item.attributes.title}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {props.make ? (
-            <div
-              className={`
-              ${styles.sidebar_column}
-              ${'make' === activeFilterItem ? styles.sidebar_column_active : ''}
-            `}
-            >
-              <h4
-                className={`${styles.sidebar_column_title}`}
-                onClick={() => activateFilterItem('make')}
+            {Object.keys(router.query).length > 0 && (
+              <div
+                className={`${styles.sidebar_clear}`}
+                onClick={handleClearFilters}
               >
-                Make
-                <ChevronIcon className={`${styles.sidebar_column_chevron}`} />
-              </h4>
-
-              <div className={`${styles.sidebar_column_wrap}`}>
-                {props.make.map((item) => (
-                  <div
-                    className={`${styles.checkbox_link} ${
-                      item.attributes.slug === currentFilterMake
-                        ? styles.selected_filter
-                        : ''
-                    }`}
-                    onClick={() => applyFilter(item.attributes.slug, 'make')}
-                    key={item.id}
-                  >
-                    <span className={`${styles.checkbox_span}`}>
-                      {item.attributes.title}
-                    </span>
-                  </div>
-                ))}
+                Clear all filters
               </div>
-            </div>
-          ) : null}
+            )}
+          </div>
+
+          {Object.keys(props).map((filter) => {
+            return (
+              <div
+                key={filter}
+                className={`
+                  ${styles.sidebar_column}
+                  ${
+                    filter === activeFilterItem
+                      ? styles.sidebar_column_active
+                      : ''
+                  }
+              `}
+              >
+                <h4
+                  className={`${styles.sidebar_column_title}`}
+                  onClick={() => activateFilterItem(filter)}
+                >
+                  <span>
+                    {baseUrl == '/vehicles-we-armor'
+                      ? filter == 'make'
+                        ? activeFilterTitles.make
+                        : activeFilterTitles.type
+                      : 'Type'}
+                  </span>
+                  <ChevronIcon className={`${styles.sidebar_column_chevron}`} />
+                </h4>
+
+                <div className={`${styles.sidebar_column_wrap}`}>
+                  {props[filter].map((item) => {
+                    if (filter == 'type') {
+                      const newUrl = `${baseUrl}/type/${item.attributes.slug}${
+                        router.asPath.includes('?')
+                          ? '?' + router.asPath.split('?')[1]
+                          : ''
+                      }`;
+                      return (
+                        <Link
+                          href={newUrl}
+                          scroll={false}
+                          className={`${styles.checkbox_link} ${
+                            item.attributes.slug ===
+                            currentSlug.split('/').pop().split('?')[0]
+                              ? styles.selected_filter
+                              : ''
+                          }`}
+                          key={item.id}
+                        >
+                          <span className={`${styles.checkbox_span}`}>
+                            {item.attributes.title}
+                          </span>
+                        </Link>
+                      );
+                    } else {
+                      return (
+                        <div
+                          className={`${styles.checkbox_link} ${
+                            item.attributes.slug === currentFilterMake
+                              ? styles.selected_filter
+                              : ''
+                          }`}
+                          onClick={() =>
+                            applyFilter(item.attributes.slug, 'make')
+                          }
+                          key={item.id}
+                        >
+                          <span className={`${styles.checkbox_span}`}>
+                            {item.attributes.title}
+                          </span>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

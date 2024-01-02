@@ -1,6 +1,6 @@
 // import React, { useState, useEffect, useCallback } from 'react'
 import styles from './InventoryVehicle.module.scss';
-import { getPageData } from '../../lib/api';
+import { getPageData } from 'lib/api';
 import Button from 'components/global/button/Button';
 // import Image from 'next/image';
 import Carousel from 'components/global/carousel/Carousel';

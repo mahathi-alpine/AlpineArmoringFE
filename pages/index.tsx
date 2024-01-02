@@ -17,7 +17,7 @@ function Home({ homepageData, categories }) {
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
   const allVehiclesImage =
     homepageData?.data?.attributes?.allVehiclesImage?.data.attributes;
-  const partners = homepageData?.data?.data?.attributes.industryPartners?.data;
+  const partners = homepageData?.data?.attributes.industryPartners?.data;
   // console.log(homepageData)
 
   useEffect(() => {
@@ -94,8 +94,8 @@ function Home({ homepageData, categories }) {
 export async function getServerSideProps() {
   const homepageData = await getPageData({
     route: 'homepage',
-    populate: 'deep',
   });
+
   const categories = await getPageData({
     route: 'categories',
     order: true,

@@ -1,5 +1,5 @@
 import styles from './InventoryVehicle.module.scss';
-import { getPageData } from '../../lib/api';
+import { getPageData } from 'lib/api';
 import Button from 'components/global/button/Button';
 import Image from 'next/image';
 // import { API_URL } from 'config/index';
@@ -23,7 +23,7 @@ function InventoryVehicle(props) {
             Request a quote
           </Button>
           <Button
-            href={`/inventory?vehicles_we_armor=${data.slug}`}
+            href={`inventory/${data.slug}`}
             icon
             {...(!inventory.length ? { disabled: true } : {})}
             className="icon"

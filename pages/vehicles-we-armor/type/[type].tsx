@@ -39,38 +39,31 @@ function Inventory(props) {
 // }
 
 export async function getServerSideProps(context) {
-  // let topBanner: InventoryProps;
-
-  // if (context.query.category) {
-  //   topBanner = await getPageData({
-  //     route: 'categories',
-  //     slug: context.query.category,
-  //     order: true,
-  //   });
-  //   topBanner = topBanner.data[0];
-
-  // } else {
-  //   topBanner = await getPageData({ route: 'list-vehicles-we-armor' });
-  //   topBanner = topBanner.data;
-  // }
   let topBanner = await getPageData({
     route: 'list-vehicles-we-armor',
     populate: 'deep',
   });
   topBanner = topBanner.data || null;
-  // if (topBanner && topBanner.data) {
-  //   topBanner = topBanner.data;
-  //  } else {
-  //   // type = { type: [] };
-  // }
 
-  let query = '';
-  if (context.query.category) {
-    query += `&filters[category][slug][$eq]=${context.query.category}`;
-  }
+  //   let query = '';
+  //   if (context.query.category) {
+  //     query += `&filters[category][slug][$eq]=${context.query.category}`;
+  //   }
+  //   if (context.query.make) {
+  //     query += `&filters[make][slug][$eq]=${context.query.make}`;
+  //   }
+  //   const vehicles = await getPageData({
+  //     route: 'vehicles-we-armors',
+  //     params: query,
+  //     populate: 'featuredImage',
+  //   });
+
+  const category = context.query.type;
+  let query = `filters[category][slug][$eq]=${category}`;
   if (context.query.make) {
     query += `&filters[make][slug][$eq]=${context.query.make}`;
   }
+
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
     params: query,
