@@ -2,14 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './VideosPopup.module.scss';
 import Image from 'next/image';
 
-const VideosPopup = () => {
+const VideosPopup = (props) => {
   const [isVideoPopupOpen, setVideoPopupOpen] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoveredTitle, setHoveredTitle] = useState('');
+
+  const initialMedia = props.props[0].image.data.attributes;
+
   const [currentMedia, setCurrentMedia] = useState({
-    type: 'video',
-    src: '/AlpineArmoringHP.mp4',
-    width: 1920,
-    height: 1080,
-    alt: 'Alpine Armoring',
+    type: initialMedia.mime.split('/')[0],
+    src: initialMedia.url,
+    width: initialMedia.width,
+    height: initialMedia.height,
+    alt: initialMedia.alternativeText || '',
   });
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -33,10 +38,14 @@ const VideosPopup = () => {
   return (
     <div
       className={`
-                ${styles.videoPopup}
-                ${isVideoPopupOpen ? styles.videoPopup_open : ''}
-            `}
-      onClick={() => setVideoPopupOpen((prevState) => !prevState)}
+        ${styles.videoPopup}
+        ${isVideoPopupOpen ? styles.videoPopup_open : ''}
+      `}
+      onClick={() => {
+        if (!isVideoPopupOpen) {
+          setVideoPopupOpen((prevState) => !prevState);
+        }
+      }}
     >
       <div className={`${styles.videoPopup_wrap}`}>
         <svg
@@ -55,7 +64,11 @@ const VideosPopup = () => {
           </clipPath>
         </svg>
 
-        <div className={`${styles.videoPopup_wrap_media}`}>
+        <div
+          className={`${styles.videoPopup_wrap_media} ${
+            isHovering ? styles.videoPopup_wrap_media_hover : ''
+          }`}
+        >
           {currentMedia.type === 'video' ? (
             <video
               ref={videoRef}
@@ -63,7 +76,6 @@ const VideosPopup = () => {
               autoPlay={true}
               playsInline={true}
               loop={true}
-              className={`${styles.videoPopup_wrap_media}`}
             >
               <source src={currentMedia.src} />
             </video>
@@ -75,108 +87,60 @@ const VideosPopup = () => {
               height={currentMedia.height}
             />
           )}
+
+          <div className={`${styles.videoPopup_wrap_media_content}`}>
+            {hoveredTitle}
+          </div>
+
+          <div
+            className={`${styles.videoPopup_close}`}
+            onClick={() => {
+              setVideoPopupOpen((prevState) => !prevState);
+            }}
+          ></div>
         </div>
+
         <div className={`${styles.videoPopup_wrap_nav}`}>
-          <div
-            className={`${styles.videoPopup_wrap_nav_item}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentMedia({
-                type: 'video',
-                src: '/video2.mp4',
-                width: 1920,
-                height: 1080,
-                alt: 'Alpine Armoring',
-              });
-              if (videoRef.current) {
-                videoRef.current.load();
-              }
-            }}
-          >
-            <video muted={true} autoPlay={true} playsInline={true} loop={true}>
-              <source src="/video2.mp4" />
-            </video>
-          </div>
-          <div
-            className={`${styles.videoPopup_wrap_nav_item}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentMedia({
-                type: 'image',
-                src: '/assets/shooting-ballistic-testing-alpine-armoring.gif',
-                width: 527,
-                height: 365,
-                alt: 'Alpine Armoring 2',
-              });
-            }}
-          >
-            <Image
-              src={`/assets/shooting-ballistic-testing-alpine-armoring.gif`}
-              alt="Description of the image"
-              width={530}
-              height={405}
-            />
-          </div>
-          <div
-            className={`${styles.videoPopup_wrap_nav_item}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentMedia({
-                type: 'image',
-                src: '/Banner-width.jpg',
-                width: 1920,
-                height: 885,
-                alt: 'Alpine Armoring',
-              });
-            }}
-          >
-            <Image
-              src={`/Banner-width.jpg`}
-              alt="Description of the image"
-              width={530}
-              height={405}
-            />
-          </div>
-          <div
-            className={`${styles.videoPopup_wrap_nav_item}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentMedia({
-                type: 'image',
-                src: '/assets/Explotion-purpler-Car.gif',
-                width: 527,
-                height: 365,
-                alt: 'Alpine Armoring',
-              });
-            }}
-          >
-            <Image
-              src={`/assets/Explotion-purpler-Car.gif`}
-              alt="Description of the image"
-              width={530}
-              height={405}
-            />
-          </div>
-          <div
-            className={`${styles.videoPopup_wrap_nav_item}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentMedia({
-                type: 'image',
-                src: '/assets/Explotion-Silver-Car.gif',
-                width: 527,
-                height: 365,
-                alt: 'Alpine Armoring',
-              });
-            }}
-          >
-            <Image
-              src={`/assets/Explotion-Silver-Car.gif`}
-              alt="Description of the image"
-              width={530}
-              height={405}
-            />
-          </div>
+          {props.props.map((item) => {
+            const mimeType = item.image.data.attributes.mime.split('/')[0];
+
+            return (
+              <div
+                key={item.id}
+                className={`${styles.videoPopup_wrap_nav_item}`}
+                onMouseEnter={() => {
+                  setIsHovering(true);
+                  setHoveredTitle(item.title);
+                  setCurrentMedia({
+                    type: mimeType,
+                    src: item.image.data.attributes.url,
+                    width: item.image.data.attributes.width,
+                    height: item.image.data.attributes.height,
+                    alt: item.image.data.attributes.alternativeText || '',
+                  });
+                  if (videoRef.current && mimeType == 'video') {
+                    videoRef.current.load();
+                  }
+                  setIsHovering(true);
+                  setHoveredTitle(item.title);
+                }}
+                onMouseLeave={() => setIsHovering(false)}
+              >
+                {mimeType.includes('video') ? (
+                  <video>
+                    <source src={`${item.image.data.attributes.url}`} />
+                  </video>
+                ) : (
+                  <Image
+                    src={`${item.image.data.attributes.url}`}
+                    alt={item.image.data.attributes.alternativeText || ''}
+                    width={`${item.image.data.attributes.width}`}
+                    height={`${item.image.data.attributes.height}`}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className={`${styles.videoPopup_text}`}>

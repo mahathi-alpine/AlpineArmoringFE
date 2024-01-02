@@ -128,14 +128,44 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: 100px;
+      bottom: 0;
       background: var(--color-dark);
       text-align: center;
       margin: auto;
       z-index: 1;
+
       video {
         object-fit: cover;
         max-height: 100%;
+      }
+
+      &:before{
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: black;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+      }
+
+      &_content{
+        position: absolute;
+        left: rem(60);
+        bottom: rem(200);
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+      }
+
+      &_hover{
+        .videoPopup_wrap_media_content{
+          opacity: 1;
+        }
+        &:before{
+          opacity: .5;
+        }
       }
     }
 
@@ -153,7 +183,10 @@
       @include breakpoint(medium) {
         right: 0;
         overflow-x: unset;
-        height: 200px;
+        justify-content: center;
+        height: 150px;
+        max-width: 80%;
+        margin: auto;
       }
 
       .videoPopup_open & {
@@ -162,7 +195,7 @@
 
       &_item {
         position: relative;
-        width: 140px;
+        width: 120px;
         @include breakpoint(medium) {
           width: calc(100% / 5);
         }
@@ -177,11 +210,37 @@
           transition: height 0.3s ease-in-out;
           @include breakpoint(medium) {
             &:hover {
-              height: 200px;
+              height: 120px;
             }
           }
         }
       }
+    }
+  }
+
+  &_close{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: rem(20);
+    right: rem(20);
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 100%;
+    &:before, &:after{
+      content: "";
+      display: block;
+      background: var(--color-dark);
+      position: absolute;
+      height: 2px;
+      width: 24px;
+      border-radius: 2px;
+      transform: rotate(135deg);
+    }
+    &:after{
+      transform: rotate(225deg);
     }
   }
 }

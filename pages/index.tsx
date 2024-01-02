@@ -17,6 +17,8 @@ function Home({ homepageData, categories }) {
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
   const allVehiclesImage =
     homepageData?.data?.attributes?.allVehiclesImage?.data.attributes;
+  const ballistingTestings =
+    homepageData?.data?.attributes.ballistingTestingsMedia;
   const partners = homepageData?.data?.attributes.industryPartners?.data;
   // console.log(homepageData)
 
@@ -75,7 +77,7 @@ function Home({ homepageData, categories }) {
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
-        <VideosPopup />
+        {ballistingTestings ? <VideosPopup props={ballistingTestings} /> : null}
 
         {horizontalSlider ? (
           <StickyHorizontalSlider props={horizontalSlider} />
