@@ -204,6 +204,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
                               ? styles.selected_filter
                               : ''
                           }`}
+                          onClick={openFilters}
                           key={item.id}
                         >
                           <span className={`${styles.checkbox_span}`}>

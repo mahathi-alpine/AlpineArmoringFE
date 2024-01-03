@@ -16,7 +16,7 @@ function Home({ homepageData, categories }) {
   const tabSectionData = homepageData.data?.attributes.tabSection;
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
   const allVehiclesImage =
-    homepageData?.data?.attributes?.allVehiclesImage?.data.attributes;
+    homepageData?.data?.attributes?.allVehiclesImage?.data?.attributes;
   const ballistingTestings =
     homepageData?.data?.attributes.ballistingTestingsMedia;
   const partners = homepageData?.data?.attributes.industryPartners?.data;

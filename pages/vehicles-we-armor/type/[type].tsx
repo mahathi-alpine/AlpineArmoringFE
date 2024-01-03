@@ -7,8 +7,11 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 
 function Inventory(props) {
-  console.log(props);
+  // console.log(props);
   // return null;
+  const topBanner = props.filters.type.find(
+    (item) => item.attributes.slug === props.query
+  );
 
   useEffect(() => {
     document.body.classList.add('listing-all', 'header-transparent');
@@ -19,9 +22,7 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing}`}>
-      {props.topBanner ? (
-        <ListingBanner props={props.topBanner.attributes} />
-      ) : null}
+      {topBanner ? <ListingBanner props={topBanner.attributes} /> : null}
 
       <div className="shape-before">
         <span style={{ background: '#f3f3f3' }}></span>
@@ -53,25 +54,6 @@ function Inventory(props) {
 // }
 
 export async function getServerSideProps(context) {
-  let topBanner = await getPageData({
-    route: 'list-vehicles-we-armor',
-    populate: 'deep',
-  });
-  topBanner = topBanner.data || null;
-
-  //   let query = '';
-  //   if (context.query.category) {
-  //     query += `&filters[category][slug][$eq]=${context.query.category}`;
-  //   }
-  //   if (context.query.make) {
-  //     query += `&filters[make][slug][$eq]=${context.query.make}`;
-  //   }
-  //   const vehicles = await getPageData({
-  //     route: 'vehicles-we-armors',
-  //     params: query,
-  //     populate: 'featuredImage',
-  //   });
-
   const category = context.query.type;
   let query = `filters[category][slug][$eq]=${category}`;
   if (context.query.make) {
@@ -89,7 +71,8 @@ export async function getServerSideProps(context) {
     getPageData({
       route: 'categories',
       order: true,
-      fields: 'fields[0]=title&fields[1]=slug',
+      fields: 'fields[0]=title&fields[1]=slug&fields[2]=bannerText',
+      populate: 'bannerImage',
     }).then((res) => res.data),
     getPageData({
       route: 'makes',
@@ -104,7 +87,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { topBanner, vehicles, filters },
+    props: { vehicles, filters, query: context.query.type },
   };
 }
 

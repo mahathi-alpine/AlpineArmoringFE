@@ -7,7 +7,10 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 
 function Inventory(props) {
-  // console.log(props)
+  const topBanner = props.filters.type.find(
+    (item) => item.attributes.slug === props.query
+  );
+  // console.log(props);
   // return null
 
   useEffect(() => {
@@ -27,9 +30,9 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing}`}>
-      {props.topBanner ? (
+      {topBanner ? (
         <>
-          <ListingBanner props={props.topBanner.attributes} overlay={true} />
+          <ListingBanner props={topBanner.attributes} overlay={true} />
 
           <div className="shape-before">
             <span></span>
@@ -41,6 +44,12 @@ function Inventory(props) {
         className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
       >
         {props.filters.type ? <Sidebar props={props.filters} /> : null}
+
+        {props.vehicles.data.length < 1 ? (
+          <div className={`${styles.listing_empty}`}>
+            <h2>No Vehicles Found</h2>
+          </div>
+        ) : null}
 
         {props.vehicles.data ? (
           <div className={`${styles.listing_list}`}>
@@ -59,12 +68,6 @@ function Inventory(props) {
 // }
 
 export async function getServerSideProps(context) {
-  let topBanner = await getPageData({
-    route: 'list-inventory',
-    populate: 'deep',
-  });
-  topBanner = topBanner.data || null;
-
   // Fetching Vehicles
   const category = context.query.type;
   const query = `filters[category][slug][$eq]=${category}`;
@@ -79,13 +82,14 @@ export async function getServerSideProps(context) {
   const type = await getPageData({
     route: 'categories',
     order: true,
-    fields: 'fields[0]=title&fields[1]=slug',
+    fields: 'fields[0]=title&fields[1]=slug&fields[2]=bannerText',
+    populate: 'bannerImage',
   }).then((response) => response.data);
 
   const filters = type ? { type } : {};
 
   return {
-    props: { topBanner, vehicles, filters },
+    props: { vehicles, filters, query: context.query.type },
   };
 }
 
