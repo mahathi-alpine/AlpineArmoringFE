@@ -4,17 +4,18 @@ import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 type SidebarProps = {
   props: any;
-  plain?: any;
+  plain?: boolean;
 };
 
 const Sidebar = ({ props, plain }: SidebarProps) => {
   const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [activeFilterTitles, setActiveFilterTitles] = useState({
-    make: 'Make',
-    type: 'Type',
+    make: 'Select',
+    type: 'Select',
   });
 
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -23,16 +24,20 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
   };
 
+  const isMobile = useIsMobile();
+
   const openFilters = () => {
-    setFiltersOpen((filtersOpen) => {
-      const newValue = !filtersOpen;
-      if (newValue) {
-        document.body.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-      }
-      return newValue;
-    });
+    if (isMobile) {
+      setFiltersOpen((filtersOpen) => {
+        const newValue = !filtersOpen;
+        if (newValue) {
+          document.body.classList.add('no-scroll');
+        } else {
+          document.body.classList.remove('no-scroll');
+        }
+        return newValue;
+      });
+    }
   };
 
   const router = useRouter();
@@ -155,29 +160,33 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
               <div
                 key={filter}
                 className={`
-                  ${styles.sidebar_column}
+                  ${styles.sidebar_item}
                   ${
                     filter === activeFilterItem
-                      ? styles.sidebar_column_active
+                      ? styles.sidebar_item_active
                       : ''
                   }
-              `}
+                `}
+                onClick={() => activateFilterItem(filter)}
               >
-                <h4
-                  className={`${styles.sidebar_column_title}`}
-                  onClick={() => activateFilterItem(filter)}
-                >
-                  <span>
-                    {baseUrl == '/vehicles-we-armor'
-                      ? filter == 'make'
-                        ? activeFilterTitles.make
-                        : activeFilterTitles.type
-                      : 'Type'}
-                  </span>
-                  <ChevronIcon className={`${styles.sidebar_column_chevron}`} />
+                <h4 className={`${styles.sidebar_item_title}`}>
+                  {filter}
+                  <ChevronIcon className={`${styles.sidebar_item_chevron}`} />
                 </h4>
+                <span className={`${styles.sidebar_item_choice}`}>
+                  {filter == 'make'
+                    ? activeFilterTitles.make
+                    : activeFilterTitles.type.replace('Armored', '')}
+                </span>
+                {/* <span className={`${styles.sidebar_item_choice}`}>
+                  {baseUrl == '/vehicles-we-armor'
+                    ? filter == 'make'
+                      ? activeFilterTitles.make
+                      : activeFilterTitles.type
+                    : 'Select'}
+                </span> */}
 
-                <div className={`${styles.sidebar_column_wrap}`}>
+                <div className={`${styles.sidebar_item_wrap}`}>
                   {props[filter].map((item) => {
                     if (filter == 'type') {
                       const newUrl = `${baseUrl}/type/${item.attributes.slug}${
@@ -198,7 +207,9 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
                           key={item.id}
                         >
                           <span className={`${styles.checkbox_span}`}>
-                            {item.attributes.title}
+                            {baseUrl == '/vehicles-we-armor'
+                              ? item.attributes.title.replace('Armored', '')
+                              : item.attributes.title}
                           </span>
                         </Link>
                       );

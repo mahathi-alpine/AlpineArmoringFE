@@ -1,7 +1,14 @@
 .listing_item {
   max-width: 425px;
-  margin: auto;
+  // margin: auto;
   margin-bottom: rem(32);
+  @include breakpoint(medium) {
+    width: calc(50% - 12px);
+  }
+  @include breakpoint(large) {
+    width: calc(100%/3 - 16px);
+    max-width: 100%;
+  }
 
   &_content {
     position: relative;

@@ -4,10 +4,18 @@ import Sidebar from 'components/listing/sidebar/Sidebar';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
+import { useEffect } from 'react';
 
 function Inventory(props) {
   // console.log(props);
   // return null;
+
+  useEffect(() => {
+    document.body.classList.add('listing-all', 'header-transparent');
+    return () => {
+      document.body.classList.remove('listing-all', 'header-transparent');
+    };
+  }, []);
 
   return (
     <div className={`${styles.listing}`}>

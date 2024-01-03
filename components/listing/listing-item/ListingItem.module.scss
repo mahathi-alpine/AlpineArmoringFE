@@ -3,7 +3,7 @@
   padding: rem(8);
   margin: auto;
   margin-bottom: rem(24);
-  background: #2b2b2b;
+  background: var(--color-secondary);
   color: #fff;
   border-radius: 8px;
   flex-basis: 470px;
@@ -67,7 +67,9 @@
   }
 
   &_button {
+    display: none;
     @include breakpoint(large) {
+      display: block;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);

@@ -1,15 +1,15 @@
 .header {
   padding-top: rem(16);
   padding-bottom: rem(16);
-  height: 72px;
+  // height: 72px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 3;
+  z-index: 4;
   background-color: rgba(23, 23, 23, 0.8);
   backdrop-filter: blur(10px);
-  color: white;
+  color: var(--color-white);
   transition: transform 0.4s ease-in-out;
   // background-color: var(--color-dark);
 
@@ -32,6 +32,9 @@
   }
 
   &_logo {
+    a{
+      display: flex;
+    }
     @include breakpoint('large') {
       position: absolute;
       left: 0;
@@ -53,10 +56,6 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
-    @include breakpoint(large) {
-      // width: 48px;
-      // height: 48px;
-    }
 
     &:before {
       position: absolute;
@@ -78,7 +77,7 @@
     &_inner {
       position: relative;
       display: block;
-      background: white;
+      background: var(--color-white);
       height: 2px;
       width: 24px;
       transition: background 0.3s ease-in-out;
@@ -87,7 +86,7 @@
       &:after {
         content: '';
         display: block;
-        background: white;
+        background: var(--color-white);
         position: absolute;
         height: 2px;
         width: 24px;
@@ -110,15 +109,17 @@
       }
     }
 
-    &:hover {
-      &:before {
-        background: white;
-      }
-      .header_burger_inner {
-        background: var(--color-dark);
-        &:before,
-        &:after {
+    @include breakpoint(large) {
+      &:hover {
+        &:before {
+          background: var(--color-white);
+        }
+        .header_burger_inner {
           background: var(--color-dark);
+          &:before,
+          &:after {
+            background: var(--color-dark);
+          }
         }
       }
     }
@@ -129,8 +130,10 @@
         transform: scale(0.9);
         transition: transform 0.2s ease-in-out;
       }
-      &:hover:before {
-        transform: scale(1);
+      @include breakpoint(large) {
+        &:hover:before {
+          transform: scale(1);
+        }
       }
       .header_burger_inner {
         background: transparent !important;
@@ -147,13 +150,6 @@
         }
       }
     }
-
-    // &_open{
-    // }
-
-    // .header--white & {
-    //   background: white;
-    // }
   }
 
   &_right {

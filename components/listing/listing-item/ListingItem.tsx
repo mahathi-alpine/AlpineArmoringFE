@@ -23,7 +23,7 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
             />
           ) : null}
 
-          <div className={`${styles.inventory_item_button} desktop-only`}>
+          <div className={`${styles.inventory_item_button}`}>
             <span>VIEW VEHICLE</span>
           </div>
         </div>

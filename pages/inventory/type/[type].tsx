@@ -4,19 +4,35 @@ import Sidebar from 'components/listing/sidebar/Sidebar';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
+import { useEffect } from 'react';
 
 function Inventory(props) {
   // console.log(props)
   // return null
 
+  useEffect(() => {
+    document.body.classList.add(
+      'listing-inventory',
+      'header-transparent',
+      'background-dark'
+    );
+    return () => {
+      document.body.classList.remove(
+        'listing-inventory',
+        'header-transparent',
+        'background-dark'
+      );
+    };
+  }, []);
+
   return (
-    <div className={`${styles.listing} background-dark`}>
+    <div className={`${styles.listing}`}>
       {props.topBanner ? (
         <>
           <ListingBanner props={props.topBanner.attributes} overlay={true} />
 
-          <div className="shape-after">
-            <span style={{ background: '#2B2B2B' }}></span>
+          <div className="shape-before">
+            <span></span>
           </div>
         </>
       ) : null}

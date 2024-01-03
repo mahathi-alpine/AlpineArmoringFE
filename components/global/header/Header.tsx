@@ -1,7 +1,8 @@
 // import React, { FC } from 'react';
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
+import Logo from 'components/icons/Logo';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
@@ -55,6 +56,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
         ${classNames} 
         ${styles[hState]}
         ${isNavOpen ? styles.header_navOpen : ''}
+        b-header
       `}
       // ${isScrolling ? styles.header_sticky : ''}
     >
@@ -64,13 +66,7 @@ const Header = ({ className, setNavOpen, isNavOpen }: HeaderProps) => {
           onClick={() => setNavOpen(false)}
         >
           <Link href={'/'}>
-            <Image
-              src="/assets/LogoWhite.svg"
-              width={125}
-              height={42}
-              alt="Alpine Armoring"
-              priority={true}
-            />
+            <Logo />
           </Link>
         </div>
 
