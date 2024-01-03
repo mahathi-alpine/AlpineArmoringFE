@@ -32,7 +32,7 @@
     }
   }
 
-  &_empty{
+  &_empty {
     text-align: center;
     margin-top: rem(48);
     @include breakpoint(large) {

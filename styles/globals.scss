@@ -21,19 +21,19 @@ body {
     padding-top: 0;
   }
 
-  &.header-transparent{
-    &:not(.no-scroll):not(.background-dark){
-      .logo-fill{
-        fill: var(--color-dark)
+  &.header-transparent {
+    &:not(.no-scroll):not(.background-dark) {
+      .logo-fill {
+        fill: var(--color-dark);
       }
     }
-    &:not(.background-dark) .b-header{
+    &:not(.background-dark) .b-header {
       --color-white: var(--color-dark);
-      svg{
-        fill: var(--color-dark); 
+      svg {
+        fill: var(--color-dark);
       }
     }
-    .b-header{
+    .b-header {
       background: transparent;
       backdrop-filter: none;
     }

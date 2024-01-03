@@ -32,7 +32,7 @@
   }
 
   &_logo {
-    a{
+    a {
       display: flex;
     }
     @include breakpoint('large') {

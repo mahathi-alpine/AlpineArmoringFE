@@ -6,7 +6,7 @@
     width: calc(50% - 12px);
   }
   @include breakpoint(large) {
-    width: calc(100%/3 - 16px);
+    width: calc(100% / 3 - 16px);
     max-width: 100%;
   }
 

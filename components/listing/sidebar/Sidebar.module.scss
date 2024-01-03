@@ -65,7 +65,7 @@
       font-weight: var(--font-medium);
       .sidebar_plain & {
         @include breakpoint(untilLarge) {
-          svg path{
+          svg path {
             fill: var(--color-dark);
           }
         }
@@ -86,7 +86,7 @@
     }
   }
 
-  &_wrap {    
+  &_wrap {
     @include breakpoint(untilLarge) {
       position: fixed;
       z-index: 1;
@@ -266,7 +266,7 @@
       }
     }
 
-    &_choice{
+    &_choice {
       display: none;
       .sidebar_plain & {
         @include breakpoint(large) {
@@ -307,7 +307,7 @@
           max-height: 0px;
           padding: 0 rem(10);
           transition: max-height 0.3s ease;
-          z-index: 1;      
+          z-index: 1;
 
           .checkbox {
             &_span {
