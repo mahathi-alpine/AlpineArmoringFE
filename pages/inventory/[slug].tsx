@@ -1,6 +1,7 @@
 // import React, { useState, useEffect, useCallback } from 'react'
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
+import { useEffect } from 'react';
 import Button from 'components/global/button/Button';
 // import Image from 'next/image';
 import Carousel from 'components/global/carousel/Carousel';
@@ -11,6 +12,21 @@ const OPTIONS: EmblaOptionsType = {
 };
 
 function InventoryVehicle(props) {
+  useEffect(() => {
+    document.body.classList.add(
+      'listing-inventory',
+      'header-transparent',
+      'background-dark'
+    );
+    return () => {
+      document.body.classList.remove(
+        'listing-inventory',
+        'header-transparent',
+        'background-dark'
+      );
+    };
+  }, []);
+
   if (!props.data.data) {
     return null;
   }
@@ -26,7 +42,7 @@ function InventoryVehicle(props) {
               <Carousel slides={topGallery} options={OPTIONS} />
             ) : null}
 
-            <div className="shape-before">
+            <div className="shape-before mobile-only">
               <span></span>
             </div>
           </div>

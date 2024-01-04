@@ -5,8 +5,6 @@ import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
 import NavigationPopup from './global/navigation/NavigationPopup';
 
-import { SpeedInsights } from '@vercel/speed-insights/next';
-
 const Layout = ({ children }) => {
   const [isNavOpen, setNavOpen] = useState(false);
 
@@ -21,7 +19,6 @@ const Layout = ({ children }) => {
       <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
       {children}
       <Footer />
-      <SpeedInsights />
     </>
   );
 };

@@ -8,7 +8,16 @@ import {
   usePrevNextButtons,
 } from './CarouselArrowButtons';
 
+// import  from 'yet-another-react-lightbox';
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
+import { Lightbox } from 'yet-another-react-lightbox';
+
+import 'yet-another-react-lightbox/styles.css';
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
+
 import styles from './Carousel.module.scss';
+import ZoomIcon from 'components/icons/Zoom';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 type PropType = {
   slides?: any;
@@ -16,13 +25,20 @@ type PropType = {
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
+  const [open, setOpen] = useState(false);
+  // const [currentImage, setCurrentImage] = useState("");
+
   const { slides, options } = props;
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
+
+  const isMobile = useIsMobile();
+
+  const thumbsAxis = isMobile ? 'x' : 'y';
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
-    axis: 'y',
+    axis: thumbsAxis,
     dragFree: true,
   });
 
@@ -36,9 +52,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
   const onSelect = useCallback(() => {
     if (!emblaMainApi || !emblaThumbsApi) return;
-    setSelectedIndex(emblaMainApi.selectedScrollSnap());
-    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
-  }, [emblaMainApi, emblaThumbsApi, setSelectedIndex]);
+    const newIndex = emblaMainApi.selectedScrollSnap();
+    setSelectedIndex(newIndex);
+    emblaThumbsApi.scrollTo(newIndex);
+  }, [emblaMainApi, emblaThumbsApi]);
+
+  // const openLightbox = useCallback(() => {
+  //   if (!emblaMainApi || !emblaThumbsApi) return;
+  //   setOpen(true);
+  //   setCurrentImage(slides[selectedIndex].attributes.url);
+  // }, [emblaMainApi, emblaThumbsApi, slides, selectedIndex]);
 
   useEffect(() => {
     if (!emblaMainApi) return;
@@ -71,11 +94,25 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           ))}
         </div>
 
-        <div className="mobile-only">
+        <div className={styles.carousel_zoom} onClick={() => setOpen(true)}>
+          <ZoomIcon />
+        </div>
+
+        <div className={styles.carousel_arrows}>
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
       </div>
+
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={slides.map((item) => ({
+          src: item.attributes.url,
+        }))}
+        index={selectedIndex}
+        plugins={[Thumbnails]}
+      />
 
       <div className={styles.carousel_thumbs}>
         <div className={styles.carousel_thumbs_viewport} ref={emblaThumbsRef}>
@@ -92,7 +129,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           </div>
         </div>
 
-        <div className="desktop-only">
+        <div className={styles.carousel_thumbs_arrows}>
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>

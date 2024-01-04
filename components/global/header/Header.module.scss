@@ -7,10 +7,9 @@
   left: 0;
   right: 0;
   z-index: 4;
-  background-color: rgba(23, 23, 23, 0.8);
-  backdrop-filter: blur(10px);
   color: var(--color-white);
   transition: transform 0.4s ease-in-out;
+  height: 74px;
   // background-color: var(--color-dark);
 
   // @include breakpoint('large') {

@@ -26,7 +26,7 @@ function Inventory(props) {
   }, []);
 
   return (
-    <div className={`${styles.listing}`}>
+    <div className={`${styles.listing} background-dark`}>
       {props.topBanner ? (
         <>
           <ListingBanner props={props.topBanner.attributes} overlay={true} />
