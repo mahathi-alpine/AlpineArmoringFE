@@ -31,9 +31,7 @@ function Inventory(props) {
         <>
           <ListingBanner props={props.topBanner.attributes} overlay={true} />
 
-          <div className="shape-before">
-            <span></span>
-          </div>
+          <div className="shape-before"></div>
         </>
       ) : null}
 

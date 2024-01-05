@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react';
 import Image from 'next/image';
 import { Thumb } from './CarouselThumbsButton';
@@ -26,7 +26,6 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const [open, setOpen] = useState(false);
-  // const [currentImage, setCurrentImage] = useState("");
 
   const { slides, options } = props;
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
@@ -57,12 +56,6 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     emblaThumbsApi.scrollTo(newIndex);
   }, [emblaMainApi, emblaThumbsApi]);
 
-  // const openLightbox = useCallback(() => {
-  //   if (!emblaMainApi || !emblaThumbsApi) return;
-  //   setOpen(true);
-  //   setCurrentImage(slides[selectedIndex].attributes.url);
-  // }, [emblaMainApi, emblaThumbsApi, slides, selectedIndex]);
-
   useEffect(() => {
     if (!emblaMainApi) return;
     onSelect();
@@ -77,10 +70,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaMainApi);
 
+  const galleryRef = useRef(null);
+  const thumbsRef = useRef(null);
+  useEffect(() => {
+    const firstDivHeight = galleryRef.current.offsetHeight;
+    thumbsRef.current.style.height = `${firstDivHeight}px`;
+  }, []);
   return (
     <div className={styles.carousel}>
-      <div className={styles.carousel_viewport} ref={emblaMainRef}>
-        <div className={styles.carousel_container}>
+      <div className={`${styles.carousel_viewport}`} ref={emblaMainRef}>
+        <div className={`${styles.carousel_container}`} ref={galleryRef}>
           {slides.map((item, index) => (
             <div className={styles.carousel_slide} key={index}>
               <Image
@@ -114,7 +113,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         plugins={[Thumbnails]}
       />
 
-      <div className={styles.carousel_thumbs}>
+      <div className={`${styles.carousel_thumbs}`} ref={thumbsRef}>
         <div className={styles.carousel_thumbs_viewport} ref={emblaThumbsRef}>
           <div className={styles.carousel_thumbs_container}>
             {slides.map((item, index) => (

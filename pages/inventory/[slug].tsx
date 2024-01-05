@@ -33,6 +33,25 @@ function InventoryVehicle(props) {
   const data = props.data.data[0].attributes;
   const topGallery = data.gallery.data;
 
+  // console.log(data)
+  const keys = {
+    VIN: 'VIN',
+    'Vehicle ID': 'vehicleID',
+    Engine: 'engine',
+    Trans: 'trans',
+    Power: 'power',
+    'Color (EXT)': 'color_ext',
+    'Color (INT)': 'color_int',
+    Trim: 'trim',
+    Wheels: 'wheels',
+    'Drive Train': 'driveTrain',
+    Height: 'height',
+    Length: 'length',
+    Width: 'width',
+    Wheelbase: 'wheelbase',
+    weight: 'weight',
+  };
+
   return (
     <div className={`${styles.inventory}`}>
       <div className="background-dark">
@@ -48,9 +67,11 @@ function InventoryVehicle(props) {
           </div>
 
           <div className={`${styles.inventory_details}`}>
-            {/* <div className={`${styles.inventory_breadcrumbs}`}>
-
-            </div> */}
+            <div className={`${styles.inventory_breadcrumbs}`}>
+              <a href="">Inventory</a>
+              <span>&gt;</span>
+              <a href="">Armored SUVs</a>
+            </div>
 
             {/* <h3 className={`${styles.inventory_banner_protection}`}>
               ARMORED AT PROTECTION LEVEL <span>A9</span>
@@ -82,7 +103,17 @@ function InventoryVehicle(props) {
               <div className={`${styles.inventory_tabs_content}`}>
                 <div className={`${styles.inventory_tabs_content_item}`}>
                   <ul className={`${styles.inventory_tabs_content_list}`}>
-                    <li></li>
+                    {Object.entries(keys).map(([key, value]) => {
+                      return (
+                        <li
+                          key={key}
+                          className={`${styles.inventory_tabs_content_list_item}`}
+                        >
+                          {`${key}:`}
+                          <span>{`${data[value]}`}</span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>

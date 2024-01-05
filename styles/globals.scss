@@ -132,84 +132,57 @@ img {
 }
 
 .background-dark {
-  background: var(--color-black) url('/assets/noise.png');
+  background: var(--color-dark) url('/assets/noise.png');
+  background-size: 100px;
   color: white;
 }
 
-.shape-before {
-  position: relative;
-  overflow-x: clip;
-  z-index: 1;
-  span {
-    position: absolute;
-    background: var(--color-black) url('/assets/noise.png');
-    border-radius: 50% / 100% 100% 0 0;
-    top: -49px;
-    left: -50px;
-    right: -50px;
-    height: 50px;
-    @include breakpoint(large) {
-      top: -99px;
-      left: -100px;
-      right: -100px;
-      height: 100px;
-    }
-  }
-  // &:after {
-  //   position: absolute;
-  //   content: '';
-  //   background: var(--color-black) url('/assets/noise.png');
-  //   border-radius: 50% / 100% 100% 0 0;
-  //   top: -50px;
-  //   left: -50px;
-  //   right: -50px;
-  //   height: 50px;
-  //   @include breakpoint(large) {
-  //     top: -100px;
-  //     left: -100px;
-  //     right: -100px;
-  //     height: 100px;
-  //   }
-  // }
-}
 
-.shape-after {
+.shape-before,
+.shape-after{
+  --background: var(--color-dark) url('/assets/noise.png');
   position: relative;
   overflow-x: clip;
   height: 50px;
-  bottom: 50px;
-  background: var(--color-black) url(/assets/noise.png);
-  span {
+  @include breakpoint(large) {
+    height: 100px;
+  }
+
+  &:after{
+    content: '';
     position: absolute;
-    background: var(--color-black) url('/assets/noise.png');
-    border-radius: 50% / 0 0 100% 100%;
-    // bottom: -50px;
+    background-size: 100px;
+    height: 100%;
     left: -50px;
     right: -50px;
-    height: 50px;
+    background: var(--background);
     @include breakpoint(large) {
-      // bottom: -100px;
       left: -100px;
       right: -100px;
-      height: 100px;
     }
   }
-  // &:after{
-  //   position: absolute;
-  //   content: '';
-  //   background: var(--color-black) url('/assets/noise.png');
-  //   border-radius: 50% / 0 0 100% 100%;
-  //   bottom: -50px;
-  //   left: -50px;
-  //   right: -50px;
-  //   height: 50px;
-  //   @include breakpoint(large) {
-  //     bottom: -100px;
-  //     left: -100px;
-  //     right: -100px;
-  //     height: 100px;
-  //   }
-  // }
+}
+
+.shape-before-white{
+  --background: #f3f3f3;
+}
+
+.shape-before {
+  z-index: 1;
+  margin-top: -50px;
+  @include breakpoint(large) {
+    margin-top: -99px;
+  }
+  &:after{
+    border-radius: 50% / 100% 100% 0 0;
+  }
+}
+
+.shape-after {
+  background: var(--color-background);
+  &:after{
+    border-radius: 50% / 0 0 100% 100%;
+  }
 }
 
 .c-title {

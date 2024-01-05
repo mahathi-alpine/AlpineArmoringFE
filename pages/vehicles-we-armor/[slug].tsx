@@ -23,7 +23,7 @@ function InventoryVehicle(props) {
             Request a quote
           </Button>
           <Button
-            href={`inventory/${data.slug}`}
+            href={`/inventory/?vehicles_we_armor=${data.slug}`}
             icon
             {...(!inventory.length ? { disabled: true } : {})}
             className="icon"

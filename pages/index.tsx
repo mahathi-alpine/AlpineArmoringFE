@@ -62,10 +62,6 @@ function Home({ homepageData, categories }) {
       {topBanner ? <HpBanner props={topBanner} /> : null}
 
       <div className="background-dark">
-        <div className="shape-before">
-          <span></span>
-        </div>
-
         <IntroText />
 
         {categoriesData && (
@@ -83,9 +79,7 @@ function Home({ homepageData, categories }) {
           <StickyHorizontalSlider props={horizontalSlider} />
         ) : null}
 
-        <div className="shape-after">
-          <span></span>
-        </div>
+        <div className="shape-after"></div>
       </div>
 
       {partners ? <Partners props={partners} /> : null}

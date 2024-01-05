@@ -1,11 +1,12 @@
 .carousel {
   --slide-size: 100%;
-  --slide-height: 19rem;
+  --slide-height: 24rem;
   position: relative;
 
   @include breakpoint(large) {
     display: flex;
     gap: 16px;
+    align-items: flex-start;
   }
 
   &_viewport {
@@ -25,6 +26,11 @@
     @include breakpoint(large) {
       margin-left: 0;
     }
+  }
+
+  &_slide {
+    flex: 0 0 var(--slide-size);
+    position: relative;
 
     &:after {
       position: absolute;
@@ -39,13 +45,9 @@
         rgba(0, 0, 0, 1) 100%
       );
       @include breakpoint(medium) {
+        display: none;
       }
     }
-  }
-
-  &_slide {
-    flex: 0 0 var(--slide-size);
-    position: relative;
 
     &_img {
       display: block;
@@ -53,7 +55,7 @@
       height: var(--slide-height);
       object-fit: cover;
       @include breakpoint(medium) {
-        height: 100%;
+        height: 100% !important;
         border-radius: 8px;
       }
     }
@@ -62,7 +64,7 @@
   &_zoom {
     position: absolute;
     right: rem(8);
-    bottom: rem(50);
+    bottom: rem(40);
     cursor: pointer;
     z-index: 1;
     @include breakpoint(medium) {
@@ -82,17 +84,47 @@
       position: relative;
       bottom: 0;
       margin-top: rem(8);
+      height: 100px;
     }
 
     @include breakpoint(large) {
       width: 190px;
-      padding: rem(40) 0;
+      // padding: rem(40) 0;
       margin-top: 0;
     }
 
     &_viewport {
       position: relative;
       overflow: hidden;
+
+      @include breakpoint(large) {
+        height: 100%;
+      }
+
+      @include breakpoint(medium) {
+        height: 100%;
+
+        &:before{
+          position: absolute;
+          content: '';
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 24px;
+          z-index: 1;
+          background: linear-gradient(180deg, rgba(16,16,16,1) 0%, rgba(16,16,16,0) 100%);
+        }
+  
+        &:after{
+          position: absolute;
+          content: '';
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 24px;
+          background: linear-gradient(180deg, rgba(16,16,16,0) 0%, rgba(16,16,16,1) 100%);
+        }
+      }      
     }
 
     &_container {
@@ -102,13 +134,14 @@
       justify-content: center;
 
       @include breakpoint(medium) {
+        position: relative;
         gap: 8px;
         justify-content: unset;
       }
 
       @include breakpoint(large) {
         flex-flow: column;
-        height: 570px;
+        height: 100%;
       }
     }
 

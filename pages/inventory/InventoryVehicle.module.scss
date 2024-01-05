@@ -2,25 +2,50 @@
   &_top {
     @include breakpoint(medium) {
       display: flex;
+      padding-top: rem(32);
+      gap: 32px;
     }
     @include breakpoint(large) {
       padding: rem(60) rem(60) rem(60) rem(60);
+      max-width: 1730px;
+      margin: auto;
+      gap: 64px;
     }
 
-    &_gallery {
+    &_gallery {      
+      @include breakpoint(untilLarge) {
+        display: none;
+      }
       @include breakpoint(medium) {
-        width: 50%;
-        padding: 0 rem(16);
+        width: 58%;
         order: 2;
+        padding-top: rem(40);
       }
     }
   }
 
+  &_breadcrumbs{
+    color: var(--color-primary);
+    text-transform: uppercase;
+    font-size: rem(14);
+    font-weight: var(--font-demi);
+    margin-bottom: rem(16);
+
+    span{
+      margin: 0 3px;
+    }
+  }
+
   &_details {
+    position: relative;
     padding: 0 rem(16);
+    margin-top: rem(-16);
+    z-index: 1;
 
     @include breakpoint(medium) {
-      width: 50%;
+      width: 42%;
+      padding: 0;
+      margin-top: 0;
     }
 
     &_title {
@@ -45,8 +70,12 @@
       flex: 0 0 auto;
       font-size: rem(14);
       font-weight: var(--font-medium);
+      min-width: 100%;
+      justify-content: center;
+
       @include breakpoint(medium) {
         justify-content: space-between;
+        padding: 0 8px;
       }
 
       &_wrap {
@@ -62,6 +91,26 @@
 
         @include breakpoint(medium) {
           margin-right: 0;
+        }
+      }
+    }
+
+    &_content{
+      &_list{
+        &_item{
+          display: flex;
+          justify-content: space-between;
+          font-size: rem(13);
+          border-bottom: 1px solid var(--color-grayDark);
+          padding: rem(12) 0;
+
+          @include breakpoint(medium) {
+            font-size: rem(14);
+          }
+
+          span{
+            font-weight: var(--font-medium);
+          }
         }
       }
     }

@@ -63,6 +63,8 @@ const HpBanner = ({ props }: HPBannerProps) => {
           </div> */}
         </div>
       </div>
+
+      <div className="shape-before"></div>
     </div>
   );
 };
