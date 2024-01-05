@@ -137,9 +137,8 @@ img {
   color: white;
 }
 
-
 .shape-before,
-.shape-after{
+.shape-after {
   --background: var(--color-dark) url('/assets/noise.png');
   position: relative;
   overflow-x: clip;
@@ -148,7 +147,7 @@ img {
     height: 100px;
   }
 
-  &:after{
+  &:after {
     content: '';
     position: absolute;
     background-size: 100px;
@@ -163,7 +162,7 @@ img {
   }
 }
 
-.shape-before-white{
+.shape-before-white {
   --background: #f3f3f3;
 }
 
@@ -173,14 +172,14 @@ img {
   @include breakpoint(large) {
     margin-top: -99px;
   }
-  &:after{
+  &:after {
     border-radius: 50% / 100% 100% 0 0;
   }
 }
 
 .shape-after {
   background: var(--color-background);
-  &:after{
+  &:after {
     border-radius: 50% / 0 0 100% 100%;
   }
 }

@@ -12,7 +12,7 @@
       gap: 64px;
     }
 
-    &_gallery {      
+    &_gallery {
       @include breakpoint(untilLarge) {
         display: none;
       }
@@ -24,14 +24,14 @@
     }
   }
 
-  &_breadcrumbs{
+  &_breadcrumbs {
     color: var(--color-primary);
     text-transform: uppercase;
     font-size: rem(14);
     font-weight: var(--font-demi);
     margin-bottom: rem(16);
 
-    span{
+    span {
       margin: 0 3px;
     }
   }
@@ -95,9 +95,9 @@
       }
     }
 
-    &_content{
-      &_list{
-        &_item{
+    &_content {
+      &_list {
+        &_item {
           display: flex;
           justify-content: space-between;
           font-size: rem(13);
@@ -108,7 +108,7 @@
             font-size: rem(14);
           }
 
-          span{
+          span {
             font-weight: var(--font-medium);
           }
         }
