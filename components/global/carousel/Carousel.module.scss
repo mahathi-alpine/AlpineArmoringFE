@@ -3,7 +3,7 @@
   --slide-spacing: 0;
   position: relative;
 
-  &_variableWidth{
+  &_variableWidth {
     --slide-size: 30%;
     --slide-spacing: 16px;
   }
@@ -20,8 +20,8 @@
 
     @include breakpoint(large) {
       width: calc(100% - 190px);
-      
-      .carousel_variableWidth &{
+
+      .carousel_variableWidth & {
         width: 100%;
       }
     }
@@ -52,7 +52,7 @@
     @include breakpoint(large) {
       height: 40rem;
 
-      .carousel_variableWidth &{
+      .carousel_variableWidth & {
         height: rem(600);
       }
     }
@@ -69,7 +69,7 @@
         rgba(0, 0, 0, 0) 20%,
         rgba(0, 0, 0, 1) 100%
       );
-      .carousel_variableWidth &{
+      .carousel_variableWidth & {
         display: none;
       }
       @include breakpoint(medium) {
@@ -85,7 +85,7 @@
       @include breakpoint(medium) {
         border-radius: 8px;
 
-        .carousel_variableWidth &{
+        .carousel_variableWidth & {
           border-radius: 0;
           filter: brightness(90%);
         }
@@ -103,7 +103,7 @@
       bottom: rem(8);
     }
 
-    .carousel_variableWidth &{
+    .carousel_variableWidth & {
       bottom: rem(100);
     }
   }
@@ -264,7 +264,7 @@
     @include breakpoint(large) {
       display: none;
 
-      .carousel_variableWidth &{
+      .carousel_variableWidth & {
         display: block;
       }
     }
@@ -290,7 +290,7 @@
       right: 0;
       margin: 0 auto;
 
-      .carousel_variableWidth &{
+      .carousel_variableWidth & {
         transform: none;
         top: 50%;
         left: rem(16);
@@ -310,7 +310,7 @@
         bottom: 0;
         transform: rotate(90deg);
 
-        .carousel_variableWidth &{
+        .carousel_variableWidth & {
           left: auto;
           right: rem(16);
         }
