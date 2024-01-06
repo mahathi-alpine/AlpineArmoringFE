@@ -10,24 +10,24 @@
       content: '';
       left: 10px;
       right: 10px;
-      top: -60px;
-      bottom: -385px;
+      top: -20px;
+      bottom: -450px;
       background: url('/assets/shieldGray.svg') center center no-repeat;
       background-size: contain;
       opacity: 0.1;
     }
   }
 
-  &_heading {
-    text-align: center;
-    font-weight: var(--font-medium);
-    font-size: rem(24);
-    @include breakpoint(medium) {
-      font-size: rem(36);
-      max-width: 985px;
-      margin: auto;
-    }
-  }
+  // &_heading {
+  //   text-align: center;
+  //   font-weight: var(--font-medium);
+  //   font-size: rem(24);
+  //   @include breakpoint(medium) {
+  //     font-size: rem(36);
+  //     max-width: 985px;
+  //     margin: auto;
+  //   }
+  // }
 
   &_nav {
     display: flex;
@@ -54,9 +54,10 @@
     &_item {
       position: relative;
       cursor: pointer;
+      text-transform: uppercase;
       font-size: rem(14);
       @include breakpoint(medium) {
-        font-size: rem(16);
+        font-size: rem(18);
       }
 
       &:after {
@@ -160,20 +161,20 @@
         margin-bottom: rem(24);
       }
       @include breakpoint(large) {
-        font-size: rem(26);
+        font-size: rem(36);
       }
     }
-    &_description {
-      font-size: rem(14);
-      margin-bottom: rem(32);
-      color: rgb(190, 187, 187);
-      @include breakpoint(medium) {
-        margin-bottom: rem(40);
-      }
-      @include breakpoint(large) {
-        font-size: rem(16);
-      }
-    }
+    // &_description {
+    //   font-size: rem(14);
+    //   margin-bottom: rem(32);
+    //   color: rgb(190, 187, 187);
+    //   @include breakpoint(medium) {
+    //     margin-bottom: rem(40);
+    //   }
+    //   @include breakpoint(large) {
+    //     font-size: rem(16);
+    //   }
+    // }
     &_link {
       display: flex;
       align-items: center;

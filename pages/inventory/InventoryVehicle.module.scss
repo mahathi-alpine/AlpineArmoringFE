@@ -2,7 +2,7 @@
   &_top {
     @include breakpoint(medium) {
       display: flex;
-      padding-top: rem(32);
+      padding: rem(32) rem(16) rem(60) rem(16);
       gap: 32px;
     }
     @include breakpoint(large) {
@@ -13,9 +13,6 @@
     }
 
     &_gallery {
-      @include breakpoint(untilLarge) {
-        display: none;
-      }
       @include breakpoint(medium) {
         width: 58%;
         order: 2;
@@ -27,9 +24,13 @@
   &_breadcrumbs {
     color: var(--color-primary);
     text-transform: uppercase;
-    font-size: rem(14);
+    font-size: rem(12);
     font-weight: var(--font-demi);
     margin-bottom: rem(16);
+
+    @include breakpoint(medium) {
+      font-size: rem(14);
+    }
 
     span {
       margin: 0 3px;
@@ -72,19 +73,21 @@
       font-weight: var(--font-medium);
       min-width: 100%;
       justify-content: center;
+      padding-bottom: rem(8);
+      border-bottom: 1px solid var(--color-grayDark);
 
-      @include breakpoint(medium) {
+      @include breakpoint(large) {
         justify-content: space-between;
-        padding: 0 8px;
+        padding: 0 rem(8) rem(8) rem(8);
       }
 
       &_wrap {
         display: flex;
         overflow-x: auto;
         margin-right: rem(-16);
-        margin-bottom: rem(40);
-        padding-bottom: rem(8);
-        border-bottom: 1px solid var(--color-grayDark);
+        margin-bottom: rem(24);
+        padding-bottom: 2px;
+
         &::-webkit-scrollbar {
           display: none;
         }
@@ -93,24 +96,77 @@
           margin-right: 0;
         }
       }
+
+      &_item{
+        position: relative;
+        cursor: pointer;
+        color: var(--color-grayLight);
+        transition: color 0.3s ease;
+
+        &:after {
+          position: absolute;
+          content: '';
+          left: -8px;
+          right: -8px;
+          bottom: -10px;
+          background: var(--color-primary);
+          height: 3px;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+        }
+
+        &_active{
+          color: var(--color-white);
+          &:after{
+            transform: scaleX(1);
+          }
+        }
+      }
     }
 
     &_content {
+      position: relative;
+      // min-height: 600px;
+
+      &_item{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+
+        &:not(.inventory_tabs_content_item_active) {
+          .inventory_tabs_content_list {
+            opacity: 0;
+          }
+        }
+
+        &_active {
+          position: relative;
+          z-index: 1;
+
+        }
+
+      }
+
       &_list {
+        transition: opacity 0.2s ease-in-out;
+
         &_item {
           display: flex;
           justify-content: space-between;
           font-size: rem(13);
-          border-bottom: 1px solid var(--color-grayDark);
+          border-bottom: 1px solid var(--color-gray);
           padding: rem(12) 0;
 
-          @include breakpoint(medium) {
+          @include breakpoint(large) {
             font-size: rem(14);
           }
 
-          span {
-            font-weight: var(--font-medium);
-          }
+          // span {
+          //   font-weight: var(--font-medium);
+          // }
         }
       }
     }

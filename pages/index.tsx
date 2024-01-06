@@ -5,6 +5,7 @@ import { getPageData } from 'lib/api';
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import IntroText from 'components/homepage/intro-text/IntroText';
 import Categories from 'components/homepage/categories/Categories';
+import HPMiddleText from 'components/homepage/hp-middle-text/HPMiddleText';
 import TabSection from 'components/global/tab-section/TabSection';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Partners from 'components/homepage/partners/Partners';
@@ -13,6 +14,7 @@ import VideosPopup from 'components/global/videos-popup/VideosPopup';
 function Home({ homepageData, categories }) {
   const topBanner = homepageData.data?.attributes.topBanner;
   const categoriesData = categories?.data;
+  const hpMiddleText = homepageData.data?.attributes.hpMiddleText;
   const tabSectionData = homepageData.data?.attributes.tabSection;
   const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
   const allVehiclesImage =
@@ -71,16 +73,18 @@ function Home({ homepageData, categories }) {
           />
         )}
 
+        {hpMiddleText ? <HPMiddleText props={hpMiddleText} /> : null}
+
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
         {ballistingTestings ? <VideosPopup props={ballistingTestings} /> : null}
 
-        {horizontalSlider ? (
-          <StickyHorizontalSlider props={horizontalSlider} />
-        ) : null}
-
         <div className="shape-after"></div>
       </div>
+
+      {horizontalSlider ? (
+        <StickyHorizontalSlider props={horizontalSlider} />
+      ) : null}
 
       {partners ? <Partners props={partners} /> : null}
     </>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react';
 import Image from 'next/image';
+import styles from './Carousel.module.scss';
+import ZoomIcon from 'components/icons/Zoom';
+
+import useEmblaCarousel from 'embla-carousel-react';
 import { Thumb } from './CarouselThumbsButton';
 import {
   PrevButton,
@@ -8,31 +11,23 @@ import {
   usePrevNextButtons,
 } from './CarouselArrowButtons';
 
-// import  from 'yet-another-react-lightbox';
-import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import { Lightbox } from 'yet-another-react-lightbox';
-
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
-import styles from './Carousel.module.scss';
-import ZoomIcon from 'components/icons/Zoom';
-import { useIsMobile } from 'hooks/useIsMobile';
+const EmblaCarousel = ({ slides }) => {
+  // console.log(props)
+  // return null;
 
-type PropType = {
-  slides?: any;
-  options?: EmblaOptionsType;
-};
-
-const EmblaCarousel: React.FC<PropType> = (props) => {
   const [open, setOpen] = useState(false);
 
-  const { slides, options } = props;
-  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ loop: true });
 
-  const isMobile = useIsMobile();
-
-  const thumbsAxis = isMobile ? 'x' : 'y';
+  const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
+  useEffect(() => {
+    window.innerWidth >= 1280 ? setThumbsAxis('y') : setThumbsAxis('x');
+  }, []);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -73,9 +68,12 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   const galleryRef = useRef(null);
   const thumbsRef = useRef(null);
   useEffect(() => {
-    const firstDivHeight = galleryRef.current.offsetHeight;
-    thumbsRef.current.style.height = `${firstDivHeight}px`;
+    if (window.innerWidth >= 1280) {
+      const firstDivHeight = galleryRef.current.offsetHeight;
+      thumbsRef.current.style.height = `${firstDivHeight}px`;
+    }
   }, []);
+
   return (
     <div className={styles.carousel}>
       <div className={`${styles.carousel_viewport}`} ref={emblaMainRef}>
@@ -85,8 +83,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
               <Image
                 src={item.attributes.url}
                 alt="Description of the image"
-                width={683}
-                height={642}
+                width={670}
+                height={640}
                 className={styles.carousel_slide_img}
               />
             </div>

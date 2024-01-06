@@ -102,12 +102,17 @@ img {
   }
 }
 
-.container {
+.container,
+.container_small {
   padding: 0 rem(16);
   @include breakpoint(large) {
     max-width: 1920px;
     margin: auto;
     padding: 0 rem(32);
+
+    &_small{
+      max-width: 1440px;
+    }
   }
   // @include breakpoint(huge){
   //   padding: 0 rem(48);

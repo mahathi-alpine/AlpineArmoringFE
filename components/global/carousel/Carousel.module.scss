@@ -1,11 +1,10 @@
 .carousel {
   --slide-size: 100%;
-  --slide-height: 24rem;
   position: relative;
 
   @include breakpoint(large) {
     display: flex;
-    gap: 16px;
+    gap: 8px;
     align-items: flex-start;
   }
 
@@ -15,6 +14,7 @@
 
     @include breakpoint(large) {
       width: calc(100% - 190px);
+      // align-self: stretch;
     }
   }
 
@@ -25,12 +25,22 @@
 
     @include breakpoint(large) {
       margin-left: 0;
+      height: 100%;
     }
   }
 
   &_slide {
     flex: 0 0 var(--slide-size);
     position: relative;
+    height: 50vH;
+
+    @include breakpoint(medium) {
+      height: 32rem;
+    }
+
+    @include breakpoint(large) {
+      height: 40rem;
+    }
 
     &:after {
       position: absolute;
@@ -52,10 +62,9 @@
     &_img {
       display: block;
       width: 100%;
-      height: var(--slide-height);
+      height: 100%;
       object-fit: cover;
       @include breakpoint(medium) {
-        height: 100% !important;
         border-radius: 8px;
       }
     }
@@ -99,18 +108,18 @@
 
       @include breakpoint(large) {
         height: 100%;
-      }
 
-      @include breakpoint(medium) {
-        height: 100%;
-
-        &:before {
+        &:before,
+        &:after{
           position: absolute;
           content: '';
           left: 0;
           right: 0;
-          top: 0;
           height: 24px;
+        }
+
+        &:before {
+          top: 0;
           z-index: 1;
           background: linear-gradient(
             180deg,
@@ -120,12 +129,7 @@
         }
 
         &:after {
-          position: absolute;
-          content: '';
-          left: 0;
-          right: 0;
           bottom: 0;
-          height: 24px;
           background: linear-gradient(
             180deg,
             rgba(16, 16, 16, 0) 0%,
@@ -168,7 +172,7 @@
         background: unset;
         width: 100%;
         flex: 0 0 28%;
-        min-height: 70px;
+        min-height: 100px;
         border-radius: unset;
         transform: scale(1);
         margin-left: 0;

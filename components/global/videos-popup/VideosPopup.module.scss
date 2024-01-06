@@ -5,11 +5,11 @@
   align-items: center;
   max-width: 500px;
   margin: auto;
-  margin-top: rem(250);
   cursor: pointer;
   z-index: 2;
   @include breakpoint(medium) {
-    margin-top: rem(80);
+    margin-top: rem(200);
+    margin-bottom: rem(250);
     font-size: rem(22);
   }
 

@@ -1,0 +1,47 @@
+.text_columns{
+    padding-top: rem(40);
+    padding-bottom: rem(40);
+    @include breakpoint(medium) {
+        display: flex;
+        align-items: flex-end;
+        gap: 64px;
+        padding-bottom: rem(200);
+        padding-top: 0;
+    }
+    @include breakpoint(large) {
+        gap: 100px;
+    }
+
+    h3{
+        margin-bottom: rem(20);
+        font-size: clamp(1.5rem, 1.2573rem + 1.0356vw, 2.5rem);
+        line-height: clamp(2.25rem, 1.9769rem + 1.165vw, 3.375rem);
+        font-weight: var(--font-regular);
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+            width: 43%;
+        }
+
+        u{
+            padding: 4px 8px;
+            color: var(--color-white);
+            font-weight: var(--font-medium);
+            background: var(--color-primary);
+            border-radius: 4px;
+        }
+    }
+
+    p{
+        color: var(--color-grayLight);
+        @include breakpoint(medium) {
+            width: 57%;
+            font-size: rem(20);
+        }
+    }
+
+    a,
+    strong{
+        font-weight: var(--font-demi);
+        color: var(--color-primary);
+    }
+}

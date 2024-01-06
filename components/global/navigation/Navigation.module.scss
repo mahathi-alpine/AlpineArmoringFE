@@ -24,7 +24,7 @@
     }
   }
   &_item {
-    font-weight: 500;
+    font-weight: var(--font-medium);
     position: relative;
     font-size: rem(14);
     text-transform: uppercase;

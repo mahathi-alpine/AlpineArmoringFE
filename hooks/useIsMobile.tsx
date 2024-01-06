@@ -1,23 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function useIsMobile() {
   const [isMobile, setMobile] = useState(false);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    const checkScreenSize = () => {
       setMobile(window.innerWidth <= 768);
-    }
-  }, []);
+    };
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const updateMedia = () => {
-        setMobile(window.innerWidth <= 768);
-      };
-
-      window.addEventListener('resize', updateMedia);
-      return () => window.removeEventListener('resize', updateMedia);
+    if (!initialized.current) {
+      checkScreenSize();
+      initialized.current = true;
     }
+
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
 
   return isMobile;

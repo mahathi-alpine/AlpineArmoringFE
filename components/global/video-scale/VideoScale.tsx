@@ -18,7 +18,7 @@ export function animateVideo(entry) {
   headerRight.style.transform = `translateX(${textTrans}px)`;
 }
 
-const VideoScale = ({ props }) => {
+const VideoScale = ({ video, text1, text2 }) => {
   return (
     <section className={`${styles.videoScale} observe videoScaleContainer`}>
       <div className={`${styles.videoScale_shim}`}></div>
@@ -29,11 +29,11 @@ const VideoScale = ({ props }) => {
           muted
           loop
           playsInline
-          src={props}
+          src={video}
         ></video>
         <div className={`${styles.videoScale_overlay}`}>
-          <h2 className="videoScale_header_left">ALPINE</h2>
-          <h2 className="videoScale_header_right">ARMORING</h2>
+          <h2 className="videoScale_header_left">{text1}</h2>
+          <h2 className="videoScale_header_right">{text2}</h2>
         </div>
       </div>
     </section>

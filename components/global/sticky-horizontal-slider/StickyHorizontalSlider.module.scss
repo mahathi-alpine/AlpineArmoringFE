@@ -1,12 +1,12 @@
 .stickyHorizontalSlider {
   position: relative;
   max-width: 100%;
-  padding: rem(200) 0 rem(70) 0;
+  padding: rem(100) 0 0 0;
   color: white;
 
   @include breakpoint(large) {
     padding-left: 0;
-    padding-top: rem(350);
+    padding-top: rem(150);
     padding-bottom: rem(75);
   }
 
@@ -52,6 +52,7 @@
 
   &_heading {
     padding-left: rem(16);
+    color: var(--color-dark);
     @include breakpoint(medium) {
       // max-width: 1130px;
       // margin: auto;
@@ -107,6 +108,7 @@
       // text-transform: uppercase;
       font-weight: var(--font-regular);
       font-size: rem(18);
+      color: var(--color-dark);
       @include breakpoint(large) {
         font-size: rem(25);
       }

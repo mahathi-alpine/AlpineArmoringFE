@@ -13,10 +13,10 @@ const TabSection = ({ props }) => {
 
   return (
     <section className={`${styles.tabSection} container`}>
-      <h3 className={`${styles.tabSection_heading} observe fade-in-up`}>
+      {/* <h3 className={`${styles.tabSection_heading} observe fade-in-up`}>
         Designed, engineered and manufactured like no OTHER armored vehicles in
         the world
-      </h3>
+      </h3> */}
       <div className={`${styles.tabSection_nav_wrap} observe fade-in-up`}>
         <ul className={`${styles.tabSection_nav}`}>
           {props.map((item) => (
@@ -56,11 +56,11 @@ const TabSection = ({ props }) => {
               >
                 {item.title}
               </h4>
-              <p
+              {/* <p
                 className={`${styles.tabSection_item_description} observe fade-in-up`}
               >
                 {item.description}
-              </p>
+              </p> */}
               <Link
                 className={`${styles.tabSection_item_link} observe fade-in-up`}
                 href="/"

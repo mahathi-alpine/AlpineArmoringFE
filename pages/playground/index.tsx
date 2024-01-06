@@ -69,7 +69,11 @@ function Playground() {
 
   return (
     <div>
-      <VideoScale props="AlpineArmoringHP.mp4" />
+      <VideoScale
+        video="/AlpineArmoringHP.mp4"
+        text1="Armored Cadillac"
+        text2="ESV V-Series"
+      />
 
       <TextTransform
         text1="Alpine Armoring"
