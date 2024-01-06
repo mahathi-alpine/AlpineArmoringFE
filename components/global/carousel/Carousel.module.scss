@@ -32,7 +32,7 @@
   &_slide {
     flex: 0 0 var(--slide-size);
     position: relative;
-    height: 50vH;
+    height: 50vh;
 
     @include breakpoint(medium) {
       height: 32rem;
@@ -110,7 +110,7 @@
         height: 100%;
 
         &:before,
-        &:after{
+        &:after {
           position: absolute;
           content: '';
           left: 0;

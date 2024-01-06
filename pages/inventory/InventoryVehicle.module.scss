@@ -97,7 +97,7 @@
         }
       }
 
-      &_item{
+      &_item {
         position: relative;
         cursor: pointer;
         color: var(--color-grayLight);
@@ -116,9 +116,9 @@
           transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
         }
 
-        &_active{
+        &_active {
           color: var(--color-white);
-          &:after{
+          &:after {
             transform: scaleX(1);
           }
         }
@@ -129,7 +129,7 @@
       position: relative;
       // min-height: 600px;
 
-      &_item{
+      &_item {
         position: absolute;
         top: 0;
         left: 0;
@@ -145,9 +145,7 @@
         &_active {
           position: relative;
           z-index: 1;
-
         }
-
       }
 
       &_list {
