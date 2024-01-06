@@ -5,7 +5,7 @@
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  height: 200vh;
+  height: 150vh;
 
   &_shim {
     position: absolute;
@@ -20,7 +20,7 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 50%;
+    height: 80%;
   }
 
   &_video {
@@ -42,9 +42,8 @@
     transform: translate(-50%, -50%);
     width: 100%;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    // font-size: clamp(2rem, 10cqi, 10rem);
+    flex-flow: column;
+    align-items: center;
     font-size: 6rem;
     color: white;
     overflow: hidden;

@@ -1,6 +1,12 @@
 .carousel {
   --slide-size: 100%;
+  --slide-spacing: 0;
   position: relative;
+
+  &_variableWidth{
+    --slide-size: 30%;
+    --slide-spacing: 16px;
+  }
 
   @include breakpoint(large) {
     display: flex;
@@ -14,7 +20,10 @@
 
     @include breakpoint(large) {
       width: calc(100% - 190px);
-      // align-self: stretch;
+      
+      .carousel_variableWidth &{
+        width: 100%;
+      }
     }
   }
 
@@ -31,15 +40,21 @@
 
   &_slide {
     flex: 0 0 var(--slide-size);
+    padding-left: var(--slide-spacing);
     position: relative;
     height: 50vh;
 
     @include breakpoint(medium) {
       height: 32rem;
+      cursor: pointer;
     }
 
     @include breakpoint(large) {
       height: 40rem;
+
+      .carousel_variableWidth &{
+        height: rem(600);
+      }
     }
 
     &:after {
@@ -54,6 +69,9 @@
         rgba(0, 0, 0, 0) 20%,
         rgba(0, 0, 0, 1) 100%
       );
+      .carousel_variableWidth &{
+        display: none;
+      }
       @include breakpoint(medium) {
         display: none;
       }
@@ -66,6 +84,11 @@
       object-fit: cover;
       @include breakpoint(medium) {
         border-radius: 8px;
+
+        .carousel_variableWidth &{
+          border-radius: 0;
+          filter: brightness(90%);
+        }
       }
     }
   }
@@ -78,6 +101,10 @@
     z-index: 1;
     @include breakpoint(medium) {
       bottom: rem(8);
+    }
+
+    .carousel_variableWidth &{
+      bottom: rem(100);
     }
   }
 
@@ -236,6 +263,10 @@
   &_arrows {
     @include breakpoint(large) {
       display: none;
+
+      .carousel_variableWidth &{
+        display: block;
+      }
     }
   }
 
@@ -258,6 +289,15 @@
       left: 0;
       right: 0;
       margin: 0 auto;
+
+      .carousel_variableWidth &{
+        transform: none;
+        top: 50%;
+        left: rem(16);
+        right: auto;
+        width: rem(40);
+        height: rem(40);
+      }
     }
 
     &_next {
@@ -269,6 +309,11 @@
         right: 0;
         bottom: 0;
         transform: rotate(90deg);
+
+        .carousel_variableWidth &{
+          left: auto;
+          right: rem(16);
+        }
       }
     }
 

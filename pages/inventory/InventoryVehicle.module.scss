@@ -169,4 +169,13 @@
       }
     }
   }
+
+  &_images{
+    padding: rem(100) 0;
+
+    &_slider{
+      margin-top: -99px;
+      margin-bottom: 1px;
+    }
+  }
 }

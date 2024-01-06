@@ -1,17 +1,12 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect, useState } from 'react';
+
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
-// import EmblaOptionsType from "embla-carousel-react"
-
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
-
-// const OPTIONS: EmblaOptionsType = {
-//   loop: true,
-// };
 
 function InventoryVehicle(props) {
   const [activeDiv, setActiveDiv] = useState('1');
@@ -72,7 +67,15 @@ function InventoryVehicle(props) {
   const data = props.data.data[0].attributes;
   const topGallery = data.gallery.data;
 
-  const keys = {
+  const sliderTopOptions = { dragFree: true, loop: true, thumbs: true };
+  const sliderBottomOptions = {
+    dragFree: true,
+    loop: true,
+    thumbs: false,
+    variableWidth: true,
+  };
+
+  const vehicleDetails = {
     VIN: 'VIN',
     'Vehicle ID': 'vehicleID',
     Engine: 'engine',
@@ -99,11 +102,11 @@ function InventoryVehicle(props) {
       <div className="background-dark">
         <div className={`${styles.inventory_top}`}>
           <div className={`${styles.inventory_top_gallery}`}>
-            {topGallery ? <Carousel slides={topGallery} /> : null}
+            {topGallery ? (
+              <Carousel slides={topGallery} options={sliderTopOptions} />
+            ) : null}
 
-            <div className="shape-before mobile-only">
-              <span></span>
-            </div>
+            <div className="shape-before mobile-only"></div>
           </div>
 
           <div className={`${styles.inventory_details}`}>
@@ -170,7 +173,7 @@ function InventoryVehicle(props) {
                   }`}
                 >
                   <ul className={`${styles.inventory_tabs_content_list}`}>
-                    {Object.entries(keys).map(([key, value]) => {
+                    {Object.entries(vehicleDetails).map(([key, value]) => {
                       return (
                         <li
                           key={key}
@@ -206,6 +209,16 @@ function InventoryVehicle(props) {
           text1="Armored Cadillac"
           text2="ESV V-Series"
         />
+
+        <div className={`${styles.inventory_images}`}>
+          <div className="shape-after"></div>
+          {topGallery ? (
+            <div className={`${styles.inventory_images_slider}`}>
+              <Carousel slides={topGallery} options={sliderBottomOptions} />
+            </div>
+          ) : null}
+          <div className="shape-before"></div>
+        </div>
       </div>
     </div>
   );

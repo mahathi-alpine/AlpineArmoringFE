@@ -16,13 +16,14 @@ import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
-const EmblaCarousel = ({ slides }) => {
+const EmblaCarousel = (props) => {
   // console.log(props)
   // return null;
 
+  const { slides, options } = props;
   const [open, setOpen] = useState(false);
 
-  const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ loop: true });
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
 
   const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
   useEffect(() => {
@@ -68,18 +69,29 @@ const EmblaCarousel = ({ slides }) => {
   const galleryRef = useRef(null);
   const thumbsRef = useRef(null);
   useEffect(() => {
-    if (window.innerWidth >= 1280) {
+    if (window.innerWidth >= 1280 && options.thumbs) {
       const firstDivHeight = galleryRef.current.offsetHeight;
       thumbsRef.current.style.height = `${firstDivHeight}px`;
     }
   }, []);
 
   return (
-    <div className={styles.carousel}>
+    <div
+      className={`${styles.carousel}
+      ${options.variableWidth ? `${styles.carousel_variableWidth}` : ''}
+    `}
+    >
       <div className={`${styles.carousel_viewport}`} ref={emblaMainRef}>
         <div className={`${styles.carousel_container}`} ref={galleryRef}>
           {slides.map((item, index) => (
-            <div className={styles.carousel_slide} key={index}>
+            <div
+              className={styles.carousel_slide}
+              key={index}
+              onClick={() => {
+                setOpen(true);
+                setSelectedIndex(index);
+              }}
+            >
               <Image
                 src={item.attributes.url}
                 alt="Description of the image"
@@ -87,12 +99,12 @@ const EmblaCarousel = ({ slides }) => {
                 height={640}
                 className={styles.carousel_slide_img}
               />
+
+              <div className={styles.carousel_zoom}>
+                <ZoomIcon />
+              </div>
             </div>
           ))}
-        </div>
-
-        <div className={styles.carousel_zoom} onClick={() => setOpen(true)}>
-          <ZoomIcon />
         </div>
 
         <div className={styles.carousel_arrows}>
@@ -111,26 +123,34 @@ const EmblaCarousel = ({ slides }) => {
         plugins={[Thumbnails]}
       />
 
-      <div className={`${styles.carousel_thumbs}`} ref={thumbsRef}>
-        <div className={styles.carousel_thumbs_viewport} ref={emblaThumbsRef}>
-          <div className={styles.carousel_thumbs_container}>
-            {slides.map((item, index) => (
-              <Thumb
-                onClick={() => onThumbClick(index)}
-                selected={index === selectedIndex}
-                index={index}
-                imgSrc={item.attributes.url}
-                key={index}
-              />
-            ))}
+      {options.thumbs ? (
+        <div className={`${styles.carousel_thumbs}`} ref={thumbsRef}>
+          <div className={styles.carousel_thumbs_viewport} ref={emblaThumbsRef}>
+            <div className={styles.carousel_thumbs_container}>
+              {slides.map((item, index) => (
+                <Thumb
+                  onClick={() => onThumbClick(index)}
+                  selected={index === selectedIndex}
+                  index={index}
+                  imgSrc={item.attributes.url}
+                  key={index}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.carousel_thumbs_arrows}>
+            <PrevButton
+              onClick={onPrevButtonClick}
+              disabled={prevBtnDisabled}
+            />
+            <NextButton
+              onClick={onNextButtonClick}
+              disabled={nextBtnDisabled}
+            />
           </div>
         </div>
-
-        <div className={styles.carousel_thumbs_arrows}>
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 };

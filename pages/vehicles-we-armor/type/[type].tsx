@@ -24,9 +24,7 @@ function Inventory(props) {
     <div className={`${styles.listing}`}>
       {topBanner ? <ListingBanner props={topBanner.attributes} /> : null}
 
-      <div className="shape-before">
-        <span style={{ background: '#f3f3f3' }}></span>
-      </div>
+      <div className="shape-before"></div>
 
       <div className={`${styles.listing_wrap} container`}>
         {props.filters.type ? <Sidebar props={props.filters} plain /> : null}

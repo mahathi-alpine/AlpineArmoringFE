@@ -148,6 +148,7 @@ img {
   position: relative;
   overflow-x: clip;
   height: 50px;
+  z-index: 1;
   @include breakpoint(large) {
     height: 100px;
   }
@@ -172,7 +173,6 @@ img {
 }
 
 .shape-before {
-  z-index: 1;
   margin-top: -50px;
   @include breakpoint(large) {
     margin-top: -99px;
@@ -183,7 +183,9 @@ img {
 }
 
 .shape-after {
-  background: var(--color-background);
+  &-white {
+    background: var(--color-background);
+  }
   &:after {
     border-radius: 50% / 0 0 100% 100%;
   }

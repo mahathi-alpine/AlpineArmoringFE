@@ -79,7 +79,7 @@ function Home({ homepageData, categories }) {
 
         {ballistingTestings ? <VideosPopup props={ballistingTestings} /> : null}
 
-        <div className="shape-after"></div>
+        <div className="shape-after shape-after-white"></div>
       </div>
 
       {horizontalSlider ? (
