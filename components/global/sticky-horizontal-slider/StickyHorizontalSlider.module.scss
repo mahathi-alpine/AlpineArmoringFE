@@ -54,8 +54,9 @@
     padding-left: rem(16);
     color: var(--color-dark);
     @include breakpoint(medium) {
-      // max-width: 1130px;
-      // margin: auto;
+      padding-left: rem(64);
+    }
+    @include breakpoint(large) {
       padding-left: 23vw;
     }
   }
@@ -66,69 +67,75 @@
     @include breakpoint(medium) {
       margin-left: rem(24);
       min-width: 36vw;
+      max-width: 690px;
+      transition: transform .5s ease-in-out;
+
+      &:hover{
+        transform: scale(.975);
+        .stickyHorizontalSlider_item_image{
+          transform: scale(1.06);
+        }
+      }
     }
     @include breakpoint(large) {
       margin-left: rem(24);
       flex-shrink: 0;
     }
+
     &:last-child {
       margin-right: rem(15);
     }
 
     &_image {
       width: 100%;
-      // height: 200px;
+      height: rem(180);
       object-fit: cover;
-      border-radius: 8px;
+      // border-radius: 48px;
       max-height: 50vh;
+
+      @include breakpoint(medium) {
+        height: rem(280);
+        transition: transform .5s ease-in-out;
+
+        &_wrap{
+          overflow: hidden;
+          clip-path: url(#clip);
+        }
+      }
+
       @include breakpoint(large) {
-        // height: 400px;
+        height: rem(420);
       }
     }
 
     &_content {
-      display: flex;
-      padding-top: rem(16);
+      padding: rem(8) rem(8) 0 rem(8);
+      @include breakpoint(medium) {
+        padding: rem(16) rem(16) 0 rem(16);
+      }
       @include breakpoint(large) {
         max-width: 600px;
       }
     }
 
-    // &_number{
-    //     padding-right: rem(15);
-    //     font-size: rem(11);
-    //     padding-top: 3px;
-    //     @include breakpoint(large) {
-    //         font-size: rem(14);
-    //     }
-    // }
-
     &_title {
       margin-bottom: rem(16);
       // text-transform: uppercase;
       font-weight: var(--font-regular);
-      font-size: rem(18);
+      font-size: rem(17);
       color: var(--color-dark);
       @include breakpoint(large) {
         font-size: rem(25);
       }
     }
 
-    // &_description{
-    //     font-size: rem(13);
-    //     font-weight: var(--font-light);
-    //     @include breakpoint(large) {
-    //         font-size: rem(16);
-    //     }
-    // }
-
     &_date {
-      font-size: rem(12);
+      font-size: rem(11);
       font-weight: var(--font-medium);
       text-transform: uppercase;
       color: var(--color-primary);
       @include breakpoint(large) {
-        font-size: rem(16);
+        font-size: rem(14);
       }
     }
   }
