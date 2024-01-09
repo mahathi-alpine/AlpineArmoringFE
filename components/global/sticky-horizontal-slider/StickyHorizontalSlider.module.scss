@@ -68,11 +68,11 @@
       margin-left: rem(24);
       min-width: 36vw;
       max-width: 690px;
-      transition: transform .5s ease-in-out;
+      transition: transform 0.5s ease-in-out;
 
-      &:hover{
-        transform: scale(.975);
-        .stickyHorizontalSlider_item_image{
+      &:hover {
+        transform: scale(0.975);
+        .stickyHorizontalSlider_item_image {
           transform: scale(1.06);
         }
       }
@@ -95,9 +95,9 @@
 
       @include breakpoint(medium) {
         height: rem(280);
-        transition: transform .5s ease-in-out;
+        transition: transform 0.5s ease-in-out;
 
-        &_wrap{
+        &_wrap {
           overflow: hidden;
           clip-path: url(#clip);
         }
