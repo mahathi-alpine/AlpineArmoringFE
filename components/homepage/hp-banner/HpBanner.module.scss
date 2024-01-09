@@ -53,7 +53,7 @@
     object-position: center center;
   }
 
-  &_pause{
+  &_pause {
     position: absolute;
     bottom: rem(60);
     right: rem(16);
@@ -62,13 +62,13 @@
     @include breakpoint(large) {
       bottom: rem(130);
       right: rem(32);
-      
-      path{
-        transition: fill .3s ease;
+
+      path {
+        transition: fill 0.3s ease;
       }
 
-      &:hover{
-        path{
+      &:hover {
+        path {
           fill: var(--color-primary) !important;
         }
       }
