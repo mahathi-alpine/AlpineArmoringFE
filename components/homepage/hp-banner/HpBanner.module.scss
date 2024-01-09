@@ -53,6 +53,28 @@
     object-position: center center;
   }
 
+  &_pause{
+    position: absolute;
+    bottom: rem(60);
+    right: rem(16);
+    z-index: 2;
+    cursor: pointer;
+    @include breakpoint(large) {
+      bottom: rem(130);
+      right: rem(32);
+      
+      path{
+        transition: fill .3s ease;
+      }
+
+      &:hover{
+        path{
+          fill: var(--color-primary) !important;
+        }
+      }
+    }
+  }
+
   &_content {
     position: absolute;
     bottom: 0;

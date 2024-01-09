@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import useEffectOnce from 'hooks/useEffectOnce';
 import styles from './HpBanner.module.scss';
+import PauseIcon from 'components/icons/Pause';
+import PlayIcon from 'components/icons/Play';
 
 interface HPBannerProps {
   props: {
@@ -11,6 +13,20 @@ interface HPBannerProps {
 }
 
 const HpBanner = ({ props }: HPBannerProps) => {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
   useEffectOnce(() => {
     function stepAnimateText(props, animation, delay) {
       props.forEach((text) => {
@@ -38,6 +54,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
         <video
+          ref={videoRef}
           muted={true}
           autoPlay={true}
           playsInline={true}
@@ -47,20 +64,20 @@ const HpBanner = ({ props }: HPBannerProps) => {
           <source src="/AlpineArmoringHP.mp4" />
         </video>
 
+        <div className={`${styles.hp_banner_pause}`} onClick={togglePlayPause}>
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </div>
+
         <div className={`${styles.hp_banner_content}`}>
           <h2 className={`${styles.hp_banner_subtitle} animateLetter`}>
             {props.subtitle}
           </h2>
+
           <h1
             className={`${styles.hp_banner_title} observe animate fade-in-left`}
           >
             {props.title}
           </h1>
-          {/* <div className="observe delay-8 animate fade-in-scale inline-block">
-            <Button href="/inventory" className="button-shiny transparent">
-              View Inventory
-            </Button>
-          </div> */}
         </div>
       </div>
 
