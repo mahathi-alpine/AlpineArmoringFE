@@ -13,13 +13,13 @@ function Inventory(props) {
   useEffect(() => {
     document.body.classList.add(
       'listing-inventory',
-      'header-transparent',
+      // 'header-transparent',
       'background-dark'
     );
     return () => {
       document.body.classList.remove(
         'listing-inventory',
-        'header-transparent',
+        // 'header-transparent',
         'background-dark'
       );
     };

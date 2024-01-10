@@ -19,29 +19,29 @@ body {
 
   &.home {
     padding-top: 0;
-    .b-header {
-      background-color: rgba(23, 23, 23, 0.8);
-      backdrop-filter: blur(10px);
-    }
+    // .b-header {
+    //   background-color: rgba(23, 23, 23, 0.8);
+    //   backdrop-filter: blur(10px);
+    // }
   }
 
-  &.header-transparent {
-    &:not(.no-scroll):not(.background-dark) {
-      .logo-fill {
-        fill: var(--color-dark);
-      }
-    }
-    &:not(.background-dark) .b-header {
-      --color-white: var(--color-dark);
-      svg {
-        fill: var(--color-dark);
-      }
-    }
-    .b-header {
-      background: transparent;
-      backdrop-filter: none;
-    }
-  }
+  // &.header-transparent {
+  //   &:not(.no-scroll):not(.background-dark) {
+  //     .logo-fill {
+  //       fill: var(--color-dark);
+  //     }
+  //   }
+  //   &:not(.background-dark) .b-header {
+  //     --color-white: var(--color-dark);
+  //     svg {
+  //       fill: var(--color-dark);
+  //     }
+  //   }
+  //   .b-header {
+  //     background: transparent;
+  //     backdrop-filter: none;
+  //   }
+  // }
 }
 .no-scroll {
   overflow-y: hidden;

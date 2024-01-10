@@ -8,8 +8,10 @@
   right: 0;
   z-index: 4;
   color: var(--color-white);
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out, background 0.2s ease-in-out;
   height: 74px;
+  background-color: rgba(23, 23, 23, 0.8);
+  backdrop-filter: blur(10px);
   // background-color: var(--color-dark);
 
   // @include breakpoint('large') {
@@ -18,6 +20,29 @@
 
   &.down {
     transform: translateY(-100px);
+  }
+  &.up {
+    background: var(--color-dark);
+  }
+
+  &_transparent{
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  &_dark{
+    background: transparent;
+    backdrop-filter: none;
+    --color-white: var(--color-dark);
+    
+    .header_logo path,
+    .header_logo rect,
+    .header_logo polygon{
+      fill: var(--color-dark);
+    }
+    svg {
+      fill: var(--color-dark);
+    }
   }
 
   // &_sticky{

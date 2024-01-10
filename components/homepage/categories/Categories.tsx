@@ -35,21 +35,14 @@ const Categories = ({ props, allVehiclesImage }) => {
                   ) : null}
 
                   <div className={`${styles.categories_item_buttons}`}>
-                    <Button
-                      href={`/inventory?category=${data.slug}`}
-                      className="primary button_small button-shiny"
-                    >
-                      Available Now
-                    </Button>
-
-                    {/* <Image
-                    src={'/assets/logoAlpine.png'}
-                    alt="Logo Alpine"
-                    width={37}
-                    height={44}
-                    quality={100}
-                    className={`${styles.categories_item_buttons_logo} desktop-only`}
-                  /> */}
+                    {data.inventories.data.length > 0 && (
+                      <Button
+                        href={`/inventory?category=${data.slug}`}
+                        className="primary button_small button-shiny"
+                      >
+                        Available Now / Ready-To-Ship
+                      </Button>
+                    )}
 
                     {data.slug !== 'pre-owned' && (
                       <Button

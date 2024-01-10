@@ -11,9 +11,9 @@ function Inventory(props) {
   // return null;
 
   useEffect(() => {
-    document.body.classList.add('listing-all', 'header-transparent');
+    document.body.classList.add('listing-all');
     return () => {
-      document.body.classList.remove('listing-all', 'header-transparent');
+      document.body.classList.remove('listing-all');
     };
   }, []);
 

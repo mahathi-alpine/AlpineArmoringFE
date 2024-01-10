@@ -42,12 +42,12 @@ function Home({ homepageData, categories }) {
             observer.unobserve(entry.target);
           }
         });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3,
       }
-      // {
-      //   root: null,
-      //   rootMargin: '0px',
-      //   threshold: 0.4,
-      // }
     );
 
     targets.forEach((item) => observer.observe(item));

@@ -19,7 +19,6 @@ export interface ButtonProps {
 }
 
 export interface HeaderProps {
-  className?: string;
   isNavOpen?: boolean;
   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }

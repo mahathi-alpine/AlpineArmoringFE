@@ -14,13 +14,13 @@ function InventoryVehicle(props) {
   useEffect(() => {
     document.body.classList.add(
       'listing-inventory',
-      'header-transparent',
+      // 'header-transparent',
       'background-dark'
     );
     return () => {
       document.body.classList.remove(
         'listing-inventory',
-        'header-transparent',
+        // 'header-transparent',
         'background-dark'
       );
     };
@@ -116,10 +116,6 @@ function InventoryVehicle(props) {
               <a href="">Armored SUVs</a>
             </div>
 
-            {/* <h3 className={`${styles.inventory_banner_protection}`}>
-              ARMORED AT PROTECTION LEVEL <span>A9</span>
-            </h3> */}
-
             <h1 className={`${styles.inventory_details_title}`}>
               {data.title}
             </h1>
@@ -175,13 +171,15 @@ function InventoryVehicle(props) {
                   <ul className={`${styles.inventory_tabs_content_list}`}>
                     {Object.entries(vehicleDetails).map(([key, value]) => {
                       return (
-                        <li
-                          key={key}
-                          className={`${styles.inventory_tabs_content_list_item}`}
-                        >
-                          {`${key}:`}
-                          <span>{`${data[value]}`}</span>
-                        </li>
+                        data[value] != null && (
+                          <li
+                            key={key}
+                            className={`${styles.inventory_tabs_content_list_item}`}
+                          >
+                            {`${key}:`}
+                            <span>{`${data[value]}`}</span>
+                          </li>
+                        )
                       );
                     })}
                   </ul>
