@@ -8,9 +8,9 @@
 .fade-in-up {
   opacity: 0;
   transform: translate3d(0, 40px, 0);
-    transition:
-      opacity 0.9s cubic-bezier(0.455,0.030,0.515,0.955),
-      transform 0.7s cubic-bezier(0.455,0.030,0.515,0.955);
+  transition:
+    opacity 0.9s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    transform 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .fade-in-up.in-view {
