@@ -3,6 +3,7 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import styles from './HpBanner.module.scss';
 import PauseIcon from 'components/icons/Pause';
 import PlayIcon from 'components/icons/Play';
+import { parseCookies } from 'nookies';
 
 interface HPBannerProps {
   props: {
@@ -27,6 +28,9 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   };
 
+  const cookies = parseCookies();
+  const cookie = cookies.googtrans?.split('/').pop() || '';
+
   useEffectOnce(() => {
     function stepAnimateText(props, animation, delay) {
       props.forEach((text) => {
@@ -43,11 +47,14 @@ const HpBanner = ({ props }: HPBannerProps) => {
         text.innerHTML = html;
       });
     }
-    stepAnimateText(
-      [...document.querySelectorAll('.animateLetter')],
-      'fadeInDown',
-      0.1
-    );
+
+    if (cookie == 'en') {
+      stepAnimateText(
+        [...document.querySelectorAll('.animateLetter')],
+        'fadeInDown',
+        0.1
+      );
+    }
   });
 
   return (
@@ -69,7 +76,12 @@ const HpBanner = ({ props }: HPBannerProps) => {
         </div>
 
         <div className={`${styles.hp_banner_content}`}>
-          <h2 className={`${styles.hp_banner_subtitle} animateLetter`}>
+          <h2
+            className={`
+            ${styles.hp_banner_subtitle} animateLetter
+            ${cookie !== 'en' ? styles.hp_banner_subtitle_noAnimation : ''}
+          `}
+          >
             {props.subtitle}
           </h2>
 
