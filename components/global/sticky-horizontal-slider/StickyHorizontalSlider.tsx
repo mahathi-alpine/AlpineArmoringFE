@@ -46,15 +46,17 @@ const StickyHorizontalSlider = ({ props }) => {
       className={`${styles.stickyHorizontalSlider} sticky-container`}
       ref={containerRef}
     >
-      <div className={`${styles.stickyHorizontalSlider_sticky}`}>
+      <div
+        className={`${styles.stickyHorizontalSlider_sticky} fade-in-up observe`}
+      >
         <div className={`${styles.stickyHorizontalSlider_heading}`}>
-          <h2 className={`c-title fade-in-up observe`}>
+          <h2 className={`c-title`}>
             <span>Latest News</span>
           </h2>
         </div>
 
         <div
-          className={`${styles.stickyHorizontalSlider_inner} fade-in observe sticky-container-inner`}
+          className={`${styles.stickyHorizontalSlider_inner} sticky-container-inner`}
           ref={containerInnerRef}
         >
           {props.map((item) => (

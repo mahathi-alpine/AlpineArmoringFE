@@ -1,4 +1,4 @@
-import styles from './Button.module.scss';
+// import styles from './Button.module.scss';
 import Link from 'next/link';
 import { ButtonProps } from 'types';
 import ArrowIcon from 'components/icons/Arrow';
@@ -16,52 +16,39 @@ const Button = ({
   disabled,
   button,
 }: ButtonProps) => {
-  const classNames = className
-    ?.split(' ')
-    .map((name) => styles[name])
-    .join(' ');
+  // const classNames = className
+  //   ?.split(' ')
+  //   .map((name) => styles[name])
+  //   .join(' ');
 
   if (button) {
     return (
       <button
-        className={`${styles.button_wrap} ${
-          disabled ? styles.button_disabled : ''
-        }`}
+        className={`
+          c-button
+          ${className} 
+          ${desktopOnly ? 'desktop-only' : ''} 
+          ${fadeInScale ? 'fade-in-scale' : ''} 
+          ${animate ? 'animate' : ''}
+          ${disabled ? 'disabled' : ''}
+        `}
         disabled={disabled}
         onClick={onClick}
       >
-        <span
-          className={`
-            ${styles.button} 
-            ${classNames} 
-            ${desktopOnly ? 'desktop-only' : ''} 
-            ${fadeInScale ? 'fade-in-scale' : ''} 
-            ${animate ? 'animate' : ''}
-          `}
-        >
-          {dot ? <span className={`${styles.button_dot}`}></span> : null}
-          <span className={`${styles.button_text}`}>{children}</span>
-          {icon ? (
-            <span className={`${styles.button_icon}`}>
-              <ArrowIcon />
-            </span>
-          ) : null}
-        </span>
+        {dot ? <span className={`c-button_dot`}></span> : null}
+        <span className={`c-button_text`}>{children}</span>
+        {icon ? (
+          <span className={`c-button_icon`}>
+            <ArrowIcon />
+          </span>
+        ) : null}
       </button>
     );
   }
 
   return (
-    <Link href={href} className={`${styles.button_wrap}`}>
-      <span
-        className={`
-          ${styles.button} 
-          ${classNames} 
-          ${desktopOnly ? 'desktop-only' : ''} 
-          ${fadeInScale ? 'fade-in-scale' : ''} 
-          ${animate ? 'animate' : ''}
-        `}
-      >
+    <Link href={href} className={`c-button_wrap`}>
+      <span className={`c-button ${className}`}>
         {children}
         {icon ? <span></span> : null}
       </span>

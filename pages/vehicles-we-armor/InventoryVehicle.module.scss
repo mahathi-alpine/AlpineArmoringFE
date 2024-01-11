@@ -1,74 +1,125 @@
-.inventory {
-  &_banner {
+.banner {
+    position: relative;
     padding-top: rem(24);
-    @include breakpoint(large) {
-      display: flex;
-      gap: 120px;
-      padding-top: rem(100);
-    }
+    // @include breakpoint(large) {
+    //   display: flex;
+    //   gap: 120px;
+    //   padding-top: rem(100);
+    // }
 
-    &_content {
-      margin-bottom: rem(60);
+    // &_content {
+    //   margin-bottom: rem(60);
+    //   @include breakpoint(large) {
+    //     width: 50%;
+    //   }
+    // }
+
+    &_title {
+      margin-bottom: rem(24);
+      padding: 0 rem(16);
+      font-size: rem(32);
+      font-weight: var(--font-demi);
       @include breakpoint(large) {
-        width: 50%;
+        max-width: 900px;
+        font-size: rem(64);
       }
     }
 
-    &_availability {
-      display: inline-block;
-      margin: 0 0 rem(30) rem(-16);
-      padding: rem(12) rem(36);
-      background: var(--color-primary);
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: var(--font-demi);
+    &_text{
+      padding: 0 rem(16);
+      @include breakpoint(large) {
+        width: 580px;
+        background: white;
+        position: absolute;
+        bottom: 0;
+      }
+
+    }
+
+    &_description {
+      margin-bottom: rem(24);
       @include breakpoint(large) {
         font-size: rem(18);
       }
     }
 
-    &_title {
-      text-transform: uppercase;
-      font-size: rem(32);
-      font-weight: var(--font-demi);
-      margin-bottom: rem(16);
-      @include breakpoint(large) {
-        font-size: rem(53);
-      }
-    }
-
-    &_description {
-      font-size: rem(18);
-      font-weight: var(--font-regular);
-      margin-bottom: rem(24);
-      @include breakpoint(large) {
-        font-size: rem(22);
+    &_buttons{
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      gap: 8px;
+      &_item{
+        max-width: 280px;
+        margin: auto;
+        border-radius: 99px;
       }
     }
 
     &_protection {
-      margin: 0 rem(16) rem(16) auto;
-      padding-right: rem(16);
-      max-width: 300px;
       font-weight: var(--font-medium);
-      text-align: right;
-      border-right: 10px solid var(--color-primary);
+      text-align: center;
+      font-size: rem(15);
+      text-transform: uppercase;
+      @include breakpoint(large) {
+        background: gray;
+      }
+
+      &_levels{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: rem(4);
+      }
+
       span {
-        display: block;
-        font-weight: var(--font-bold);
+        position: relative;
         font-size: rem(24);
+        color: var(--color-primary);
+
+        &:last-child:after{
+          display: none;
+        }
+
+        &:after{
+          position: relative;
+          display: inline-block;
+          margin: 0 rem(16);
+          content: '';
+          width: 16px;
+          height: 16px;
+          background: url('/assets/shieldGold.svg') center center no-repeat;
+          background-size: contain;
+        }
       }
     }
 
     &_image {
-      margin: 0 rem(-16) 0 rem(-16);
+      // background: var(--color-gray2);
+      background: linear-gradient(0deg, rgba(208,208,210,1) 20%, rgba(208,208,210,0) 100%);
+
+      padding: rem(24) rem(16) rem(70) rem(16);
+
       @include breakpoint(large) {
-        width: 50%;
+        display: flex;
+        flex-flow: column;
+        align-items: flex-end;
+      }
+
+      &_wrap{
+        margin-bottom: rem(24);
+        @include breakpoint(large) {
+          display: flex;
+          justify-content: right;
+          width: 100%;
+          margin-bottom: 0;
+          order: 2;
+        }
       }
       img {
         width: 100%;
+        @include breakpoint(large) {
+          max-width: 760px;
+        }
       }
     }
-  }
 }
