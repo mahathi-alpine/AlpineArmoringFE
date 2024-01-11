@@ -40,12 +40,10 @@
     &::-webkit-scrollbar {
       display: none;
     }
-    
 
-    &.in-view .stickyHorizontalSlider_item{      
+    &.in-view .stickyHorizontalSlider_item {
       opacity: 1;
     }
-
   }
 
   &_sticky {

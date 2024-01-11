@@ -29,7 +29,7 @@
     color: var(--color-dark);
   }
 
-  &.fill{
+  &.fill {
     position: relative;
     overflow: hidden;
     display: flex;
@@ -42,24 +42,28 @@
     text-transform: uppercase;
     font-weight: var(--font-medium);
     cursor: pointer;
-    box-shadow: 0 6px 10px #0000000a, 0 2px 4px #0000000a;
-    transition: background cubic-bezier(.35,0,0,1) .2s, color .1s ease;
+    box-shadow:
+      0 6px 10px #0000000a,
+      0 2px 4px #0000000a;
+    transition:
+      background cubic-bezier(0.35, 0, 0, 1) 0.2s,
+      color 0.1s ease;
 
     @include breakpoint(medium) {
-      padding: rem(24);      
+      padding: rem(24);
     }
 
     &:hover {
       color: var(--color-white);
       background: var(--color-primary);
-      transition: background cubic-bezier(.35,0,0,1) .5s .1s;
+      transition: background cubic-bezier(0.35, 0, 0, 1) 0.5s 0.1s;
 
       .button_dot {
-        transform: translate3d(8em,0,0) scale(22);
+        transform: translate3d(8em, 0, 0) scale(22);
       }
 
       .button_text {
-        transform: translate3d(-1.5em,0,0);
+        transform: translate3d(-1.5em, 0, 0);
       }
 
       .button_icon {
@@ -67,7 +71,7 @@
       }
     }
 
-    .button_dot{
+    .button_dot {
       display: inline-block;
       position: relative;
       width: 15px;
@@ -75,16 +79,20 @@
       background: var(--color-primary);
       border-radius: 100px;
       z-index: 1;
-      transition: background cubic-bezier(.35,0,0,1) .5s,transform cubic-bezier(.35,0,0,1) .4s;
+      transition:
+        background cubic-bezier(0.35, 0, 0, 1) 0.5s,
+        transform cubic-bezier(0.35, 0, 0, 1) 0.4s;
     }
 
-    .button_text{
+    .button_text {
       position: relative;
       z-index: 1;
-      transition: color cubic-bezier(.35,0,0,1) .5s,transform cubic-bezier(.35,0,0,1) .4s;
+      transition:
+        color cubic-bezier(0.35, 0, 0, 1) 0.5s,
+        transform cubic-bezier(0.35, 0, 0, 1) 0.4s;
     }
 
-    .button_icon{
+    .button_icon {
       position: absolute;
       display: flex;
       justify-content: center;
@@ -94,17 +102,17 @@
       width: 1.2em;
       color: var(--color-white);
       border-radius: 100%;
-      transform: translate3d(3em,0,0);
-      transition: transform cubic-bezier(.4,0,0,1) .4s;
+      transform: translate3d(3em, 0, 0);
+      transition: transform cubic-bezier(0.4, 0, 0, 1) 0.4s;
       z-index: 1;
 
       svg {
         width: 100%;
         height: 100%;
-        path{
+        path {
           stroke: var(--color-white);
         }
-    }
+      }
     }
   }
 

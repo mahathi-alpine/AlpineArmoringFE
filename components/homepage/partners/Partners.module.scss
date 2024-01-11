@@ -24,7 +24,7 @@
     border-radius: 12px;
     padding: rem(10);
     height: 100px;
-    
+
     @include breakpoint(large) {
       height: 160px;
       &:nth-child(-n + 5) {
@@ -42,7 +42,7 @@
       &:nth-of-type(6n + #{$i}) {
         transition-delay: $i * 0.05s;
       }
-     }
+    }
 
     img {
       margin: auto;

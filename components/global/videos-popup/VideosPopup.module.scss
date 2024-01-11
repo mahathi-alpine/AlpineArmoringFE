@@ -28,12 +28,12 @@
       opacity 0.3s ease-out,
       visibility 0.3s ease-out;
 
-    button{        
+    button {
       visibility: hidden;
     }
   }
 
-  &_wrap{
+  &_wrap {
     position: static;
     padding-bottom: rem(130);
     @include breakpoint(medium) {
@@ -42,10 +42,10 @@
     }
   }
 
-  &_button{
+  &_button {
     position: relative;
     display: inline-block;
-    &:before{
+    &:before {
       position: absolute;
       content: '';
       left: 0;
