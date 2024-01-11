@@ -54,7 +54,7 @@ const StickyHorizontalSlider = ({ props }) => {
         </div>
 
         <div
-          className={`${styles.stickyHorizontalSlider_inner} sticky-container-inner`}
+          className={`${styles.stickyHorizontalSlider_inner} fade-in observe sticky-container-inner`}
           ref={containerInnerRef}
         >
           {props.map((item) => (

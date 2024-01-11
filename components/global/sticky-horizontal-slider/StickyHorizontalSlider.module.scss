@@ -40,6 +40,12 @@
     &::-webkit-scrollbar {
       display: none;
     }
+    
+
+    &.in-view .stickyHorizontalSlider_item{      
+      opacity: 1;
+    }
+
   }
 
   &_sticky {
@@ -64,11 +70,12 @@
   &_item {
     margin-left: rem(16);
     min-width: 280px;
+
     @include breakpoint(medium) {
       margin-left: rem(24);
       min-width: 36vw;
       max-width: 690px;
-      transition: transform 0.5s ease-in-out;
+      transition: transform 0.3s ease-in-out;
 
       &:hover {
         transform: scale(0.975);
@@ -95,7 +102,7 @@
 
       @include breakpoint(medium) {
         height: rem(280);
-        transition: transform 0.5s ease-in-out;
+        transition: transform 0.3s ease-in-out;
 
         &_wrap {
           overflow: hidden;

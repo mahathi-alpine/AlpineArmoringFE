@@ -1,7 +1,7 @@
 .tabSection {
-  // overflow-x: hidden;
   position: relative;
   padding-top: rem(64);
+  padding-bottom: rem(130);
   color: white;
 
   @include breakpoint(medium) {
@@ -84,7 +84,6 @@
 
   &_content {
     position: relative;
-    min-height: 500px;
   }
 
   &_item {
@@ -103,6 +102,7 @@
     @include breakpoint(large) {
       padding: 0;
     }
+
     &:not(.tabSection_item_active) {
       .tabSection_item_content {
         opacity: 0;
@@ -115,6 +115,7 @@
 
     &_active {
       z-index: 1;
+      position: relative;
       // .tabSection_item_image {
       //   transform: scale(1);
       //   opacity: 1;

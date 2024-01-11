@@ -25,7 +25,7 @@ function InventoryVehicle(props) {
           <Button
             href={`/inventory/?vehicles_we_armor=${data.slug}`}
             icon
-            {...(!inventory.length ? { disabled: true } : {})}
+            {...(!inventory.length ? { disabled: true, button: true } : {})}
             className="icon"
           >
             View in-stock availability
@@ -54,8 +54,7 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
     populate: 'deep',
-    slug: context.params.slug,
-    // type: '[slug]',
+    params: `filters[slug][$eq]=${context.params.slug}`,
   });
 
   return {

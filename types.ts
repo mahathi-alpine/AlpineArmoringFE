@@ -16,6 +16,9 @@ export interface ButtonProps {
   className?: string;
   children?: ReactNode;
   disabled?: boolean;
+  button?: boolean;
+  dot?: boolean;
+  onClick?: () => void;
 }
 
 export interface HeaderProps {

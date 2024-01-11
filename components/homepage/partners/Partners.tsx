@@ -11,7 +11,10 @@ const Partners = (props) => {
       </h2>
       <div className={`${styles.partners_wrap}`}>
         {props.props.map((item) => (
-          <div className={`${styles.partners_item}`} key={item.id}>
+          <div
+            className={`${styles.partners_item} fade-in observe `}
+            key={item.id}
+          >
             <Image
               src={`${item.attributes.url}`}
               alt={`Alpine Partner${
