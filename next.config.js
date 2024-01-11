@@ -11,7 +11,7 @@ module.exports = {
       'alpine-armoring-e7d249d45874.herokuapp.com',
     ],
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
   env: {
     GOOGLE_TRANSLATION_CONFIG: JSON.stringify({
       languages: [

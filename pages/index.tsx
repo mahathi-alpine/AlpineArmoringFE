@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
+import { getCookie } from 'cookies-next';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import IntroText from 'components/homepage/intro-text/IntroText';
@@ -11,7 +12,7 @@ import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/S
 import Partners from 'components/homepage/partners/Partners';
 import VideosPopup from 'components/global/videos-popup/VideosPopup';
 
-function Home({ homepageData, categories }) {
+function Home({ homepageData, categories, languageCookie }) {
   const topBanner = homepageData.data?.attributes.topBanner;
   const categoriesData = categories?.data;
   const hpMiddleText = homepageData.data?.attributes.hpMiddleText;
@@ -61,7 +62,9 @@ function Home({ homepageData, categories }) {
 
   return (
     <>
-      {topBanner ? <HpBanner props={topBanner} /> : null}
+      {topBanner ? (
+        <HpBanner props={topBanner} languageCookie={languageCookie} />
+      ) : null}
 
       <div className="background-dark">
         <IntroText />
@@ -91,7 +94,7 @@ function Home({ homepageData, categories }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
   const homepageData = await getPageData({
     route: 'homepage',
   });
@@ -102,8 +105,11 @@ export async function getServerSideProps() {
     populate: 'deep',
   });
 
+  let languageCookie = getCookie('googtrans', { req, res });
+  languageCookie = languageCookie ? languageCookie.split('/').pop() : 'en';
+
   return {
-    props: { homepageData, categories },
+    props: { homepageData, categories, languageCookie },
   };
 }
 

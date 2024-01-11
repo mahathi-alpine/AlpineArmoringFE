@@ -3,7 +3,6 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import styles from './HpBanner.module.scss';
 import PauseIcon from 'components/icons/Pause';
 import PlayIcon from 'components/icons/Play';
-import { parseCookies } from 'nookies';
 
 interface HPBannerProps {
   props: {
@@ -11,9 +10,10 @@ interface HPBannerProps {
     title: string;
   };
   error?: Error;
+  languageCookie?: string;
 }
 
-const HpBanner = ({ props }: HPBannerProps) => {
+const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const togglePlayPause = () => {
@@ -27,9 +27,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
       }
     }
   };
-
-  const cookies = parseCookies();
-  const cookie = cookies.googtrans?.split('/').pop() || '';
 
   useEffectOnce(() => {
     function stepAnimateText(props, animation, delay) {
@@ -48,7 +45,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
       });
     }
 
-    if (cookie == 'en') {
+    if (languageCookie == 'en') {
       stepAnimateText(
         [...document.querySelectorAll('.animateLetter')],
         'fadeInDown',
@@ -78,9 +75,13 @@ const HpBanner = ({ props }: HPBannerProps) => {
         <div className={`${styles.hp_banner_content}`}>
           <h2
             className={`
-            ${styles.hp_banner_subtitle} animateLetter
-            ${cookie !== 'en' ? styles.hp_banner_subtitle_noAnimation : ''}
-          `}
+              ${styles.hp_banner_subtitle} animateLetter
+              ${
+                languageCookie !== 'en'
+                  ? styles.hp_banner_subtitle_noAnimation
+                  : ''
+              }
+            `}
           >
             {props.subtitle}
           </h2>

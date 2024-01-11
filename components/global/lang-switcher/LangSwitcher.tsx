@@ -11,12 +11,9 @@ export type LanguageSwitcherProps = {
   className?: string;
 };
 
-export const LanguageSwitcher = ({
-  context,
-  className,
-}: LanguageSwitcherProps = {}) => {
+export const LanguageSwitcher = ({ className }: LanguageSwitcherProps = {}) => {
   const { currentLanguage, switchLanguage, languageConfig } =
-    useLanguageSwitcher({ context });
+    useLanguageSwitcher();
 
   if (!languageConfig) {
     return null;
