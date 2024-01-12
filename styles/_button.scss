@@ -35,9 +35,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: rem(18) rem(24);
+    padding: rem(20) rem(16);
     border-radius: 99px;
     background: var(--color-white);
+    font-size: rem(13);
     color: var(--color-dark);
     text-transform: uppercase;
     font-weight: var(--font-medium);
@@ -51,6 +52,7 @@
 
     @include breakpoint(medium) {
       padding: rem(24);
+      font-size: rem(14);
     }
 
     &:hover {

@@ -1,40 +1,86 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from './VideosPopup.module.scss';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Button from 'components/global/button/Button';
 
+import { Lightbox } from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
+import Video from 'yet-another-react-lightbox/plugins/video';
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
+import Captions from 'yet-another-react-lightbox/plugins/captions';
+import 'yet-another-react-lightbox/plugins/captions.css';
+
 const VideosPopup = (props) => {
-  const [isVideoPopupOpen, setVideoPopupOpen] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const [hoveredTitle, setHoveredTitle] = useState('');
+  const [open, setOpen] = useState(false);
 
-  const initialMedia = props.props[0].image.data.attributes;
+  const slidesData = props.props.map((item) => {
+    const type = item.image.data.attributes.mime.split('/')[0];
+    const src = item.image.data.attributes.url;
+    const alt = item.image.data.attributes.alternativeText;
+    const title = item.title;
+    const description = item.description;
+    const poster = item.image.data.attributes.previewUrl;
 
-  const [currentMedia, setCurrentMedia] = useState({
-    type: initialMedia.mime.split('/')[0],
-    src: initialMedia.url,
-    width: initialMedia.width,
-    height: initialMedia.height,
-    alt: initialMedia.alternativeText || '',
-  });
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (!isVideoPopupOpen && videoRef.current) {
-      videoRef.current.load();
-    }
-  }, [isVideoPopupOpen]);
-
-  useEffect(() => {
-    if (isVideoPopupOpen) {
-      document.body.style.marginRight =
-        window.innerWidth - document.body.offsetWidth + 'px';
-      document.body.classList.add('no-scroll');
+    if (type === 'video') {
+      return {
+        type: 'video',
+        autoPlay: true,
+        controls: false,
+        muted: true,
+        loop: true,
+        title: title,
+        description: description,
+        poster: poster,
+        sources: [
+          {
+            src: src,
+            type: item.image.data.attributes.mime,
+          },
+        ],
+      };
     } else {
-      document.body.classList.remove('no-scroll');
-      document.body.style.marginRight = '0';
+      return {
+        type: 'image',
+        src: src,
+        title: title,
+        description: description,
+        alt: alt,
+      };
     }
-  }, [isVideoPopupOpen]);
+  });
+
+  // const [isVideoPopupOpen, setVideoPopupOpen] = useState(false);
+  // const [isHovering, setIsHovering] = useState(false);
+  // const [hoveredTitle, setHoveredTitle] = useState('');
+
+  // const initialMedia = props.props[0].image.data.attributes;
+
+  // const [currentMedia, setCurrentMedia] = useState({
+  //   type: initialMedia.mime.split('/')[0],
+  //   src: initialMedia.url,
+  //   width: initialMedia.width,
+  //   height: initialMedia.height,
+  //   alt: initialMedia.alternativeText || '',
+  // });
+  // const videoRef = useRef<HTMLVideoElement>(null);
+
+  // useEffect(() => {
+  //   if (!isVideoPopupOpen && videoRef.current) {
+  //     videoRef.current.load();
+  //   }
+  // }, [isVideoPopupOpen]);
+
+  // useEffect(() => {
+  //   if (isVideoPopupOpen) {
+  //     document.body.style.marginRight =
+  //       window.innerWidth - document.body.offsetWidth + 'px';
+  //     document.body.classList.add('no-scroll');
+  //   } else {
+  //     document.body.classList.remove('no-scroll');
+  //     document.body.style.marginRight = '0';
+  //   }
+  // }, [isVideoPopupOpen]);
 
   return (
     <div className={`${styles.videoPopup_wrap}`}>
@@ -45,8 +91,12 @@ const VideosPopup = (props) => {
             className="fill"
             dot
             icon
+            // onClick={() => {
+            //   setVideoPopupOpen((prevState) => !prevState);
+            // }}
             onClick={() => {
-              setVideoPopupOpen((prevState) => !prevState);
+              setOpen(true);
+              // setSelectedIndex(index);
             }}
           >
             View some cool videos
@@ -54,7 +104,21 @@ const VideosPopup = (props) => {
         </div>
       </div>
 
-      <div
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={slidesData}
+        plugins={[Thumbnails, Video, Captions]}
+        thumbnails={{
+          padding: 0,
+          gap: 4,
+          imageFit: 'cover',
+          borderColor: '#bebbbe',
+          borderRadius: 16,
+        }}
+      />
+
+      {/* <div
         className={`
           ${styles.videoPopup}
           ${isVideoPopupOpen ? styles.videoPopup_open : ''}
@@ -85,7 +149,7 @@ const VideosPopup = (props) => {
           )}
 
           <div className={`${styles.videoPopup_media_content}`}>
-            {hoveredTitle}
+            <p>{hoveredTitle}</p>
           </div>
 
           <div
@@ -136,7 +200,7 @@ const VideosPopup = (props) => {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

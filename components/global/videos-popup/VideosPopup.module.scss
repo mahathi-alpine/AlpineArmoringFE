@@ -35,7 +35,7 @@
 
   &_wrap {
     position: static;
-    padding-bottom: rem(130);
+    padding-bottom: rem(100);
     @include breakpoint(medium) {
       padding-top: rem(100);
       padding-bottom: rem(290);
@@ -131,7 +131,9 @@
       right: 0;
       overflow-x: unset;
       height: 150px;
-      max-width: 80%;
+      width: 80%;
+      min-width: unset;
+      max-width: 1500px;
       margin: auto;
     }
 

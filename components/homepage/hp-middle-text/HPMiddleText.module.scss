@@ -32,7 +32,7 @@
   }
 
   p {
-    color: var(--color-grayLight);
+    color: var(--color-gray2);
     @include breakpoint(medium) {
       width: 57%;
       font-size: rem(20);
