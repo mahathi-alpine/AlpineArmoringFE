@@ -209,13 +209,13 @@ img {
 button.yarl__thumbnails_thumbnail_active {
   border-color: var(--color-primary);
 }
-div.yarl__slide_title{
+div.yarl__slide_title {
   font-weight: var(--font-medium);
 }
-div.yarl__slide_title{
+div.yarl__slide_title {
   white-space: normal;
 }
-div.yarl__slide_description{
+div.yarl__slide_description {
   font-size: rem(14);
   font-weight: var(--font-light);
   @include breakpoint(large) {
