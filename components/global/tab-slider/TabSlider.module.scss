@@ -1,102 +1,102 @@
 .tabSlider {
-    &_nav {
-        position: relative;
-      display: flex;
+  &_nav {
+    position: relative;
+    display: flex;
     //   flex: 0 0 auto;
-      font-size: rem(13);
-      font-weight: var(--font-large);
-      z-index: 2;
+    font-size: rem(13);
+    font-weight: var(--font-large);
+    z-index: 2;
+
+    @include breakpoint(large) {
+      // font-size: rem(15);
+      width: 100%;
+      text-align: center;
+    }
+
+    &_wrap {
+      // display: flex;
+      // overflow-x: auto;
+      position: relative;
+      overflow: hidden;
+      margin-left: rem(-8);
+      margin-right: rem(-16);
+      margin-bottom: rem(24);
+      max-width: 493px;
+      padding: rem(4);
+      background: var(--color-secondary);
+      border-top-left-radius: 99px;
+      border-bottom-left-radius: 99px;
+      // border-radius: 99px;
+
+      @include breakpoint(medium) {
+        border-radius: 99px;
+      }
 
       @include breakpoint(large) {
-        // font-size: rem(15);
-        width: 100%;
-        text-align: center;
-      }
-
-      &_wrap {
-        // display: flex;
-        // overflow-x: auto;
-        position: relative;
-        overflow: hidden;
-        margin-left: rem(-8);
-        margin-right: rem(-16);
-        margin-bottom: rem(24);
-        max-width: 493px;
-        padding: rem(4);
-        background: var(--color-secondary);
-        border-top-left-radius: 99px;
-        border-bottom-left-radius: 99px;
-        // border-radius: 99px;
-
-        @include breakpoint(medium) {
-            border-radius: 99px;
-        }
-
-        @include breakpoint(large) {
-          border-radius: 99px;
-          margin-right: 0;
-          margin-left: 0;
-          max-width: 581px;
-        }
-
-        &::-webkit-scrollbar {
-          display: none;
-        }
-      }
-
-      &_item {
-        position: relative;
-        padding: rem(10) rem(16);
         border-radius: 99px;
-        cursor: pointer;
-        z-index: 2;
-        // flex: 0 0 28%;
-        // min-width: 193px;
-        flex: 0 0 auto;
-        // text-align: center;
-
-        // &_active{
-        //     color: red;
-        // }
-
-        @include breakpoint(large) {
-          width: calc(100% / 3);
-        }
-
-        // &:first-child().inventory_tabs_nav_item_active{
-        //   & ~ .inventory_tabs_nav_glider {
-        //     transform: translateX(0);
-        //   }
-        // }
-        // &:nth-child(2).inventory_tabs_nav_item_active{
-        //   & ~ .inventory_tabs_nav_glider {
-        //     transform: translateX(100%);
-        //   }
-        // }
-        // &:nth-child(3).inventory_tabs_nav_item_active{
-        //   & ~ .inventory_tabs_nav_glider {
-        //     transform: translateX(calc(200% - 8px));
-        //   }
-        // }
-
-        // &_active {
-          
-        // }
+        margin-right: 0;
+        margin-left: 0;
+        max-width: 581px;
       }
 
-      &_glider{
-        position: absolute;
-        top: 4px;
-        display: flex;
-        height: 35px;
-        width: 148px;
-        background-color: var(--color-gray3);
-        z-index: 1;
-        border-radius: 99px;
-        transition: 0.4s ease-out;
-        @include breakpoint(large) {
-          width: calc(100% / 3);
-        }
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &_item {
+      position: relative;
+      padding: rem(10) rem(16);
+      border-radius: 99px;
+      cursor: pointer;
+      z-index: 2;
+      // flex: 0 0 28%;
+      // min-width: 193px;
+      flex: 0 0 auto;
+      // text-align: center;
+
+      // &_active{
+      //     color: red;
+      // }
+
+      @include breakpoint(large) {
+        width: calc(100% / 3);
+      }
+
+      // &:first-child().inventory_tabs_nav_item_active{
+      //   & ~ .inventory_tabs_nav_glider {
+      //     transform: translateX(0);
+      //   }
+      // }
+      // &:nth-child(2).inventory_tabs_nav_item_active{
+      //   & ~ .inventory_tabs_nav_glider {
+      //     transform: translateX(100%);
+      //   }
+      // }
+      // &:nth-child(3).inventory_tabs_nav_item_active{
+      //   & ~ .inventory_tabs_nav_glider {
+      //     transform: translateX(calc(200% - 8px));
+      //   }
+      // }
+
+      // &_active {
+
+      // }
+    }
+
+    &_glider {
+      position: absolute;
+      top: 4px;
+      display: flex;
+      height: 35px;
+      width: 148px;
+      background-color: var(--color-gray3);
+      z-index: 1;
+      border-radius: 99px;
+      transition: 0.4s ease-out;
+      @include breakpoint(large) {
+        width: calc(100% / 3);
       }
     }
   }
+}
