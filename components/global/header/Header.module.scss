@@ -20,19 +20,12 @@
   //   height: unset;
   // }
 
-  &.down {
-    transform: translateY(-100px);
-  }
-  &.up {
-    background: var(--color-dark);
-  }
-
   &_transparent {
     background: transparent;
     backdrop-filter: none;
   }
 
-  &_dark {
+  &_dark:not(.up) {
     background: transparent;
     backdrop-filter: none;
     --color-white: var(--color-dark);
@@ -45,6 +38,22 @@
     svg {
       fill: var(--color-dark);
     }
+    .header_contact{
+      background: var(--color-gray3);
+      color: #fff;
+      transition: background 0.2s ease-in-out;
+    }
+  }
+
+  &.down {
+    transform: translateY(-100px);
+  }
+  &.up {
+    background: var(--color-dark);
+    // --color-white: #fff;
+    // svg {
+    //   fill: var(--color-dark);
+    // }
   }
 
   // &_sticky{

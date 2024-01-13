@@ -6,6 +6,7 @@ import ArrowIcon from 'components/icons/Arrow';
 // import { API_URL } from 'config/index';
 
 const TabSection = ({ props }) => {
+  console.log(props);
   const [activeDiv, setActiveDiv] = useState(props[0]?.id);
   const handleClick = (id) => {
     setActiveDiv(id);

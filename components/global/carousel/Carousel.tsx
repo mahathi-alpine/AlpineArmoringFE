@@ -31,6 +31,7 @@ const EmblaCarousel = (props) => {
   }, []);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
     axis: thumbsAxis,
@@ -92,17 +93,21 @@ const EmblaCarousel = (props) => {
                 setSelectedIndex(index);
               }}
             >
-              <Image
-                src={item.attributes.url}
-                alt="Description of the image"
-                width={670}
-                height={640}
-                className={styles.carousel_slide_img}
-              />
+              {item.attributes?.url ? (
+                <>
+                  <Image
+                    src={item.attributes.url}
+                    alt="Description of the image"
+                    width={670}
+                    height={640}
+                    className={styles.carousel_slide_img}
+                  />
 
-              <div className={styles.carousel_zoom}>
-                <ZoomIcon />
-              </div>
+                  <div className={styles.carousel_zoom}>
+                    <ZoomIcon />
+                  </div>
+                </>
+              ) : null}
             </div>
           ))}
         </div>
@@ -117,7 +122,7 @@ const EmblaCarousel = (props) => {
         open={open}
         close={() => setOpen(false)}
         slides={slides.map((item) => ({
-          src: item.attributes.url,
+          src: item.attributes?.url,
         }))}
         index={selectedIndex}
         plugins={[Thumbnails]}
@@ -132,7 +137,7 @@ const EmblaCarousel = (props) => {
                   onClick={() => onThumbClick(index)}
                   selected={index === selectedIndex}
                   index={index}
-                  imgSrc={item.attributes.url}
+                  imgSrc={item.attributes?.url}
                   key={index}
                 />
               ))}

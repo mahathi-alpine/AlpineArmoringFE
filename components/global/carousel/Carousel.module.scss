@@ -42,15 +42,15 @@
     flex: 0 0 var(--slide-size);
     padding-left: var(--slide-spacing);
     position: relative;
-    height: 50vh;
+    // height: 50vh;
 
     @include breakpoint(medium) {
-      height: 32rem;
+      // height: 32rem;
       cursor: pointer;
     }
 
     @include breakpoint(large) {
-      height: 40rem;
+      // height: 40rem;
 
       .carousel_variableWidth & {
         height: rem(600);
@@ -84,6 +84,7 @@
       object-fit: cover;
       @include breakpoint(medium) {
         border-radius: 8px;
+        max-height: 500px;
 
         .carousel_variableWidth & {
           border-radius: 0;
@@ -96,7 +97,7 @@
   &_zoom {
     position: absolute;
     right: rem(8);
-    bottom: rem(40);
+    bottom: rem(16);
     cursor: pointer;
     z-index: 1;
     @include breakpoint(medium) {
@@ -109,10 +110,8 @@
   }
 
   &_thumbs {
-    --thumbs-slide-spacing: 15px;
-
     position: absolute;
-    bottom: rem(60);
+    bottom: rem(32);
     left: 0;
     right: 0;
 
@@ -185,7 +184,7 @@
     }
 
     &_slide {
-      margin-left: var(--thumbs-slide-spacing);
+      margin-left: rem(8);
       position: relative;
       background: var(--color-gray);
       border-radius: 100%;

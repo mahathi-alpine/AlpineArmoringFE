@@ -3,13 +3,17 @@ import { getPageData } from 'lib/api';
 import { useEffect, useState } from 'react';
 
 import Button from 'components/global/button/Button';
+import TabSlider from 'components/global/tab-slider/TabSlider';
 import Carousel from 'components/global/carousel/Carousel';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
 
 function InventoryVehicle(props) {
-  const [activeDiv, setActiveDiv] = useState('1');
+  const [activeDiv, setActiveDiv] = useState('0');
+  const handleTabChange = (id) => {
+    setActiveDiv(id);
+  };
 
   useEffect(() => {
     document.body.classList.add(
@@ -68,14 +72,15 @@ function InventoryVehicle(props) {
   const topGallery = data.gallery.data;
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
-  const sliderBottomOptions = {
-    dragFree: true,
-    loop: true,
-    thumbs: false,
-    variableWidth: true,
-  };
 
-  const vehicleDetails = {
+  // const sliderBottomOptions = {
+  //   dragFree: true,
+  //   loop: true,
+  //   thumbs: false,
+  //   variableWidth: true,
+  // };
+
+  const vehicleDetailsMain = {
     VIN: 'VIN',
     'Vehicle ID': 'vehicleID',
     Engine: 'engine',
@@ -93,9 +98,20 @@ function InventoryVehicle(props) {
     Weight: 'weight',
   };
 
-  const changeTab = (id) => {
-    setActiveDiv(id);
-  };
+  const tabSliderData = [
+    {
+      id: 0,
+      titleNav: 'Vehicle Details',
+    },
+    {
+      id: 1,
+      titleNav: 'Specifications',
+    },
+    {
+      id: 2,
+      titleNav: 'Optional Equipment',
+    },
+  ];
 
   return (
     <div className={`${styles.inventory}`}>
@@ -106,15 +122,24 @@ function InventoryVehicle(props) {
               <Carousel slides={topGallery} options={sliderTopOptions} />
             ) : null}
 
-            <div className="shape-before mobile-only"></div>
+            <div className={`${styles.inventory_armor}`}>
+              Armor
+              <br />
+              Level
+              <span>{data.armor_level}</span>
+            </div>
+
+            <div
+              className={`${styles.inventory_top_shape} shape-before mobile-only`}
+            ></div>
           </div>
 
           <div className={`${styles.inventory_details}`}>
-            <div className={`${styles.inventory_breadcrumbs}`}>
+            {/* <div className={`${styles.inventory_breadcrumbs}`}>
               <a href="">Inventory</a>
               <span>&gt;</span>
               <a href="">Armored SUVs</a>
-            </div>
+            </div> */}
 
             <h1 className={`${styles.inventory_details_title}`}>
               {data.title}
@@ -125,51 +150,18 @@ function InventoryVehicle(props) {
             </p>
 
             <div className={`${styles.inventory_tabs}`}>
-              <div className={`${styles.inventory_tabs_nav_wrap}`}>
-                <ul className={`${styles.inventory_tabs_nav}`}>
-                  <li
-                    className={`${styles.inventory_tabs_nav_item} ${
-                      activeDiv === '1'
-                        ? styles.inventory_tabs_nav_item_active
-                        : ''
-                    }`}
-                    onClick={() => changeTab('1')}
-                  >
-                    Vehicle Details
-                  </li>
-                  <li
-                    className={`${styles.inventory_tabs_nav_item} ${
-                      activeDiv === '2'
-                        ? styles.inventory_tabs_nav_item_active
-                        : ''
-                    }`}
-                    onClick={() => changeTab('2')}
-                  >
-                    Specifications
-                  </li>
-                  <li
-                    className={`${styles.inventory_tabs_nav_item} ${
-                      activeDiv === '3'
-                        ? styles.inventory_tabs_nav_item_active
-                        : ''
-                    }`}
-                    onClick={() => changeTab('3')}
-                  >
-                    Optional Equipment
-                  </li>
-                </ul>
-              </div>
+              <TabSlider props={tabSliderData} onTabChange={handleTabChange} />
 
               <div className={`${styles.inventory_tabs_content}`}>
                 <div
                   className={`${styles.inventory_tabs_content_item} ${
-                    activeDiv === '1'
+                    activeDiv == '0'
                       ? styles.inventory_tabs_content_item_active
                       : ''
                   }`}
                 >
                   <ul className={`${styles.inventory_tabs_content_list}`}>
-                    {Object.entries(vehicleDetails).map(([key, value]) => {
+                    {Object.entries(vehicleDetailsMain).map(([key, value]) => {
                       return (
                         data[value] != null && (
                           <li
@@ -186,12 +178,21 @@ function InventoryVehicle(props) {
                 </div>
                 <div
                   className={`${styles.inventory_tabs_content_item} ${
-                    activeDiv === '2'
+                    activeDiv == '1'
                       ? styles.inventory_tabs_content_item_active
                       : ''
                   }`}
                 >
-                  <ul className={`${styles.inventory_tabs_content_list}`}></ul>
+                  test
+                </div>
+                <div
+                  className={`${styles.inventory_tabs_content_item} ${
+                    activeDiv == '2'
+                      ? styles.inventory_tabs_content_item_active
+                      : ''
+                  }`}
+                >
+                  ESTEEE
                 </div>
               </div>
             </div>
@@ -210,11 +211,11 @@ function InventoryVehicle(props) {
 
         <div className={`${styles.inventory_images}`}>
           <div className="shape-after"></div>
-          {topGallery ? (
+          {/* {topGallery ? (
             <div className={`${styles.inventory_images_slider}`}>
               <Carousel slides={topGallery} options={sliderBottomOptions} />
             </div>
-          ) : null}
+          ) : null} */}
           <div className="shape-before"></div>
         </div>
       </div>

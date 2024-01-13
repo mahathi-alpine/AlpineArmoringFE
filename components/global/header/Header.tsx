@@ -82,7 +82,7 @@ const Header = ({ setNavOpen, isNavOpen }: HeaderProps) => {
           <Button
             href="/contact"
             desktopOnly
-            className="shiny transparent small uppercase desktop-only"
+            className={`${styles.header_contact} shiny transparent small uppercase desktop-only`}
           >
             Contact
           </Button>
