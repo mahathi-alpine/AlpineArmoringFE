@@ -39,7 +39,10 @@ const TabSlider = ({ props, onTabChange, className = '' }) => {
       const translateX = tabRect.left - 13;
       gliderRef.current.style.transform = `translateX(${translateX}px)`;
       updateGliderStyle(activeTab);
-    }, 300);
+
+      const id = Array.from(navRef.current.children).indexOf(activeTab);
+      onTabChange(id);
+    }, 100);
   }, [emblaApi]);
 
   useEffect(() => {

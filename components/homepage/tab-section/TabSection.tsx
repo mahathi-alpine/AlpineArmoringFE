@@ -7,13 +7,13 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 
 const TabSection = ({ props }) => {
-  console.log(props);
+  // console.log(props);
 
   const [activeDiv, setActiveDiv] = useState('0');
   const handleTabChange = (id) => {
     setActiveDiv(id);
   };
-  // console.log(activeDiv)
+
   return (
     <section className={`${styles.tabSection} container`}>
       {/* <h3 className={`${styles.tabSection_heading} observe fade-in-up`}>
