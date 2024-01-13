@@ -11,14 +11,13 @@
     }
     @include breakpoint(large) {
       display: flex;
-      padding: rem(60) rem(32) rem(60) rem(32);
-      max-width: 1730px;
+      padding: rem(60) rem(32);
+      max-width: 1920px;
       margin: auto;
       gap: 32px;
       align-items: flex-start;
     }
     @include breakpoint(huge) {
-      padding: rem(60) rem(60) rem(60) rem(60);
       gap: 64px;
     }
 
@@ -81,7 +80,7 @@
       width: 42%;
       padding: 0;
       margin-top: 0;
-      min-width: 590px;
+      min-width: 538px;
     }
 
     &_title {

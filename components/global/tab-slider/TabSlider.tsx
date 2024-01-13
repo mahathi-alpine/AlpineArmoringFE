@@ -3,11 +3,11 @@ import { useCallback, useEffect, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import ClassNames from 'embla-carousel-class-names';
 
-const TabSlider = ({ props, onTabChange }) => {
+const TabSlider = ({ props, onTabChange, className = '' }) => {
   const viewportWidth =
     typeof window !== 'undefined' ? window.innerWidth : Infinity;
   const sliderOptions = {
-    active: viewportWidth < 1280,
+    active: viewportWidth < 768,
     duration: 10,
   };
 
@@ -17,6 +17,13 @@ const TabSlider = ({ props, onTabChange }) => {
   const [tabSliderRef, emblaApi] = useEmblaCarousel(sliderOptions, [
     ClassNames(),
   ]);
+
+  useEffect(() => {
+    if (navRef.current && navRef.current.firstChild) {
+      const firstTab = navRef.current.firstChild;
+      updateGliderStyle(firstTab);
+    }
+  }, []);
 
   const updateGliderStyle = (activeTab) => {
     const tabWidth = activeTab.offsetWidth;
@@ -47,7 +54,7 @@ const TabSlider = ({ props, onTabChange }) => {
     onTabChange(id);
     emblaApi.scrollTo(id);
 
-    if (viewportWidth >= 1280) {
+    if (viewportWidth >= 768) {
       Array.from(navRef.current.children).forEach((child) => {
         (child as HTMLElement).classList.remove(
           styles.tabSlider_nav_item_active
@@ -65,20 +72,27 @@ const TabSlider = ({ props, onTabChange }) => {
   };
 
   return (
-    <div className={`${styles.tabSlider_nav_wrap}`} ref={tabSliderRef}>
-      <ul className={`${styles.tabSlider_nav}`} ref={navRef}>
-        {props.map((item) => (
-          <li
-            className={`${styles.tabSlider_nav_item}`}
-            onClick={(event) => changeTab(item.id, event)}
-            key={item.id}
-          >
-            {item.titleNav}
-          </li>
-        ))}
-      </ul>
+    <div
+      className={`
+        center
+        ${className} 
+      `}
+    >
+      <div className={`${styles.tabSlider_nav_wrap}`} ref={tabSliderRef}>
+        <ul className={`${styles.tabSlider_nav}`} ref={navRef}>
+          {props.map((item, index) => (
+            <li
+              className={`${styles.tabSlider_nav_item}`}
+              onClick={(event) => changeTab(index, event)}
+              key={item.id}
+            >
+              {item.titleNav}
+            </li>
+          ))}
+        </ul>
 
-      <div className={`${styles.tabSlider_nav_glider}`} ref={gliderRef}></div>
+        <div className={`${styles.tabSlider_nav_glider}`} ref={gliderRef}></div>
+      </div>
     </div>
   );
 };

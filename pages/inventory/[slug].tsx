@@ -109,7 +109,7 @@ function InventoryVehicle(props) {
     },
     {
       id: 2,
-      titleNav: 'Optional Equipment',
+      titleNav: 'Accessories',
     },
   ];
 

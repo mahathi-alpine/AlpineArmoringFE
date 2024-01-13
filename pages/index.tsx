@@ -7,7 +7,7 @@ import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import IntroText from 'components/homepage/intro-text/IntroText';
 import Categories from 'components/homepage/categories/Categories';
 import HPMiddleText from 'components/homepage/hp-middle-text/HPMiddleText';
-import TabSection from 'components/global/tab-section/TabSection';
+import TabSection from 'components/homepage/tab-section/TabSection';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Partners from 'components/homepage/partners/Partners';
 import VideosPopup from 'components/global/videos-popup/VideosPopup';

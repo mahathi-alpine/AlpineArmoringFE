@@ -8,9 +8,6 @@ export interface IconProps {
 }
 
 export interface ButtonProps {
-  desktopOnly?: boolean;
-  animate?: boolean;
-  fadeInScale?: boolean;
   icon?: boolean;
   href?: string;
   className?: string;

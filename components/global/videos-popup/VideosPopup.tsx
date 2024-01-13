@@ -88,7 +88,7 @@ const VideosPopup = (props) => {
         <div className={`${styles.videoPopup_button} shake observe`}>
           <Button
             button={true}
-            className="fill"
+            className="primary fill"
             dot
             icon
             // onClick={() => {

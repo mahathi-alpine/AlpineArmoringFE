@@ -2,54 +2,50 @@ import styles from './TabSection.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import ArrowIcon from 'components/icons/Arrow';
-// import { API_URL } from 'config/index';
+import ArrowIconCircle from 'components/icons/Arrow';
+import TabSlider from 'components/global/tab-slider/TabSlider';
+import Markdown from 'markdown-to-jsx';
 
 const TabSection = ({ props }) => {
   console.log(props);
-  const [activeDiv, setActiveDiv] = useState(props[0]?.id);
-  const handleClick = (id) => {
+
+  const [activeDiv, setActiveDiv] = useState('0');
+  const handleTabChange = (id) => {
     setActiveDiv(id);
   };
-
+  // console.log(activeDiv)
   return (
     <section className={`${styles.tabSection} container`}>
       {/* <h3 className={`${styles.tabSection_heading} observe fade-in-up`}>
         Designed, engineered and manufactured like no OTHER armored vehicles in
         the world
       </h3> */}
-      <div className={`${styles.tabSection_nav_wrap} observe fade-in-up`}>
-        <ul className={`${styles.tabSection_nav}`}>
-          {props.map((item) => (
-            <li
-              className={`${styles.tabSection_nav_item} ${
-                activeDiv === item.id ? styles.tabSection_nav_item_active : ''
-              }`}
-              key={item.id}
-              onClick={() => handleClick(item.id)}
-            >
-              {item.titleNav}
-            </li>
-          ))}
-        </ul>
-      </div>
+
+      <TabSlider
+        props={props}
+        onTabChange={handleTabChange}
+        className="fade-in-up observe"
+      />
 
       <div className={`${styles.tabSection_content}`}>
-        {props.map((item) => (
+        {props.map((item, index) => (
           <div
             key={item.id}
             className={`${styles.tabSection_item} ${
-              activeDiv === item.id ? styles.tabSection_item_active : ''
+              activeDiv == index ? styles.tabSection_item_active : ''
             }`}
           >
             {item.image.data?.attributes.url ? (
-              <Image
-                src={`${item.image.data.attributes.url}`}
-                alt="Description of the image"
-                width={530}
-                height={405}
+              <div
                 className={`${styles.tabSection_item_image} observe fade-in-up`}
-              />
+              >
+                <Image
+                  src={`${item.image.data.attributes.url}`}
+                  alt="Description of the image"
+                  width={700}
+                  height={430}
+                />
+              </div>
             ) : null}
             <div className={`${styles.tabSection_item_content}`}>
               <h4
@@ -62,13 +58,15 @@ const TabSection = ({ props }) => {
               >
                 {item.description}
               </p> */}
-              <Link
-                className={`${styles.tabSection_item_link} observe fade-in-up`}
-                href="/"
-              >
-                Learn more
-                <ArrowIcon />
-              </Link>
+              {item.linkText ? (
+                <Link
+                  className={`${styles.tabSection_item_link} observe fade-in-up`}
+                  href="/"
+                >
+                  <Markdown>{item.linkText}</Markdown>
+                  <ArrowIconCircle />
+                </Link>
+              ) : null}
             </div>
           </div>
         ))}

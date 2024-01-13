@@ -19,6 +19,14 @@
     opacity 0.2s ease-in,
     visibility 0.2s ease-in;
 
+  &_wrap {
+    position: static;
+    padding-bottom: rem(80);
+    @include breakpoint(medium) {
+      padding-top: rem(100);
+    }
+  }
+
   &_open {
     visibility: visible;
     opacity: 1;
@@ -33,36 +41,9 @@
     }
   }
 
-  &_wrap {
-    position: static;
-    padding-bottom: rem(100);
-    @include breakpoint(medium) {
-      padding-top: rem(100);
-      padding-bottom: rem(290);
-    }
-  }
-
   &_button {
     position: relative;
     display: inline-block;
-    &:before {
-      position: absolute;
-      content: '';
-      left: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      margin: auto;
-      width: rem(220);
-      height: rem(60);
-      filter: blur(50px);
-      background: var(--color-primary);
-      @include breakpoint(medium) {
-        width: rem(300);
-        height: rem(200);
-        filter: blur(75px);
-      }
-    }
   }
 
   &_media {

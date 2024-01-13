@@ -7,9 +7,6 @@ const Button = ({
   className,
   children,
   href,
-  desktopOnly,
-  animate,
-  fadeInScale,
   onClick,
   icon,
   dot,
@@ -27,9 +24,6 @@ const Button = ({
         className={`
           c-button
           ${className} 
-          ${desktopOnly ? 'desktop-only' : ''} 
-          ${fadeInScale ? 'fade-in-scale' : ''} 
-          ${animate ? 'animate' : ''}
           ${disabled ? 'disabled' : ''}
         `}
         disabled={disabled}
