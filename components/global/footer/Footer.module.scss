@@ -58,6 +58,8 @@
         align-items: center;
         gap: 16px;
         margin-bottom: rem(16);
+        transition: color 0.3s ease;
+
         @include breakpoint(medium) {
           &:hover {
             color: var(--color-primary);
@@ -67,6 +69,12 @@
           }
           svg path {
             transition: fill 0.3s ease;
+          }
+        }
+
+        .footer_dark &{
+          svg path{
+            fill: var(--color-gray3);
           }
         }
       }
@@ -119,6 +127,38 @@
     display: flex;
     justify-content: space-between;
     max-width: 315px;
+
+    .footer_dark &{
+      &_item {
+        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x) {
+          svg path {
+            fill: var(--color-gray3);
+          }
+        }
+        &_tiktok {
+          svg{
+            rect {
+              fill: var(--color-gray3);
+            }
+            path{
+              fill: var(--color-dark);
+            }
+          }
+        }
+        &_x {
+          svg path{
+            &:first-child {
+              fill: var(--color-gray3);    
+              stroke: var(--color-gray3);  
+            }
+            &:last-child {
+              fill: var(--color-dark);
+            }
+          }
+        }
+      }
+    }
+
     @include breakpoint(medium) {
       &_item {
         svg path,
@@ -152,6 +192,7 @@
     margin-top: rem(64);
     border-top: 1px solid var(--color-grayDark);
     text-align: center;
+    font-size: rem(14);
     @include breakpoint(large) {
       display: flex;
       align-items: center;

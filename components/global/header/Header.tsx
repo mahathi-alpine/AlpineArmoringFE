@@ -12,7 +12,7 @@ import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 
-const Header = ({ setNavOpen, isNavOpen }: HeaderProps) => {
+const Header = ({ setNavOpen, isNavOpen, isDarkMode }: HeaderProps) => {
   const router = useRouter();
   const [hState, sethState] = React.useState('-top');
 
@@ -49,11 +49,7 @@ const Header = ({ setNavOpen, isNavOpen }: HeaderProps) => {
       className={`
         ${styles.header}
         ${styles[hState]}
-        ${
-          ['/inventory'].some((path) => router.pathname.startsWith(path))
-            ? styles.header_transparent
-            : ''
-        }
+        ${isDarkMode ? styles.header_transparent : ''}
         ${
           ['/vehicles-we-armor'].some((path) =>
             router.pathname.startsWith(path)

@@ -21,6 +21,7 @@ export interface ButtonProps {
 export interface HeaderProps {
   isNavOpen?: boolean;
   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isDarkMode?: boolean;
 }
 
 export interface NavigationProps {

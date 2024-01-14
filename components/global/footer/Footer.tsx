@@ -10,7 +10,7 @@ import PhoneIcon from 'components/icons/Phone';
 import MailIcon from 'components/icons/Mail';
 import Link from 'next/link';
 
-const Footer = () => {
+const Footer = (isDarkMode) => {
   const links = [
     { path: '/about', text: 'Home' },
     { path: '/inventory', text: 'Make & Models' },
@@ -24,7 +24,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className={`${styles.footer} container`}>
+    <footer
+      className={`
+      ${styles.footer} 
+      ${isDarkMode.isDarkMode ? styles.footer_dark : ''}
+      container
+    `}
+    >
       <div className={`${styles.footer_top}`}>
         <h2 className={`${styles.footer_top_heading}`}>Alpine Armoring</h2>
         <h3 className={`${styles.footer_top_subheading}`}>

@@ -18,6 +18,12 @@ body {
   //   padding-top: 0;
   // }
 
+  &.background-dark{
+    background: var(--color-dark) url('/assets/noise.png');
+    background-size: 100px;
+    color: var(--color-white);
+  }
+
   &.home {
     padding-top: 0;
     // .b-header {
@@ -138,12 +144,6 @@ img {
   display: inline-block;
 }
 
-.background-dark {
-  background: var(--color-dark) url('/assets/noise.png');
-  background-size: 100px;
-  color: white;
-}
-
 .shape-before,
 .shape-after {
   --background: var(--color-dark) url('/assets/noise.png');
@@ -212,8 +212,6 @@ button.yarl__thumbnails_thumbnail_active {
 }
 div.yarl__slide_title {
   font-weight: var(--font-medium);
-}
-div.yarl__slide_title {
   white-space: normal;
 }
 div.yarl__slide_description {

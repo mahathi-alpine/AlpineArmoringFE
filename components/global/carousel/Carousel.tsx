@@ -102,10 +102,6 @@ const EmblaCarousel = (props) => {
                     height={640}
                     className={styles.carousel_slide_img}
                   />
-
-                  <div className={styles.carousel_zoom}>
-                    <ZoomIcon />
-                  </div>
                 </>
               ) : null}
             </div>
@@ -115,6 +111,10 @@ const EmblaCarousel = (props) => {
         <div className={styles.carousel_arrows}>
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        </div>
+
+        <div className={styles.carousel_zoom}>
+          <ZoomIcon />
         </div>
       </div>
 

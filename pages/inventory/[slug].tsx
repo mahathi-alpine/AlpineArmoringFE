@@ -11,11 +11,19 @@ import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
 
+import { Lightbox } from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
+import Captions from 'yet-another-react-lightbox/plugins/captions';
+import 'yet-another-react-lightbox/plugins/captions.css';
+
 function InventoryVehicle(props) {
   const [activeDiv, setActiveDiv] = useState('0');
   const handleTabChange = (id) => {
     setActiveDiv(id);
   };
+
+  const [openSpecs, setOpenSpecs] = useState(false);
+  const [openAccessories, setOpenAccessories] = useState(false);
 
   useEffect(() => {
     document.body.classList.add(
@@ -71,7 +79,9 @@ function InventoryVehicle(props) {
     return null;
   }
   const data = props.data.data[0].attributes;
-  const topGallery = data.gallery.data;
+  const topGallery = data.gallery?.data;
+
+  console.log(data);
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
@@ -223,7 +233,9 @@ function InventoryVehicle(props) {
                       );
                     })}
                   </ul>
-                  <ul className={`${styles.inventory_tabs_content_list}`}>
+                  <ul
+                    className={`${styles.inventory_tabs_content_list} ${styles.inventory_tabs_content_list_secondary}`}
+                  >
                     {Object.entries(vehicleDetailsSecondary).map(
                       ([key, value]) => {
                         return (
@@ -241,15 +253,45 @@ function InventoryVehicle(props) {
                     )}
                   </ul>
                 </div>
+
                 <div
-                  className={`${styles.inventory_tabs_content_item} ${
-                    activeDiv == '1'
-                      ? styles.inventory_tabs_content_item_active
-                      : ''
-                  }`}
+                  className={`
+                    ${styles.inventory_tabs_content_item} 
+                    ${
+                      activeDiv == '1'
+                        ? styles.inventory_tabs_content_item_active
+                        : ''
+                    }
+                  `}
                 >
-                  test
+                  <ul className={`${styles.inventory_tabs_content_list}`}>
+                    {data.specifications.data.map((item, index) => (
+                      <li
+                        key={index}
+                        className={`
+                          ${styles.inventory_tabs_content_list_item}
+                          ${styles.inventory_tabs_content_list_item_specs}
+                        `}
+                        onClick={() => {
+                          setOpenSpecs(true);
+                          // setSelectedIndex(index);
+                        }}
+                      >
+                        {`${item.attributes.title}`}
+                      </li>
+                    ))}
+                  </ul>
+                  <Lightbox
+                    open={openSpecs}
+                    close={() => setOpenSpecs(false)}
+                    slides={data.specifications.data.map((item) => ({
+                      src: item.attributes?.media.data.attributes.url,
+                      title: item.attributes?.title,
+                    }))}
+                    plugins={[Captions]}
+                  />
                 </div>
+
                 <div
                   className={`${styles.inventory_tabs_content_item} ${
                     activeDiv == '2'
@@ -257,13 +299,41 @@ function InventoryVehicle(props) {
                       : ''
                   }`}
                 >
-                  test2
+                  <ul className={`${styles.inventory_tabs_content_list}`}>
+                    {data.accessories.data.map((item, index) => (
+                      <li
+                        key={index}
+                        className={`
+                          ${styles.inventory_tabs_content_list_item}
+                          ${styles.inventory_tabs_content_list_item_specs}
+                        `}
+                        onClick={() => {
+                          setOpenAccessories(true);
+                          // setSelectedIndex(index);
+                        }}
+                      >
+                        {`${item.attributes.title}`}
+                      </li>
+                    ))}
+                  </ul>
+                  <Lightbox
+                    open={openAccessories}
+                    close={() => setOpenAccessories(false)}
+                    slides={data.accessories.data.map((item) => ({
+                      src: item.attributes?.media.data.attributes.url,
+                      title: item.attributes?.title,
+                    }))}
+                    plugins={[Captions]}
+                  />
                 </div>
               </div>
             </div>
 
             <div className={`${styles.inventory_top_button}`}>
-              <Button href="/contact" className="primary rounded">
+              <Button
+                href="/contact"
+                className={`${styles.inventory_top_button_link} primary rounded`}
+              >
                 Request a quote
               </Button>
 
@@ -303,7 +373,7 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'inventories',
     params: `filters[slug][$eq]=${context.params.slug}`,
-    populate: 'deep',
+    // populate: 'deep',
   });
 
   return {

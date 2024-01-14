@@ -42,7 +42,7 @@ const TabSlider = ({ props, onTabChange, className = '' }) => {
 
       const id = Array.from(navRef.current.children).indexOf(activeTab);
       onTabChange(id);
-    }, 300);
+    }, 250);
   }, [emblaApi]);
 
   useEffect(() => {
