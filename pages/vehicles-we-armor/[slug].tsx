@@ -1,6 +1,7 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
 import Button from 'components/global/button/Button';
+import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 import Image from 'next/image';
 
 function InventoryVehicle(props) {
@@ -58,6 +59,13 @@ function InventoryVehicle(props) {
             </Button>
           </div>
         </div>
+      </div>
+
+      <div className={`container`}>
+        <ComparisonSlider
+          beforeImage="/assets/beforeSlide.png"
+          afterImage="/assets/afterSlide.png"
+        />
       </div>
     </div>
   );

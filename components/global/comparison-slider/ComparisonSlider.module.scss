@@ -1,0 +1,49 @@
+.comparisonSlider {
+    width:100%;
+    position:relative;
+    overflow:hidden;
+
+    &_before {
+      position:absolute;
+      height:100%;
+      width:50%;
+      top:0;
+      left:0;
+      overflow:hidden;
+      z-index:2;
+
+      img{
+        max-width: unset;
+      }
+    }
+
+    &_after{
+        display:block
+    }
+
+    &_resizer{
+        position:absolute;
+        display:flex;
+        align-items:center;
+        z-index:2;
+        top:0;
+        left:50%;
+        height:100%;
+        width: 2px;
+        background:var(--color-white);
+        /*Stop vertical scrolling on touch*/
+        -ms-touch-action: pan-y;
+          touch-action: pan-y;
+        cursor: ew-resize;
+
+        &:after {
+            position:absolute;
+            content:'';
+            background: var(--color-primary);
+            margin: 0 0 0 -19px;
+            width: rem(40);
+            height: rem(40);
+            border-radius:50%;
+        }
+    }
+}
