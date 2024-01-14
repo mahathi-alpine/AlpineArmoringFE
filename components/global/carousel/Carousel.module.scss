@@ -10,7 +10,7 @@
 
   @include breakpoint(large) {
     display: flex;
-    gap: 8px;
+    gap: 16px;
     align-items: flex-start;
   }
 
@@ -19,7 +19,7 @@
     overflow: hidden;
 
     @include breakpoint(large) {
-      width: calc(100% - 190px);
+      width: calc(100% - 160px - 16px);
 
       .carousel_variableWidth & {
         width: 100%;
@@ -73,7 +73,7 @@
         display: none;
       }
       @include breakpoint(medium) {
-        display: none;
+        // display: none;
       }
     }
 
@@ -123,7 +123,7 @@
     }
 
     @include breakpoint(large) {
-      width: 190px;
+      width: 160px;
       // padding: rem(40) 0;
       margin-top: 0;
     }
@@ -278,15 +278,17 @@
     touch-action: manipulation;
     cursor: pointer;
     color: white;
-    width: rem(20);
-    height: rem(20);
+    width: rem(16);
+    height: rem(16);
     z-index: 1;
+    svg{
+      width: 16px;
+    }
     @include breakpoint(large) {
-      top: 0;
+      top: 8px;
       transform: rotate(90deg);
       right: 0;
       left: 0;
-      right: 0;
       margin: 0 auto;
 
       .carousel_variableWidth & {
@@ -306,7 +308,7 @@
         top: auto;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 8px;
         transform: rotate(90deg);
 
         .carousel_variableWidth & {

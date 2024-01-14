@@ -113,8 +113,8 @@ const VideosPopup = (props) => {
           padding: 0,
           gap: 4,
           imageFit: 'cover',
-          borderColor: '#bebbbe',
-          borderRadius: 16,
+          borderColor: '#737373',
+          borderRadius: 8,
         }}
       />
 

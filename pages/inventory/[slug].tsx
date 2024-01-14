@@ -1,6 +1,8 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect, useState } from 'react';
+import InfoIcon from 'components/icons/Info';
+import PDFIcon from 'components/icons/PDF';
 
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -86,11 +88,14 @@ function InventoryVehicle(props) {
     Engine: 'engine',
     Trans: 'trans',
     Power: 'power',
+    Year: 'year',
     'Color (EXT)': 'color_ext',
     'Color (INT)': 'color_int',
     Trim: 'trim',
-    Wheels: 'wheels',
     'Drive Train': 'driveTrain',
+  };
+  const vehicleDetailsSecondary = {
+    Wheels: 'wheels',
     Height: 'height',
     Length: 'length',
     Width: 'width',
@@ -118,15 +123,54 @@ function InventoryVehicle(props) {
       <div className="background-dark">
         <div className={`${styles.inventory_top}`}>
           <div className={`${styles.inventory_top_gallery}`}>
-            {topGallery ? (
-              <Carousel slides={topGallery} options={sliderTopOptions} />
-            ) : null}
+            <div className={`${styles.inventory_top_gallery_description}`}>
+              <InfoIcon />
+              <p>
+                This Armored Vehicle is{' '}
+                <strong>in Stock and Available Immediately</strong>
+              </p>
+            </div>
 
-            <div className={`${styles.inventory_armor}`}>
-              Armor
-              <br />
-              Level
-              <span>{data.armor_level}</span>
+            <div className={`${styles.inventory_top_gallery_wrap}`}>
+              {topGallery ? (
+                <Carousel slides={topGallery} options={sliderTopOptions} />
+              ) : null}
+
+              <div className={`${styles.inventory_armor}`}>
+                Armor
+                <br />
+                Level
+                <span>{data.armor_level}</span>
+              </div>
+            </div>
+
+            <div className={`${styles.inventory_right_bottom}`}>
+              <ul
+                className={`${styles.inventory_tabs_content_list} ${styles.inventory_tabs_content_list_secondary}`}
+              >
+                {Object.entries(vehicleDetailsSecondary).map(([key, value]) => {
+                  return (
+                    data[value] != null && (
+                      <li
+                        key={key}
+                        className={`${styles.inventory_tabs_content_list_item}`}
+                      >
+                        {`${key}:`}
+                        <span>{`${data[value]}`}</span>
+                      </li>
+                    )
+                  );
+                })}
+              </ul>
+
+              <div className={`${styles.inventory_sticker}`}>
+                <PDFIcon />
+                <p>
+                  Window
+                  <br />
+                  Sticker
+                </p>
+              </div>
             </div>
 
             <div
@@ -145,9 +189,13 @@ function InventoryVehicle(props) {
               {data.title}
             </h1>
 
-            <p className={`${styles.inventory_details_description}`}>
-              {data.shortDescription}
-            </p>
+            <div className={`${styles.inventory_details_description}`}>
+              <InfoIcon />
+              <p>
+                This Armored Vehicle is{' '}
+                <strong>in Stock and Available Immediately</strong>
+              </p>
+            </div>
 
             <div className={`${styles.inventory_tabs}`}>
               <TabSlider props={tabSliderData} onTabChange={handleTabChange} />
@@ -175,6 +223,23 @@ function InventoryVehicle(props) {
                       );
                     })}
                   </ul>
+                  <ul className={`${styles.inventory_tabs_content_list}`}>
+                    {Object.entries(vehicleDetailsSecondary).map(
+                      ([key, value]) => {
+                        return (
+                          data[value] != null && (
+                            <li
+                              key={key}
+                              className={`${styles.inventory_tabs_content_list_item}`}
+                            >
+                              {`${key}:`}
+                              <span>{`${data[value]}`}</span>
+                            </li>
+                          )
+                        );
+                      }
+                    )}
+                  </ul>
                 </div>
                 <div
                   className={`${styles.inventory_tabs_content_item} ${
@@ -192,14 +257,25 @@ function InventoryVehicle(props) {
                       : ''
                   }`}
                 >
-                  ESTEEE
+                  test2
                 </div>
               </div>
             </div>
 
-            <Button href="/contact" icon className="icon">
-              Request a quote
-            </Button>
+            <div className={`${styles.inventory_top_button}`}>
+              <Button href="/contact" className="primary rounded">
+                Request a quote
+              </Button>
+
+              <div className={`${styles.inventory_sticker}`}>
+                <PDFIcon />
+                <p>
+                  Window
+                  <br />
+                  Sticker
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -209,15 +285,15 @@ function InventoryVehicle(props) {
           text2="ESV V-Series"
         />
 
-        <div className={`${styles.inventory_images}`}>
+        {/* <div className={`${styles.inventory_images}`}>
           <div className="shape-after"></div>
-          {/* {topGallery ? (
+          {topGallery ? (
             <div className={`${styles.inventory_images_slider}`}>
               <Carousel slides={topGallery} options={sliderBottomOptions} />
             </div>
-          ) : null} */}
+          ) : null}
           <div className="shape-before"></div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
