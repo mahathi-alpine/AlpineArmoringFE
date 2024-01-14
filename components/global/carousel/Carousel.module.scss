@@ -73,7 +73,7 @@
         display: none;
       }
       @include breakpoint(medium) {
-        // display: none;
+        border-radius: 8px;
       }
     }
 
@@ -97,7 +97,7 @@
   &_zoom {
     position: absolute;
     right: rem(8);
-    bottom: rem(16);
+    bottom: rem(24);
     cursor: pointer;
     z-index: 1;
     pointer-events: none;

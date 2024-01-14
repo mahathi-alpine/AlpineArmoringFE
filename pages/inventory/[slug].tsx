@@ -81,7 +81,7 @@ function InventoryVehicle(props) {
   const data = props.data.data[0].attributes;
   const topGallery = data.gallery?.data;
 
-  console.log(data);
+  // console.log(data);
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 

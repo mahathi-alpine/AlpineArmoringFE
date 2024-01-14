@@ -13,7 +13,7 @@ import {
 
 import { Lightbox } from 'yet-another-react-lightbox';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
-import 'yet-another-react-lightbox/styles.css';
+// import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 const EmblaCarousel = (props) => {
@@ -126,6 +126,13 @@ const EmblaCarousel = (props) => {
         }))}
         index={selectedIndex}
         plugins={[Thumbnails]}
+        thumbnails={{
+          padding: 0,
+          gap: 4,
+          imageFit: 'cover',
+          borderColor: '#737373',
+          borderRadius: 8,
+        }}
       />
 
       {options.thumbs ? (

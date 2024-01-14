@@ -15,12 +15,12 @@ const VideosPopup = (props) => {
   const [open, setOpen] = useState(false);
 
   const slidesData = props.props.map((item) => {
-    const type = item.image.data.attributes.mime.split('/')[0];
-    const src = item.image.data.attributes.url;
-    const alt = item.image.data.attributes.alternativeText;
+    const type = item.image.data?.attributes.mime.split('/')[0];
+    const src = item.image.data?.attributes.url;
+    const alt = item.image.data?.attributes.alternativeText;
     const title = item.title;
     const description = item.description;
-    const poster = item.image.data.attributes.previewUrl;
+    const poster = item.image.data?.attributes.previewUrl;
 
     if (type === 'video') {
       return {

@@ -10,7 +10,11 @@ const Layout = ({ children }) => {
   const router = useRouter();
 
   const pathsDarkMode = ['/inventory'];
+  const pathsDarkHeader = ['/vehicles-we-armor'];
   const isDarkMode = pathsDarkMode.some((path) =>
+    router.pathname.startsWith(path)
+  );
+  const isDarkHeader = pathsDarkHeader.some((path) =>
     router.pathname.startsWith(path)
   );
 
@@ -27,6 +31,7 @@ const Layout = ({ children }) => {
         isDarkMode={isDarkMode}
         setNavOpen={setNavOpen}
         isNavOpen={isNavOpen}
+        isDarkHeader={isDarkHeader}
       />
       <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
       {children}

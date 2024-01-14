@@ -19,8 +19,6 @@ body {
   // }
 
   &.background-dark {
-    background: var(--color-dark) url('/assets/noise.png');
-    background-size: 100px;
     color: var(--color-white);
   }
 
@@ -56,6 +54,11 @@ body {
   // margin-right: 20px;
   // position: fixed;
   // width: 100%;
+}
+
+.background-dark {
+  background: var(--color-dark) url('/assets/noise.png');
+  background-size: 100px;
 }
 
 em,

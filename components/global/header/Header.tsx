@@ -5,15 +5,18 @@ import Link from 'next/link';
 import Logo from 'components/icons/Logo';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
-import { useRouter } from 'next/router';
 import styles from './Header.module.scss';
 import { useEffect } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 
-const Header = ({ setNavOpen, isNavOpen, isDarkMode }: HeaderProps) => {
-  const router = useRouter();
+const Header = ({
+  setNavOpen,
+  isNavOpen,
+  isDarkMode,
+  isDarkHeader,
+}: HeaderProps) => {
   const [hState, sethState] = React.useState('-top');
 
   useEffect(() => {
@@ -50,13 +53,7 @@ const Header = ({ setNavOpen, isNavOpen, isDarkMode }: HeaderProps) => {
         ${styles.header}
         ${styles[hState]}
         ${isDarkMode ? styles.header_transparent : ''}
-        ${
-          ['/vehicles-we-armor'].some((path) =>
-            router.pathname.startsWith(path)
-          )
-            ? styles.header_dark
-            : ''
-        }
+        ${isDarkHeader ? styles.header_dark : ''}
         ${isNavOpen ? styles.header_navOpen : ''}
         b-header
       `}
