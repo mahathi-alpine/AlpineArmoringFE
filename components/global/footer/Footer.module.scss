@@ -72,8 +72,8 @@
           }
         }
 
-        .footer_dark &{
-          svg path{
+        .footer_dark & {
+          svg path {
             fill: var(--color-gray3);
           }
         }
@@ -128,7 +128,7 @@
     justify-content: space-between;
     max-width: 315px;
 
-    .footer_dark &{
+    .footer_dark & {
       &_item {
         &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x) {
           svg path {
@@ -136,20 +136,20 @@
           }
         }
         &_tiktok {
-          svg{
+          svg {
             rect {
               fill: var(--color-gray3);
             }
-            path{
+            path {
               fill: var(--color-dark);
             }
           }
         }
         &_x {
-          svg path{
+          svg path {
             &:first-child {
-              fill: var(--color-gray3);    
-              stroke: var(--color-gray3);  
+              fill: var(--color-gray3);
+              stroke: var(--color-gray3);
             }
             &:last-child {
               fill: var(--color-dark);

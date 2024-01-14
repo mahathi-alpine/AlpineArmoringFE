@@ -46,7 +46,7 @@
           font-size: rem(14);
         }
       }
-    }    
+    }
 
     &_shape {
       margin-top: -24px;
@@ -59,7 +59,7 @@
       align-items: center;
       justify-content: space-between;
       @include breakpoint(small) {
-        &_link{
+        &_link {
           padding: rem(14) rem(24);
         }
       }
@@ -178,7 +178,7 @@
         flex: 1;
       }
       @include breakpoint(small) {
-        svg{
+        svg {
           width: 20px;
         }
       }
@@ -266,7 +266,7 @@
           font-weight: var(--font-medium);
         }
 
-        &_specs{
+        &_specs {
           cursor: pointer;
         }
 
