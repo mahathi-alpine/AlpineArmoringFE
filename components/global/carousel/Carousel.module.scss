@@ -281,7 +281,7 @@
     width: rem(16);
     height: rem(16);
     z-index: 1;
-    svg{
+    svg {
       width: 16px;
     }
     @include breakpoint(large) {

@@ -29,14 +29,14 @@
         flex: 1;
       }
 
-      &_wrap{
+      &_wrap {
         position: relative;
         @include breakpoint(large) {
           margin-bottom: rem(16);
         }
       }
 
-      &_description{
+      &_description {
         display: none;
         @include breakpoint(large) {
           display: flex;
@@ -52,14 +52,14 @@
       margin-top: -24px;
     }
 
-    &_button{
+    &_button {
       margin-top: rem(32);
-      text-align: center;    
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
       @include breakpoint(large) {
-        .inventory_sticker{
+        .inventory_sticker {
           display: none;
         }
       }
@@ -90,7 +90,7 @@
     }
   }
 
-  &_right_bottom{
+  &_right_bottom {
     display: none;
     @include breakpoint(large) {
       display: flex;
@@ -98,7 +98,7 @@
     }
   }
 
-  &_sticker{
+  &_sticker {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -108,7 +108,7 @@
       flex: 1;
       font-size: rem(16);
     }
-    svg{
+    svg {
       width: 35px;
       @include breakpoint(large) {
         width: 40px;
@@ -167,7 +167,7 @@
       align-items: center;
       margin-bottom: rem(40);
       color: var(--color-grayLight);
-      p{
+      p {
         flex: 1;
       }
       @include breakpoint(medium) {
@@ -189,11 +189,10 @@
     position: relative;
 
     @include breakpoint(large) {
-      .inventory_tabs_content_list:last-child{
+      .inventory_tabs_content_list:last-child {
         display: none;
       }
     }
-
 
     &_item {
       position: absolute;
@@ -219,19 +218,19 @@
     &_list {
       transition: opacity 0.2s ease-in-out;
 
-      &_secondary{
+      &_secondary {
         @include breakpoint(large) {
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
           width: calc(100% - 160px - 16px);
-          .inventory_tabs_content_list_item{
+          .inventory_tabs_content_list_item {
             width: calc(50% - 16px);
           }
         }
         @include breakpoint(huge) {
           width: calc(100% - 160px - 32px);
-          .inventory_tabs_content_list_item{
+          .inventory_tabs_content_list_item {
             width: calc(50% - 32px);
           }
         }
@@ -249,7 +248,7 @@
           font-size: rem(13);
         }
 
-        span{
+        span {
           margin-left: rem(8);
           text-align: right;
         }
