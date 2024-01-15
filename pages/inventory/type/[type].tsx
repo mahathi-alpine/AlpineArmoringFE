@@ -14,17 +14,9 @@ function Inventory(props) {
   // return null
 
   useEffect(() => {
-    document.body.classList.add(
-      'listing-inventory',
-      // 'header-transparent',
-      'background-dark'
-    );
+    document.body.classList.add('listing-inventory', 'background-dark');
     return () => {
-      document.body.classList.remove(
-        'listing-inventory',
-        // 'header-transparent',
-        'background-dark'
-      );
+      document.body.classList.remove('listing-inventory', 'background-dark');
     };
   }, []);
 
@@ -68,7 +60,11 @@ function Inventory(props) {
 export async function getServerSideProps(context) {
   // Fetching Vehicles
   const category = context.query.type;
-  const query = `filters[category][slug][$eq]=${category}`;
+  let query = `filters[category][slug][$eq]=${category}`;
+  const q = context.query.q;
+  if (q) {
+    query += `&filters[slug][$contains]=${q}`;
+  }
 
   const vehicles = await getPageData({
     route: 'inventories',

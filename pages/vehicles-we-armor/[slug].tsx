@@ -9,9 +9,9 @@ function InventoryVehicle(props) {
   const data = props.data.data[0]?.attributes;
   const inventory = data.stock.data;
   const beforeAfterSlider_Before =
-    data.beforeAfterSlider.before.data.attributes.url;
+    data.beforeAfterSlider.before.data?.attributes.url;
   const beforeAfterSlider_After =
-    data.beforeAfterSlider.after.data.attributes.url;
+    data.beforeAfterSlider.after.data?.attributes.url;
 
   return (
     <div className={`${styles.inventory}`}>
@@ -67,10 +67,12 @@ function InventoryVehicle(props) {
       </div>
 
       <div className={`container`}>
-        <ComparisonSlider
-          beforeImage={beforeAfterSlider_Before}
-          afterImage={beforeAfterSlider_After}
-        />
+        {beforeAfterSlider_Before && beforeAfterSlider_After ? (
+          <ComparisonSlider
+            beforeImage={beforeAfterSlider_Before}
+            afterImage={beforeAfterSlider_After}
+          />
+        ) : null}
       </div>
     </div>
   );

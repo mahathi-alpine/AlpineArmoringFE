@@ -11,17 +11,9 @@ function Inventory(props) {
   // return null
 
   useEffect(() => {
-    document.body.classList.add(
-      'listing-inventory',
-      // 'header-transparent',
-      'background-dark'
-    );
+    document.body.classList.add('listing-inventory', 'background-dark');
     return () => {
-      document.body.classList.remove(
-        'listing-inventory',
-        // 'header-transparent',
-        'background-dark'
-      );
+      document.body.classList.remove('listing-inventory', 'background-dark');
     };
   }, []);
 
@@ -77,7 +69,7 @@ export async function getServerSideProps(context) {
   topBanner = topBanner.data || null;
 
   // Fetching Vehicles
-  const { category, vehicles_we_armor } = context.query;
+  const { category, vehicles_we_armor, q } = context.query;
 
   let query = '';
   if (category) {
@@ -85,6 +77,9 @@ export async function getServerSideProps(context) {
   }
   if (vehicles_we_armor) {
     query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
+  }
+  if (q) {
+    query += `filters[slug][$contains]=${q}`;
   }
 
   const vehicles = await getPageData({

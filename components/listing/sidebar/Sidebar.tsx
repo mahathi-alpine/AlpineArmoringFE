@@ -12,6 +12,18 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ props, plain }: SidebarProps) => {
+  const [query, setQuery] = useState('');
+  const handleSearch = async () => {
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, q: query },
+      },
+      undefined,
+      { scroll: false }
+    );
+  };
+
   const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [activeFilterTitles, setActiveFilterTitles] = useState({
     make: 'Select',
@@ -153,6 +165,15 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
                 Clear all filters
               </div>
             )}
+          </div>
+
+          <div className={`${styles.sidebar_search}`}>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button onClick={handleSearch}>Search</button>
           </div>
 
           {Object.keys(props).map((filter) => {
