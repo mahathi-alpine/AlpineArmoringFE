@@ -42,21 +42,21 @@
     color: var(--color-dark);
   }
 
-  &.attention{
+  &.attention {
     overflow: visible;
     border-radius: 99px;
     font-weight: var(--font-medium);
     cursor: pointer;
     min-width: 287px;
-    background: linear-gradient(180deg, #484848, #1A1A1A);
+    background: linear-gradient(180deg, #484848, #1a1a1a);
 
-    &:hover{
-      .attention_box3{
+    &:hover {
+      .attention_box3 {
         background: var(--color-primary);
       }
     }
 
-    .attention_box1{
+    .attention_box1 {
       --half-width: 2.83;
       --start-position: 2px;
       --mid-top-position: 141.5px;
@@ -65,7 +65,9 @@
       position: absolute;
       left: 0;
       top: 0;
-      box-shadow: rgb(125, 110, 77) 0px -5px 12px -5px, rgb(125, 110, 77) 0px -7px 22px -10px;
+      box-shadow:
+        rgb(125, 110, 77) 0px -5px 12px -5px,
+        rgb(125, 110, 77) 0px -7px 22px -10px;
       width: 46px;
       height: 46px;
       border-radius: 999px;
@@ -73,7 +75,7 @@
       user-select: none;
       pointer-events: none;
     }
-    .attention_box2{
+    .attention_box2 {
       position: absolute;
       top: 0;
       left: 0;
@@ -82,7 +84,7 @@
       border-radius: 999px;
       overflow: hidden;
       pointer-events: none;
-      span{
+      span {
         position: absolute;
         left: 0;
         user-select: none;
@@ -90,16 +92,21 @@
         animation: attention2 3s linear infinite;
         width: 48px;
         height: 53px;
-        background: conic-gradient(rgb(125, 110, 77) 0%, transparent 15.5%, transparent 87%, rgb(125, 110, 77) 98%);
+        background: conic-gradient(
+          rgb(125, 110, 77) 0%,
+          transparent 15.5%,
+          transparent 87%,
+          rgb(125, 110, 77) 98%
+        );
         --button-width: 235px;
         --width-multiplier: 5.895833333333333;
       }
     }
-    .attention_box3{
+    .attention_box3 {
       position: absolute;
       inset: 1px;
       border-radius: 999px;
-      transition: opacity .3s ease-in;
+      transition: opacity 0.3s ease-in;
       opacity: 1;
       display: flex;
       align-items: center;
@@ -110,9 +117,9 @@
       pointer-events: none;
       background: #1b1b1b;
       color: #fff;
-      transition: background .3s ease;
+      transition: background 0.3s ease;
     }
-    .c-button_text{
+    .c-button_text {
       position: relative;
     }
   }
@@ -311,7 +318,8 @@
     transform: translate(var(--end-position)) rotate(180deg) scaleX(1);
   }
   75% {
-    transform: translate(var(--mid-bottom-position)) rotate(180deg) scaleX(var(--half-width));
+    transform: translate(var(--mid-bottom-position)) rotate(180deg)
+      scaleX(var(--half-width));
   }
   85% {
     transform: translate(var(--start-position)) rotate(180deg) scaleX(1);
