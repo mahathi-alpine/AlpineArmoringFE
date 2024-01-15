@@ -10,6 +10,7 @@ const Button = ({
   onClick,
   icon,
   dot,
+  attention,
   disabled,
   button,
 }: ButtonProps) => {
@@ -30,6 +31,15 @@ const Button = ({
         onClick={onClick}
       >
         {dot ? <span className={`c-button_dot`}></span> : null}
+        {attention ? (
+          <>
+            <span className="attention_box1"></span>
+            <span className="attention_box2">
+              <span></span>
+            </span>
+            <span className="attention_box3"></span>
+          </>
+        ) : null}
         <span className={`c-button_text`}>{children}</span>
         {icon ? (
           <span className={`c-button_icon`}>

@@ -1,12 +1,17 @@
-import styles from './InventoryVehicle.module.scss';
+import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
 import Button from 'components/global/button/Button';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 import Image from 'next/image';
+import Markdown from 'markdown-to-jsx';
 
 function InventoryVehicle(props) {
   const data = props.data.data[0]?.attributes;
   const inventory = data.stock.data;
+  const beforeAfterSlider_Before =
+    data.beforeAfterSlider.before.data.attributes.url;
+  const beforeAfterSlider_After =
+    data.beforeAfterSlider.after.data.attributes.url;
 
   return (
     <div className={`${styles.inventory}`}>
@@ -19,8 +24,8 @@ function InventoryVehicle(props) {
               <Image
                 src={`${data.featuredImage.data.attributes.url}`}
                 alt="Description of the image"
-                width={760}
-                height={400}
+                width={1000}
+                height={550}
               />
             </div>
           ) : null}
@@ -39,9 +44,9 @@ function InventoryVehicle(props) {
         <div className="shape-before shape-before-white mobile-only"></div>
 
         <div className={`${styles.banner_text}`}>
-          <p className={`${styles.banner_description}`}>
-            {data.descriptionBanner}
-          </p>
+          <div className={`${styles.banner_description}`}>
+            <Markdown>{data.descriptionBanner}</Markdown>
+          </div>
 
           <div className={`${styles.banner_buttons}`}>
             <Button
@@ -63,8 +68,8 @@ function InventoryVehicle(props) {
 
       <div className={`container`}>
         <ComparisonSlider
-          beforeImage="/assets/beforeSlide.png"
-          afterImage="/assets/afterSlide.png"
+          beforeImage={beforeAfterSlider_Before}
+          afterImage={beforeAfterSlider_After}
         />
       </div>
     </div>

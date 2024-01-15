@@ -85,18 +85,13 @@ const VideosPopup = (props) => {
   return (
     <div className={`${styles.videoPopup_wrap}`}>
       <div className={`center`}>
-        <div className={`${styles.videoPopup_button} shake observe`}>
+        <div className={`${styles.videoPopup_button}`}>
           <Button
             button={true}
-            className="primary fill"
-            dot
-            icon
-            // onClick={() => {
-            //   setVideoPopupOpen((prevState) => !prevState);
-            // }}
+            className="attention"
+            attention
             onClick={() => {
               setOpen(true);
-              // setSelectedIndex(index);
             }}
           >
             View some cool videos

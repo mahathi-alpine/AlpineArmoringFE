@@ -2,6 +2,14 @@
   --background: var(--color-dark);
   --border-radius: 4px;
 
+  display: block;
+  padding: 16px 32px;
+  border-radius: var(--border-radius);
+  background: var(--color-dark);
+  color: var(--color-white);
+  font-size: rem(14);
+  text-align: center;
+
   &.primary {
     --background: var(--color-primary);
   }
@@ -11,14 +19,6 @@
   &.uppercase {
     text-transform: uppercase;
   }
-
-  display: block;
-  padding: 16px 32px;
-  border-radius: var(--border-radius);
-  background: var(--color-dark);
-  color: var(--color-white);
-  font-size: rem(14);
-  text-align: center;
 
   &_wrap {
     display: inline-block;
@@ -40,6 +40,81 @@
   &.white {
     background: var(--color-white);
     color: var(--color-dark);
+  }
+
+  &.attention{
+    overflow: visible;
+    border-radius: 99px;
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    min-width: 287px;
+    background: linear-gradient(180deg, #484848, #1A1A1A);
+
+    &:hover{
+      .attention_box3{
+        background: var(--color-primary);
+      }
+    }
+
+    .attention_box1{
+      --half-width: 2.83;
+      --start-position: 2px;
+      --mid-top-position: 141.5px;
+      --mid-bottom-position: 93.5px;
+      --end-position: 235px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-shadow: rgb(125, 110, 77) 0px -5px 12px -5px, rgb(125, 110, 77) 0px -7px 22px -10px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      animation: attention 3s linear infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+    .attention_box2{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      overflow: hidden;
+      pointer-events: none;
+      span{
+        position: absolute;
+        left: 0;
+        user-select: none;
+        pointer-events: none;
+        animation: attention2 3s linear infinite;
+        width: 48px;
+        height: 53px;
+        background: conic-gradient(rgb(125, 110, 77) 0%, transparent 15.5%, transparent 87%, rgb(125, 110, 77) 98%);
+        --button-width: 235px;
+        --width-multiplier: 5.895833333333333;
+      }
+    }
+    .attention_box3{
+      position: absolute;
+      inset: 1px;
+      border-radius: 999px;
+      transition: opacity .3s ease-in;
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      pointer-events: none;
+      background: #1b1b1b;
+      color: #fff;
+      transition: background .3s ease;
+    }
+    .c-button_text{
+      position: relative;
+    }
   }
 
   &.fill {
@@ -219,5 +294,46 @@
       opacity: 1;
       transition: 0.9s;
     }
+  }
+}
+
+@keyframes attention {
+  0% {
+    transform: translate(var(--start-position)) scaleX(1);
+  }
+  25% {
+    transform: translate(var(--mid-top-position)) scaleX(var(--half-width));
+  }
+  35% {
+    transform: translate(var(--end-position)) scaleX(1);
+  }
+  50% {
+    transform: translate(var(--end-position)) rotate(180deg) scaleX(1);
+  }
+  75% {
+    transform: translate(var(--mid-bottom-position)) rotate(180deg) scaleX(var(--half-width));
+  }
+  85% {
+    transform: translate(var(--start-position)) rotate(180deg) scaleX(1);
+  }
+  100% {
+    transform: translate(var(--start-position)) rotate(1turn) scaleX(1);
+  }
+}
+@keyframes attention2 {
+  0% {
+    transform: translate(0) scaleX(1);
+  }
+  33.33% {
+    transform: translate(var(--button-width)) scaleX(var(--width-multiplier));
+  }
+  50% {
+    transform: translate(var(--button-width)) rotate(180deg) scaleX(1);
+  }
+  83.33% {
+    transform: translate(0) rotate(180deg) scaleX(var(--width-multiplier));
+  }
+  100% {
+    transform: translate(0) rotate(1turn) scaleX(1);
   }
 }

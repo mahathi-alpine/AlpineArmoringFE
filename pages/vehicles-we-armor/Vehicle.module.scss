@@ -1,0 +1,206 @@
+.banner {
+  position: relative;
+  padding-top: rem(24);
+  // @include breakpoint(large) {
+  //   display: flex;
+  //   gap: 120px;
+  //   padding-top: rem(100);
+  // }
+
+  // &_content {
+  //   margin-bottom: rem(60);
+  //   @include breakpoint(large) {
+  //     width: 50%;
+  //   }
+  // }
+  @include breakpoint(large) {
+    max-width: 1920px;
+    margin: auto;
+    margin-bottom: rem(160);
+    padding: rem(64) rem(32) 0 rem(32);
+  }
+
+  &_title {
+    margin-bottom: rem(24);
+    padding: 0 rem(16);
+    font-size: rem(32);
+    font-weight: var(--font-demi);
+    @include breakpoint(large) {
+      max-width: 60%;
+      font-size: rem(56);
+    }
+  }
+
+  &_text {
+    padding: 0 rem(16);
+    @include breakpoint(large) {
+      position: absolute;
+      bottom: -1px;
+      left: 31px;
+      width: 542px;
+      padding: rem(32) rem(32) rem(32) rem(16);
+      background: var(--color-background);
+      border-top-right-radius: 32px;
+
+      &:before {
+        position: absolute;
+        content: '';
+        left: -1px;
+        top: -47px;
+        height: 48px;
+        width: 48px;
+        background: url('/assets/smallCurveBg.svg') no-repeat;
+        background-size: cover;
+      }
+      &:after {
+        position: absolute;
+        content: '';
+        bottom: -1px;
+        right: -47px;
+        height: 48px;
+        width: 48px;
+        background: url('/assets/smallCurveBg.svg') no-repeat;
+        background-size: cover;
+      }
+    }
+  }
+
+  &_description {
+    margin-bottom: rem(24);
+    @include breakpoint(large) {
+      font-size: rem(18);
+    }
+
+    strong{
+      color: var(--color-primary);
+    }
+  }
+
+  &_buttons {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 8px;
+    @include breakpoint(large) {
+      flex-flow: row;
+      justify-content: unset;
+      gap: 16px;
+    }
+    &_item {
+      max-width: 280px;
+      margin: auto;
+      border-radius: 99px;
+    }
+  }
+
+  &_protection {
+    font-weight: var(--font-medium);
+    text-align: center;
+    font-size: rem(15);
+    text-transform: uppercase;
+    @include breakpoint(large) {
+      position: relative;
+      top: -90px;
+      right: -16px;
+      padding: rem(24) rem(32) rem(8) rem(32);
+      background: var(--color-gray2);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+      font-size: rem(16);
+      &:before {
+        position: absolute;
+        content: '';
+        left: -47px;
+        bottom: -1px;
+        height: 48px;
+        width: 48px;
+        background: url('/assets/smallCurveGray.svg') no-repeat;
+        background-size: cover;
+        transform: rotate(-90deg);
+      }
+    }
+
+    &_levels {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: rem(4);
+    }
+
+    span {
+      position: relative;
+      font-size: rem(24);
+      color: var(--color-primary);
+
+      @include breakpoint(large) {
+        font-size: rem(29);
+      }
+
+      &:last-child:after {
+        display: none;
+      }
+
+      &:after {
+        position: relative;
+        display: inline-block;
+        margin: 0 rem(16);
+        content: '';
+        width: 16px;
+        height: 16px;
+        background: url('/assets/shieldGold.svg') center center no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+
+  &_image {
+    background: linear-gradient(
+      0deg,
+      rgba(208, 208, 210, 1) 20%,
+      rgba(208, 208, 210, 0) 100%
+    );
+
+    padding: rem(24) rem(16) rem(70) rem(16);
+
+    @include breakpoint(large) {
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      align-items: flex-end;
+      padding-top: 0;
+      background: var(--color-gray2);
+      border-top-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+
+      &:before{
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, rgba(125, 110, 77, 0.30) 0.06%, rgba(125, 110, 77, 0.00) 76.03%);
+        border-top-left-radius: 32px;
+      }
+    }
+
+    &_wrap {
+      margin-bottom: rem(24);
+      @include breakpoint(large) {
+        position: relative;
+        bottom: -140px;
+        display: flex;
+        justify-content: center;
+        width: calc(100% - 600px);
+        margin-bottom: 0;
+        order: 2;
+      }
+    }
+    img {
+      width: 100%;
+      @include breakpoint(large) {
+        max-width: 1000px;        
+      }
+    }
+  }
+}

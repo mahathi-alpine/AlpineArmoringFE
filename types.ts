@@ -15,6 +15,7 @@ export interface ButtonProps {
   disabled?: boolean;
   button?: boolean;
   dot?: boolean;
+  attention?: boolean;
   onClick?: () => void;
 }
 
