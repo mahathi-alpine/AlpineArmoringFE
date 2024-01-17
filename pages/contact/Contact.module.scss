@@ -1,52 +1,52 @@
-.contact{
-    &_main{
-        @include breakpoint(large) {
-            display: flex;
-            gap: 56px;
-            max-width: 1500px;
-        }
-        &_left{
-            @include breakpoint(large) {
-                width: 50%;
-            }
-            &_title{ 
-                margin-bottom: rem(16);               
-                font-size: rem(26);
-                @include breakpoint(large) {             
-                    font-size: rem(36);
-                }
-            }
-            &_description{                
-                display: block;
-                @include breakpoint(large) {
-                    max-width: 600px;
-                }
-            }
-        }
-        &_right{
-            @include breakpoint(large) {             
-                display: flex;
-                gap: 24px;
-                justify-content: space-between;
-                // &_column{
-                //     width: 50%;
-                // }
-            }
-            p{
-                margin-bottom: rem(10);
-            }
-            strong{
-                font-weight: var(--font-medium);
-            }
-            @include breakpoint(large) {
-                width: 50%;
-            }
-
-            &_title{
-                margin-bottom: rem(10);
-                color: var(--color-primary);              
-                font-size: rem(20);
-            }
-        }
+.contact {
+  &_main {
+    @include breakpoint(large) {
+      display: flex;
+      gap: 56px;
+      max-width: 1500px;
     }
+    &_left {
+      @include breakpoint(large) {
+        width: 50%;
+      }
+      &_title {
+        margin-bottom: rem(16);
+        font-size: rem(26);
+        @include breakpoint(large) {
+          font-size: rem(36);
+        }
+      }
+      &_description {
+        display: block;
+        @include breakpoint(large) {
+          max-width: 600px;
+        }
+      }
+    }
+    &_right {
+      @include breakpoint(large) {
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        // &_column{
+        //     width: 50%;
+        // }
+      }
+      p {
+        margin-bottom: rem(10);
+      }
+      strong {
+        font-weight: var(--font-medium);
+      }
+      @include breakpoint(large) {
+        width: 50%;
+      }
+
+      &_title {
+        margin-bottom: rem(10);
+        color: var(--color-primary);
+        font-size: rem(20);
+      }
+    }
+  }
 }

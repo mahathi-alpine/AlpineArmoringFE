@@ -119,12 +119,12 @@
       }
     }
 
-    &_text{
+    &_text {
       display: flex;
       flex-flow: column;
     }
 
-    span{
+    span {
       color: var(--color-primary);
       font-weight: var(--font-medium);
       line-height: 1.1;
@@ -133,17 +133,17 @@
         font-size: rem(16);
         line-height: 1;
       }
-      &:first-child{
+      &:first-child {
         font-size: rem(22);
         @include breakpoint(large) {
           font-size: rem(27);
         }
       }
-      &:nth-child(3){
-        font-size: rem(15);  
+      &:nth-child(3) {
+        font-size: rem(15);
         @include breakpoint(large) {
-          font-size: rem(18);  
-        }      
+          font-size: rem(18);
+        }
       }
     }
   }

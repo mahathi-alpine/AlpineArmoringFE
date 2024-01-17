@@ -55,7 +55,7 @@
     }
   }
 
-  &_title{
+  &_title {
     font-weight: var(--font-demi);
     font-size: rem(32);
     @include breakpoint(large) {
