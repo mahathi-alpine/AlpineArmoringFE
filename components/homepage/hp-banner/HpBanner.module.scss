@@ -60,7 +60,7 @@
     z-index: 2;
     cursor: pointer;
     @include breakpoint(large) {
-      bottom: rem(130);
+      bottom: rem(110);
       right: rem(32);
 
       path {
@@ -73,6 +73,9 @@
         }
       }
     }
+    @include breakpoint(huge) {
+      right: rem(48);
+    }
   }
 
   &_content {
@@ -80,23 +83,55 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: rem(32) rem(16) rem(116) rem(16);
+    padding: rem(32) rem(16) rem(110) rem(16);
     z-index: 1;
     @include breakpoint(large) {
-      padding: rem(90) rem(90) rem(200) rem(90);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: rem(90) rem(32) rem(164) rem(32);
       max-width: 2010px;
       margin: auto;
+    }
+    @include breakpoint(huge) {
+      padding: rem(90) rem(48) rem(164) rem(48);
+    }
+
+    &_right{
+      // font-size: rem(14);
+      // font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
+      // font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
+      font-size: clamp(0.875rem, 0.8295rem + 0.1942vw, 1.0625rem);
+      color: var(--color-white);
+      @include breakpoint(large) {
+        // font-size: rem(20);
+        text-align: right;
+        // font-weight: var(--font-medium);
+      }
+      strong{
+        font-weight: var(--font-regular);
+        // font-size: clamp(0.875rem, 0.6626rem + 0.9061vw, 1.75rem);
+        font-size: clamp(0.875rem, 0.7233rem + 0.6472vw, 1.5rem);
+        @include breakpoint(large) {
+          display: block;
+          // font-size: rem(28);
+          // font-weight: var(--font-demi);
+        }
+      }
     }
   }
 
   &_subtitle {
-    margin-bottom: rem(8);
-    font-size: rem(22);
-    font-weight: var(--font-regular);
+    // margin-bottom: rem(8);
+    // font-size: rem(25);
+    // font-size: clamp(1.5625rem, 1.517rem + 0.1942vw, 1.75rem);
+    font-size: clamp(1.5625rem, 1.4563rem + 0.4531vw, 2rem);
+    font-weight: var(--font-demi);
     text-transform: uppercase;
     color: transparent;
     @include breakpoint(large) {
-      font-size: rem(32);
+      margin-bottom: 0;
+      // font-size: rem(28);
     }
     span {
       opacity: 0;
@@ -111,10 +146,18 @@
   }
 
   &_title {
-    font-weight: var(--font-bold);
-    font-size: clamp(2.5rem, 2.1208rem + 1.6181vw, 4.0625rem);
+    margin-bottom: rem(16);
+    // font-size: clamp(2.5rem, 2.1208rem + 1.6181vw, 4.0625rem);
+    // font-size: rem(25);
+    // font-size: clamp(1.5625rem, 1.335rem + 0.9709vw, 2.5rem);
+    font-size: clamp(1.5625rem, 1.2136rem + 1.4887vw, 3rem);
+    font-weight: var(--font-demi);
     color: white;
     text-transform: uppercase;
+    @include breakpoint(large) {
+      margin-bottom: 0;
+      // font-size: rem(40);
+    }
   }
 
   button {

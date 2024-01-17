@@ -5,6 +5,7 @@ export interface IconProps {
   color?: string;
   onMouseOver?: () => void;
   onMouseOut?: () => void;
+  onClick?: () => void;
 }
 
 export interface ButtonProps {

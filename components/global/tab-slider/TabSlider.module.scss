@@ -11,6 +11,9 @@
       display: inline-flex;
       font-size: rem(15);
     }
+    @include breakpoint(huge) {
+      font-size: rem(17);
+    }
     // @include breakpoint(large) {
     //   width: 100%;
     //   text-align: center;
@@ -57,6 +60,9 @@
         min-width: unset;
         padding: rem(16) rem(24);
       }
+      @include breakpoint(huge) {
+        padding: rem(16);
+      }
     }
 
     &_glider {
@@ -77,6 +83,9 @@
 
       @include breakpoint(large) {
         width: calc(100% / 3);
+      }
+      @include breakpoint(huge) {
+        height: 52px;
       }
     }
   }

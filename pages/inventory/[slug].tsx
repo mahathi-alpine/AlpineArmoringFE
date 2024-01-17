@@ -3,6 +3,7 @@ import { getPageData } from 'lib/api';
 import { useEffect, useState } from 'react';
 import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
+import Link from 'next/link';
 
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -173,14 +174,14 @@ function InventoryVehicle(props) {
                 })}
               </ul>
 
-              <div className={`${styles.inventory_sticker}`}>
+              <Link href="" className={`${styles.inventory_sticker}`}>
                 <PDFIcon />
-                <p>
-                  Window
-                  <br />
-                  Sticker
+                <p className={`${styles.inventory_sticker_text}`}>
+                  <span>OEM</span>
+                  <span>Window</span>
+                  <span>Sticker</span>
                 </p>
-              </div>
+              </Link>
             </div>
 
             <div
@@ -337,14 +338,14 @@ function InventoryVehicle(props) {
                 Request a quote
               </Button>
 
-              <div className={`${styles.inventory_sticker}`}>
+              <Link href="" className={`${styles.inventory_sticker}`}>
                 <PDFIcon />
-                <p>
-                  Window
-                  <br />
-                  Sticker
+                <p className={`${styles.inventory_sticker_text}`}>
+                  <span>OEM</span>
+                  <span>Window</span>
+                  <span>Sticker</span>
                 </p>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

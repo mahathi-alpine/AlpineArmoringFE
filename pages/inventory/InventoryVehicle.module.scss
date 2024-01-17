@@ -109,15 +109,41 @@
     align-items: center;
     gap: 8px;
     justify-content: center;
-    font-size: rem(13);
     @include breakpoint(large) {
       flex: 1;
-      font-size: rem(16);
     }
     svg {
-      width: 35px;
+      width: 40px;
       @include breakpoint(large) {
-        width: 40px;
+        width: 56px;
+      }
+    }
+
+    &_text{
+      display: flex;
+      flex-flow: column;
+    }
+
+    span{
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+      line-height: 1.1;
+      font-size: rem(13);
+      @include breakpoint(large) {
+        font-size: rem(16);
+        line-height: 1;
+      }
+      &:first-child{
+        font-size: rem(22);
+        @include breakpoint(large) {
+          font-size: rem(27);
+        }
+      }
+      &:nth-child(3){
+        font-size: rem(15);  
+        @include breakpoint(large) {
+          font-size: rem(18);  
+        }      
       }
     }
   }

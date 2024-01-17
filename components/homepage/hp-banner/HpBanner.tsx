@@ -73,24 +73,34 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
         </div>
 
         <div className={`${styles.hp_banner_content}`}>
-          <h2
-            className={`
-              ${styles.hp_banner_subtitle} animateLetter
-              ${
-                languageCookie !== 'en'
-                  ? styles.hp_banner_subtitle_noAnimation
-                  : ''
-              }
-            `}
-          >
-            {props.subtitle}
-          </h2>
+          <div className={`${styles.hp_banner_content_left}`}>
+            <h2
+              className={`
+                ${styles.hp_banner_subtitle} animateLetter
+                ${
+                  languageCookie !== 'en'
+                    ? styles.hp_banner_subtitle_noAnimation
+                    : ''
+                }
+              `}
+            >
+              {props.subtitle}
+            </h2>
 
-          <h1
-            className={`${styles.hp_banner_title} observe animate fade-in-left`}
+            <h1
+              className={`${styles.hp_banner_title} observe animate fade-in-left`}
+            >
+              {props.title}
+            </h1>
+          </div>
+          <div
+            className={`${styles.hp_banner_content_right} observe animate fade-in delay-3`}
           >
-            {props.title}
-          </h1>
+            <p>
+              <strong>Designed, Engineered and Manufactured</strong> like no
+              other armored SUVs, Sedans and Trucks in the world
+            </p>
+          </div>
         </div>
       </div>
 

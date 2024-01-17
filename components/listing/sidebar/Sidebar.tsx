@@ -5,6 +5,7 @@ import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
+import SearchIcon from 'components/icons/Search';
 
 type SidebarProps = {
   props: any;
@@ -61,6 +62,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
   const currentSlug = router.asPath.split('/').pop();
 
   const handleClearFilters = () => {
+    setQuery('');
     router.push(`${baseUrl}`, undefined, { scroll: false });
   };
 
@@ -171,9 +173,20 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
             <input
               type="text"
               value={query}
+              placeholder="Search"
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearch();
+                }
+              }}
             />
-            <button onClick={handleSearch}>Search</button>
+            <div
+              onClick={handleSearch}
+              className={`${styles.sidebar_search_icon}`}
+            >
+              <SearchIcon />
+            </div>
           </div>
 
           {Object.keys(props).map((filter) => {

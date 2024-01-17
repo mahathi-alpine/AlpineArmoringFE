@@ -43,7 +43,7 @@
   }
 
   &.attention {
-    padding: 20px 32px;
+    padding: 26px 57px 26px 24px;
     overflow: visible;
     border-radius: 99px;
     font-weight: var(--font-medium);
@@ -59,10 +59,10 @@
 
     .attention_box1 {
       --half-width: 2.83;
-      --start-position: 2px;
+      --start-position: 8px;
       --mid-top-position: 141.5px;
       --mid-bottom-position: 93.5px;
-      --end-position: 235px;
+      --end-position: 228px;
       position: absolute;
       left: 0;
       top: 0;
@@ -70,7 +70,7 @@
         rgb(125, 110, 77) 0px -5px 12px -5px,
         rgb(125, 110, 77) 0px -7px 22px -10px;
       width: 48px;
-      height: 52px;
+      height: 64px;
       border-radius: 999px;
       animation: attention 3s linear infinite;
       user-select: none;
@@ -92,7 +92,7 @@
         pointer-events: none;
         animation: attention2 3s linear infinite;
         width: 48px;
-        height: 58px;
+        height: 72px;
         background: conic-gradient(
           rgb(125, 110, 77) 0%,
           transparent 15.5%,

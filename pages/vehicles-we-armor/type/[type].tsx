@@ -1,5 +1,5 @@
 import React from 'react';
-import ListingBanner from 'components/listing/listing-banner/ListingBanner';
+import Banner from 'components/global/banner/Banner';
 import Sidebar from 'components/listing/sidebar/Sidebar';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
@@ -9,9 +9,12 @@ import { useEffect } from 'react';
 function Inventory(props) {
   // console.log(props);
   // return null;
-  const topBanner = props.filters.type.find(
+  let topBanner = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
+  topBanner = topBanner?.attributes.allBanner;
+  // console.log(topBanner);
+  // return null;
 
   useEffect(() => {
     document.body.classList.add('listing-all');
@@ -22,14 +25,17 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing}`}>
-      {topBanner ? <ListingBanner props={topBanner.attributes} /> : null}
-
-      <div className="shape-before"></div>
+      {topBanner ? (
+        <>
+          <Banner props={topBanner} overlay={true} />
+          <div className="shape-before shape-before-white"></div>
+        </>
+      ) : null}
 
       <div className={`${styles.listing_wrap} container`}>
         {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
 
-        {props.vehicles.data.length < 1 ? (
+        {props.vehicles.data?.length < 1 ? (
           <div className={`${styles.listing_empty}`}>
             <h2>No Vehicles Found</h2>
           </div>
@@ -69,8 +75,8 @@ export async function getServerSideProps(context) {
     getPageData({
       route: 'categories',
       order: true,
-      fields: 'fields[0]=title&fields[1]=slug&fields[2]=bannerText',
-      populate: 'bannerImage',
+      fields: 'fields[0]=title&fields[1]=slug',
+      populate: 'allBanner.media',
     }).then((res) => res.data),
     getPageData({
       route: 'makes',

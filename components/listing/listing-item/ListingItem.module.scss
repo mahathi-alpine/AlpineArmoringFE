@@ -118,6 +118,12 @@
     span {
       color: var(--color-primary);
       font-weight: var(--font-demi);
+      font-size: rem(16);
+
+      @include breakpoint(large) {
+        font-size: rem(18);
+      }
+  
     }
   }
 

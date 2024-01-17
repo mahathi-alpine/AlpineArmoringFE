@@ -51,15 +51,15 @@ const IntroText = () => {
       {/* <TextReveal text="Alpine" /> */}
 
       <div className={`${styles.introText_content}`}>
+        <h3 className={`${styles.introText_subheading} observe block-reveal`}>
+          &quot;no one protects you <strong>better</strong>&quot;®
+        </h3>
         <p className={`${styles.introText_text} observe`} ref={introTextRef}>
           Alpine Armoring Inc., headquartered in the suburb of Washington D.C.,
           is a high-quality custom-manufacturer of a variety of bulletproof
-          armoured vehicles (armoured sedans, SUVs, pickup trucks, SWAT trucks
-          and more).
+          armoured vehicles (armoured sedans, SUVs, pickup trucks, vans, SWAT
+          trucks & more).
         </p>
-        <h3 className={`${styles.introText_subheading} observe block-reveal`}>
-          No one protects you better®
-        </h3>
       </div>
     </div>
   );

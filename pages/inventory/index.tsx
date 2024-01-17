@@ -1,5 +1,5 @@
 import React from 'react';
-import ListingBanner from 'components/listing/listing-banner/ListingBanner';
+import Banner from 'components/global/banner/Banner';
 import Sidebar from 'components/listing/sidebar/Sidebar';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 function Inventory(props) {
   // console.log(props)
   // return null
+  const topBanner = props.pageData?.banner;
 
   useEffect(() => {
     document.body.classList.add('listing-inventory', 'background-dark');
@@ -19,9 +20,9 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing} background-dark`}>
-      {props.topBanner ? (
+      {topBanner ? (
         <>
-          <ListingBanner props={props.topBanner.attributes} overlay={true} />
+          <Banner props={topBanner} overlay={true} />
 
           <div className="shape-before"></div>
         </>
@@ -34,9 +35,15 @@ function Inventory(props) {
 
         {props.vehicles.data ? (
           <div className={`${styles.listing_list}`}>
-            {props.vehicles.data.map((item) => (
-              <InventoryItem key={item.id} props={item} />
-            ))}
+            {props.vehicles.data && props.vehicles.data.length > 0 ? (
+              props.vehicles.data.map((item) => (
+                <InventoryItem key={item.id} props={item} />
+              ))
+            ) : (
+              <div className={`${styles.listing_list_error}`}>
+                No Vehicles Found
+              </div>
+            )}
           </div>
         ) : null}
       </div>
@@ -62,11 +69,11 @@ export async function getServerSideProps(context) {
   //   topBanner = await getPageData({ route: 'list-inventory' });
   //   topBanner = topBanner.data || null;
   // }
-  let topBanner = await getPageData({
+  let pageData = await getPageData({
     route: 'list-inventory',
     populate: 'deep',
   });
-  topBanner = topBanner.data || null;
+  pageData = pageData.data?.attributes || null;
 
   // Fetching Vehicles
   const { category, vehicles_we_armor, q } = context.query;
@@ -98,7 +105,7 @@ export async function getServerSideProps(context) {
   const filters = type ? { type } : {};
 
   return {
-    props: { topBanner, vehicles, filters },
+    props: { pageData, vehicles, filters },
   };
 }
 

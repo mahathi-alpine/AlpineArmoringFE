@@ -40,11 +40,13 @@ const Categories = ({ props, allVehiclesImage }) => {
                         href={`/inventory?category=${data.slug}`}
                         className="primary small shiny"
                       >
-                        Available Now / Ready-To-Ship
+                        {data.slug === 'rental'
+                          ? 'Ready to Rent'
+                          : 'Available Now / Ready-To-Ship'}
                       </Button>
                     )}
 
-                    {data.slug !== 'pre-owned' && (
+                    {data.slug !== 'pre-owned' && data.slug !== 'rental' && (
                       <Button
                         href={`/vehicles-we-armor?category=${data.slug}`}
                         className="small shiny"

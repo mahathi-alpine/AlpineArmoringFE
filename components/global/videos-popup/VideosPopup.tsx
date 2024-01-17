@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './VideosPopup.module.scss';
 // import Image from 'next/image';
 import Button from 'components/global/button/Button';
+import PlayIcon from 'components/icons/Play';
 
 import { Lightbox } from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
@@ -96,6 +97,7 @@ const VideosPopup = (props) => {
           >
             View some cool videos
           </Button>
+          <PlayIcon />
         </div>
       </div>
 

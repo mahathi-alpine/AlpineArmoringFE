@@ -15,10 +15,10 @@
       align-items: center;
       justify-content: center;
       // gap: 32px;
-      height: 95px;
-      margin-bottom: rem(80);
-      margin-top: rem(-145);
-      color: var(--color-white);
+      height: 91px;
+      margin-top: rem(-220);
+      margin-bottom: rem(120);
+      // color: var(--color-white);
       .checkbox_span {
         transition: color 0.3s ease;
         &:hover {
@@ -42,18 +42,27 @@
       border-bottom: 1px solid var(--color-gray);
 
       .sidebar_plain & {
-        border: none;
-        flex-flow: column;
-        justify-content: center;
-        gap: 10px;
-        margin: 0;
-        padding: 0;
+        // border: none;
+        // flex-flow: column;
+        // justify-content: center;
+        // gap: 10px;
+        // margin: 0;
+        // padding: 0;
+        // height: 100%;
+        // width: 155px;
+        // padding: 0 rem(20);
+        // background: var(--color-primary);
+        // border-top-left-radius: 10px;
+        // border-bottom-left-radius: 10px;
+        // display: none;
+        background: var(--color-white);
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
         height: 100%;
-        width: 155px;
-        padding: 0 rem(20);
-        background: var(--color-primary);
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        min-width: 16px;
       }
     }
 
@@ -69,6 +78,9 @@
             fill: var(--color-dark);
           }
         }
+        @include breakpoint(large) {
+          display: none;
+        }
       }
     }
   }
@@ -81,7 +93,19 @@
     @include breakpoint(large) {
       font-weight: var(--font-regular);
       .sidebar_plain & {
-        font-size: rem(13);
+        position: relative;
+        padding: 0 rem(32) 0 rem(32);
+
+        &:after{
+          position: absolute;
+          content: '';
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 1px;
+          height: 64px;
+          background: linear-gradient(180deg, rgba(190, 187, 190, 0.00) 0%, #BEBBBE 50.5%, rgba(190, 187, 190, 0.00) 100%);
+        }
       }
     }
   }
@@ -157,9 +181,9 @@
     @include breakpoint(large) {
       .sidebar_plain & {
         height: 100%;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        background: var(--color-secondary);
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+        background: var(--color-white);
       }
     }
     &_inner {
@@ -171,6 +195,52 @@
         }
       }
     }
+  }
+
+  &_search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem(10) rem(16);
+    margin-bottom: rem(32);
+     border-radius: 4px;
+     background: var(--color-gray);
+     border: 1px solid var(--color-grayDark);
+     font-size: 15px;
+     @include breakpoint(large) {
+       .sidebar_plain & {
+        padding: 0 rem(32);
+        margin-bottom: 0;
+        background: unset;
+        border: none;
+        // font-size: rem(13);
+        color: var(--color-dark);
+        font-weight: var(--font-medium);
+        order: 3;
+        input{
+          max-width: 140px;
+          padding-right: rem(16);
+        }
+        svg path{
+          fill: var(--color-dark);
+        }
+       }
+     }
+
+     &_icon{
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+     }
+
+     input{
+      flex: 1;
+     }
+     
+     svg{
+      width: 15px;
+      height: 15px;
+     }
   }
 
   &_top {
@@ -233,10 +303,21 @@
 
       .sidebar_plain & {
         position: relative;
-        width: 180px;
-        padding: 0 0 0 rem(40);
+        min-width: 180px;
+        padding: 0 rem(32) 0 rem(32);
         justify-content: center;
         cursor: pointer;
+
+        &:after{
+          position: absolute;
+          content: '';
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 1px;
+          height: 64px;
+          background: linear-gradient(180deg, rgba(190, 187, 190, 0.00) 0%, #BEBBBE 50.5%, rgba(190, 187, 190, 0.00) 100%);
+        }
       }
     }
 
@@ -260,8 +341,12 @@
           margin-bottom: 0;
           display: flex;
           gap: 4px;
-          // justify-content: space-between;
+          font-size: rem(13);
+          color: var(--color-gray3);
+          font-weight: var(--font-medium);
+          justify-content: space-between;
           align-items: center;
+          max-width: 120px;
         }
       }
     }
@@ -272,11 +357,11 @@
         @include breakpoint(large) {
           display: block;
           margin-top: rem(10);
-          color: var(--color-grayDark);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          font-size: rem(13);
+          font-size: rem(16);
+          font-weight: var(--font-medium);
         }
       }
     }
@@ -288,6 +373,9 @@
         display: none;
         .sidebar_plain & {
           display: block;
+          path{
+            fill: var(--color-gray3);
+          }
         }
       }
     }
@@ -296,23 +384,28 @@
       .sidebar_plain & {
         @include breakpoint(large) {
           position: absolute;
-          top: 58px;
+          top: 56px;
           left: 0;
           right: 0;
-          background: var(--color-secondary);
-          // border-left: 1px solid var(--color-grayDark);
-          // border-right: 1px solid var(--color-grayDark);
+          background: var(--color-white);
           border-top: 0;
           overflow: hidden;
           max-height: 0px;
           padding: 0 rem(10);
           transition: max-height 0.3s ease;
           z-index: 1;
+          border-bottom-left-radius: 16px;
+          border-bottom-right-radius: 16px;
 
           .checkbox {
             &_span {
-              // color: var(--color-dark);
+              color: var(--color-text);
               font-size: rem(14);
+              font-weight: var(--font-medium);
+
+              &:hover{
+                color: var(--color-primary);
+              }
               &:before {
                 display: none;
               }
@@ -394,7 +487,7 @@
   @include breakpoint(large) {
     .checkbox_span {
       .sidebar_plain & {
-        color: var(--color-white);
+        color: var(--color-primary);
       }
     }
   }

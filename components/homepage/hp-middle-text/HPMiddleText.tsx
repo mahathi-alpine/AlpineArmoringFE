@@ -4,7 +4,7 @@ import Markdown from 'markdown-to-jsx';
 const HPMiddleText = ({ props }) => {
   return (
     <Markdown
-      className={`${styles.text_columns} observe fade-in-up container_small`}
+      className={`${styles.hpMiddleText} observe fade-in-up container_small`}
     >
       {props}
     </Markdown>

@@ -1,5 +1,5 @@
 import React from 'react';
-import ListingBanner from 'components/listing/listing-banner/ListingBanner';
+import Banner from 'components/global/banner/Banner';
 import Sidebar from 'components/listing/sidebar/Sidebar';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
@@ -7,10 +7,11 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 
 function Inventory(props) {
-  const topBanner = props.filters.type.find(
+  let topBanner = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
-  // console.log(props);
+  topBanner = topBanner?.attributes.inventoryBanner;
+  // console.log(topBanner);
   // return null
 
   useEffect(() => {
@@ -24,8 +25,7 @@ function Inventory(props) {
     <div className={`${styles.listing}`}>
       {topBanner ? (
         <>
-          <ListingBanner props={topBanner.attributes} overlay={true} />
-
+          <Banner props={topBanner} overlay={true} />
           <div className="shape-before"></div>
         </>
       ) : null}
@@ -35,7 +35,7 @@ function Inventory(props) {
       >
         {props.filters.type ? <Sidebar props={props.filters} /> : null}
 
-        {props.vehicles.data.length < 1 ? (
+        {props.vehicles.data?.length < 1 ? (
           <div className={`${styles.listing_empty}`}>
             <h2>No Vehicles Found</h2>
           </div>
@@ -76,8 +76,9 @@ export async function getServerSideProps(context) {
   const type = await getPageData({
     route: 'categories',
     order: true,
-    fields: 'fields[0]=title&fields[1]=slug&fields[2]=bannerText',
-    populate: 'bannerImage',
+    // fields: 'fields[0]=title&fields[1]=slug&fields[2]=bannerText',
+    fields: 'fields[0]=title&fields[1]=slug',
+    populate: 'inventoryBanner.media',
   }).then((response) => response.data);
 
   const filters = type ? { type } : {};

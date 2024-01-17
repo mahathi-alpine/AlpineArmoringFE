@@ -30,6 +30,16 @@
       padding-top: 0;
       justify-content: unset;
     }
+
+    &_error{
+      text-align: center;
+      margin-top: rem(32);
+      font-weight: var(--font-medium);
+      @include breakpoint(large) {
+        flex: 1;
+        font-size: rem(24);
+      }
+    }
   }
 
   &_empty {

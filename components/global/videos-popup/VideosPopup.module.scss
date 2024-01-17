@@ -44,6 +44,13 @@
   &_button {
     position: relative;
     display: inline-block;
+    svg{
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 27px;
+    }
   }
 
   &_media {

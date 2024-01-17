@@ -1,5 +1,5 @@
 import React from 'react';
-import ListingBanner from 'components/listing/listing-banner/ListingBanner';
+import Banner from 'components/global/banner/Banner';
 import Sidebar from 'components/listing/sidebar/Sidebar';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
@@ -19,11 +19,12 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing}`}>
-      {props.topBanner ? (
-        <ListingBanner props={props.topBanner.attributes} />
+      {props.pageData?.banner ? (
+        <>
+          <Banner props={props.pageData.banner} overlay={true} />
+          <div className="shape-before shape-before-white"></div>
+        </>
       ) : null}
-
-      <div className="shape-before shape-before-white"></div>
 
       <div className={`${styles.listing_wrap} container`}>
         {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
@@ -59,11 +60,11 @@ export async function getServerSideProps(context) {
   //   topBanner = await getPageData({ route: 'list-vehicles-we-armor' });
   //   topBanner = topBanner.data;
   // }
-  let topBanner = await getPageData({
+  let pageData = await getPageData({
     route: 'list-vehicles-we-armor',
     populate: 'deep',
   });
-  topBanner = topBanner.data || null;
+  pageData = pageData.data?.attributes || null;
   // if (topBanner && topBanner.data) {
   //   topBanner = topBanner.data;
   //  } else {
@@ -103,7 +104,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { topBanner, vehicles, filters },
+    props: { pageData, vehicles, filters },
   };
 }
 

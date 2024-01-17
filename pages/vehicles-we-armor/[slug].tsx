@@ -9,9 +9,9 @@ function InventoryVehicle(props) {
   const data = props.data.data[0]?.attributes;
   const inventory = data.stock.data;
   const beforeAfterSlider_Before =
-    data.beforeAfterSlider.before.data?.attributes.url;
+    data.beforeAfterSlider?.before.data?.attributes.url;
   const beforeAfterSlider_After =
-    data.beforeAfterSlider.after.data?.attributes.url;
+    data.beforeAfterSlider?.after.data?.attributes.url;
 
   return (
     <div className={`${styles.inventory}`}>
@@ -45,7 +45,9 @@ function InventoryVehicle(props) {
 
         <div className={`${styles.banner_text}`}>
           <div className={`${styles.banner_description}`}>
-            <Markdown>{data.descriptionBanner}</Markdown>
+            {data.descriptionBanner ? (
+              <Markdown>{data.descriptionBanner}</Markdown>
+            ) : null}
           </div>
 
           <div className={`${styles.banner_buttons}`}>
