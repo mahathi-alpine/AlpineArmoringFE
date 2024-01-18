@@ -149,22 +149,22 @@ img {
   color: var(--color-white);
 }
 
-.noiseBg{
+.noiseBg {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   mix-blend-mode: soft-light;
-  opacity: .85;
+  opacity: 0.85;
   isolation: isolate;
   z-index: 1;
 }
 
 .shape-before,
 .shape-after {
-  // --background: var(--color-dark) url('/assets/noise.png');  
-  --background: #0d0d0d;  
+  // --background: var(--color-dark) url('/assets/noise.png');
+  --background: #0d0d0d;
   position: relative;
   overflow-x: clip;
   height: 50px;
@@ -242,9 +242,8 @@ div.yarl__slide_description {
   }
 }
 
-
 @include breakpoint(large) {
-  #test{
+  #test {
     position: absolute;
     left: 0;
     top: 0;
@@ -263,7 +262,7 @@ div.yarl__slide_description {
     transform: rotate(19deg);
     filter: blur(75px);
     mix-blend-mode: soft-light;
-    
+
     position: absolute;
     top: 25vh;
     left: -15vw;
@@ -309,7 +308,7 @@ div.yarl__slide_description {
     border-bottom-right-radius: 32px;
     overflow: hidden;
 
-    &:before{
+    &:before {
       position: absolute;
       content: '';
       top: 0;

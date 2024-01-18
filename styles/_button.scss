@@ -52,7 +52,7 @@
     background: linear-gradient(180deg, #484848, #1a1a1a);
 
     &:hover {
-      .mask{
+      .mask {
         animation: mask1 0.4s steps(22) forwards;
       }
       // .attention_box3 {
@@ -60,7 +60,7 @@
       // }
     }
 
-    .mask{
+    .mask {
       position: absolute;
       top: 0;
       left: 0;
@@ -369,8 +369,6 @@
     transform: translate(0) rotate(1turn) scaleX(1);
   }
 }
-
-
 
 @keyframes mask1 {
   from {

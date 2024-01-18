@@ -1,94 +1,95 @@
 .menu__item-link::before {
-	all: initial;
-	counter-increment: menu;
-	position: absolute;
-	bottom: 60%;
-	left: 0;
-	pointer-events: none;
+  all: initial;
+  counter-increment: menu;
+  position: absolute;
+  bottom: 60%;
+  left: 0;
+  pointer-events: none;
 }
 
 .menu__item-link:hover + .menu__item-img {
-    opacity: 1;
-    transform: translate3d(calc(-100% - 6vw),-30%,0) rotate3d(0,0,1,4deg);
-    transition: all 0.4s;
+  opacity: 1;
+  transform: translate3d(calc(-100% - 6vw), -30%, 0) rotate3d(0, 0, 1, 4deg);
+  transition: all 0.4s;
 }
 
-.specs{
-	display: flex;
-	flex-wrap: wrap;
+.specs {
+  display: flex;
+  flex-wrap: wrap;
 
-    &_list{        
-	    width: 45%;
+  &_list {
+    width: 45%;
+  }
+
+  &_item {
+    position: relative;
+
+    &_image {
+      pointer-events: none;
+      position: absolute;
+      width: 400px;
+      max-height: unset;
+      opacity: 0;
+      left: 100%;
+      top: 50%;
+      transform: translate3d(calc(-100% - 6vw), -30%, 0) translate3d(0, 20px, 0);
+      filter: brightness(70%);
     }
 
-    &_item{
+    &_link {
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+      transition: opacity 0.4s;
+
+      white-space: nowrap;
+      font-size: 18px;
+      padding: 8px 0;
+
+      &:hover {
+        transition-duration: 0.1s;
+        opacity: 0;
+        & + .specs_item_image {
+          opacity: 1;
+          transform: translate3d(calc(-100% - 6vw), -30%, 0)
+            rotate3d(0, 0, 1, 4deg);
+          transition: all 0.4s;
+        }
+        & ~ .specs_item_overlay .specs_item_overlay_inner {
+          opacity: 1;
+          transform: translateX(0px);
+          transition-duration: 0.4s;
+        }
+      }
+    }
+
+    &_overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      pointer-events: none;
+
+      &_inner {
+        width: fit-content;
+        display: flex;
         position: relative;
+        opacity: 0;
+        transition: all 0.1s;
+        transform: translateX(60px);
+        mix-blend-mode: difference;
+      }
 
-        &_image{            
-            pointer-events: none;
-            position: absolute;
-            width: 400px;
-            max-height: unset;
-            opacity: 0;
-            left: 100%;
-            top: 50%;
-            transform: translate3d(calc(-100% - 6vw),-30%,0) translate3d(0,20px,0);
-            filter: brightness(70%);
-        }
-
-        &_link{
-            display: inline-block;
-            cursor: pointer;
-            position: relative;
-            transition: opacity 0.4s;
-
-            white-space: nowrap;
-            font-size: 18px;
-            padding: 8px 0;
-            
-            &:hover{
-                transition-duration: 0.1s;
-                opacity: 0;
-                & + .specs_item_image {
-                    opacity: 1;
-                    transform: translate3d(calc(-100% - 6vw),-30%,0) rotate3d(0,0,1,4deg);
-                    transition: all 0.4s;
-                }
-                & ~ .specs_item_overlay .specs_item_overlay_inner {
-                    opacity: 1;
-                    transform: translateX(0px);
-                    transition-duration: 0.4s;
-                }
-            }
-        }
-
-        &_overlay{
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            pointer-events: none;
-
-            &_inner {
-                width: fit-content;
-                display: flex;
-                position: relative;
-                opacity: 0;
-                transition: all 0.1s;
-                transform: translateX(60px);
-                mix-blend-mode: difference;
-            }
-
-            span{
-                font-style: italic;
-                color: #fff;
-            }
-        }
+      span {
+        font-style: italic;
+        color: #fff;
+      }
     }
+  }
 }
 
 .menu__item-link:hover ~ .marquee .marquee__inner {
-	opacity: 1;
-	transform: translateX(0px);
-	transition-duration: 0.4s;
+  opacity: 1;
+  transform: translateX(0px);
+  transition-duration: 0.4s;
 }

@@ -3,7 +3,7 @@
   padding-top: rem(130);
   padding-bottom: rem(50);
   z-index: 1;
-  
+
   @include breakpoint(large) {
     padding-top: rem(160);
     padding-bottom: rem(200);
