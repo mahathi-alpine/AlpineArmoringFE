@@ -2,6 +2,7 @@ import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
 import Button from 'components/global/button/Button';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
+// import Specs from 'components/vehicle/specs/Specs';
 import Image from 'next/image';
 import Markdown from 'markdown-to-jsx';
 
@@ -13,12 +14,45 @@ function InventoryVehicle(props) {
   const beforeAfterSlider_After =
     data.beforeAfterSlider?.after.data?.attributes.url;
 
+  // console.log(data)
+
   return (
-    <div className={`${styles.inventory}`}>
+    <div className={`${styles.slug}`}>
+      {/* <svg width='0' height='0'>
+        <filter id='grainy' x='0' y='0' width='100%' height='100%'>
+          <feTurbulence type='fractalNoise' baseFrequency='.537'/>
+          <feColorMatrix type='saturate' values='0'/>
+          <feBlend in='SourceGraphic' mode='multiply'/>
+        </filter>
+      </svg> */}
+
       <div className={`${styles.banner}`}>
         <h1 className={`${styles.banner_title}`}>{data.title}</h1>
 
         <div className={`${styles.banner_image}`}>
+          <div id="test">
+            <div id="blob1"></div>
+            <div id="blob2"></div>
+            <div id="blob3"></div>
+            <div id="noiseLayer"></div>
+
+            <svg
+              viewBox="0 0 500 500"
+              preserveAspectRatio="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ display: 'none' }}
+            >
+              <filter id="noiseFilter">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency=".75"
+                  numOctaves="2"
+                  stitchTiles="stitch"
+                />
+              </filter>
+            </svg>
+          </div>
+
           {data.featuredImage.data ? (
             <div className={`${styles.banner_image_wrap}`}>
               <Image
@@ -41,7 +75,9 @@ function InventoryVehicle(props) {
           </div>
         </div>
 
-        <div className="shape-before shape-before-white mobile-only"></div>
+        <div
+          className={`${styles.banner_shape} shape-before shape-before-white`}
+        ></div>
 
         <div className={`${styles.banner_text}`}>
           <div className={`${styles.banner_description}`}>
@@ -58,7 +94,7 @@ function InventoryVehicle(props) {
               Request a quote
             </Button>
             <Button
-              href={`/inventory/?vehicles_we_armor=${data.slug}`}
+              href={`/available-now/?vehicles_we_armor=${data.slug}`}
               {...(!inventory.length ? { disabled: true, button: true } : {})}
               className={`${styles.banner_buttons_item} shiny`}
             >
@@ -67,6 +103,8 @@ function InventoryVehicle(props) {
           </div>
         </div>
       </div>
+
+      {/* <Specs specs={data.specificationsAll.data} equipment{data.specificationsAll.data}/>       */}
 
       <div className={`container`}>
         {beforeAfterSlider_Before && beforeAfterSlider_After ? (

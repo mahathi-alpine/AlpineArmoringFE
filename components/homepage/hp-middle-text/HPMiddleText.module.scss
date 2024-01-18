@@ -1,8 +1,10 @@
 .hpMiddleText {
+  position: relative;
   display: block;
   padding-top: rem(40);
   padding-bottom: rem(40);
   font-size: clamp(1.125rem, 0.9885rem + 0.5825vw, 1.6875rem);
+  z-index: 1;
   @include breakpoint(medium) {
     // display: flex;
     // align-items: flex-end;

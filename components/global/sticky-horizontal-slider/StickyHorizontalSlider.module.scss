@@ -3,6 +3,7 @@
   max-width: 100%;
   padding: rem(100) 0 0 0;
   color: white;
+  z-index: 1;
 
   @include breakpoint(large) {
     padding-left: 0;

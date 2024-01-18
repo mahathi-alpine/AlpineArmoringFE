@@ -9,7 +9,7 @@ import NavigationPopup from './global/navigation/NavigationPopup';
 const Layout = ({ children }) => {
   const router = useRouter();
 
-  const pathsDarkMode = ['/inventory'];
+  const pathsDarkMode = ['/available-now'];
   const pathsDarkHeader = ['/vehicles-we-armor', '/contact'];
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)

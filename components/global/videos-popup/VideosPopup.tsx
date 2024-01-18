@@ -86,7 +86,7 @@ const VideosPopup = (props) => {
   return (
     <div className={`${styles.videoPopup_wrap}`}>
       <div className={`center`}>
-        <div className={`${styles.videoPopup_button}`}>
+        <div className={`${styles.videoPopup_button} observe fade-in-up`}>
           <Button
             button={true}
             className="attention"

@@ -3,6 +3,7 @@
   padding-top: rem(64);
   padding-bottom: rem(130);
   color: white;
+  z-index: 1;
 
   @include breakpoint(medium) {
     display: flex;

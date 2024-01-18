@@ -57,7 +57,7 @@
     position: absolute;
     bottom: rem(60);
     right: rem(16);
-    z-index: 2;
+    z-index: 3;
     cursor: pointer;
     @include breakpoint(large) {
       bottom: rem(110);
@@ -84,7 +84,7 @@
     left: 0;
     right: 0;
     padding: rem(32) rem(16) rem(110) rem(16);
-    z-index: 1;
+    z-index: 2;
     @include breakpoint(large) {
       display: flex;
       justify-content: space-between;
@@ -110,8 +110,7 @@
       }
       strong {
         font-weight: var(--font-regular);
-        // font-size: clamp(0.875rem, 0.6626rem + 0.9061vw, 1.75rem);
-        font-size: clamp(0.875rem, 0.7233rem + 0.6472vw, 1.5rem);
+        // font-size: clamp(0.875rem, 0.7233rem + 0.6472vw, 1.5rem);
         @include breakpoint(large) {
           display: block;
           // font-size: rem(28);
@@ -156,7 +155,7 @@
     text-transform: uppercase;
     @include breakpoint(large) {
       margin-bottom: 0;
-      // font-size: rem(40);
+      font-size: rem(64);
     }
   }
 

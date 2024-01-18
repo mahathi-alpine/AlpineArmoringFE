@@ -18,6 +18,8 @@ import Captions from 'yet-another-react-lightbox/plugins/captions';
 import 'yet-another-react-lightbox/plugins/captions.css';
 
 function InventoryVehicle(props) {
+  // console.log(props)
+
   const [activeDiv, setActiveDiv] = useState('0');
   const handleTabChange = (id) => {
     setActiveDiv(id);

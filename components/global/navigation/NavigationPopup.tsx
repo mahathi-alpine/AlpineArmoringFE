@@ -20,7 +20,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
 
   const links = [
     { path: '/about', text: 'About Us' },
-    { path: '/inventory', text: 'Available Now' },
+    { path: '/available-now', text: 'Available Now' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
   ];
 

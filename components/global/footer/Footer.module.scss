@@ -1,6 +1,8 @@
 .footer {
+  position: relative;
   padding-top: rem(64);
   padding-bottom: rem(32);
+  z-index: 1;
 
   &_top {
     padding-bottom: rem(32);

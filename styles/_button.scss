@@ -52,9 +52,32 @@
     background: linear-gradient(180deg, #484848, #1a1a1a);
 
     &:hover {
-      .attention_box3 {
-        background: var(--color-primary);
+      .mask{
+        animation: mask1 0.4s steps(22) forwards;
       }
+      // .attention_box3 {
+      //   background: var(--color-primary);
+      // }
+    }
+
+    .mask{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 101%;
+      height: 100%;
+      border-radius: 99px;
+      background: var(--color-primary);
+      -webkit-mask: url('/assets/nature-sprite.png');
+      mask: url('/assets/nature-sprite.png');
+      -webkit-mask-size: 2300% 100%;
+      mask-size: 2300% 100%;
+      border: none;
+      color: var(--color-white);
+      cursor: pointer;
+      animation: mask2 0.4s steps(22) forwards;
     }
 
     .attention_box1 {
@@ -344,5 +367,29 @@
   }
   100% {
     transform: translate(0) rotate(1turn) scaleX(1);
+  }
+}
+
+
+
+@keyframes mask1 {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+@keyframes mask2 {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
   }
 }

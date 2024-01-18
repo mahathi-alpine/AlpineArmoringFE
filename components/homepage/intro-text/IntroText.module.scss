@@ -21,16 +21,20 @@
       margin-top: rem(40);
     }
     span {
+      position: relative;
       opacity: 0.1;
+      z-index: 1;
     }
   }
 
   &_subheading {
+    position: relative;
     color: var(--color-primary);
     font-size: rem(16);
     // text-transform: uppercase;
     font-weight: var(--font-medium);
     letter-spacing: -0.6px;
+    z-index: 1;
 
     @include breakpoint(large) {
       font-size: rem(24);

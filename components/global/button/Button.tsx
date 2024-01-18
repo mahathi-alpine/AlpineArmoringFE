@@ -38,6 +38,7 @@ const Button = ({
               <span></span>
             </span>
             <span className="attention_box3"></span>
+            <span className="mask"></span>
           </>
         ) : null}
         <span className={`c-button_text`}>{children}</span>

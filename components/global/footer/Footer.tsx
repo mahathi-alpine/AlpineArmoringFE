@@ -13,7 +13,7 @@ import Link from 'next/link';
 const Footer = (isDarkMode) => {
   const links = [
     { path: '/about', text: 'Home' },
-    { path: '/inventory', text: 'Make & Models' },
+    { path: '/available-now', text: 'Make & Models' },
     { path: '/vehicles-we-armor', text: 'Rental & Lease' },
     { path: '/vehicles-we-armor', text: 'Ballistic chart' },
     { path: '/vehicles-we-armor', text: 'Become a Dealer' },

@@ -20,11 +20,6 @@
   //   height: unset;
   // }
 
-  &_transparent {
-    background: transparent;
-    backdrop-filter: none;
-  }
-
   &_dark:not(.up) {
     background: transparent;
     backdrop-filter: none;
@@ -48,12 +43,14 @@
   &.down {
     transform: translateY(-100px);
   }
-  &.up {
+  &.up:not(.header_navOpen) {
     background: var(--color-dark);
-    // --color-white: #fff;
-    // svg {
-    //   fill: var(--color-dark);
-    // }
+  }
+  
+  &_transparent,
+  &_navOpen {
+    background: transparent;
+    backdrop-filter: none;
   }
 
   // &_sticky{
