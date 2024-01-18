@@ -27,7 +27,7 @@ function Inventory(props) {
     <div className={`${styles.listing}`}>
       {topBanner ? (
         <>
-          <Banner props={topBanner} overlay={true} />
+          <Banner props={topBanner} />
           <div className="shape-before shape-before-white"></div>
         </>
       ) : null}

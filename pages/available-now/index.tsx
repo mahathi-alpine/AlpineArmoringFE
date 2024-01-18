@@ -32,13 +32,7 @@ function Inventory(props) {
         <rect width="100%" height="100%" filter="url(#esteisalegend)"></rect>
       </svg>
 
-      {topBanner ? (
-        <>
-          <Banner props={topBanner} overlay={true} />
-
-          <div className="shape-before"></div>
-        </>
-      ) : null}
+      {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
       <div
         className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}

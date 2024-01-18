@@ -23,12 +23,19 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing}`}>
-      {topBanner ? (
-        <>
-          <Banner props={topBanner} overlay={true} />
-          <div className="shape-before"></div>
-        </>
-      ) : null}
+      <svg className="noiseBg" width="100%" height="100%">
+        <filter id="esteisalegend">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.80"
+            numOctaves="4"
+            stitchTiles="stitch"
+          ></feTurbulence>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#esteisalegend)"></rect>
+      </svg>
+
+      {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
       <div
         className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}

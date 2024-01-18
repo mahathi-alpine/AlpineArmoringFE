@@ -5,10 +5,10 @@ import Image from 'next/image';
 
 type BannerProps = {
   props: any;
-  overlay?: any;
+  shape?: string;
 };
 
-const TopBanner = ({ props, overlay }: BannerProps) => {
+const TopBanner = ({ props, shape }: BannerProps) => {
   // console.log(props)
   // return null;
 
@@ -37,21 +37,23 @@ const TopBanner = ({ props, overlay }: BannerProps) => {
   }
 
   return (
-    <div
-      className={`${styles.banner}
-      ${overlay ? `${styles.banner_overlay}` : ''}
-    `}
-    >
-      {mediaElement}
+    <div className={`${styles.banner}`}>
+      <div className={`${styles.banner_inner}`}>
+        {mediaElement}
 
-      <div className={`${styles.banner_content}`}>
-        <div className={`${styles.banner_text}`}>
-          {bannerTitle ? (
-            <h1 className={`${styles.banner_title}`}>{bannerTitle}</h1>
-          ) : null}
-          {bannerDescription ? <Markdown>{bannerDescription}</Markdown> : null}
+        <div className={`${styles.banner_content}`}>
+          <div className={`${styles.banner_text}`}>
+            {bannerTitle ? (
+              <h1 className={`${styles.banner_title}`}>{bannerTitle}</h1>
+            ) : null}
+            {bannerDescription ? (
+              <Markdown>{bannerDescription}</Markdown>
+            ) : null}
+          </div>
         </div>
       </div>
+
+      {shape ? <div className="shape-before shape-before-dark"></div> : null}
     </div>
   );
 };

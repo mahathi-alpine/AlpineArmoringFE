@@ -25,6 +25,7 @@
 
     &_gallery {
       position: relative;
+      overflow: hidden;
       @include breakpoint(large) {
         width: 58%;
         order: 2;
@@ -52,17 +53,6 @@
 
     &_shape {
       margin-top: -24px;
-      border-radius: 50%/100% 100% 0 0;
-      left: -50px;
-      right: -50px;
-      background: var(--background);
-      width: calc(100vw + 100px);
-      &:after {
-        filter: url(#esteisalegend);
-        mix-blend-mode: soft-light;
-        opacity: 0.85;
-        isolation: isolate;
-      }
     }
 
     &_button {

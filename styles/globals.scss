@@ -158,7 +158,7 @@ img {
   mix-blend-mode: soft-light;
   opacity: 0.85;
   isolation: isolate;
-  z-index: 2;
+  z-index: 1;
 }
 
 .shape-before,
@@ -191,6 +191,20 @@ img {
 
 .shape-before-white {
   --background: #f3f3f3;
+}
+
+.shape-before-dark {
+  border-radius: 50%/100% 100% 0 0;
+  left: -50px;
+  right: -50px;
+  background: var(--background);
+  width: calc(100vw + 100px);
+  &:after {
+    filter: url(#esteisalegend);
+    mix-blend-mode: soft-light;
+    opacity: 0.85;
+    isolation: isolate;
+  }
 }
 
 .shape-before {

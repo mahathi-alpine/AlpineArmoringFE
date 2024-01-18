@@ -199,7 +199,7 @@ function InventoryVehicle(props) {
             </div>
 
             <div
-              className={`${styles.inventory_top_shape} shape-before mobile-only`}
+              className={`${styles.inventory_top_shape} shape-before shape-before-dark mobile-only`}
             ></div>
           </div>
 
