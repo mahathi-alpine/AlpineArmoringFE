@@ -159,7 +159,7 @@
         opacity 0.4s ease-in-out,
         transform 0.4s ease-in-out;
       // opacity: 0;
-      // transform: scale(0.95);    
+      // transform: scale(0.95);
 
       @include breakpoint(medium) {
         width: 55%;
@@ -183,7 +183,9 @@
 
       img {
         border-radius: 8px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        box-shadow:
+          0 8px 16px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
         @include breakpoint(medium) {
           height: 430px;
           object-fit: cover;

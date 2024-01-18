@@ -294,7 +294,7 @@
     }
   }
 
-  &_overlay{
+  &_overlay {
     @include breakpoint(large) {
       position: absolute;
       left: 0;
@@ -304,7 +304,7 @@
       border-bottom-right-radius: 32px;
       overflow: hidden;
 
-      // &_blob1{        
+      // &_blob1{
       //   position: absolute;
       //   top: 13rem;
       //   left: -4rem;
@@ -317,7 +317,7 @@
       //   mix-blend-mode: soft-light;
       // }
 
-      &_blob2{   
+      &_blob2 {
         width: 70vw;
         height: 60vw;
         border-radius: 50% 33%;
@@ -329,7 +329,7 @@
       }
     }
 
-    // &_blob3{  
+    // &_blob3{
     //   width: 25vw;
     //   height: 120vh;
     //   border-radius: 45% 40%;
@@ -341,7 +341,7 @@
     //   mix-blend-mode: overlay;
     // }
 
-    &_noise{
+    &_noise {
       position: absolute;
       top: 0;
       left: 0;
@@ -351,7 +351,7 @@
       border-top-left-radius: 32px;
       border-bottom-right-radius: 32px;
       overflow: hidden;
-  
+
       &:before {
         position: absolute;
         content: '';
@@ -361,8 +361,8 @@
         height: 100%;
         filter: url(#noiseFilter) brightness(0.4) contrast(1.1);
         mix-blend-mode: overlay;
-  
-        opacity: .5;
+
+        opacity: 0.5;
       }
     }
   }
