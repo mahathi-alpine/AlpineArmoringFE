@@ -1,5 +1,7 @@
 .inventory {
   &_top {
+    position: relative;
+    z-index: 2;
     // @include breakpoint(medium) {
     //   display: flex;
     //   padding: rem(32) rem(16) rem(60) rem(16);

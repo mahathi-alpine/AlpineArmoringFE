@@ -18,23 +18,16 @@ function InventoryVehicle(props) {
 
   return (
     <div className={`${styles.slug}`}>
-      {/* <svg width='0' height='0'>
-        <filter id='grainy' x='0' y='0' width='100%' height='100%'>
-          <feTurbulence type='fractalNoise' baseFrequency='.537'/>
-          <feColorMatrix type='saturate' values='0'/>
-          <feBlend in='SourceGraphic' mode='multiply'/>
-        </filter>
-      </svg> */}
-
       <div className={`${styles.banner}`}>
         <h1 className={`${styles.banner_title}`}>{data.title}</h1>
 
         <div className={`${styles.banner_image}`}>
-          <div id="test">
-            <div id="blob1"></div>
-            <div id="blob2"></div>
-            <div id="blob3"></div>
-            <div id="noiseLayer"></div>
+          <div className={`${styles.banner_overlay}`}>
+            {/* <div className={`${styles.banner_overlay_blob1}`}></div> */}
+            <div className={`${styles.banner_overlay_blob2}`}></div>
+            {/* <div className={`${styles.banner_overlay_blob3}`}></div> */}
+
+            <div className={`${styles.banner_overlay_noise}`}></div>
 
             <svg
               viewBox="0 0 500 500"

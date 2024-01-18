@@ -2,12 +2,12 @@
   &_wrap {
     // padding-top: rem(24);
     padding-bottom: rem(80);
+    z-index: 2;
 
     @include breakpoint(large) {
       padding-top: 0;
       max-width: 1470px;
       position: relative;
-      z-index: 1;
 
       &_inventory {
         display: flex;

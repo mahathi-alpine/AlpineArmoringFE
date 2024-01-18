@@ -104,7 +104,7 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
         </div>
       </div>
 
-      <div className="shape-before"></div>
+      <div className={`${styles.hp_banner_shape} shape-before`}></div>
     </div>
   );
 };

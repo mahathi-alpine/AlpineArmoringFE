@@ -90,7 +90,7 @@ const StickyHorizontalSlider = ({ props }) => {
             </Link>
           ))}
 
-          <svg
+          {/* <svg
             width="0"
             height="0"
             viewBox="0 0 768 512"
@@ -106,7 +106,7 @@ const StickyHorizontalSlider = ({ props }) => {
                 ></path>
               </clipPath>
             </defs>
-          </svg>
+          </svg> */}
         </div>
       </div>
     </section>
