@@ -1,9 +1,10 @@
 .stickyHorizontalSlider {
   position: relative;
-  max-width: 100%;
+  // max-width: 100%;
   padding: rem(100) 0 0 0;
-  color: white;
+  // color: white;
   z-index: 2;
+  overflow: hidden;
 
   @include breakpoint(large) {
     padding-left: 0;
@@ -12,12 +13,12 @@
   }
 
   &_inner {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    // overflow: auto;
+    // -webkit-overflow-scrolling: touch;
+    // -ms-overflow-style: none;
+    // scrollbar-width: none;
     display: flex;
-    flex-wrap: nowrap;
+    // flex-wrap: nowrap;
 
     @include breakpoint(large) {
       overflow: unset;
@@ -25,39 +26,39 @@
       font-size: rem(16);
       position: relative;
       padding-left: 16vw;
-      &:after {
-        display: none;
-      }
+      // &:after {
+      //   display: none;
+      // }
     }
 
-    &:after {
-      content: '';
-      display: block;
-      width: 1px;
-      height: 100%;
-      border: 1px solid transparent;
-    }
+    // &:after {
+    //   content: '';
+    //   display: block;
+    //   width: 1px;
+    //   height: 100%;
+    //   border: 1px solid transparent;
+    // }
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    // &::-webkit-scrollbar {
+    //   display: none;
+    // }
 
-    &.in-view .stickyHorizontalSlider_item {
-      opacity: 1;
-    }
+    // &.in-view .stickyHorizontalSlider_item {
+    //   opacity: 1;
+    // }
   }
 
   &_sticky {
-    @include breakpoint(large) {
-      position: sticky;
-      top: 100px;
-      overflow: hidden;
-    }
+    // @include breakpoint(large) {
+    //   position: sticky;
+    //   top: 100px;
+    //   overflow: hidden;
+    // }
   }
 
   &_heading {
     padding-left: rem(16);
-    color: var(--color-dark);
+    // color: var(--color-dark);
     @include breakpoint(medium) {
       padding-left: rem(64);
     }
@@ -71,7 +72,6 @@
     min-width: 280px;
 
     @include breakpoint(medium) {
-      margin-left: rem(24);
       min-width: 36vw;
       max-width: 690px;
       transition: transform 0.3s ease-in-out;
@@ -80,9 +80,16 @@
         transform: scale(0.975);
         .stickyHorizontalSlider_item_image {
           transform: scale(1.06);
+
+          &_wrap{
+            box-shadow:
+              0 8px 16px 0 rgba(0, 0, 0, 0.2),
+              0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          }
         }
       }
     }
+
     @include breakpoint(large) {
       margin-left: rem(24);
       flex-shrink: 0;
@@ -93,28 +100,35 @@
     }
 
     &_image {
-      width: 100%;
-      height: rem(180);
-      object-fit: cover;
+      // width: 100%;
+      // height: rem(180);
       // border-radius: 48px;
-      max-height: 50vh;
+      // max-height: 50vh;
+      object-fit: cover;
 
       @include breakpoint(medium) {
-        height: rem(280);
+        height: rem(200);
         transition: transform 0.3s ease-in-out;
 
         &_wrap {
-          overflow: hidden;
           // clip-path: url(#clip);
-          border-radius: 48px;
-          box-shadow:
-            0 8px 16px 0 rgba(0, 0, 0, 0.2),
-            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          transition: box-shadow 0.3s ease-in-out;
         }
       }
 
       @include breakpoint(large) {
-        height: rem(420);
+        height: rem(400);
+      }
+
+      &_wrap {
+        overflow: hidden;
+        border-radius: 24px;
+        @include breakpoint(medium) {
+          border-radius: 32px;
+        }
+        @include breakpoint(large) {
+          border-radius: 48px;
+        }
       }
     }
 
@@ -132,7 +146,7 @@
       margin-bottom: rem(16);
       // text-transform: uppercase;
       font-weight: var(--font-regular);
-      font-size: rem(17);
+      // font-size: rem(17);
       color: var(--color-dark);
       @include breakpoint(large) {
         font-size: rem(25);
@@ -142,7 +156,7 @@
     &_date {
       font-size: rem(11);
       font-weight: var(--font-medium);
-      text-transform: uppercase;
+      // text-transform: uppercase;
       color: var(--color-primary);
       @include breakpoint(large) {
         font-size: rem(14);

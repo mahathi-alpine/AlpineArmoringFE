@@ -108,13 +108,15 @@
     @include breakpoint(medium) {
       display: flex;
       align-items: center;
-      gap: 64px;
+      gap: 32px;
       max-width: 1270px;
       margin: auto;
-      padding: 0 rem(40);
+      padding: 0 rem(16);
     }
     @include breakpoint(large) {
       padding: 0;
+      gap: 64px;
+      padding: 0 rem(40);
     }
 
     &:not(.tabSection_item_active) {

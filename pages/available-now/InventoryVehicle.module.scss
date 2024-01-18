@@ -52,6 +52,17 @@
 
     &_shape {
       margin-top: -24px;
+      border-radius: 50%/100% 100% 0 0;
+      left: -50px;
+      right: -50px;
+      background: var(--background);
+      width: calc(100vW + 100px);
+      &:after{
+        filter: url(#esteisalegend);
+        mix-blend-mode: soft-light;
+        opacity: 0.85;
+        isolation: isolate;
+      }
     }
 
     &_button {

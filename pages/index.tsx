@@ -68,7 +68,7 @@ function Home({ homepageData, categories, languageCookie }) {
 
       <div className="background-dark">
         <svg className="noiseBg" width="100%" height="100%">
-          <filter id="pedroduarteisalegend">
+          <filter id="esteisalegend">
             <feTurbulence
               type="fractalNoise"
               baseFrequency="0.80"
@@ -76,11 +76,7 @@ function Home({ homepageData, categories, languageCookie }) {
               stitchTiles="stitch"
             ></feTurbulence>
           </filter>
-          <rect
-            width="100%"
-            height="100%"
-            filter="url(#pedroduarteisalegend)"
-          ></rect>
+          <rect width="100%" height="100%" filter="url(#esteisalegend)"></rect>
         </svg>
 
         <IntroText />
