@@ -56,8 +56,8 @@
       left: -50px;
       right: -50px;
       background: var(--background);
-      width: calc(100vW + 100px);
-      &:after{
+      width: calc(100vw + 100px);
+      &:after {
         filter: url(#esteisalegend);
         mix-blend-mode: soft-light;
         opacity: 0.85;

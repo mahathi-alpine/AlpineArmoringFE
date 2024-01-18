@@ -75,14 +75,13 @@
       }
 
       @include breakpoint(small) {
-        &_active{
+        &_active {
           background-color: var(--color-gray3);
         }
       }
     }
 
     &_glider {
-
       @include breakpoint(medium) {
         position: absolute;
         // top: 4px;
