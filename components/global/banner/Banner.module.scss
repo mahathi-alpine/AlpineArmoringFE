@@ -21,7 +21,7 @@
 
     @include breakpoint(large) {
       // padding: rem(72) rem(24) rem(100) rem(24);
-      height: 500px;
+      height: 600px;
       align-items: center;
       border-top-left-radius: 32px;
       border-top-right-radius: 32px;
@@ -56,6 +56,9 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+    @include breakpoint(large) {
+      padding-bottom: 40px;
+    }
   }
 
   &_content {

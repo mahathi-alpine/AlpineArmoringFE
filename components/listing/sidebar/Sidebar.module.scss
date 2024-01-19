@@ -13,11 +13,13 @@
       max-width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: right;
       // gap: 32px;
       height: 91px;
       margin-top: rem(-220);
       margin-bottom: rem(120);
+      // right: -48px;
+      position: relative;
       // color: var(--color-white);
       .checkbox_span {
         transition: color 0.3s ease;
