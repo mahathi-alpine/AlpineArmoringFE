@@ -8,17 +8,17 @@ import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlid
 function InventoryVehicle(props) {
   const data = props.data.data[0]?.attributes;
 
-  const inventory = data.stock.data;
+  const inventory = data?.stock.data;
   const beforeAfterSlider_Before =
-    data.beforeAfterSlider?.before.data?.attributes.url;
+    data?.beforeAfterSlider?.before.data?.attributes.url;
   const beforeAfterSlider_After =
-    data.beforeAfterSlider?.after.data?.attributes.url;
+    data?.beforeAfterSlider?.after.data?.attributes.url;
 
   const banner = {
-    title: data.title,
-    featuredImage: data.featuredImage,
-    descriptionBanner: data.descriptionBanner,
-    slug: data.slug,
+    title: data?.title,
+    featuredImage: data?.featuredImage,
+    descriptionBanner: data?.descriptionBanner,
+    slug: data?.slug,
     inventory: inventory,
   };
 

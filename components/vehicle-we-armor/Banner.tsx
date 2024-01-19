@@ -12,9 +12,37 @@ const Banner = (props) => {
 
   return (
     <div className={`${styles.banner}`}>
-      <div className={`${styles.banner_title}`}>
-        <h1 className={`observe fade-in`}>{data.title}</h1>
-        {/* <h1 className={`observe fade-in`}>Armored Mercedes-Benz S580 S-Class</h1>                 */}
+      <div className={`${styles.banner_main}`}>
+        <div className={`${styles.banner_title}`}>
+          <h1 className={`observe fade-in`}>{data.title}</h1>
+          {/* <h1 className={`observe fade-in`}>Armored Mercedes-Benz S580 S-Class</h1>                 */}
+        </div>
+
+        <div className={`${styles.banner_text}`}>
+          <div className={`${styles.banner_description} observe fade-in`}>
+            {data.descriptionBanner ? (
+              <Markdown>{data.descriptionBanner}</Markdown>
+            ) : null}
+          </div>
+
+          <div className={`${styles.banner_buttons} observe fade-in`}>
+            <Button
+              href="/contact"
+              className={`${styles.banner_buttons_item} primary shiny`}
+            >
+              Request a quote
+            </Button>
+            <Button
+              href={`/available-now/?vehicles_we_armor=${data.slug}`}
+              {...(!data.inventory?.length
+                ? { disabled: true, button: true }
+                : {})}
+              className={`${styles.banner_buttons_item} shiny`}
+            >
+              View in-stock availability
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className={`${styles.banner_image}`}>
@@ -42,7 +70,7 @@ const Banner = (props) => {
           </svg>
         </div>
 
-        {data.featuredImage.data ? (
+        {data.featuredImage?.data ? (
           <div className={`${styles.banner_image_wrap} observe fade-in`}>
             <Image
               src={`${data.featuredImage.data.attributes.url}`}
@@ -67,32 +95,6 @@ const Banner = (props) => {
       <div
         className={`${styles.banner_shape} shape-before shape-before-white`}
       ></div>
-
-      <div className={`${styles.banner_text}`}>
-        <div className={`${styles.banner_description} observe fade-in`}>
-          {data.descriptionBanner ? (
-            <Markdown>{data.descriptionBanner}</Markdown>
-          ) : null}
-        </div>
-
-        <div className={`${styles.banner_buttons} observe fade-in`}>
-          <Button
-            href="/contact"
-            className={`${styles.banner_buttons_item} primary shiny`}
-          >
-            Request a quote
-          </Button>
-          <Button
-            href={`/available-now/?vehicles_we_armor=${data.slug}`}
-            {...(!data.inventory.length
-              ? { disabled: true, button: true }
-              : {})}
-            className={`${styles.banner_buttons_item} shiny`}
-          >
-            View in-stock availability
-          </Button>
-        </div>
-      </div>
     </div>
   );
 };

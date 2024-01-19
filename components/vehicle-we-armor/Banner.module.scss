@@ -20,6 +20,29 @@
     padding: rem(32) rem(32) 0 rem(32);
   }
 
+  &_main{
+    @include breakpoint(large) {
+      position: absolute;
+      top: 0;
+      background: #f3f3f3;
+      z-index: 2;
+      border-bottom-right-radius: 32px;
+      padding: 50px;
+      padding-bottom: 32px;
+      &:after {
+        position: absolute;
+        content: '';
+        top: 31px;
+        right: -47px;
+        height: 48px;
+        width: 48px;
+        background: url('/assets/smallCurveBg.svg') no-repeat;
+        background-size: cover;
+        transform: rotate(90deg);
+      }
+    }
+  }
+
   &_title {
     margin-bottom: rem(24);
     padding: 0 rem(16);
@@ -28,33 +51,23 @@
       font-size: rem(32);
       font-weight: var(--font-demi);
       font-size: clamp(2rem, 1.6359rem + 1.5534vw, 3.5rem);
+      font-size: 48px;
     }
     @include breakpoint(large) {
-      position: absolute;
-      max-width: 50%;
+      // position: absolute;
+      // max-width: 50%;
       padding-bottom: 16px;
-      padding-right: rem(24);
-      margin-bottom: 0;
-      background: #f3f3f3;
-      border-bottom-right-radius: 32px;
+      padding-right: rem(48);
+      margin-bottom: 20px;
       z-index: 2;
+      padding: 0;
+      max-width: 700px;
 
       &:before {
         position: absolute;
         content: '';
         left: -1px;
         bottom: -47px;
-        height: 48px;
-        width: 48px;
-        background: url('/assets/smallCurveBg.svg') no-repeat;
-        background-size: cover;
-        transform: rotate(90deg);
-      }
-      &:after {
-        position: absolute;
-        content: '';
-        top: 0;
-        right: -47px;
         height: 48px;
         width: 48px;
         background: url('/assets/smallCurveBg.svg') no-repeat;
@@ -69,34 +82,37 @@
     padding: 0 rem(16);
     z-index: 1;
     @include breakpoint(large) {
-      position: absolute;
-      bottom: -1px;
-      left: 31px;
-      width: 542px;
-      padding: rem(32) rem(32) rem(32) rem(16);
-      background: var(--color-background);
+      // position: absolute;
+      // bottom: -1px;
+      // left: 31px;
+      padding: 0;
+      // padding: rem(32) rem(32) rem(32) rem(16);
+      // background: var(--color-background);
       border-top-right-radius: 32px;
+      padding-right: 50px;
+      max-width: 600px;
+      // color: white;
 
-      &:before {
-        position: absolute;
-        content: '';
-        left: 0px;
-        top: -47px;
-        height: 48px;
-        width: 48px;
-        background: url('/assets/smallCurveBg.svg') no-repeat;
-        background-size: cover;
-      }
-      &:after {
-        position: absolute;
-        content: '';
-        bottom: 0;
-        right: -47px;
-        height: 48px;
-        width: 48px;
-        background: url('/assets/smallCurveBg.svg') no-repeat;
-        background-size: cover;
-      }
+      // &:before {
+      //   position: absolute;
+      //   content: '';
+      //   left: 0px;
+      //   top: -47px;
+      //   height: 48px;
+      //   width: 48px;
+      //   background: url('/assets/smallCurveBg.svg') no-repeat;
+      //   background-size: cover;
+      // }
+      // &:after {
+      //   position: absolute;
+      //   content: '';
+      //   bottom: 0;
+      //   right: -47px;
+      //   height: 48px;
+      //   width: 48px;
+      //   background: url('/assets/smallCurveBg.svg') no-repeat;
+      //   background-size: cover;
+      // }
     }
   }
 
@@ -107,6 +123,7 @@
     }
     @include breakpoint(large) {
       font-size: rem(18);
+      margin-bottom: 40px;
     }
 
     strong {
@@ -135,17 +152,14 @@
     font-weight: var(--font-medium);
     text-align: center;
     font-size: rem(15);
-    // text-transform: uppercase;
 
     @include breakpoint(large) {
       position: relative;
       margin-bottom: auto;
-      // top: -90px;
       right: 0;
       padding: rem(8) rem(32) rem(16) rem(32);
       background: var(--color-background);
-      // border-top-left-radius: 32px;
-      // border-top-right-radius: 32px;
+      // color: white;
       border-bottom-left-radius: 32px;
       font-size: rem(16);
       z-index: 1;
@@ -236,6 +250,7 @@
       // background: var(--color-gray2);
       border-top-left-radius: 32px;
       border-bottom-right-radius: 32px;
+      border-bottom-left-radius: 32px;
       background-color: rgb(70 70 70);
       justify-content: flex-end;
       padding: 0;
@@ -318,16 +333,16 @@
       //   mix-blend-mode: soft-light;
       // }
 
-      &_blob2 {
-        width: 70vw;
-        height: 60vw;
-        border-radius: 50% 33%;
-        background-color: #7d6e4d85;
-        position: absolute;
-        top: 50%;
-        left: 20%;
-        filter: blur(75px);
-      }
+      // &_blob2 {
+      //   width: 70vw;
+      //   height: 60vw;
+      //   border-radius: 50% 33%;
+      //   background-color: #7d6e4d85;
+      //   position: absolute;
+      //   top: 50%;
+      //   left: 20%;
+      //   filter: blur(75px);
+      // }
 
       &_noise {
         position: absolute;
@@ -338,6 +353,7 @@
         z-index: 1;
         border-top-left-radius: 32px;
         border-bottom-right-radius: 32px;
+        border-bottom-left-radius: 32px;
         overflow: hidden;
 
         &:before {
