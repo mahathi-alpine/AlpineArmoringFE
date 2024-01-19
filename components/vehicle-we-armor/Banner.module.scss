@@ -20,7 +20,7 @@
     padding: rem(32) rem(32) 0 rem(32);
   }
 
-  &_main{
+  &_main {
     @include breakpoint(large) {
       position: absolute;
       top: 0;
