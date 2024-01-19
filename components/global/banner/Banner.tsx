@@ -24,7 +24,7 @@ const TopBanner = ({ props, shape }: BannerProps) => {
         src={`${bannerImage}`}
         alt="Description of the image"
         width={1920}
-        height={450}
+        height={600}
         className={`${styles.banner_media}`}
       />
     );
