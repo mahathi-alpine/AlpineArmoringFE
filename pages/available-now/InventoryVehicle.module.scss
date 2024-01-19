@@ -235,13 +235,13 @@
     @include breakpoint(small) {
       max-height: 210px;
       overflow: hidden;
-      transition: max-height .3s ease;
+      transition: max-height 0.3s ease;
 
-      &_active{
+      &_active {
         max-height: 2000px;
       }
 
-      &_viewMore{
+      &_viewMore {
         position: relative;
         display: flex;
         align-items: center;
@@ -253,18 +253,22 @@
         overflow: hidden;
         background: #0d0d0d;
 
-        svg{
+        svg {
           transform: rotate(90deg);
         }
 
-        &:before{
+        &:before {
           position: absolute;
           content: '';
           left: 0;
           right: 0;
           top: 0;
           bottom: 0;
-          background: linear-gradient(0deg, rgba(20,19,15,1) 0%, rgba(20,19,15,0) 100%);
+          background: linear-gradient(
+            0deg,
+            rgba(20, 19, 15, 1) 0%,
+            rgba(20, 19, 15, 0) 100%
+          );
           z-index: 1;
           filter: url(#esteisalegend);
           mix-blend-mode: soft-light;
@@ -293,7 +297,6 @@
         z-index: 1;
         visibility: visible;
       }
-
     }
 
     &_list {

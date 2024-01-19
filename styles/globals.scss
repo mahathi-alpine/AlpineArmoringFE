@@ -257,33 +257,34 @@ div.yarl__slide_description {
   }
 }
 
-
 @include breakpoint(large) {
-  nav.yarl__flex_center{
+  nav.yarl__flex_center {
     align-items: baseline;
   }
-  button.yarl__thumbnails_thumbnail{
-    transition: height .3s ease-in-out, width .3s ease-in-out;
+  button.yarl__thumbnails_thumbnail {
+    transition:
+      height 0.3s ease-in-out,
+      width 0.3s ease-in-out;
     height: 100px;
-    &:hover{
+    &:hover {
       height: 150px;
       width: 300px;
     }
   }
-  div.yarl__thumbnails_vignette{
+  div.yarl__thumbnails_vignette {
     display: none;
   }
-  div.yarl__thumbnails_container{
+  div.yarl__thumbnails_container {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     background: transparent;
   }
-  div.yarl__container{
+  div.yarl__container {
     bottom: 117px;
   }
-  .yarl__thumbnails_wrapper{
+  .yarl__thumbnails_wrapper {
     background: #000;
   }
 }

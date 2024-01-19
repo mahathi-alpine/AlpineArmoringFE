@@ -34,8 +34,8 @@
     font-weight: var(--font-medium);
   }
 
-  &_image{
-    img{
+  &_image {
+    img {
       @include breakpoint(medium) {
         height: 180px;
         width: auto;
