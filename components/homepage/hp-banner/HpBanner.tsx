@@ -104,7 +104,23 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
         </div>
       </div>
 
-      {/* <div className={`${styles.hp_banner_shape} shape-before shape-before-dark`}></div> */}
+      <div className={`${styles.hp_banner_shape} shape-before`}></div>
+
+      <svg
+        className={`${styles.hp_banner_noise} noiseBg`}
+        width="100%"
+        height="100%"
+      >
+        <filter id="esteisalegend">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.80"
+            numOctaves="4"
+            stitchTiles="stitch"
+          ></feTurbulence>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#esteisalegend)"></rect>
+      </svg>
     </div>
   );
 };

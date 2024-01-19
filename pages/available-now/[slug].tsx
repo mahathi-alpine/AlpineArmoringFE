@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
+import ChevronIcon from 'components/icons/Chevron';
 
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -23,10 +24,16 @@ function InventoryVehicle(props) {
   const [activeDiv, setActiveDiv] = useState('0');
   const handleTabChange = (id) => {
     setActiveDiv(id);
+    setViewMoreClicked(false);
   };
 
   const [openSpecs, setOpenSpecs] = useState(false);
   const [openAccessories, setOpenAccessories] = useState(false);
+
+  const [viewMoreClicked, setViewMoreClicked] = useState(false);
+  const handleViewMoreClick = () => {
+    setViewMoreClicked(!viewMoreClicked);
+  };
 
   useEffect(() => {
     document.body.classList.add(
@@ -225,7 +232,11 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_tabs}`}>
               <TabSlider props={tabSliderData} onTabChange={handleTabChange} />
 
-              <div className={`${styles.inventory_tabs_content}`}>
+              <div
+                className={`${styles.inventory_tabs_content} ${
+                  viewMoreClicked ? styles.inventory_tabs_content_active : ''
+                }`}
+              >
                 <div
                   className={`${styles.inventory_tabs_content_item} ${
                     activeDiv == '0'
@@ -342,6 +353,16 @@ function InventoryVehicle(props) {
                   />
                 </div>
               </div>
+
+              {!viewMoreClicked && (
+                <div
+                  className={`${styles.inventory_tabs_content_viewMore} mobile-only`}
+                  onClick={handleViewMoreClick}
+                >
+                  View More
+                  <ChevronIcon />
+                </div>
+              )}
             </div>
 
             <div className={`${styles.inventory_top_button}`}>

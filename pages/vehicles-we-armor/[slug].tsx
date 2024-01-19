@@ -1,101 +1,61 @@
 import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
-import Button from 'components/global/button/Button';
+import { useEffect } from 'react';
+import Banner from 'components/vehicle-we-armor/Banner';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 // import Specs from 'components/vehicle/specs/Specs';
-import Image from 'next/image';
-import Markdown from 'markdown-to-jsx';
 
 function InventoryVehicle(props) {
   const data = props.data.data[0]?.attributes;
+
   const inventory = data.stock.data;
   const beforeAfterSlider_Before =
     data.beforeAfterSlider?.before.data?.attributes.url;
   const beforeAfterSlider_After =
     data.beforeAfterSlider?.after.data?.attributes.url;
 
-  // console.log(data)
+  const banner = {
+    title: data.title,
+    featuredImage: data.featuredImage,
+    descriptionBanner: data.descriptionBanner,
+    slug: data.slug,
+    inventory: inventory,
+  };
+
+  useEffect(() => {
+    const targets = document.querySelectorAll('.observe');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
+
+    // Clean up the observer when the component unmounts
+    return () => {
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
+    };
+  }, []);
+
+  // console.log(data);
+  // return null;
 
   return (
     <div className={`${styles.slug}`}>
-      <div className={`${styles.banner}`}>
-        <h1 className={`${styles.banner_title}`}>{data.title}</h1>
-
-        <div className={`${styles.banner_image}`}>
-          <div className={`${styles.banner_overlay}`}>
-            {/* <div className={`${styles.banner_overlay_blob1}`}></div> */}
-            <div className={`${styles.banner_overlay_blob2}`}></div>
-            {/* <div className={`${styles.banner_overlay_blob3}`}></div> */}
-
-            <div className={`${styles.banner_overlay_noise}`}></div>
-
-            <svg
-              viewBox="0 0 500 500"
-              preserveAspectRatio="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ display: 'none' }}
-            >
-              <filter id="noiseFilter">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency=".75"
-                  numOctaves="2"
-                  stitchTiles="stitch"
-                />
-              </filter>
-            </svg>
-          </div>
-
-          {data.featuredImage.data ? (
-            <div className={`${styles.banner_image_wrap}`}>
-              <Image
-                src={`${data.featuredImage.data.attributes.url}`}
-                alt="Description of the image"
-                width={1000}
-                height={550}
-              />
-            </div>
-          ) : null}
-
-          <div className={`${styles.banner_protection}`}>
-            <h3>Offered At Protection Levels</h3>
-            <div className={`${styles.banner_protection_levels}`}>
-              <span>A4</span>
-              <span>A6</span>
-              <span>A9</span>
-              <span>A11</span>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className={`${styles.banner_shape} shape-before shape-before-white`}
-        ></div>
-
-        <div className={`${styles.banner_text}`}>
-          <div className={`${styles.banner_description}`}>
-            {data.descriptionBanner ? (
-              <Markdown>{data.descriptionBanner}</Markdown>
-            ) : null}
-          </div>
-
-          <div className={`${styles.banner_buttons}`}>
-            <Button
-              href="/contact"
-              className={`${styles.banner_buttons_item} primary shiny`}
-            >
-              Request a quote
-            </Button>
-            <Button
-              href={`/available-now/?vehicles_we_armor=${data.slug}`}
-              {...(!inventory.length ? { disabled: true, button: true } : {})}
-              className={`${styles.banner_buttons_item} shiny`}
-            >
-              View in-stock availability
-            </Button>
-          </div>
-        </div>
-      </div>
+      <Banner props={banner} />
 
       {/* <Specs specs={data.specificationsAll.data} equipment{data.specificationsAll.data}/>       */}
 

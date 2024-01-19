@@ -118,6 +118,7 @@
 
       @include breakpoint(large) {
         height: rem(400);
+        width: 100%;
       }
 
       &_wrap {

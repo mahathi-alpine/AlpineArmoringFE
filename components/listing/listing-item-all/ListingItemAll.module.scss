@@ -33,4 +33,14 @@
     font-size: rem(18);
     font-weight: var(--font-medium);
   }
+
+  &_image{
+    img{
+      @include breakpoint(medium) {
+        height: 180px;
+        width: auto;
+        margin: auto;
+      }
+    }
+  }
 }

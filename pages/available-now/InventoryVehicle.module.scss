@@ -116,10 +116,7 @@
       flex: 1;
     }
     svg {
-      width: 40px;
-      @include breakpoint(large) {
-        width: 56px;
-      }
+      width: 45px;
     }
 
     &_text {
@@ -132,21 +129,21 @@
       font-weight: var(--font-medium);
       line-height: 1.1;
       font-size: rem(13);
-      @include breakpoint(large) {
-        font-size: rem(16);
-        line-height: 1;
-      }
+      // @include breakpoint(large) {
+      //   font-size: rem(16);
+      //   line-height: 1;
+      // }
       &:first-child {
         font-size: rem(22);
-        @include breakpoint(large) {
-          font-size: rem(27);
-        }
+        // @include breakpoint(large) {
+        //   font-size: rem(27);
+        // }
       }
       &:nth-child(3) {
         font-size: rem(15);
-        @include breakpoint(large) {
-          font-size: rem(18);
-        }
+        // @include breakpoint(large) {
+        //   font-size: rem(18);
+        // }
       }
     }
   }
@@ -235,6 +232,48 @@
       }
     }
 
+    @include breakpoint(small) {
+      max-height: 210px;
+      overflow: hidden;
+      transition: max-height .3s ease;
+
+      &_active{
+        max-height: 2000px;
+      }
+
+      &_viewMore{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: rem(20) 0;
+        text-align: center;
+        cursor: pointer;
+        font-size: rem(15);
+        overflow: hidden;
+        background: #0d0d0d;
+
+        svg{
+          transform: rotate(90deg);
+        }
+
+        &:before{
+          position: absolute;
+          content: '';
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background: linear-gradient(0deg, rgba(20,19,15,1) 0%, rgba(20,19,15,0) 100%);
+          z-index: 1;
+          filter: url(#esteisalegend);
+          mix-blend-mode: soft-light;
+          opacity: 0.85;
+          isolation: isolate;
+        }
+      }
+    }
+
     &_item {
       position: absolute;
       top: 0;
@@ -254,6 +293,7 @@
         z-index: 1;
         visibility: visible;
       }
+
     }
 
     &_list {
@@ -297,6 +337,10 @@
 
         &_specs {
           cursor: pointer;
+          font-size: rem(14);
+          @include breakpoint(large) {
+            font-size: rem(13);
+          }
         }
 
         // @include breakpoint(large) {
