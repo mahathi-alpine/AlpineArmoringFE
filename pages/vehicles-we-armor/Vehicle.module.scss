@@ -1,18 +1,18 @@
-.slug{
-    &_nav{
-        position: sticky;
-        top: -1px;      
-        margin-top: -70px;
-        margin-left: 20px;
-        color: white;
-        z-index: 1;  
+.slug {
+  &_nav {
+    position: sticky;
+    top: -1px;
+    margin-top: -70px;
+    margin-left: 20px;
+    color: white;
+    z-index: 1;
 
-        ul{
-            display: flex;
-            gap: 16px;
-        }
-        .is-pinned {
-          color: red;
-        }
-    }    
+    ul {
+      display: flex;
+      gap: 16px;
+    }
+    .is-pinned {
+      color: red;
+    }
+  }
 }
