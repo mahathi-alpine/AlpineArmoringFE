@@ -53,7 +53,9 @@ const TopBanner = ({ props, shape }: BannerProps) => {
         </div>
       </div>
 
-      {shape ? <div className="shape-before shape-before-dark"></div> : null}
+      {shape ? (
+        <div className={`shape-before shape-before-${shape}`}></div>
+      ) : null}
     </div>
   );
 };

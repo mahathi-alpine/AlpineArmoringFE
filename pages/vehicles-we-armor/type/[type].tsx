@@ -25,16 +25,13 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing}`}>
-      {topBanner ? (
-        <>
-          <Banner props={topBanner} />
-          <div className="shape-before shape-before-white"></div>
-        </>
-      ) : null}
+      {topBanner ? <Banner props={topBanner} shape="white" /> : null}
+
+      <div className={`container`}>
+        {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
+      </div>
 
       <div className={`${styles.listing_wrap} container`}>
-        {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
-
         {props.vehicles.data?.length < 1 ? (
           <div className={`${styles.listing_empty}`}>
             <h2>No Vehicles Found</h2>

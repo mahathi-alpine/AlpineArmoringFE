@@ -1,13 +1,25 @@
 .listing_item {
   max-width: 425px;
-  // margin: auto;
+  margin: auto;
   margin-bottom: rem(32);
+
   @include breakpoint(medium) {
     width: calc(50% - 12px);
+    margin: unset;
   }
+
   @include breakpoint(large) {
     width: calc(100% / 3 - 16px);
     max-width: 100%;
+  }
+
+  &_inner{
+    @include breakpoint(medium) {
+      display: block;
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+    }
   }
 
   &_content {
@@ -16,6 +28,7 @@
     background: white;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
+    flex: 1;
     &:before {
       position: absolute;
       content: '';
@@ -36,11 +49,9 @@
 
   &_image {
     img {
-      @include breakpoint(medium) {
-        height: 180px;
-        width: auto;
-        margin: auto;
-      }
+      height: 180px;
+      width: auto;
+      margin: auto;
     }
   }
 }

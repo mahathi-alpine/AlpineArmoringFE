@@ -11,7 +11,10 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
 
   return (
     <div className={`${styles.listing_item}`}>
-      <Link href={`/vehicles-we-armor/${data.slug}`}>
+      <Link
+        href={`/vehicles-we-armor/${data.slug}`}
+        className={`${styles.listing_item_inner}`}
+      >
         <div className={`${styles.listing_item_image}`}>
           {data.featuredImage.data ? (
             <Image

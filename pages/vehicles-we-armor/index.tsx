@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 function Inventory(props) {
   // console.log(props);
   // return null;
+  const topBanner = props.pageData?.banner;
 
   useEffect(() => {
     document.body.classList.add('listing-all');
@@ -19,16 +20,13 @@ function Inventory(props) {
 
   return (
     <div className={`${styles.listing}`}>
-      {props.pageData?.banner ? (
-        <>
-          <Banner props={props.pageData.banner} />
-          <div className="shape-before shape-before-white"></div>
-        </>
-      ) : null}
+      {topBanner ? <Banner props={topBanner} shape="white" /> : null}
+
+      <div className={`container`}>
+        {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
+      </div>
 
       <div className={`${styles.listing_wrap} container`}>
-        {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
-
         {props.vehicles.data ? (
           <div className={`${styles.listing_list}`}>
             {props.vehicles.data.map((item) => (
