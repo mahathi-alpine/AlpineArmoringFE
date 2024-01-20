@@ -32,7 +32,11 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
       // opacity: 0.3;
       z-index: 1;
       border-top-left-radius: 16px;
@@ -92,7 +96,7 @@
       font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
     }
 
-    del{
+    del {
       display: block;
       font-size: 0;
     }
