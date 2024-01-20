@@ -98,8 +98,8 @@ const EmblaCarousel = (props) => {
                   <Image
                     src={item.attributes.url}
                     alt="Description of the image"
-                    width={670}
-                    height={640}
+                    width={810}
+                    height={500}
                     className={styles.carousel_slide_img}
                   />
                 </>

@@ -13,7 +13,7 @@
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: 2;
+    // z-index: 1;
 
     img {
       max-width: unset;
@@ -28,7 +28,7 @@
     position: absolute;
     display: flex;
     align-items: center;
-    z-index: 2;
+    // z-index: 2;
     top: 0;
     left: 50%;
     height: 100%;

@@ -57,6 +57,26 @@ function InventoryVehicle(props) {
     <div className={`${styles.slug}`}>
       <Banner props={banner} />
 
+      <div className={`${styles.slug_nav} container`}>
+        <ul>
+          <li>
+            <a href="">Overview</a>
+          </li>
+          <li>
+            <a href="">Dimensions</a>
+          </li>
+          <li>
+            <a href="">Specifications</a>
+          </li>
+          <li>
+            <a href="">Gallery</a>
+          </li>
+          <li>
+            <a href="">OEM Specs</a>
+          </li>
+        </ul>
+      </div>
+
       {/* <Specs specs={data.specificationsAll.data} equipment{data.specificationsAll.data}/>       */}
 
       <div className={`container`}>

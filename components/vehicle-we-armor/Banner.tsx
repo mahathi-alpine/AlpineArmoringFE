@@ -15,17 +15,18 @@ const Banner = (props) => {
       <div className={`${styles.banner_main}`}>
         <div className={`${styles.banner_title}`}>
           <h1 className={`observe fade-in`}>{data.title}</h1>
-          {/* <h1 className={`observe fade-in`}>Armored Mercedes-Benz S580 S-Class</h1>                 */}
         </div>
 
-        <div className={`${styles.banner_text}`}>
-          <div className={`${styles.banner_description} observe fade-in`}>
+        <div className={`${styles.banner_content}`}>
+          <div
+            className={`${styles.banner_description} observe fade-in delay-1`}
+          >
             {data.descriptionBanner ? (
               <Markdown>{data.descriptionBanner}</Markdown>
             ) : null}
           </div>
 
-          <div className={`${styles.banner_buttons} observe fade-in`}>
+          <div className={`${styles.banner_buttons} observe fade-in delay-2`}>
             <Button
               href="/contact"
               className={`${styles.banner_buttons_item} primary shiny`}
@@ -71,7 +72,7 @@ const Banner = (props) => {
         </div>
 
         {data.featuredImage?.data ? (
-          <div className={`${styles.banner_image_wrap} observe fade-in`}>
+          <div className={`${styles.banner_image_wrap} observe fade-in-right`}>
             <Image
               src={`${data.featuredImage.data.attributes.url}`}
               alt="Description of the image"
