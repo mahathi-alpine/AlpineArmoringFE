@@ -1,4 +1,32 @@
 .tabSlider {
+
+  &_sticky{
+    .tabSlider_nav_wrap{
+      background: transparent;
+      box-shadow: none;
+    }
+    .tabSlider_nav_glider{
+      opacity: 0;
+    }
+  }
+
+  &_sticked{
+    .tabSlider_nav_wrap{
+      background: var(--color-secondary);
+      box-shadow:
+        0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .tabSlider_nav_glider{
+      opacity: 1;
+    }
+    .tabSlider_nav_item_cta{
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  
+
   &_nav {
     position: relative;
     display: flex;
@@ -14,13 +42,6 @@
       display: inline-flex;
       font-size: rem(15);
     }
-    @include breakpoint(huge) {
-      // font-size: rem(16);
-    }
-    // @include breakpoint(large) {
-    //   width: 100%;
-    //   text-align: center;
-    // }
 
     &::-webkit-scrollbar {
       display: none;
@@ -40,13 +61,13 @@
       box-shadow:
         0 8px 16px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      transition: background .2s ease, box-shadow .2s ease;
 
       @include breakpoint(medium) {
         display: inline-flex;
         margin: auto;
         margin-bottom: rem(24);
         padding: rem(8);
-        // max-width: 581px;
         border-radius: 99px;
       }
 
@@ -62,36 +83,46 @@
       cursor: pointer;
       z-index: 2;
       flex: 0 0 auto;
-      // min-width: 38vw;
       text-align: center;
-
-      @include breakpoint(medium) {
-        // width: calc(100% / 3);
-        min-width: unset;
-        padding: rem(16) rem(24);
-      }
-      @include breakpoint(huge) {
-        padding: rem(16);
-      }
 
       @include breakpoint(small) {
         &_active {
           background-color: var(--color-gray3);
         }
       }
+
+      @include breakpoint(medium) {
+        min-width: unset;
+        padding: rem(16);
+      }
+
+      &_pdf{
+        svg{
+          position: absolute;
+          top: 6px;
+          width: 30px;
+          height: 34px;
+          right: -18px;
+        }
+      }
+
+      &_cta{
+        margin-left: 40px;
+        opacity: 0;
+        visibility: hidden;
+        background: var(--color-primary);
+        transition: visibility 0.2s ease-out, opacity 0.2s ease-out;
+      }
     }
 
     &_glider {
       @include breakpoint(medium) {
         position: absolute;
-        // top: 4px;
         display: flex;
-        // height: 35px;
         background-color: var(--color-gray3);
         z-index: 1;
         border-radius: 99px;
-        transition: 0.4s ease-out;
-
+        transition: width 0.3s ease-out, transform 0.3s ease-out, opacity 0.2s ease-out;
         height: 50px;
         top: 8px;
       }

@@ -48,10 +48,33 @@
   }
 
   &_image {
+    position: relative;
     img {
       height: 180px;
       width: auto;
       margin: auto;
+      transition: filter .3s ease;
+    }
+  }
+
+  &_button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+    transition: opacity .3s ease, visibility .3s ease;
+  }
+
+  &:hover{
+    .listing_item_image img{
+      filter: brightness(0.5);
+    }
+    .listing_item_button{
+      opacity: 1;
+      visibility: visible;
     }
   }
 }

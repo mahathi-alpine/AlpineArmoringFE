@@ -16,11 +16,6 @@ const TabSection = ({ props }) => {
 
   return (
     <section className={`${styles.tabSection} container`}>
-      {/* <h3 className={`${styles.tabSection_heading} observe fade-in-up`}>
-        Designed, engineered and manufactured like no OTHER armored vehicles in
-        the world
-      </h3> */}
-
       <TabSlider
         props={props}
         onTabChange={handleTabChange}

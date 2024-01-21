@@ -11,12 +11,15 @@ const Layout = ({ children }) => {
 
   const pathsDarkMode = ['/available-now'];
   const pathsDarkHeader = ['/vehicles-we-armor', '/contact'];
+
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)
   );
   const isDarkHeader = pathsDarkHeader.some((path) =>
     router.pathname.startsWith(path)
   );
+
+  const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.pathname);
 
   const [isNavOpen, setNavOpen] = useState(false);
 
@@ -32,6 +35,7 @@ const Layout = ({ children }) => {
         setNavOpen={setNavOpen}
         isNavOpen={isNavOpen}
         isDarkHeader={isDarkHeader}
+        isNotSticky={isNotSticky}
       />
       <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
       {children}

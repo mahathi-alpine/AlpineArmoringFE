@@ -1,7 +1,10 @@
 import styles from './TabSlider.module.scss';
+import Link from 'next/link';
+// import ChevronIcon from 'components/icons/Chevron';
+import PDFIcon from 'components/icons/PDF';
 import { useEffect, useRef } from 'react';
 
-const TabSlider = ({ props, onTabChange, className = '' }) => {
+const TabSlider = ({ props, onTabChange, sticky = false, className = '' }) => {
   const viewportWidth =
     typeof window !== 'undefined' ? window.innerWidth : Infinity;
 
@@ -9,7 +12,7 @@ const TabSlider = ({ props, onTabChange, className = '' }) => {
   const gliderRef = useRef(null);
 
   useEffect(() => {
-    if (navRef.current && navRef.current.firstChild) {
+    if (navRef.current && navRef.current.firstChild && !sticky) {
       navRef.current.firstChild.classList.add(styles.tabSlider_nav_item_active);
       const firstTab = navRef.current.firstChild;
       updateGliderStyle(firstTab);
@@ -21,8 +24,8 @@ const TabSlider = ({ props, onTabChange, className = '' }) => {
     gliderRef.current.style.width = `${tabWidth}px`;
   };
 
-  const changeTab = (id, event) => {
-    onTabChange(id);
+  const changeTab = ({ index, item }, event) => {
+    onTabChange(index, item.titleNav);
 
     Array.from(navRef.current.children).forEach((child) => {
       (child as HTMLElement).classList.remove(styles.tabSlider_nav_item_active);
@@ -39,24 +42,124 @@ const TabSlider = ({ props, onTabChange, className = '' }) => {
     }
   };
 
+  const navItemDict = props.reduce((acc, curr) => {
+    const targetId = curr.titleNav.toLowerCase().replace(/\s+/g, '-');
+    acc[targetId] = curr;
+    return acc;
+  }, {});
+
+  let lastActiveNavItem = null;
+  useEffect(() => {
+    if (sticky) {
+      const observerAnchorTargets = document.querySelectorAll('.anchor');
+      const observerAnchor = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const targetId = entry.target.id;
+              const correspondingNavItem = navItemDict[targetId];
+
+              if (correspondingNavItem) {
+                const navItemIndex = props.findIndex(
+                  (item) => item.id === correspondingNavItem.id
+                );
+                const navItemElement = navRef.current.children[navItemIndex];
+                navItemElement.classList.add(styles.tabSlider_nav_item_active);
+                lastActiveNavItem?.classList.remove(
+                  styles.tabSlider_nav_item_active
+                );
+                lastActiveNavItem = navItemElement;
+                updateGliderStyle(navItemElement);
+
+                const tabRect = navItemElement.getBoundingClientRect();
+                const containerRect = navRef.current.getBoundingClientRect();
+                const translateX = tabRect.left - containerRect.left;
+                gliderRef.current.style.transform = `translateX(${translateX}px)`;
+              }
+            }
+          });
+        },
+        {
+          rootMargin: '0px 0px -40% 0px',
+        }
+      );
+      observerAnchorTargets.forEach((item) => observerAnchor.observe(item));
+
+      // Clean up the observer when the component unmounts
+      return () => {
+        observerAnchorTargets.forEach((item) => observerAnchor.unobserve(item));
+        observerAnchor.disconnect();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (sticky) {
+      const observerNavTarget = document.querySelector('.slug_nav');
+      const observerNav = new IntersectionObserver(
+        ([entries]) => {
+          entries.target.classList.toggle(
+            styles.tabSlider_sticked,
+            entries.intersectionRatio < 1
+          );
+        },
+        {
+          threshold: 1,
+        }
+      );
+      observerNav.observe(observerNavTarget);
+
+      return () => {
+        observerNav.disconnect();
+      };
+    }
+  }, []);
+
   return (
     <div
       className={`
         center
         ${className} 
+        ${styles.tabSlider}
+        ${sticky ? styles.tabSlider_sticky : ''}  
       `}
     >
-      <div className={`${styles.tabSlider_nav_wrap}`}>
+      <div
+        className={`
+        ${styles.tabSlider_nav_wrap}      
+      `}
+      >
         <ul className={`${styles.tabSlider_nav}`} ref={navRef}>
           {props.map((item, index) => (
             <li
               className={`${styles.tabSlider_nav_item}`}
-              onClick={(event) => changeTab(index, event)}
+              onClick={(event) => changeTab({ index, item }, event)}
               key={item.id}
             >
               {item.titleNav}
             </li>
           ))}
+          {sticky ? (
+            <>
+              <li
+                className={`${styles.tabSlider_nav_item} ${styles.tabSlider_nav_item_pdf}`}
+              >
+                <Link
+                  href="https://www.alpineco.com/media/documents/2019-Audi-A8-brochure_1547826834_1611756422.pdf"
+                  target="_blank"
+                >
+                  OEM Specs
+                  <PDFIcon />
+                </Link>
+              </li>
+
+              <li
+                className={`${styles.tabSlider_nav_item} ${styles.tabSlider_nav_item_cta}`}
+              >
+                <Link href="/contact">Request a quote</Link>
+              </li>
+            </>
+          ) : null}
         </ul>
 
         <div className={`${styles.tabSlider_nav_glider}`} ref={gliderRef}></div>

@@ -25,6 +25,7 @@ export interface HeaderProps {
   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isDarkMode?: boolean;
   isDarkHeader?: boolean;
+  isNotSticky?: boolean;
 }
 
 export interface NavigationProps {

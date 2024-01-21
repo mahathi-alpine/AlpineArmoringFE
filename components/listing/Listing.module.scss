@@ -48,4 +48,14 @@
       font-size: rem(24);
     }
   }
+
+  &_all_sidebar{
+    @include breakpoint(large) {
+      position: relative;
+      margin-bottom: -100px;
+      top: rem(-210);
+      right: 25px;
+      z-index: 1;
+    }
+  }
 }

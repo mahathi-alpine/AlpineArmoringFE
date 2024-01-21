@@ -20,8 +20,10 @@
   //   height: unset;
   // }
 
-  &_dark:not(.up) {
-    background: transparent;
+  &_dark{
+    position: absolute;
+    transform: none !important;
+    background: transparent !important;
     backdrop-filter: none;
     --color-white: var(--color-dark);
 
@@ -52,6 +54,12 @@
     background: transparent;
     backdrop-filter: none;
   }
+  
+  // &_notSticky{
+  //   position: absolute;
+  //   transform: none !important;
+  //   background: transparent !important;
+  // }
 
   // &_sticky{
   //   background-color: var(--color-dark);

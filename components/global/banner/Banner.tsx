@@ -44,10 +44,14 @@ const TopBanner = ({ props, shape }: BannerProps) => {
         <div className={`${styles.banner_content}`}>
           <div className={`${styles.banner_text}`}>
             {bannerTitle ? (
-              <h1 className={`${styles.banner_title}`}>{bannerTitle}</h1>
+              <h1 className={`${styles.banner_title} observe fade-in-up`}>
+                {bannerTitle}
+              </h1>
             ) : null}
             {bannerDescription ? (
-              <Markdown>{bannerDescription}</Markdown>
+              <Markdown className="observe fade-in-up">
+                {bannerDescription}
+              </Markdown>
             ) : null}
           </div>
         </div>

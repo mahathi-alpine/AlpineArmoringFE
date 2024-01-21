@@ -257,6 +257,10 @@
           transform: rotate(90deg);
         }
 
+        span{
+          position: relative;
+        }
+
         &:before {
           position: absolute;
           content: '';
@@ -269,11 +273,13 @@
             rgba(20, 19, 15, 1) 0%,
             rgba(20, 19, 15, 0) 100%
           );
-          z-index: 1;
-          filter: url(#esteisalegend);
-          mix-blend-mode: soft-light;
-          opacity: 0.85;
-          isolation: isolate;
+          // z-index: 1;
+          background: #101010 url('/assets/noise3.png');
+          background-size: 100px;
+          // filter: url(#esteisalegend);
+          // mix-blend-mode: soft-light;
+          // opacity: 0.85;
+          // isolation: isolate;
         }
       }
     }

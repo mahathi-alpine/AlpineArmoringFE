@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItemAll.module.scss';
+import Button from 'components/global/button/Button';
 
 interface InventoryItemProps {
   props: any;
@@ -25,7 +26,12 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
             />
           ) : null}
 
-          {/* <div className={`${styles.listing_item_button} desktop-only`}><span>VIEW VEHICLE</span></div> */}
+          <Button
+            className={`${styles.listing_item_button} desktop-only primary small`}
+            button
+          >
+            View Vehicle
+          </Button>
         </div>
 
         <div className={`${styles.listing_item_content}`}>

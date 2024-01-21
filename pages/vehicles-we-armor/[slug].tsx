@@ -3,16 +3,25 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
-// import Specs from 'components/vehicle/specs/Specs';
+import TabSlider from 'components/global/tab-slider/TabSlider';
+import Markdown from 'markdown-to-jsx';
+import Image from 'next/image';
+import Specs from 'components/vehicle/specs/Specs';
 
 function InventoryVehicle(props) {
-  const data = props.data.data[0]?.attributes;
+  const data = props.data?.data[0]?.attributes;
+
+  // console.log(data);
+  // return null;
 
   const inventory = data?.stock.data;
   const beforeAfterSlider_Before =
     data?.beforeAfterSlider?.before.data?.attributes.url;
   const beforeAfterSlider_After =
     data?.beforeAfterSlider?.after.data?.attributes.url;
+
+  const dimensions1 = data?.dimensions1?.data?.attributes.url;
+  const dimensions2 = data?.dimensions2?.data?.attributes.url;
 
   const banner = {
     title: data?.title,
@@ -22,15 +31,41 @@ function InventoryVehicle(props) {
     inventory: inventory,
   };
 
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
+  const navItems = [
+    {
+      id: 1,
+      titleNav: 'Overview',
+    },
+    {
+      id: 2,
+      titleNav: 'Dimensions',
+    },
+    // {
+    //   id: 3,
+    //   titleNav: 'Specifications'
+    // },
+    // {
+    //   id: 4,
+    //   titleNav: 'Gallery'
+    // }
+  ];
 
-    const observer = new IntersectionObserver(
+  const handleTabChange = (index, titleNav) => {
+    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+
+    const targetElement = document.getElementById(targetId);
+    targetElement.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    // Observer for fade animations
+    const observerAnimationTargets = document.querySelectorAll('.observe');
+    const observerAnimation = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
+            observerAnimation.unobserve(entry.target);
           }
         });
       },
@@ -40,53 +75,70 @@ function InventoryVehicle(props) {
         threshold: 0.2,
       }
     );
-
-    targets.forEach((item) => observer.observe(item));
+    observerAnimationTargets.forEach((item) => observerAnimation.observe(item));
 
     // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      observerAnimationTargets.forEach((item) =>
+        observerAnimation.unobserve(item)
+      );
+      observerAnimation.disconnect();
     };
   }, []);
-
-  // console.log(data);
-  // return null;
 
   return (
     <div className={`${styles.slug}`}>
       <Banner props={banner} />
 
-      <div className={`${styles.slug_nav} container`}>
-        <ul>
-          <li>
-            <a href="">Overview</a>
-          </li>
-          <li>
-            <a href="">Dimensions</a>
-          </li>
-          <li>
-            <a href="">Specifications</a>
-          </li>
-          <li>
-            <a href="">Gallery</a>
-          </li>
-          <li>
-            <a href="">OEM Specs</a>
-          </li>
-        </ul>
+      <TabSlider
+        props={navItems}
+        onTabChange={handleTabChange}
+        className={`${styles.slug_nav} slug_nav container`}
+        sticky
+      />
+
+      <div
+        id="overview"
+        className={`${styles.slug_description} anchor container_small`}
+      >
+        <h2>Overview</h2>
+        {data.description ? <Markdown>{data.description}</Markdown> : null}
       </div>
 
-      {/* <Specs specs={data.specificationsAll.data} equipment{data.specificationsAll.data}/>       */}
+      {dimensions1 && dimensions2 ? (
+        <div
+          className={`${styles.slug_dimensions} container anchor`}
+          id="dimensions"
+        >
+          <Image
+            src={`${dimensions1}`}
+            alt="Alpine Armoring"
+            width={549}
+            height={431}
+          />
+          <Image
+            src={`${dimensions2}`}
+            alt="Alpine Armoring"
+            width={1101}
+            height={431}
+          />
+        </div>
+      ) : null}
 
-      <div className={`container`}>
-        {beforeAfterSlider_Before && beforeAfterSlider_After ? (
+      {beforeAfterSlider_Before && beforeAfterSlider_After ? (
+        <div className={`container anchor`} id="dimensions">
           <ComparisonSlider
             beforeImage={beforeAfterSlider_Before}
             afterImage={beforeAfterSlider_After}
           />
-        ) : null}
-      </div>
+        </div>
+      ) : null}
+
+      <Specs
+        id="specifications"
+        className={`anchor`}
+        specs={data.specificationsAll.data}
+      />
     </div>
   );
 }

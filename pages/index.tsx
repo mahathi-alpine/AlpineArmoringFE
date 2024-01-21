@@ -67,7 +67,7 @@ function Home({ homepageData, categories, languageCookie }) {
       ) : null}
 
       <div className="background-dark">
-        <svg className="noiseBg" width="100%" height="100%">
+        {/* <svg className="noiseBg" width="100%" height="100%">
           <filter id="esteisalegend">
             <feTurbulence
               type="fractalNoise"
@@ -77,7 +77,7 @@ function Home({ homepageData, categories, languageCookie }) {
             ></feTurbulence>
           </filter>
           <rect width="100%" height="100%" filter="url(#esteisalegend)"></rect>
-        </svg>
+        </svg> */}
 
         <IntroText />
 

@@ -144,27 +144,30 @@ img {
 
 .background-dark {
   // background: var(--color-dark) url('/assets/noise.png');
-  // background-size: 100px;
-  background: #0d0d0d;
+  // background: #0d0d0d;
   color: var(--color-white);
+  background: #101010 url(/assets/noise3.png);
+  background-size: 100px;
+  // background-size: 640px;
+  // background: var(--color-dark) url(/assets/noise.png);
 }
 
-.noiseBg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  mix-blend-mode: soft-light;
-  opacity: 0.85;
-  isolation: isolate;
-  z-index: 1;
-}
+// .noiseBg {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   mix-blend-mode: soft-light;
+//   opacity: 0.85;
+//   isolation: isolate;
+//   z-index: 1;
+// }
 
 .shape-before,
 .shape-after {
-  // --background: var(--color-dark) url('/assets/noise.png');
-  --background: #0d0d0d;
+  --background: #101010 url('/assets/noise3.png');
+  // --background: #0d0d0d;
   position: relative;
   overflow-x: clip;
   height: 50px;
@@ -193,19 +196,19 @@ img {
   --background: #f3f3f3;
 }
 
-.shape-before-dark {
-  border-radius: 50%/100% 100% 0 0;
-  left: -100px;
-  right: -100px;
-  background: var(--background);
-  width: calc(100% + 200px);
-  &:after {
-    filter: url(#esteisalegend);
-    mix-blend-mode: soft-light;
-    opacity: 0.85;
-    isolation: isolate;
-  }
-}
+// .shape-before-dark {
+//   border-radius: 50%/100% 100% 0 0;
+//   left: -100px;
+//   right: -100px;
+//   background: var(--background);
+//   width: calc(100% + 200px);
+//   &:after {
+//     filter: url(#esteisalegend);
+//     mix-blend-mode: soft-light;
+//     opacity: 0.85;
+//     isolation: isolate;
+//   }
+// }
 
 .shape-before {
   margin-top: -50px;
@@ -292,14 +295,10 @@ div.yarl__slide_description {
   div.yarl__slide_captions_container {
     background: transparent;
   }
-  .yarl__thumbnails_wrapper {
+  .yarl__thumbnails_wrapper,
+  .yarl__portal {
     background-color: rgba(31, 31, 31, 0.92);
   }
-
-  // .yarl__slide_wrapper{
-  //   position: relative;
-  //   top: 37px;
-  // }
 }
 
 button.yarl__button {
@@ -323,9 +322,7 @@ button.yarl__navigation_next {
 }
 svg.yarl__icon {
   width: 28px;
-  // left: 2px;
   position: relative;
-  // top: 1px;
 }
 button.yarl__navigation_prev {
   left: 10px;
