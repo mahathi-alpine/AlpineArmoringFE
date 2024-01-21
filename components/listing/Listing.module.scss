@@ -49,7 +49,7 @@
     }
   }
 
-  &_all_sidebar{
+  &_all_sidebar {
     @include breakpoint(large) {
       position: relative;
       margin-bottom: -100px;

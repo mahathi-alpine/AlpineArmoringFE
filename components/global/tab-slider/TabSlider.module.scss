@@ -1,31 +1,29 @@
 .tabSlider {
-
-  &_sticky{
-    .tabSlider_nav_wrap{
+  &_sticky {
+    .tabSlider_nav_wrap {
       background: transparent;
       box-shadow: none;
     }
-    .tabSlider_nav_glider{
+    .tabSlider_nav_glider {
       opacity: 0;
     }
   }
 
-  &_sticked{
-    .tabSlider_nav_wrap{
+  &_sticked {
+    .tabSlider_nav_wrap {
       background: var(--color-secondary);
       box-shadow:
         0 8px 16px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
-    .tabSlider_nav_glider{
+    .tabSlider_nav_glider {
       opacity: 1;
     }
-    .tabSlider_nav_item_cta{
+    .tabSlider_nav_item_cta {
       opacity: 1;
       visibility: visible;
     }
   }
-  
 
   &_nav {
     position: relative;
@@ -61,7 +59,9 @@
       box-shadow:
         0 8px 16px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      transition: background .2s ease, box-shadow .2s ease;
+      transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 
       @include breakpoint(medium) {
         display: inline-flex;
@@ -96,8 +96,8 @@
         padding: rem(16);
       }
 
-      &_pdf{
-        svg{
+      &_pdf {
+        svg {
           position: absolute;
           top: 6px;
           width: 30px;
@@ -106,12 +106,14 @@
         }
       }
 
-      &_cta{
+      &_cta {
         margin-left: 40px;
         opacity: 0;
         visibility: hidden;
         background: var(--color-primary);
-        transition: visibility 0.2s ease-out, opacity 0.2s ease-out;
+        transition:
+          visibility 0.2s ease-out,
+          opacity 0.2s ease-out;
       }
     }
 
@@ -122,7 +124,10 @@
         background-color: var(--color-gray3);
         z-index: 1;
         border-radius: 99px;
-        transition: width 0.3s ease-out, transform 0.3s ease-out, opacity 0.2s ease-out;
+        transition:
+          width 0.3s ease-out,
+          transform 0.3s ease-out,
+          opacity 0.2s ease-out;
         height: 50px;
         top: 8px;
       }

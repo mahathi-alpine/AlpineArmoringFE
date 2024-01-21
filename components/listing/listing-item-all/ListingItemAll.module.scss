@@ -53,11 +53,11 @@
       height: 180px;
       width: auto;
       margin: auto;
-      transition: filter .3s ease;
+      transition: filter 0.3s ease;
     }
   }
 
-  &_button{
+  &_button {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -65,14 +65,16 @@
     opacity: 0;
     visibility: hidden;
     cursor: pointer;
-    transition: opacity .3s ease, visibility .3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
   }
 
-  &:hover{
-    .listing_item_image img{
+  &:hover {
+    .listing_item_image img {
       filter: brightness(0.5);
     }
-    .listing_item_button{
+    .listing_item_button {
       opacity: 1;
       visibility: visible;
     }
