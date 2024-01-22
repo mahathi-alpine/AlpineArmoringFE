@@ -18,6 +18,34 @@ function Inventory(props) {
     };
   }, []);
 
+  useEffect(() => {
+    const targets = document.querySelectorAll('.observe');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
+
+    // Clean up the observer when the component unmounts
+    return () => {
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className={`${styles.listing} background-dark`}>
       {topBanner ? <Banner props={topBanner} shape="dark" /> : null}

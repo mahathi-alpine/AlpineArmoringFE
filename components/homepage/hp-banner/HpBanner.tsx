@@ -99,7 +99,7 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
           >
             <p>
               <strong>Designed, Engineered and Manufactured</strong> like no
-              other armored SUVs, Sedans and Trucks in the world
+              other armoured SUVs, Sedans and Trucks in the world
             </p>
           </div>
         </div>

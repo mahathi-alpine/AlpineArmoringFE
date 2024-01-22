@@ -3,12 +3,12 @@ import Image from 'next/image';
 
 const Specs = (props) => {
   console.log(props);
-  return null;
+  // return null;
 
   return (
     <div className={`${styles.specs} container`}>
       <ul className={`${styles.specs_list}`}>
-        {props.props.map((item, index) => (
+        {props.specifications.map((item, index) => (
           <li key={index} className={`${styles.specs_item}`}>
             <a className={`${styles.specs_item_link}`}>
               {item.attributes.displayTitle}
@@ -20,17 +20,17 @@ const Specs = (props) => {
               height={450}
               className={`${styles.specs_item_image}`}
             />
-            <div className={`${styles.specs_item_overlay}`}>
+            {/* <div className={`${styles.specs_item_overlay}`}>
               <div className={`${styles.specs_item_overlay_inner}`}>
                 <span>{item.attributes.displayTitle}</span>
               </div>
-            </div>
+            </div> */}
           </li>
         ))}
       </ul>
 
       <ul className={`${styles.specs_list}`}>
-        {props.props.map((item, index) => (
+        {props.accessories.map((item, index) => (
           <li key={index} className={`${styles.specs_item}`}>
             <a className={`${styles.specs_item_link}`}>
               {item.attributes.displayTitle}
@@ -42,11 +42,11 @@ const Specs = (props) => {
               height={450}
               className={`${styles.specs_item_image}`}
             />
-            <div className={`${styles.specs_item_overlay}`}>
+            {/* <div className={`${styles.specs_item_overlay}`}>
               <div className={`${styles.specs_item_overlay_inner}`}>
                 <span>{item.attributes.displayTitle}</span>
               </div>
-            </div>
+            </div> */}
           </li>
         ))}
       </ul>

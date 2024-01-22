@@ -5,8 +5,8 @@ const XIcon = ({ color, className }: IconProps) => {
   return (
     <svg
       className={className}
-      width="31"
-      height="32"
+      width="28"
+      height="30"
       viewBox="0 0 31 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

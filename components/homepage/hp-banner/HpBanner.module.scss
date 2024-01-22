@@ -145,13 +145,15 @@
       @include breakpoint(large) {
         text-align: right;
         padding-bottom: rem(8);
+        font-size: rem(15);
       }
       strong {
         font-weight: var(--font-regular);
-        font-size: clamp(0.875rem, 0.7688rem + 0.4531vw, 1.3125rem);
+        font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
         letter-spacing: 0.45px;
         @include breakpoint(large) {
           display: block;
+          font-size: rem(21.5);
         }
       }
     }

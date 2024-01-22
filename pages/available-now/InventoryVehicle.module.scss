@@ -214,15 +214,6 @@
     }
   }
 
-  &_images {
-    padding: rem(100) 0;
-
-    &_slider {
-      margin-top: -99px;
-      margin-bottom: 1px;
-    }
-  }
-
   &_tabs_content {
     position: relative;
 
@@ -360,6 +351,14 @@
         //   font-weight: var(--font-large);
         // }
       }
+    }
+  }
+
+  &_description{
+    padding-top: rem(100);
+    text-align: center;
+    @include breakpoint(large) {
+      font-size: rem(20);
     }
   }
 }

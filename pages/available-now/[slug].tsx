@@ -5,6 +5,7 @@ import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
 import ChevronIcon from 'components/icons/Chevron';
+import Markdown from 'markdown-to-jsx';
 
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -36,17 +37,9 @@ function InventoryVehicle(props) {
   };
 
   useEffect(() => {
-    document.body.classList.add(
-      'listing-inventory',
-      // 'header-transparent',
-      'background-dark'
-    );
+    document.body.classList.add('listing-inventory', 'background-dark');
     return () => {
-      document.body.classList.remove(
-        'listing-inventory',
-        // 'header-transparent',
-        'background-dark'
-      );
+      document.body.classList.remove('listing-inventory', 'background-dark');
     };
   }, []);
 
@@ -90,17 +83,9 @@ function InventoryVehicle(props) {
   }
   const data = props.data.data[0].attributes;
   const topGallery = data.gallery?.data;
-
-  // console.log(data);
+  const mainText = data.description;
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
-
-  // const sliderBottomOptions = {
-  //   dragFree: true,
-  //   loop: true,
-  //   thumbs: false,
-  //   variableWidth: true,
-  // };
 
   const vehicleDetailsMain = {
     VIN: 'VIN',
@@ -373,21 +358,19 @@ function InventoryVehicle(props) {
           </div>
         </div>
 
+        {mainText ? (
+          <div
+            className={`${styles.inventory_description} container_small observe fade-in-up`}
+          >
+            <Markdown>{mainText}</Markdown>
+          </div>
+        ) : null}
+
         <VideoScale
           video="/AlpineArmoringHP.mp4"
           text1="Armored Cadillac"
           text2="ESV V-Series"
         />
-
-        {/* <div className={`${styles.inventory_images}`}>
-          <div className="shape-after"></div>
-          {topGallery ? (
-            <div className={`${styles.inventory_images_slider}`}>
-              <Carousel slides={topGallery} options={sliderBottomOptions} />
-            </div>
-          ) : null}
-          <div className="shape-before"></div>
-        </div> */}
       </div>
     </div>
   );

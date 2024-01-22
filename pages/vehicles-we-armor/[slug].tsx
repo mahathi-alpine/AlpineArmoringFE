@@ -7,6 +7,7 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
 import Specs from 'components/vehicle/specs/Specs';
+import Carousel from 'components/global/carousel/Carousel';
 
 function InventoryVehicle(props) {
   const data = props.data?.data[0]?.attributes;
@@ -22,6 +23,14 @@ function InventoryVehicle(props) {
 
   const dimensions1 = data?.dimensions1?.data?.attributes.url;
   const dimensions2 = data?.dimensions2?.data?.attributes.url;
+
+  const gallery = data?.gallery?.data;
+  const galleryOptions = {
+    dragFree: true,
+    loop: true,
+    thumbs: false,
+    variableWidth: true,
+  };
 
   const banner = {
     title: data?.title,
@@ -44,10 +53,10 @@ function InventoryVehicle(props) {
     //   id: 3,
     //   titleNav: 'Specifications'
     // },
-    // {
-    //   id: 4,
-    //   titleNav: 'Gallery'
-    // }
+    {
+      id: 4,
+      titleNav: 'Gallery',
+    },
   ];
 
   const handleTabChange = (index, titleNav) => {
@@ -126,7 +135,7 @@ function InventoryVehicle(props) {
       ) : null}
 
       {beforeAfterSlider_Before && beforeAfterSlider_After ? (
-        <div className={`container anchor`} id="dimensions">
+        <div className={`container anchor`}>
           <ComparisonSlider
             beforeImage={beforeAfterSlider_Before}
             afterImage={beforeAfterSlider_After}
@@ -137,8 +146,19 @@ function InventoryVehicle(props) {
       <Specs
         id="specifications"
         className={`anchor`}
-        specs={data.specificationsAll.data}
+        specifications={data.specificationsAll.data}
+        accessories={data.accessories.data}
       />
+
+      <div className={`${styles.slug_gallery} anchor`} id="gallery">
+        <div className={`${styles.slug_gallery_shapeAfter} shape-after`}></div>
+        {gallery ? (
+          <div className={`${styles.slug_gallery_slider}`}>
+            <Carousel slides={gallery} options={galleryOptions} />
+          </div>
+        ) : null}
+        <div className="shape-before shape-before-white"></div>
+      </div>
     </div>
   );
 }

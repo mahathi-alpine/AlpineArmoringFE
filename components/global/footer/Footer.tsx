@@ -5,6 +5,7 @@ import TiktokIcon from 'components/icons/Tiktok';
 import XIcon from 'components/icons/X';
 import InstagramIcon from 'components/icons/Instagram';
 import YoutubeIcon from 'components/icons/Youtube';
+import LinkedinIcon from 'components/icons/Linkedin';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
 import MailIcon from 'components/icons/Mail';
@@ -15,10 +16,11 @@ const Footer = (isDarkMode) => {
     { path: '/about', text: 'Home' },
     { path: '/available-now', text: 'Make & Models' },
     { path: '/vehicles-we-armor', text: 'Rental & Lease' },
-    { path: '/vehicles-we-armor', text: 'Ballistic chart' },
+    { path: '/vehicles-we-armor', text: 'Ballistic Chart' },
     { path: '/vehicles-we-armor', text: 'Become a Dealer' },
-    { path: '/vehicles-we-armor', text: 'Pre-Owned - Stock Vehicles' },
-    { path: '/vehicles-we-armor', text: 'Testimonials' },
+    { path: '/vehicles-we-armor', text: 'Pre-Owned/Stock Vehicles' },
+    { path: '/vehicles-we-armor', text: 'News' },
+    { path: '/faqs', text: 'FAQs' },
     { path: '/vehicles-we-armor', text: 'Special of the Month' },
     { path: '/vehicles-we-armor', text: 'Contact' },
   ];
@@ -51,6 +53,15 @@ const Footer = (isDarkMode) => {
                 >
                   <PhoneIcon color="#2d2d27" />
                   1.703.471.0002
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="tel:+18009927667"
+                  className={`${styles.footer_column_list_item}`}
+                >
+                  <PhoneIcon color="#2d2d27" />
+                  1.800.99.ARMOR
                 </Link>
               </li>
               <li>
@@ -121,6 +132,14 @@ const Footer = (isDarkMode) => {
                   <YoutubeIcon />
                 </Link>
               </li>
+              <li className={`${styles.footer_socials_item}`}>
+                <Link
+                  href="https://www.linkedin.com/company/alpinearmoring/"
+                  target="_blank"
+                >
+                  <LinkedinIcon />
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -156,7 +175,7 @@ const Footer = (isDarkMode) => {
         </ul>
 
         <p className={`${styles.footer_bottom_copy}`}>
-          ©1997-2023. Alpine Armoring Inc. All Rights Reserved
+          ©1993-2024. Alpine Armoring Inc. All Rights Reserved
         </p>
       </div>
     </footer>

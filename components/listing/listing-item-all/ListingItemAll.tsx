@@ -11,7 +11,7 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
   const data = props.attributes;
 
   return (
-    <div className={`${styles.listing_item}`}>
+    <div className={`${styles.listing_item} observe fade-in`}>
       <Link
         href={`/vehicles-we-armor/${data.slug}`}
         className={`${styles.listing_item_inner}`}

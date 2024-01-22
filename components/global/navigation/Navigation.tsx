@@ -9,8 +9,8 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
 
   const links = [
     { path: '/about', text: 'About Us' },
-    { path: '/available-now', text: 'Available Now' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
+    { path: '/available-now', text: 'Available Now' },
   ];
 
   return (

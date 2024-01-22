@@ -9,6 +9,8 @@ import TiktokIcon from 'components/icons/Tiktok';
 import XIcon from 'components/icons/X';
 import InstagramIcon from 'components/icons/Instagram';
 import YoutubeIcon from 'components/icons/Youtube';
+import LinkedinIcon from 'components/icons/Linkedin';
+// import ThreadsIcon from 'components/icons/Threads';
 import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
@@ -20,8 +22,8 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
 
   const links = [
     { path: '/about', text: 'About Us' },
-    { path: '/available-now', text: 'Available Now' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
+    { path: '/available-now', text: 'Available Now' },
   ];
 
   const linksRight = [
@@ -162,6 +164,22 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
                 <YoutubeIcon color="white" />
               </Link>
             </li>
+            <li className={`${styles.navigationPopup_socials_item}`}>
+              <Link
+                href="https://www.linkedin.com/company/alpinearmoring/"
+                target="_blank"
+              >
+                <LinkedinIcon color="white" />
+              </Link>
+            </li>
+            {/* <li className={`${styles.navigationPopup_socials_item}`}>
+              <Link
+                href="https://www.threads.net/@alpinearmoring"
+                target="_blank"
+              >
+                <ThreadsIcon color="white" />
+              </Link>
+            </li> */}
           </ul>
         </div>
 

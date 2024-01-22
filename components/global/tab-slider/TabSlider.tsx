@@ -80,7 +80,7 @@ const TabSlider = ({ props, onTabChange, sticky = false, className = '' }) => {
           });
         },
         {
-          rootMargin: '0px 0px -40% 0px',
+          rootMargin: '0px 0px -70% 0px',
         }
       );
       observerAnchorTargets.forEach((item) => observerAnchor.observe(item));

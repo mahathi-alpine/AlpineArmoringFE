@@ -197,7 +197,7 @@
   }
 
   &_image {
-    background: linear-gradient(0deg, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
+    background: linear-gradient(180deg, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
     padding: rem(24) rem(16) rem(70) rem(16);
 
     @include breakpoint(large) {
