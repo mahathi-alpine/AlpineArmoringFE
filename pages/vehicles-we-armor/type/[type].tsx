@@ -13,13 +13,32 @@ function Inventory(props) {
     (item) => item.attributes.slug === props.query
   );
   topBanner = topBanner?.attributes.allBanner;
-  // console.log(topBanner);
-  // return null;
 
   useEffect(() => {
-    document.body.classList.add('listing-all');
+    const targets = document.querySelectorAll('.observe');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
+
+    // Clean up the observer when the component unmounts
     return () => {
-      document.body.classList.remove('listing-all');
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
   }, []);
 
@@ -27,7 +46,9 @@ function Inventory(props) {
     <div className={`${styles.listing}`}>
       {topBanner ? <Banner props={topBanner} shape="white" /> : null}
 
-      <div className={`container`}>
+      <div
+        className={`${styles.listing_all_sidebar} container observe fade-in delay-3`}
+      >
         {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
       </div>
 

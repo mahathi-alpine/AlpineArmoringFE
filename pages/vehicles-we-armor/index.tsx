@@ -12,13 +12,6 @@ function Inventory(props) {
   const topBanner = props.pageData?.banner;
 
   useEffect(() => {
-    document.body.classList.add('listing-all');
-    return () => {
-      document.body.classList.remove('listing-all');
-    };
-  }, []);
-
-  useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
     const observer = new IntersectionObserver(

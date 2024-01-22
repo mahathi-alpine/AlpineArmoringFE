@@ -144,6 +144,7 @@
       color: var(--color-white);
       @include breakpoint(large) {
         text-align: right;
+        padding-bottom: rem(8);
       }
       strong {
         font-weight: var(--font-regular);
