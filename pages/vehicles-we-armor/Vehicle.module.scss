@@ -45,7 +45,7 @@
     }
   }
 
-  &_gallery{
+  &_gallery {
     padding: rem(100) 0;
 
     &_slider {
@@ -53,13 +53,12 @@
       margin-bottom: -160px;
     }
 
-    &_shapeAfter{
+    &_shapeAfter {
       position: relative;
       z-index: 1;
-      &:after{
+      &:after {
         background: var(--color-background);
       }
     }
   }
-
 }
