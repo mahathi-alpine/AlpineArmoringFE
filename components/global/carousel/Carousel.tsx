@@ -12,12 +12,13 @@ import {
 } from './CarouselArrowButtons';
 
 import { Lightbox } from 'yet-another-react-lightbox';
+import NextJsImage from '../lightbox/NextJsImage';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 // import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 const EmblaCarousel = (props) => {
-  // console.log(props)
+  // console.log(slides)
   // return null;
 
   const { slides, options } = props;
@@ -74,7 +75,7 @@ const EmblaCarousel = (props) => {
       const firstDivHeight = galleryRef.current.offsetHeight;
       thumbsRef.current.style.height = `${firstDivHeight}px`;
     }
-  }, []);
+  });
 
   return (
     <div
@@ -123,9 +124,12 @@ const EmblaCarousel = (props) => {
         close={() => setOpen(false)}
         slides={slides.map((item) => ({
           src: item.attributes?.url,
+          width: item.attributes?.width,
+          height: item.attributes?.height,
         }))}
         index={selectedIndex}
         plugins={[Thumbnails]}
+        render={{ slide: NextJsImage }}
         thumbnails={{
           padding: 0,
           gap: 4,

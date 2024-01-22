@@ -37,7 +37,7 @@ const TabSection = ({ props }) => {
                 <Image
                   src={`${item.image.data.attributes.url}`}
                   alt="Description of the image"
-                  width={700}
+                  width={620}
                   height={430}
                 />
               </div>

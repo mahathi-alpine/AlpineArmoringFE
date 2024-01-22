@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import styles from './VideosPopup.module.scss';
 // import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import PlayIcon from 'components/icons/Play';
 
-import { Lightbox } from 'yet-another-react-lightbox';
+import NextJsImage from '../lightbox/NextJsImage';
+import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
+import useLightbox from '../lightbox/useLightbox';
+// import { Lightbox } from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import Video from 'yet-another-react-lightbox/plugins/video';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
@@ -13,11 +16,14 @@ import Captions from 'yet-another-react-lightbox/plugins/captions';
 import 'yet-another-react-lightbox/plugins/captions.css';
 
 const VideosPopup = (props) => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const { openLightbox, renderLightbox } = useLightbox();
 
   const slidesData = props.props.map((item) => {
     const type = item.image.data?.attributes.mime.split('/')[0];
     const src = item.image.data?.attributes.url;
+    const width = item.image.data?.attributes.width;
+    const height = item.image.data?.attributes.height;
     const alt = item.image.data?.attributes.alternativeText;
     const title = item.title;
     const description = item.description;
@@ -47,6 +53,8 @@ const VideosPopup = (props) => {
         title: title,
         description: description,
         alt: alt,
+        width: width,
+        height: height,
       };
     }
   });
@@ -91,9 +99,7 @@ const VideosPopup = (props) => {
             button={true}
             className="attention"
             attention
-            onClick={() => {
-              setOpen(true);
-            }}
+            onClick={openLightbox}
           >
             View some cool videos
           </Button>
@@ -101,7 +107,19 @@ const VideosPopup = (props) => {
         </div>
       </div>
 
-      <Lightbox
+      {renderLightbox({
+        slides: slidesData,
+        plugins: [Video, Thumbnails, Captions],
+        thumbnails: {
+          padding: 0,
+          gap: 4,
+          imageFit: 'cover',
+          borderColor: '#737373',
+          borderRadius: 8,
+        },
+        render: { slide: NextJsImage, thumbnail: NextJsImageThumbs },
+      })}
+      {/* <Lightbox
         open={open}
         close={() => setOpen(false)}
         slides={slidesData}
@@ -113,7 +131,7 @@ const VideosPopup = (props) => {
           borderColor: '#737373',
           borderRadius: 8,
         }}
-      />
+      /> */}
 
       {/* <div
         className={`

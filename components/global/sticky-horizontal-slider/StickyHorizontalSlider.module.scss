@@ -69,10 +69,10 @@
 
   &_item {
     margin-left: rem(16);
-    min-width: 280px;
+    width: 280px;
 
     @include breakpoint(medium) {
-      min-width: 36vw;
+      width: 36vw;
       max-width: 690px;
       transition: transform 0.3s ease-in-out;
 
@@ -100,10 +100,6 @@
     }
 
     &_image {
-      // width: 100%;
-      // height: rem(180);
-      // border-radius: 48px;
-      // max-height: 50vh;
       object-fit: cover;
 
       @include breakpoint(medium) {
@@ -111,7 +107,6 @@
         transition: transform 0.3s ease-in-out;
 
         &_wrap {
-          // clip-path: url(#clip);
           transition: box-shadow 0.3s ease-in-out;
         }
       }

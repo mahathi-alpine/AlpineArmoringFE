@@ -19,8 +19,8 @@ const Categories = ({ props, allVehiclesImage }) => {
                 <Image
                   src={`${data.image.data.attributes.url}`}
                   alt="Description of the image"
-                  width={912}
-                  height={355}
+                  width={740}
+                  height={290}
                   quality={100}
                   className={`${styles.categories_item_image}`}
                 />

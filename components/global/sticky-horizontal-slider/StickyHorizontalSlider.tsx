@@ -41,7 +41,7 @@ const StickyHorizontalSlider = ({ props }) => {
                     src={`${item.image.data.attributes.url}`}
                     alt="Description of the image"
                     width={690}
-                    height={420}
+                    height={400}
                     className={`${styles.stickyHorizontalSlider_item_image}`}
                   />
                 </div>
