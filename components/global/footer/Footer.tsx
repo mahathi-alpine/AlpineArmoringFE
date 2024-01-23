@@ -44,7 +44,7 @@ const Footer = (isDarkMode) => {
       <div className={`${styles.footer_middle}`}>
         <div className={`${styles.footer_middle_info}`}>
           <div className={`${styles.footer_column}`}>
-            <h3 className={`${styles.footer_column_title}`}>Contact</h3>
+            <h3 className={`${styles.footer_column_title}`}>Contact Us</h3>
             <ul className={`${styles.footer_column_list}`}>
               <li>
                 <Link

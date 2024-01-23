@@ -131,8 +131,8 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_top_gallery_description}`}>
               <InfoIcon />
               <p>
-                This Armored Vehicle is{' '}
-                <strong>in Stock and Available Immediately</strong>
+                This armored vehicle is in stock and available to ship
+                immediately
               </p>
             </div>
 
@@ -197,8 +197,8 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_details_description}`}>
               <InfoIcon />
               <p>
-                This Armored Vehicle is{' '}
-                <strong>in Stock and Available Immediately</strong>
+                This armored vehicle is in stock and available to ship
+                immediately
               </p>
             </div>
 

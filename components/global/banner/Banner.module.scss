@@ -36,12 +36,14 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0) 100%
-      );
-      // opacity: 0.3;
+      // background: linear-gradient(
+      //   90deg,
+      //   rgba(0, 0, 0, 1) 0%,
+      //   rgba(0, 0, 0, 0) 100%
+      // );
+      background: linear-gradient(90deg, rgba(0,0,0,0.7679446778711485) 0%, rgba(0,0,0,0) 100%);
+      // background: black;
+      // opacity: .7;
       z-index: 1;
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
@@ -89,20 +91,28 @@
   &_text {
     font-size: rem(14);
     @include breakpoint(large) {
-      font-size: rem(24);
-      max-width: 800px;
+      font-size: rem(20);
+      max-width: 1000px;
       width: calc(100% - 600px);
     }
 
-    strong {
+    h1 {
       // display: block;
-      // margin-top: rem(8);
+      margin-top: rem(8);
       font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
+
+      font-size: rem(32);
     }
 
     del {
       display: block;
       font-size: 0;
+    }
+  }
+
+  &_shape{
+    &:after{
+      box-shadow: 0 -6px 10px 5px rgba(0,0,0,.5);
     }
   }
 }

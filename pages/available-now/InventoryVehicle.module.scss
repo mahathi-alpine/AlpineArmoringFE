@@ -46,7 +46,13 @@
           gap: 8px;
           align-items: center;
           margin-bottom: rem(16);
-          font-size: rem(14);
+          font-size: rem(16);
+          color: var(--color-primary);
+          font-weight: var(--font-medium);
+
+          svg path{
+            fill: var(--color-primary);
+          }
         }
       }
     }
@@ -198,14 +204,15 @@
       gap: 8px;
       align-items: center;
       margin-bottom: rem(40);
-      color: var(--color-grayLight);
-      font-size: rem(13);
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+      font-size: rem(15);
       p {
         flex: 1;
       }
       @include breakpoint(small) {
-        svg {
-          width: 20px;
+        svg path{
+          fill: var(--color-primary);
         }
       }
       @include breakpoint(medium) {

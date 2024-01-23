@@ -95,6 +95,9 @@ img {
   height: auto;
   display: block;
 }
+small{  
+  font-size: 70%;
+}
 
 .desktop-only {
   @include breakpoint(small) {

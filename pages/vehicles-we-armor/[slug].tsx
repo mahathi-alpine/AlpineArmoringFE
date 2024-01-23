@@ -113,23 +113,34 @@ function InventoryVehicle(props) {
           className={`${styles.slug_dimensions} container anchor`}
           id="dimensions"
         >
-          <Image
-            src={`${dimensions1}`}
-            alt="Alpine Armoring"
-            width={549}
-            height={431}
-          />
-          <Image
-            src={`${dimensions2}`}
-            alt="Alpine Armoring"
-            width={1101}
-            height={431}
-          />
+          <h2 className={`${styles.slug_dimensions_title} c-title`}>
+            Dimensions
+          </h2>
+          <div className={`${styles.slug_dimensions_wrap}`}>
+            <Image
+              src={`${dimensions1}`}
+              alt="Alpine Armoring"
+              width={549}
+              height={431}
+            />
+            <Image
+              src={`${dimensions2}`}
+              alt="Alpine Armoring"
+              width={1101}
+              height={431}
+            />
+          </div>
         </div>
       ) : null}
 
       {beforeAfterSlider_Before && beforeAfterSlider_After ? (
-        <div className={`container anchor`}>
+        <div className={`${styles.slug_slider} container anchor`}>
+          <p className={`${styles.slug_slider_small}`}>
+            <small>
+              The actual custom-armoring conversion may vary per client’s final
+              specs
+            </small>
+          </p>
           <ComparisonSlider
             beforeImage={beforeAfterSlider_Before}
             afterImage={beforeAfterSlider_After}
