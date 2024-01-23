@@ -37,7 +37,7 @@
     p {
       margin-bottom: rem(16);
     }
-    a{
+    a {
       color: var(--color-primary);
       font-weight: var(--font-medium);
     }
@@ -48,14 +48,14 @@
       padding-top: rem(70);
       padding-bottom: rem(120);
 
-      &_title{
+      &_title {
         max-width: 1336px;
         margin: auto;
         margin-bottom: rem(48);
       }
     }
 
-    &_wrap{
+    &_wrap {
       @include breakpoint(medium) {
         display: flex;
         flex-wrap: wrap;
@@ -64,7 +64,7 @@
       @include breakpoint(large) {
         align-items: center;
         justify-content: space-evenly;
-  
+
         img {
           height: auto;
         }
@@ -72,16 +72,16 @@
     }
   }
 
-  &_slider{
+  &_slider {
     margin-bottom: rem(80);
     @include breakpoint(large) {
-      &_small{
+      &_small {
         max-width: 1336px;
         margin: auto;
         text-align: center;
         padding-bottom: rem(32);
       }
-    }     
+    }
   }
 
   &_gallery {
