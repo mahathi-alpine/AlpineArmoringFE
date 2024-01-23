@@ -175,7 +175,7 @@ img {
   @include breakpoint(large) {
     height: 100px;
 
-    &-small{
+    &-small {
       height: 50px;
     }
   }

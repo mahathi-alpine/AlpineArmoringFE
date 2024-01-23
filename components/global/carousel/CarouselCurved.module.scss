@@ -17,7 +17,7 @@
     margin-top: -50px;
     margin-bottom: 49px;
   }
-  
+
   @include breakpoint(huge) {
     --slide-size: 36%;
   }
@@ -75,7 +75,7 @@
   }
 
   &_arrows {
-    button{
+    button {
       position: absolute;
       top: 50%;
       left: rem(8);
@@ -92,7 +92,7 @@
         height: rem(40);
       }
 
-      &:nth-child(2){
+      &:nth-child(2) {
         left: auto;
         right: rem(8);
       }
@@ -100,7 +100,6 @@
       svg {
         width: 16px;
       }
-
     }
   }
 }

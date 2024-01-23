@@ -11,7 +11,7 @@
       color: white;
       z-index: 2;
       text-align: left;
-  
+
       & > div {
         margin: unset;
       }
@@ -58,7 +58,7 @@
     }
   }
 
-  &_gallery{    
+  &_gallery {
     padding: rem(40) 0;
     @include breakpoint(medium) {
       padding: rem(100) 0;
