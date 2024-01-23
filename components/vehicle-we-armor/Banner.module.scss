@@ -11,14 +11,22 @@
   &_main {
     position: relative;
     z-index: 2;
+
+    @include breakpoint(medium) {
+      max-width: 800px;
+      margin: auto;
+      padding-top: rem(30);
+    }
+
     @include breakpoint(large) {
       position: absolute;
       top: 0;
+      max-width: unset;
+      margin: unset;
       background: #f3f3f3;
-      z-index: 2;
       border-bottom-right-radius: 32px;
-      max-width: 640px;
-      padding: rem(40) rem(24);
+      max-width: 570px;
+      padding: rem(24) rem(24);
 
       &:after {
         position: absolute;
@@ -31,6 +39,10 @@
         background-size: cover;
         transform: rotate(90deg);
       }
+    }
+
+    @include breakpoint(huge) {
+      max-width: 700px;
     }
   }
 
@@ -69,8 +81,6 @@
     @include breakpoint(large) {
       padding: 0;
       border-top-right-radius: 32px;
-      padding-right: 50px;
-      max-width: 600px;
     }
   }
 
@@ -78,11 +88,11 @@
     margin-bottom: rem(24);
     font-size: rem(14);
     @include breakpoint(medium) {
-      font-size: rem(22);
+      font-size: rem(18);
     }
     @include breakpoint(large) {
-      font-size: rem(18);
-      margin-bottom: 40px;
+      padding-right: 50px;
+      // max-width: 600px;
     }
 
     strong {
@@ -104,14 +114,13 @@
     gap: 8px;
 
     @include breakpoint(medium) {
+      position: static;
       flex-flow: row;
       gap: 16px;
     }
 
     @include breakpoint(large) {
-      position: static;
       justify-content: unset;
-      padding: 0;
     }
 
     &_item {
@@ -197,7 +206,7 @@
   }
 
   &_image {
-    background: linear-gradient(180deg, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
+    background: linear-gradient(0, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
     padding: rem(24) rem(16) rem(70) rem(16);
 
     @include breakpoint(large) {
@@ -213,7 +222,7 @@
       justify-content: flex-end;
       padding: 0;
       height: calc(100vh - 74px - 64px);
-      // max-height: 800px;
+      background: linear-gradient(180deg, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
     }
 
     &_wrap {

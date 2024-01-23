@@ -1,28 +1,38 @@
 .slug {
   &_nav {
-    position: sticky;
-    top: -1px;
-    margin-top: -100px;
-    padding-left: 35px;
-    margin-bottom: 100px;
-    color: white;
-    z-index: 2;
-    text-align: left;
-
-    & > div {
-      margin: unset;
+    display: none;
+    @include breakpoint(large) {
+      display: block;
+      position: sticky;
+      top: -1px;
+      margin-top: -100px;
+      padding-left: 35px;
+      margin-bottom: 100px;
+      color: white;
+      z-index: 2;
+      text-align: left;
+  
+      & > div {
+        margin: unset;
+      }
     }
   }
 
   &_description {
-    padding-top: rem(100);
-    padding-bottom: rem(100);
-    font-size: rem(22);
+    padding-top: rem(40);
+    padding-bottom: rem(40);
 
-    h2 {
-      margin-bottom: rem(32);
-      color: var(--color-primary);
-      font-size: rem(36);
+    @include breakpoint(medium) {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    @include breakpoint(large) {
+      padding-top: rem(100);
+      padding-bottom: rem(100);
+      font-size: rem(22);
+      max-width: unset;
+      margin: unset;
     }
 
     p {
@@ -31,12 +41,15 @@
   }
 
   &_dimensions {
+    @include breakpoint(medium) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     @include breakpoint(large) {
       padding-top: rem(70);
       padding-bottom: rem(120);
-      display: flex;
       align-items: center;
-      flex-wrap: wrap;
       justify-content: space-evenly;
 
       img {
@@ -45,20 +58,10 @@
     }
   }
 
-  &_gallery {
-    padding: rem(100) 0;
-
-    &_slider {
-      margin-top: -100px;
-      margin-bottom: -160px;
-    }
-
-    &_shapeAfter {
-      position: relative;
-      z-index: 1;
-      &:after {
-        background: var(--color-background);
-      }
+  &_gallery{    
+    padding: rem(40) 0;
+    @include breakpoint(medium) {
+      padding: rem(100) 0;
     }
   }
 }

@@ -7,7 +7,7 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
 import Specs from 'components/vehicle/specs/Specs';
-import Carousel from 'components/global/carousel/Carousel';
+import Gallery from 'components/global/carousel/CarouselCurved';
 
 function InventoryVehicle(props) {
   const data = props.data?.data[0]?.attributes;
@@ -25,12 +25,6 @@ function InventoryVehicle(props) {
   const dimensions2 = data?.dimensions2?.data?.attributes.url;
 
   const gallery = data?.gallery?.data;
-  const galleryOptions = {
-    dragFree: true,
-    loop: true,
-    thumbs: false,
-    variableWidth: true,
-  };
 
   const banner = {
     title: data?.title,
@@ -110,7 +104,7 @@ function InventoryVehicle(props) {
         id="overview"
         className={`${styles.slug_description} anchor container_small`}
       >
-        <h2>Overview</h2>
+        <h2 className={`c-title`}>Overview</h2>
         {data.description ? <Markdown>{data.description}</Markdown> : null}
       </div>
 
@@ -150,15 +144,11 @@ function InventoryVehicle(props) {
         accessories={data.accessories.data}
       />
 
-      <div className={`${styles.slug_gallery} anchor`} id="gallery">
-        <div className={`${styles.slug_gallery_shapeAfter} shape-after`}></div>
-        {gallery ? (
-          <div className={`${styles.slug_gallery_slider}`}>
-            <Carousel slides={gallery} options={galleryOptions} />
-          </div>
-        ) : null}
-        <div className="shape-before shape-before-white"></div>
-      </div>
+      {gallery ? (
+        <div className={`${styles.slug_gallery} container anchor`} id="gallery">
+          <Gallery props={gallery} />
+        </div>
+      ) : null}
     </div>
   );
 }

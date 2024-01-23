@@ -3,11 +3,6 @@
   --slide-spacing: 0;
   position: relative;
 
-  &_variableWidth {
-    --slide-size: 30%;
-    --slide-spacing: 16px;
-  }
-
   @include breakpoint(large) {
     display: flex;
     gap: 16px;
@@ -20,10 +15,6 @@
 
     @include breakpoint(large) {
       width: calc(100% - 160px - 16px);
-
-      .carousel_variableWidth & {
-        width: 100%;
-      }
     }
   }
 
@@ -42,19 +33,9 @@
     flex: 0 0 var(--slide-size);
     padding-left: var(--slide-spacing);
     position: relative;
-    // height: 50vh;
 
     @include breakpoint(medium) {
-      // height: 32rem;
       cursor: pointer;
-    }
-
-    @include breakpoint(large) {
-      // height: 40rem;
-
-      .carousel_variableWidth & {
-        height: rem(600);
-      }
     }
 
     &:after {
@@ -69,9 +50,7 @@
         rgba(0, 0, 0, 0) 20%,
         rgba(0, 0, 0, 1) 100%
       );
-      .carousel_variableWidth & {
-        display: none;
-      }
+
       @include breakpoint(medium) {
         border-radius: 8px;
       }
@@ -85,11 +64,6 @@
       @include breakpoint(medium) {
         border-radius: 8px;
         max-height: 500px;
-
-        .carousel_variableWidth & {
-          border-radius: 0;
-          filter: brightness(90%);
-        }
       }
     }
   }
@@ -103,10 +77,6 @@
     pointer-events: none;
     @include breakpoint(medium) {
       bottom: rem(8);
-    }
-
-    .carousel_variableWidth & {
-      bottom: rem(100);
     }
   }
 
@@ -265,10 +235,6 @@
   &_arrows {
     @include breakpoint(large) {
       display: none;
-
-      .carousel_variableWidth & {
-        display: block;
-      }
     }
   }
 
@@ -293,15 +259,6 @@
       right: 0;
       left: 0;
       margin: 0 auto;
-
-      .carousel_variableWidth & {
-        transform: none;
-        top: 50%;
-        left: rem(16);
-        right: auto;
-        width: rem(40);
-        height: rem(40);
-      }
     }
 
     &_next {
@@ -313,11 +270,6 @@
         right: 0;
         bottom: 8px;
         transform: rotate(90deg);
-
-        .carousel_variableWidth & {
-          left: auto;
-          right: rem(16);
-        }
       }
     }
 
