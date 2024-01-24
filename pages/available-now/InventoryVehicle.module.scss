@@ -221,9 +221,9 @@
     }
   }
 
-  &_tabs_slider{
+  &_tabs_slider {
     @include breakpoint(medium) {
-      &>div{
+      & > div {
         width: 100%;
       }
     }

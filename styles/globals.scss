@@ -240,7 +240,7 @@ small {
 // button.yarl__thumbnails_thumbnail_active {
 //   border-color: var(--color-primary);
 // }
-div.yarl__slide_captions_container{
+div.yarl__slide_captions_container {
   @include breakpoint(large) {
     padding: 0;
   }
