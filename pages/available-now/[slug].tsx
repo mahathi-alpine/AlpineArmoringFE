@@ -203,7 +203,11 @@ function InventoryVehicle(props) {
             </div>
 
             <div className={`${styles.inventory_tabs}`}>
-              <TabSlider props={tabSliderData} onTabChange={handleTabChange} />
+              <TabSlider
+                className={`${styles.inventory_tabs_slider}`}
+                props={tabSliderData}
+                onTabChange={handleTabChange}
+              />
 
               <div
                 className={`${styles.inventory_tabs_content} ${

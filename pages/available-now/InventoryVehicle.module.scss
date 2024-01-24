@@ -57,9 +57,9 @@
       }
     }
 
-    &_shape {
-      margin-top: -24px;
-    }
+    // &_shape {
+    //   margin-top: -24px;
+    // }
 
     &_button {
       margin-top: rem(32);
@@ -86,7 +86,7 @@
     align-items: center;
     position: absolute;
     left: rem(8);
-    bottom: rem(24);
+    bottom: rem(50);
     font-size: rem(13);
     font-weight: var(--font-large);
 
@@ -217,6 +217,14 @@
       }
       @include breakpoint(medium) {
         display: none;
+      }
+    }
+  }
+
+  &_tabs_slider{
+    @include breakpoint(medium) {
+      &>div{
+        width: 100%;
       }
     }
   }

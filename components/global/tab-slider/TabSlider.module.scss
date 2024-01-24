@@ -37,7 +37,8 @@
     white-space: nowrap;
 
     @include breakpoint(medium) {
-      display: inline-flex;
+      // display: inline-flex;
+      width: 100%;
       font-size: rem(15);
     }
 
@@ -78,7 +79,7 @@
 
     &_item {
       position: relative;
-      padding: rem(10) rem(16);
+      padding: rem(12) rem(16);
       border-radius: 99px;
       cursor: pointer;
       z-index: 2;
@@ -94,6 +95,7 @@
       @include breakpoint(medium) {
         min-width: unset;
         padding: rem(16);
+        flex: 1;
       }
 
       &_pdf {

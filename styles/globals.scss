@@ -240,10 +240,21 @@ small {
 // button.yarl__thumbnails_thumbnail_active {
 //   border-color: var(--color-primary);
 // }
+div.yarl__slide_captions_container{
+  @include breakpoint(large) {
+    padding: 0;
+  }
+}
 div.yarl__slide_title {
   font-weight: var(--font-medium);
   white-space: normal;
   font-size: 18px;
+  @include breakpoint(large) {
+    display: inline-block;
+    padding: 16px;
+    background-color: rgba(31, 31, 31, 0.92);
+    border-bottom-right-radius: 16px;
+  }
 }
 div.yarl__slide_description {
   font-size: rem(14);
@@ -327,6 +338,6 @@ button.yarl__navigation_prev {
 .yarl__slide_wrapper video {
   box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.35);
 }
-div.yarl__slide {
-  padding-top: 53px;
-}
+// div.yarl__slide {
+//   padding-top: 53px;
+// }

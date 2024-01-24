@@ -26,6 +26,7 @@ const TopBanner = ({ props, shape }: BannerProps) => {
         width={1920}
         height={600}
         className={`${styles.banner_media}`}
+        priority
       />
     );
   } else if (bannerMimeType.startsWith('video')) {
