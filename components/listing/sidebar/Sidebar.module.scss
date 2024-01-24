@@ -108,7 +108,7 @@
     @include breakpoint(untilLarge) {
       position: fixed;
       z-index: 1;
-      padding: rem(88) rem(16) rem(16) rem(16);
+      padding: rem(70) rem(16) rem(16) rem(16);
       top: 0;
       bottom: 0;
       left: 0;
@@ -121,7 +121,7 @@
         opacity 0.1s ease-in,
         visibility 0.1s ease-in;
       overflow: auto;
-      z-index: 2;
+      z-index: 3;
 
       &_open {
         visibility: visible;

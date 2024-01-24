@@ -84,7 +84,8 @@
     // font-size: rem(25);
     // font-size: clamp(1.5625rem, 1.517rem + 0.1942vw, 1.75rem);
     // font-size: clamp(1.5625rem, 1.4563rem + 0.4531vw, 2rem);
-    font-size: clamp(1.5625rem, 1.4563rem + 0.4531vw, 2rem);
+    // font-size: clamp(1.5625rem, 1.4563rem + 0.4531vw, 2rem);
+    font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
     font-weight: var(--font-demi);
     text-transform: uppercase;
     color: transparent;
@@ -110,10 +111,22 @@
     // font-size: rem(25);
     // font-size: clamp(1.5625rem, 1.335rem + 0.9709vw, 2.5rem);
     // font-size: clamp(1.5625rem, 1.2136rem + 1.4887vw, 3rem);
-    font-size: clamp(1.5625rem, 1.2136rem + 1.4887vw, 3rem);
+    // font-size: clamp(1.5625rem, 1.2136rem + 1.4887vw, 3rem);
+    font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
     font-weight: var(--font-demi);
     color: white;
     text-transform: uppercase;
+    color: transparent;
+    span {
+      opacity: 0;
+      animation: fadeInDown 1s;
+      animation-fill-mode: forwards;
+      color: white;
+    }
+
+    &_noAnimation {
+      color: white;
+    }
     @include breakpoint(large) {
       margin-bottom: 0;
       // font-size: rem(64);

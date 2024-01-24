@@ -88,14 +88,17 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
               {props.subtitle}
             </h2>
 
-            <h1
+            <h1 className={`${styles.hp_banner_title} animateLetter`}>
+              {props.title}
+            </h1>
+            {/* <h1
               className={`${styles.hp_banner_title} observe animate fade-in-left`}
             >
               {props.title}
-            </h1>
+            </h1> */}
           </div>
           <div
-            className={`${styles.hp_banner_content_right} observe animate fade-in delay-3`}
+            className={`${styles.hp_banner_content_right} observe animate fade-in-left`}
           >
             <p>
               <strong>Designed, Engineered and Manufactured</strong> like no

@@ -12,6 +12,12 @@
     padding-bottom: rem(75);
   }
 
+  @include breakpoint(huge) {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
   &_inner {
     // overflow: auto;
     // -webkit-overflow-scrolling: touch;
@@ -26,6 +32,7 @@
       font-size: rem(16);
       position: relative;
       padding-left: 16vw;
+      // justify-content: center;
       // &:after {
       //   display: none;
       // }
@@ -64,16 +71,19 @@
     }
     @include breakpoint(large) {
       padding-left: 23vw;
+      max-width: 4000px;
+      width: 100%;
     }
   }
 
   &_item {
     margin-left: rem(16);
-    width: 280px;
+    flex: 0 0 70%;
 
     @include breakpoint(medium) {
-      width: 36vw;
-      max-width: 690px;
+      // width: 36vw;
+      max-width: 700px;
+      flex: 0 0 40%;
       transition: transform 0.3s ease-in-out;
 
       &:hover {
