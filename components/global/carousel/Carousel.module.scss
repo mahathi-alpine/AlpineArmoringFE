@@ -236,48 +236,53 @@
   }
 
   &_arrows {
-    @include breakpoint(large) {
-      display: none;
-    }
-  }
 
-  &_button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: rem(16);
-    -webkit-appearance: none;
-    touch-action: manipulation;
-    cursor: pointer;
-    color: white;
-    width: rem(16);
-    height: rem(16);
-    z-index: 1;
-    svg {
-      width: 16px;
-    }
     @include breakpoint(large) {
-      top: 8px;
-      transform: rotate(90deg);
-      right: 0;
-      left: 0;
-      margin: 0 auto;
-    }
-
-    &_next {
-      left: auto;
-      right: rem(16);
-      @include breakpoint(large) {
-        top: auto;
-        left: 0;
-        right: 0;
-        bottom: 8px;
-        transform: rotate(90deg);
+      &_main{
+        display: none;
       }
     }
+    
+    button{        
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: rem(16);
+      -webkit-appearance: none;
+      touch-action: manipulation;
+      cursor: pointer;
+      color: white;
+      width: rem(16);
+      height: rem(16);
+      z-index: 1;
 
-    &:disabled {
-      opacity: 0.3;
+      @include breakpoint(large) {
+        top: 8px;
+        transform: rotate(90deg);
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+      }
+
+      &:nth-child(2) {
+        left: auto;
+        right: rem(16);
+
+        @include breakpoint(large) {
+          top: auto;
+          left: 0;
+          right: 0;
+          bottom: 8px;
+          transform: rotate(90deg);
+        }
+      }
+      
+      &:disabled {
+        opacity: 0.3;
+      }
+    }
+    svg {
+      width: 16px;
     }
   }
 }

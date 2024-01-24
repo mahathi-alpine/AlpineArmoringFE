@@ -106,8 +106,8 @@ const EmblaCarousel = (props) => {
                     src={item.attributes.formats?.small.url}
                     alt="alt text here"
                     fill
-                    // priority={index === 0}
-                    priority
+                    priority={index === 0}
+                    // priority
                     className={styles.carousel_slide_img}
                   />
                 </picture>
@@ -116,7 +116,9 @@ const EmblaCarousel = (props) => {
           ))}
         </div>
 
-        <div className={styles.carousel_arrows}>
+        <div
+          className={`${styles.carousel_arrows_main} ${styles.carousel_arrows}`}
+        >
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
@@ -162,7 +164,9 @@ const EmblaCarousel = (props) => {
             </div>
           </div>
 
-          <div className={styles.carousel_thumbs_arrows}>
+          <div
+            className={`${styles.carousel_arrows} ${styles.carousel_thumbs_arrows}`}
+          >
             <PrevButton
               onClick={onPrevButtonClick}
               disabled={prevBtnDisabled}

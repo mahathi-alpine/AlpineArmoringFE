@@ -116,17 +116,6 @@
     font-weight: var(--font-demi);
     color: white;
     text-transform: uppercase;
-    color: transparent;
-    span {
-      opacity: 0;
-      animation: fadeInDown 1s;
-      animation-fill-mode: forwards;
-      color: white;
-    }
-
-    &_noAnimation {
-      color: white;
-    }
     @include breakpoint(large) {
       margin-bottom: 0;
       // font-size: rem(64);

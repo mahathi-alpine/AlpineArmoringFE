@@ -274,7 +274,7 @@
 
       &_active {
         .sidebar_item_wrap {
-          max-height: 500px;
+          max-height: 1000px;
         }
         .sidebar_item_chevron {
           transform: rotate(-90deg);
@@ -330,7 +330,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: rem(24) rem(16);
+        padding: rem(24) 0;
       }
 
       @include breakpoint(large) {
@@ -420,7 +420,7 @@
       @include breakpoint(untilLarge) {
         overflow: hidden;
         max-height: 0px;
-        padding: 0 rem(16);
+        // padding: 0 rem(16);
         transition: max-height 0.3s ease;
 
         .checkbox_link:first-child {
