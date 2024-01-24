@@ -236,14 +236,13 @@
   }
 
   &_arrows {
-
     @include breakpoint(large) {
-      &_main{
+      &_main {
         display: none;
       }
     }
-    
-    button{        
+
+    button {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -276,7 +275,7 @@
           transform: rotate(90deg);
         }
       }
-      
+
       &:disabled {
         opacity: 0.3;
       }
