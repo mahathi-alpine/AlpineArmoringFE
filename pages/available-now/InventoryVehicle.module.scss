@@ -280,8 +280,9 @@
             rgba(20, 19, 15, 0) 100%
           );
           // z-index: 1;
-          background: #101010 url('/assets/noise3.png');
-          background-size: 100px;
+          // background: #101010 url('/assets/noise3.png');
+          background: #101010 url(/assets/noise4.png);
+          background-size: 30px;
           // filter: url(#esteisalegend);
           // mix-blend-mode: soft-light;
           // opacity: 0.85;

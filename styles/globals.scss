@@ -149,8 +149,10 @@ small {
   // background: var(--color-dark) url('/assets/noise.png');
   // background: #0d0d0d;
   color: var(--color-white);
-  background: #101010 url(/assets/noise3.png);
-  background-size: 100px;
+  // background: #101010 url(/assets/noise3.png);
+  background: #101010 url(/assets/noise4.png);
+  background-size: 30px;
+  // background: #101010 url(/assets/noise.png);
   // background-size: 640px;
   // background: var(--color-dark) url(/assets/noise.png);
 }
@@ -169,7 +171,8 @@ small {
 
 .shape-before,
 .shape-after {
-  --background: #101010 url('/assets/noise3.png');
+  // --background: #101010 url('/assets/noise3.png');
+  --background: #101010 url('/assets/noise4.png');
   // --background: #0d0d0d;
   position: relative;
   overflow-x: clip;
@@ -191,7 +194,8 @@ small {
     left: -50px;
     right: -50px;
     background: var(--background);
-    background-size: 100px;
+    // background-size: 100px;
+    background-size: 30px;
     @include breakpoint(large) {
       left: -100px;
       right: -100px;
