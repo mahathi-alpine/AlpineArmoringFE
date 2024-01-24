@@ -42,7 +42,7 @@
       //   rgba(0, 0, 0, 0) 100%
       // );
       background: black;
-      opacity: .5;
+      opacity: 0.5;
       z-index: 1;
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
@@ -109,7 +109,6 @@
       @include breakpoint(large) {
         font-size: rem(32);
       }
-
     }
 
     del {
