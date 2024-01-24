@@ -77,7 +77,7 @@ const EmblaCarousel = (props) => {
     }
   });
 
-  console.log(slides);
+  // console.log(slides);
 
   return (
     <div
@@ -100,12 +100,13 @@ const EmblaCarousel = (props) => {
                 <picture>
                   <source
                     media="(min-width: 768px)"
-                    srcSet={item.attributes.formats.large?.url}
+                    srcSet={item.attributes.formats?.large?.url}
                   />
                   <Image
-                    src={item.attributes.formats.small.url}
+                    src={item.attributes.formats?.small.url}
                     alt="alt text here"
                     fill
+                    priority={index === 0}
                     className={styles.carousel_slide_img}
                   />
                 </picture>
