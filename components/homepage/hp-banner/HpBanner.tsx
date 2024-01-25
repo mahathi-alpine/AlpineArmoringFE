@@ -75,7 +75,7 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
 
         <div className={`${styles.hp_banner_content}`}>
           <div className={`${styles.hp_banner_content_left}`}>
-            <h2
+            {/* <h2
               className={`
                 ${styles.hp_banner_subtitle} animateLetter
                 ${
@@ -86,16 +86,23 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
               `}
             >
               {props.subtitle}
+            </h2> */}
+            <h2
+              className={`
+                ${styles.hp_banner_subtitle} observe fade-in-up
+              `}
+            >
+              {props.subtitle}
             </h2>
 
             <h1
-              className={`${styles.hp_banner_title} observe animate fade-in-left`}
+              className={`${styles.hp_banner_title} observe animate fade-in-up delay-1`}
             >
               {props.title}
             </h1>
           </div>
           <div
-            className={`${styles.hp_banner_content_right} observe animate fade-in delay-3`}
+            className={`${styles.hp_banner_content_right} observe animate fade-in-up delay-1`}
           >
             <p>
               <strong>Designed, Engineered and Manufactured</strong> like no
