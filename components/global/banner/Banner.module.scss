@@ -98,7 +98,7 @@
     @include breakpoint(large) {
       max-width: 1200px;
 
-      .banner_small &{
+      .banner_small & {
         width: calc(100% - 620px);
       }
     }

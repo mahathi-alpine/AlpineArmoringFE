@@ -129,7 +129,7 @@
       align-items: center;
     }
 
-    &_bottom{      
+    &_bottom {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -147,18 +147,18 @@
         height: 35px;
       }
     }
-    &_part1{
+    &_part1 {
       display: block;
       font-size: rem(17);
-      letter-spacing: .3px;
+      letter-spacing: 0.3px;
       @include breakpoint(large) {
         font-size: rem(20);
       }
     }
-    &_part2{
+    &_part2 {
       display: block;
       font-size: rem(19);
-      letter-spacing: .3px;
+      letter-spacing: 0.3px;
       @include breakpoint(large) {
         font-size: rem(22.5);
       }
@@ -190,7 +190,7 @@
       margin: 0 14px;
     }
 
-    a{
+    a {
       text-decoration: underline;
     }
   }

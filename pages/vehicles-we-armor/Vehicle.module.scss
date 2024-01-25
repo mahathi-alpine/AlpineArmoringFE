@@ -45,7 +45,7 @@
 
   &_dimensions {
     padding-bottom: rem(60);
-    
+
     @include breakpoint(large) {
       padding-top: rem(70);
       padding-bottom: rem(120);
