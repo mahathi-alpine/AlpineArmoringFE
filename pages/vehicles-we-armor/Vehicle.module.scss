@@ -9,7 +9,7 @@
       padding-left: 35px;
       margin-bottom: 100px;
       color: white;
-      z-index: 2;
+      z-index: 3;
       text-align: left;
 
       & > div {
@@ -44,6 +44,8 @@
   }
 
   &_dimensions {
+    padding-bottom: rem(60);
+    
     @include breakpoint(large) {
       padding-top: rem(70);
       padding-bottom: rem(120);
@@ -74,12 +76,11 @@
 
   &_slider {
     margin-bottom: rem(80);
-    @include breakpoint(large) {
-      &_small {
-        max-width: 1336px;
+    &_small {
+      text-align: right;
+      @include breakpoint(large) {
+        max-width: 1280px;
         margin: auto;
-        text-align: center;
-        padding-bottom: rem(32);
       }
     }
   }

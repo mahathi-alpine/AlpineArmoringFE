@@ -53,7 +53,7 @@
       margin-right: rem(-16);
       margin-bottom: rem(24);
       padding: rem(4);
-      background: var(--color-secondary);
+      background: var(--color-primary);
       border-top-left-radius: 99px;
       border-bottom-left-radius: 99px;
       z-index: 2;
@@ -68,7 +68,7 @@
         display: inline-flex;
         margin: auto;
         margin-bottom: rem(24);
-        padding: rem(8);
+        padding: rem(6);
         border-radius: 99px;
       }
 
@@ -88,7 +88,7 @@
 
       @include breakpoint(small) {
         &_active {
-          background-color: var(--color-gray3);
+          background-color: var(--color-black);
         }
       }
 
@@ -96,16 +96,6 @@
         min-width: unset;
         padding: rem(16);
         flex: 1;
-      }
-
-      &_pdf {
-        svg {
-          position: absolute;
-          top: 6px;
-          width: 30px;
-          height: 34px;
-          right: -18px;
-        }
       }
 
       &_cta {
@@ -123,7 +113,8 @@
       @include breakpoint(medium) {
         position: absolute;
         display: flex;
-        background-color: var(--color-gray3);
+        // background-color: var(--color-gray3);
+        background-color: var(--color-black);
         z-index: 1;
         border-radius: 99px;
         transition:
@@ -131,7 +122,7 @@
           transform 0.3s ease-out,
           opacity 0.2s ease-out;
         height: 50px;
-        top: 8px;
+        top: 6px;
       }
 
       @include breakpoint(large) {

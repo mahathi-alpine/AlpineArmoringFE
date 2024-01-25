@@ -107,7 +107,6 @@ const EmblaCarousel = (props) => {
                     alt="alt text here"
                     fill
                     priority={index === 0}
-                    // priority
                     className={styles.carousel_slide_img}
                   />
                 </picture>

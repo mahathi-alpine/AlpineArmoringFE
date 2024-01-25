@@ -212,13 +212,6 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
                     ? activeFilterTitles.make
                     : activeFilterTitles.type.replace('Armored', '')}
                 </span>
-                {/* <span className={`${styles.sidebar_item_choice}`}>
-                  {baseUrl == '/vehicles-we-armor'
-                    ? filter == 'make'
-                      ? activeFilterTitles.make
-                      : activeFilterTitles.type
-                    : 'Select'}
-                </span> */}
 
                 <div className={`${styles.sidebar_item_wrap}`}>
                   {props[filter].map((item) => {
@@ -268,6 +261,22 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
                       );
                     }
                   })}
+
+                  {filter == 'type' && (
+                    <Link
+                      href={baseUrl}
+                      scroll={false}
+                      className={`${styles.checkbox_link} ${
+                        'available-now' === currentSlug
+                          ? styles.selected_filter
+                          : ''
+                      }`}
+                      onClick={openFilters}
+                      key="all"
+                    >
+                      <span className={`${styles.checkbox_span}`}>All</span>
+                    </Link>
+                  )}
                 </div>
               </div>
             );

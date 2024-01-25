@@ -3,10 +3,11 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
+import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
-import Specs from 'components/vehicle/specs/Specs';
+// import Specs from 'components/vehicle/specs/Specs';
 import Gallery from 'components/global/carousel/CarouselCurved';
 
 function InventoryVehicle(props) {
@@ -28,6 +29,7 @@ function InventoryVehicle(props) {
 
   const banner = {
     title: data?.title,
+    titleDisplay: data?.titleDisplay,
     featuredImage: data?.featuredImage,
     descriptionBanner: data?.descriptionBanner,
     slug: data?.slug,
@@ -43,12 +45,16 @@ function InventoryVehicle(props) {
       id: 2,
       titleNav: 'Dimensions',
     },
-    // {
-    //   id: 3,
-    //   titleNav: 'Specifications'
-    // },
+    {
+      id: 3,
+      titleNav: 'Armoring Specs',
+    },
     {
       id: 4,
+      titleNav: 'Optional Equipment',
+    },
+    {
+      id: 5,
       titleNav: 'Gallery',
     },
   ];
@@ -135,25 +141,33 @@ function InventoryVehicle(props) {
 
       {beforeAfterSlider_Before && beforeAfterSlider_After ? (
         <div className={`${styles.slug_slider} container anchor`}>
+          <ComparisonSlider
+            beforeImage={beforeAfterSlider_Before}
+            afterImage={beforeAfterSlider_After}
+          />
           <p className={`${styles.slug_slider_small}`}>
             <small>
               The actual custom-armoring conversion may vary per client’s final
               specs
             </small>
           </p>
-          <ComparisonSlider
-            beforeImage={beforeAfterSlider_Before}
-            afterImage={beforeAfterSlider_After}
-          />
         </div>
       ) : null}
 
-      <Specs
+      {data.specificationsAll ? (
+        <StickyHorizontalSlider
+          slides={data.specificationsAll.data}
+          title="Armoring Specifications"
+          small
+        />
+      ) : null}
+
+      {/* <Specs
         id="specifications"
         className={`anchor`}
         specifications={data.specificationsAll.data}
         accessories={data.accessories.data}
-      />
+      /> */}
 
       {gallery ? (
         <div className={`${styles.slug_gallery} container anchor`} id="gallery">

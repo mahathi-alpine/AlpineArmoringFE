@@ -109,7 +109,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
               className={`${styles.navigationPopup_contact_item}`}
             >
               <MailIcon />
-              sales@AlpineCo.com
+              Sales@AlpineCo.com
             </Link>
 
             <Link

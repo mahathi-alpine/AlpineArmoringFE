@@ -6,19 +6,27 @@ import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 // import { API_URL } from 'config/index';
 
-const StickyHorizontalSlider = ({ props }) => {
+const StickyHorizontalSlider = ({ slides, title, small = false }) => {
+  // console.log(slides)
+  // return null;
+
   const sliderOptions = {
     // dragFree: true
   };
   const [containerInnerRef] = useEmblaCarousel(sliderOptions);
 
   return (
-    <section className={`${styles.stickyHorizontalSlider}`}>
+    <section
+      className={`
+      ${styles.stickyHorizontalSlider}
+      ${small ? styles.stickyHorizontalSlider_small : ''}      
+    `}
+    >
       <div
         className={`${styles.stickyHorizontalSlider_heading} fade-in-up observe`}
       >
         <h2 className={`c-title`}>
-          <span>Latest News</span>
+          <span>{title}</span>
         </h2>
       </div>
 
@@ -27,36 +35,53 @@ const StickyHorizontalSlider = ({ props }) => {
         ref={containerInnerRef}
       >
         <div className={`${styles.stickyHorizontalSlider_inner}`}>
-          {props.map((item) => (
-            <Link
-              href=""
-              className={`${styles.stickyHorizontalSlider_item}`}
-              key={item.id}
-            >
-              {item.image.data?.attributes.url ? (
-                <div
-                  className={`${styles.stickyHorizontalSlider_item_image_wrap}`}
-                >
-                  <Image
-                    src={`${item.image.data.attributes.url}`}
+          {slides.map((item, index) => {
+            const data = item.attributes ? item.attributes : item;
+            return (
+              <Link
+                href=""
+                className={`${styles.stickyHorizontalSlider_item}`}
+                key={index}
+              >
+                {data.image.data?.attributes.url ? (
+                  <div
+                    className={`${styles.stickyHorizontalSlider_item_image_wrap}`}
+                  >
+                    {/* <Image
+                    src={`${data.image.data.attributes.url}`}
                     alt="Description of the image"
                     width={690}
                     height={400}
                     className={`${styles.stickyHorizontalSlider_item_image}`}
-                  />
-                </div>
-              ) : null}
+                  /> */}
+                    <picture>
+                      <source
+                        media="(min-width: 768px)"
+                        srcSet={data.image.data.attributes.formats?.large?.url}
+                      />
+                      <Image
+                        src={data.image.data.attributes.formats?.small.url}
+                        alt="alt text here"
+                        fill
+                        className={styles.stickyHorizontalSlider_item_image}
+                      />
+                    </picture>
+                  </div>
+                ) : null}
 
-              <div className={`${styles.stickyHorizontalSlider_item_content}`}>
-                <h5 className={`${styles.stickyHorizontalSlider_item_title}`}>
-                  {item.title}
-                </h5>
-                <p className={`${styles.stickyHorizontalSlider_item_date}`}>
-                  {item.subtitle}
-                </p>
-              </div>
-            </Link>
-          ))}
+                <div
+                  className={`${styles.stickyHorizontalSlider_item_content}`}
+                >
+                  <h5 className={`${styles.stickyHorizontalSlider_item_title}`}>
+                    {data.title}
+                  </h5>
+                  <p className={`${styles.stickyHorizontalSlider_item_date}`}>
+                    {data.subtitle}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         {/* <svg

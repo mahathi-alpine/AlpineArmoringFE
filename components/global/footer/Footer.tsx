@@ -70,7 +70,7 @@ const Footer = (isDarkMode) => {
                   className={`${styles.footer_column_list_item}`}
                 >
                   <MailIcon color="#2d2d27" />
-                  sales@AlpineCo.com
+                  Sales@AlpineCo.com
                 </Link>
               </li>
               <li>

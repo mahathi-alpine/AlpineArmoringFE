@@ -3,18 +3,27 @@ import styles from './Banner.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Markdown from 'markdown-to-jsx';
+import Link from 'next/link';
+import PDFIcon from 'components/icons/PDF';
 
 const Banner = (props) => {
   // console.log(props);
   // return null;
 
   const data = props.props;
+  // console.log(data)
 
   return (
     <div className={`${styles.banner}`}>
       <div className={`${styles.banner_main}`}>
         <div className={`${styles.banner_title}`}>
-          <h1 className={`observe fade-in`}>{data.title}</h1>
+          <h1 className={`observe fade-in`}>
+            {data.titleDisplay ? (
+              <Markdown>{data.titleDisplay}</Markdown>
+            ) : data.title ? (
+              data.title
+            ) : null}
+          </h1>
         </div>
 
         <div className={`${styles.banner_content}`}>
@@ -81,6 +90,19 @@ const Banner = (props) => {
             />
           </div>
         ) : null}
+
+        <Link
+          href="https://www.alpineco.com/media/documents/2019-Audi-A8-brochure_1547826834_1611756422.pdf"
+          target="_blank"
+          className={`${styles.banner_pdf}`}
+        >
+          <span>
+            <span>OEM</span>
+            <br />
+            Specs
+          </span>
+          <PDFIcon />
+        </Link>
 
         <div className={`${styles.banner_protection}`}>
           <h3 className={`observe fade-in`}>Offered At Protection Levels</h3>

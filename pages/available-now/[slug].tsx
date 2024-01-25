@@ -84,6 +84,8 @@ function InventoryVehicle(props) {
   const data = props.data.data[0].attributes;
   const topGallery = data.gallery?.data;
   const mainText = data.description;
+  const category = data.category.data.attributes.title;
+  const categorySlug = data.category.data.attributes.slug;
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
@@ -111,17 +113,20 @@ function InventoryVehicle(props) {
   const tabSliderData = [
     {
       id: 0,
-      titleNav: 'Vehicle Details',
+      titleNav: 'OEM Specs',
     },
     {
       id: 1,
-      titleNav: 'Specifications',
+      titleNav: 'Armoring Specs',
     },
     {
       id: 2,
-      titleNav: 'Accessories',
+      titleNav: 'Options Included',
     },
   ];
+
+  // console.log(data.specifications);
+  // return null;
 
   return (
     <div className={`${styles.inventory}`}>
@@ -169,12 +174,16 @@ function InventoryVehicle(props) {
               </ul>
 
               <Link href="" className={`${styles.inventory_sticker}`}>
-                <PDFIcon />
-                <p className={`${styles.inventory_sticker_text}`}>
+                <span className={`${styles.inventory_sticker_part1}`}>
+                  Window
+                </span>
+                <span className={`${styles.inventory_sticker_part2}`}>
+                  Sticker
+                </span>
+                <span className={`${styles.inventory_sticker_bottom}`}>
+                  <PDFIcon />
                   <span>OEM</span>
-                  <span>Window</span>
-                  <span>Sticker</span>
-                </p>
+                </span>
               </Link>
             </div>
 
@@ -184,14 +193,20 @@ function InventoryVehicle(props) {
           </div>
 
           <div className={`${styles.inventory_details}`}>
-            {/* <div className={`${styles.inventory_breadcrumbs}`}>
-              <a href="">Inventory</a>
+            <div className={`${styles.inventory_breadcrumbs}`}>
+              <Link href="/available-now">Available now</Link>
               <span>&gt;</span>
-              <a href="">Armored SUVs</a>
-            </div> */}
+              <Link href={`/available-now/type/${categorySlug}`}>
+                {category}
+              </Link>
+            </div>
 
             <h1 className={`${styles.inventory_details_title}`}>
-              {data.title}
+              {data.titleDisplay ? (
+                <Markdown>{data.titleDisplay}</Markdown>
+              ) : data.title ? (
+                data.title
+              ) : null}
             </h1>
 
             <div className={`${styles.inventory_details_description}`}>
@@ -284,11 +299,12 @@ function InventoryVehicle(props) {
                       </li>
                     ))}
                   </ul>
+
                   <Lightbox
                     open={openSpecs}
                     close={() => setOpenSpecs(false)}
                     slides={data.specifications.data.map((item) => ({
-                      src: item.attributes?.media.data.attributes.url,
+                      src: item.attributes?.image.data.attributes.url,
                       title: item.attributes?.title,
                     }))}
                     plugins={[Captions]}
@@ -323,7 +339,7 @@ function InventoryVehicle(props) {
                     open={openAccessories}
                     close={() => setOpenAccessories(false)}
                     slides={data.accessories.data.map((item) => ({
-                      src: item.attributes?.media.data.attributes.url,
+                      src: item.attributes?.image.data.attributes.url,
                       title: item.attributes?.title,
                     }))}
                     plugins={[Captions]}
@@ -351,12 +367,16 @@ function InventoryVehicle(props) {
               </Button>
 
               <Link href="" className={`${styles.inventory_sticker}`}>
-                <PDFIcon />
-                <p className={`${styles.inventory_sticker_text}`}>
+                <span className={`${styles.inventory_sticker_part1}`}>
+                  Window
+                </span>
+                <span className={`${styles.inventory_sticker_part2}`}>
+                  Sticker
+                </span>
+                <span className={`${styles.inventory_sticker_bottom}`}>
+                  <PDFIcon />
                   <span>OEM</span>
-                  <span>Window</span>
-                  <span>Sticker</span>
-                </p>
+                </span>
               </Link>
             </div>
           </div>

@@ -1,7 +1,6 @@
 import styles from './TabSlider.module.scss';
 import Link from 'next/link';
 // import ChevronIcon from 'components/icons/Chevron';
-import PDFIcon from 'components/icons/PDF';
 import { useEffect, useRef } from 'react';
 
 const TabSlider = ({ props, onTabChange, sticky = false, className = '' }) => {
@@ -140,25 +139,11 @@ const TabSlider = ({ props, onTabChange, sticky = false, className = '' }) => {
             </li>
           ))}
           {sticky ? (
-            <>
-              <li
-                className={`${styles.tabSlider_nav_item} ${styles.tabSlider_nav_item_pdf}`}
-              >
-                <Link
-                  href="https://www.alpineco.com/media/documents/2019-Audi-A8-brochure_1547826834_1611756422.pdf"
-                  target="_blank"
-                >
-                  OEM Specs
-                  <PDFIcon />
-                </Link>
-              </li>
-
-              <li
-                className={`${styles.tabSlider_nav_item} ${styles.tabSlider_nav_item_cta}`}
-              >
-                <Link href="/contact">Request a quote</Link>
-              </li>
-            </>
+            <li
+              className={`${styles.tabSlider_nav_item} ${styles.tabSlider_nav_item_cta}`}
+            >
+              <Link href="/contact">Request a quote</Link>
+            </li>
           ) : null}
         </ul>
 

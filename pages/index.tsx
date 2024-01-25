@@ -98,7 +98,7 @@ function Home({ homepageData, categories, languageCookie }) {
       </div>
 
       {horizontalSlider ? (
-        <StickyHorizontalSlider props={horizontalSlider} />
+        <StickyHorizontalSlider slides={horizontalSlider} title="Latest News" />
       ) : null}
 
       {partners ? <Partners props={partners} /> : null}

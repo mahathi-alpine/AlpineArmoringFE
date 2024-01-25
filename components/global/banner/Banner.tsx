@@ -6,9 +6,10 @@ import Image from 'next/image';
 type BannerProps = {
   props: any;
   shape?: string;
+  small?: boolean;
 };
 
-const TopBanner = ({ props, shape }: BannerProps) => {
+const TopBanner = ({ props, shape, small = false }: BannerProps) => {
   // console.log(props)
   // return null;
 
@@ -38,7 +39,12 @@ const TopBanner = ({ props, shape }: BannerProps) => {
   }
 
   return (
-    <div className={`${styles.banner}`}>
+    <div
+      className={`
+      ${styles.banner}
+      ${small ? styles.banner_small : ''}
+    `}
+    >
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
 
