@@ -91,18 +91,20 @@ const Banner = (props) => {
           </div>
         ) : null}
 
-        <Link
-          href="https://www.alpineco.com/media/documents/2019-Audi-A8-brochure_1547826834_1611756422.pdf"
-          target="_blank"
-          className={`${styles.banner_pdf}`}
-        >
-          <span>
-            <span>OEM</span>
-            <br />
-            Specs
-          </span>
-          <PDFIcon />
-        </Link>
+        {data.pdf ? (
+          <Link
+            href={data.pdf}
+            target="_blank"
+            className={`${styles.banner_pdf}`}
+          >
+            <span>
+              <span>OEM</span>
+              <br />
+              Specs
+            </span>
+            <PDFIcon />
+          </Link>
+        ) : null}
 
         <div className={`${styles.banner_protection}`}>
           <h3 className={`observe fade-in`}>Offered At Protection Levels</h3>

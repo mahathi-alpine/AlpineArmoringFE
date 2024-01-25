@@ -34,6 +34,7 @@ function InventoryVehicle(props) {
     descriptionBanner: data?.descriptionBanner,
     slug: data?.slug,
     inventory: inventory,
+    pdf: data?.pdf,
   };
 
   const navItems = [
