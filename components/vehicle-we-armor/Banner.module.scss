@@ -10,7 +10,7 @@
 
   &_main {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 
     @include breakpoint(medium) {
       max-width: calc(100% - 400px);
@@ -48,6 +48,7 @@
   &_title {
     margin-bottom: rem(16);
     padding: 0 rem(16);
+    white-space: pre-wrap;
 
     h1 {
       font-weight: var(--font-demi);
@@ -268,7 +269,6 @@
   &_pdf {
     position: absolute;
     bottom: -8px;
-    z-index: 2;
     left: 0;
     right: 0;
     margin: auto;
@@ -278,6 +278,7 @@
     font-weight: var(--font-medium);
     align-items: center;
     font-size: rem(15);
+    z-index: 2;
 
     @include breakpoint(medium) {
       bottom: 75px;

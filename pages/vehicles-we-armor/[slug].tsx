@@ -13,7 +13,7 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 function InventoryVehicle(props) {
   const data = props.data?.data[0]?.attributes;
 
-  // console.log(data);
+  // console.log(data.specificationsAll.data);
   // return null;
 
   const inventory = data?.stock.data;
@@ -105,6 +105,7 @@ function InventoryVehicle(props) {
         onTabChange={handleTabChange}
         className={`${styles.slug_nav} slug_nav container`}
         sticky
+        anchor
       />
 
       <div
@@ -156,19 +157,22 @@ function InventoryVehicle(props) {
       ) : null}
 
       {data.specificationsAll ? (
-        <StickyHorizontalSlider
-          slides={data.specificationsAll.data}
-          title="Armoring Specifications"
-          small
-        />
+        <div id="armoring-specs" className={`anchor`}>
+          <StickyHorizontalSlider
+            slides={data.specificationsAll.data}
+            title="Armoring Specifications"
+          />
+        </div>
       ) : null}
 
-      {/* <Specs
-        id="specifications"
-        className={`anchor`}
-        specifications={data.specificationsAll.data}
-        accessories={data.accessories.data}
-      /> */}
+      {data.accessories ? (
+        <div id="optional-equipment" className={`anchor`}>
+          <StickyHorizontalSlider
+            slides={data.accessories.data}
+            title="Optional Equipment"
+          />
+        </div>
+      ) : null}
 
       {gallery ? (
         <div className={`${styles.slug_gallery} container anchor`} id="gallery">

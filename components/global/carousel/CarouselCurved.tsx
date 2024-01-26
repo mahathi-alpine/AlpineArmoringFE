@@ -1,6 +1,7 @@
 import styles from './CarouselCurved.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
 import Image from 'next/image';
+import React, { useState } from 'react';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import {
@@ -31,6 +32,7 @@ const CarouselCurved = (props) => {
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
 
   const { openLightbox, renderLightbox } = useLightbox();
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const {
     prevBtnDisabled,
@@ -52,7 +54,10 @@ const CarouselCurved = (props) => {
               <div
                 className={styles.carouselCurved_slide}
                 key={index}
-                onClick={openLightbox}
+                onClick={() => {
+                  setSelectedIndex(index);
+                  openLightbox();
+                }}
               >
                 {item.attributes?.url ? (
                   <Image
@@ -98,6 +103,7 @@ const CarouselCurved = (props) => {
             borderRadius: 8,
           },
           render: { slide: NextJsImage, thumbnail: NextJsImageThumbs },
+          index: selectedIndex,
         })}
       </div>
 

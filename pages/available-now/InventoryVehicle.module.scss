@@ -264,13 +264,13 @@
     }
 
     @include breakpoint(small) {
-      max-height: 210px;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
+      // max-height: 210px;
+      // overflow: hidden;
+      // transition: max-height 0.3s ease;
 
-      &_active {
-        max-height: 2000px;
-      }
+      // &_active {
+      //   max-height: 2000px;
+      // }
 
       &_viewMore {
         position: relative;
@@ -317,24 +317,24 @@
     }
 
     &_item {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: -1;
-      visibility: hidden;
+      // position: absolute;
+      // top: 0;
+      // left: 0;
+      // right: 0;
+      // z-index: -1;
+      // visibility: hidden;
 
-      &:not(.inventory_tabs_content_item_active) {
-        .inventory_tabs_content_list {
-          opacity: 0;
-        }
-      }
+      // &:not(.inventory_tabs_content_item_active) {
+      //   .inventory_tabs_content_list {
+      //     opacity: 0;
+      //   }
+      // }
 
-      &_active {
-        position: relative;
-        z-index: 1;
-        visibility: visible;
-      }
+      // &_active {
+      //   position: relative;
+      //   z-index: 1;
+      //   visibility: visible;
+      // }
     }
 
     &_list {
@@ -400,6 +400,8 @@
     text-align: center;
     @include breakpoint(large) {
       font-size: rem(20);
+      padding-top: rem(150);
+      padding-bottom: rem(150);
     }
   }
 }

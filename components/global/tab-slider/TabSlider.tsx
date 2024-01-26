@@ -3,7 +3,13 @@ import Link from 'next/link';
 // import ChevronIcon from 'components/icons/Chevron';
 import { useEffect, useRef } from 'react';
 
-const TabSlider = ({ props, onTabChange, sticky = false, className = '' }) => {
+const TabSlider = ({
+  props,
+  onTabChange,
+  sticky = false,
+  className = '',
+  anchor = false,
+}) => {
   const viewportWidth =
     typeof window !== 'undefined' ? window.innerWidth : Infinity;
 
@@ -49,7 +55,7 @@ const TabSlider = ({ props, onTabChange, sticky = false, className = '' }) => {
 
   let lastActiveNavItem = null;
   useEffect(() => {
-    if (sticky) {
+    if (anchor) {
       const observerAnchorTargets = document.querySelectorAll('.anchor');
       const observerAnchor = new IntersectionObserver(
         (entries) => {

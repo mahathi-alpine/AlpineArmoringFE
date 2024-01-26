@@ -6,6 +6,7 @@ import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
 import ChevronIcon from 'components/icons/Chevron';
 import Markdown from 'markdown-to-jsx';
+import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -14,22 +15,25 @@ import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
 
-import { Lightbox } from 'yet-another-react-lightbox';
-import 'yet-another-react-lightbox/styles.css';
-import Captions from 'yet-another-react-lightbox/plugins/captions';
-import 'yet-another-react-lightbox/plugins/captions.css';
+// import { Lightbox } from 'yet-another-react-lightbox';
+// import 'yet-another-react-lightbox/styles.css';
+// import Captions from 'yet-another-react-lightbox/plugins/captions';
+// import 'yet-another-react-lightbox/plugins/captions.css';
 
 function InventoryVehicle(props) {
-  // console.log(props)
+  // const [activeDiv, setActiveDiv] = useState('0');
 
-  const [activeDiv, setActiveDiv] = useState('0');
-  const handleTabChange = (id) => {
-    setActiveDiv(id);
-    setViewMoreClicked(false);
+  const handleTabChange = (index, titleNav) => {
+    // setActiveDiv(id);
+    // setViewMoreClicked(false);
+    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+
+    const targetElement = document.getElementById(targetId);
+    targetElement.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const [openSpecs, setOpenSpecs] = useState(false);
-  const [openAccessories, setOpenAccessories] = useState(false);
+  // const [openSpecs, setOpenSpecs] = useState(false);
+  // const [openAccessories, setOpenAccessories] = useState(false);
 
   const [viewMoreClicked, setViewMoreClicked] = useState(false);
   const handleViewMoreClick = () => {
@@ -86,6 +90,7 @@ function InventoryVehicle(props) {
   const mainText = data.description;
   const category = data.category.data.attributes.title;
   const categorySlug = data.category.data.attributes.slug;
+  // console.log(data.specifications.data)
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
@@ -201,13 +206,15 @@ function InventoryVehicle(props) {
               </Link>
             </div>
 
-            <h1 className={`${styles.inventory_details_title}`}>
+            <div className={`${styles.inventory_details_title}`}>
               {data.titleDisplay ? (
-                <Markdown>{data.titleDisplay}</Markdown>
+                <h1
+                  dangerouslySetInnerHTML={{ __html: data.titleDisplay }}
+                ></h1>
               ) : data.title ? (
                 data.title
               ) : null}
-            </h1>
+            </div>
 
             <div className={`${styles.inventory_details_description}`}>
               <InfoIcon />
@@ -222,6 +229,7 @@ function InventoryVehicle(props) {
                 className={`${styles.inventory_tabs_slider}`}
                 props={tabSliderData}
                 onTabChange={handleTabChange}
+                anchor
               />
 
               <div
@@ -230,11 +238,12 @@ function InventoryVehicle(props) {
                 }`}
               >
                 <div
-                  className={`${styles.inventory_tabs_content_item} ${
-                    activeDiv == '0'
-                      ? styles.inventory_tabs_content_item_active
-                      : ''
-                  }`}
+                  // className={`${styles.inventory_tabs_content_item} ${
+                  //   activeDiv == '0'
+                  //     ? styles.inventory_tabs_content_item_active
+                  //     : ''
+                  // }`}
+                  className={`${styles.inventory_tabs_content_item}`}
                 >
                   <ul className={`${styles.inventory_tabs_content_list}`}>
                     {Object.entries(vehicleDetailsMain).map(([key, value]) => {
@@ -272,7 +281,7 @@ function InventoryVehicle(props) {
                   </ul>
                 </div>
 
-                <div
+                {/* <div
                   className={`
                     ${styles.inventory_tabs_content_item} 
                     ${
@@ -344,7 +353,7 @@ function InventoryVehicle(props) {
                     }))}
                     plugins={[Captions]}
                   />
-                </div>
+                </div> */}
               </div>
 
               {!viewMoreClicked && (
@@ -387,6 +396,26 @@ function InventoryVehicle(props) {
             className={`${styles.inventory_description} container_small observe fade-in-up`}
           >
             <Markdown>{mainText}</Markdown>
+          </div>
+        ) : null}
+
+        {data.specifications ? (
+          <div id="armoring-specs" className={`anchor`}>
+            <StickyHorizontalSlider
+              slides={data.specifications.data}
+              title="Armoring Specifications"
+              inventory
+            />
+          </div>
+        ) : null}
+
+        {data.accessories ? (
+          <div id="options-included" className={`anchor`}>
+            <StickyHorizontalSlider
+              slides={data.accessories.data}
+              title="Options Included"
+              inventory
+            />
           </div>
         ) : null}
 

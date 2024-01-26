@@ -7,23 +7,22 @@ import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
 
 const Banner = (props) => {
-  // console.log(props);
-  // return null;
-
   const data = props.props;
   // console.log(data)
+  // return null;
 
   return (
     <div className={`${styles.banner}`}>
       <div className={`${styles.banner_main}`}>
         <div className={`${styles.banner_title}`}>
-          <h1 className={`observe fade-in`}>
-            {data.titleDisplay ? (
-              <Markdown>{data.titleDisplay}</Markdown>
-            ) : data.title ? (
-              data.title
-            ) : null}
-          </h1>
+          {data.titleDisplay ? (
+            <h1
+              className={`observe fade-in`}
+              dangerouslySetInnerHTML={{ __html: data.titleDisplay }}
+            ></h1>
+          ) : data.title ? (
+            data.title
+          ) : null}
         </div>
 
         <div className={`${styles.banner_content}`}>
