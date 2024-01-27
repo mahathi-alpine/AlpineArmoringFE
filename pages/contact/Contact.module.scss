@@ -41,13 +41,13 @@
       }
       @include breakpoint(large) {
         width: 50%;
-        &_column{
-          &:nth-child(2){
+        &_column {
+          &:nth-child(2) {
             display: flex;
             flex-flow: column;
             align-self: stretch;
 
-            div{
+            div {
               margin-top: auto;
             }
           }
