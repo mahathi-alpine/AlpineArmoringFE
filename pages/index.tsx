@@ -8,7 +8,8 @@ import IntroText from 'components/homepage/intro-text/IntroText';
 import Categories from 'components/homepage/categories/Categories';
 import HPMiddleText from 'components/homepage/hp-middle-text/HPMiddleText';
 import TabSection from 'components/homepage/tab-section/TabSection';
-import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
+import Blog from 'components/homepage/blog/Blog';
+// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Partners from 'components/homepage/partners/Partners';
 import VideosPopup from 'components/global/videos-popup/VideosPopup';
 
@@ -17,11 +18,12 @@ function Home({ homepageData, categories, languageCookie }) {
   const categoriesData = categories?.data;
   const hpMiddleText = homepageData.data?.attributes.hpMiddleText;
   const tabSectionData = homepageData.data?.attributes.tabSection;
-  const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
+  // const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
   const allVehiclesImage =
     homepageData?.data?.attributes?.allVehiclesImage?.data?.attributes;
   const ballistingTestings =
     homepageData?.data?.attributes.ballistingTestingsMedia;
+  const blog = homepageData?.data?.attributes.blogs?.data;
   const partners = homepageData?.data?.attributes.industryPartners?.data;
   // console.log(homepageData)
 
@@ -97,9 +99,11 @@ function Home({ homepageData, categories, languageCookie }) {
         <div className="shape-after shape-after-white"></div>
       </div>
 
-      {horizontalSlider ? (
+      {blog ? <Blog props={blog} /> : null}
+
+      {/* {horizontalSlider ? (
         <StickyHorizontalSlider slides={horizontalSlider} title="Latest News" />
-      ) : null}
+      ) : null} */}
 
       {partners ? <Partners props={partners} /> : null}
     </>

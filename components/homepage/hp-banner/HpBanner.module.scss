@@ -84,9 +84,11 @@
     font-weight: var(--font-demi);
     text-transform: uppercase;
     color: transparent;
+
     @include breakpoint(large) {
       margin-bottom: 0;
     }
+
     span {
       animation: fadeInDown 1s;
       animation-fill-mode: forwards;
@@ -105,6 +107,11 @@
     font-weight: var(--font-demi);
     color: white;
     text-transform: uppercase;
+
+    @include breakpoint(small) {
+      transition-delay: unset;
+    }
+
     @include breakpoint(large) {
       margin-bottom: 0;
     }

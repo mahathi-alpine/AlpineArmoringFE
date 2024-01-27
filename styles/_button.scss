@@ -4,14 +4,27 @@
 
   display: block;
   padding: 16px 32px;
+  border: 1px solid transparent;
   border-radius: var(--border-radius);
   background: var(--color-dark);
   color: var(--color-white);
   font-size: rem(14);
   text-align: center;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  &:hover:not(.shiny):not(.primary):not(.border){
+    background: transparent;
+    border-color: var(--color-dark);
+    color: var(--color-dark);
+  }
 
   &.primary {
     --background: var(--color-primary);
+
+    &:hover:not(.shiny){
+      background: var(--color-white);
+      color: var(--color-dark);
+    }
   }
   &.rounded {
     --border-radius: 99px;
@@ -33,6 +46,18 @@
     background: rgba(0, 0, 0, 0.2);
   }
 
+  &.border {
+    background: transparent;
+    border: 1px solid var(--color-dark);
+    color: var(--color-dark);
+
+    &:hover{
+      color: var(--color-white);
+      background: var(--color-dark);
+    }
+  }
+
+
   &.primary {
     background: var(--color-primary);
   }
@@ -49,12 +74,14 @@
     font-weight: var(--font-medium);
     cursor: pointer;
     min-width: 287px;
+    border: none;
     background: linear-gradient(180deg, #484848, #1a1a1a);
     box-shadow:
       0 8px 16px 0 rgba(0, 0, 0, 0.2),
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
     &:hover {
+      color: var(--color-white);
       .mask {
         animation: mask1 0.4s steps(22) forwards;
       }
@@ -288,6 +315,7 @@
       background 0.3s ease-in-out,
       color 0.3s ease-in-out;
     overflow: hidden;
+    border: none;
 
     &:before {
       content: '';
@@ -300,7 +328,7 @@
       top: 0;
       opacity: 0.5;
       filter: blur(25px);
-      transform: translateX(-80px) skewX(-15deg);
+      transform: translateX(-112%) skewX(-15deg);
     }
 
     &:after {
@@ -315,6 +343,10 @@
       opacity: 0;
       filter: blur(25px);
       transform: translateX(-80px) skewX(-15deg);
+    }
+
+    &:hover{      
+      color: var(--color-white);
     }
 
     &:hover:before {

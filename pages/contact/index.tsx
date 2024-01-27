@@ -6,7 +6,6 @@ import Markdown from 'markdown-to-jsx';
 // import { useEffect } from 'react';
 
 function Contact(props) {
-  // const
   // console.log(props)
   // return null;
 

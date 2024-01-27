@@ -1,0 +1,182 @@
+.blog{
+    padding: rem(64) 0;
+    @include breakpoint(large) {
+        padding: rem(100) 0;
+    }
+    @include breakpoint(huge) {
+        padding: rem(160) 0 rem(100) 0;
+    }
+
+    &_inner{
+        @include breakpoint(medium) {
+            width: 80%;
+            margin: auto;
+        }
+        @include breakpoint(huge) {
+            max-width: 1320px;
+        }
+    }
+
+    &_heading{
+        margin-bottom: rem(32);
+        text-transform: uppercase;
+        @include breakpoint(large) {
+            margin-bottom: rem(48);
+        }
+
+        &_secondary{
+            font-size: rem(24);
+            font-weight: var(--font-demi);
+            margin-bottom: rem(8);
+            @include breakpoint(large) {
+                font-size: rem(32);
+            }
+        }
+        &_primary{
+            font-size: rem(40);
+            font-weight: var(--font-demi);
+            line-height: 1.1;
+            @include breakpoint(large) {
+                font-size: rem(72);
+            }
+        }
+    }
+
+    &_item{
+        margin-bottom: rem(40);
+        @include breakpoint(large) {
+            display: flex;
+            margin-bottom: rem(60);
+        }
+
+        &_image{
+            display: block;
+            position: relative;
+            aspect-ratio: 70/45;
+            aspect-ratio: 2.3 / 1;
+            @include breakpoint(large) {
+                width: 50%;
+            }
+            img{
+                object-fit: cover;
+            }
+        }
+
+        &_content{
+            padding-top: rem(8);
+            @include breakpoint(large) {
+                display: flex;
+                flex-flow: column;
+                justify-content: space-evenly;
+                width: 50%;
+                padding-left: rem(40);
+
+                &_main{
+                    flex: 1;
+                    display: flex;
+                    flex-flow: column;
+
+                    &_inner{
+                        margin: auto 0
+                    }
+                }
+            }
+        }
+
+        &_date{
+            margin-bottom: rem(8);
+            font-size: rem(14);
+            // font-weight: var(--font-medium);
+            text-transform: uppercase;
+
+            @include breakpoint(medium) {
+                margin-bottom: rem(16);
+            }
+        }
+
+        &_tags{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: rem(14);
+            margin-bottom: rem(8);
+
+            @include breakpoint(medium) {
+                margin-bottom: rem(16);
+            }
+
+            &_item{
+                padding: rem(5) rem(10);
+                background: var(--color-gray2);
+            }
+        }
+
+        &_button{
+            @include breakpoint(large) {
+                display: inline-flex;
+            }
+        }
+
+        &_title{
+            font-size: rem(18);
+            @include breakpoint(medium) {
+                margin-bottom: rem(16);
+                font-size: rem(24);
+            }
+            @include breakpoint(huge) {
+                font-size: rem(32);
+            }
+        }
+
+        &_excerpt{
+            display: none;
+            @include breakpoint(large) {
+                display: block;
+            }
+        }
+        
+        &_featured{
+            @include breakpoint(large) {
+                display: block;
+
+                .blog_item{
+                    &_image{
+                        width: 100%;
+                    }
+                    &_content{
+                        display: block;
+                        width: 100%;
+                        padding: rem(32) 0 0 0;
+
+                        &_main{
+                            display: flex;
+                            justify-content: space-between;
+                            flex-flow: row;
+
+                            &_inner{
+                                width: 80%;
+                                padding-right: rem(100);
+                            }
+                        }
+                    }
+                    &_date{
+                        margin-bottom: rem(16);
+                        font-size: rem(18);
+                        font-weight: var(--font-medium);
+                    }
+                    &_button{
+                        margin-top: rem(40);
+                    }
+                }
+            }
+        }
+    }
+
+    &_button{
+        margin-top: rem(100);
+        text-align: center;
+        &>a{
+            width: 200px;
+        }
+    }
+}
