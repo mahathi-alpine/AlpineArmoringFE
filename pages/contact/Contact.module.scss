@@ -4,6 +4,7 @@
       display: flex;
       gap: 56px;
       max-width: 1500px;
+      align-items: flex-start;
     }
     &_left {
       @include breakpoint(large) {
@@ -40,6 +41,17 @@
       }
       @include breakpoint(large) {
         width: 50%;
+        &_column{
+          &:nth-child(2){
+            display: flex;
+            flex-flow: column;
+            align-self: stretch;
+
+            div{
+              margin-top: auto;
+            }
+          }
+        }
       }
 
       &_title {

@@ -3,11 +3,39 @@ import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Markdown from 'markdown-to-jsx';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 
 function Contact(props) {
   // console.log(props)
   // return null;
+
+  useEffect(() => {
+    const targets = document.querySelectorAll('.observe');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
+
+    // Clean up the observer when the component unmounts
+    return () => {
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div className={`${styles.contact}`}>
@@ -20,7 +48,7 @@ function Contact(props) {
 
       <div className={`${styles.contact_main} container_small`}>
         <div className={`${styles.contact_main_left}`}>
-          {props.pageData?.formTitle ? (
+          {/* {props.pageData?.formTitle ? (
             <h2 className={`${styles.contact_main_left_title}`}>
               {props.pageData.formTitle}
             </h2>
@@ -29,7 +57,7 @@ function Contact(props) {
             <Markdown className={`${styles.contact_main_left_description}`}>
               {props.pageData.formDescription}
             </Markdown>
-          ) : null}
+          ) : null} */}
           <Form />
         </div>
         <div className={`${styles.contact_main_right}`}>

@@ -1,5 +1,5 @@
 .blog {
-  padding: rem(64) 0;
+  padding: rem(64) 0 0 0;
   @include breakpoint(large) {
     padding: rem(100) 0;
   }
@@ -52,10 +52,11 @@
     &_image {
       display: block;
       position: relative;
-      aspect-ratio: 70/45;
-      aspect-ratio: 2.3 / 1;
+      // aspect-ratio: 70/45;
+      aspect-ratio: 2 / 1;
       @include breakpoint(large) {
         width: 50%;
+        aspect-ratio: 2.3 / 1;
       }
       img {
         object-fit: cover;
@@ -63,7 +64,7 @@
     }
 
     &_content {
-      padding-top: rem(8);
+      padding-top: rem(16);
       @include breakpoint(large) {
         display: flex;
         flex-flow: column;
@@ -84,14 +85,9 @@
     }
 
     &_date {
-      margin-bottom: rem(8);
+      margin-bottom: rem(16);
       font-size: rem(14);
-      // font-weight: var(--font-medium);
       text-transform: uppercase;
-
-      @include breakpoint(medium) {
-        margin-bottom: rem(16);
-      }
     }
 
     &_tags {
@@ -173,8 +169,11 @@
   }
 
   &_button {
-    margin-top: rem(100);
+    margin-top: rem(50);
     text-align: center;
+    @include breakpoint(large) {
+      margin-top: rem(100);
+    }
     & > a {
       width: 200px;
     }
