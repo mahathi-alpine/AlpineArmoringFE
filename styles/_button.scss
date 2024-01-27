@@ -10,9 +10,11 @@
   color: var(--color-white);
   font-size: rem(14);
   text-align: center;
-  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition:
+    background 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 
-  &:hover:not(.shiny):not(.primary):not(.border){
+  &:hover:not(.shiny):not(.primary):not(.border) {
     background: transparent;
     border-color: var(--color-dark);
     color: var(--color-dark);
@@ -21,7 +23,7 @@
   &.primary {
     --background: var(--color-primary);
 
-    &:hover:not(.shiny){
+    &:hover:not(.shiny) {
       background: var(--color-white);
       color: var(--color-dark);
     }
@@ -51,12 +53,11 @@
     border: 1px solid var(--color-dark);
     color: var(--color-dark);
 
-    &:hover{
+    &:hover {
       color: var(--color-white);
       background: var(--color-dark);
     }
   }
-
 
   &.primary {
     background: var(--color-primary);
@@ -345,7 +346,7 @@
       transform: translateX(-80px) skewX(-15deg);
     }
 
-    &:hover{      
+    &:hover {
       color: var(--color-white);
     }
 
