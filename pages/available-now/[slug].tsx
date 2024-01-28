@@ -90,7 +90,7 @@ function InventoryVehicle(props) {
   const mainText = data.description;
   const category = data.category.data.attributes.title;
   const categorySlug = data.category.data.attributes.slug;
-  // console.log(data.specifications.data)
+  // console.log(data)
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
@@ -130,7 +130,7 @@ function InventoryVehicle(props) {
     },
   ];
 
-  // console.log(data.specifications);
+  // console.log(data);
   // return null;
 
   return (
@@ -141,8 +141,9 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_top_gallery_description}`}>
               <InfoIcon />
               <p>
-                This armored vehicle is in stock and available to ship
-                immediately
+                {data.shortDescription
+                  ? data.shortDescription
+                  : 'This armored vehicle is in stock and available to ship immediately'}
               </p>
             </div>
 
@@ -424,7 +425,7 @@ function InventoryVehicle(props) {
         ) : null}
 
         <VideoScale
-          video="/AlpineArmoringHP.mp4"
+          video={data.video.data.attributes.url}
           text1="Armored Cadillac"
           text2="ESV V-Series"
         />

@@ -13,7 +13,7 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 function InventoryVehicle(props) {
   const data = props.data?.data[0]?.attributes;
 
-  // console.log(data.dimensions2);
+  console.log(data);
   // return null;
 
   const inventory = data?.stock.data;
@@ -173,25 +173,25 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      {data.specificationsAll ? (
+      {data.specs ? (
         <div id="armoring-specs" className={`${styles.slug_specs} anchor`}>
-          <h2
-            className={`${styles.slug_dimensions_title} container_small c-title`}
-          >
-            Armoring Specifications
-          </h2>
-          <StickyHorizontalSlider slides={data.specificationsAll.data} />
+          <div className={`container_small`}>
+            <h2 className={`${styles.slug_dimensions_title} c-title`}>
+              Armoring Specifications
+            </h2>
+          </div>
+          <StickyHorizontalSlider slides={data.specs.data} />
         </div>
       ) : null}
 
-      {data.accessories ? (
+      {data.equipment ? (
         <div id="optional-equipment" className={`anchor`}>
-          <h2
-            className={`${styles.slug_dimensions_title} container_small c-title`}
-          >
-            Optional Equipment
-          </h2>
-          <StickyHorizontalSlider slides={data.accessories.data} />
+          <div className={`container_small`}>
+            <h2 className={`${styles.slug_dimensions_title} c-title`}>
+              Optional Equipment
+            </h2>
+          </div>
+          <StickyHorizontalSlider slides={data.equipment.data} />
         </div>
       ) : null}
 

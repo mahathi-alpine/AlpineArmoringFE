@@ -90,9 +90,9 @@ const Banner = (props) => {
           </div>
         ) : null}
 
-        {data.pdf ? (
+        {data.pdf.data ? (
           <Link
-            href={data.pdf}
+            href={data.pdf.data.attributes.url}
             target="_blank"
             className={`${styles.banner_pdf}`}
           >
