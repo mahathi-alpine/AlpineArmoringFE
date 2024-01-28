@@ -17,9 +17,9 @@ import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import NextJsImage from '../lightbox/NextJsImage';
 import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 
-const CarouselCurved = (props) => {
-  const slides = props.props;
-  // console.log(slides)
+const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
+  const slides = props;
+  // console.log(props)
   // return null;
 
   const options = {
@@ -42,34 +42,56 @@ const CarouselCurved = (props) => {
   } = usePrevNextButtons(emblaMainApi);
 
   return (
-    <>
+    <div
+      className={`
+      ${styles.carouselCurved_wrapper}      
+      ${white ? styles.carouselCurved_wrapper_white : ''}
+      ${squared ? styles.carouselCurved_wrapper_squared : ''}
+    `}
+    >
       <div
-        className={`${styles.carouselCurved_shapeAfter} shape-after shape-after-small`}
+        className={`${styles.carouselCurved_shape} ${styles.carouselCurved_shapeAfter} shape-after shape-after-small`}
       ></div>
 
       <div className={`${styles.carouselCurved}`}>
         <div className={`${styles.carouselCurved_viewport}`} ref={emblaMainRef}>
           <div className={`${styles.carouselCurved_container}`}>
-            {slides.map((item, index) => (
-              <div
-                className={styles.carouselCurved_slide}
-                key={index}
-                onClick={() => {
-                  setSelectedIndex(index);
-                  openLightbox();
-                }}
-              >
-                {item.attributes?.url ? (
-                  <Image
-                    src={item.attributes.url}
-                    alt="Description of the image"
-                    width={800}
-                    height={600}
-                    className={styles.carouselCurved_slide_img}
-                  />
-                ) : null}
-              </div>
-            ))}
+            {slides.map((item, index) => {
+              const width = item.attributes?.width;
+              const height = item.attributes?.height;
+              const aspectRatio = height / width;
+              const aspectRatioPercentage = aspectRatio * 100 + '%';
+
+              return (
+                <div
+                  className={styles.carouselCurved_slide}
+                  key={index}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    openLightbox();
+                  }}
+                >
+                  {item.attributes?.url ? (
+                    <div
+                      className={`${styles.carouselCurved_slide_img}`}
+                      style={{ paddingTop: aspectRatioPercentage }}
+                    >
+                      <picture>
+                        <source
+                          media="(min-width: 768px)"
+                          srcSet={item.attributes.url}
+                        />
+                        <Image
+                          src={item.attributes.url}
+                          alt={item.attributes.alternativeText}
+                          layout="fill"
+                        />
+                      </picture>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
 
           <div className={styles.carouselCurved_arrows}>
@@ -107,8 +129,12 @@ const CarouselCurved = (props) => {
         })}
       </div>
 
-      <div className="shape-before shape-before-white shape-before-small"></div>
-    </>
+      <div
+        className={`${
+          styles.carouselCurved_shape
+        } shape-before shape-before-small ${white ? 'shape-before-white' : ''}`}
+      ></div>
+    </div>
   );
 };
 

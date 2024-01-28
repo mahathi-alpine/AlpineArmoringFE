@@ -1,10 +1,10 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
-import ChevronIcon from 'components/icons/Chevron';
+// import ChevronIcon from 'components/icons/Chevron';
 import Markdown from 'markdown-to-jsx';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
@@ -35,10 +35,10 @@ function InventoryVehicle(props) {
   // const [openSpecs, setOpenSpecs] = useState(false);
   // const [openAccessories, setOpenAccessories] = useState(false);
 
-  const [viewMoreClicked, setViewMoreClicked] = useState(false);
-  const handleViewMoreClick = () => {
-    setViewMoreClicked(!viewMoreClicked);
-  };
+  // const [viewMoreClicked, setViewMoreClicked] = useState(false);
+  // const handleViewMoreClick = () => {
+  //   setViewMoreClicked(!viewMoreClicked);
+  // };
 
   useEffect(() => {
     document.body.classList.add('listing-inventory', 'background-dark');
@@ -233,9 +233,10 @@ function InventoryVehicle(props) {
               />
 
               <div
-                className={`${styles.inventory_tabs_content} ${
-                  viewMoreClicked ? styles.inventory_tabs_content_active : ''
-                }`}
+                // className={`${styles.inventory_tabs_content} ${
+                //   viewMoreClicked ? styles.inventory_tabs_content_active : ''
+                // }`}
+                className={`${styles.inventory_tabs_content}`}
               >
                 <div
                   // className={`${styles.inventory_tabs_content_item} ${
@@ -356,7 +357,7 @@ function InventoryVehicle(props) {
                 </div> */}
               </div>
 
-              {!viewMoreClicked && (
+              {/* {!viewMoreClicked && (
                 <div
                   className={`${styles.inventory_tabs_content_viewMore} mobile-only`}
                   onClick={handleViewMoreClick}
@@ -364,7 +365,7 @@ function InventoryVehicle(props) {
                   <span>View More</span>
                   <ChevronIcon />
                 </div>
-              )}
+              )} */}
             </div>
 
             <div className={`${styles.inventory_top_button}`}>
@@ -400,7 +401,10 @@ function InventoryVehicle(props) {
         ) : null}
 
         {data.specifications ? (
-          <div id="armoring-specs" className={`anchor`}>
+          <div
+            id="armoring-specs"
+            className={`${styles.inventory_specs} anchor`}
+          >
             <StickyHorizontalSlider
               slides={data.specifications.data}
               title="Armoring Specifications"

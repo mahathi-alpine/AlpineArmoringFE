@@ -53,8 +53,9 @@
     @include breakpoint(large) {
       position: relative;
       margin-bottom: -100px;
+      padding: 0;
       top: rem(-220);
-      right: 25px;
+      right: 48px;
       z-index: 1;
     }
   }

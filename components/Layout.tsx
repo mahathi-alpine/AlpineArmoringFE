@@ -50,7 +50,7 @@ const termina = localFont({
 const Layout = ({ children }) => {
   const router = useRouter();
 
-  const pathsDarkMode = ['/available-now'];
+  const pathsDarkMode = ['/available-now', '/manufacturing'];
   const pathsDarkHeader = ['/vehicles-we-armor', '/contact'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
@@ -69,6 +69,13 @@ const Layout = ({ children }) => {
       <Head>
         <title>Alpine Armoring</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        {isDarkMode && (
+          <style>{`
+              body {
+                background: #101010 !important;
+              }
+            `}</style>
+        )}
       </Head>
 
       <div className={termina.className}>

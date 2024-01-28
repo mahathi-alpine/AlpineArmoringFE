@@ -324,7 +324,7 @@ button.yarl__button {
   transition: background 0.2s ease;
 
   &:hover {
-    background: #696b6a;
+    background: var(--color-gray);
   }
 }
 button.yarl__navigation_next {

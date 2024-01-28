@@ -1,0 +1,181 @@
+.manufacturing{
+
+    &_title{
+        margin-bottom: rem(16);
+        text-transform: uppercase;
+        color: var(--color-primary);
+        font-weight: var(--font-demi);
+        white-space: pre-wrap;
+        font-size: rem(18);
+        @include breakpoint(large) {
+            font-size: rem(20);
+        }
+        @include breakpoint(huge) {
+            font-size: rem(24);
+        }
+    }
+
+    &_text{
+        @include breakpoint(large) {
+            font-size: rem(20);
+        }
+
+        p{
+            margin-bottom: rem(16);
+        }
+    }
+
+    &_quote{
+        border-left: 1px solid var(--color-primary);;
+        padding-left: 24px;
+        @include breakpoint(large) {
+            max-width: 1070px;
+            margin: auto;
+            font-size: rem(20);
+        }
+
+        p{
+            margin-bottom: rem(16);
+        }
+    }
+
+    &_box{
+        margin: rem(24) 0;
+        @include breakpoint(medium) {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin: rem(48) 0;
+            
+            .manufacturing_image{
+                width: 40%;
+            }
+
+            .manufacturing_text{
+                flex:  1;
+            }
+        }
+        @include breakpoint(large) {
+            gap: 80px;
+            max-width: 1200px;
+            margin: auto;
+            margin: rem(64) auto;
+            
+            .manufacturing_image{
+                width: 50%;
+            }
+        }
+    }
+
+    &_image{
+        position: relative;
+
+        img{
+            object-fit: cover;
+            // width: 100%;
+            // height: auto;
+        }
+    }
+
+    &_section1{
+        padding-top: rem(24);
+        margin-bottom: rem(64);
+
+        @include breakpoint(large) {
+            padding-top: rem(64);
+            margin-bottom: rem(128);
+        }
+        @include breakpoint(huge) {
+            margin-bottom: rem(164);
+        }
+
+        &_top{
+            @include breakpoint(medium) {
+                display: flex;
+                margin: auto;
+                gap: 32px;
+            }
+            @include breakpoint(large) {
+                gap: 70px;
+                max-width: 1560px;
+            }
+            @include breakpoint(huge) {
+                gap: 100px;
+            }
+        }
+
+        &_box{
+            @include breakpoint(medium) {
+                max-width: 585px;
+            }
+        }
+
+        &_heading{
+            margin-bottom: rem(40);
+            font-weight: var(--font-medium);
+            font-size: rem(24);
+            @include breakpoint(medium) {
+                font-size: rem(32);
+                margin-bottom: 0;
+                margin-top: -10px;
+            }
+            @include breakpoint(large) {
+                font-size: rem(40);
+            }
+            @include breakpoint(huge) {
+                font-size: rem(56);
+            }
+        }
+
+        &_image{
+            margin-bottom: rem(24);
+            @include breakpoint(medium) {
+                max-width: 80%;
+            }
+        }
+
+        &_image2{
+            margin: rem(40) auto;
+            @include breakpoint(huge) {
+                margin: rem(100) auto;
+            }
+            img{
+                margin: auto;
+            }
+        }
+    }
+
+    &_section2{
+        margin-bottom: rem(64);
+        @include breakpoint(large) {
+            margin-bottom: rem(128);
+        }
+        @include breakpoint(huge) {
+            margin-bottom: rem(164);
+        }
+
+        &_heading{
+            font-size: rem(18);
+            @include breakpoint(large) {
+                font-size: rem(28);
+            }
+            @include breakpoint(huge) {
+                font-size: rem(32);
+            }
+        }
+
+        &_image{
+            margin-bottom: rem(24);
+        }
+    }
+
+    &_section3{
+        &_heading{
+            display: block;
+            margin-bottom: rem(16);
+            @include breakpoint(large) {
+                font-size: rem(24);
+            }
+        }
+    }
+}

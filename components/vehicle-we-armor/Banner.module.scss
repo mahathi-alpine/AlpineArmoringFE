@@ -86,10 +86,10 @@
   }
 
   &_description {
-    margin-bottom: rem(24);
     font-size: rem(14);
     @include breakpoint(medium) {
       font-size: rem(18);
+      margin-bottom: rem(24);
     }
     @include breakpoint(large) {
       // padding-right: 50px;

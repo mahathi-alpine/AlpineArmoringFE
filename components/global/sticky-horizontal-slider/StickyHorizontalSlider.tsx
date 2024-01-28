@@ -12,7 +12,7 @@ import useLightbox from '../lightbox/useLightbox';
 
 const StickyHorizontalSlider = ({
   slides,
-  title,
+  title = undefined,
   curved = false,
   inventory = false,
 }) => {
@@ -35,13 +35,15 @@ const StickyHorizontalSlider = ({
       ${inventory ? styles.stickyHorizontalSlider_inventory : ''}   
     `}
     >
-      <div
-        className={`${styles.stickyHorizontalSlider_heading} fade-in-up observe container`}
-      >
-        <h2 className={`c-title`}>
-          <span>{title}</span>
-        </h2>
-      </div>
+      {title ? (
+        <div
+          className={`${styles.stickyHorizontalSlider_heading} fade-in-up observe container`}
+        >
+          <h2 className={`c-title`}>
+            <span>{title}</span>
+          </h2>
+        </div>
+      ) : null}
 
       <div
         className={`${styles.stickyHorizontalSlider_sticky} fade-in-up observe`}

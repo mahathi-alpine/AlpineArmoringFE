@@ -13,6 +13,18 @@
     max-width: 100%;
   }
 
+  @include breakpoint(large) {
+    &:hover {
+      .listing_item_image img {
+        filter: brightness(0.5);
+      }
+      .listing_item_button {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
   &_inner {
     @include breakpoint(medium) {
       display: block;
@@ -68,15 +80,5 @@
     transition:
       opacity 0.3s ease,
       visibility 0.3s ease;
-  }
-
-  &:hover {
-    .listing_item_image img {
-      filter: brightness(0.5);
-    }
-    .listing_item_button {
-      opacity: 1;
-      visibility: visible;
-    }
   }
 }

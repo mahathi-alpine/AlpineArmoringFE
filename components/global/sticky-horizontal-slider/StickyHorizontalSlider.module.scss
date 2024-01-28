@@ -1,23 +1,23 @@
 .stickyHorizontalSlider {
   position: relative;
-  padding: rem(100) 0 0 0;
+  // padding: rem(100) 0 0 0;
   z-index: 2;
   overflow: hidden;
 
   &_inventory {
     .stickyHorizontalSlider_inner {
-      flex-wrap: wrap;
-      padding: 0 rem(16);
       @include breakpoint(medium) {
+        flex-wrap: wrap;
+        padding: 0 rem(16);
         gap: 16px;
       }
     }
     .stickyHorizontalSlider_item {
-      flex: 100%;
-      margin: 0 0 rem(16) 0;
 
       @include breakpoint(medium) {
         flex: 0 0 calc(100% / 2 - 11px);
+        flex: 100%;
+        margin: 0 0 rem(16) 0;
 
         &:hover {
           transform: none;

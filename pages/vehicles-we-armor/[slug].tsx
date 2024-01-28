@@ -13,7 +13,7 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 function InventoryVehicle(props) {
   const data = props.data?.data[0]?.attributes;
 
-  // console.log(data.specificationsAll.data);
+  console.log(data.dimensions2);
   // return null;
 
   const inventory = data?.stock.data;
@@ -22,8 +22,8 @@ function InventoryVehicle(props) {
   const beforeAfterSlider_After =
     data?.beforeAfterSlider?.after.data?.attributes.url;
 
-  const dimensions1 = data?.dimensions1?.data?.attributes.url;
-  const dimensions2 = data?.dimensions2?.data?.attributes.url;
+  const dimensions1 = data?.dimensions1?.data?.attributes;
+  const dimensions2 = data?.dimensions2?.data?.attributes;
 
   const gallery = data?.gallery?.data;
 
@@ -125,18 +125,35 @@ function InventoryVehicle(props) {
             Dimensions
           </h2>
           <div className={`${styles.slug_dimensions_wrap}`}>
-            <Image
-              src={`${dimensions1}`}
-              alt="Alpine Armoring"
-              width={549}
-              height={431}
-            />
-            <Image
-              src={`${dimensions2}`}
-              alt="Alpine Armoring"
-              width={1101}
-              height={431}
-            />
+            <div className={`${styles.slug_dimensions_wrap_image}`}>
+              <picture>
+                <source
+                  media="(min-width: 768px)"
+                  srcSet={dimensions1.formats?.large?.url || dimensions1.url}
+                />
+                <Image
+                  src={dimensions1.formats?.small?.url || dimensions1.url}
+                  alt={dimensions1.alternativeText}
+                  width={dimensions1.width}
+                  height={dimensions1.height}
+                />
+              </picture>
+            </div>
+
+            <div className={`${styles.slug_dimensions_wrap_image}`}>
+              <picture>
+                <source
+                  media="(min-width: 768px)"
+                  srcSet={dimensions2.formats?.large?.url || dimensions2.url}
+                />
+                <Image
+                  src={dimensions2.formats?.small?.url || dimensions2.url}
+                  alt={dimensions2.alternativeText}
+                  width={dimensions2.width}
+                  height={dimensions2.height}
+                />
+              </picture>
+            </div>
           </div>
         </div>
       ) : null}
@@ -157,26 +174,30 @@ function InventoryVehicle(props) {
       ) : null}
 
       {data.specificationsAll ? (
-        <div id="armoring-specs" className={`anchor`}>
-          <StickyHorizontalSlider
-            slides={data.specificationsAll.data}
-            title="Armoring Specifications"
-          />
+        <div id="armoring-specs" className={`${styles.slug_specs} anchor`}>
+          <h2
+            className={`${styles.slug_dimensions_title} container_small c-title`}
+          >
+            Armoring Specifications
+          </h2>
+          <StickyHorizontalSlider slides={data.specificationsAll.data} />
         </div>
       ) : null}
 
       {data.accessories ? (
         <div id="optional-equipment" className={`anchor`}>
-          <StickyHorizontalSlider
-            slides={data.accessories.data}
-            title="Optional Equipment"
-          />
+          <h2
+            className={`${styles.slug_dimensions_title} container_small c-title`}
+          >
+            Optional Equipment
+          </h2>
+          <StickyHorizontalSlider slides={data.accessories.data} />
         </div>
       ) : null}
 
       {gallery ? (
-        <div className={`${styles.slug_gallery} container anchor`} id="gallery">
-          <Gallery props={gallery} />
+        <div className={`${styles.slug_gallery} anchor`} id="gallery">
+          <Gallery props={gallery} white />
         </div>
       ) : null}
     </div>

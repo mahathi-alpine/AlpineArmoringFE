@@ -272,48 +272,48 @@
       //   max-height: 2000px;
       // }
 
-      &_viewMore {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: rem(20) 0;
-        text-align: center;
-        cursor: pointer;
-        font-size: rem(15);
-        overflow: hidden;
-        background: #0d0d0d;
+      // &_viewMore {
+      //   position: relative;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      //   padding: rem(20) 0;
+      //   text-align: center;
+      //   cursor: pointer;
+      //   font-size: rem(15);
+      //   overflow: hidden;
+      //   background: #0d0d0d;
 
-        svg {
-          transform: rotate(90deg);
-        }
+      //   svg {
+      //     transform: rotate(90deg);
+      //   }
 
-        span {
-          position: relative;
-        }
+      //   span {
+      //     position: relative;
+      //   }
 
-        &:before {
-          position: absolute;
-          content: '';
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          background: linear-gradient(
-            0deg,
-            rgba(20, 19, 15, 1) 0%,
-            rgba(20, 19, 15, 0) 100%
-          );
-          // z-index: 1;
-          // background: #101010 url('/assets/noise3.png');
-          background: #101010 url(/assets/noise4.png);
-          background-size: 30px;
-          // filter: url(#esteisalegend);
-          // mix-blend-mode: soft-light;
-          // opacity: 0.85;
-          // isolation: isolate;
-        }
-      }
+      //   &:before {
+      //     position: absolute;
+      //     content: '';
+      //     left: 0;
+      //     right: 0;
+      //     top: 0;
+      //     bottom: 0;
+      //     background: linear-gradient(
+      //       0deg,
+      //       rgba(20, 19, 15, 1) 0%,
+      //       rgba(20, 19, 15, 0) 100%
+      //     );
+      //     // z-index: 1;
+      //     // background: #101010 url('/assets/noise3.png');
+      //     background: #101010 url(/assets/noise4.png);
+      //     background-size: 30px;
+      //     // filter: url(#esteisalegend);
+      //     // mix-blend-mode: soft-light;
+      //     // opacity: 0.85;
+      //     // isolation: isolate;
+      //   }
+      // }
     }
 
     &_item {
@@ -397,11 +397,16 @@
 
   &_description {
     padding-top: rem(100);
+    padding-bottom: rem(100);
     text-align: center;
     @include breakpoint(large) {
       font-size: rem(20);
       padding-top: rem(150);
       padding-bottom: rem(150);
     }
+  }
+
+  &_specs{    
+    padding-bottom: rem(60);
   }
 }
