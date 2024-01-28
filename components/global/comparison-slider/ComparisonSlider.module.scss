@@ -39,7 +39,7 @@
     touch-action: pan-y;
     cursor: ew-resize;
 
-    &_inner{
+    &_inner {
       position: absolute;
       display: flex;
       align-items: center;
@@ -54,34 +54,35 @@
         margin-left: -18px;
       }
 
-      &:before, &:after{
+      &:before,
+      &:after {
         position: absolute;
         content: '';
-        width: 0; 
+        width: 0;
         height: 0;
         border-top: 4px solid transparent;
         border-bottom: 4px solid transparent;
         @include breakpoint(large) {
           border-width: 8px;
-        }  
+        }
       }
 
-      &:before{
-        left: 4px;     
-        border-right: 4px solid var(--color-white); 
+      &:before {
+        left: 4px;
+        border-right: 4px solid var(--color-white);
         @include breakpoint(large) {
-          left: 8px;   
+          left: 8px;
           border-width: 8px;
-        }       
+        }
       }
 
-      &:after{
-        right: 4px;        
-        border-left: 4px solid var(--color-white); 
+      &:after {
+        right: 4px;
+        border-left: 4px solid var(--color-white);
         @include breakpoint(large) {
-          right: 8px;  
+          right: 8px;
           border-width: 8px;
-        }          
+        }
       }
     }
   }
