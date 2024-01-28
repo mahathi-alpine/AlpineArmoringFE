@@ -10,7 +10,7 @@
     --slide-size: 60%;
     --slide-spacing: 8px;
 
-    .carouselCurved_wrapper_squared  &{
+    .carouselCurved_wrapper_squared & {
       --slide-size: 35%;
     }
   }
@@ -25,24 +25,24 @@
     margin-top: -40px;
     margin-bottom: 60px;
 
-    .carouselCurved_wrapper_squared  &{
+    .carouselCurved_wrapper_squared & {
       --slide-size: 27%;
     }
   }
 
-  &_wrapper{
+  &_wrapper {
     padding: rem(40) 0;
     @include breakpoint(medium) {
       padding: rem(64) 0;
     }
   }
 
-  &_shape{
+  &_shape {
     height: 30px;
     @include breakpoint(huge) {
       height: 50px;
     }
-    &:after{
+    &:after {
       left: -30px;
       right: -30px;
       @include breakpoint(huge) {
@@ -56,7 +56,7 @@
     position: relative;
     z-index: 1;
     &:after {
-      .carouselCurved_wrapper_white &{
+      .carouselCurved_wrapper_white & {
         background: var(--color-background);
       }
     }
@@ -87,7 +87,7 @@
       position: relative;
       height: 100%;
       // aspect-ratio: 1.3/1;
-      img{
+      img {
         // width: 100%;
         // height: 100%;
         object-fit: cover;
@@ -103,7 +103,7 @@
     cursor: pointer;
     z-index: 1;
     pointer-events: none;
-    
+
     @include breakpoint(large) {
       bottom: rem(16);
     }
@@ -140,7 +140,7 @@
         right: rem(4);
       }
 
-      &:hover{
+      &:hover {
         background: var(--color-gray);
       }
 

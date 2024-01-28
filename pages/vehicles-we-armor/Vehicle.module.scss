@@ -57,9 +57,9 @@
         justify-content: center;
         gap: 24px;
 
-        &_image{
+        &_image {
           width: calc(40% - 12px);
-          &:last-child{
+          &:last-child {
             width: calc(60% - 12px);
           }
         }
@@ -67,10 +67,10 @@
       @include breakpoint(large) {
         gap: 64px;
 
-        &_image{
+        &_image {
           width: calc(40% - 32px);
           max-width: 1000px;
-          &:last-child{
+          &:last-child {
             width: calc(60% - 32px);
           }
         }
@@ -101,7 +101,7 @@
     }
   }
 
-  &_specs{
+  &_specs {
     padding-bottom: rem(60);
 
     @include breakpoint(large) {

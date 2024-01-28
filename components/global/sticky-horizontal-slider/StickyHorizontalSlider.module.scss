@@ -13,7 +13,6 @@
       }
     }
     .stickyHorizontalSlider_item {
-
       @include breakpoint(medium) {
         flex: 0 0 calc(100% / 2 - 11px);
         flex: 100%;
