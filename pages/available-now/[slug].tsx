@@ -40,12 +40,12 @@ function InventoryVehicle(props) {
   //   setViewMoreClicked(!viewMoreClicked);
   // };
 
-  useEffect(() => {
-    document.body.classList.add('listing-inventory', 'background-dark');
-    return () => {
-      document.body.classList.remove('listing-inventory', 'background-dark');
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.body.classList.add('listing-inventory', 'background-dark');
+  //   return () => {
+  //     document.body.classList.remove('listing-inventory', 'background-dark');
+  //   };
+  // }, []);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');

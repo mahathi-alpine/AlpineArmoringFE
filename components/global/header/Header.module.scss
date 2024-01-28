@@ -20,7 +20,7 @@
   //   height: unset;
   // }
 
-  &_dark {
+  &_dark:not(.header_navOpen) {
     position: absolute;
     transform: none !important;
     background: transparent !important;

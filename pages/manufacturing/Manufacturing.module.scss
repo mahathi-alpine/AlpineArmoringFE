@@ -134,9 +134,9 @@
     }
 
     &_image2 {
-      margin: rem(40) auto;
+      margin: rem(32) auto;
       @include breakpoint(huge) {
-        margin: rem(100) auto;
+        margin-top: rem(64);
       }
       img {
         margin: auto;

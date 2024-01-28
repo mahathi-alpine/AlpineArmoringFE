@@ -83,6 +83,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
                     ? `${styles.navigationPopup_item_active}`
                     : ''
                 }`}
+                onClick={() => setNavOpen(false)}
               >
                 <Link
                   className={`${styles.navigationPopup_link}`}
