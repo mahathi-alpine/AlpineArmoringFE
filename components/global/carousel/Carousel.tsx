@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import styles from './Carousel.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
 
@@ -97,19 +97,39 @@ const EmblaCarousel = (props) => {
               }}
             >
               {item.attributes?.url ? (
-                <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={item.attributes.formats?.large?.url}
-                  />
-                  <Image
-                    src={item.attributes.formats?.small.url}
-                    alt="alt text here"
-                    fill
-                    priority={index === 0}
-                    className={styles.carousel_slide_img}
-                  />
-                </picture>
+                // <picture>
+                //   <source
+                //     media="(min-width: 768px)"
+                //     srcSet={item.attributes.formats?.large?.url}
+                //   />
+                //   <Image
+                //     src={item.attributes.formats?.small.url}
+                //     alt="alt text here"
+                //     fill
+                //     priority={index === 0}
+                //     className={styles.carousel_slide_img}
+                //   />
+                // </picture>
+
+                <CldImage
+                  src={
+                    item.attributes.formats?.large?.url || item.attributes.url
+                  }
+                  alt={item.attributes.alternativeText}
+                  priority={index === 0}
+                  width={
+                    item.attributes.formats?.large?.width ||
+                    item.attributes.width
+                  }
+                  height={
+                    item.attributes.formats?.large?.height ||
+                    item.attributes.height
+                  }
+                  sizes="(min-width: 1280px ) 43vW,
+                         (min-width: 768px ) 55vW,
+                          100vw"
+                  className={styles.carousel_slide_img}
+                ></CldImage>
               ) : null}
             </div>
           ))}

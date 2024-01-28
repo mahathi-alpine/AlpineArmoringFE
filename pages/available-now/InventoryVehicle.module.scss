@@ -57,9 +57,16 @@
       }
     }
 
-    // &_shape {
-    //   margin-top: -24px;
-    // }
+    &_shape {
+      @include breakpoint(small) {
+        margin-top: -30px;
+        height: 30px;
+        &:after{
+          left: -30px;
+          right: -30px;
+        }
+      }
+    }
 
     &_button {
       margin-top: rem(32);
@@ -86,7 +93,7 @@
     align-items: flex-end;
     position: absolute;
     left: rem(8);
-    bottom: rem(50);
+    bottom: rem(32);
     font-size: rem(13);
     font-weight: var(--font-large);
 
@@ -198,7 +205,7 @@
   &_details {
     position: relative;
     padding: 0 rem(16);
-    margin-top: rem(-16);
+    // margin-top: rem(-16);
     z-index: 1;
 
     @include breakpoint(medium) {

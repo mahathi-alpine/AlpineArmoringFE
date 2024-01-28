@@ -26,10 +26,14 @@
 
   &_quote {
     border-left: 1px solid var(--color-primary);
-    padding-left: 24px;
+    padding-left: rem(16);
+    font-size: rem(14);
+    margin-left: rem(8);
+    margin: rem(24) 0 rem(24) rem(8);
     @include breakpoint(large) {
       max-width: 1070px;
-      margin: auto;
+      margin: rem(40) auto rem(40) auto;
+      padding-left: rem(24);
       font-size: rem(20);
     }
 
@@ -39,7 +43,7 @@
   }
 
   &_box {
-    margin: rem(24) 0;
+    // margin: rem(24) 0;
     @include breakpoint(medium) {
       display: flex;
       gap: 40px;
@@ -68,6 +72,7 @@
 
   &_image {
     position: relative;
+    margin: rem(24) 0;
 
     img {
       object-fit: cover;
@@ -78,7 +83,7 @@
 
   &_section1 {
     padding-top: rem(24);
-    margin-bottom: rem(64);
+    margin-bottom: rem(80);
 
     @include breakpoint(large) {
       padding-top: rem(64);
@@ -110,7 +115,8 @@
     }
 
     &_heading {
-      margin-bottom: rem(40);
+      display: block;
+      // margin-bottom: rem(24);
       font-weight: var(--font-medium);
       font-size: rem(24);
       @include breakpoint(medium) {
@@ -127,14 +133,15 @@
     }
 
     &_image {
-      margin-bottom: rem(24);
       @include breakpoint(medium) {
         max-width: 80%;
       }
     }
 
     &_image2 {
-      margin: rem(32) auto;
+      @include breakpoint(large) {
+        margin: rem(48) auto;
+      }
       @include breakpoint(huge) {
         margin-top: rem(64);
       }
@@ -145,7 +152,7 @@
   }
 
   &_section2 {
-    margin-bottom: rem(64);
+    margin-bottom: rem(80);
     @include breakpoint(large) {
       margin-bottom: rem(128);
     }
@@ -154,7 +161,7 @@
     }
 
     &_heading {
-      font-size: rem(18);
+      // font-size: rem(18);
       @include breakpoint(large) {
         font-size: rem(28);
       }

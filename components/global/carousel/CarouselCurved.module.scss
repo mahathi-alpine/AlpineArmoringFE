@@ -30,12 +30,12 @@
     }
   }
 
-  &_wrapper {
-    padding: rem(40) 0;
-    @include breakpoint(medium) {
-      padding: rem(64) 0;
-    }
-  }
+  // &_wrapper {
+  //   padding: rem(40) 0;
+  //   @include breakpoint(medium) {
+  //     padding: rem(64) 0;
+  //   }
+  // }
 
   &_shape {
     height: 30px;

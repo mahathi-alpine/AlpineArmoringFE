@@ -3,8 +3,8 @@ import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
 import Markdown from 'markdown-to-jsx';
 import { useEffect } from 'react';
-import Image from 'next/image';
 import Gallery from 'components/global/carousel/CarouselCurved';
+import { CldImage } from 'next-cloudinary';
 
 function Manufacturing(props) {
   // console.log(props.pageData)
@@ -75,29 +75,19 @@ function Manufacturing(props) {
               <div
                 className={`${styles.manufacturing_section1_image} ${styles.manufacturing_image} observe fade-in`}
               >
-                <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={
-                      props.pageData.section1Image.data.attributes.formats
-                        ?.large?.url ||
-                      props.pageData.section1Image.data.attributes.url
-                    }
-                  />
-                  <Image
-                    src={
-                      props.pageData.section1Image.data.attributes.formats
-                        ?.small?.url ||
-                      props.pageData.section1Image.data.attributes.url
-                    }
-                    alt={
-                      props.pageData.section1Image.data.attributes
-                        .alternativeText
-                    }
-                    width={props.pageData.section1Image.data.attributes.width}
-                    height={props.pageData.section1Image.data.attributes.height}
-                  />
-                </picture>
+                <CldImage
+                  src={
+                    props.pageData.section1Image.data.attributes.formats?.large
+                      ?.url || props.pageData.section1Image.data.attributes.url
+                  }
+                  alt={
+                    props.pageData.section1Image.data.attributes.alternativeText
+                  }
+                  width={500}
+                  height={400}
+                  sizes="(min-width: 768px ) 40vw,
+                          100vw"
+                ></CldImage>
               </div>
             ) : null}
 
@@ -116,26 +106,24 @@ function Manufacturing(props) {
           <div
             className={`${styles.manufacturing_section1_image2} ${styles.manufacturing_image} observe fade-in`}
           >
-            <picture>
-              <source
-                media="(min-width: 768px)"
-                srcSet={
-                  props.pageData.section1Image2.data.attributes.formats?.large
-                    ?.url || props.pageData.section1Image2.data.attributes.url
-                }
-              />
-              <Image
-                src={
-                  props.pageData.section1Image2.data.attributes.formats?.small
-                    ?.url || props.pageData.section1Image2.data.attributes.url
-                }
-                alt={
-                  props.pageData.section1Image2.data.attributes.alternativeText
-                }
-                width={props.pageData.section1Image2.data.attributes.width}
-                height={props.pageData.section1Image2.data.attributes.height}
-              />
-            </picture>
+            <CldImage
+              src={
+                props.pageData.section1Image2.data.attributes.formats?.large
+                  ?.url || props.pageData.section1Image2.data.attributes.url
+              }
+              alt={
+                props.pageData.section1Image2.data.attributes.alternativeText
+              }
+              width={
+                props.pageData.section1Image2.data.attributes.formats?.large
+                  ?.width || props.pageData.section1Image2.data.attributes.width
+              }
+              height={
+                props.pageData.section1Image2.data.attributes.formats?.large
+                  ?.height ||
+                props.pageData.section1Image2.data.attributes.height
+              }
+            ></CldImage>
           </div>
         ) : null}
 
@@ -168,29 +156,17 @@ function Manufacturing(props) {
           <div className={`${styles.manufacturing_box}`}>
             {props.pageData?.section2Image ? (
               <div className={`${styles.manufacturing_image} observe fade-in`}>
-                <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={
-                      props.pageData.section2Image.data.attributes.formats
-                        ?.large?.url ||
-                      props.pageData.section2Image.data.attributes.url
-                    }
-                  />
-                  <Image
-                    src={
-                      props.pageData.section2Image.data.attributes.formats
-                        ?.small?.url ||
-                      props.pageData.section2Image.data.attributes.url
-                    }
-                    alt={
-                      props.pageData.section2Image.data.attributes
-                        .alternativeText
-                    }
-                    width={props.pageData.section2Image.data.attributes.width}
-                    height={props.pageData.section2Image.data.attributes.height}
-                  />
-                </picture>
+                <CldImage
+                  src={
+                    props.pageData.section2Image.data.attributes.formats?.large
+                      ?.url || props.pageData.section2Image.data.attributes.url
+                  }
+                  alt={
+                    props.pageData.section2Image.data.attributes.alternativeText
+                  }
+                  width={600}
+                  height={475}
+                ></CldImage>
               </div>
             ) : null}
 
@@ -211,11 +187,15 @@ function Manufacturing(props) {
           </div>
         ) : null}
 
-        {props.pageData?.section2Text2 ? (
-          <Markdown className={`${styles.manufacturing_quote} observe fade-in`}>
-            {props.pageData.section2Text2}
-          </Markdown>
-        ) : null}
+        <div className={`container_small`}>
+          {props.pageData?.section2Text2 ? (
+            <Markdown
+              className={`${styles.manufacturing_quote} observe fade-in`}
+            >
+              {props.pageData.section2Text2}
+            </Markdown>
+          ) : null}
+        </div>
       </section>
 
       <section className={`${styles.manufacturing_section3}`}>
@@ -238,29 +218,17 @@ function Manufacturing(props) {
           <div className={`${styles.manufacturing_box}`}>
             {props.pageData?.section3Image.data ? (
               <div className={`${styles.manufacturing_image} observe fade-in`}>
-                <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={
-                      props.pageData.section3Image.data.attributes.formats
-                        ?.large?.url ||
-                      props.pageData.section3Image.data.attributes.url
-                    }
-                  />
-                  <Image
-                    src={
-                      props.pageData.section3Image.data.attributes.formats
-                        ?.small?.url ||
-                      props.pageData.section3Image.data.attributes.url
-                    }
-                    alt={
-                      props.pageData.section3Image.data.attributes
-                        .alternativeText
-                    }
-                    width={props.pageData.section3Image.data.attributes.width}
-                    height={props.pageData.section3Image.data.attributes.height}
-                  />
-                </picture>
+                <CldImage
+                  src={
+                    props.pageData.section3Image.data.attributes.formats?.large
+                      ?.url || props.pageData.section3Image.data.attributes.url
+                  }
+                  alt={
+                    props.pageData.section3Image.data.attributes.alternativeText
+                  }
+                  width={600}
+                  height={475}
+                ></CldImage>
               </div>
             ) : null}
 

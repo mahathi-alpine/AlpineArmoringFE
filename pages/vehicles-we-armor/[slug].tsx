@@ -13,14 +13,14 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 function InventoryVehicle(props) {
   const data = props.data?.data[0]?.attributes;
 
-  console.log(data.dimensions2);
+  // console.log(data.dimensions2);
   // return null;
 
   const inventory = data?.stock.data;
   const beforeAfterSlider_Before =
-    data?.beforeAfterSlider?.before.data?.attributes.url;
+    data?.beforeAfterSlider?.before.data?.attributes;
   const beforeAfterSlider_After =
-    data?.beforeAfterSlider?.after.data?.attributes.url;
+    data?.beforeAfterSlider?.after.data?.attributes;
 
   const dimensions1 = data?.dimensions1?.data?.attributes;
   const dimensions2 = data?.dimensions2?.data?.attributes;

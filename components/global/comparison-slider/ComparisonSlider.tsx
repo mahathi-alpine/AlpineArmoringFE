@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styles from './ComparisonSlider.module.scss';
+import { CldImage } from 'next-cloudinary';
 
 const ComparisonSlider = ({ beforeImage, afterImage }) => {
   const sliderRef = useRef(null);
@@ -20,6 +21,12 @@ const ComparisonSlider = ({ beforeImage, afterImage }) => {
     };
 
     window.addEventListener('resize', moveDivisor);
+
+    slider.addEventListener('mousedown', (e) => {
+      let x = e.pageX;
+      x -= slider.getBoundingClientRect().left;
+      slideIt(x);
+    });
 
     resizer.addEventListener('mousedown', () => {
       active = true;
@@ -95,17 +102,27 @@ const ComparisonSlider = ({ beforeImage, afterImage }) => {
   return (
     <div className={`${styles.comparisonSlider}`} ref={sliderRef}>
       <div className={`${styles.comparisonSlider_before}`} ref={beforeRef}>
-        <img src={beforeImage} alt="before" />
+        <CldImage
+          src={beforeImage.url}
+          alt={beforeImage.alternativeText}
+          width={1300}
+          height={450}
+          quality={100}
+        ></CldImage>
       </div>
 
       <div className={`${styles.comparisonSlider_after}`}>
-        <img src={afterImage} alt="After" />
+        <CldImage
+          src={afterImage.url}
+          alt={afterImage.alternativeText}
+          width={1300}
+          height={450}
+        ></CldImage>
       </div>
 
-      <div
-        className={`${styles.comparisonSlider_resizer}`}
-        ref={resizerRef}
-      ></div>
+      <div className={`${styles.comparisonSlider_resizer}`} ref={resizerRef}>
+        <div className={`${styles.comparisonSlider_resizer_inner}`}></div>
+      </div>
     </div>
   );
 };

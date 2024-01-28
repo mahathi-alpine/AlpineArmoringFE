@@ -22,7 +22,7 @@
     "eslint-config-prettier": "^9.1.0",
     "markdown-to-jsx": "^7.4.0",
     "next": "latest",
-    "next-cloudinary": "^5.15.0",
+    "next-cloudinary": "^5.20.0",
     "prettier-eslint": "^16.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
