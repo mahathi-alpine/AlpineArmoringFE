@@ -14,7 +14,7 @@
     background 0.3s ease-in-out,
     color 0.3s ease-in-out;
 
-  &:hover:not(.shiny):not(.primary):not(.border) {
+  &:hover:not(.shiny):not(.primary):not(.border):not(.attention) {
     background: transparent;
     border-color: var(--color-dark);
     color: var(--color-dark);

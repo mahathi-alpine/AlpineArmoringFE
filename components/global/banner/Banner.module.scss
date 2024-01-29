@@ -104,8 +104,7 @@
     background: rgba(23, 23, 23, 0.4);
     backdrop-filter: blur(16px);
     border-radius: 24px;
-    // font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
-    font-size: clamp(1.125rem, 0.9733rem + 0.6472vw, 1.75rem);
+    font-size: clamp(1.125rem, 1.0188rem + 0.4531vw, 1.5625rem);
 
     @include breakpoint(medium) {
       max-width: 850px;

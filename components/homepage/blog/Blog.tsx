@@ -10,8 +10,12 @@ const Blog = (props) => {
     <div className={`${styles.blog}`}>
       <div className={`${styles.blog_inner} container_small`}>
         <div className={`${styles.blog_heading}`}>
-          <h3 className={`${styles.blog_heading_secondary}`}>News</h3>
-          <h2 className={`${styles.blog_heading_primary}`}>Armoring world</h2>
+          <h3 className={`${styles.blog_heading_secondary} observe fade-in-up`}>
+            News
+          </h3>
+          <h2 className={`${styles.blog_heading_primary} observe fade-in-up`}>
+            Armoring world
+          </h2>
         </div>
 
         <div className={`${styles.blog_list}`}>
@@ -25,9 +29,11 @@ const Blog = (props) => {
 
             return (
               <div
-                className={`${styles.blog_item} ${
-                  index === 0 ? styles.blog_item_featured : ''
-                }`}
+                className={`
+                  ${styles.blog_item} 
+                  ${index === 0 ? styles.blog_item_featured : ''}
+                  observe fade-in-up                  
+                `}
                 key={index}
               >
                 {item.attributes.thumbnail.data?.attributes.url ? (
@@ -108,7 +114,7 @@ const Blog = (props) => {
           })}
         </div>
 
-        <div className={`${styles.blog_button}`}>
+        <div className={`${styles.blog_button} observe fade-in-up`}>
           <Button
             href={`/blog`}
             // className={`${styles.blog_button}`}

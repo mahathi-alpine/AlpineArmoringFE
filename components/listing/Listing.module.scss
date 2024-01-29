@@ -20,6 +20,7 @@
     @include breakpoint(medium) {
       display: flex;
       flex-wrap: wrap;
+      align-items: baseline;
       justify-content: space-evenly;
       column-gap: 24px;
       row-gap: 48px;

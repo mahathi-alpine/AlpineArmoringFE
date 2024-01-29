@@ -15,7 +15,7 @@ const Footer = (isDarkMode) => {
   const links = [
     { path: '/about', text: 'Home' },
     { path: '/available-now', text: 'Make & Models' },
-    { path: '/vehicles-we-armor', text: 'Rental & Lease' },
+    { path: '/available-now/type/armored-rental', text: 'Rental & Lease' },
     { path: '/vehicles-we-armor', text: 'Ballistic Chart' },
     { path: '/vehicles-we-armor', text: 'Become a Dealer' },
     { path: '/vehicles-we-armor', text: 'Pre-Owned/Stock Vehicles' },
