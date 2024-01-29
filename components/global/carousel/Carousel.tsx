@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { CldImage } from 'next-cloudinary';
 import styles from './Carousel.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import { Thumb } from './CarouselThumbsButton';
@@ -11,18 +12,22 @@ import {
   usePrevNextButtons,
 } from './CarouselArrowButtons';
 
-import { Lightbox } from 'yet-another-react-lightbox';
+// import { Lightbox } from 'yet-another-react-lightbox';
+import useLightbox from '../lightbox/useLightbox';
 import NextJsImage from '../lightbox/NextJsImage';
+import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 // import 'yet-another-react-lightbox/styles.css';
-import 'yet-another-react-lightbox/plugins/thumbnails.css';
+// import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 const EmblaCarousel = (props) => {
-  // console.log(slides)
+  console.log(props);
   // return null;
+  const isMobile = useIsMobile();
 
   const { slides, options } = props;
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const { openLightbox, renderLightbox } = useLightbox();
 
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
 
@@ -92,42 +97,32 @@ const EmblaCarousel = (props) => {
               className={styles.carousel_slide}
               key={index}
               onClick={() => {
-                setOpen(true);
                 setSelectedIndex(index);
+                openLightbox();
               }}
             >
               {item.attributes?.url ? (
-                // <picture>
-                //   <source
-                //     media="(min-width: 768px)"
-                //     srcSet={item.attributes.formats?.large?.url}
-                //   />
-                //   <Image
-                //     src={item.attributes.formats?.small.url}
-                //     alt="alt text here"
-                //     fill
-                //     priority={index === 0}
-                //     className={styles.carousel_slide_img}
-                //   />
-                // </picture>
-
                 <CldImage
                   src={
-                    item.attributes.formats?.large?.url || item.attributes.url
+                    isMobile
+                      ? item.attributes.formats?.small?.url
+                      : item.attributes.formats?.large?.url ||
+                        item.attributes.src
                   }
                   alt={item.attributes.alternativeText}
                   priority={index === 0}
                   width={
-                    item.attributes.formats?.large?.width ||
-                    item.attributes.width
+                    isMobile
+                      ? item.attributes.formats?.small?.width
+                      : item.attributes.formats?.large?.width ||
+                        item.attributes.width
                   }
                   height={
-                    item.attributes.formats?.large?.height ||
-                    item.attributes.height
+                    isMobile
+                      ? item.attributes.formats?.small?.height
+                      : item.attributes.formats?.large?.height ||
+                        item.attributes.height
                   }
-                  sizes="(min-width: 1280px ) 43vW,
-                         (min-width: 768px ) 55vW,
-                          100vw"
                   className={styles.carousel_slide_img}
                 ></CldImage>
               ) : null}
@@ -147,7 +142,7 @@ const EmblaCarousel = (props) => {
         </div>
       </div>
 
-      <Lightbox
+      {/* <Lightbox
         open={open}
         close={() => setOpen(false)}
         slides={slides.map((item) => ({
@@ -165,7 +160,26 @@ const EmblaCarousel = (props) => {
           borderColor: '#737373',
           borderRadius: 8,
         }}
-      />
+      /> */}
+      {renderLightbox({
+        slides: slides.map((item) => ({
+          src: item.attributes?.url,
+          width: item.attributes?.width,
+          height: item.attributes?.height,
+          formats: item.attributes?.formats,
+          alt: item.attributes?.alternativeText,
+        })),
+        plugins: [Thumbnails],
+        thumbnails: {
+          padding: 0,
+          gap: 4,
+          imageFit: 'cover',
+          borderColor: '#737373',
+          borderRadius: 8,
+        },
+        render: { slide: NextJsImage, thumbnail: NextJsImageThumbs },
+        index: selectedIndex,
+      })}
 
       {options.thumbs ? (
         <div className={`${styles.carousel_thumbs}`} ref={thumbsRef}>

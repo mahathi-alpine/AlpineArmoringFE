@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import Button from 'components/global/button/Button';
 import styles from './Blog.module.scss';
 
@@ -41,26 +42,23 @@ const Blog = (props) => {
                     href={`/blog/${item.attributes.slug}`}
                     className={`${styles.blog_item_image}`}
                   >
-                    <picture>
-                      <source
-                        media="(min-width: 768px)"
-                        srcSet={
-                          item.attributes.thumbnail.data.attributes.formats
-                            ?.large?.url
-                        }
-                      />
-                      <Image
-                        src={
-                          item.attributes.thumbnail.data.attributes.formats
-                            ?.small.url
-                        }
-                        alt={
-                          item.attributes.thumbnail.data.attributes
-                            .alternativeText
-                        }
-                        fill
-                      />
-                    </picture>
+                    <CldImage
+                      src={
+                        item.attributes.thumbnail.data.attributes.formats?.large
+                          ?.url || item.attributes.thumbnail.data.attributes.url
+                      }
+                      alt={
+                        item.attributes.thumbnail.data.attributes
+                          .alternativeText
+                      }
+                      width={index === 0 ? 1300 : 700}
+                      height={index === 0 ? 550 : 300}
+                      sizes={
+                        index === 0
+                          ? '(min-width: 1280px ) 75vw, 100vw'
+                          : '(min-width: 1280px ) 40vw, 100vw'
+                      }
+                    ></CldImage>
                   </Link>
                 ) : null}
 

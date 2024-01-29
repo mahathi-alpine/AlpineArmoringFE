@@ -1,5 +1,7 @@
 .blog {
+  position: relative;
   padding: rem(64) 0 0 0;
+  overflow: hidden;
   @include breakpoint(large) {
     padding: rem(100) 0;
   }
@@ -7,12 +9,48 @@
     padding: rem(160) 0 rem(100) 0;
   }
 
-  &_inner {
-    @include breakpoint(medium) {
-      width: 80%;
-      margin: auto;
+  &:before{
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    background: var(--color-white);
+    height: 250px;
+    @include breakpoint(large) {
+      height: 450px;
     }
     @include breakpoint(huge) {
+      height: 550px;
+    }
+  }
+  &:after{
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 250px;
+    background: var(--color-white);
+    height: 100px;
+    left: -100px;
+    right: -100px;
+    border-radius: 50%/0 0 100% 100%;
+    z-index: -1;
+    @include breakpoint(large) {
+      top: 450px;
+    }
+    @include breakpoint(huge) {
+      top: 550px;
+    }
+  }
+
+  &_inner {
+    @include breakpoint(medium) {
+      max-width: 730px;
+      margin: auto;
+    }
+    @include breakpoint(large) {
+      width: 80%;
       max-width: 1320px;
     }
   }
@@ -25,9 +63,10 @@
     }
 
     &_secondary {
+      margin-bottom: rem(8);
       font-size: rem(24);
       font-weight: var(--font-demi);
-      margin-bottom: rem(8);
+      color: var(--color-primary);
       @include breakpoint(large) {
         font-size: rem(32);
       }

@@ -12,7 +12,7 @@
   &_inner {
     position: relative;
     display: flex;
-    align-items: flex-end;
+    // align-items: flex-end;
     align-items: center;
     height: 300px;
     color: white;
@@ -25,9 +25,10 @@
       border-top-left-radius: 32px;
       border-top-right-radius: 32px;
 
-      .banner_small & {
-        align-items: flex-end;
-      }
+      // .banner_small & {
+      //   align-items: flex-end;
+      // }
+      align-items: flex-end;
     }
 
     @include breakpoint(huge) {
@@ -81,18 +82,20 @@
     z-index: 1;
     width: 100%;
 
-    @include breakpoint(medium) {
-      text-align: center;
-    }
+    // @include breakpoint(medium) {
+    //   text-align: center;
+    // }
 
     @include breakpoint(large) {
-      padding: 0 0 rem(100) 0;
+      // padding: 0 0 rem(100) 0;
       max-width: 1900px;
 
-      .banner_small & {
-        text-align: left;
-        padding: 0 0 rem(125) rem(24);
-      }
+      // .banner_small & {
+      //   text-align: left;
+      //   padding: 0 0 rem(125) rem(24);
+      // }
+      // text-align: left;
+      padding: 0 0 rem(110) rem(16);
     }
   }
 
@@ -114,6 +117,7 @@
 
     @include breakpoint(large) {
       max-width: 1200px;
+      text-align: left;
 
       .banner_small & {
         max-width: calc(100% - 620px);

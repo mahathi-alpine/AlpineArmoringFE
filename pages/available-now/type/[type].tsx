@@ -14,12 +14,12 @@ function Inventory(props) {
   // console.log(topBanner);
   // return null
 
-  useEffect(() => {
-    document.body.classList.add('listing-inventory', 'background-dark');
-    return () => {
-      document.body.classList.remove('listing-inventory', 'background-dark');
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.body.classList.add('listing-inventory', 'background-dark');
+  //   return () => {
+  //     document.body.classList.remove('listing-inventory', 'background-dark');
+  //   };
+  // }, []);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -50,7 +50,7 @@ function Inventory(props) {
   }, []);
 
   return (
-    <div className={`${styles.listing}`}>
+    <div className={`${styles.listing} background-dark`}>
       {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
       <div
