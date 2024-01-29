@@ -1,13 +1,8 @@
 import styles from './Banner.module.scss';
 import Markdown from 'markdown-to-jsx';
+import { BannerProps } from 'types';
 
 import Image from 'next/image';
-
-type BannerProps = {
-  props: any;
-  shape?: string;
-  small?: boolean;
-};
 
 const TopBanner = ({ props, shape, small = false }: BannerProps) => {
   // console.log(props)

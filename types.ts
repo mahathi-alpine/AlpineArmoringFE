@@ -1,5 +1,11 @@
 import { ReactNode } from 'react';
 
+export interface BannerProps {
+  props: any;
+  shape?: string;
+  small?: boolean;
+}
+
 export interface IconProps {
   className?: string;
   color?: string;

@@ -22,7 +22,7 @@ const TabSlider = ({
       const firstTab = navRef.current.firstChild;
       updateGliderStyle(firstTab);
     }
-  }, []);
+  }, [sticky]);
 
   const updateGliderStyle = (activeTab) => {
     const tabWidth = activeTab.offsetWidth;
@@ -53,7 +53,8 @@ const TabSlider = ({
     return acc;
   }, {});
 
-  let lastActiveNavItem = null;
+  const lastActiveNavItem = useRef(null);
+
   useEffect(() => {
     if (anchor) {
       const observerAnchorTargets = document.querySelectorAll('.anchor');
@@ -70,10 +71,10 @@ const TabSlider = ({
                 );
                 const navItemElement = navRef.current.children[navItemIndex];
                 navItemElement.classList.add(styles.tabSlider_nav_item_active);
-                lastActiveNavItem?.classList.remove(
+                lastActiveNavItem.current?.classList.remove(
                   styles.tabSlider_nav_item_active
                 );
-                lastActiveNavItem = navItemElement;
+                lastActiveNavItem.current = navItemElement;
                 updateGliderStyle(navItemElement);
 
                 const tabRect = navItemElement.getBoundingClientRect();
@@ -118,7 +119,7 @@ const TabSlider = ({
         observerNav.disconnect();
       };
     }
-  }, []);
+  }, [sticky]);
 
   return (
     <div
