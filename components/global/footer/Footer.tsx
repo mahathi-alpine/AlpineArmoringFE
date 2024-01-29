@@ -25,7 +25,7 @@ const Footer = (isDarkMode) => {
     { path: '/news', text: 'News' },
     { path: '/faqs', text: 'FAQs' },
     { path: '/special-of-the-month', text: 'Special of the Month' },
-    { path: '/contact', text: 'Contact' },
+    { path: '/contact', text: 'Contact Us' },
   ];
 
   return (

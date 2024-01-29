@@ -41,6 +41,7 @@
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 1) 100%
       );
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 41%, rgb(0, 0, 0) 117%);
     }
   }
 
@@ -165,8 +166,15 @@
     padding: rem(16) rem(32);
   }
 
-  &_shape:after {
-    box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
+  &_shape{
+    @include breakpoint(large) {
+      height: 150px;
+    }
+    &:after {
+      box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
+      left: -150px;
+      right: -150px;
+    }
   }
 
   &_noise {
