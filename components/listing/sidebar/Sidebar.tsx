@@ -86,7 +86,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
         }
       }
     });
-  }, [router.isReady, router.query]);
+  }, [router.isReady, router.query, props]);
 
   const applyFilter = (item, paramKey) => {
     const newQuery = { ...router.query };
