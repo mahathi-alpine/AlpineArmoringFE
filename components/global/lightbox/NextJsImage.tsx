@@ -10,7 +10,7 @@ export default function NextJsImage(slide) {
         src={
           window.innerWidth < 768
             ? data.formats?.small?.url
-            : data.formats?.xlarge?.url || data.src
+            : data.formats?.xlarge?.url || data.url
         }
         alt={data.alt || 'Alpine Armoring'}
         width={data.width}
