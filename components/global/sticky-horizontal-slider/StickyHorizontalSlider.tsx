@@ -102,6 +102,8 @@ const StickyHorizontalSlider = ({
           width: item.attributes?.image.data.attributes.width,
           height: item.attributes?.image.data.attributes.height,
           title: item.attributes?.title,
+          formats: item.attributes?.formats,
+          alt: item.attributes?.alternativeText,
         })),
         plugins: [Thumbnails, Captions],
         thumbnails: {

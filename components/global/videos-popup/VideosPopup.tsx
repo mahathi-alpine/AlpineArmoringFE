@@ -25,6 +25,7 @@ const VideosPopup = (props) => {
     const width = item.image.data?.attributes.width;
     const height = item.image.data?.attributes.height;
     const alt = item.image.data?.attributes.alternativeText;
+    const formats = item.image.data?.attributes?.formats;
     const title = item.title;
     const description = item.description;
     const poster = item.image.data?.attributes.previewUrl;
@@ -55,6 +56,7 @@ const VideosPopup = (props) => {
         alt: alt,
         width: width,
         height: height,
+        formats: formats,
       };
     }
   });

@@ -99,6 +99,10 @@
       }
       img {
         object-fit: cover;
+        border-radius: 8px;
+        @include breakpoint(large) {
+          border-radius: 16px;
+        }
       }
     }
 

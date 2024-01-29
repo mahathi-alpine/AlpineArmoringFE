@@ -1,7 +1,8 @@
 import styles from './CarouselCurved.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import React, { useState } from 'react';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import {
@@ -28,6 +29,8 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
     thumbs: false,
     variableWidth: true,
   };
+
+  const isMobile = useIsMobile();
 
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
 
@@ -56,42 +59,44 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
       <div className={`${styles.carouselCurved}`}>
         <div className={`${styles.carouselCurved_viewport}`} ref={emblaMainRef}>
           <div className={`${styles.carouselCurved_container}`}>
-            {slides.map((item, index) => {
-              const width = item.attributes?.width;
-              const height = item.attributes?.height;
-              const aspectRatio = height / width;
-              const aspectRatioPercentage = aspectRatio * 100 + '%';
-
-              return (
-                <div
-                  className={styles.carouselCurved_slide}
-                  key={index}
-                  onClick={() => {
-                    setSelectedIndex(index);
-                    openLightbox();
-                  }}
-                >
-                  {item.attributes?.url ? (
-                    <div
-                      className={`${styles.carouselCurved_slide_img}`}
-                      style={{ paddingTop: aspectRatioPercentage }}
-                    >
-                      <picture>
-                        <source
-                          media="(min-width: 768px)"
-                          srcSet={item.attributes.url}
-                        />
-                        <Image
-                          src={item.attributes.url}
-                          alt={item.attributes.alternativeText}
-                          layout="fill"
-                        />
-                      </picture>
-                    </div>
-                  ) : null}
-                </div>
-              );
-            })}
+            {slides.map((item, index) => (
+              <div
+                className={styles.carouselCurved_slide}
+                key={index}
+                onClick={() => {
+                  setSelectedIndex(index);
+                  openLightbox();
+                }}
+              >
+                {item.attributes?.url ? (
+                  <div className={`${styles.carouselCurved_slide_img}`}>
+                    <CldImage
+                      src={
+                        isMobile
+                          ? item.attributes.formats?.small?.url
+                          : item.attributes.formats?.large?.url ||
+                            item.attributes.src
+                      }
+                      alt={item.attributes.alternativeText}
+                      priority={index === 0}
+                      width={
+                        isMobile
+                          ? item.attributes.formats?.small?.width
+                          : item.attributes.formats?.large?.width ||
+                            item.attributes.width
+                      }
+                      height={
+                        isMobile
+                          ? item.attributes.formats?.small?.height
+                          : item.attributes.formats?.large?.height ||
+                            item.attributes.height
+                      }
+                      className={styles.carousel_slide_img}
+                    ></CldImage>
+                  </div>
+                ) : null}
+              </div>
+            ))}
           </div>
 
           <div className={styles.carouselCurved_arrows}>
@@ -115,6 +120,8 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
             src: item.attributes?.url,
             width: item.attributes?.width,
             height: item.attributes?.height,
+            formats: item.attributes?.formats,
+            alt: item.attributes?.alternativeText,
           })),
           plugins: [Thumbnails],
           thumbnails: {
