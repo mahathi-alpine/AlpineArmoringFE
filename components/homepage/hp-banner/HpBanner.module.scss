@@ -41,7 +41,11 @@
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 1) 100%
       );
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 41%, rgb(0, 0, 0) 117%);
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 41%,
+        rgb(0, 0, 0) 117%
+      );
     }
   }
 
@@ -166,7 +170,7 @@
     padding: rem(16) rem(32);
   }
 
-  &_shape{
+  &_shape {
     @include breakpoint(large) {
       height: 150px;
     }
