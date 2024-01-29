@@ -13,7 +13,7 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 function InventoryVehicle(props) {
   const data = props.data?.data[0]?.attributes;
 
-  console.log(data);
+  // console.log(data);
   // return null;
 
   const inventory = data?.stock.data;

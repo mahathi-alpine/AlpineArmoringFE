@@ -21,7 +21,7 @@ import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 // import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 const EmblaCarousel = (props) => {
-  console.log(props);
+  // console.log(props);
   // return null;
   const isMobile = useIsMobile();
 
