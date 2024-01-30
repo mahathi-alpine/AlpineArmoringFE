@@ -43,7 +43,7 @@
       cursor: pointer;
       color: var(--color-black);
 
-      span{
+      span {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -53,7 +53,7 @@
       svg {
         transform: rotate(90deg);
         position: absolute;
-        right: 0;        
+        right: 0;
         transition: transform 0.3s ease-in-out;
 
         path {
@@ -62,12 +62,12 @@
       }
     }
 
-    &_placeholder{
+    &_placeholder {
       font-weight: var(--font-regular);
       color: var(--color-text);
     }
 
-    &_active{
+    &_active {
       svg {
         transform: rotate(-90deg);
       }
