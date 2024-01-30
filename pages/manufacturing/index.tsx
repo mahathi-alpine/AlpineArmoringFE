@@ -49,7 +49,7 @@ function Manufacturing(props) {
     <div className={`${styles.manufacturing} background-dark`}>
       {props.pageData?.banner ? (
         <>
-          <Banner props={props.pageData.banner} shape="dark" />
+          <Banner props={props.pageData.banner} shape="dark" center />
         </>
       ) : null}
 

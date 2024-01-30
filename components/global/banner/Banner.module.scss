@@ -24,15 +24,16 @@
       height: 400px;
       border-top-left-radius: 32px;
       border-top-right-radius: 32px;
-
-      // .banner_small & {
-      //   align-items: flex-end;
-      // }
       align-items: flex-end;
     }
 
     @include breakpoint(huge) {
       height: 500px;
+    }
+
+    .banner_center & {
+      align-items: center;
+      text-align: center;
     }
 
     &:before {
@@ -95,7 +96,11 @@
       //   padding: 0 0 rem(125) rem(24);
       // }
       // text-align: left;
-      padding: 0 0 rem(110) rem(16);
+      padding: rem(16) 0 rem(110) rem(16);
+
+      .banner_center & {
+        padding: 0 0 rem(100) rem(16);
+      }
     }
   }
 
@@ -121,6 +126,9 @@
 
       .banner_small & {
         max-width: calc(100% - 620px);
+      }
+      .banner_center & {
+        font-size: rem(32);
       }
     }
 

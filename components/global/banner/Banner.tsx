@@ -4,7 +4,7 @@ import { BannerProps } from 'types';
 
 import Image from 'next/image';
 
-const TopBanner = ({ props, shape, small = false }: BannerProps) => {
+const TopBanner = ({ props, shape, small, center }: BannerProps) => {
   // console.log(props)
   // return null;
 
@@ -38,6 +38,7 @@ const TopBanner = ({ props, shape, small = false }: BannerProps) => {
       className={`
       ${styles.banner}
       ${small ? styles.banner_small : ''}
+      ${center ? styles.banner_center : ''}
     `}
     >
       <div className={`${styles.banner_inner}`}>

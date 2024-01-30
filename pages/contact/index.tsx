@@ -41,7 +41,7 @@ function Contact(props) {
     <div className={`${styles.contact}`}>
       {props.pageData?.banner ? (
         <>
-          <Banner props={props.pageData.banner} />
+          <Banner props={props.pageData.banner} center />
           <div className="shape-before shape-before-white"></div>
         </>
       ) : null}

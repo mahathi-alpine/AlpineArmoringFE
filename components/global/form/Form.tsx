@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Form.module.scss';
-import ChevronIcon from 'components/icons/Chevron';
 import Button from 'components/global/button/Button';
+import Dropdown from 'components/global/form/Dropdown';
 
 const Form = () => {
   const [fullname, setFullname] = useState('');
@@ -10,17 +10,216 @@ const Form = () => {
   const [mobile, setMobile] = useState('');
   const [company, setCompany] = useState('');
   const [inquiry, setInquiry] = useState('');
+  const [country, setCountry] = useState('');
+  const [preferredContact, setPreferredContact] = useState('');
   const [message, setMessage] = useState('');
 
-  // const [company, setCompany] = useState("");
-  const [isDropdownActive, setIsDropdownActive] = useState(false);
-  const [isDropdownActive2, setIsDropdownActive2] = useState(false);
+  const [isCompanyDropdownActive, setIsCompanyDropdownActive] = useState(false);
+  const [isInquiryDropdownActive, setIsInquiryDropdownActive] = useState(false);
+  const [
+    isPreferredContactDropdownActive,
+    setIsPreferredContactDropdownActive,
+  ] = useState(false);
+  const [isCountryDropdownActive, setIsCountryDropdownActive] = useState(false);
+
+  const countryOptions = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Andorra',
+    'Angola',
+    'Antigua and Barbuda',
+    'Argentina',
+    'Armenia',
+    'Australia',
+    'Austria',
+    'Azerbaijan',
+    'Bahamas',
+    'Bahrain',
+    'Bangladesh',
+    'Barbados',
+    'Belarus',
+    'Belgium',
+    'Belize',
+    'Benin',
+    'Bhutan',
+    'Bolivia',
+    'Bosnia and Herzegovina',
+    'Botswana',
+    'Brazil',
+    'Brunei',
+    'Bulgaria',
+    'Burkina Faso',
+    'Burundi',
+    'Cabo Verde',
+    'Cambodia',
+    'Cameroon',
+    'Canada',
+    'Central African Republic',
+    'Chad',
+    'Chile',
+    'China',
+    'Colombia',
+    'Comoros',
+    'Congo, Democratic Republic of',
+    'Congo, Republic of',
+    'Costa Rica',
+    "Côte d'Ivoire",
+    'Croatia',
+    'Cuba',
+    'Cyprus',
+    'Czech Republic',
+    'Denmark',
+    'Djibouti',
+    'Dominica',
+    'Dominican Republic',
+    'Ecuador',
+    'Egypt',
+    'El Salvador',
+    'Equatorial Guinea',
+    'Eritrea',
+    'Estonia',
+    'Eswatini',
+    'Ethiopia',
+    'Fiji',
+    'Finland',
+    'France',
+    'Gabon',
+    'Gambia',
+    'Georgia',
+    'Germany',
+    'Ghana',
+    'Greece',
+    'Grenada',
+    'Guatemala',
+    'Guinea',
+    'Guinea-Bissau',
+    'Guyana',
+    'Haiti',
+    'Honduras',
+    'Hungary',
+    'Iceland',
+    'India',
+    'Indonesia',
+    'Iran',
+    'Iraq',
+    'Ireland',
+    'Israel',
+    'Italy',
+    'Jamaica',
+    'Japan',
+    'Jordan',
+    'Kazakhstan',
+    'Kenya',
+    'Kiribati',
+    'Kosovo',
+    'Kuwait',
+    'Kyrgyzstan',
+    'Laos',
+    'Latvia',
+    'Lebanon',
+    'Lesotho',
+    'Liberia',
+    'Libya',
+    'Liechtenstein',
+    'Lithuania',
+    'Luxembourg',
+    'Madagascar',
+    'Malawi',
+    'Malaysia',
+    'Maldives',
+    'Mali',
+    'Malta',
+    'Marshall Islands',
+    'Mauritania',
+    'Mauritius',
+    'Mexico',
+    'Micronesia',
+    'Moldova',
+    'Monaco',
+    'Mongolia',
+    'Montenegro',
+    'Morocco',
+    'Mozambique',
+    'Myanmar',
+    'Namibia',
+    'Nauru',
+    'Nepal',
+    'Netherlands',
+    'New Zealand',
+    'Nicaragua',
+    'Niger',
+    'Nigeria',
+    'North Macedonia',
+    'Norway',
+    'Oman',
+    'Pakistan',
+    'Palau',
+    'Panama',
+    'Papua New Guinea',
+    'Paraguay',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'Qatar',
+    'Romania',
+    'Russia',
+    'Rwanda',
+    'Saint Kitts and Nevis',
+    'Saint Lucia',
+    'Saint Vincent and the Grenadines',
+    'Samoa',
+    'San Marino',
+    'Sao Tome and Principe',
+    'Saudi Arabia',
+    'Senegal',
+    'Serbia',
+    'Seychelles',
+    'Sierra Leone',
+    'Singapore',
+    'Slovakia',
+    'Slovenia',
+    'Solomon Islands',
+    'Somalia',
+    'South Africa',
+    'Spain',
+    'Sri Lanka',
+    'Sudan',
+    'Suriname',
+    'Sweden',
+    'Switzerland',
+    'Syria',
+    'Taiwan',
+    'Tajikistan',
+    'Tanzania',
+    'Thailand',
+    'Timor-Leste',
+    'Togo',
+    'Tonga',
+    'Trinidad and Tobago',
+    'Tunisia',
+    'Turkey',
+    'Turkmenistan',
+    'Tuvalu',
+    'Uganda',
+    'Ukraine',
+    'United Arab Emirates',
+    'United Kingdom',
+    'United States',
+    'Uruguay',
+    'Uzbekistan',
+    'Vanuatu',
+    'Venezuela',
+    'Vietnam',
+    'Yemen',
+    'Zambia',
+    'Zimbabwe',
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(fullname, email, phone, company, message, mobile);
-
-    // Perform validation here...
 
     // const res = await fetch('/api/sendgrid', {
     //   body: JSON.stringify({
@@ -49,7 +248,7 @@ const Form = () => {
         id="fullname"
         value={fullname}
         onChange={(e) => setFullname(e.target.value)}
-        placeholder="Full Name"
+        placeholder="Full Name*"
         className={`${styles.form_input}`}
       />
 
@@ -58,7 +257,7 @@ const Form = () => {
         id="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
+        placeholder="Email*"
         className={`${styles.form_input}`}
       />
 
@@ -67,7 +266,7 @@ const Form = () => {
         id="phone"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        placeholder="Phone Number"
+        placeholder="Phone Number*"
         className={`${styles.form_input}`}
       />
 
@@ -80,201 +279,61 @@ const Form = () => {
         className={`${styles.form_input}`}
       />
 
-      <div
-        className={`${styles.form_select} ${styles.form_input}`}
-        onClick={() => setIsDropdownActive(!isDropdownActive)}
-      >
-        <button className={`${styles.form_select_selected}`}>
-          <span>{company || 'Company'}</span>
-          <ChevronIcon />
-        </button>
+      <Dropdown
+        label="Company"
+        options={[
+          'Private Government',
+          'US governmental agencies',
+          'Foreign governmental agencies',
+          'Private sector',
+          'Individual',
+          'Nonprofit',
+          'NGO',
+          'Other',
+        ]}
+        selectedOption={company}
+        setSelectedOption={setCompany}
+        isActive={isCompanyDropdownActive}
+        setIsActive={setIsCompanyDropdownActive}
+      />
 
-        <div
-          className={`${styles.form_select_list} ${
-            isDropdownActive ? styles.form_select_list_active : ''
-          }`}
-        >
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('Private Government');
-              setIsDropdownActive(false);
-            }}
-          >
-            Private government
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('US governmental agencies');
-              setIsDropdownActive(false);
-            }}
-          >
-            US governmental agencies
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('Foreign governmental agencies');
-              setIsDropdownActive(false);
-            }}
-          >
-            Foreign governmental agencies
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('Private sector');
-              setIsDropdownActive(false);
-            }}
-          >
-            Private sector
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('Individual');
-              setIsDropdownActive(false);
-            }}
-          >
-            Individual
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('Nonprofit');
-              setIsDropdownActive(false);
-            }}
-          >
-            Nonprofit
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('NGO');
-              setIsDropdownActive(false);
-            }}
-          >
-            NGO
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setCompany('Other');
-              setIsDropdownActive(false);
-            }}
-          >
-            Other
-          </button>
-        </div>
-      </div>
+      <Dropdown
+        label="Inquiry"
+        options={[
+          'SUVs & Sedans',
+          'SWAT & APC Trucks',
+          'Riot/Water Cannon Crowd Control',
+          'CIT Vans & Trucks',
+          'Rental Vehicles',
+          'Parts & Accessories',
+          'Warranty Related',
+          'Interested in Becoming a Dealer',
+          'Employment Opportunity',
+          'Other',
+        ]}
+        selectedOption={inquiry}
+        setSelectedOption={setInquiry}
+        isActive={isInquiryDropdownActive}
+        setIsActive={setIsInquiryDropdownActive}
+      />
 
-      <div
-        className={`${styles.form_select} ${styles.form_input}`}
-        onClick={() => setIsDropdownActive2(!isDropdownActive2)}
-      >
-        <button className={`${styles.form_select_selected}`}>
-          <span>{inquiry || 'Your Inquiry'}</span>
-          <ChevronIcon />
-        </button>
+      <Dropdown
+        label="I prefer to be contacted via"
+        options={['Mobile', 'Landline', 'Email', 'Text', 'Whatsapp']}
+        selectedOption={preferredContact}
+        setSelectedOption={setPreferredContact}
+        isActive={isPreferredContactDropdownActive}
+        setIsActive={setIsPreferredContactDropdownActive}
+      />
 
-        <div
-          className={`${styles.form_select_list} ${
-            isDropdownActive2 ? styles.form_select_list_active : ''
-          }`}
-        >
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('SUVs & Sedans');
-              setIsDropdownActive2(false);
-            }}
-          >
-            SUVs & Sedans
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('SWAT & APC Trucks');
-              setIsDropdownActive2(false);
-            }}
-          >
-            SWAT & APC Trucks
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('Riot/Water Cannon Crowd Control');
-              setIsDropdownActive2(false);
-            }}
-          >
-            Riot/Water Cannon Crowd Control
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('CIT Vans & Trucks');
-              setIsDropdownActive2(false);
-            }}
-          >
-            CIT Vans & Trucks
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('Rental Vehicles');
-              setIsDropdownActive2(false);
-            }}
-          >
-            Rental Vehicles
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('Parts & Accessories');
-              setIsDropdownActive2(false);
-            }}
-          >
-            Parts & Accessories
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('Warranty Related');
-              setIsDropdownActive2(false);
-            }}
-          >
-            Warranty Related
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('Interested in Becoming a Dealer');
-              setIsDropdownActive2(false);
-            }}
-          >
-            Interested in Becoming a Dealer
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('Employment Opportunity');
-              setIsDropdownActive2(false);
-            }}
-          >
-            Employment Opportunity
-          </button>
-          <button
-            className={`${styles.form_select_option}`}
-            onClick={() => {
-              setInquiry('Other');
-              setIsDropdownActive2(false);
-            }}
-          >
-            Other
-          </button>
-        </div>
-      </div>
+      <Dropdown
+        label="Country"
+        options={countryOptions}
+        selectedOption={country}
+        setSelectedOption={setCountry}
+        isActive={isCountryDropdownActive}
+        setIsActive={setIsCountryDropdownActive}
+      />
 
       <textarea
         id="message"
