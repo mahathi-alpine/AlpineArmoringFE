@@ -1,63 +1,63 @@
-.accordion{
-    @include breakpoint(medium) {
-        max-width: 1220px;
+.accordion {
+  @include breakpoint(medium) {
+    max-width: 1220px;
+  }
+
+  &_item {
+    padding: rem(16) rem(32);
+    margin-bottom: rem(10);
+    background: var(--color-grayLight);
+    border-radius: 8px;
+    cursor: pointer;
+
+    &_heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    &_item{
-        padding: rem(16) rem(32);
-        margin-bottom: rem(10);
-        background: var(--color-grayLight);
-        border-radius: 8px;
-        cursor: pointer;
+    &_content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out;
+    }
+  }
 
-        &_heading{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  &_button {
+    position: relative;
+    width: rem(32);
+    height: rem(32);
+    background: var(--color-primary);
+    border-radius: 50%;
+    transition: 0.4s cubic-bezier(0.2, 0.6, 0.3, 1.1);
 
-        &_content{            
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-        }
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 50%;
+      width: 2px;
+      background: var(--color-white);
     }
 
-    &_button{
-        position: relative;
-        width: rem(32);
-        height: rem(32);
-        background: var(--color-primary);
-        border-radius: 50%;
-        transition: 0.4s cubic-bezier(0.2, 0.6, 0.3, 1.1);
-
-        &:before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 50%;
-            width: 2px;
-            background: var(--color-white);
-        }
-
-        &:after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 2px;
-            width: 50%;
-            background: var(--color-white);
-        }
-
-        &--open{
-            transform: rotate(360deg);
-            &:before {
-                width: 0;
-            }
-        }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 2px;
+      width: 50%;
+      background: var(--color-white);
     }
+
+    &--open {
+      transform: rotate(360deg);
+      &:before {
+        width: 0;
+      }
+    }
+  }
 }
