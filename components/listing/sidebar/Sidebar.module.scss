@@ -205,7 +205,7 @@
     padding: rem(12) rem(20);
     margin-bottom: rem(24);
     border-radius: 99px;
-    background: rgba(241,243,244,.24);
+    background: rgba(241, 243, 244, 0.24);
     font-size: rem(14);
     @include breakpoint(large) {
       font-size: rem(15);
@@ -222,7 +222,7 @@
         input {
           max-width: 140px;
           padding-right: rem(16);
-          &::placeholder{
+          &::placeholder {
             color: var(--color-dark);
           }
         }
@@ -240,7 +240,7 @@
 
     input {
       flex: 1;
-      &::placeholder{
+      &::placeholder {
         color: var(--color-grayDark);
       }
     }
@@ -278,7 +278,7 @@
     flex-flow: column;
     font-size: rem(15);
     @include breakpoint(untilLarge) {
-      border-top: 1px solid rgba(255,255,255,.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
       // border-bottom: 1px solid rgba(255,255,255,.12);
 
       &:last-child {
@@ -459,7 +459,7 @@
   align-items: center;
   gap: 10px;
   // padding: 2px;
-  color: var(--color-grayDark);  
+  color: var(--color-grayDark);
   font-size: rem(14);
 
   @include breakpoint(large) {
@@ -476,8 +476,8 @@
     height: rem(20);
     border-radius: 3px;
     transition: background 0.1s ease-in-out;
-    border: 1px solid rgba(241,243,244,.24);
-    background: rgba(241,243,244,.24);
+    border: 1px solid rgba(241, 243, 244, 0.24);
+    background: rgba(241, 243, 244, 0.24);
     overflow: hidden;
     @include breakpoint(large) {
       width: rem(22);
