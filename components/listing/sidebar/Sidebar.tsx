@@ -149,14 +149,15 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
       `}
       >
         <div className={`${styles.sidebar_wrap_inner}`}>
-          <div className={`${styles.sidebar_wrap_close}`} onClick={openFilters}>
-            X
-          </div>
-
           <div className={`${styles.sidebar_wrap_top}`}>
             <div className={`${styles.sidebar_wrap_top_title}`}>
+              <div
+                className={`${styles.sidebar_wrap_close}`}
+                onClick={openFilters}
+              >
+                X
+              </div>
               Filters
-              <FiltersIcon />
             </div>
 
             {Object.keys(router.query).length > 0 && (
