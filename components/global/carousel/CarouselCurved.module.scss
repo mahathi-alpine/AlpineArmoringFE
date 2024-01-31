@@ -99,14 +99,15 @@
 
   &_zoom {
     position: absolute;
-    right: rem(8);
-    bottom: rem(8);
+    right: rem(6);
+    bottom: rem(12);
     cursor: pointer;
     z-index: 1;
     pointer-events: none;
 
     @include breakpoint(large) {
       bottom: rem(16);
+      right: rem(8);
     }
   }
 

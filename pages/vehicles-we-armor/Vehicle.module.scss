@@ -25,7 +25,7 @@
     @include breakpoint(large) {
       font-size: rem(22);
       max-width: 1400px;
-      padding-bottom: rem(120);
+      padding-bottom: rem(50);
     }
 
     p {
@@ -41,6 +41,7 @@
     padding-bottom: rem(60);
 
     @include breakpoint(large) {
+      padding-top: rem(70);
       padding-bottom: rem(80);
 
       &_title {
@@ -86,10 +87,10 @@
   }
 
   &_slider {
-    padding-bottom: rem(60);
+    padding-bottom: rem(56);
 
     @include breakpoint(large) {
-      padding-bottom: rem(120);
+      padding-bottom: rem(50);
     }
 
     &_small {
@@ -102,18 +103,11 @@
   }
 
   &_specs {
-    padding-bottom: rem(60);
+    padding-bottom: rem(56);
 
     @include breakpoint(large) {
+      padding-top: rem(70);
       padding-bottom: rem(120);
-    }
-  }
-
-  &_gallery {
-    // padding: rem(40) 0;
-    padding-top: rem(24);
-    @include breakpoint(large) {
-      padding-top: rem(64);
     }
   }
 }

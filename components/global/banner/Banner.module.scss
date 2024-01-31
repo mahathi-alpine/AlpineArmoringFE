@@ -51,12 +51,6 @@
       @include breakpoint(large) {
         border-top-left-radius: 32px;
         border-top-right-radius: 32px;
-        // background: linear-gradient(
-        //   90deg,
-        //   rgba(0, 0, 0, 0.7679446778711485) 0%,
-        //   rgba(0, 0, 0, 0) 100%
-        // );
-        // opacity: 1;
       }
     }
   }
@@ -78,24 +72,12 @@
 
   &_content {
     position: relative;
-    // padding: 0 rem(16) rem(80) rem(16);
     padding: 0 rem(16) rem(50) rem(16);
     z-index: 1;
     width: 100%;
 
-    // @include breakpoint(medium) {
-    //   text-align: center;
-    // }
-
     @include breakpoint(large) {
-      // padding: 0 0 rem(100) 0;
       max-width: 1900px;
-
-      // .banner_small & {
-      //   text-align: left;
-      //   padding: 0 0 rem(125) rem(24);
-      // }
-      // text-align: left;
       padding: rem(16) 0 rem(110) rem(16);
 
       .banner_center & {
@@ -111,8 +93,8 @@
     box-shadow: 0 0 var(--shadow-size, 40px) #00000099;
     background: rgba(23, 23, 23, 0.4);
     backdrop-filter: blur(16px);
-    border-radius: 24px;
-    font-size: clamp(1.125rem, 1.0188rem + 0.4531vw, 1.5625rem);
+    border-radius: 8px;
+    font-size: clamp(0.9375rem, 0.7858rem + 0.6472vw, 1.5625rem);
 
     @include breakpoint(medium) {
       max-width: 850px;

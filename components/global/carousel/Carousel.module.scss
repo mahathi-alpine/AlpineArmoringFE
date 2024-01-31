@@ -243,7 +243,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: rem(16);
+      left: rem(8);
       -webkit-appearance: none;
       touch-action: manipulation;
       cursor: pointer;
@@ -262,7 +262,7 @@
 
       &:nth-child(2) {
         left: auto;
-        right: rem(16);
+        right: rem(8);
 
         @include breakpoint(large) {
           top: auto;

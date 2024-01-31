@@ -378,11 +378,13 @@ function InventoryVehicle(props) {
               </Button>
 
               <Link href="" className={`${styles.inventory_sticker}`}>
-                <span className={`${styles.inventory_sticker_part1}`}>
-                  Window
-                </span>
-                <span className={`${styles.inventory_sticker_part2}`}>
-                  Sticker
+                <span className={`${styles.inventory_sticker_box}`}>
+                  <span className={`${styles.inventory_sticker_part1}`}>
+                    Window
+                  </span>
+                  <span className={`${styles.inventory_sticker_part2}`}>
+                    Sticker
+                  </span>
                 </span>
                 <span className={`${styles.inventory_sticker_bottom}`}>
                   <PDFIcon />

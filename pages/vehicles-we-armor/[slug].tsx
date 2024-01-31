@@ -185,7 +185,7 @@ function InventoryVehicle(props) {
       ) : null}
 
       {data.equipment ? (
-        <div id="optional-equipment" className={`anchor`}>
+        <div id="optional-equipment" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
             <h2 className={`${styles.slug_dimensions_title} c-title`}>
               Optional Equipment

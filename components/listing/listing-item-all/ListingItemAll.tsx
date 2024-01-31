@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItemAll.module.scss';
 import Button from 'components/global/button/Button';
-import Markdown from 'markdown-to-jsx';
 
 interface InventoryItemProps {
   props: any;
@@ -36,13 +35,14 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
         </div>
 
         <div className={`${styles.listing_item_content}`}>
-          <h2 className={`${styles.listing_item_title}`}>
-            {data.titleDisplay ? (
-              <Markdown>{data.titleDisplay}</Markdown>
-            ) : data.title ? (
-              data.title
-            ) : null}
-          </h2>
+          {data.titleDisplay ? (
+            <h2
+              className={`${styles.listing_item_title}`}
+              dangerouslySetInnerHTML={{ __html: data.titleDisplay }}
+            ></h2>
+          ) : data.title ? (
+            <h2 className={`${styles.listing_item_title}`}>{data.title}</h2>
+          ) : null}
         </div>
       </Link>
     </div>

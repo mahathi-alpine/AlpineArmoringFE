@@ -64,7 +64,7 @@
 
     &_secondary {
       margin-bottom: rem(8);
-      font-size: rem(24);
+      font-size: rem(18);
       font-weight: var(--font-demi);
       color: var(--color-primary);
       @include breakpoint(large) {
@@ -72,7 +72,7 @@
       }
     }
     &_primary {
-      font-size: rem(40);
+      font-size: rem(32);
       font-weight: var(--font-demi);
       line-height: 1.1;
       @include breakpoint(large) {

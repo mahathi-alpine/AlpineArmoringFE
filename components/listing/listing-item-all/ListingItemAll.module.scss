@@ -36,35 +36,44 @@
 
   &_content {
     position: relative;
-    padding: rem(24);
+    padding: rem(8) rem(16) rem(16) rem(16);
     background: white;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
     flex: 1;
+    @include breakpoint(large) {
+      padding: rem(16) rem(24) rem(24) rem(24);
+    }
+
     &:before {
       position: absolute;
       content: '';
       left: 0;
       right: 0;
-      top: -50px;
+      top: -60px;
       background: url('/assets/topCurve.svg') no-repeat;
-      height: 50px;
+      height: 60px;
       background-size: cover;
       z-index: -1;
     }
   }
 
   &_title {
-    font-size: rem(18);
     font-weight: var(--font-medium);
+    white-space: pre-wrap;
+    @include breakpoint(large) {
+      font-size: rem(18);
+    }
   }
 
   &_image {
     position: relative;
+    padding: 0 rem(16);
     img {
-      height: 180px;
+      max-height: 180px;
       width: auto;
       margin: auto;
+      object-fit: cover;
       transition: filter 0.3s ease;
     }
   }

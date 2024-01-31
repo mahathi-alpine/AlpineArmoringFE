@@ -18,7 +18,7 @@ export default function NextJsImage(slide) {
         style={{
           height: 'auto',
           width: 'auto',
-          margin: 'auto',
+          margin: '0 auto',
           objectFit: 'contain',
         }}
         priority
