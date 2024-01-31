@@ -82,7 +82,7 @@
         }
       }
 
-      &_link{
+      &_link {
         @include breakpoint(small) {
           position: fixed;
           bottom: rem(4);
@@ -146,7 +146,7 @@
     }
 
     @include breakpoint(small) {
-      &_box{
+      &_box {
         display: flex;
         flex-flow: column;
         margin-right: rem(8);
@@ -162,7 +162,7 @@
         font-size: rem(19);
         gap: 6px;
       }
-      span{
+      span {
         line-height: 1;
       }
     }
@@ -208,7 +208,7 @@
     }
 
     span {
-      margin: 0 rem(8);;
+      margin: 0 rem(8);
       @include breakpoint(large) {
         margin: 0 rem(12);
       }
