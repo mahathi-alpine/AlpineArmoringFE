@@ -1,8 +1,9 @@
 import styles from './IntroText.module.scss';
 import { useRef } from 'react';
 import useEffectOnce from 'hooks/useEffectOnce';
+import Markdown from 'markdown-to-jsx';
 
-const IntroText = () => {
+const IntroText = (props) => {
   const introTextRef = useRef(null);
 
   useEffectOnce(() => {
@@ -54,12 +55,15 @@ const IntroText = () => {
         <h3 className={`${styles.introText_subheading} observe block-reveal`}>
           &quot;no one protects you <strong>better</strong>&quot;®
         </h3>
-        <p className={`${styles.introText_text} observe`} ref={introTextRef}>
-          Alpine Armoring Inc., headquartered in the suburbs of Washington D.C.,
-          is a high-quality custom-manufacturer of a variety of bulletproof
-          armoured vehicles (armored sedans, SUVs, pickup trucks, vans, SWAT
-          trucks & more).
-        </p>
+
+        {props.props ? (
+          <div
+            className={`${styles.introText_text} observe`}
+            ref={introTextRef}
+          >
+            <Markdown>{props.props}</Markdown>
+          </div>
+        ) : null}
       </div>
     </div>
   );

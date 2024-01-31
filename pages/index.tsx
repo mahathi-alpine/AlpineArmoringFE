@@ -15,6 +15,7 @@ import VideosPopup from 'components/global/videos-popup/VideosPopup';
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
   const topBanner = homepageData.data?.attributes.topBanner;
+  const hpIntroText = homepageData.data?.attributes.hpIntroText;
   const categoriesData = categories?.data;
   const hpMiddleText = homepageData.data?.attributes.hpMiddleText;
   const tabSectionData = homepageData.data?.attributes.tabSection;
@@ -82,7 +83,7 @@ function Home({ homepageData, categories }) {
           <rect width="100%" height="100%" filter="url(#esteisalegend)"></rect>
         </svg> */}
 
-        <IntroText />
+        <IntroText props={hpIntroText} />
 
         {categoriesData && (
           <Categories

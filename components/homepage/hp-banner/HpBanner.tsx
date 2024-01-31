@@ -57,13 +57,13 @@ const HpBanner = ({ props }: HPBannerProps) => {
           ref={videoRef}
           muted={true}
           autoPlay={true}
-          // playsInline={true}
+          playsInline={true}
           loop={true}
           className={`${styles.hp_banner_video}`}
           // preload="metadata"
-          poster="/assets/hpBannerPoster.jpg"
+          // poster="/assets/hpBannerPoster.jpg"
         >
-          <source src="/AlpineArmoringHP.mp4" />
+          <source src="/AlpineArmoringHP.webm" />
         </video>
 
         <div className={`${styles.hp_banner_pause}`} onClick={togglePlayPause}>
