@@ -1,9 +1,10 @@
 import styles from './Contact.module.scss';
 import { getPageData } from 'lib/api';
+import { useEffect } from 'react';
+import Markdown from 'markdown-to-jsx';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
-import Markdown from 'markdown-to-jsx';
-import { useEffect } from 'react';
+import Accordion from 'components/global/accordion/Accordion';
 
 function Contact(props) {
   // console.log(props)
@@ -37,6 +38,32 @@ function Contact(props) {
     };
   }, []);
 
+  const faq = [
+    { title: 'What do people mean by armored vehicles?', content: 'Content 1' },
+    {
+      title: 'How do I know what protection level I need?',
+      content: 'Content 2',
+    },
+    {
+      title: 'What countries are right hand drive (rhd)?',
+      content: 'Content 3',
+    },
+    {
+      title:
+        'What do low profile design (lpd) and high profile design (hpd) mean?',
+      content: 'Content 3',
+    },
+    {
+      title: 'How much armored weight is usually added to these vehicles?',
+      content: 'Content 3',
+    },
+    {
+      title:
+        'Are the suspension & brakes upgraded to allow for the extra weight?',
+      content: 'Content 3',
+    },
+  ];
+
   return (
     <div className={`${styles.contact}`}>
       {props.pageData?.banner ? (
@@ -45,7 +72,6 @@ function Contact(props) {
           <div className="shape-before shape-before-white"></div>
         </>
       ) : null}
-
       <div className={`${styles.contact_main} container_small`}>
         <div className={`${styles.contact_main_left}`}>
           {/* {props.pageData?.formTitle ? (
@@ -79,6 +105,7 @@ function Contact(props) {
           </div>
         </div>
       </div>
+      <Accordion items={faq} />;
     </div>
   );
 }

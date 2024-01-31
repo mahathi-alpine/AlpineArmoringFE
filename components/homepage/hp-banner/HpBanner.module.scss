@@ -1,6 +1,5 @@
 .hp_banner {
   position: relative;
-  // height: 100vh;
   height: calc(100svh + 50px);
   max-height: 800px;
   overflow: hidden;
@@ -15,20 +14,6 @@
     height: 100%;
     overflow: hidden;
 
-    // &:before {
-    //   position: absolute;
-    //   content: '';
-    //   left: 0;
-    //   top: 0;
-    //   right: 0;
-    //   bottom: 70%;
-    //   background: linear-gradient(
-    //     0,
-    //     rgba(0, 0, 0, 0) 0%,
-    //     rgba(0, 0, 0, 1) 100%
-    //   );
-    //   z-index: 1;
-    // }
     &:after {
       position: absolute;
       content: '';
@@ -49,6 +34,45 @@
     }
   }
 
+  &_content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: rem(32) rem(16) rem(72) rem(16);
+    z-index: 3;
+    @include breakpoint(large) {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: rem(90) rem(32) rem(152) rem(32);
+      max-width: 2010px;
+      margin: auto;
+    }
+    @include breakpoint(huge) {
+      padding: rem(90) rem(48) rem(152) rem(48);
+    }
+
+    &_right {
+      font-size: clamp(0.875rem, 0.8598rem + 0.0647vw, 0.9375rem);
+      color: var(--color-white);
+      @include breakpoint(large) {
+        text-align: right;
+        padding-bottom: rem(8);
+        font-size: rem(15);
+      }
+      strong {
+        font-weight: var(--font-regular);
+        font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
+        letter-spacing: 0.45px;
+        @include breakpoint(large) {
+          display: block;
+          font-size: rem(21.5);
+        }
+      }
+    }
+  }
+
   &_video {
     position: absolute;
     height: 100%;
@@ -60,12 +84,14 @@
   }
 
   &_pause {
-    position: absolute;
-    bottom: rem(60);
-    right: rem(16);
-    z-index: 4;
-    cursor: pointer;
+    display: none;
     @include breakpoint(large) {
+      display: block;
+      position: absolute;
+      bottom: rem(60);
+      right: rem(16);
+      z-index: 4;
+      cursor: pointer;
       bottom: rem(110);
       right: rem(32);
 
@@ -122,45 +148,6 @@
     }
   }
 
-  &_content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: rem(32) rem(16) rem(110) rem(16);
-    z-index: 3;
-    @include breakpoint(large) {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding: rem(90) rem(32) rem(164) rem(32);
-      max-width: 2010px;
-      margin: auto;
-    }
-    @include breakpoint(huge) {
-      padding: rem(90) rem(48) rem(164) rem(48);
-    }
-
-    &_right {
-      font-size: clamp(0.875rem, 0.8598rem + 0.0647vw, 0.9375rem);
-      color: var(--color-white);
-      @include breakpoint(large) {
-        text-align: right;
-        padding-bottom: rem(8);
-        font-size: rem(15);
-      }
-      strong {
-        font-weight: var(--font-regular);
-        font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
-        letter-spacing: 0.45px;
-        @include breakpoint(large) {
-          display: block;
-          font-size: rem(21.5);
-        }
-      }
-    }
-  }
-
   button {
     border-radius: 8px;
     background: rgba(250, 250, 250, 0.15);
@@ -173,11 +160,11 @@
   &_shape {
     @include breakpoint(large) {
       height: 150px;
-    }
-    &:after {
-      box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
-      left: -150px;
-      right: -150px;
+      &:after {
+        box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
+        left: -150px;
+        right: -150px;
+      }
     }
   }
 

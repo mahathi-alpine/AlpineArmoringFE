@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
-import { getCookie } from 'cookies-next';
+// import { getCookie } from 'cookies-next';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import IntroText from 'components/homepage/intro-text/IntroText';
@@ -9,11 +9,11 @@ import Categories from 'components/homepage/categories/Categories';
 import HPMiddleText from 'components/homepage/hp-middle-text/HPMiddleText';
 import TabSection from 'components/homepage/tab-section/TabSection';
 import Blog from 'components/homepage/blog/Blog';
-// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Partners from 'components/homepage/partners/Partners';
 import VideosPopup from 'components/global/videos-popup/VideosPopup';
 
-function Home({ homepageData, categories, languageCookie }) {
+// function Home({ homepageData, categories, languageCookie }) {
+function Home({ homepageData, categories }) {
   const topBanner = homepageData.data?.attributes.topBanner;
   const categoriesData = categories?.data;
   const hpMiddleText = homepageData.data?.attributes.hpMiddleText;
@@ -65,7 +65,8 @@ function Home({ homepageData, categories, languageCookie }) {
   return (
     <>
       {topBanner ? (
-        <HpBanner props={topBanner} languageCookie={languageCookie} />
+        // <HpBanner props={topBanner} languageCookie={languageCookie} />
+        <HpBanner props={topBanner} />
       ) : null}
 
       <div className="background-dark">
@@ -110,7 +111,8 @@ function Home({ homepageData, categories, languageCookie }) {
   );
 }
 
-export async function getServerSideProps({ req, res }) {
+// export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps() {
   const homepageData = await getPageData({
     route: 'homepage',
   });
@@ -121,11 +123,12 @@ export async function getServerSideProps({ req, res }) {
     populate: 'deep',
   });
 
-  let languageCookie = getCookie('googtrans', { req, res });
-  languageCookie = languageCookie ? languageCookie.split('/').pop() : 'en';
+  // let languageCookie = getCookie('googtrans', { req, res });
+  // languageCookie = languageCookie ? languageCookie.split('/').pop() : 'en';
 
   return {
-    props: { homepageData, categories, languageCookie },
+    // props: { homepageData, categories, languageCookie },
+    props: { homepageData, categories },
   };
 }
 

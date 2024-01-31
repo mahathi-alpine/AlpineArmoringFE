@@ -1,19 +1,15 @@
 import React, { useRef, useState } from 'react';
-import useEffectOnce from 'hooks/useEffectOnce';
+// import useEffectOnce from 'hooks/useEffectOnce';
 import styles from './HpBanner.module.scss';
 import PauseIcon from 'components/icons/Pause';
 import PlayIcon from 'components/icons/Play';
+import Markdown from 'markdown-to-jsx';
+import { HPBannerProps } from 'types';
 
-interface HPBannerProps {
-  props: {
-    subtitle: string;
-    title: string;
-  };
-  error?: Error;
-  languageCookie?: string;
-}
+// const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
+const HpBanner = ({ props }: HPBannerProps) => {
+  // console.log(props)
 
-const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const togglePlayPause = () => {
@@ -28,31 +24,31 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
     }
   };
 
-  useEffectOnce(() => {
-    function stepAnimateText(props, animation, delay) {
-      props.forEach((text) => {
-        const string = text.innerHTML;
-        let html = '';
-        for (let i = 0; i < string.length; i++) {
-          html +=
-            `<span class="` +
-            animation +
-            `" style="animation-delay: ` +
-            i * delay +
-            `s">${string[i]}</span>`;
-        }
-        text.innerHTML = html;
-      });
-    }
+  // useEffectOnce(() => {
+  //   function stepAnimateText(props, animation, delay) {
+  //     props.forEach((text) => {
+  //       const string = text.innerHTML;
+  //       let html = '';
+  //       for (let i = 0; i < string.length; i++) {
+  //         html +=
+  //           `<span class="` +
+  //           animation +
+  //           `" style="animation-delay: ` +
+  //           i * delay +
+  //           `s">${string[i]}</span>`;
+  //       }
+  //       text.innerHTML = html;
+  //     });
+  //   }
 
-    if (languageCookie == 'en') {
-      stepAnimateText(
-        [...document.querySelectorAll('.animateLetter')],
-        'fadeInDown',
-        0.1
-      );
-    }
-  });
+  //   if (languageCookie == 'en') {
+  //     stepAnimateText(
+  //       [...document.querySelectorAll('.animateLetter')],
+  //       'fadeInDown',
+  //       0.1
+  //     );
+  //   }
+  // });
 
   return (
     <div className={`${styles.hp_banner}`}>
@@ -61,12 +57,13 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
           ref={videoRef}
           muted={true}
           autoPlay={true}
-          playsInline={true}
+          // playsInline={true}
           loop={true}
           className={`${styles.hp_banner_video}`}
-          preload="metadata"
+          // preload="metadata"
+          poster="/assets/hpBannerPoster.jpg"
         >
-          <source src="/AlpineArmoringHP.mp4#t=0.1" />
+          <source src="/AlpineArmoringHP.mp4" />
         </video>
 
         <div className={`${styles.hp_banner_pause}`} onClick={togglePlayPause}>
@@ -96,18 +93,15 @@ const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
             </h2>
 
             <h1
-              className={`${styles.hp_banner_title} observe animate fade-in-up delay-1`}
+              className={`${styles.hp_banner_title} observe animate fade-in-up`}
             >
               {props.title}
             </h1>
           </div>
           <div
-            className={`${styles.hp_banner_content_right} observe animate fade-in-up delay-1`}
+            className={`${styles.hp_banner_content_right} observe animate fade-in-up`}
           >
-            <p>
-              <strong>Designed, Engineered and Manufactured</strong> like no
-              other armoured SUVs, Sedans and Trucks in the world
-            </p>
+            <Markdown>{props.description}</Markdown>
           </div>
         </div>
       </div>
