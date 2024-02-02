@@ -349,7 +349,9 @@
 
     &:hover {
       color: var(--color-white);
-      box-shadow: 0 0 0 0px rgba(35,38,59,.05), 0 10px 16px -4px rgba(35,38,59,.25);
+      box-shadow:
+        0 0 0 0px rgba(35, 38, 59, 0.05),
+        0 10px 16px -4px rgba(35, 38, 59, 0.25);
     }
 
     &:hover:before {

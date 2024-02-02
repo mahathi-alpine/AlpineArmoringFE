@@ -15,9 +15,11 @@
 
   @include breakpoint(large) {
     &:hover {
-      .listing_item{
-        &_content{
-          box-shadow: 0 0 0 0px rgba(35,38,59,.05), 0 10px 16px -4px rgba(35,38,59,.25);
+      .listing_item {
+        &_content {
+          box-shadow:
+            0 0 0 0px rgba(35, 38, 59, 0.05),
+            0 10px 16px -4px rgba(35, 38, 59, 0.25);
         }
         &_image img {
           filter: brightness(0.7);
@@ -26,7 +28,7 @@
           opacity: 1;
           visibility: visible;
         }
-      }      
+      }
     }
   }
 
