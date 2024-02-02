@@ -1,16 +1,16 @@
 import { CldImage } from 'next-cloudinary';
 
 export default function NextJsImage(slide) {
-  // console.log(slide)
   const data = slide.slide;
+  console.log(data);
 
   return (
     <div style={{ display: 'flex', height: '100%' }}>
       <CldImage
         src={
           window.innerWidth < 768
-            ? data.formats?.small?.url
-            : data.formats?.xlarge?.url || data.url
+            ? data.formats?.small?.src
+            : data.formats?.xlarge?.src || data.src
         }
         alt={data.alt || 'Alpine Armoring'}
         width={data.width}

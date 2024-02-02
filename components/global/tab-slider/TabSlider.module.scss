@@ -25,6 +25,17 @@
     }
   }
 
+  &_sticky:not(.tabSlider_sticked){
+    @include breakpoint(large) {
+      .tabSlider_nav_item{
+        transition: transform .2s ease-in-out;
+        &:hover{
+          transform: translateY(-5px);
+        }
+      }
+    }
+  }
+
   &_nav {
     position: relative;
     display: flex;

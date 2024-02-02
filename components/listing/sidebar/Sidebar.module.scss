@@ -75,10 +75,11 @@
   }
 
   &_clear {
-    font-size: rem(15);
+    font-size: rem(14);
     text-decoration: underline;
     cursor: pointer;
-    font-weight: var(--font-medium);
+    // font-weight: var(--font-medium);
+    flex-shrink: 0;
     @include breakpoint(large) {
       font-weight: var(--font-regular);
       .sidebar_plain & {
@@ -393,6 +394,16 @@
       }
     }
 
+    &:nth-child(3){
+      @include breakpoint(large) {
+        .sidebar_item_wrap {
+          .sidebar_plain & {
+            min-width: 215px;
+          }
+        }
+      }
+    }
+
     &_wrap {
       .sidebar_plain & {
         @include breakpoint(large) {
@@ -404,11 +415,12 @@
           border-top: 0;
           overflow: hidden;
           max-height: 0px;
-          padding: 0 rem(10);
+          padding: 0 rem(16);
           transition: max-height 0.3s ease;
           z-index: 1;
           border-bottom-left-radius: 16px;
-          border-bottom-right-radius: 16px;
+          border-bottom-right-radius: 16px;          
+          box-shadow: 0 0 0 0px rgba(35,38,59,.05), 0 10px 16px -4px rgba(35,38,59,.25);
 
           .checkbox {
             &_span {

@@ -1,7 +1,7 @@
 import styles from './TabSlider.module.scss';
 import Link from 'next/link';
 // import ChevronIcon from 'components/icons/Chevron';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const TabSlider = ({
   props,
@@ -29,7 +29,11 @@ const TabSlider = ({
     gliderRef.current.style.width = `${tabWidth}px`;
   };
 
+  const [clickEventOccurred, setClickEventOccurred] = useState(false);
+
   const changeTab = ({ index, item }, event) => {
+    setClickEventOccurred(true);
+
     onTabChange(index, item.titleNav);
 
     Array.from(navRef.current.children).forEach((child) => {
@@ -61,8 +65,10 @@ const TabSlider = ({
       const observerAnchor = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            if (!clickEventOccurred && entry.isIntersecting) {
               const targetId = entry.target.id;
+              // console.log(targetId)
+
               const correspondingNavItem = navItemDict[targetId];
 
               if (correspondingNavItem) {
@@ -70,13 +76,12 @@ const TabSlider = ({
                   (item) => item.id === correspondingNavItem.id
                 );
                 const navItemElement = navRef.current.children[navItemIndex];
-                navItemElement.classList.add(styles.tabSlider_nav_item_active);
-                lastActiveNavItem.current?.classList.remove(
-                  styles.tabSlider_nav_item_active
-                );
+                // navItemElement.classList.add(styles.tabSlider_nav_item_active);
+                // lastActiveNavItem.current?.classList.remove(
+                //   styles.tabSlider_nav_item_active
+                // );
                 lastActiveNavItem.current = navItemElement;
                 updateGliderStyle(navItemElement);
-
                 const tabRect = navItemElement.getBoundingClientRect();
                 const containerRect = navRef.current.getBoundingClientRect();
                 const translateX = tabRect.left - containerRect.left;
@@ -89,6 +94,9 @@ const TabSlider = ({
           rootMargin: '0px 0px -70% 0px',
         }
       );
+
+      setTimeout(() => setClickEventOccurred(false), 2000);
+
       observerAnchorTargets.forEach((item) => observerAnchor.observe(item));
 
       // Clean up the observer when the component unmounts
@@ -97,7 +105,7 @@ const TabSlider = ({
         observerAnchor.disconnect();
       };
     }
-  }, []);
+  }, [anchor, clickEventOccurred]);
 
   useEffect(() => {
     if (sticky) {

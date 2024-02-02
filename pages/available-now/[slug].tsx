@@ -198,7 +198,7 @@ function InventoryVehicle(props) {
             ></div>
           </div>
 
-          <div className={`${styles.inventory_details}`}>
+          <div id="oem-specs" className={`${styles.inventory_details} anchor`}>
             <div className={`${styles.inventory_breadcrumbs}`}>
               <Link href="/available-now">Available now</Link>
               <span>&gt;</span>

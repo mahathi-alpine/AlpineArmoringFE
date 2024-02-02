@@ -62,9 +62,16 @@ function InventoryVehicle(props) {
 
   const handleTabChange = (index, titleNav) => {
     const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
-
     const targetElement = document.getElementById(targetId);
-    targetElement.scrollIntoView({ behavior: 'smooth' });
+    const offset = 100;
+
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {

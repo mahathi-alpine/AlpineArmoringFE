@@ -13,9 +13,9 @@
     z-index: 3;
 
     @include breakpoint(medium) {
-      max-width: calc(100% - 400px);
+      max-width: 800px;
       margin: auto;
-      padding-top: rem(30);
+      padding-top: rem(24);
     }
 
     @include breakpoint(large) {
@@ -53,9 +53,7 @@
     h1 {
       font-weight: var(--font-demi);
       font-size: clamp(1.75rem, 1.4466rem + 1.2945vw, 3rem);
-      @include breakpoint(small) {
-        line-height: 1.1;
-      }
+      line-height: 1.1;
     }
     @include breakpoint(large) {
       padding-bottom: 16px;
@@ -246,11 +244,10 @@
         justify-content: center;
         margin-bottom: 0;
         order: 2;
-        max-width: calc(770px);
+        max-width: calc(100% - 770px);
       }
       @include breakpoint(huge) {
         bottom: -60px;
-        max-width: calc(100% - 770px);
         padding-right: rem(120);
       }
     }
@@ -295,6 +292,11 @@
       color: var(--color-white);
       font-weight: var(--font-regular);
       z-index: 4;
+      transition: transform .2s ease-in-out;
+
+      &:hover{
+        transform: translateY(-5px);
+      }
     }
 
     span {

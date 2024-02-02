@@ -19,13 +19,14 @@
   }
 
   &_description {
-    padding-top: rem(64);
-    padding-bottom: rem(40);
+    margin-top: rem(64);
+    margin-bottom: rem(40);
 
     @include breakpoint(large) {
       font-size: rem(22);
       max-width: 1400px;
-      padding-bottom: rem(50);
+      margin-top: 0;
+      margin-bottom: rem(70);
     }
 
     p {
@@ -38,11 +39,11 @@
   }
 
   &_dimensions {
-    padding-bottom: rem(60);
+    margin-bottom: rem(60);
 
     @include breakpoint(large) {
-      padding-top: rem(70);
-      padding-bottom: rem(80);
+      // padding-top: rem(70);
+      margin-bottom: rem(80);
 
       &_title {
         max-width: 1336px;
@@ -87,10 +88,10 @@
   }
 
   &_slider {
-    padding-bottom: rem(56);
+    margin-bottom: rem(56);
 
     @include breakpoint(large) {
-      padding-bottom: rem(50);
+      margin-bottom: rem(120);
     }
 
     &_small {
@@ -103,11 +104,11 @@
   }
 
   &_specs {
-    padding-bottom: rem(56);
+    margin-bottom: rem(56);
 
     @include breakpoint(large) {
-      padding-top: rem(70);
-      padding-bottom: rem(120);
+      // padding-top: rem(70);
+      margin-bottom: rem(120);
     }
   }
 }

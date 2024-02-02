@@ -314,7 +314,8 @@
     position: relative;
     transition:
       background 0.3s ease-in-out,
-      color 0.3s ease-in-out;
+      color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
     overflow: hidden;
     border: none;
 
@@ -329,7 +330,7 @@
       top: 0;
       opacity: 0.5;
       filter: blur(25px);
-      transform: translateX(-112%) skewX(-15deg);
+      transform: translateX(-150%) skewX(-15deg);
     }
 
     &:after {
@@ -348,6 +349,7 @@
 
     &:hover {
       color: var(--color-white);
+      box-shadow: 0 0 0 0px rgba(35,38,59,.05), 0 10px 16px -4px rgba(35,38,59,.25);
     }
 
     &:hover:before {

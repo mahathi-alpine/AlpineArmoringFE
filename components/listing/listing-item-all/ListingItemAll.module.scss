@@ -15,13 +15,18 @@
 
   @include breakpoint(large) {
     &:hover {
-      .listing_item_image img {
-        filter: brightness(0.5);
-      }
-      .listing_item_button {
-        opacity: 1;
-        visibility: visible;
-      }
+      .listing_item{
+        &_content{
+          box-shadow: 0 0 0 0px rgba(35,38,59,.05), 0 10px 16px -4px rgba(35,38,59,.25);
+        }
+        &_image img {
+          filter: brightness(0.7);
+        }
+        &_button {
+          opacity: 1;
+          visibility: visible;
+        }
+      }      
     }
   }
 
@@ -41,6 +46,8 @@
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     flex: 1;
+    transition: box-shadow 0.3s ease;
+
     @include breakpoint(large) {
       padding: rem(16) rem(24) rem(24) rem(24);
     }

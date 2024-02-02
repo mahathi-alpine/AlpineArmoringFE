@@ -3,7 +3,7 @@ import Link from 'next/link';
 import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
 import SearchIcon from 'components/icons/Search';
 
@@ -38,7 +38,6 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
   };
 
   const isMobile = useIsMobile();
-
   const openFilters = () => {
     if (isMobile) {
       setFiltersOpen((filtersOpen) => {
@@ -89,6 +88,10 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
   }, [router.isReady, router.query, props]);
 
   const applyFilter = (item, paramKey) => {
+    if (paramKey == 'make') {
+      setFiltersOpen(false);
+    }
+
     const newQuery = { ...router.query };
     delete newQuery['vehicles_we_armor'];
 
@@ -120,6 +123,25 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
     );
   };
 
+  // Close filters dropdown on click outside
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    if (window.innerWidth >= 1280) {
+      const handleClickOutside = (event) => {
+        if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+          setActiveFilterItem('default');
+        }
+      };
+
+      document.addEventListener('click', handleClickOutside);
+
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }
+  }, []);
+
   return (
     <div
       className={`${styles.sidebar}
@@ -132,21 +154,23 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
           <FiltersIcon />
         </div>
 
-        {Object.keys(router.query).length > 0 && (
-          <div
-            className={`${styles.sidebar_clear}`}
-            onClick={handleClearFilters}
-          >
-            Clear all filters
-          </div>
-        )}
+        {Object.prototype.hasOwnProperty.call(router.query, 'make') &&
+          Object.keys(router.query).length > 0 && (
+            <div
+              className={`${styles.sidebar_clear} bold`}
+              onClick={handleClearFilters}
+            >
+              Clear all filters
+            </div>
+          )}
       </div>
 
       <div
+        ref={sidebarRef}
         className={`
-        ${styles.sidebar_wrap}
-        ${filtersOpen ? styles.sidebar_wrap_open : ''}
-      `}
+          ${styles.sidebar_wrap}
+          ${filtersOpen ? styles.sidebar_wrap_open : ''}
+        `}
       >
         <div className={`${styles.sidebar_wrap_inner}`}>
           <div className={`${styles.sidebar_wrap_top}`}>

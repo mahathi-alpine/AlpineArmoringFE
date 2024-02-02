@@ -90,28 +90,43 @@
     padding: rem(24) rem(16);
     margin: auto;
     text-align: center;
-    box-shadow: 0 0 var(--shadow-size, 40px) #00000099;
-    background: rgba(23, 23, 23, 0.4);
-    backdrop-filter: blur(16px);
-    border-radius: 8px;
-    font-size: clamp(0.9375rem, 0.7858rem + 0.6472vw, 1.5625rem);
+    // box-shadow: 0 0 var(--shadow-size, 40px) #00000099;
+    // background: rgba(23, 23, 23, 0.4);
+    // backdrop-filter: blur(16px);
+    border-radius: 16px;
+    font-size: clamp(0.9375rem, 0.7858rem + 0.6472vw, 1.5rem);
+
+    // background: rgba(47, 47, 47, 0.2);
+    // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    // backdrop-filter: blur(5px);
+    // border: 1px solid rgba(47, 47, 47, 0.3);
+    
+    background: rgba( 19, 19, 19, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.37 );
+    backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+   
 
     @include breakpoint(medium) {
-      max-width: 850px;
-      display: inline-flex;
-      padding: rem(40);
+      max-width: 885px;
+      padding: rem(32) rem(24);
     }
 
     @include breakpoint(large) {
-      max-width: 1200px;
-      text-align: left;
+      max-width: 950px;
+      // text-align: left;
 
       .banner_small & {
         max-width: calc(100% - 620px);
+        display: inline-flex;
       }
       .banner_center & {
         font-size: rem(32);
       }
+    }
+
+    @include breakpoint(huge) {
+      max-width: 1090px;
     }
 
     h1 {
