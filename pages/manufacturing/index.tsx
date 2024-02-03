@@ -3,39 +3,12 @@ import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
 import Markdown from 'markdown-to-jsx';
 import { useEffect } from 'react';
-import useEffectOnce from 'hooks/useEffectOnce';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import { CldImage } from 'next-cloudinary';
 
 function Manufacturing(props) {
   // console.log(props.pageData)
   // return null;
-
-  useEffectOnce(() => {
-    function stepAnimateText(props, animation, delay) {
-      props.forEach((text) => {
-        const string = text.innerHTML;
-        let html = '';
-        for (let i = 0; i < string.length; i++) {
-          html +=
-            `<span class="` +
-            animation +
-            `" style="animation-delay: ` +
-            i * delay +
-            `s">${string[i]}</span>`;
-        }
-        text.innerHTML = html;
-      });
-    }
-
-    // if (languageCookie == 'en') {
-    stepAnimateText(
-      [...document.querySelectorAll('.animateLetter')],
-      'fadeInDown',
-      0.01
-    );
-    // }
-  });
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -84,7 +57,7 @@ function Manufacturing(props) {
 
           {props.pageData?.section1Heading ? (
             <Markdown
-              className={`${styles.manufacturing_section1_heading} animateLetter observe`}
+              className={`${styles.manufacturing_section1_heading} fade-in observe`}
             >
               {props.pageData.section1Heading}
             </Markdown>

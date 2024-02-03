@@ -47,7 +47,7 @@ const TopBanner = ({ props, shape, small, center }: BannerProps) => {
         <div className={`${styles.banner_content}`}>
           <div className={`${styles.banner_text}`}>
             {bannerTitle ? (
-              <h1 className={`${styles.banner_title} observe fade-in`}>
+              <h1 className={`${styles.banner_title} observe fade-in-scale`}>
                 {bannerTitle}
               </h1>
             ) : null}

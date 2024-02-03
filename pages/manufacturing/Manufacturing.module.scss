@@ -120,7 +120,6 @@
       // margin-bottom: rem(24);
       font-weight: var(--font-medium);
       font-size: rem(24);
-      color: transparent;
 
       @include breakpoint(medium) {
         font-size: rem(32);
@@ -132,14 +131,6 @@
       }
       @include breakpoint(huge) {
         font-size: rem(56);
-      }
-
-      span {
-        display: inline-block;
-        opacity: 0;
-        animation: fadeInDown 0.9s;
-        animation-fill-mode: forwards;
-        color: white;
       }
     }
 
