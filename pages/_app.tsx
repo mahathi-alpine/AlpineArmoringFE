@@ -1,6 +1,8 @@
 import '/styles/globals.scss';
 import Layout from '../components/Layout';
 import Script from 'next/script';
+import Head from 'next/head';
+
 // import { useRouter } from 'next/router';
 // import { useEffect, useState } from 'react';
 
@@ -33,6 +35,9 @@ export default function App({ Component, pageProps }) {
           strategy="afterInteractive"
         />
       )}
+      <Head>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <Layout>
         <Component {...pageProps} />
       </Layout>

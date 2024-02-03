@@ -7,10 +7,9 @@
   "description": "Alpine Armoring",
   "icons": [
     {
-      "src": "/assets/logoAlpine.png",
-      "sizes": "36x36",
-      "type": "image/png",
-      "density": "0.75"
+      "src": "/favicon.png",
+      "sizes": "14x16",
+      "type": "image/png"
     }
   ]
 }

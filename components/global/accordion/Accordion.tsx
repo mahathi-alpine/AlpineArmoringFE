@@ -1,7 +1,7 @@
 import styles from './Accordion.module.scss';
 import React, { useState } from 'react';
 
-const Accordion = ({ items }) => {
+const Accordion = ({ items, title }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const handleTitleClick = (index) => {
@@ -10,28 +10,34 @@ const Accordion = ({ items }) => {
 
   return (
     <div className={`${styles.accordion} container_small`}>
+      {title ? <h2 className={`${styles.accordion_title}`}>{title}</h2> : null}
+
       {items.map((item, index) => (
         <div key={index} className={`${styles.accordion_item}`}>
           <div
             className={`${styles.accordion_item_heading}`}
             onClick={() => handleTitleClick(index)}
           >
-            {item.title}
+            <div className={`${styles.accordion_item_heading_title}`}>
+              {item.title}
+            </div>
 
             <div
-              className={`${styles.accordion_button} ${
-                activeIndex === index ? styles['accordion_button--open'] : ''
+              className={`${styles.accordion_icon} ${
+                activeIndex === index ? styles['accordion_icon--open'] : ''
               }`}
             ></div>
           </div>
 
           <div
             style={{
-              maxHeight: activeIndex === index ? '100%' : '0',
+              maxHeight: activeIndex === index ? '300px' : '0',
             }}
             className={`${styles.accordion_item_content}`}
           >
-            {item.content}
+            <div className={`${styles.accordion_item_content_text}`}>
+              {item.content}
+            </div>
           </div>
         </div>
       ))}

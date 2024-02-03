@@ -51,7 +51,11 @@ const Layout = ({ children }) => {
   const router = useRouter();
 
   const pathsDarkMode = ['/available-now', '/manufacturing'];
-  const pathsDarkHeader = ['/vehicles-we-armor', '/contact'];
+  const pathsDarkHeader = [
+    '/vehicles-we-armor',
+    '/contact',
+    '/design-and-engineering',
+  ];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)

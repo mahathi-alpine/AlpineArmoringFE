@@ -2,31 +2,51 @@
   @include breakpoint(medium) {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    column-gap: 10px;
+  }
+
+  &_group{
+    @include breakpoint(medium) {
+      width: calc(50% - 5px);
+
+      &_full{
+        width: 100%;
+      }
+    }
   }
 
   &_input {
     position: relative;
-    margin-bottom: rem(8);
     padding: rem(14) rem(16);
     width: 100%;
     border-radius: 8px;
     background: var(--color-white);
     font-size: rem(14);
     font-weight: var(--font-medium);
-
-    @include breakpoint(medium) {
-      margin-bottom: 0;
-      width: calc(50% - 5px);
-    }
+    border: 1px solid transparent;
 
     &::placeholder {
       font-weight: var(--font-regular);
+    }   
+
+    .form_group.error &{
+      border-color: #e74c3c;
+    }
+
+    &_error {
+      color: #e74c3c;
+      visibility: hidden;
+      min-height: 15px;
+      padding-top: 3px;
+      padding-bottom: 8px;
+      .form_group.error &{
+        visibility: visible;
+      }
     }
   }
 
   &_textarea {
-    margin-bottom: rem(16);
+    // margin-bottom: rem(16);
     @include breakpoint(medium) {
       width: 100%;
     }
@@ -117,9 +137,11 @@
       }
     }
   }
-  // &_label {
-  //     position: absolute;
-  //     top: 15px;
-  //     left: rem(20);
-  // }
+
+  &_submit{
+    width: 100%;
+    &_button{
+      margin: auto;
+    }
+  }
 }

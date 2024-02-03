@@ -1,6 +1,6 @@
 // import Link from 'next/link';
 import styles from './Banner.module.scss';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import Button from 'components/global/button/Button';
 import Markdown from 'markdown-to-jsx';
 import Link from 'next/link';
@@ -81,16 +81,20 @@ const Banner = (props) => {
 
         {data.featuredImage?.data ? (
           <div className={`${styles.banner_image_wrap} observe fade-in-right`}>
-            <Image
-              src={`${data.featuredImage.data.attributes.url}`}
-              alt="Description of the image"
+            <CldImage
+              src={
+                data.featuredImage.data.attributes.formats?.large?.url ||
+                data.featuredImage.data.attributes.url
+              }
+              alt={data.featuredImage.data.attributes.alternativeText}
               width={1000}
               height={550}
-            />
+              priority
+            ></CldImage>
           </div>
         ) : null}
 
-        {data.pdf.data ? (
+        {data.pdf?.data ? (
           <Link
             href={data.pdf.data.attributes.url}
             target="_blank"

@@ -1,4 +1,4 @@
-import styles from './Sidebar.module.scss';
+import styles from './Filters.module.scss';
 import Link from 'next/link';
 import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
@@ -7,12 +7,12 @@ import { useState, useEffect, useRef } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
 import SearchIcon from 'components/icons/Search';
 
-type SidebarProps = {
+type FiltersProps = {
   props: any;
   plain?: boolean;
 };
 
-const Sidebar = ({ props, plain }: SidebarProps) => {
+const Filters = ({ props, plain }: FiltersProps) => {
   const [query, setQuery] = useState('');
   const handleSearch = async () => {
     router.push(
@@ -124,12 +124,12 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
   };
 
   // Close filters dropdown on click outside
-  const sidebarRef = useRef(null);
+  const filtersRef = useRef(null);
 
   useEffect(() => {
     if (window.innerWidth >= 1280) {
       const handleClickOutside = (event) => {
-        if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        if (filtersRef.current && !filtersRef.current.contains(event.target)) {
           setActiveFilterItem('default');
         }
       };
@@ -144,12 +144,12 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
 
   return (
     <div
-      className={`${styles.sidebar}
-      ${plain ? `${styles.sidebar_plain}` : ''}
+      className={`${styles.filters}
+      ${plain ? `${styles.filters_plain}` : ''}
     `}
     >
-      <div className={`${styles.sidebar_top}`}>
-        <div className={`${styles.sidebar_top_title}`} onClick={openFilters}>
+      <div className={`${styles.filters_top}`}>
+        <div className={`${styles.filters_top_title}`} onClick={openFilters}>
           Filters
           <FiltersIcon />
         </div>
@@ -157,7 +157,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
         {Object.prototype.hasOwnProperty.call(router.query, 'make') &&
           Object.keys(router.query).length > 0 && (
             <div
-              className={`${styles.sidebar_clear} bold`}
+              className={`${styles.filters_clear} bold`}
               onClick={handleClearFilters}
             >
               Clear all filters
@@ -166,17 +166,17 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
       </div>
 
       <div
-        ref={sidebarRef}
+        ref={filtersRef}
         className={`
-          ${styles.sidebar_wrap}
-          ${filtersOpen ? styles.sidebar_wrap_open : ''}
+          ${styles.filters_wrap}
+          ${filtersOpen ? styles.filters_wrap_open : ''}
         `}
       >
-        <div className={`${styles.sidebar_wrap_inner}`}>
-          <div className={`${styles.sidebar_wrap_top}`}>
-            <div className={`${styles.sidebar_wrap_top_title}`}>
+        <div className={`${styles.filters_wrap_inner}`}>
+          <div className={`${styles.filters_wrap_top}`}>
+            <div className={`${styles.filters_wrap_top_title}`}>
               <div
-                className={`${styles.sidebar_wrap_close}`}
+                className={`${styles.filters_wrap_close}`}
                 onClick={openFilters}
               >
                 X
@@ -186,7 +186,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
 
             {Object.keys(router.query).length > 0 && (
               <div
-                className={`${styles.sidebar_clear}`}
+                className={`${styles.filters_clear}`}
                 onClick={handleClearFilters}
               >
                 Clear all filters
@@ -194,7 +194,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
             )}
           </div>
 
-          <div className={`${styles.sidebar_search}`}>
+          <div className={`${styles.filters_search}`}>
             <input
               type="text"
               value={query}
@@ -208,7 +208,7 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
             />
             <div
               onClick={handleSearch}
-              className={`${styles.sidebar_search_icon}`}
+              className={`${styles.filters_search_icon}`}
             >
               <SearchIcon />
             </div>
@@ -219,26 +219,26 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
               <div
                 key={filter}
                 className={`
-                  ${styles.sidebar_item}
+                  ${styles.filters_item}
                   ${
                     filter === activeFilterItem
-                      ? styles.sidebar_item_active
+                      ? styles.filters_item_active
                       : ''
                   }
                 `}
                 onClick={() => activateFilterItem(filter)}
               >
-                <h4 className={`${styles.sidebar_item_title}`}>
+                <h4 className={`${styles.filters_item_title}`}>
                   {filter}
-                  <ChevronIcon className={`${styles.sidebar_item_chevron}`} />
+                  <ChevronIcon className={`${styles.filters_item_chevron}`} />
                 </h4>
-                <span className={`${styles.sidebar_item_choice}`}>
+                <span className={`${styles.filters_item_choice}`}>
                   {filter == 'make'
                     ? activeFilterTitles.make
                     : activeFilterTitles.type.replace('Armored', '')}
                 </span>
 
-                <div className={`${styles.sidebar_item_wrap}`}>
+                <div className={`${styles.filters_item_wrap}`}>
                   {props[filter].map((item) => {
                     if (filter == 'type') {
                       const newUrl = `${baseUrl}/type/${item.attributes.slug}${
@@ -312,4 +312,4 @@ const Sidebar = ({ props, plain }: SidebarProps) => {
   );
 };
 
-export default Sidebar;
+export default Filters;

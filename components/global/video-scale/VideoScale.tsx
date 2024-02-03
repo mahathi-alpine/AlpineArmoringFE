@@ -18,7 +18,7 @@ export function animateVideo(entry) {
   headerRight.style.transform = `translateX(${textTrans}px)`;
 }
 
-const VideoScale = ({ video, text1, text2 }) => {
+const VideoScale = ({ video, text1 = '', text2 = '' }) => {
   return (
     <section className={`${styles.videoScale} observe videoScaleContainer`}>
       <div className={`${styles.videoScale_shim}`}></div>

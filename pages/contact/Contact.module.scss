@@ -1,14 +1,20 @@
 .contact {
   &_main {
+    margin-bottom: rem(64);
+
     @include breakpoint(large) {
       display: flex;
       gap: 56px;
       max-width: 1500px;
       align-items: flex-start;
+      margin-bottom: rem(120);
     }
+
     &_left {
+      margin-bottom: rem(64);
       @include breakpoint(large) {
         width: 50%;
+        margin-bottom: 0;
       }
       &_title {
         margin-bottom: rem(16);
@@ -29,9 +35,12 @@
         display: flex;
         gap: 24px;
         justify-content: space-between;
-        // &_column{
-        //     width: 50%;
-        // }
+      }
+      &_column{
+        margin-bottom: rem(32);
+        @include breakpoint(large) {
+          margin-bottom: 0;
+        }
       }
       p {
         margin-bottom: rem(10);

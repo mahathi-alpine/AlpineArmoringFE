@@ -9,7 +9,7 @@ const IntroText = (props) => {
   useEffectOnce(() => {
     let spans = [];
     let htmlString = '';
-    const pArray = introTextRef.current.textContent.split('');
+    const pArray = introTextRef.current?.textContent.split('');
     for (let i = 0; i < pArray.length; i++) {
       htmlString += `<span>${pArray[i]}</span>`;
     }

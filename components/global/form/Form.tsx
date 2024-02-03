@@ -217,8 +217,58 @@ const Form = () => {
     'Zimbabwe',
   ];
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validateFullname = (value) => {
+    const fullNamePattern = /^[A-Z ]{3,}$/i;
+    if (!value) {
+      return 'Name is required';
+    } else if (!fullNamePattern.test(value)) {
+      return 'Please provide a valid name';
+    } else {
+      return '';
+    }
+  };
+
+  const validateEmail = (value) => {
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (!value) {
+      return 'Email is required.';
+    } else if (!emailPattern.test(value)) {
+      return 'Invalid email address';
+    } else {
+      return '';
+    }
+  };
+
+  const validatePhone = (value) => {
+    const phonePattern = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/;
+    if (!value) {
+      return 'Phone is required';
+    } else if (!phonePattern.test(value)) {
+      return 'Please enter a valid phone number';
+    } else {
+      return '';
+    }
+  };
+
+  const handleFieldChange = (field, value, validator, setter) => {
+    setter(value);
+    const errorMessage = validator(value);
+    setErrors({ ...errors, [field]: errorMessage });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const newErrors = {
+      fullname: validateFullname(fullname),
+      email: validateEmail(email),
+      phone: validatePhone(phone),
+    };
+
+    setErrors(newErrors);
+
     // console.log(fullname, email, phone, company, message, mobile);
 
     // const res = await fetch('/api/sendgrid', {
@@ -241,112 +291,189 @@ const Form = () => {
     //   return;
     // }
   };
+
   return (
     <form className={`${styles.form}`} onSubmit={handleSubmit}>
-      <input
-        type="text"
-        id="fullname"
-        value={fullname}
-        onChange={(e) => setFullname(e.target.value)}
-        placeholder="Full Name*"
-        className={`${styles.form_input}`}
-      />
+      <div
+        className={`${styles.form_group} ${
+          errors.fullname ? styles.error : ''
+        }`}
+      >
+        <input
+          type="text"
+          id="fullname"
+          value={fullname}
+          onChange={(e) =>
+            handleFieldChange(
+              'fullname',
+              e.target.value,
+              validateFullname,
+              setFullname
+            )
+          }
+          placeholder="Full Name*"
+          required
+          className={`${styles.form_input}`}
+        />
+        <small className={`${styles.form_input_error}`}>
+          {errors.fullname}
+        </small>
+      </div>
 
-      <input
-        type="email"
-        id="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email*"
-        className={`${styles.form_input}`}
-      />
+      <div
+        className={`${styles.form_group} ${errors.email ? styles.error : ''}`}
+      >
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) =>
+            handleFieldChange('email', e.target.value, validateEmail, setEmail)
+          }
+          placeholder="Email*"
+          className={`${styles.form_input}`}
+          required
+        />
+        <small className={`${styles.form_input_error}`}>{errors.email}</small>
+      </div>
 
-      <input
-        type="tel"
-        id="phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        placeholder="Phone Number*"
-        className={`${styles.form_input}`}
-      />
+      <div
+        className={`${styles.form_group} ${errors.phone ? styles.error : ''}`}
+      >
+        <input
+          type="tel"
+          id="phone"
+          value={phone}
+          onChange={(e) =>
+            handleFieldChange('phone', e.target.value, validatePhone, setPhone)
+          }
+          placeholder="Phone Number*"
+          className={`${styles.form_input}`}
+          required
+        />
+        <small className={`${styles.form_input_error}`}>{errors.phone}</small>
+      </div>
 
-      <input
-        type="tel"
-        id="mobile"
-        value={mobile}
-        onChange={(e) => setMobile(e.target.value)}
-        placeholder="Mobile Number"
-        className={`${styles.form_input}`}
-      />
+      <div
+        className={`${styles.form_group} ${errors.mobile ? styles.error : ''}`}
+      >
+        <input
+          type="tel"
+          id="mobile"
+          value={mobile}
+          onChange={(e) => setMobile(e.target.value)}
+          placeholder="Mobile Number"
+          className={`${styles.form_input}`}
+        />
+        <small className={`${styles.form_input_error}`}>{errors.mobile}</small>
+      </div>
 
-      <Dropdown
-        label="Company"
-        options={[
-          'Private Government',
-          'US governmental agencies',
-          'Foreign governmental agencies',
-          'Private sector',
-          'Individual',
-          'Nonprofit',
-          'NGO',
-          'Other',
-        ]}
-        selectedOption={company}
-        setSelectedOption={setCompany}
-        isActive={isCompanyDropdownActive}
-        setIsActive={setIsCompanyDropdownActive}
-      />
+      <div
+        className={`${styles.form_group} ${errors.company ? styles.error : ''}`}
+      >
+        <Dropdown
+          label="Company"
+          options={[
+            'Private Government',
+            'US governmental agencies',
+            'Foreign governmental agencies',
+            'Private sector',
+            'Individual',
+            'Nonprofit',
+            'NGO',
+            'Other',
+          ]}
+          selectedOption={company}
+          setSelectedOption={setCompany}
+          isActive={isCompanyDropdownActive}
+          setIsActive={setIsCompanyDropdownActive}
+        />
+        <small className={`${styles.form_input_error}`}>{errors.company}</small>
+      </div>
 
-      <Dropdown
-        label="Inquiry"
-        options={[
-          'SUVs & Sedans',
-          'SWAT & APC Trucks',
-          'Riot/Water Cannon Crowd Control',
-          'CIT Vans & Trucks',
-          'Rental Vehicles',
-          'Parts & Accessories',
-          'Warranty Related',
-          'Interested in Becoming a Dealer',
-          'Employment Opportunity',
-          'Other',
-        ]}
-        selectedOption={inquiry}
-        setSelectedOption={setInquiry}
-        isActive={isInquiryDropdownActive}
-        setIsActive={setIsInquiryDropdownActive}
-      />
+      <div
+        className={`${styles.form_group} ${errors.inquiry ? styles.error : ''}`}
+      >
+        <Dropdown
+          label="Inquiry"
+          options={[
+            'SUVs & Sedans',
+            'SWAT & APC Trucks',
+            'Riot/Water Cannon Crowd Control',
+            'CIT Vans & Trucks',
+            'Rental Vehicles',
+            'Parts & Accessories',
+            'Warranty Related',
+            'Interested in Becoming a Dealer',
+            'Employment Opportunity',
+            'Other',
+          ]}
+          selectedOption={inquiry}
+          setSelectedOption={setInquiry}
+          isActive={isInquiryDropdownActive}
+          setIsActive={setIsInquiryDropdownActive}
+        />
+        <small className={`${styles.form_input_error}`}>{errors.inquiry}</small>
+      </div>
 
-      <Dropdown
-        label="I prefer to be contacted via"
-        options={['Mobile', 'Landline', 'Email', 'Text', 'Whatsapp']}
-        selectedOption={preferredContact}
-        setSelectedOption={setPreferredContact}
-        isActive={isPreferredContactDropdownActive}
-        setIsActive={setIsPreferredContactDropdownActive}
-      />
+      <div
+        className={`${styles.form_group} ${
+          errors.preferredContact ? styles.error : ''
+        }`}
+      >
+        <Dropdown
+          label="I prefer to be contacted via"
+          options={['Mobile', 'Landline', 'Email', 'Text', 'Whatsapp']}
+          selectedOption={preferredContact}
+          setSelectedOption={setPreferredContact}
+          isActive={isPreferredContactDropdownActive}
+          setIsActive={setIsPreferredContactDropdownActive}
+        />
+        <small className={`${styles.form_input_error}`}>
+          {errors.preferredContact}
+        </small>
+      </div>
 
-      <Dropdown
-        label="Country"
-        options={countryOptions}
-        selectedOption={country}
-        setSelectedOption={setCountry}
-        isActive={isCountryDropdownActive}
-        setIsActive={setIsCountryDropdownActive}
-      />
+      <div
+        className={`${styles.form_group} ${errors.country ? styles.error : ''}`}
+      >
+        <Dropdown
+          label="Country"
+          options={countryOptions}
+          selectedOption={country}
+          setSelectedOption={setCountry}
+          isActive={isCountryDropdownActive}
+          setIsActive={setIsCountryDropdownActive}
+        />
+        <small className={`${styles.form_input_error}`}>{errors.country}</small>
+      </div>
 
-      <textarea
-        id="message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        rows={7}
-        placeholder="Message"
-        className={`${styles.form_input} ${styles.form_textarea}`}
-      />
+      <div
+        className={`${styles.form_group} ${styles.form_group_full} ${
+          errors.message ? styles.error : ''
+        }`}
+      >
+        <textarea
+          id="message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          rows={7}
+          placeholder="Message"
+          className={`${styles.form_input} ${styles.form_textarea}`}
+        />
+        <small className={`${styles.form_input_error}`}>{errors.message}</small>
+      </div>
 
-      <Button button={true} className={`primary rounded`}>
-        Send message
-      </Button>
+      <div className={`${styles.form_submit} center`}>
+        <Button
+          button={true}
+          className={`${styles.form_submit_button} primary rounded`}
+          // style={{ ...styles.button, opacity: isFormValid ? 1 : 0.5 }}
+          // disabled={!isFormValid}
+        >
+          Send message
+        </Button>
+      </div>
     </form>
   );
 };

@@ -7,20 +7,22 @@ import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/S
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
-// import Specs from 'components/vehicle/specs/Specs';
 import Gallery from 'components/global/carousel/CarouselCurved';
+import VideoScale, {
+  animateVideo,
+} from 'components/global/video-scale/VideoScale';
 
-function InventoryVehicle(props) {
+function Vehicle(props) {
   const data = props.data?.data[0]?.attributes;
 
-  // console.log(data);
+  console.log(data);
   // return null;
 
-  const inventory = data?.stock.data;
+  const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
-    data?.beforeAfterSlider?.before.data?.attributes;
+    data?.beforeAfterSlider?.before?.data?.attributes;
   const beforeAfterSlider_After =
-    data?.beforeAfterSlider?.after.data?.attributes;
+    data?.beforeAfterSlider?.after?.data?.attributes;
 
   const dimensions1 = data?.dimensions1?.data?.attributes;
   const dimensions2 = data?.dimensions2?.data?.attributes;
@@ -83,6 +85,21 @@ function InventoryVehicle(props) {
           if (entry.isIntersecting) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observerAnimation.unobserve(entry.target);
+
+            // VideoScale
+            if (entry.target.classList.contains('videoScaleContainer')) {
+              window.addEventListener(
+                'scroll',
+                () => animateVideo(entry.target),
+                { passive: true }
+              );
+            }
+          } else {
+            if (entry.target.classList.contains('videoScaleContainer')) {
+              window.removeEventListener('scroll', () =>
+                animateVideo(entry.target)
+              );
+            }
           }
         });
       },
@@ -207,6 +224,25 @@ function InventoryVehicle(props) {
           <Gallery props={gallery} white />
         </div>
       ) : null}
+
+      {data.videoUpload?.data ? (
+        <VideoScale video={data.videoUpload.data.attributes.url} />
+      ) : null}
+
+      {data.videoYoutube ? (
+        <div className={`${styles.slug_yt}`}>
+          <iframe
+            width="860"
+            height="500"
+            src={`https://www.youtube.com/embed/${data.videoYoutube}?controls=0&showinfo=0&modestbranding=1`}
+            // &autoplay=1&mute=1
+            title={data.title}
+            frameBorder="0"
+            allow="autoplay;"
+            allowFullScreen
+          ></iframe>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -214,7 +250,6 @@ function InventoryVehicle(props) {
 export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
-    populate: 'deep',
     params: `filters[slug][$eq]=${context.params.slug}`,
   });
 
@@ -223,4 +258,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default InventoryVehicle;
+export default Vehicle;

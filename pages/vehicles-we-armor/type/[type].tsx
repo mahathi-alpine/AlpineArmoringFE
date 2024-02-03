@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from 'components/global/banner/Banner';
-import Sidebar from 'components/listing/sidebar/Sidebar';
+import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
@@ -47,9 +47,9 @@ function Inventory(props) {
       {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
 
       <div
-        className={`${styles.listing_all_sidebar} container observe fade-in delay-3`}
+        className={`${styles.listing_all_filters} container observe fade-in delay-3`}
       >
-        {props.filters.type ? <Sidebar props={props.filters} plain /> : null}
+        {props.filters.type ? <Filters props={props.filters} plain /> : null}
       </div>
 
       <div className={`${styles.listing_wrap} container`}>

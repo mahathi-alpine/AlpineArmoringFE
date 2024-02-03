@@ -105,7 +105,7 @@ function Contact(props) {
           </div>
         </div>
       </div>
-      <Accordion items={faq} />;
+      <Accordion items={faq} title="Frequently asked questions" />;
     </div>
   );
 }

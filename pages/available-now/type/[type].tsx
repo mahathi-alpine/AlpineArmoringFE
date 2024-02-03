@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from 'components/global/banner/Banner';
-import Sidebar from 'components/listing/sidebar/Sidebar';
+import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
@@ -56,7 +56,7 @@ function Inventory(props) {
       <div
         className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
       >
-        {props.filters.type ? <Sidebar props={props.filters} /> : null}
+        {props.filters.type ? <Filters props={props.filters} /> : null}
 
         {props.vehicles.data?.length < 1 ? (
           <div className={`${styles.listing_empty}`}>
