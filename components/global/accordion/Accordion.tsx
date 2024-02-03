@@ -1,5 +1,6 @@
 import styles from './Accordion.module.scss';
 import React, { useState } from 'react';
+import Button from 'components/global/button/Button';
 
 const Accordion = ({ items, title }) => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -41,6 +42,12 @@ const Accordion = ({ items, title }) => {
           </div>
         </div>
       ))}
+
+      <div className={`${styles.accordion_button} center`}>
+        <Button href="/faqs" className={`primary rounded`}>
+          More FAQs
+        </Button>
+      </div>
     </div>
   );
 };

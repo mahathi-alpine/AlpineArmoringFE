@@ -269,6 +269,26 @@ const Form = () => {
 
     setErrors(newErrors);
 
+    const submitBtn = document.querySelector('.submitButton');
+    submitBtn.classList.add('submiting');
+    submitBtn.innerHTML = '';
+    setTimeout(() => {
+      submitBtn.classList.remove('submiting');
+      submitBtn.innerHTML = 'Done!';
+    }, 2000);
+    setTimeout(() => {
+      setFullname('');
+      setEmail('');
+      setPhone('');
+      setMobile('');
+      setCompany('');
+      setInquiry('');
+      setCountry('');
+      setPreferredContact('');
+      setMessage('');
+      submitBtn.innerHTML = 'Send message';
+    }, 4000);
+
     // console.log(fullname, email, phone, company, message, mobile);
 
     // const res = await fetch('/api/sendgrid', {
@@ -467,7 +487,7 @@ const Form = () => {
       <div className={`${styles.form_submit} center`}>
         <Button
           button={true}
-          className={`${styles.form_submit_button} primary rounded`}
+          className={`${styles.form_submit_button} submitButton primary rounded`}
           // style={{ ...styles.button, opacity: isFormValid ? 1 : 0.5 }}
           // disabled={!isFormValid}
         >

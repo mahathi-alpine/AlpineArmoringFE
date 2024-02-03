@@ -366,6 +366,24 @@
       transition: 0.9s;
     }
   }
+
+  &.submiting{
+    position: relative;
+    overflow: hidden;
+    min-width: 194px;
+    &:before{
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f1f1f1;
+      left: 4px;
+      top: 11px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: move 1s infinite ease-in-out;
+    }    
+  }
 }
 
 @keyframes attention {
@@ -429,5 +447,14 @@
   to {
     -webkit-mask-position: 100% 0;
     mask-position: 100% 0;
+  }
+}
+
+@keyframes move{
+  50%{
+      opacity: 1;
+  }
+  to{
+      left: 296px;
   }
 }
