@@ -442,22 +442,22 @@ button.yarl__navigation_prev {
 }
 
 //
-.errorPage{
+.errorPage {
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column;
-  min-height: 70vH;
+  min-height: 70vh;
   background-color: #000;
   color: var(--color-white);
 
   @include breakpoint(large) {
-    min-height: 103vH;
+    min-height: 103vh;
   }
 
-  &_h1{
+  &_h1 {
     margin-bottom: rem(16);
     font-size: clamp(4rem, 2.5437rem + 6.2136vw, 10rem);
     font-weight: var(--font-demi);
@@ -467,16 +467,16 @@ button.yarl__navigation_prev {
     }
   }
 
-  &_h2{
+  &_h2 {
     font-size: clamp(1.25rem, 1.0073rem + 1.0356vw, 2.25rem);
   }
-  
-  &_gradient{
+
+  &_gradient {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg,#f3f3f3,#7D6E4D 50%,#2b2b2b);
+    background: linear-gradient(45deg, #f3f3f3, #7d6e4d 50%, #2b2b2b);
     bottom: -20vh;
     filter: blur(20vh);
     height: 40vh;

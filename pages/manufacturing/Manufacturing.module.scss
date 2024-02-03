@@ -137,7 +137,7 @@
       span {
         display: inline-block;
         opacity: 0;
-        animation: fadeInDown .9s;
+        animation: fadeInDown 0.9s;
         animation-fill-mode: forwards;
         color: white;
       }
@@ -146,7 +146,7 @@
     &_image {
       overflow: hidden;
       @include breakpoint(medium) {
-        img{
+        img {
           // width: 100%;
           max-width: 80%;
         }

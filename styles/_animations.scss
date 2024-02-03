@@ -53,22 +53,22 @@
   opacity: 1;
   transform: scale(1);
 }
-.slide-in-left{
+.slide-in-left {
   animation: 1s cubic-bezier(0.76, 0, 0.24, 1) 0s both paused slide-in-left;
 }
-.in-view .slide-in-left{
+.in-view .slide-in-left {
   animation-play-state: running;
 }
-.slide-in-right{
+.slide-in-right {
   animation: 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0s both paused slide-in-right;
 }
-.in-view .slide-in-right{
+.in-view .slide-in-right {
   animation-play-state: running;
 }
-.scale-in-down{
+.scale-in-down {
   animation: 2.3s cubic-bezier(0.76, 0, 0.24, 1) 0.3s both paused scale-in-down;
 }
-.in-view .scale-in-down{
+.in-view .scale-in-down {
   animation-play-state: running;
 }
 
