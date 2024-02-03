@@ -49,9 +49,9 @@
   //   opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
   //   transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-    transition:
-      opacity 0.9s cubic-bezier(0.455, 0.03, 0.515, 0.955),
-      transform 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition:
+    opacity 0.9s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    transform 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 .fade-in-scale.in-view {
   opacity: 1;
