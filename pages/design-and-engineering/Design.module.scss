@@ -167,11 +167,11 @@
     }
   }
 
-  &_section4{
+  &_section4 {
     padding-bottom: rem(64);
   }
 
-  &_section5{
+  &_section5 {
     padding-top: rem(64);
     padding-bottom: rem(64);
     @include breakpoint(large) {
