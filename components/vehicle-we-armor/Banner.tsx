@@ -16,25 +16,20 @@ const Banner = (props) => {
       <div className={`${styles.banner_main}`}>
         <div className={`${styles.banner_title}`}>
           {data.titleDisplay ? (
-            <h1
-              className={`observe fade-in`}
-              dangerouslySetInnerHTML={{ __html: data.titleDisplay }}
-            ></h1>
+            <h1 dangerouslySetInnerHTML={{ __html: data.titleDisplay }}></h1>
           ) : data.title ? (
             data.title
           ) : null}
         </div>
 
         <div className={`${styles.banner_content}`}>
-          <div
-            className={`${styles.banner_description} observe fade-in delay-1`}
-          >
+          <div className={`${styles.banner_description}`}>
             {data.descriptionBanner ? (
               <Markdown>{data.descriptionBanner}</Markdown>
             ) : null}
           </div>
 
-          <div className={`${styles.banner_buttons} observe fade-in delay-2`}>
+          <div className={`${styles.banner_buttons}`}>
             <Button
               href="/contact"
               className={`${styles.banner_buttons_item} primary shiny`}
