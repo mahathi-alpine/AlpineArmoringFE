@@ -3,7 +3,7 @@
     max-width: 1220px;
   }
 
-  &_title{
+  &_title {
     margin-bottom: rem(24);
     font-size: rem(24);
     text-align: center;
@@ -34,7 +34,7 @@
         font-size: rem(16);
       }
 
-      &_title{
+      &_title {
         flex: 1;
       }
     }
@@ -45,7 +45,7 @@
       transition: max-height 0.3s ease-in-out;
       font-size: rem(14);
 
-      &_text{
+      &_text {
         padding-top: rem(16);
       }
     }

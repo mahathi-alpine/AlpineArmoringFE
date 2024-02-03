@@ -112,15 +112,15 @@
     }
   }
 
-  &_yt{
-    position: relative; 
+  &_yt {
+    position: relative;
     margin: rem(64) 0;
-    padding-bottom: 56.25%; 
-    height: 0; 
+    padding-bottom: 56.25%;
+    height: 0;
     overflow: hidden;
     text-align: center;
 
-    iframe{
+    iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -129,5 +129,4 @@
       max-width: 100%;
     }
   }
-
 }

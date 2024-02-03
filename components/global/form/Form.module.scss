@@ -5,11 +5,11 @@
     column-gap: 10px;
   }
 
-  &_group{
+  &_group {
     @include breakpoint(medium) {
       width: calc(50% - 5px);
 
-      &_full{
+      &_full {
         width: 100%;
       }
     }
@@ -27,9 +27,9 @@
 
     &::placeholder {
       font-weight: var(--font-regular);
-    }   
+    }
 
-    .form_group.error &{
+    .form_group.error & {
       border-color: #e74c3c;
     }
 
@@ -39,7 +39,7 @@
       min-height: 15px;
       padding-top: 3px;
       padding-bottom: 8px;
-      .form_group.error &{
+      .form_group.error & {
         visibility: visible;
       }
     }
@@ -138,9 +138,9 @@
     }
   }
 
-  &_submit{
+  &_submit {
     width: 100%;
-    &_button{
+    &_button {
       margin: auto;
     }
   }

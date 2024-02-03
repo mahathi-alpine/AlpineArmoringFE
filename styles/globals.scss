@@ -352,8 +352,7 @@ button.yarl__navigation_prev {
 //   padding-top: 53px;
 // }
 
-
-.modal{
+.modal {
   position: fixed;
   overflow: auto;
   left: 0;
@@ -363,15 +362,15 @@ button.yarl__navigation_prev {
   backdrop-filter: blur(20px);
   opacity: 0;
   transition: opacity 400ms ease;
-  background: rgba(0,0,0,0.48);
+  background: rgba(0, 0, 0, 0.48);
 
-  &_active{
+  &_active {
     display: block;
     z-index: 99;
     opacity: 1;
   }
 
-  &_inner{
+  &_inner {
     position: relative;
     z-index: 1;
     display: flex;
@@ -390,7 +389,7 @@ button.yarl__navigation_prev {
     }
   }
 
-  &_title{
+  &_title {
     margin-bottom: rem(24);
     font-size: rem(32);
     @include breakpoint(large) {
@@ -399,7 +398,7 @@ button.yarl__navigation_prev {
     }
   }
 
-  &_description{
+  &_description {
     margin-bottom: rem(24);
     font-weight: var(--font-medium);
     @include breakpoint(large) {
@@ -408,7 +407,7 @@ button.yarl__navigation_prev {
     }
   }
 
-  &_box{
+  &_box {
     @include breakpoint(large) {
       display: flex;
       align-items: center;
@@ -416,7 +415,7 @@ button.yarl__navigation_prev {
     }
   }
 
-  &_close{
+  &_close {
     position: absolute;
     top: rem(16);
     right: rem(16);
@@ -433,11 +432,11 @@ button.yarl__navigation_prev {
       bottom: 0;
       left: 0;
       right: 0;
-      content: "X"; 
-      font-size: 18px; 
-      color: #FFF;
+      content: 'X';
+      font-size: 18px;
+      color: #fff;
       line-height: 18px;
       text-align: center;
-  }
+    }
   }
 }
