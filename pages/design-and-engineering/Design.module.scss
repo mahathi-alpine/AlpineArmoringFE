@@ -12,6 +12,7 @@
   }
 
   &_heading {
+    display: block;
     margin-bottom: rem(16);
     font-size: clamp(1rem, 0.8786rem + 0.5178vw, 1.5rem);
   }
@@ -25,14 +26,18 @@
   }
 
   &_box {
+    display: flex;
+    flex-flow: column;
+    gap: 32px;
     @include breakpoint(large) {
-      display: flex;
+      flex-flow: row;
       align-items: center;
+      justify-content: center;
       margin-top: rem(40);
-      gap: 32px;
     }
     @include breakpoint(huge) {
       margin-top: rem(64);
+      gap: 64px;
     }
 
     .design_text {
@@ -43,7 +48,7 @@
   }
 
   &_section2 {
-    margin: rem(64) auto;
+    margin: rem(80) auto rem(120) auto;
     @include breakpoint(large) {
       margin: rem(160) auto rem(240) auto;
     }
@@ -117,7 +122,7 @@
 
       @for $i from 1 through 4 {
         &:nth-of-type(#{$i}) {
-          transition-delay: $i * 0.05s;
+          transition-delay: $i * 0.1s;
         }
       }
     }
@@ -159,6 +164,19 @@
       font-weight: var(--font-demi);
       font-size: rem(15);
       cursor: pointer;
+    }
+  }
+
+  &_section4{
+    padding-bottom: rem(64);
+  }
+
+  &_section5{
+    padding-top: rem(64);
+    padding-bottom: rem(64);
+    @include breakpoint(large) {
+      padding-top: rem(100);
+      padding-bottom: rem(140);
     }
   }
 }

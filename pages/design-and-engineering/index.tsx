@@ -8,7 +8,7 @@ import Markdown from 'markdown-to-jsx';
 import { CldImage } from 'next-cloudinary';
 
 const Design = (props) => {
-  // console.log(props.pageData)
+  console.log(props.pageData);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -168,94 +168,175 @@ const Design = (props) => {
       </section>
 
       <div className={`shape-before`}></div>
-      <section className={`${styles.design_section3} background-dark`}>
-        <div className={`${styles.design_section3_top} container_small`}>
-          {props.pageData?.section3Title ? (
-            <h2
-              className={`${styles.design_title} observe fade-in`}
-              dangerouslySetInnerHTML={{ __html: props.pageData.section3Title }}
-            ></h2>
-          ) : null}
-
-          <div className={`${styles.design_section3_top_box}`}>
-            {props.pageData?.section3Heading ? (
-              <div
-                className={`${styles.design_section3_heading} observe fade-in`}
-              >
-                <Markdown>{props.pageData.section3Heading}</Markdown>
-              </div>
+      <div className={`background-dark`}>
+        <section className={`${styles.design_section3}`}>
+          <div className={`${styles.design_section3_top} container_small`}>
+            {props.pageData?.section3Title ? (
+              <h2
+                className={`${styles.design_title} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: props.pageData.section3Title,
+                }}
+              ></h2>
             ) : null}
 
-            {props.pageData?.section3Text ? (
-              <div className={`${styles.design_text} observe fade-in`}>
-                <Markdown>{props.pageData.section3Text}</Markdown>
-              </div>
-            ) : null}
-          </div>
-        </div>
+            <div className={`${styles.design_section3_top_box}`}>
+              {props.pageData?.section3Heading ? (
+                <div
+                  className={`${styles.design_section3_heading} observe fade-in`}
+                >
+                  <Markdown>{props.pageData.section3Heading}</Markdown>
+                </div>
+              ) : null}
 
-        <div className={`${styles.design_armor} container`}>
-          {props.pageData?.section3Armor.map((item, index) => (
-            <div
-              className={`${styles.design_armor_item}  observe fade-in-up`}
-              key={index}
-            >
-              <h4 className={`${styles.design_armor_title}`}>{item.title}</h4>
-              <p className={`${styles.design_armor_description}`}>
-                {item.description}
-              </p>
-              {/* <div className={`${styles.design_armor_read}`}>Read More</div> */}
-              <div
-                className={`${styles.design_armor_read}`}
-                onClick={() => handleReadMore(item)}
-              >
-                Read More
-              </div>
-
-              {item.image.data.attributes ? (
-                <div className={`${styles.design_armor_image}`}>
-                  <CldImage
-                    src={
-                      item.image.data.attributes.formats?.large?.url ||
-                      item.image.data.attributes.url
-                    }
-                    alt={item.image.data.attributes.alternativeText}
-                    width={240}
-                    height={240}
-                  ></CldImage>
+              {props.pageData?.section3Text ? (
+                <div className={`${styles.design_text} observe fade-in`}>
+                  <Markdown>{props.pageData.section3Text}</Markdown>
                 </div>
               ) : null}
             </div>
-          ))}
+          </div>
 
-          {showPopup && (
-            <div
-              ref={popupRef}
-              className={`modal ${showPopup ? 'modal_active' : ''}`}
-            >
-              <div className={`modal_inner`}>
-                <h3 className={`modal_title`}>{selectedItem.title}</h3>
-                <div className={`modal_box`}>
-                  <p className={`modal_description`}>
-                    {selectedItem.description}
-                  </p>
-                  <CldImage
-                    src={
-                      selectedItem.image.data.attributes.formats?.large?.url ||
-                      selectedItem.image.data.attributes.url
-                    }
-                    alt={selectedItem.image.data.attributes.alternativeText}
-                    width={240}
-                    height={240}
-                  ></CldImage>
+          <div className={`${styles.design_armor} container`}>
+            {props.pageData?.section3Armor.map((item, index) => (
+              <div
+                className={`${styles.design_armor_item}  observe fade-in-up`}
+                key={index}
+              >
+                <h4 className={`${styles.design_armor_title}`}>{item.title}</h4>
+                <p className={`${styles.design_armor_description}`}>
+                  {item.description}
+                </p>
+                {/* <div className={`${styles.design_armor_read}`}>Read More</div> */}
+                <div
+                  className={`${styles.design_armor_read}`}
+                  onClick={() => handleReadMore(item)}
+                >
+                  Read More
                 </div>
-                <button
-                  className={`modal_close`}
-                  onClick={() => setShowPopup(false)}
-                ></button>
+
+                {item.image.data.attributes ? (
+                  <div
+                    className={`${styles.design_armor_image} observe fade-in`}
+                  >
+                    <CldImage
+                      src={
+                        item.image.data.attributes.formats?.large?.url ||
+                        item.image.data.attributes.url
+                      }
+                      alt={item.image.data.attributes.alternativeText}
+                      width={240}
+                      height={240}
+                    ></CldImage>
+                  </div>
+                ) : null}
               </div>
+            ))}
+
+            {showPopup && (
+              <div
+                ref={popupRef}
+                className={`modal ${showPopup ? 'modal_active' : ''}`}
+              >
+                <div className={`modal_inner`}>
+                  <h3 className={`modal_title`}>{selectedItem.title}</h3>
+                  <div className={`modal_box`}>
+                    <p className={`modal_description`}>
+                      {selectedItem.description}
+                    </p>
+                    <CldImage
+                      src={
+                        selectedItem.image.data.attributes.formats?.large
+                          ?.url || selectedItem.image.data.attributes.url
+                      }
+                      alt={selectedItem.image.data.attributes.alternativeText}
+                      width={240}
+                      height={240}
+                    ></CldImage>
+                  </div>
+                  <button
+                    className={`modal_close`}
+                    onClick={() => setShowPopup(false)}
+                  ></button>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className={`${styles.design_section4} container_small`}>
+          {props.pageData?.section4Title ? (
+            <h2
+              className={`${styles.design_title} observe fade-in`}
+              dangerouslySetInnerHTML={{ __html: props.pageData.section4Title }}
+            ></h2>
+          ) : null}
+
+          {props.pageData?.section4Heading ? (
+            <div className={`${styles.design_heading} observe fade-in`}>
+              <Markdown>{props.pageData.section4Heading}</Markdown>
             </div>
-          )}
+          ) : null}
+
+          <div className={`${styles.design_box}`}>
+            {props.pageData?.section4Text ? (
+              <div className={`${styles.design_text} observe fade-in`}>
+                <Markdown>{props.pageData.section4Text}</Markdown>
+              </div>
+            ) : null}
+
+            {props.pageData.section4Image.data.attributes ? (
+              <CldImage
+                src={
+                  props.pageData.section4Image.data.attributes.formats?.large
+                    ?.url || props.pageData.section4Image.data.attributes.url
+                }
+                alt={
+                  props.pageData.section4Image.data.attributes.alternativeText
+                }
+                width={350}
+                height={350}
+                className={`observe fade-in`}
+              ></CldImage>
+            ) : null}
+          </div>
+        </section>
+      </div>
+      <div className={`shape-after`}></div>
+
+      <section className={`${styles.design_section5} container_small`}>
+        {props.pageData?.section5Title ? (
+          <h2
+            className={`${styles.design_title} observe fade-in`}
+            dangerouslySetInnerHTML={{ __html: props.pageData.section5Title }}
+          ></h2>
+        ) : null}
+
+        {props.pageData?.section5Heading ? (
+          <div className={`${styles.design_heading} observe fade-in`}>
+            <Markdown>{props.pageData.section5Heading}</Markdown>
+          </div>
+        ) : null}
+
+        <div className={`${styles.design_box}`}>
+          {props.pageData.section5Image.data.attributes ? (
+            <CldImage
+              src={
+                props.pageData.section5Image.data.attributes.formats?.large
+                  ?.url || props.pageData.section5Image.data.attributes.url
+              }
+              alt={props.pageData.section5Image.data.attributes.alternativeText}
+              width={710}
+              height={397}
+              className={`observe fade-in`}
+            ></CldImage>
+          ) : null}
+
+          {props.pageData?.section5Text ? (
+            <div className={`${styles.design_text} observe fade-in`}>
+              <Markdown>{props.pageData.section5Text}</Markdown>
+            </div>
+          ) : null}
         </div>
       </section>
     </div>

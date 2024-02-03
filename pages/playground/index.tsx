@@ -70,7 +70,7 @@ function Playground() {
   return (
     <div>
       <VideoScale
-        video="/AlpineArmoringHP.mp4"
+        video="/AlpineArmoringHP.webm"
         text1="Armored Cadillac"
         text2="ESV V-Series"
       />
