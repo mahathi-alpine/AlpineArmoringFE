@@ -367,12 +367,12 @@
     }
   }
 
-  &.submiting{
+  &.submiting {
     position: relative;
     overflow: hidden;
     min-width: 194px;
-    &:before{
-      content: "";
+    &:before {
+      content: '';
       position: absolute;
       width: 10px;
       height: 10px;
@@ -382,7 +382,7 @@
       border-radius: 50%;
       opacity: 0;
       animation: move 1s infinite ease-in-out;
-    }    
+    }
   }
 }
 
@@ -450,11 +450,11 @@
   }
 }
 
-@keyframes move{
-  50%{
-      opacity: 1;
+@keyframes move {
+  50% {
+    opacity: 1;
   }
-  to{
-      left: 296px;
+  to {
+    left: 296px;
   }
 }
