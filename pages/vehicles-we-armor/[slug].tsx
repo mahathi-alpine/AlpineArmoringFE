@@ -10,15 +10,18 @@ const StickyHorizontalSlider = dynamic(
   () =>
     import('components/global/sticky-horizontal-slider/StickyHorizontalSlider')
 );
-import TabSlider from 'components/global/tab-slider/TabSlider';
-import Markdown from 'markdown-to-jsx';
-import Image from 'next/image';
+const TabSlider = dynamic(
+  () => import('components/global/tab-slider/TabSlider')
+);
+const Markdown = dynamic(() => import('markdown-to-jsx'));
+const Image = dynamic(() => import('next/image'));
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')
 );
-import VideoScale, {
-  animateVideo,
-} from 'components/global/video-scale/VideoScale';
+const VideoScale = dynamic(
+  () => import('components/global/video-scale/VideoScale')
+);
+import { animateVideo } from 'components/global/video-scale/VideoScale';
 
 function Vehicle(props) {
   const data = props.data?.data[0]?.attributes;
@@ -132,7 +135,7 @@ function Vehicle(props) {
       <TabSlider
         props={navItems}
         onTabChange={handleTabChange}
-        className={`${styles.slug_nav} slug_nav container`}
+        className={`${styles.slug_nav} slug_nav container observe fade-in`}
         sticky
         anchor
       />
@@ -141,8 +144,12 @@ function Vehicle(props) {
         id="overview"
         className={`${styles.slug_description} anchor container_small`}
       >
-        <h2 className={`c-title`}>Overview</h2>
-        {data.description ? <Markdown>{data.description}</Markdown> : null}
+        <h2 className={`c-title observe fade-in-up`}>Overview</h2>
+        {data.description ? (
+          <Markdown className={`observe fade-in-up`}>
+            {data.description}
+          </Markdown>
+        ) : null}
       </div>
 
       {dimensions1 && dimensions2 ? (
@@ -150,11 +157,15 @@ function Vehicle(props) {
           className={`${styles.slug_dimensions} container anchor`}
           id="dimensions"
         >
-          <h2 className={`${styles.slug_dimensions_title} c-title`}>
+          <h2
+            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+          >
             Dimensions
           </h2>
           <div className={`${styles.slug_dimensions_wrap}`}>
-            <div className={`${styles.slug_dimensions_wrap_image}`}>
+            <div
+              className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
+            >
               <picture>
                 <source
                   media="(min-width: 768px)"
@@ -169,7 +180,9 @@ function Vehicle(props) {
               </picture>
             </div>
 
-            <div className={`${styles.slug_dimensions_wrap_image}`}>
+            <div
+              className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
+            >
               <picture>
                 <source
                   media="(min-width: 768px)"
@@ -188,7 +201,9 @@ function Vehicle(props) {
       ) : null}
 
       {beforeAfterSlider_Before && beforeAfterSlider_After ? (
-        <div className={`${styles.slug_slider} container anchor`}>
+        <div
+          className={`${styles.slug_slider} observe fade-in container anchor`}
+        >
           <ComparisonSlider
             beforeImage={beforeAfterSlider_Before}
             afterImage={beforeAfterSlider_After}
@@ -205,7 +220,9 @@ function Vehicle(props) {
       {data.specs ? (
         <div id="armoring-specs" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
-            <h2 className={`${styles.slug_dimensions_title} c-title`}>
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            >
               Armoring Specifications
             </h2>
           </div>
@@ -216,7 +233,9 @@ function Vehicle(props) {
       {data.equipment ? (
         <div id="optional-equipment" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
-            <h2 className={`${styles.slug_dimensions_title} c-title`}>
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            >
               Optional Equipment
             </h2>
           </div>
@@ -225,7 +244,10 @@ function Vehicle(props) {
       ) : null}
 
       {gallery ? (
-        <div className={`${styles.slug_gallery} anchor`} id="gallery">
+        <div
+          className={`${styles.slug_gallery} observe fade-in-up anchor`}
+          id="gallery"
+        >
           <Gallery props={gallery} white />
         </div>
       ) : null}

@@ -292,11 +292,11 @@
       color: var(--color-white);
       font-weight: var(--font-regular);
       z-index: 4;
-      transition: transform 0.2s ease-in-out;
+      // transition: transform 0.2s ease-in-out;
 
-      &:hover {
-        transform: translateY(-5px);
-      }
+      // &:hover {
+      //   transform: translateY(-5px);
+      // }
     }
 
     span {

@@ -25,7 +25,7 @@
     @include breakpoint(large) {
       font-size: rem(22);
       max-width: 1400px;
-      margin-top: 0;
+      margin-top: rem(120);
       margin-bottom: rem(70);
     }
 

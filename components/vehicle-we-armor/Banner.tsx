@@ -98,7 +98,7 @@ const Banner = (props) => {
           <Link
             href={data.pdf.data.attributes.url}
             target="_blank"
-            className={`${styles.banner_pdf}`}
+            className={`${styles.banner_pdf} observe fade-in`}
           >
             <span>
               <span>OEM</span>

@@ -78,7 +78,7 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
                             item.attributes.url
                       }
                       alt={item.attributes.alternativeText}
-                      priority={index === 0}
+                      // priority={index === 0}
                       width={
                         isMobile
                           ? item.attributes.formats?.small?.width
