@@ -3,6 +3,7 @@ import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
 import Markdown from 'markdown-to-jsx';
 import { useEffect } from 'react';
+import useEffectOnce from 'hooks/useEffectOnce';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import { CldImage } from 'next-cloudinary';
 
@@ -10,12 +11,31 @@ function Manufacturing(props) {
   // console.log(props.pageData)
   // return null;
 
-  // useEffect(() => {
-  //   document.body.classList.add('background-dark');
-  //   return () => {
-  //     document.body.classList.remove('background-dark');
-  //   };
-  // }, []);
+  useEffectOnce(() => {
+    function stepAnimateText(props, animation, delay) {
+      props.forEach((text) => {
+        const string = text.innerHTML;
+        let html = '';
+        for (let i = 0; i < string.length; i++) {
+          html +=
+            `<span class="` +
+            animation +
+            `" style="animation-delay: ` +
+            i * delay +
+            `s">${string[i]}</span>`;
+        }
+        text.innerHTML = html;
+      });
+    }
+
+    // if (languageCookie == 'en') {
+    stepAnimateText(
+      [...document.querySelectorAll('.animateLetter')],
+      'fadeInDown',
+      0.01
+    );
+    // }
+  });
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -64,30 +84,34 @@ function Manufacturing(props) {
 
           {props.pageData?.section1Heading ? (
             <Markdown
-              className={`${styles.manufacturing_section1_heading} observe fade-in`}
+              className={`${styles.manufacturing_section1_heading} animateLetter observe`}
             >
               {props.pageData.section1Heading}
             </Markdown>
           ) : null}
 
-          <div className={`${styles.manufacturing_section1_box}`}>
+          <div className={`${styles.manufacturing_section1_box} observe`}>
             {props.pageData?.section1Image.data ? (
               <div
-                className={`${styles.manufacturing_section1_image} ${styles.manufacturing_image} observe fade-in`}
+                className={`${styles.manufacturing_section1_image} ${styles.manufacturing_image} slide-in-left`}
               >
-                <CldImage
-                  src={
-                    props.pageData.section1Image.data.attributes.formats?.large
-                      ?.url || props.pageData.section1Image.data.attributes.url
-                  }
-                  alt={
-                    props.pageData.section1Image.data.attributes.alternativeText
-                  }
-                  width={500}
-                  height={400}
-                  sizes="(min-width: 768px ) 40vw,
-                          100vw"
-                ></CldImage>
+                <div className={`slide-in-right`}>
+                  <CldImage
+                    src={
+                      props.pageData.section1Image.data.attributes.formats
+                        ?.large?.url ||
+                      props.pageData.section1Image.data.attributes.url
+                    }
+                    alt={
+                      props.pageData.section1Image.data.attributes
+                        .alternativeText
+                    }
+                    width={500}
+                    height={400}
+                    sizes="(min-width: 768px ) 40vw, 100vw"
+                    className={`scale-in-down`}
+                  ></CldImage>
+                </div>
               </div>
             ) : null}
 

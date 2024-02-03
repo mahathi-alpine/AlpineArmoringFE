@@ -76,7 +76,7 @@ const Header = ({
         <div className={`${styles.header_right}`}>
           <Button
             href="/contact"
-            className={`${styles.header_contact} shiny transparent small uppercase desktop-only`}
+            className={`${styles.header_contact} rounded shiny transparent small uppercase desktop-only`}
           >
             Contact
           </Button>

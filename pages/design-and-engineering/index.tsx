@@ -302,6 +302,7 @@ const Design = (props) => {
           </div>
         </section>
       </div>
+
       <div className={`shape-after`}></div>
 
       <section className={`${styles.design_section5} container_small`}>
