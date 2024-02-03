@@ -12,17 +12,12 @@ import {
   usePrevNextButtons,
 } from './CarouselArrowButtons';
 
-// import { Lightbox } from 'yet-another-react-lightbox';
 import useLightbox from '../lightbox/useLightbox';
 import NextJsImage from '../lightbox/NextJsImage';
 import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
-// import 'yet-another-react-lightbox/styles.css';
-// import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 const EmblaCarousel = (props) => {
-  // console.log(props);
-  // return null;
   const isMobile = useIsMobile();
 
   const { slides, options } = props;
@@ -81,8 +76,6 @@ const EmblaCarousel = (props) => {
       thumbsRef.current.style.height = `${firstDivHeight}px`;
     }
   });
-
-  // console.log(slides);
 
   return (
     <div

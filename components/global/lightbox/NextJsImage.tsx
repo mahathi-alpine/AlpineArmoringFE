@@ -2,7 +2,6 @@ import { CldImage } from 'next-cloudinary';
 
 export default function NextJsImage(slide) {
   const data = slide.slide;
-  console.log(data);
 
   return (
     <div style={{ display: 'flex', height: '100%' }}>

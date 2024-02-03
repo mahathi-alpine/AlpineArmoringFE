@@ -7,8 +7,6 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 
 function Inventory(props) {
-  // console.log(props);
-  // return null;
   const topBanner = props.pageData?.banner;
 
   useEffect(() => {

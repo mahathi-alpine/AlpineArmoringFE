@@ -5,9 +5,6 @@ import { BannerProps } from 'types';
 import Image from 'next/image';
 
 const TopBanner = ({ props, shape, small, center }: BannerProps) => {
-  // console.log(props)
-  // return null;
-
   const bannerImage = props.media.data?.attributes.url;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;

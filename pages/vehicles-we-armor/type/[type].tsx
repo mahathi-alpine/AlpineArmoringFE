@@ -7,8 +7,6 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 
 function Inventory(props) {
-  // console.log(props);
-  // return null;
   let topBanner = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );

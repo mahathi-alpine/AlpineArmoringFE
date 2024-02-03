@@ -1,22 +1,27 @@
 import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
-import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
-import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
+const ComparisonSlider = dynamic(
+  () => import('components/global/comparison-slider/ComparisonSlider')
+);
+const StickyHorizontalSlider = dynamic(
+  () =>
+    import('components/global/sticky-horizontal-slider/StickyHorizontalSlider')
+);
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
-import Gallery from 'components/global/carousel/CarouselCurved';
+const Gallery = dynamic(
+  () => import('components/global/carousel/CarouselCurved')
+);
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
 
 function Vehicle(props) {
   const data = props.data?.data[0]?.attributes;
-
-  console.log(data);
-  // return null;
 
   const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
