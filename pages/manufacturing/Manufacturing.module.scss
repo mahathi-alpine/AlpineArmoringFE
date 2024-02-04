@@ -86,7 +86,6 @@
     margin-bottom: rem(80);
 
     @include breakpoint(large) {
-      padding-top: rem(64);
       margin-bottom: rem(128);
     }
     @include breakpoint(huge) {

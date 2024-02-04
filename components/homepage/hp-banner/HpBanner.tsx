@@ -101,7 +101,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
             {props.subtitle ? (
               <h2
                 className={`
-                  ${styles.hp_banner_subtitle} observe fade-in
+                  ${styles.hp_banner_subtitle}
                 `}
               >
                 {props.subtitle}
@@ -109,9 +109,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
             ) : null}
 
             {props.title ? (
-              <h1 className={`${styles.hp_banner_title} observe fade-in`}>
-                {props.title}
-              </h1>
+              <h1 className={`${styles.hp_banner_title}`}>{props.title}</h1>
             ) : null}
             {/* {props.title ? (
               <h1
@@ -126,7 +124,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
 
           {props.description ? (
             <p
-              className={`${styles.hp_banner_content_right} observe fade-in`}
+              className={`${styles.hp_banner_content_right}`}
               dangerouslySetInnerHTML={{ __html: props.description }}
             ></p>
           ) : null}

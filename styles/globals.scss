@@ -119,38 +119,17 @@ small {
 }
 
 .background-dark {
-  // background: var(--color-dark) url('/assets/noise.png');
-  // background: #0d0d0d;
   color: var(--color-white);
-  // background: #101010 url(/assets/noise3.png);
   background: #101010 url(/assets/noise4.png);
   background-size: 30px;
-  // background: #101010 url(/assets/noise.png);
-  // background-size: 640px;
-  // background: var(--color-dark) url(/assets/noise.png);
 }
-
-// .noiseBg {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   mix-blend-mode: soft-light;
-//   opacity: 0.85;
-//   isolation: isolate;
-//   z-index: 1;
-// }
 
 .shape-before,
 .shape-after {
-  // --background: #101010 url('/assets/noise3.png');
   --background: #101010 url('/assets/noise4.png');
-  // --background: #0d0d0d;
   position: relative;
   overflow-x: clip;
   height: 50px;
-  // z-index: 1;
   @include breakpoint(large) {
     height: 100px;
 
@@ -167,7 +146,6 @@ small {
     left: -50px;
     right: -50px;
     background: var(--background);
-    // background-size: 100px;
     background-size: 30px;
     @include breakpoint(large) {
       left: -100px;
@@ -214,9 +192,6 @@ small {
   display: none !important;
 }
 
-// button.yarl__thumbnails_thumbnail_active {
-//   border-color: var(--color-primary);
-// }
 div.yarl__slide_captions_container {
   @include breakpoint(large) {
     padding: 0;
@@ -315,9 +290,6 @@ button.yarl__navigation_prev {
 .yarl__slide_wrapper video {
   box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.35);
 }
-// div.yarl__slide {
-//   padding-top: 53px;
-// }
 
 .modal {
   position: fixed;
@@ -408,7 +380,6 @@ button.yarl__navigation_prev {
   }
 }
 
-//
 .errorPage {
   position: relative;
   overflow: hidden;
@@ -449,4 +420,3 @@ button.yarl__navigation_prev {
     height: 40vh;
   }
 }
-//

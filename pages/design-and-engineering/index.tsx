@@ -294,7 +294,7 @@ const Design = (props) => {
               </div>
             ) : null}
 
-            {props.pageData.section4Image.data.attributes ? (
+            {props.pageData?.section4Image.data.attributes ? (
               <CldImage
                 src={
                   props.pageData.section4Image.data.attributes.formats?.large
