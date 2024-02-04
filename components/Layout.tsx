@@ -63,6 +63,7 @@ const Layout = ({ children }) => {
   const isDarkHeader = pathsDarkHeader.some((path) =>
     router.pathname.startsWith(path)
   );
+  const isPadding0 = router.pathname === '/';
 
   const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.pathname);
 
@@ -77,6 +78,13 @@ const Layout = ({ children }) => {
           <style>{`
               body {
                 background: #101010 !important;
+              }
+            `}</style>
+        )}
+        {isPadding0 && (
+          <style>{`
+              body {
+                padding-top: 0 !important;
               }
             `}</style>
         )}

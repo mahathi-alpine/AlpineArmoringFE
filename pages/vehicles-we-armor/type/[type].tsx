@@ -45,7 +45,7 @@ function Inventory(props) {
       {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
 
       <div
-        className={`${styles.listing_all_filters} container observe fade-in delay-3`}
+        className={`${styles.listing_all_filters} container observe fade-in-scale`}
       >
         {props.filters.type ? <Filters props={props.filters} plain /> : null}
       </div>

@@ -3,8 +3,8 @@ import React, { useRef, useState } from 'react';
 import styles from './HpBanner.module.scss';
 import PauseIcon from 'components/icons/Pause';
 import PlayIcon from 'components/icons/Play';
-import Markdown from 'markdown-to-jsx';
 import { HPBannerProps } from 'types';
+import useSplitText from 'hooks/useSplitText';
 
 // const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
 const HpBanner = ({ props }: HPBannerProps) => {
@@ -23,6 +23,8 @@ const HpBanner = ({ props }: HPBannerProps) => {
       }
     }
   };
+
+  useSplitText();
 
   // useEffectOnce(() => {
   //   function stepAnimateText(props, animation, delay) {
@@ -84,10 +86,22 @@ const HpBanner = ({ props }: HPBannerProps) => {
             >
               {props.subtitle}
             </h2> */}
+
+            {/* {props.subtitle ? (
+              <h2
+                className={`
+                  ${styles.hp_banner_subtitle} observe splitLetters
+                `}
+                data-split-delay="15"
+                data-split-duration="850"
+              >
+                {props.subtitle}
+              </h2>
+            ) : null} */}
             {props.subtitle ? (
               <h2
                 className={`
-                  ${styles.hp_banner_subtitle} observe fade-in-up
+                  ${styles.hp_banner_subtitle}
                 `}
               >
                 {props.subtitle}
@@ -95,20 +109,24 @@ const HpBanner = ({ props }: HPBannerProps) => {
             ) : null}
 
             {props.title ? (
+              <h1 className={`${styles.hp_banner_title}`}>{props.title}</h1>
+            ) : null}
+            {/* {props.title ? (
               <h1
-                className={`${styles.hp_banner_title} observe animate fade-in-up`}
+                className={`${styles.hp_banner_title} observe splitLetters`}
+                data-split-delay="25"
+                data-split-duration="500"
               >
                 {props.title}
               </h1>
-            ) : null}
+            ) : null} */}
           </div>
 
           {props.description ? (
-            <div
-              className={`${styles.hp_banner_content_right} observe animate fade-in-up`}
-            >
-              <Markdown>{props.description}</Markdown>
-            </div>
+            <p
+              className={`${styles.hp_banner_content_right}`}
+              dangerouslySetInnerHTML={{ __html: props.description }}
+            ></p>
           ) : null}
         </div>
       </div>

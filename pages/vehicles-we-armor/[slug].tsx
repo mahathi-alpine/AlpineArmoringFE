@@ -3,6 +3,8 @@ import { getPageData } from 'lib/api';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
+import TabSlider from 'components/global/tab-slider/TabSlider';
+const Markdown = dynamic(() => import('markdown-to-jsx'));
 const ComparisonSlider = dynamic(
   () => import('components/global/comparison-slider/ComparisonSlider')
 );
@@ -10,10 +12,6 @@ const StickyHorizontalSlider = dynamic(
   () =>
     import('components/global/sticky-horizontal-slider/StickyHorizontalSlider')
 );
-const TabSlider = dynamic(
-  () => import('components/global/tab-slider/TabSlider')
-);
-const Markdown = dynamic(() => import('markdown-to-jsx'));
 const Image = dynamic(() => import('next/image'));
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')
@@ -85,7 +83,6 @@ function Vehicle(props) {
   };
 
   useEffect(() => {
-    // Observer for fade animations
     const observerAnimationTargets = document.querySelectorAll('.observe');
     const observerAnimation = new IntersectionObserver(
       (entries) => {
@@ -173,7 +170,7 @@ function Vehicle(props) {
                 />
                 <Image
                   src={dimensions1.formats?.small?.url || dimensions1.url}
-                  alt={dimensions1.alternativeText}
+                  alt={dimensions1.alternativeText || 'Alpine Armoring'}
                   width={dimensions1.width}
                   height={dimensions1.height}
                 />
@@ -190,7 +187,7 @@ function Vehicle(props) {
                 />
                 <Image
                   src={dimensions2.formats?.small?.url || dimensions2.url}
-                  alt={dimensions2.alternativeText}
+                  alt={dimensions2.alternativeText || 'Alpine Armoring'}
                   width={dimensions2.width}
                   height={dimensions2.height}
                 />

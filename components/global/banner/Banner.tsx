@@ -1,10 +1,9 @@
 import styles from './Banner.module.scss';
-import Markdown from 'markdown-to-jsx';
 import { BannerProps } from 'types';
 
 import Image from 'next/image';
 
-const TopBanner = ({ props, shape, small, center }: BannerProps) => {
+const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const bannerImage = props.media.data?.attributes.url;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
@@ -42,18 +41,15 @@ const TopBanner = ({ props, shape, small, center }: BannerProps) => {
         {mediaElement}
 
         <div className={`${styles.banner_content}`}>
-          <div className={`${styles.banner_text}`}>
+          <div className={`${styles.banner_text} observe fade-in-scale`}>
             {bannerTitle ? (
-              <h1 className={`${styles.banner_title} observe fade-in-scale`}>
-                {bannerTitle}
-              </h1>
+              <h1 className={`${styles.banner_title}`}>{bannerTitle}</h1>
             ) : null}
             {bannerDescription ? (
-              <h1>
-                <Markdown className="observe fade-in">
-                  {bannerDescription}
-                </Markdown>
-              </h1>
+              <h1
+                className="observe fade-in"
+                dangerouslySetInnerHTML={{ __html: bannerDescription }}
+              ></h1>
             ) : null}
           </div>
         </div>

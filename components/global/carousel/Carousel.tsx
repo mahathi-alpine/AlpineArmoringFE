@@ -102,7 +102,7 @@ const EmblaCarousel = (props) => {
                       : item.attributes.formats?.large?.url ||
                         item.attributes.url
                   }
-                  alt={item.attributes.alternativeText}
+                  alt={item.attributes.alternativeText || 'Alpine Armoring'}
                   priority={index === 0}
                   width={
                     isMobile

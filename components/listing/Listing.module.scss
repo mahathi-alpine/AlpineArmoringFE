@@ -55,9 +55,10 @@
       position: relative;
       margin-bottom: -100px;
       padding: 0;
-      top: rem(-197);
+      top: rem(-191);
       right: 40px;
       z-index: 3;
+      transform-origin: right;
     }
   }
 }

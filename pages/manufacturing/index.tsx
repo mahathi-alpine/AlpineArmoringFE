@@ -5,6 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import { useEffect } from 'react';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import { CldImage } from 'next-cloudinary';
+import useSplitText from 'hooks/useSplitText';
 
 function Manufacturing(props) {
   // console.log(props.pageData)
@@ -38,6 +39,8 @@ function Manufacturing(props) {
     };
   }, []);
 
+  useSplitText();
+
   return (
     <div className={`${styles.manufacturing} background-dark`}>
       {props.pageData?.banner ? (
@@ -50,17 +53,20 @@ function Manufacturing(props) {
         <div className={`${styles.manufacturing_section1_top}`}>
           {props.pageData?.section1Title ? (
             <h2
-              className={`${styles.manufacturing_title} observe fade-in`}
+              className={`${styles.manufacturing_title} observe splitLetters`}
+              data-split-delay="25"
+              data-split-duration="500"
               dangerouslySetInnerHTML={{ __html: props.pageData.section1Title }}
             ></h2>
           ) : null}
 
           {props.pageData?.section1Heading ? (
-            <Markdown
-              className={`${styles.manufacturing_section1_heading} fade-in observe`}
-            >
-              {props.pageData.section1Heading}
-            </Markdown>
+            <p
+              className={`${styles.manufacturing_section1_heading} observe`}
+              dangerouslySetInnerHTML={{
+                __html: props.pageData.section1Heading,
+              }}
+            ></p>
           ) : null}
 
           <div className={`${styles.manufacturing_section1_box} observe`}>
@@ -77,7 +83,7 @@ function Manufacturing(props) {
                     }
                     alt={
                       props.pageData.section1Image.data.attributes
-                        .alternativeText
+                        .alternativeText || 'Alpine Armoring'
                     }
                     width={500}
                     height={400}
@@ -101,26 +107,31 @@ function Manufacturing(props) {
 
         {props.pageData?.section1Image2 ? (
           <div
-            className={`${styles.manufacturing_section1_image2} ${styles.manufacturing_image} observe fade-in`}
+            className={`${styles.manufacturing_section1_image2} ${styles.manufacturing_image} observe slide-in-left`}
           >
-            <CldImage
-              src={
-                props.pageData.section1Image2.data.attributes.formats?.large
-                  ?.url || props.pageData.section1Image2.data.attributes.url
-              }
-              alt={
-                props.pageData.section1Image2.data.attributes.alternativeText
-              }
-              width={
-                props.pageData.section1Image2.data.attributes.formats?.large
-                  ?.width || props.pageData.section1Image2.data.attributes.width
-              }
-              height={
-                props.pageData.section1Image2.data.attributes.formats?.large
-                  ?.height ||
-                props.pageData.section1Image2.data.attributes.height
-              }
-            ></CldImage>
+            <div className={`slide-in-right`}>
+              <CldImage
+                src={
+                  props.pageData.section1Image2.data.attributes.formats?.large
+                    ?.url || props.pageData.section1Image2.data.attributes.url
+                }
+                alt={
+                  props.pageData.section1Image2.data.attributes
+                    .alternativeText || 'Alpine Armoring'
+                }
+                width={
+                  props.pageData.section1Image2.data.attributes.formats?.large
+                    ?.width ||
+                  props.pageData.section1Image2.data.attributes.width
+                }
+                height={
+                  props.pageData.section1Image2.data.attributes.formats?.large
+                    ?.height ||
+                  props.pageData.section1Image2.data.attributes.height
+                }
+                className={`scale-in-down`}
+              ></CldImage>
+            </div>
           </div>
         ) : null}
 
@@ -159,7 +170,8 @@ function Manufacturing(props) {
                       ?.url || props.pageData.section2Image.data.attributes.url
                   }
                   alt={
-                    props.pageData.section2Image.data.attributes.alternativeText
+                    props.pageData.section2Image.data.attributes
+                      .alternativeText || 'Alpine Armoring'
                   }
                   width={600}
                   height={475}
@@ -221,7 +233,8 @@ function Manufacturing(props) {
                       ?.url || props.pageData.section3Image.data.attributes.url
                   }
                   alt={
-                    props.pageData.section3Image.data.attributes.alternativeText
+                    props.pageData.section3Image.data.attributes
+                      .alternativeText || 'Alpine Armoring'
                   }
                   width={600}
                   height={475}

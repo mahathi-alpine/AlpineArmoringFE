@@ -39,7 +39,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                     {data.inventories.data.length > 0 && (
                       <Button
                         href={`/available-now/type/${data.slug}`}
-                        className="primary small shiny"
+                        className="primary shiny"
                       >
                         {data.slug === 'rental'
                           ? 'Ready to Rent'
@@ -50,7 +50,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                     {data.slug !== 'pre-owned' && data.slug !== 'rental' && (
                       <Button
                         href={`/vehicles-we-armor/type/${data.slug}`}
-                        className="small shiny"
+                        className="shiny"
                       >
                         {data.title.replace('Armored ', '')} we armor
                       </Button>
@@ -81,11 +81,11 @@ const Categories = ({ props, allVehiclesImage }) => {
               </h3>
 
               <div className={`${styles.categories_item_buttons}`}>
-                <Button href={`/available-now`} className="primary small shiny">
+                <Button href={`/available-now`} className="primary shiny">
                   Available Now / Ready-To-Ship
                 </Button>
 
-                <Button href={`/vehicles-we-armor`} className="small shiny">
+                <Button href={`/vehicles-we-armor`} className="shiny">
                   All Types of vehicles we Armor
                 </Button>
               </div>

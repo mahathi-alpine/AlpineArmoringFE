@@ -19,7 +19,7 @@ const StickyHorizontalSlider = ({
   const { openLightbox, renderLightbox } = useLightbox();
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  // console.log(slides)
+  console.log(slides);
   // return null;
 
   const sliderOptions = {
@@ -30,15 +30,13 @@ const StickyHorizontalSlider = ({
   return (
     <section
       className={`
-      ${styles.stickyHorizontalSlider}
-      ${curved ? styles.stickyHorizontalSlider_curved : ''}      
-      ${inventory ? styles.stickyHorizontalSlider_inventory : ''}   
-    `}
+        ${styles.stickyHorizontalSlider}
+        ${curved ? styles.stickyHorizontalSlider_curved : ''}      
+        ${inventory ? styles.stickyHorizontalSlider_inventory : ''}   
+      `}
     >
       {title ? (
-        <div
-          className={`${styles.stickyHorizontalSlider_heading} fade-in-up observe container`}
-        >
+        <div className={`${styles.stickyHorizontalSlider_heading} container`}>
           <h2 className={`c-title`}>
             <span>{title}</span>
           </h2>
@@ -46,7 +44,7 @@ const StickyHorizontalSlider = ({
       ) : null}
 
       <div
-        className={`${styles.stickyHorizontalSlider_sticky} fade-in-up observe`}
+        className={`${styles.stickyHorizontalSlider_sticky} fade-in-up observe `}
         ref={containerInnerRef}
       >
         <div className={`${styles.stickyHorizontalSlider_inner}`}>
@@ -72,7 +70,10 @@ const StickyHorizontalSlider = ({
                       />
                       <Image
                         src={data.image.data.attributes.formats?.small.url}
-                        alt={data.image.data.attributes.alternativeText}
+                        alt={
+                          data.image.data.attributes.alternativeText ||
+                          'Alpine Armoring'
+                        }
                         fill
                         className={styles.stickyHorizontalSlider_item_image}
                       />

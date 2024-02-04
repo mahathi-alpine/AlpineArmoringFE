@@ -116,10 +116,13 @@
       // text-align: left;
 
       .banner_small & {
-        max-width: calc(100% - 620px);
         display: inline-flex;
+        padding: rem(26) rem(32);
+        max-width: calc(100% - 620px);
       }
       .banner_center & {
+        display: inline-flex;
+        padding: rem(32) rem(48);
         font-size: rem(32);
       }
     }
@@ -130,7 +133,7 @@
 
     h1 {
       font-weight: var(--font-regular);
-      strong {
+      strong, b {
         font-weight: var(--font-demi);
       }
       // margin-top: rem(8);

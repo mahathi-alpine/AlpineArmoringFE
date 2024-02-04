@@ -100,7 +100,8 @@ const Design = (props) => {
                     ?.url || props.pageData.section1Image.data.attributes.url
                 }
                 alt={
-                  props.pageData.section1Image.data.attributes.alternativeText
+                  props.pageData.section1Image.data.attributes
+                    .alternativeText || 'Alpine Armoring'
                 }
                 width={840}
                 height={445}
@@ -135,7 +136,8 @@ const Design = (props) => {
                     ?.url || props.pageData.section2Image.data.attributes.url
                 }
                 alt={
-                  props.pageData.section2Image.data.attributes.alternativeText
+                  props.pageData.section2Image.data.attributes
+                    .alternativeText || 'Alpine Armoring'
                 }
                 width={665}
                 height={315}
@@ -157,7 +159,8 @@ const Design = (props) => {
                     ?.url || props.pageData.section2Image2.data.attributes.url
                 }
                 alt={
-                  props.pageData.section2Image2.data.attributes.alternativeText
+                  props.pageData.section2Image2.data.attributes
+                    .alternativeText || 'Alpine Armoring'
                 }
                 width={590}
                 height={315}
@@ -224,7 +227,10 @@ const Design = (props) => {
                         item.image.data.attributes.formats?.large?.url ||
                         item.image.data.attributes.url
                       }
-                      alt={item.image.data.attributes.alternativeText}
+                      alt={
+                        item.image.data.attributes.alternativeText ||
+                        'Alpine Armoring'
+                      }
                       width={240}
                       height={240}
                     ></CldImage>
@@ -249,7 +255,10 @@ const Design = (props) => {
                         selectedItem.image.data.attributes.formats?.large
                           ?.url || selectedItem.image.data.attributes.url
                       }
-                      alt={selectedItem.image.data.attributes.alternativeText}
+                      alt={
+                        selectedItem.image.data.attributes.alternativeText ||
+                        'Alpine Armoring'
+                      }
                       width={240}
                       height={240}
                     ></CldImage>
@@ -292,7 +301,8 @@ const Design = (props) => {
                     ?.url || props.pageData.section4Image.data.attributes.url
                 }
                 alt={
-                  props.pageData.section4Image.data.attributes.alternativeText
+                  props.pageData.section4Image.data.attributes
+                    .alternativeText || 'Alpine Armoring'
                 }
                 width={350}
                 height={350}
@@ -326,7 +336,10 @@ const Design = (props) => {
                 props.pageData.section5Image.data.attributes.formats?.large
                   ?.url || props.pageData.section5Image.data.attributes.url
               }
-              alt={props.pageData.section5Image.data.attributes.alternativeText}
+              alt={
+                props.pageData.section5Image.data.attributes.alternativeText ||
+                'Alpine Armoring'
+              }
               width={710}
               height={397}
               className={`observe fade-in`}

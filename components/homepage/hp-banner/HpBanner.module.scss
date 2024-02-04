@@ -1,9 +1,12 @@
 .hp_banner {
   position: relative;
+  margin-bottom: rem(-30);
   height: calc(100svh + 50px);
   max-height: 800px;
   overflow: hidden;
   z-index: 2;
+  color: var(--color-white);
+
   @include breakpoint(large) {
     max-height: 1400px;
     height: calc(100vh + 100px);
@@ -55,13 +58,12 @@
 
     &_right {
       font-size: clamp(0.875rem, 0.8598rem + 0.0647vw, 0.9375rem);
-      color: var(--color-white);
       @include breakpoint(large) {
         text-align: right;
         padding-bottom: rem(8);
         font-size: rem(15);
       }
-      strong {
+      strong, b {
         font-weight: var(--font-regular);
         font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
         letter-spacing: 0.45px;
@@ -114,29 +116,29 @@
     font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
     font-weight: var(--font-demi);
     text-transform: uppercase;
-    color: transparent;
+    // color: transparent;
 
     @include breakpoint(large) {
       margin-bottom: 0;
     }
 
-    span {
-      animation: fadeInDown 1s;
-      animation-fill-mode: forwards;
-      color: white;
-    }
+    // span {
+    //   animation: fadeInDown 1s;
+    //   animation-fill-mode: forwards;
+    //   color: white;
+    // }
 
-    color: white;
-    &_noAnimation {
-      color: white;
-    }
+    // color: white;
+    // &_noAnimation {
+    //   color: white;
+    // }
   }
 
   &_title {
     margin-bottom: rem(16);
     font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
     font-weight: var(--font-demi);
-    color: white;
+    // color: white;
     text-transform: uppercase;
 
     @include breakpoint(small) {
@@ -148,14 +150,14 @@
     }
   }
 
-  button {
-    border-radius: 8px;
-    background: rgba(250, 250, 250, 0.15);
-    color: white;
-    text-transform: uppercase;
-    font-size: 14px;
-    padding: rem(16) rem(32);
-  }
+  // button {
+  //   border-radius: 8px;
+  //   background: rgba(250, 250, 250, 0.15);
+  //   color: white;
+  //   text-transform: uppercase;
+  //   font-size: 14px;
+  //   padding: rem(16) rem(32);
+  // }
 
   &_shape {
     @include breakpoint(large) {
@@ -173,16 +175,16 @@
   }
 }
 
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
+// @keyframes fadeInDown {
+//   0% {
+//     opacity: 0;
+//     -webkit-transform: translate3d(0, -100%, 0);
+//     transform: translate3d(0, -100%, 0);
+//   }
 
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
+//   100% {
+//     opacity: 1;
+//     -webkit-transform: none;
+//     transform: none;
+//   }
+// }

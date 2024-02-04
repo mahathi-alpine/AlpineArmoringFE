@@ -1,8 +1,6 @@
-// import Link from 'next/link';
 import styles from './Banner.module.scss';
 import { CldImage } from 'next-cloudinary';
 import Button from 'components/global/button/Button';
-import Markdown from 'markdown-to-jsx';
 import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
 
@@ -25,7 +23,9 @@ const Banner = (props) => {
         <div className={`${styles.banner_content}`}>
           <div className={`${styles.banner_description}`}>
             {data.descriptionBanner ? (
-              <Markdown>{data.descriptionBanner}</Markdown>
+              <div
+                dangerouslySetInnerHTML={{ __html: data.descriptionBanner }}
+              ></div>
             ) : null}
           </div>
 
@@ -51,12 +51,9 @@ const Banner = (props) => {
 
       <div className={`${styles.banner_image}`}>
         <div className={`${styles.banner_overlay}`}>
-          {/* <div className={`${styles.banner_overlay_blob1}`}></div> */}
           <div className={`${styles.banner_overlay_blob2}`}></div>
-          {/* <div className={`${styles.banner_overlay_blob3}`}></div> */}
 
           <div className={`${styles.banner_overlay_noise}`}></div>
-
           <svg
             viewBox="0 0 500 500"
             preserveAspectRatio="none"
@@ -81,7 +78,10 @@ const Banner = (props) => {
                 data.featuredImage.data.attributes.formats?.large?.url ||
                 data.featuredImage.data.attributes.url
               }
-              alt={data.featuredImage.data.attributes.alternativeText}
+              alt={
+                data.featuredImage.data.attributes.alternativeText ||
+                'Alpine Armoring'
+              }
               width={1000}
               height={550}
               priority
@@ -105,8 +105,8 @@ const Banner = (props) => {
         ) : null}
 
         <div className={`${styles.banner_protection}`}>
-          <h3 className={`observe fade-in`}>Offered At Protection Levels</h3>
-          <div className={`${styles.banner_protection_levels} observe fade-in`}>
+          <h3>Offered At Protection Levels</h3>
+          <div className={`${styles.banner_protection_levels}`}>
             <span>A4</span>
             <span>A6</span>
             <span>A9</span>

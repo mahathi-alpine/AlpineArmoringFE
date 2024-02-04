@@ -20,7 +20,7 @@
 
 .fade-in-left {
   opacity: 0;
-  transform: translate3d(-250px, 0, 0);
+  transform: translate3d(-100px, 0, 0);
   transition:
     opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -58,7 +58,8 @@
   transform: scale(1);
 }
 .slide-in-left {
-  animation: 1s cubic-bezier(0.76, 0, 0.24, 1) 0s both paused slide-in-left;
+  // animation: 1s cubic-bezier(0.76, 0, 0.24, 1) 0s both paused slide-in-left;  
+  overflow: hidden;
 }
 .in-view .slide-in-left {
   animation-play-state: running;
@@ -122,6 +123,30 @@
   }
 }
 
+.splitLetters{
+  &>span{
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    line-height: 1;
+    
+    &>span{
+      display: inline-block;
+      transition-property: transform, opacity;
+      transform: translateY(1.4em);
+      backface-visibility: visible;
+      opacity: 0;
+      transition: transform .5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity .5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+  }
+
+  &.in-view > span > span {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 @keyframes rev-block {
   0% {
     left: 0;
@@ -173,7 +198,7 @@
 
 @keyframes slide-in-left {
   0% {
-    transform: translate3D(100%, 0, 0);
+    transform: translate3D(50%, 0, 0);
   }
   100% {
     transform: translate3D(0, 0, 0);

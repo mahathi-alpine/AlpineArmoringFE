@@ -1,39 +1,41 @@
-import React from 'react';
+// import React from 'react';
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
+import dynamic from 'next/dynamic';
 // import { getCookie } from 'cookies-next';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
-import IntroText from 'components/homepage/intro-text/IntroText';
-import Categories from 'components/homepage/categories/Categories';
-import HPMiddleText from 'components/homepage/hp-middle-text/HPMiddleText';
-import TabSection from 'components/homepage/tab-section/TabSection';
-import Blog from 'components/homepage/blog/Blog';
-import Partners from 'components/homepage/partners/Partners';
-import VideosPopup from 'components/global/videos-popup/VideosPopup';
+
+const FillingText = dynamic(
+  () => import('components/global/filling-text/FillingText')
+);
+const Categories = dynamic(
+  () => import('components/homepage/categories/Categories')
+);
+const TabSection = dynamic(
+  () => import('components/homepage/tab-section/TabSection')
+);
+const Blog = dynamic(() => import('components/homepage/blog/Blog'));
+const Partners = dynamic(() => import('components/homepage/partners/Partners'));
+const VideosPopup = dynamic(
+  () => import('components/global/videos-popup/VideosPopup')
+);
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
-  const topBanner = homepageData.data?.attributes.topBanner;
-  const hpIntroText = homepageData.data?.attributes.hpIntroText;
-  const categoriesData = categories?.data;
-  const hpMiddleText = homepageData.data?.attributes.hpMiddleText;
-  const tabSectionData = homepageData.data?.attributes.tabSection;
-  // const horizontalSlider = homepageData?.data?.attributes.horizontalSlider;
-  const allVehiclesImage =
-    homepageData?.data?.attributes?.allVehiclesImage?.data?.attributes;
-  const ballistingTestings =
-    homepageData?.data?.attributes.ballistingTestingsMedia;
-  const blog = homepageData?.data?.attributes.blogs?.data;
-  const partners = homepageData?.data?.attributes.industryPartners?.data;
-  // console.log(homepageData)
+  const data = homepageData.data?.attributes;
 
-  useEffect(() => {
-    document.body.classList.add('home');
-    return () => {
-      document.body.classList.remove('home');
-    };
-  }, []);
+  const topBanner = data?.topBanner;
+  const hpIntroTextSubtitle = data?.hpIntroTextSubtitle;
+  const hpIntroText = data?.hpIntroText;
+  const categoriesData = categories?.data;
+  const hpMiddleText = data?.hpMiddleText;
+  const tabSectionData = data?.tabSection;
+  const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
+  const ballistingTestings = data?.ballistingTestingsMedia;
+  const blog = data?.blogs?.data;
+  const partners = data?.industryPartners?.data;
+  // console.log(data)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -71,19 +73,7 @@ function Home({ homepageData, categories }) {
       ) : null}
 
       <div className="background-dark">
-        {/* <svg className="noiseBg" width="100%" height="100%">
-          <filter id="esteisalegend">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.80"
-              numOctaves="4"
-              stitchTiles="stitch"
-            ></feTurbulence>
-          </filter>
-          <rect width="100%" height="100%" filter="url(#esteisalegend)"></rect>
-        </svg> */}
-
-        <IntroText props={hpIntroText} />
+        <FillingText text={hpIntroText} subtitle={hpIntroTextSubtitle} />
 
         {categoriesData && (
           <Categories
@@ -92,7 +82,7 @@ function Home({ homepageData, categories }) {
           />
         )}
 
-        {hpMiddleText ? <HPMiddleText props={hpMiddleText} /> : null}
+        {hpMiddleText ? <FillingText text={hpMiddleText} /> : null}
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
@@ -102,10 +92,6 @@ function Home({ homepageData, categories }) {
       </div>
 
       {blog ? <Blog props={blog} /> : null}
-
-      {/* {horizontalSlider ? (
-        <StickyHorizontalSlider slides={horizontalSlider} title="Latest News" />
-      ) : null} */}
 
       {partners ? <Partners props={partners} /> : null}
     </>
@@ -121,7 +107,7 @@ export async function getServerSideProps() {
   const categories = await getPageData({
     route: 'categories',
     order: true,
-    populate: 'deep',
+    populate: 'image, inventories',
   });
 
   // let languageCookie = getCookie('googtrans', { req, res });

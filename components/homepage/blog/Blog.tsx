@@ -49,7 +49,7 @@ const Blog = (props) => {
                       }
                       alt={
                         item.attributes.thumbnail.data.attributes
-                          .alternativeText
+                          .alternativeText || 'Alpine Armoring'
                       }
                       width={index === 0 ? 1300 : 700}
                       height={index === 0 ? 550 : 300}
@@ -101,7 +101,7 @@ const Blog = (props) => {
 
                     <Button
                       href={`/blog/${item.attributes.slug}`}
-                      className={`${styles.blog_item_button} border small desktop-only`}
+                      className={`${styles.blog_item_button} border desktop-only`}
                     >
                       Read More
                     </Button>

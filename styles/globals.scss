@@ -14,46 +14,13 @@ body {
   top: 0 !important;
   padding-top: var(--header-height);
 
-  // @include breakpoint(medium) {
-  //   padding-top: 0;
-  // }
-
   &.background-dark {
     color: var(--color-white);
   }
-
-  &.home {
-    padding-top: 0;
-    // .b-header {
-    //   background-color: rgba(23, 23, 23, 0.8);
-    //   backdrop-filter: blur(10px);
-    // }
-  }
-
-  // &.header-transparent {
-  //   &:not(.no-scroll):not(.background-dark) {
-  //     .logo-fill {
-  //       fill: var(--color-dark);
-  //     }
-  //   }
-  //   &:not(.background-dark) .b-header {
-  //     --color-white: var(--color-dark);
-  //     svg {
-  //       fill: var(--color-dark);
-  //     }
-  //   }
-  //   .b-header {
-  //     background: transparent;
-  //     backdrop-filter: none;
-  //   }
-  // }
 }
 .no-scroll {
   overflow-y: hidden;
   height: 100vh;
-  // margin-right: 20px;
-  // position: fixed;
-  // width: 100%;
 }
 
 em,
