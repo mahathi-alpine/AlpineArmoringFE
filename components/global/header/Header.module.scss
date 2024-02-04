@@ -19,9 +19,9 @@
     padding-bottom: rem(12);
   }
 
-  &_static{
+  &_static {
     position: absolute;
-    transform: none !important;    
+    transform: none !important;
   }
 
   &_dark:not(.header_navOpen):not(.header.up) {

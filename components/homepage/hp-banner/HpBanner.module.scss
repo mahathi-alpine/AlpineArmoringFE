@@ -63,7 +63,8 @@
         padding-bottom: rem(8);
         font-size: rem(15);
       }
-      strong, b {
+      strong,
+      b {
         font-weight: var(--font-regular);
         font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
         letter-spacing: 0.45px;

@@ -21,7 +21,7 @@
   &_text {
     font-size: clamp(1.375rem, 1.1019rem + 1.165vw, 2.5rem);
     // line-height: clamp(1.7875rem, 1.4325rem + 1.5146vw, 3.25rem);
-    
+
     span {
       position: relative;
       opacity: 0.1;
@@ -44,7 +44,8 @@
       font-size: rem(24);
     }
 
-    strong, b {
+    strong,
+    b {
       font-weight: var(--font-bold);
     }
   }
