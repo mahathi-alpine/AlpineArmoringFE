@@ -1,4 +1,13 @@
+import { useEffect } from 'react';
+
 export default function Custom404() {
+  useEffect(() => {
+    document.body.classList.add('p0');
+    return () => {
+      document.body.classList.remove('p0');
+    };
+  }, []);
+
   return (
     <>
       <div className="errorPage">

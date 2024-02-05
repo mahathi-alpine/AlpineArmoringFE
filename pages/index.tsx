@@ -20,6 +20,14 @@ const Partners = dynamic(() => import('components/homepage/partners/Partners'));
 const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
 );
+// {
+//   isModalOpen && (
+//     <CodeSampleModal
+//       isOpen={isModalOpen}
+//       closeModal={() => setIsModalOpen(false)}
+//     />
+//   );
+// }
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
@@ -43,6 +51,7 @@ function Home({ homepageData, categories }) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          // console.log(entry.target.classList[0])
           if (entry.isIntersecting) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observer.unobserve(entry.target);
@@ -86,7 +95,11 @@ function Home({ homepageData, categories }) {
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
-        {ballistingTestings ? <VideosPopup props={ballistingTestings} /> : null}
+        {ballistingTestings ? (
+          <div className={`observe fade-in-up`}>
+            <VideosPopup props={ballistingTestings} />
+          </div>
+        ) : null}
 
         <div className="shape-after shape-after-white"></div>
       </div>

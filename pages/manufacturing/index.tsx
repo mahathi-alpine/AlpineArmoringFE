@@ -49,60 +49,63 @@ function Manufacturing(props) {
         </>
       ) : null}
 
-      <section className={`${styles.manufacturing_section1} container`}>
-        <div className={`${styles.manufacturing_section1_top}`}>
-          {props.pageData?.section1Title ? (
-            <h2
-              className={`${styles.manufacturing_title} observe splitLetters`}
-              data-split-delay="25"
-              data-split-duration="500"
+      <section className={`${styles.manufacturing_section1} container_small`}>
+        {props.pageData?.section1Title ? (
+          <h2 className={`${styles.manufacturing_title} block-reveal observe`}>
+            <span
               dangerouslySetInnerHTML={{ __html: props.pageData.section1Title }}
-            ></h2>
-          ) : null}
+            ></span>
+          </h2>
+        ) : null}
 
-          {props.pageData?.section1Heading ? (
+        {/* {props.pageData?.section1Heading ? (
+          <p
+            className={`${styles.manufacturing_section1_heading} splitLetters observe`}
+            data-split-delay="25"
+            data-split-duration="1200"
+            dangerouslySetInnerHTML={{
+              __html: props.pageData.section1Heading,
+            }}
+          ></p>
+        ) : null} */}
+        {props.pageData?.section1Heading ? (
+          <p
+            className={`${styles.manufacturing_section1_heading} delay-5 fade-in observe`}
+            dangerouslySetInnerHTML={{
+              __html: props.pageData.section1Heading,
+            }}
+          ></p>
+        ) : null}
+
+        <div className={`${styles.manufacturing_box} observe`}>
+          {props.pageData?.section1Text1 ? (
             <p
-              className={`${styles.manufacturing_section1_heading} observe`}
+              className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} observe fade-in`}
               dangerouslySetInnerHTML={{
-                __html: props.pageData.section1Heading,
+                __html: props.pageData.section1Text1,
               }}
             ></p>
           ) : null}
 
-          <div className={`${styles.manufacturing_section1_box} observe`}>
-            {props.pageData?.section1Image.data ? (
-              <div
-                className={`${styles.manufacturing_section1_image} ${styles.manufacturing_image} slide-in-left`}
-              >
-                <div className={`slide-in-right`}>
-                  <CldImage
-                    src={
-                      props.pageData.section1Image.data.attributes.formats
-                        ?.large?.url ||
-                      props.pageData.section1Image.data.attributes.url
-                    }
-                    alt={
-                      props.pageData.section1Image.data.attributes
-                        .alternativeText || 'Alpine Armoring'
-                    }
-                    width={500}
-                    height={400}
-                    sizes="(min-width: 768px ) 40vw, 100vw"
-                    className={`scale-in-down`}
-                  ></CldImage>
-                </div>
-              </div>
-            ) : null}
-
-            {props.pageData?.section1Text1 ? (
-              <p
-                className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} observe fade-in`}
-                dangerouslySetInnerHTML={{
-                  __html: props.pageData.section1Text1,
-                }}
-              ></p>
-            ) : null}
-          </div>
+          {props.pageData?.section1Image.data ? (
+            <div
+              className={`${styles.manufacturing_section1_image} ${styles.manufacturing_image} observe fade-in`}
+            >
+              <CldImage
+                src={
+                  props.pageData.section1Image.data.attributes.formats?.large
+                    ?.url || props.pageData.section1Image.data.attributes.url
+                }
+                alt={
+                  props.pageData.section1Image.data.attributes
+                    .alternativeText || 'Alpine Armoring'
+                }
+                width={500}
+                height={400}
+                sizes="(min-width: 768px ) 40vw, 100vw"
+              ></CldImage>
+            </div>
+          ) : null}
         </div>
 
         {props.pageData?.section1Image2 ? (

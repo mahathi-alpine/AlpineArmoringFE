@@ -69,10 +69,6 @@ function Inventory(props) {
   );
 }
 
-// interface InventoryProps {
-//   data: any;
-// }
-
 export async function getServerSideProps(context) {
   const category = context.query.type;
   let query = `filters[category][slug][$eq]=${category}`;

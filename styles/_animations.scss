@@ -115,7 +115,7 @@
   }
   &.in-view {
     span {
-      animation: appear-text 0.0001s linear forwards;
+      animation: appear-text 0.0001s .8s linear forwards;
     }
     &:after {
       animation: rev-block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
@@ -134,12 +134,10 @@
     & > span {
       display: inline-block;
       transition-property: transform, opacity;
+      transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
       transform: translateY(1.4em);
       backface-visibility: visible;
       opacity: 0;
-      transition:
-        transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
-        opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
   }
 

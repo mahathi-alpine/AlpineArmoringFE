@@ -19,7 +19,7 @@ const StickyHorizontalSlider = ({
   const { openLightbox, renderLightbox } = useLightbox();
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  console.log(slides);
+  // console.log(slides);
   // return null;
 
   const sliderOptions = {

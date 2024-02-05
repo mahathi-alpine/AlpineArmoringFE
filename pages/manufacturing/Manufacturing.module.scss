@@ -48,7 +48,7 @@
       display: flex;
       gap: 40px;
       align-items: center;
-      margin: rem(48) 0;
+      margin: rem(40) 0;
 
       .manufacturing_image {
         width: 40%;
@@ -62,7 +62,7 @@
       gap: 80px;
       max-width: 1200px;
       margin: auto;
-      margin: rem(64) auto;
+      margin: rem(52) auto;
 
       .manufacturing_image {
         width: 50%;
@@ -87,6 +87,7 @@
 
     @include breakpoint(large) {
       margin-bottom: rem(128);
+      max-width: 1280px;
     }
     @include breakpoint(huge) {
       margin-bottom: rem(164);
@@ -94,8 +95,9 @@
 
     &_top {
       @include breakpoint(medium) {
-        display: flex;
         margin: auto;
+        display: flex;
+        align-items: flex-start;
         gap: 32px;
       }
       @include breakpoint(large) {
@@ -116,7 +118,7 @@
 
     &_heading {
       display: block;
-      // margin-bottom: rem(24);
+      margin-bottom: rem(24);
       font-weight: var(--font-medium);
       // font-size: rem(24);
       font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
@@ -124,14 +126,9 @@
       @include breakpoint(medium) {
         // font-size: rem(32);
         margin-bottom: 0;
-        margin-top: -10px;
+        line-height: 1.2;
+        // margin-top: -10px;
       }
-      // @include breakpoint(large) {
-      //   font-size: rem(40);
-      // }
-      // @include breakpoint(huge) {
-      //   font-size: rem(56);
-      // }
     }
 
     &_image {

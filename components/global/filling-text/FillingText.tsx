@@ -59,8 +59,9 @@ const FillingText = (props) => {
         {props.subtitle ? (
           <h3
             className={`${styles.fillingText_subheading} observe block-reveal`}
-            dangerouslySetInnerHTML={{ __html: props.subtitle }}
-          ></h3>
+          >
+            <span dangerouslySetInnerHTML={{ __html: props.subtitle }}></span>
+          </h3>
         ) : null}
 
         {props.text ? (

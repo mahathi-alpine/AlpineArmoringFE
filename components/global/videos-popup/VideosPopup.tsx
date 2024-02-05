@@ -1,6 +1,4 @@
-// import React, { useState } from 'react';
 import styles from './VideosPopup.module.scss';
-// import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import PlayIcon from 'components/icons/Play';
 
@@ -96,7 +94,7 @@ const VideosPopup = (props) => {
   return (
     <div className={`${styles.videoPopup_wrap}`}>
       <div className={`center`}>
-        <div className={`${styles.videoPopup_button} observe fade-in-up`}>
+        <div className={`${styles.videoPopup_button}`}>
           <Button
             button={true}
             className="attention"

@@ -6,7 +6,11 @@ import Head from 'next/head';
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <Script id="script-translate">
+      {/* <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=123"
+      /> */}
+      <Script id="script-translate" strategy="afterInteractive">
         {`
           window.TranslateInit = function () {
             new window.google.translate.TranslateElement();
