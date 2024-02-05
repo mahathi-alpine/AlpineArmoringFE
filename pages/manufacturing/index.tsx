@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import { useEffect } from 'react';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import { CldImage } from 'next-cloudinary';
-import useSplitText from 'hooks/useSplitText';
+// import useSplitText from 'hooks/useSplitText';
 import dynamic from 'next/dynamic';
 
 const FillingText = dynamic(
@@ -41,7 +41,7 @@ function Manufacturing(props) {
     };
   }, []);
 
-  useSplitText();
+  // useSplitText();
 
   return (
     <div className={`${styles.manufacturing} background-dark`}>
@@ -52,7 +52,14 @@ function Manufacturing(props) {
       ) : null}
 
       <section className={`${styles.manufacturing_section1} container_small`}>
-        {props.pageData?.section1Title ? (
+        <div className={`${styles.manufacturing_filling}`}>
+          <FillingText
+            text={props.pageData?.section1Heading}
+            subtitle={props.pageData?.section1Title}
+          />
+        </div>
+
+        {/* {props.pageData?.section1Title ? (
           <h2 className={`${styles.manufacturing_title} block-reveal observe`}>
             <span
               dangerouslySetInnerHTML={{ __html: props.pageData.section1Title }}
@@ -62,17 +69,17 @@ function Manufacturing(props) {
 
         {props.pageData?.section1Heading ? (
           <p
-            className={`${styles.manufacturing_section1_heading} delay-4 fade-in observe`}
+            className={`${styles.manufacturing_section1_heading}`}
             dangerouslySetInnerHTML={{
               __html: props.pageData.section1Heading,
             }}
           ></p>
-        ) : null}
+        ) : null} */}
 
         <div className={`${styles.manufacturing_box}`}>
           {props.pageData?.section1Text1 ? (
             <Markdown
-              className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} observe fade-in`}
+              className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text}`}
             >
               {props.pageData.section1Text1}
             </Markdown>
@@ -131,12 +138,14 @@ function Manufacturing(props) {
             ></p>
           ) : null} */}
 
-          <div className={`${styles.manufacturing_filling}`}>
-            <FillingText
-              text={props.pageData.section2Heading}
-              subtitle={props.pageData.section2Title}
-            />
-          </div>
+          {props.pageData?.section2Heading ? (
+            <div className={`${styles.manufacturing_filling}`}>
+              <FillingText
+                text={props.pageData?.section2Heading}
+                subtitle={props.pageData?.section2Title}
+              />
+            </div>
+          ) : null}
 
           <div className={`${styles.manufacturing_box}`}>
             {props.pageData?.section2Image ? (
@@ -186,7 +195,7 @@ function Manufacturing(props) {
 
       <section className={`${styles.manufacturing_section3}`}>
         <div className={`container_small`}>
-          {props.pageData?.section3Title ? (
+          {/* {props.pageData?.section3Title ? (
             <h2
               className={`${styles.manufacturing_title} block-reveal observe`}
               dangerouslySetInnerHTML={{ __html: props.pageData.section3Title }}
@@ -199,9 +208,24 @@ function Manufacturing(props) {
             >
               {props.pageData.section3Heading}
             </Markdown>
-          ) : null}
+          ) : null} */}
+
+          <div className={`${styles.manufacturing_filling}`}>
+            <FillingText
+              text={props.pageData?.section3Heading}
+              subtitle={props.pageData?.section3Title}
+            />
+          </div>
 
           <div className={`${styles.manufacturing_box}`}>
+            {props.pageData?.section3Text ? (
+              <Markdown
+                className={`${styles.manufacturing_section3_text} ${styles.manufacturing_text} observe fade-in`}
+              >
+                {props.pageData.section3Text}
+              </Markdown>
+            ) : null}
+
             {props.pageData?.section3Image.data ? (
               <div className={`${styles.manufacturing_image} observe fade-in`}>
                 <CldImage
@@ -217,14 +241,6 @@ function Manufacturing(props) {
                   height={475}
                 ></CldImage>
               </div>
-            ) : null}
-
-            {props.pageData?.section3Text ? (
-              <Markdown
-                className={`${styles.manufacturing_section3_text} ${styles.manufacturing_text} observe fade-in`}
-              >
-                {props.pageData.section3Text}
-              </Markdown>
             ) : null}
           </div>
 

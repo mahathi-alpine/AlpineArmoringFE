@@ -15,9 +15,11 @@
   }
 
   &_text {
-    font-size: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
+    display: block;
+    font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     // color: rgba(250, 250, 250, .9);
     font-weight: var(--font-light);
+    margin: rem(16) 0;
 
     p {
       margin-bottom: rem(16);
@@ -32,9 +34,9 @@
   &_quote {
     border-left: 2px solid var(--color-primary);
     padding-left: rem(16);
-    font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
-    margin-left: rem(8);
     margin: rem(24) 0 rem(24) rem(8);
+    font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
+    font-weight: var(--font-light);
 
     @include breakpoint(large) {
       max-width: 1200px;
@@ -48,6 +50,11 @@
   }
 
   &_filling {
+    margin-bottom: rem(16);
+
+    &>div{
+      padding: 0;
+    }
     h3 {
       text-transform: uppercase;
     }
@@ -73,9 +80,14 @@
       gap: 40px;
       max-width: 1000px;
       // margin: auto;
+
+      .manufacturing_image{
+        margin: 0;
+      }
     }
     @include breakpoint(huge) {
       gap: 64px;
+      margin: rem(64) auto;
 
       .manufacturing_image {
         width: 50%;
@@ -97,14 +109,15 @@
 
   &_section1 {
     padding-top: rem(24);
-    margin-bottom: rem(64);
+    margin-bottom: rem(24);
 
     @include breakpoint(large) {
-      width: 73%;
-      max-width: 1160px;
+      width: 63%;
+      max-width: 900px;
     }
     @include breakpoint(huge) {
-      width: 65%;
+      width: 51%;
+      max-width: 1000px;
     }
 
     &_top {
@@ -136,11 +149,11 @@
       font-weight: var(--font-medium);
       // font-size: rem(24);
       font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
+      line-height: 1.1;
 
       @include breakpoint(medium) {
         // font-size: rem(32);
         margin-bottom: 0;
-        line-height: 1.1;
         // margin-top: -10px;
       }
     }
@@ -165,14 +178,15 @@
   }
 
   &_section2 {
-    margin-top: rem(80);
-    margin-bottom: rem(80);
+    margin-top: rem(72);
+    margin-bottom: rem(72);
     @include breakpoint(large) {
-      margin-bottom: rem(128);
-      margin-top: rem(160);
+      margin-bottom: rem(140);
+      margin-top: rem(140);
     }
     @include breakpoint(huge) {
       margin-bottom: rem(164);
+      margin-top: rem(164);
     }
 
     &_heading {

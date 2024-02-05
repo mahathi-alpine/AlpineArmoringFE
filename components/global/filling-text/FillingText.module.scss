@@ -13,6 +13,7 @@
     padding-top: rem(140);
     padding-bottom: rem(140);
   }
+  
   @include breakpoint(huge) {
     padding-top: rem(180);
     padding-bottom: rem(180);
@@ -20,7 +21,6 @@
 
   &_text {
     font-size: clamp(1.375rem, 1.1019rem + 1.165vw, 2.5rem);
-    // line-height: clamp(1.7875rem, 1.4325rem + 1.5146vw, 3.25rem);
 
     span {
       position: relative;
@@ -34,13 +34,12 @@
     margin-bottom: rem(24);
     color: var(--color-primary);
     font-size: rem(16);
-    // text-transform: uppercase;
     font-weight: var(--font-medium);
     letter-spacing: -0.6px;
     z-index: 2;
 
     @include breakpoint(large) {
-      margin-bottom: rem(40);
+      margin-bottom: rem(24);
       font-size: rem(24);
     }
 
@@ -58,18 +57,3 @@
     }
   }
 }
-
-// @keyframes pulse {
-//   0% {
-//     opacity: 0;
-//   }
-//   10% {
-//     opacity: 0.5;
-//     transform: scale(1.5);
-//     transition: all 0.3s cubic-bezier(0.6, 0.04, 0.98, 0.335);
-//   }
-//   100% {
-//     opacity: 1;
-//     transform: scale(1);
-//   }
-// }
