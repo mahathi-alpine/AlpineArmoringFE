@@ -67,8 +67,6 @@ const TabSlider = ({
           entries.forEach((entry) => {
             if (!clickEventOccurred && entry.isIntersecting) {
               const targetId = entry.target.id;
-              // console.log(targetId)
-
               const correspondingNavItem = navItemDict[targetId];
 
               if (correspondingNavItem) {

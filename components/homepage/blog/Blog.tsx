@@ -5,8 +5,6 @@ import Button from 'components/global/button/Button';
 import styles from './Blog.module.scss';
 
 const Blog = (props) => {
-  // console.log(props)
-
   return (
     <div className={`${styles.blog}`}>
       <div className={`${styles.blog_inner} container_small`}>
@@ -101,7 +99,7 @@ const Blog = (props) => {
 
                     <Button
                       href={`/blog/${item.attributes.slug}`}
-                      className={`${styles.blog_item_button} border desktop-only`}
+                      className={`${styles.blog_item_button} rounded border desktop-only`}
                     >
                       Read More
                     </Button>
@@ -115,9 +113,9 @@ const Blog = (props) => {
         <div className={`${styles.blog_button} observe fade-in-up`}>
           <Button
             href={`/blog`}
-            // className={`${styles.blog_button}`}
+            className={`${styles.blog_button_link} rounded primary`}
           >
-            See All
+            See All Blog Posts
           </Button>
         </div>
       </div>

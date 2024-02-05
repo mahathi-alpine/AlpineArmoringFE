@@ -7,9 +7,6 @@ import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
 
 function Contact(props) {
-  // console.log(props)
-  // return null;
-
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 

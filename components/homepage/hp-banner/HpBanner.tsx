@@ -8,8 +8,6 @@ import useSplitText from 'hooks/useSplitText';
 
 // const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
 const HpBanner = ({ props }: HPBannerProps) => {
-  // console.log(props)
-
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const togglePlayPause = () => {

@@ -6,8 +6,6 @@ import PDFIcon from 'components/icons/PDF';
 
 const Banner = (props) => {
   const data = props.props;
-  // console.log(data)
-  // return null;
 
   return (
     <div className={`${styles.banner}`}>

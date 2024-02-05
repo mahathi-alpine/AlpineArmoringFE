@@ -90,7 +90,6 @@ function InventoryVehicle(props) {
   const mainText = data.description;
   const category = data.category.data.attributes.title;
   const categorySlug = data.category.data.attributes.slug;
-  // console.log(data)
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
@@ -129,9 +128,6 @@ function InventoryVehicle(props) {
       titleNav: 'Options Included',
     },
   ];
-
-  // console.log(data);
-  // return null;
 
   return (
     <div className={`${styles.inventory}`}>

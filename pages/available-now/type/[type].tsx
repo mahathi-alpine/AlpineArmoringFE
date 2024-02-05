@@ -11,15 +11,6 @@ function Inventory(props) {
     (item) => item.attributes.slug === props.query
   );
   topBanner = topBanner?.attributes.inventoryBanner;
-  // console.log(topBanner);
-  // return null
-
-  // useEffect(() => {
-  //   document.body.classList.add('listing-inventory', 'background-dark');
-  //   return () => {
-  //     document.body.classList.remove('listing-inventory', 'background-dark');
-  //   };
-  // }, []);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');

@@ -4,7 +4,6 @@ import styles from './Partners.module.scss';
 import { CldImage } from 'next-cloudinary';
 
 const Partners = (props) => {
-  // console.log(props)
   return (
     <div className={`${styles.partners} container`}>
       <h2 className={`c-title observe fade-in-up`}>

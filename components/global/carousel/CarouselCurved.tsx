@@ -20,8 +20,6 @@ import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 
 const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
   const slides = props;
-  // console.log(props)
-  // return null;
 
   const options = {
     dragFree: false,
@@ -93,6 +91,12 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
                       }
                       className={styles.carousel_slide_img}
                     ></CldImage>
+
+                    {item.attributes.caption ? (
+                      <h4 className={`${styles.carouselCurved_slide_caption}`}>
+                        <span>{item.attributes.caption}</span>
+                      </h4>
+                    ) : null}
                   </div>
                 ) : null}
               </div>

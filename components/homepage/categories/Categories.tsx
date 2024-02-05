@@ -5,7 +5,6 @@ import Button from 'components/global/button/Button';
 // import { API_URL } from 'config/index';
 
 const Categories = ({ props, allVehiclesImage }) => {
-  // console.log(props)
   return (
     <>
       <div className={`${styles.categories} container`}>

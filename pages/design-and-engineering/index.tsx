@@ -8,7 +8,6 @@ import Markdown from 'markdown-to-jsx';
 import { CldImage } from 'next-cloudinary';
 
 const Design = (props) => {
-  console.log(props.pageData);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 

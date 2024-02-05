@@ -7,8 +7,6 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 
 const TabSection = ({ props }) => {
-  // console.log(props);
-
   const [activeDiv, setActiveDiv] = useState('0');
   const handleTabChange = (id) => {
     setActiveDiv(id);

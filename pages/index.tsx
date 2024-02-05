@@ -43,7 +43,6 @@ function Home({ homepageData, categories }) {
   const ballistingTestings = data?.ballistingTestingsMedia;
   const blog = data?.blogs?.data;
   const partners = data?.industryPartners?.data;
-  // console.log(data)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -51,7 +50,6 @@ function Home({ homepageData, categories }) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // console.log(entry.target.classList[0])
           if (entry.isIntersecting) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
             observer.unobserve(entry.target);

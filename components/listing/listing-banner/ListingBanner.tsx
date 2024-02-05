@@ -11,7 +11,6 @@ type ListingBannerProps = {
 const TopBanner = ({ props, overlay }: ListingBannerProps) => {
   const bannerImage = props.bannerImage.data?.attributes.url;
   const bannerText = props.bannerText;
-  // console.log(props)
 
   return (
     <div

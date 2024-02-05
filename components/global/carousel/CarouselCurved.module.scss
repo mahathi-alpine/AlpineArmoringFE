@@ -93,6 +93,46 @@
         object-fit: cover;
         filter: brightness(90%);
         height: 100%;
+        width: 100%;
+      }
+    }
+
+    &_caption{
+      position: absolute;
+      bottom: 0;
+      padding-bottom: rem(24);
+      left: 0;
+      right: 0;
+      text-align: center;
+      @include breakpoint(large) {
+        padding-bottom: rem(32);
+      }
+      @include breakpoint(huge) {
+        padding-bottom: rem(48);
+      }
+
+      span{
+        position: relative;
+        z-index: 1;
+        font-size: 15px;
+        font-weight: var(--font-regular);
+      }
+
+      &:after {
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100px;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        @include breakpoint(huge) {
+          height: 150px;
+        }
       }
     }
   }
