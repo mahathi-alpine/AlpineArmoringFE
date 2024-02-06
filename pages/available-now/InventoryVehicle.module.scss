@@ -440,7 +440,7 @@
     padding-bottom: rem(60);
   }
 
-  &_form{
+  &_form {
     position: relative;
     padding-top: rem(32);
     padding-bottom: rem(64);
@@ -483,7 +483,7 @@
         width: 64px;
       }
     }
-    
+
     &:after {
       position: absolute;
       content: '';
@@ -500,34 +500,33 @@
       }
     }
 
-    &_inner{
+    &_inner {
       @include breakpoint(large) {
         display: flex;
         gap: 64px;
       }
     }
 
-    &_heading{
+    &_heading {
       margin-bottom: rem(16);
       font-weight: var(--font-medium);
-      font-size: clamp(1.125rem, 1.0643rem + 0.2589vw, 1.375rem);   
+      font-size: clamp(1.125rem, 1.0643rem + 0.2589vw, 1.375rem);
       text-align: center;
       @include breakpoint(large) {
         text-align: left;
       }
     }
 
-    img{
+    img {
       margin-bottom: rem(16);
       border-radius: 16px;
     }
 
-    &_left{
+    &_left {
       @include breakpoint(medium) {
         max-width: 500px;
         margin: 0 auto;
       }
     }
-
   }
 }

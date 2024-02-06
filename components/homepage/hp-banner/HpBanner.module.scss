@@ -11,8 +11,8 @@
     max-height: 1400px;
     height: calc(100vh + 100px);
 
-    &:hover{
-      .hp_banner_pause{
+    &:hover {
+      .hp_banner_pause {
         opacity: 1;
       }
     }
@@ -103,7 +103,7 @@
       text-align: center;
 
       opacity: 0;
-      transition: opacity .3s ease-in-out;
+      transition: opacity 0.3s ease-in-out;
 
       path {
         transition: fill 0.3s ease;

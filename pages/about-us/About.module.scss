@@ -1,17 +1,17 @@
-.about{
-    padding-bottom: rem(64);
-    
-    &_text{
-        font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
-        
-        p{
-            margin-bottom: rem(16);
-        }
-    }
+.about {
+  padding-bottom: rem(64);
 
-    &_image{
-        img{
-            margin: auto;
-        }
+  &_text {
+    font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
+
+    p {
+      margin-bottom: rem(16);
     }
+  }
+
+  &_image {
+    img {
+      margin: auto;
+    }
+  }
 }
