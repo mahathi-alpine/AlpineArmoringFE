@@ -217,7 +217,7 @@ const Design = (props) => {
                   Read More
                 </div>
 
-                {item.image.data.attributes ? (
+                {item.image?.data?.attributes ? (
                   <div
                     className={`${styles.design_armor_image} observe fade-in`}
                   >
