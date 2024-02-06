@@ -10,7 +10,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const bannerDescription = props.description;
 
   let mediaElement;
-  if (bannerMimeType.split('/')[0] === 'image') {
+  if (bannerMimeType?.split('/')[0] === 'image') {
     mediaElement = (
       <Image
         src={`${bannerImage}`}
@@ -21,7 +21,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         priority
       />
     );
-  } else if (bannerMimeType.startsWith('video')) {
+  } else if (bannerMimeType?.startsWith('video')) {
     mediaElement = (
       <video autoPlay muted loop className={`${styles.banner_media}`}>
         <source src={`${bannerImage}`} type={bannerMimeType} />

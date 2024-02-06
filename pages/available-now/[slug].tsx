@@ -329,9 +329,9 @@ function InventoryVehicle(props) {
         <div className={`${styles.inventory_form_inner} container_small`}>
           <div className={`${styles.inventory_form_left}`}>
             <h4 className={`${styles.inventory_form_heading}`}>
-              Your inquiry about this ready-to-ship&nbsp;
-              <strong>{data.title}</strong>
-              &nbsp;- VIN {data.VIN}
+              You are inquiring about this ready-to-ship <br />
+              <strong>{data.title}</strong> <br />
+              Vehicle ID: <span>{data.vehicleID}</span>
             </h4>
 
             {data.featuredImage.data ? (

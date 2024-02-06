@@ -53,6 +53,12 @@ function About(props) {
         ) : null}
       </div>
 
+      <div className={`${styles.about_text2} container_small`}>
+        {props.pageData?.text2 ? (
+          <Markdown>{props.pageData.text2}</Markdown>
+        ) : null}
+      </div>
+
       <FillingText data={props.pageData?.quote} dark />
 
       <div className={`${styles.about_image} container_small`}>

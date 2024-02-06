@@ -514,6 +514,12 @@
       text-align: center;
       @include breakpoint(large) {
         text-align: left;
+        font-size: 19px;
+        line-height: 1.2;
+      }
+
+      span{
+        color: var(--color-primary);
       }
     }
 

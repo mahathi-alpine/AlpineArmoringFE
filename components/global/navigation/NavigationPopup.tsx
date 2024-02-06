@@ -29,10 +29,10 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const linksRight = [
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
-    { path: '/design-and-engineering', text: 'Design and Engineering' },
+    { path: '/design-and-engineering', text: 'Design & Engineering' },
     { path: '/manufacturing', text: 'Manufacturing' },
-    { path: '/shipping-and-logistics', text: 'Shipping and Logistics' },
-    { path: '/parts-and-accessories', text: 'Parts and Accessories' },
+    { path: '/shipping-and-logistics', text: 'Shipping & Logistics' },
+    { path: '/parts-and-accessories', text: 'Parts & Accessories' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/contact', text: 'Contact' },
   ];

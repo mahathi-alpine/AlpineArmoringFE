@@ -2,10 +2,30 @@
   padding-bottom: rem(64);
 
   &_text {
+    padding-top: rem(64);
     font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
 
+    font-size: 27px;
+    // font-weight: 300;
+
     p {
-      margin-bottom: rem(16);
+      margin-bottom: rem(32);
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &_text2 {
+    padding-top: rem(32);
+    font-size: 18px;
+    // font-weight: 300;
+
+    p {
+      margin-bottom: rem(32);
+      &:last-child{
+        margin-bottom: 0;
+      }
     }
   }
 
