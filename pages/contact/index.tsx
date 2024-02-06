@@ -64,10 +64,7 @@ function Contact(props) {
   return (
     <div className={`${styles.contact}`}>
       {props.pageData?.banner ? (
-        <>
-          <Banner props={props.pageData.banner} center />
-          <div className="shape-before shape-before-white"></div>
-        </>
+        <Banner props={props.pageData.banner} center shape="white" />
       ) : null}
       <div className={`${styles.contact_main} container_small`}>
         <div className={`${styles.contact_main_left}`}>
@@ -81,6 +78,7 @@ function Contact(props) {
               {props.pageData.formDescription}
             </Markdown>
           ) : null} */}
+
           <Form />
         </div>
         <div className={`${styles.contact_main_right}`}>

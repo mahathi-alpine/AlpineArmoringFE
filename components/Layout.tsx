@@ -54,13 +54,18 @@ const Layout = ({ children }) => {
   const pathsDarkHeader = [
     '/vehicles-we-armor',
     '/contact',
+    '/about-us',
     '/design-and-engineering',
   ];
+  const pathsDarkFooter = ['/manufacturing'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)
   );
   const isDarkHeader = pathsDarkHeader.some((path) =>
+    router.pathname.startsWith(path)
+  );
+  const isDarkFooter = pathsDarkFooter.some((path) =>
     router.pathname.startsWith(path)
   );
   const isPadding0 = router.pathname === '/';
@@ -103,7 +108,7 @@ const Layout = ({ children }) => {
 
         {children}
 
-        <Footer isDarkMode={isDarkMode} />
+        <Footer isDarkMode={isDarkFooter} />
       </div>
     </>
   );

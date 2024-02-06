@@ -21,7 +21,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();
 
   const links = [
-    { path: '/about', text: 'About Us' },
+    { path: '/about-us', text: 'About Us' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
     { path: '/available-now', text: 'Available Now' },
   ];

@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
+
 const Markdown = dynamic(() => import('markdown-to-jsx'));
 const ComparisonSlider = dynamic(
   () => import('components/global/comparison-slider/ComparisonSlider')
@@ -20,6 +21,7 @@ const VideoScale = dynamic(
   () => import('components/global/video-scale/VideoScale')
 );
 import { animateVideo } from 'components/global/video-scale/VideoScale';
+const Form = dynamic(() => import('components/global/form/Form'));
 
 function Vehicle(props) {
   const data = props.data?.data[0]?.attributes;
@@ -65,6 +67,11 @@ function Vehicle(props) {
     {
       id: 5,
       titleNav: 'Gallery',
+    },
+    {
+      id: 6,
+      titleNav: 'Request a quote',
+      button: true,
     },
   ];
 
@@ -267,6 +274,13 @@ function Vehicle(props) {
           ></iframe>
         </div>
       ) : null}
+
+      <div
+        id="request-a-quote"
+        className={`${styles.slug_form} container_small`}
+      >
+        <Form />
+      </div>
     </div>
   );
 }

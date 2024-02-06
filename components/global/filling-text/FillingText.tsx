@@ -2,9 +2,13 @@ import styles from './FillingText.module.scss';
 import { useRef } from 'react';
 import useEffectOnce from 'hooks/useEffectOnce';
 
-const FillingText = (props) => {
-  const fillingTextRef = useRef(null);
+const FillingText = ({ data, dark = false }) => {
+  // console.log(data)
   // return null;
+  const fillingTextRef = useRef(null);
+
+  const title = data.title;
+  const text = data.text || data;
 
   useEffectOnce(() => {
     let spans = [];
@@ -52,22 +56,26 @@ const FillingText = (props) => {
   });
 
   return (
-    <div className={`${styles.fillingText} notranslate container`}>
-      {/* <TextReveal text="Alpine" /> */}
+    <div
+      className={`
+      ${styles.fillingText} notranslate container
+      ${dark ? styles.fillingText_dark : ''}
 
+    `}
+    >
       <div className={`${styles.fillingText_content}`}>
-        {props.subtitle ? (
+        {title ? (
           <h3
             className={`${styles.fillingText_subheading} observe block-reveal`}
           >
-            <span dangerouslySetInnerHTML={{ __html: props.subtitle }}></span>
+            <span dangerouslySetInnerHTML={{ __html: title }}></span>
           </h3>
         ) : null}
 
-        {props.text ? (
+        {text ? (
           <p
             className={`${styles.fillingText_text} observe`}
-            dangerouslySetInnerHTML={{ __html: props.text }}
+            dangerouslySetInnerHTML={{ __html: text }}
             ref={fillingTextRef}
           ></p>
         ) : null}

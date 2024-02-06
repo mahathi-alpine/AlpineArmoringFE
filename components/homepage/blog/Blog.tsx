@@ -9,7 +9,9 @@ const Blog = (props) => {
     <div className={`${styles.blog}`}>
       <div className={`${styles.blog_inner} container_small`}>
         <div className={`${styles.blog_heading}`}>
-          <h3 className={`${styles.blog_heading_secondary} observe fade-in-up`}>
+          <h3
+            className={`${styles.blog_heading_secondary} block-reveal observe`}
+          >
             News
           </h3>
           <h2 className={`${styles.blog_heading_primary} observe fade-in-up`}>

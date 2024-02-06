@@ -34,8 +34,7 @@ function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
   const topBanner = data?.topBanner;
-  const hpIntroTextSubtitle = data?.hpIntroTextSubtitle;
-  const hpIntroText = data?.hpIntroText;
+  const quote = data?.quote;
   const categoriesData = categories?.data;
   const hpMiddleText = data?.hpMiddleText;
   const tabSectionData = data?.tabSection;
@@ -80,7 +79,7 @@ function Home({ homepageData, categories }) {
       ) : null}
 
       <div className="background-dark">
-        <FillingText text={hpIntroText} subtitle={hpIntroTextSubtitle} />
+        <FillingText data={quote} />
 
         {categoriesData && (
           <Categories
@@ -89,7 +88,7 @@ function Home({ homepageData, categories }) {
           />
         )}
 
-        {hpMiddleText ? <FillingText text={hpMiddleText} /> : null}
+        {hpMiddleText ? <FillingText data={hpMiddleText} /> : null}
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
@@ -110,7 +109,7 @@ function Home({ homepageData, categories }) {
 }
 
 // export async function getServerSideProps({ req, res }) {
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const homepageData = await getPageData({
     route: 'homepage',
   });

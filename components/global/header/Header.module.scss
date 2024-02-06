@@ -19,7 +19,8 @@
     padding-bottom: rem(12);
   }
 
-  &_static {
+  &_static,
+  &_notSticky {
     position: absolute;
     transform: none !important;
   }

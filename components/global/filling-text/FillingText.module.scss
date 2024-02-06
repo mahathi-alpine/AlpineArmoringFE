@@ -1,8 +1,12 @@
 .fillingText {
   padding-top: rem(64);
   padding-bottom: rem(64);
-  color: white;
+  color: var(--color-white);
   overflow: hidden;
+
+  &_dark{
+    color: var(--color-text);
+  }
 
   @include breakpoint(medium) {
     padding-top: rem(100);

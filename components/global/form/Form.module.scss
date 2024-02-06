@@ -3,6 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     column-gap: 10px;
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   &_group {
@@ -27,6 +29,7 @@
 
     &::placeholder {
       font-weight: var(--font-regular);
+      color: var(--color-text);
     }
 
     .form_group.error & {

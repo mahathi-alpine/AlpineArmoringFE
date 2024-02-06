@@ -1,5 +1,5 @@
 import styles from './TabSlider.module.scss';
-import Link from 'next/link';
+// import Link from 'next/link';
 // import ChevronIcon from 'components/icons/Chevron';
 import { useEffect, useRef, useState } from 'react';
 
@@ -144,20 +144,16 @@ const TabSlider = ({
         <ul className={`${styles.tabSlider_nav}`} ref={navRef}>
           {props.map((item, index) => (
             <li
-              className={`${styles.tabSlider_nav_item}`}
+              className={`
+                ${styles.tabSlider_nav_item}
+                ${item.button ? styles.tabSlider_nav_item_cta : ''}
+              `}
               onClick={(event) => changeTab({ index, item }, event)}
               key={item.id}
             >
               {item.titleNav}
             </li>
           ))}
-          {sticky ? (
-            <li
-              className={`${styles.tabSlider_nav_item} ${styles.tabSlider_nav_item_cta}`}
-            >
-              <Link href="/contact">Request a quote</Link>
-            </li>
-          ) : null}
         </ul>
 
         <div className={`${styles.tabSlider_nav_glider}`} ref={gliderRef}></div>

@@ -439,4 +439,95 @@
   &_specs {
     padding-bottom: rem(60);
   }
+
+  &_form{
+    position: relative;
+    padding-top: rem(32);
+    padding-bottom: rem(64);
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    background: var(--color-background);
+    width: calc(100% - 32px);
+    margin: auto;
+    margin-top: rem(64);
+    color: var(--color-text);
+
+    @include breakpoint(medium) {
+      padding-top: rem(48);
+    }
+
+    @include breakpoint(large) {
+      padding-top: rem(64);
+      width: calc(100% - 128px);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+    }
+
+    @include breakpoint(huge) {
+      padding-top: rem(100);
+    }
+
+    &:before {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      left: -16px;
+      height: 16px;
+      width: 16px;
+      background: url('/assets/smallCurveBg.svg') no-repeat;
+      background-size: cover;
+      transform: rotate(-90deg);
+      @include breakpoint(large) {
+        left: -64px;
+        height: 64px;
+        width: 64px;
+      }
+    }
+    
+    &:after {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      right: -16px;
+      height: 16px;
+      width: 16px;
+      background: url('/assets/smallCurveBg.svg') no-repeat;
+      background-size: cover;
+      @include breakpoint(large) {
+        right: -64px;
+        height: 64px;
+        width: 64px;
+      }
+    }
+
+    &_inner{
+      @include breakpoint(large) {
+        display: flex;
+        gap: 64px;
+      }
+    }
+
+    &_heading{
+      margin-bottom: rem(16);
+      font-weight: var(--font-medium);
+      font-size: clamp(1.125rem, 1.0643rem + 0.2589vw, 1.375rem);   
+      text-align: center;
+      @include breakpoint(large) {
+        text-align: left;
+      }
+    }
+
+    img{
+      margin-bottom: rem(16);
+      border-radius: 16px;
+    }
+
+    &_left{
+      @include breakpoint(medium) {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+
+  }
 }

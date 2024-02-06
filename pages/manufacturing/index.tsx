@@ -53,10 +53,7 @@ function Manufacturing(props) {
 
       <section className={`${styles.manufacturing_section1} container_small`}>
         <div className={`${styles.manufacturing_filling}`}>
-          <FillingText
-            text={props.pageData?.section1Heading}
-            subtitle={props.pageData?.section1Title}
-          />
+          <FillingText data={props.pageData?.section1Heading} />
         </div>
 
         {/* {props.pageData?.section1Title ? (
@@ -140,10 +137,7 @@ function Manufacturing(props) {
 
           {props.pageData?.section2Heading ? (
             <div className={`${styles.manufacturing_filling}`}>
-              <FillingText
-                text={props.pageData?.section2Heading}
-                subtitle={props.pageData?.section2Title}
-              />
+              <FillingText data={props.pageData?.section2Heading} />
             </div>
           ) : null}
 
@@ -211,10 +205,7 @@ function Manufacturing(props) {
           ) : null} */}
 
           <div className={`${styles.manufacturing_filling}`}>
-            <FillingText
-              text={props.pageData?.section3Heading}
-              subtitle={props.pageData?.section3Title}
-            />
+            <FillingText data={props.pageData?.section3Heading} />
           </div>
 
           <div className={`${styles.manufacturing_box}`}>

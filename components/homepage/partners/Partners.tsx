@@ -6,7 +6,7 @@ import { CldImage } from 'next-cloudinary';
 const Partners = (props) => {
   return (
     <div className={`${styles.partners} container`}>
-      <h2 className={`c-title observe fade-in-up`}>
+      <h2 className={`c-title block-reveal observe`}>
         <span>Industry Partners</span>
       </h2>
       <div className={`${styles.partners_wrap}`}>
