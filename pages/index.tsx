@@ -5,18 +5,13 @@ import dynamic from 'next/dynamic';
 // import { getCookie } from 'cookies-next';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
-
 const FillingText = dynamic(
   () => import('components/global/filling-text/FillingText')
 );
-const Categories = dynamic(
-  () => import('components/homepage/categories/Categories')
-);
-const TabSection = dynamic(
-  () => import('components/homepage/tab-section/TabSection')
-);
-const Blog = dynamic(() => import('components/homepage/blog/Blog'));
-const Partners = dynamic(() => import('components/homepage/partners/Partners'));
+import Categories from 'components/homepage/categories/Categories';
+import TabSection from 'components/homepage/tab-section/TabSection';
+import Blog from 'components/homepage/blog/Blog';
+import Partners from 'components/homepage/partners/Partners';
 const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
 );

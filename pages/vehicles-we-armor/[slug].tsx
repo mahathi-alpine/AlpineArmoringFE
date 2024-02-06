@@ -4,16 +4,12 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-
-const Markdown = dynamic(() => import('markdown-to-jsx'));
+import Markdown from 'markdown-to-jsx';
 const ComparisonSlider = dynamic(
   () => import('components/global/comparison-slider/ComparisonSlider')
 );
-const StickyHorizontalSlider = dynamic(
-  () =>
-    import('components/global/sticky-horizontal-slider/StickyHorizontalSlider')
-);
-const Image = dynamic(() => import('next/image'));
+import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
+import Image from 'next/image';
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')
 );
@@ -275,11 +271,28 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      <div
-        id="request-a-quote"
-        className={`${styles.slug_form} container_small`}
-      >
-        <Form />
+      <div className={`background-dark slug_form_wrap`}>
+        <div className={`slug_form`} id="request-a-quote">
+          <div className={`slug_form_inner container_small`}>
+            <div className={`slug_form_left`}>
+              <p className={`slug_form_heading`}>
+                You are inquiring about
+                <strong>{data.title}</strong>
+              </p>
+
+              {data.featuredImage.data ? (
+                <Image
+                  src={`${data.featuredImage.data.attributes.url}`}
+                  alt="Description of the image"
+                  width={500}
+                  height={400}
+                />
+              ) : null}
+            </div>
+
+            <Form />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -246,6 +246,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           ? '?' + router.asPath.split('?')[1]
                           : ''
                       }`;
+                      if (
+                        (baseUrl == '/vehicles-we-armor' &&
+                          item.attributes.title == 'Armored Rental') ||
+                        (baseUrl == '/vehicles-we-armor' &&
+                          item.attributes.title == 'Armored Pre-owned')
+                      ) {
+                        return;
+                      }
                       return (
                         <Link
                           href={newUrl}

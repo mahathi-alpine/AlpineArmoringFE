@@ -4,16 +4,14 @@ import { useEffect } from 'react';
 import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
-// import ChevronIcon from 'components/icons/Chevron';
 import Markdown from 'markdown-to-jsx';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Carousel from 'components/global/carousel/Carousel';
-const Form = dynamic(() => import('components/global/form/Form'));
+import Form from 'components/global/form/Form';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
@@ -325,26 +323,28 @@ function InventoryVehicle(props) {
         text2="ESV V-Series"
       />
 
-      <div className={`${styles.inventory_form}`} id="request-a-quote">
-        <div className={`${styles.inventory_form_inner} container_small`}>
-          <div className={`${styles.inventory_form_left}`}>
-            <h4 className={`${styles.inventory_form_heading}`}>
-              You are inquiring about this ready-to-ship <br />
-              <strong>{data.title}</strong> <br />
-              Vehicle ID: <span>{data.vehicleID}</span>
-            </h4>
+      <div className={`slug_form_wrap`} id="request-a-quote">
+        <div className={`slug_form`}>
+          <div className={`slug_form_inner container_small`}>
+            <div className={`slug_form_left`}>
+              <p className={`slug_form_heading`}>
+                You are inquiring about this ready-to-ship
+                <strong>{data.title}</strong>
+                Vehicle ID: <span>{data.vehicleID}</span>
+              </p>
 
-            {data.featuredImage.data ? (
-              <Image
-                src={`${data.featuredImage.data.attributes.url}`}
-                alt="Description of the image"
-                width={500}
-                height={400}
-              />
-            ) : null}
+              {data.featuredImage.data ? (
+                <Image
+                  src={`${data.featuredImage.data.attributes.url}`}
+                  alt="Description of the image"
+                  width={500}
+                  height={400}
+                />
+              ) : null}
+            </div>
+
+            <Form />
           </div>
-
-          <Form />
         </div>
       </div>
     </div>

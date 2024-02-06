@@ -29,7 +29,7 @@ const Banner = (props) => {
 
           <div className={`${styles.banner_buttons}`}>
             <Button
-              href="/contact"
+              href="#request-a-quote"
               className={`${styles.banner_buttons_item} primary shiny`}
             >
               Request a quote
