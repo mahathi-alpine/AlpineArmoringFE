@@ -109,7 +109,7 @@ function Home({ homepageData, categories }) {
 }
 
 // export async function getServerSideProps({ req, res }) {
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const homepageData = await getPageData({
     route: 'homepage',
   });
