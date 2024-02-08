@@ -274,7 +274,7 @@ const Form = () => {
     submitBtn.innerHTML = '';
     setTimeout(() => {
       submitBtn.classList.remove('submiting');
-      submitBtn.innerHTML = 'Done!';
+      submitBtn.innerHTML = 'Sent!';
     }, 2000);
     setTimeout(() => {
       setFullname('');
@@ -332,7 +332,7 @@ const Form = () => {
             )
           }
           placeholder="Full Name*"
-          required
+          // required
           className={`${styles.form_input}`}
         />
         <small className={`${styles.form_input_error}`}>
@@ -352,7 +352,7 @@ const Form = () => {
           }
           placeholder="Email*"
           className={`${styles.form_input}`}
-          required
+          // required
         />
         <small className={`${styles.form_input_error}`}>{errors.email}</small>
       </div>
@@ -369,7 +369,7 @@ const Form = () => {
           }
           placeholder="Phone Number*"
           className={`${styles.form_input}`}
-          required
+          // required
         />
         <small className={`${styles.form_input_error}`}>{errors.phone}</small>
       </div>

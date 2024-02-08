@@ -56,6 +56,7 @@ const Layout = ({ children }) => {
     '/contact',
     '/about-us',
     '/design-and-engineering',
+    '/shipping-and-logistics',
   ];
   const pathsDarkFooter = ['/manufacturing'];
 

@@ -2,9 +2,7 @@ import styles from './FillingText.module.scss';
 import { useRef } from 'react';
 import useEffectOnce from 'hooks/useEffectOnce';
 
-const FillingText = ({ data, dark = false }) => {
-  // console.log(data)
-  // return null;
+const FillingText = ({ data, dark = false, className = '' }) => {
   const fillingTextRef = useRef(null);
 
   const title = data.title;
@@ -58,10 +56,10 @@ const FillingText = ({ data, dark = false }) => {
   return (
     <div
       className={`
-      ${styles.fillingText} notranslate container
-      ${dark ? styles.fillingText_dark : ''}
-
-    `}
+        ${styles.fillingText} notranslate container
+        ${styles[className]}
+        ${dark ? styles.fillingText_dark : ''}
+      `}
     >
       <div className={`${styles.fillingText_content}`}>
         {title ? (

@@ -2,15 +2,13 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
-import dynamic from 'next/dynamic';
 import Markdown from 'markdown-to-jsx';
 import { CldImage } from 'next-cloudinary';
-
-const FillingText = dynamic(
-  () => import('components/global/filling-text/FillingText')
-);
+import Seo from 'components/Seo';
+import FillingText from 'components/global/filling-text/FillingText';
 
 function About(props) {
+  const seoData = props?.pageData?.seo;
   // console.log(props)
 
   useEffect(() => {
@@ -42,42 +40,48 @@ function About(props) {
   }, []);
 
   return (
-    <div className={`${styles.about}`}>
-      {props.pageData?.banner ? (
-        <Banner props={props.pageData.banner} center shape="white" />
-      ) : null}
+    <>
+      <Seo props={seoData} />
 
-      <div className={`${styles.about_text} container_small`}>
-        {props.pageData?.text ? (
-          <Markdown>{props.pageData.text}</Markdown>
+      <div className={`${styles.about}`}>
+        {props.pageData?.banner ? (
+          <Banner props={props.pageData.banner} center shape="white" />
         ) : null}
-      </div>
 
-      <div className={`${styles.about_text2} container_small`}>
-        {props.pageData?.text2 ? (
-          <Markdown>{props.pageData.text2}</Markdown>
+        <div className={`${styles.about_text} container_small`}>
+          {props.pageData?.text ? (
+            <Markdown>{props.pageData.text}</Markdown>
+          ) : null}
+        </div>
+
+        <div className={`${styles.about_text2} container_small`}>
+          {props.pageData?.text2 ? (
+            <Markdown>{props.pageData.text2}</Markdown>
+          ) : null}
+        </div>
+
+        {props.pageData?.quote ? (
+          <FillingText data={props.pageData?.quote} dark />
         ) : null}
-      </div>
 
-      <FillingText data={props.pageData?.quote} dark />
-
-      <div className={`${styles.about_image} container_small`}>
-        {props.pageData?.image1 ? (
-          <CldImage
-            src={
-              props.pageData.image1.data.attributes.formats?.large?.url ||
-              props.pageData.image1.data.attributes.url
-            }
-            alt={
-              props.pageData.image1.data.attributes.alternativeText ||
-              'Alpine Armoring'
-            }
-            width={1238}
-            height={346}
-          ></CldImage>
-        ) : null}
+        <div className={`${styles.about_image} container_small`}>
+          {props.pageData?.image1 ? (
+            <CldImage
+              src={
+                props.pageData.image1.data.attributes.formats?.large?.url ||
+                props.pageData.image1.data.attributes.url
+              }
+              alt={
+                props.pageData.image1.data.attributes.alternativeText ||
+                'Alpine Armoring'
+              }
+              width={1238}
+              height={346}
+            ></CldImage>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

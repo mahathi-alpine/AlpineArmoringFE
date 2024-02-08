@@ -15,6 +15,7 @@ type FiltersProps = {
 const Filters = ({ props, plain }: FiltersProps) => {
   const [query, setQuery] = useState('');
   const handleSearch = async () => {
+    setFiltersOpen(false);
     router.push(
       {
         pathname: router.pathname,

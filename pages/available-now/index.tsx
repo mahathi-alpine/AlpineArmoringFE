@@ -5,16 +5,11 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
+import Seo from 'components/Seo';
 
 function Inventory(props) {
   const topBanner = props.pageData?.banner;
-
-  // useEffect(() => {
-  //   document.body.classList.add('listing-inventory', 'background-dark');
-  //   return () => {
-  //     document.body.classList.remove('listing-inventory', 'background-dark');
-  //   };
-  // }, []);
+  const seoData = props.pageData?.seo;
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -45,29 +40,33 @@ function Inventory(props) {
   }, []);
 
   return (
-    <div className={`${styles.listing} background-dark`}>
-      {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
+    <>
+      <Seo props={seoData} />
 
-      <div
-        className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
-      >
-        {props.filters.type ? <Filters props={props.filters} /> : null}
+      <div className={`${styles.listing} background-dark`}>
+        {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
-        {props.vehicles.data ? (
-          <div className={`${styles.listing_list}`}>
-            {props.vehicles.data && props.vehicles.data.length > 0 ? (
-              props.vehicles.data.map((item) => (
-                <InventoryItem key={item.id} props={item} />
-              ))
-            ) : (
-              <div className={`${styles.listing_list_error}`}>
-                No Vehicles Found
-              </div>
-            )}
-          </div>
-        ) : null}
+        <div
+          className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
+        >
+          {props.filters.type ? <Filters props={props.filters} /> : null}
+
+          {props.vehicles.data ? (
+            <div className={`${styles.listing_list}`}>
+              {props.vehicles.data && props.vehicles.data.length > 0 ? (
+                props.vehicles.data.map((item) => (
+                  <InventoryItem key={item.id} props={item} />
+                ))
+              ) : (
+                <div className={`${styles.listing_list_error}`}>
+                  No Vehicles Found
+                </div>
+              )}
+            </div>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

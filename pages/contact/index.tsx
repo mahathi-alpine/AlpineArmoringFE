@@ -5,8 +5,11 @@ import Markdown from 'markdown-to-jsx';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
+import Seo from 'components/Seo';
 
 function Contact(props) {
+  const seoData = props.pageData?.seo;
+
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
@@ -62,46 +65,50 @@ function Contact(props) {
   ];
 
   return (
-    <div className={`${styles.contact}`}>
-      {props.pageData?.banner ? (
-        <Banner props={props.pageData.banner} center shape="white" />
-      ) : null}
-      <div className={`${styles.contact_main} container_small`}>
-        <div className={`${styles.contact_main_left}`}>
-          {/* {props.pageData?.formTitle ? (
-            <h2 className={`${styles.contact_main_left_title}`}>
-              {props.pageData.formTitle}
-            </h2>
-          ) : null}
-          {props.pageData?.formDescription ? (
-            <Markdown className={`${styles.contact_main_left_description}`}>
-              {props.pageData.formDescription}
-            </Markdown>
-          ) : null} */}
+    <>
+      <Seo props={seoData} />
 
-          <Form />
-        </div>
-        <div className={`${styles.contact_main_right}`}>
-          <div className={`${styles.contact_main_right_column}`}>
-            <h3 className={`${styles.contact_main_right_title}`}>
-              Sales Inquiries
-            </h3>
-            {props.pageData?.salesInfo ? (
-              <Markdown>{props.pageData.salesInfo}</Markdown>
+      <div className={`${styles.contact}`}>
+        {props.pageData?.banner ? (
+          <Banner props={props.pageData.banner} center shape="white" />
+        ) : null}
+        <div className={`${styles.contact_main} container_small`}>
+          <div className={`${styles.contact_main_left}`}>
+            {/* {props.pageData?.formTitle ? (
+              <h2 className={`${styles.contact_main_left_title}`}>
+                {props.pageData.formTitle}
+              </h2>
             ) : null}
+            {props.pageData?.formDescription ? (
+              <Markdown className={`${styles.contact_main_left_description}`}>
+                {props.pageData.formDescription}
+              </Markdown>
+            ) : null} */}
+
+            <Form />
           </div>
-          <div className={`${styles.contact_main_right_column}`}>
-            <h3 className={`${styles.contact_main_right_title}`}>
-              Parts & Service
-            </h3>
-            {props.pageData?.partsInfo ? (
-              <Markdown>{props.pageData.partsInfo}</Markdown>
-            ) : null}
+          <div className={`${styles.contact_main_right}`}>
+            <div className={`${styles.contact_main_right_column}`}>
+              <h3 className={`${styles.contact_main_right_title}`}>
+                Sales Inquiries
+              </h3>
+              {props.pageData?.salesInfo ? (
+                <Markdown>{props.pageData.salesInfo}</Markdown>
+              ) : null}
+            </div>
+            <div className={`${styles.contact_main_right_column}`}>
+              <h3 className={`${styles.contact_main_right_title}`}>
+                Parts & Service
+              </h3>
+              {props.pageData?.partsInfo ? (
+                <Markdown>{props.pageData.partsInfo}</Markdown>
+              ) : null}
+            </div>
           </div>
         </div>
+        <Accordion items={faq} title="Frequently asked questions" />
       </div>
-      <Accordion items={faq} title="Frequently asked questions" />;
-    </div>
+    </>
   );
 }
 

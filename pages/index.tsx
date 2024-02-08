@@ -3,11 +3,10 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import dynamic from 'next/dynamic';
 // import { getCookie } from 'cookies-next';
+import Seo from 'components/Seo';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
-const FillingText = dynamic(
-  () => import('components/global/filling-text/FillingText')
-);
+import FillingText from 'components/global/filling-text/FillingText';
 import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/homepage/tab-section/TabSection';
 import Blog from 'components/homepage/blog/Blog';
@@ -28,6 +27,7 @@ const VideosPopup = dynamic(
 function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
+  const seoData = data?.seo;
   const topBanner = data?.topBanner;
   const quote = data?.quote;
   const categoriesData = categories?.data;
@@ -68,13 +68,15 @@ function Home({ homepageData, categories }) {
 
   return (
     <>
+      <Seo props={seoData} />
+
       {topBanner ? (
         // <HpBanner props={topBanner} languageCookie={languageCookie} />
         <HpBanner props={topBanner} />
       ) : null}
 
       <div className="background-dark">
-        <FillingText data={quote} />
+        {quote ? <FillingText className="padding" data={quote} /> : null}
 
         {categoriesData && (
           <Categories
@@ -83,7 +85,9 @@ function Home({ homepageData, categories }) {
           />
         )}
 
-        {hpMiddleText ? <FillingText data={hpMiddleText} /> : null}
+        {hpMiddleText ? (
+          <FillingText className="padding" data={hpMiddleText} />
+        ) : null}
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
@@ -107,6 +111,7 @@ function Home({ homepageData, categories }) {
 export async function getServerSideProps() {
   const homepageData = await getPageData({
     route: 'homepage',
+    // populate: 'deep',
   });
 
   const categories = await getPageData({

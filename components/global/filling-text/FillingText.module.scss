@@ -4,23 +4,19 @@
   color: var(--color-white);
   overflow: hidden;
 
+  &.padding{
+    @include breakpoint(large) {
+      padding-top: rem(100);
+      padding-bottom: rem(100);
+    }    
+    @include breakpoint(huge) {
+      padding-top: rem(140);
+      padding-bottom: rem(140);
+    } 
+  }
+
   &_dark {
     color: var(--color-text);
-  }
-
-  @include breakpoint(medium) {
-    padding-top: rem(100);
-    padding-bottom: rem(100);
-  }
-
-  @include breakpoint(large) {
-    padding-top: rem(140);
-    padding-bottom: rem(140);
-  }
-
-  @include breakpoint(huge) {
-    padding-top: rem(180);
-    padding-bottom: rem(180);
   }
 
   &_text {

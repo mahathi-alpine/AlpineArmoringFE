@@ -112,12 +112,12 @@ const Blog = (props) => {
           })}
         </div>
 
-        <div className={`${styles.blog_button} observe fade-in-up`}>
+        <div className={`${styles.blog_button}`}>
           <Button
             href={`/blog`}
             className={`${styles.blog_button_link} rounded primary`}
           >
-            See All Blog Posts
+            See All News
           </Button>
         </div>
       </div>

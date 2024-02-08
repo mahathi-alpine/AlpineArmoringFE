@@ -112,12 +112,12 @@
     margin-bottom: rem(24);
 
     @include breakpoint(large) {
-      width: 63%;
-      max-width: 900px;
+      width: 73%;
+      max-width: 1050px;
     }
     @include breakpoint(huge) {
-      width: 51%;
-      max-width: 1000px;
+      width: 61%;
+      max-width: 1160px;  
     }
 
     &_top {

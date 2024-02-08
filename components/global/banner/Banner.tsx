@@ -4,7 +4,7 @@ import { BannerProps } from 'types';
 import Image from 'next/image';
 
 const TopBanner = ({ props, shape, center, small }: BannerProps) => {
-  const bannerImage = props.media.data?.attributes.url;
+  const bannerImage = props.media.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
   const bannerDescription = props.description;
@@ -12,19 +12,25 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   let mediaElement;
   if (bannerMimeType?.split('/')[0] === 'image') {
     mediaElement = (
-      <Image
-        src={`${bannerImage}`}
-        alt="Description of the image"
-        width={1920}
-        height={600}
-        className={`${styles.banner_media}`}
-        priority
-      />
+      <picture>
+        <source
+          media="(min-width: 768px)"
+          srcSet={bannerImage.formats?.xlarge?.url || bannerImage.url}
+        />
+        <Image
+          src={`${bannerImage.formats?.small?.url || bannerImage.url}`}
+          alt={bannerImage.alternativeText}
+          width={bannerImage.width}
+          height={bannerImage.height}
+          className={`${styles.banner_media}`}
+          priority
+        />
+      </picture>
     );
   } else if (bannerMimeType?.startsWith('video')) {
     mediaElement = (
       <video autoPlay muted loop className={`${styles.banner_media}`}>
-        <source src={`${bannerImage}`} type={bannerMimeType} />
+        <source src={`${bannerImage.url}`} type={bannerMimeType} />
       </video>
     );
   }

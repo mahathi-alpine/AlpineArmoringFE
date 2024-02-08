@@ -5,12 +5,15 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
+import Seo from 'components/Seo';
 
 function Inventory(props) {
   let topBanner = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
   topBanner = topBanner?.attributes.inventoryBanner;
+
+  const seoData = props?.seo;
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -41,29 +44,33 @@ function Inventory(props) {
   }, []);
 
   return (
-    <div className={`${styles.listing} background-dark`}>
-      {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
+    <>
+      <Seo props={seoData} />
 
-      <div
-        className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
-      >
-        {props.filters.type ? <Filters props={props.filters} /> : null}
+      <div className={`${styles.listing} background-dark`}>
+        {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
-        {props.vehicles.data?.length < 1 ? (
-          <div className={`${styles.listing_empty}`}>
-            <h2>No Vehicles Found</h2>
-          </div>
-        ) : null}
+        <div
+          className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
+        >
+          {props.filters.type ? <Filters props={props.filters} /> : null}
 
-        {props.vehicles.data ? (
-          <div className={`${styles.listing_list}`}>
-            {props.vehicles.data.map((item) => (
-              <InventoryItem key={item.id} props={item} />
-            ))}
-          </div>
-        ) : null}
+          {props.vehicles.data?.length < 1 ? (
+            <div className={`${styles.listing_empty}`}>
+              <h2>No Vehicles Found</h2>
+            </div>
+          ) : null}
+
+          {props.vehicles.data ? (
+            <div className={`${styles.listing_list}`}>
+              {props.vehicles.data.map((item) => (
+                <InventoryItem key={item.id} props={item} />
+              ))}
+            </div>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
