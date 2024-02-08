@@ -492,6 +492,11 @@ button.yarl__navigation_prev {
       display: flex;
       align-items: center;
       gap: 64px;
+
+      .slug_form_plain &{
+        max-width: 1528px;
+        align-items: flex-start;
+      }
     }
   }
 
@@ -500,8 +505,14 @@ button.yarl__navigation_prev {
     font-weight: var(--font-medium);
     font-size: clamp(1rem, 0.9545rem + 0.1942vw, 1.1875rem);
     text-align: center;
-    @include breakpoint(large) {
-      text-align: left;
+
+    .slug_form_plain &{
+      font-size: clamp(1rem, 0.8635rem + 0.5825vw, 1.5625rem);
+      @include breakpoint(large) {
+        .slug_form_plain &{
+          margin-bottom: rem(40);
+        }
+      }
     }
 
     strong {
@@ -515,6 +526,7 @@ button.yarl__navigation_prev {
   }
 
   img {
+    margin: auto;
     margin-bottom: rem(16);
     border-radius: 16px;
   }
@@ -523,6 +535,11 @@ button.yarl__navigation_prev {
     @include breakpoint(medium) {
       max-width: 500px;
       margin: 0 auto;
+
+      .slug_form_plain &{
+        max-width: 700px;
+        flex: 1;
+      }
     }
   }
 }

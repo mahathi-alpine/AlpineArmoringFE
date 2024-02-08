@@ -272,8 +272,8 @@ function Vehicle(props) {
       ) : null}
 
       <div className={`background-dark slug_form_wrap`}>
-        <div className={`slug_form`} id="request-a-quote">
-          <div className={`slug_form_inner container_small`}>
+        <div className={`slug_form slug_form_plain`} id="request-a-quote">
+          <div className={`slug_form_inner container`}>
             <div className={`slug_form_left`}>
               <p className={`slug_form_heading`}>
                 You are inquiring about
@@ -284,7 +284,7 @@ function Vehicle(props) {
                 <Image
                   src={`${data.featuredImage.data.attributes.url}`}
                   alt="Description of the image"
-                  width={500}
+                  width={600}
                   height={400}
                 />
               ) : null}
