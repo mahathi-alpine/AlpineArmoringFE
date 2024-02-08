@@ -70,7 +70,7 @@ const Banner = (props) => {
         </div>
 
         {data.featuredImage?.data ? (
-          <div className={`${styles.banner_image_wrap} observe fade-in-right`}>
+          <div className={`${styles.banner_image_wrap} observe fade-in`}>
             <CldImage
               src={
                 data.featuredImage.data.attributes.formats?.large?.url ||
