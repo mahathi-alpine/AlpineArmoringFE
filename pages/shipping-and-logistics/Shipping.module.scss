@@ -1,6 +1,5 @@
 .shipping {
-
-  &_tabs{
+  &_tabs {
     position: relative;
     // z-index: 99;
     color: var(--color-white);
@@ -9,7 +8,7 @@
       top: rem(-127);
     }
 
-    &>div>div{
+    & > div > div {
       display: none;
     }
   }
@@ -18,7 +17,7 @@
     display: block;
     margin-top: rem(24);
     font-weight: var(--font-medium);
-    font-size: clamp(1rem, 0.7573rem + 1.0356vw, 2rem); 
+    font-size: clamp(1rem, 0.7573rem + 1.0356vw, 2rem);
     text-align: center;
     @include breakpoint(medium) {
       margin-top: rem(-40);
@@ -33,7 +32,6 @@
   }
 
   &_box {
-
     &_wrap {
       margin-top: rem(100);
       @include breakpoint(medium) {
@@ -44,7 +42,6 @@
         max-width: 1920px;
         margin: 0 auto;
         padding: 0 rem(32);
-
       }
     }
 
@@ -88,11 +85,11 @@
           font-size: rem(15);
         }
 
-        p{
+        p {
           margin-bottom: rem(8);
         }
 
-        a{
+        a {
           color: var(--color-primary);
           font-weight: var(--font-medium);
         }
@@ -111,7 +108,7 @@
         flex-flow: row-reverse;
       }
 
-      &_shape{
+      &_shape {
         background: var(--color-background);
         // @include breakpoint(large) {
         //   position: absolute;
@@ -121,7 +118,7 @@
     }
   }
 
-  &_license{
+  &_license {
     margin-bottom: rem(64);
 
     @include breakpoint(medium) {
@@ -136,50 +133,50 @@
       justify-content: center;
       gap: 64px;
 
-      &>div{
+      & > div {
         flex: 1;
       }
     }
 
-    &_title{
+    &_title {
       margin-bottom: rem(16);
       font-size: clamp(1.625rem, 1.4733rem + 0.6472vw, 2.25rem);
     }
 
-    &_text{  
+    &_text {
       margin-bottom: rem(32);
       font-weight: var(--font-medium);
       font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
-      p{
+      p {
         margin-bottom: rem(8);
       }
 
-      a{
+      a {
         color: var(--color-primary);
       }
 
-      ul{
+      ul {
         margin-left: 20px;
         list-style: disc;
 
-        li{
+        li {
           margin-bottom: rem(8);
         }
       }
     }
 
-    &_left{
+    &_left {
       @include breakpoint(medium) {
         max-width: 700px;
       }
     }
 
-    &_right{
+    &_right {
       @include breakpoint(medium) {
         max-width: 430px;
       }
 
-      &_description{
+      &_description {
         margin-bottom: rem(16);
         padding: rem(8);
         background: var(--color-primary);
@@ -189,14 +186,14 @@
       }
     }
 
-    &_downloads{
+    &_downloads {
       display: flex;
       justify-content: space-between;
       font-size: rem(14);
       font-weight: var(--font-medium);
       letter-spacing: -0.5px;
 
-      &>a{
+      & > a {
         display: flex;
         align-items: center;
         gap: 4px;
@@ -205,7 +202,7 @@
         }
       }
 
-      svg{
+      svg {
         width: 30px;
         height: 30px;
         @include breakpoint(medium) {
@@ -214,10 +211,9 @@
         }
       }
 
-      span{
+      span {
         display: block;
       }
     }
-
   }
 }
