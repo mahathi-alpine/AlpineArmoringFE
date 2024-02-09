@@ -1,40 +1,83 @@
 .shipping {
+
+  &_tabs{
+    position: relative;
+    // z-index: 99;
+    color: var(--color-white);
+    top: rem(-80);
+    @include breakpoint(large) {
+      top: rem(-127);
+    }
+
+    &>div>div{
+      display: none;
+    }
+  }
+
+  &_heading {
+    display: block;
+    margin-top: rem(24);
+    font-weight: var(--font-medium);
+    font-size: clamp(1rem, 0.7573rem + 1.0356vw, 2rem); 
+    text-align: center;
+    @include breakpoint(medium) {
+      margin-top: rem(-40);
+    }
+    @include breakpoint(large) {
+      margin-bottom: rem(80);
+    }
+    @include breakpoint(huge) {
+      // margin-top: rem(100);
+      margin-bottom: rem(140);
+    }
+  }
+
   &_box {
+
     &_wrap {
-      margin-top: rem(64);
+      margin-top: rem(100);
+      @include breakpoint(medium) {
+        padding: 0 rem(16);
+      }
+
+      @include breakpoint(large) {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 0 rem(32);
+
+      }
     }
 
     &_item {
-      margin-bottom: rem(48);
-      background: var(--color-dark);
-      border-radius: 16px;
-      color: var(--color-white);
-      overflow: hidden;
+      margin-bottom: rem(100);
+
+      @include breakpoint(medium) {
+        margin-bottom: rem(130);
+      }
 
       @include breakpoint(large) {
         display: flex;
         margin-bottom: rem(64);
+        border-radius: 16px;
+        overflow: hidden;
       }
 
       &_content {
-        padding: rem(32) rem(20);
+        padding: rem(8) rem(16) rem(32) rem(16);
         @include breakpoint(medium) {
-          padding: rem(64) rem(48);
+          padding: rem(24) rem(48) rem(48) rem(48);
         }
         @include breakpoint(large) {
           padding: rem(80) rem(64);
         }
         @include breakpoint(huge) {
-          padding: rem(100) rem(80);
+          padding: rem(80);
         }
       }
 
       &_title {
         margin-bottom: rem(16);
-        font-size: rem(24);
-        @include breakpoint(medium) {
-          font-size: rem(32);
-        }
+        font-size: clamp(1.625rem, 1.4733rem + 0.6472vw, 2.25rem);
       }
 
       &_text {
@@ -43,6 +86,15 @@
         color: rgba(250, 250, 250, 0.9);
         @include breakpoint(medium) {
           font-size: rem(15);
+        }
+
+        p{
+          margin-bottom: rem(8);
+        }
+
+        a{
+          color: var(--color-primary);
+          font-weight: var(--font-medium);
         }
       }
 
@@ -58,6 +110,114 @@
       &:nth-child(2n) {
         flex-flow: row-reverse;
       }
+
+      &_shape{
+        background: var(--color-background);
+        // @include breakpoint(large) {
+        //   position: absolute;
+        //   width: 100%;
+        // }
+      }
     }
+  }
+
+  &_license{
+    margin-bottom: rem(64);
+
+    @include breakpoint(medium) {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+    }
+
+    @include breakpoint(large) {
+      margin-top: rem(140);
+      flex-flow: row;
+      justify-content: center;
+      gap: 64px;
+
+      &>div{
+        flex: 1;
+      }
+    }
+
+    &_title{
+      margin-bottom: rem(16);
+      font-size: clamp(1.625rem, 1.4733rem + 0.6472vw, 2.25rem);
+    }
+
+    &_text{  
+      margin-bottom: rem(32);
+      font-weight: var(--font-medium);
+      font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
+      p{
+        margin-bottom: rem(8);
+      }
+
+      a{
+        color: var(--color-primary);
+      }
+
+      ul{
+        margin-left: 20px;
+        list-style: disc;
+
+        li{
+          margin-bottom: rem(8);
+        }
+      }
+    }
+
+    &_left{
+      @include breakpoint(medium) {
+        max-width: 700px;
+      }
+    }
+
+    &_right{
+      @include breakpoint(medium) {
+        max-width: 430px;
+      }
+
+      &_description{
+        margin-bottom: rem(16);
+        padding: rem(8);
+        background: var(--color-primary);
+        color: var(--color-white);
+        font-size: rem(14);
+        text-align: center;
+      }
+    }
+
+    &_downloads{
+      display: flex;
+      justify-content: space-between;
+      font-size: rem(14);
+      font-weight: var(--font-medium);
+      letter-spacing: -0.5px;
+
+      &>a{
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        @include breakpoint(medium) {
+          gap: 8px;
+        }
+      }
+
+      svg{
+        width: 30px;
+        height: 30px;
+        @include breakpoint(medium) {
+          width: 34px;
+          height: 34px;
+        }
+      }
+
+      span{
+        display: block;
+      }
+    }
+
   }
 }
