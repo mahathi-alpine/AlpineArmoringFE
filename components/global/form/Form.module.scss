@@ -29,7 +29,7 @@
 
     &::placeholder {
       font-weight: var(--font-regular);
-      color: var(--color-text);
+      color: var(--color-secondary);
     }
 
     .form_group.error & {
@@ -64,7 +64,7 @@
       align-items: center;
       width: 100%;
       cursor: pointer;
-      color: var(--color-black);
+      color: var(--color-dark);
 
       span {
         white-space: nowrap;
@@ -80,14 +80,14 @@
         transition: transform 0.3s ease-in-out;
 
         path {
-          fill: var(--color-text);
+          fill: var(--color-secondary);
         }
       }
     }
 
     &_placeholder {
       font-weight: var(--font-regular);
-      color: var(--color-text);
+      color: var(--color-secondary);
     }
 
     &_active {

@@ -99,7 +99,7 @@
 
       @include breakpoint(small) {
         &_active {
-          background-color: var(--color-black);
+          background-color: var(--color-dark);
         }
       }
 
@@ -125,7 +125,7 @@
         position: absolute;
         display: flex;
         // background-color: var(--color-gray3);
-        background-color: var(--color-black);
+        background-color: var(--color-dark);
         z-index: 1;
         border-radius: 99px;
         transition:

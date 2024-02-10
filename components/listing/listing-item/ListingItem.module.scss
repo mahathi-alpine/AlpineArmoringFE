@@ -113,7 +113,7 @@
     background: var(--color-grayLight);
     font-weight: var(--font-medium);
     font-size: rem(13);
-    color: var(--color-text);
+    color: var(--color-secondary);
     border-radius: 4px;
 
     @include breakpoint(medium) {

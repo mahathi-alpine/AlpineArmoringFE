@@ -258,8 +258,8 @@ const Form = () => {
     setErrors({ ...errors, [field]: errorMessage });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
 
     const newErrors = {
       fullname: validateFullname(fullname),
@@ -269,25 +269,33 @@ const Form = () => {
 
     setErrors(newErrors);
 
-    const submitBtn = document.querySelector('.submitButton');
-    submitBtn.classList.add('submiting');
-    submitBtn.innerHTML = '';
-    setTimeout(() => {
-      submitBtn.classList.remove('submiting');
-      submitBtn.innerHTML = 'Sent!';
-    }, 2000);
-    setTimeout(() => {
-      setFullname('');
-      setEmail('');
-      setPhone('');
-      setMobile('');
-      setCompany('');
-      setInquiry('');
-      setCountry('');
-      setPreferredContact('');
-      setMessage('');
-      submitBtn.innerHTML = 'Send message';
-    }, 4000);
+    console.log(Object.keys(newErrors).length);
+    console.log(errors);
+
+    const hasError = Object.values(newErrors).some((error) => error !== '');
+    if (!hasError) {
+      const submitBtn = document.querySelector('.submitButton');
+      submitBtn.classList.add('submiting');
+      submitBtn.innerHTML = '';
+      setTimeout(() => {
+        submitBtn.classList.remove('submiting');
+        submitBtn.innerHTML = 'Sent!';
+
+        setFullname('');
+        setEmail('');
+        setPhone('');
+        setMobile('');
+        setCompany('');
+        setInquiry('');
+        setCountry('');
+        setPreferredContact('');
+        setMessage('');
+      }, 1500);
+
+      setTimeout(() => {
+        submitBtn.innerHTML = 'Send message';
+      }, 3000);
+    }
 
     // console.log(fullname, email, phone, company, message, mobile);
 
@@ -313,7 +321,7 @@ const Form = () => {
   };
 
   return (
-    <form className={`${styles.form}`} onSubmit={handleSubmit}>
+    <div className={`${styles.form}`}>
       <div
         className={`${styles.form_group} ${
           errors.fullname ? styles.error : ''
@@ -487,6 +495,7 @@ const Form = () => {
       <div className={`${styles.form_submit} center`}>
         <Button
           button={true}
+          onClick={handleSubmit}
           className={`${styles.form_submit_button} submitButton primary rounded`}
           // style={{ ...styles.button, opacity: isFormValid ? 1 : 0.5 }}
           // disabled={!isFormValid}
@@ -494,7 +503,7 @@ const Form = () => {
           Send message
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 
