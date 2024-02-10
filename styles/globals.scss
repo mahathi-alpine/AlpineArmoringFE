@@ -75,37 +75,38 @@ small {
   display: block;
 }
 
-.static{
-  h2{
+.static {
+  h2 {
     margin-bottom: rem(16);
     font-size: 27px;
   }
-  ul, ol{
+  ul,
+  ol {
     margin-left: 20px;
   }
-  ol{
+  ol {
     list-style: num;
-    li{
+    li {
       margin-bottom: rem(16);
     }
     ::marker {
       font-weight: var(--font-demi);
     }
-    li>strong{
+    li > strong {
       font-size: 18px;
     }
   }
-  p{
+  p {
     margin-bottom: rem(24);
     font-size: clamp(1rem, 0.9697rem + 0.1294vw, 1.125rem);
   }
-  br{
+  br {
     display: block;
     margin: 10px 0;
-    content: "";
+    content: '';
   }
-  blockquote{
-    p{
+  blockquote {
+    p {
       font-size: rem(14);
     }
   }
