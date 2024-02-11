@@ -66,8 +66,8 @@ function InventoryVehicle(props) {
   // console.log(data)
   const topGallery = data.gallery?.data;
   const mainText = data.description;
-  const category = data.category.data.attributes.title;
-  const categorySlug = data.category.data.attributes.slug;
+  const category = data.category.data?.attributes.title;
+  const categorySlug = data.category.data?.attributes.slug;
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
@@ -318,7 +318,7 @@ function InventoryVehicle(props) {
       ) : null}
 
       <VideoScale
-        video={data.video.data.attributes.url}
+        video={data.video.data?.attributes.url}
         text1="Armored Cadillac"
         text2="ESV V-Series"
       />

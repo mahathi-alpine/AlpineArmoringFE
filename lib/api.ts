@@ -25,6 +25,7 @@ interface PageDataProps {
   order?: boolean;
   populate?: string;
   fields?: string;
+  limit?: number;
 }
 
 export async function getPageData({
@@ -32,15 +33,17 @@ export async function getPageData({
   params,
   order,
   populate,
+  limit,
   fields,
 }: PageDataProps) {
   const sort = order ? '&sort=order:asc' : '';
   const populateQuery = populate ? 'populate=' + populate : '';
   const fieldsQuery = fields ? '&' + fields : '';
+  const limitQuery = limit ? '&' + limit : '';
 
   const query = params
-    ? `/${route}?${params}&${populateQuery}${sort}${fieldsQuery}`
-    : `/${route}?${populateQuery}${sort}${fieldsQuery}`;
+    ? `/${route}?${params}&${populateQuery}${sort}${fieldsQuery}${limitQuery}`
+    : `/${route}?${populateQuery}${sort}${fieldsQuery}${limitQuery}`;
 
   const pagesData = await fetchAPI(`/api${query}`);
 

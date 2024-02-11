@@ -49,3 +49,10 @@ export interface NavigationProps {
   isNavOpen?: boolean;
   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+// export interface SearchResult {
+//   title: string,
+//   content: string,
+//   url: string,
+//   objectID: string
+// }

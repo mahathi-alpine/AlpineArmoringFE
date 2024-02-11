@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
+// import Search from 'components/global/search/Search';
 
 const Header = ({
   setNavOpen,
@@ -82,6 +83,7 @@ const Header = ({
           </Button>
 
           <SearchIcon className={`${styles.header_search} desktop-only`} />
+          {/* <Search /> */}
 
           <LanguageSwitcher className={`desktop-only`} />
 
