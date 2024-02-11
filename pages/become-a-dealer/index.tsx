@@ -10,7 +10,6 @@ function Dealer(props) {
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
-  //   console.log(content)
   //   return null;
 
   useEffect(() => {

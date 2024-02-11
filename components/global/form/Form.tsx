@@ -269,9 +269,6 @@ const Form = () => {
 
     setErrors(newErrors);
 
-    console.log(Object.keys(newErrors).length);
-    console.log(errors);
-
     const hasError = Object.values(newErrors).some((error) => error !== '');
     if (!hasError) {
       const submitBtn = document.querySelector('.submitButton');
