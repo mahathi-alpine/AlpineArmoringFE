@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 // import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import Logo from 'components/icons/Logo';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
@@ -9,7 +10,10 @@ import styles from './Header.module.scss';
 import { useEffect } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
-import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
+const LanguageSwitcher = dynamic(
+  () => import('components/global/lang-switcher/LangSwitcher')
+);
+// import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 // import Search from 'components/global/search/Search';
 
 const Header = ({

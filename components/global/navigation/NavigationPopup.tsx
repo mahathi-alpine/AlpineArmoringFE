@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { NavigationProps } from 'types';
 import styles from './NavigationPopup.module.scss';
+import dynamic from 'next/dynamic';
 
 import FacebookIcon from 'components/icons/Facebook';
 import TiktokIcon from 'components/icons/Tiktok';
@@ -15,7 +16,9 @@ import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
 import SearchIcon from 'components/icons/Search';
-import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
+const LanguageSwitcher = dynamic(
+  () => import('components/global/lang-switcher/LangSwitcher')
+);
 
 const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();

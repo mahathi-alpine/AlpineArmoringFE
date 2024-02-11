@@ -108,7 +108,7 @@ function Home({ homepageData, categories }) {
 }
 
 // export async function getServerSideProps({ req, res }) {
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const homepageData = await getPageData({
     route: 'homepage',
     // populate: 'deep',
