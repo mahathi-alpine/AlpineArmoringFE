@@ -7,7 +7,7 @@ import Image from 'next/image';
 function BlogSingle(props) {
   const data = props.data?.data[0]?.attributes;
   const categories = data?.categories?.data;
-  console.log(data);
+  //   console.log(data);
 
   const date = new Date(data?.publishedAt);
   const formattedDate = date.toLocaleString('en-GB', {
@@ -24,9 +24,9 @@ function BlogSingle(props) {
           All News
         </Link>
 
-        <h1 className={`${styles.blogSingle_title}`}>{data.title}</h1>
+        <h1 className={`${styles.blogSingle_title}`}>{data?.title}</h1>
 
-        {data.thumbnail.data?.attributes.url ? (
+        {data?.thumbnail.data?.attributes.url ? (
           <Image
             src={
               data.thumbnail.data.attributes.formats?.large?.url ||
