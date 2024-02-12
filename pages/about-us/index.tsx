@@ -3,7 +3,7 @@ import { getPageData } from 'lib/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Markdown from 'markdown-to-jsx';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 import Seo from 'components/Seo';
 import FillingText from 'components/global/filling-text/FillingText';
 
@@ -66,7 +66,7 @@ function About(props) {
 
         <div className={`${styles.about_image} container_small`}>
           {props.pageData?.image1 ? (
-            <CldImage
+            <Image
               src={
                 props.pageData.image1.data.attributes.formats?.large?.url ||
                 props.pageData.image1.data.attributes.url
@@ -77,7 +77,7 @@ function About(props) {
               }
               width={1238}
               height={346}
-            ></CldImage>
+            ></Image>
           ) : null}
         </div>
       </div>

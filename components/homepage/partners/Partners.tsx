@@ -1,7 +1,7 @@
 import styles from './Partners.module.scss';
 // import { API_URL } from 'config/index';
 // import Image from 'next/image';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 
 const Partners = (props) => {
   return (
@@ -15,7 +15,7 @@ const Partners = (props) => {
             className={`${styles.partners_item} fade-in observe `}
             key={item.id}
           >
-            <CldImage
+            <Image
               src={
                 item.attributes.url.formats?.large?.url || item.attributes.url
               }
@@ -29,7 +29,7 @@ const Partners = (props) => {
               width={item.attributes.width}
               height={item.attributes.height}
               className={`${styles.partners_image}`}
-            ></CldImage>
+            ></Image>
           </div>
         ))}
       </div>

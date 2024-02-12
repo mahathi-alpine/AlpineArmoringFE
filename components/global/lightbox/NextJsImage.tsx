@@ -1,11 +1,11 @@
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 
 export default function NextJsImage(slide) {
   const data = slide.slide;
 
   return (
     <div style={{ display: 'flex', height: '100%' }}>
-      <CldImage
+      <Image
         src={
           window.innerWidth < 768
             ? data.formats?.small?.src
@@ -21,7 +21,7 @@ export default function NextJsImage(slide) {
           objectFit: 'contain',
         }}
         priority
-      ></CldImage>
+      ></Image>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { getPageData } from 'lib/api';
 import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Markdown from 'markdown-to-jsx';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 import Seo from 'components/Seo';
 
 const Design = (props) => {
@@ -99,7 +99,7 @@ const Design = (props) => {
 
             {props.pageData?.section1Image.data ? (
               <div className={`observe fade-in`}>
-                <CldImage
+                <Image
                   src={
                     props.pageData.section1Image.data.attributes.formats?.large
                       ?.url || props.pageData.section1Image.data.attributes.url
@@ -110,7 +110,7 @@ const Design = (props) => {
                   }
                   width={840}
                   height={445}
-                ></CldImage>
+                ></Image>
               </div>
             ) : null}
           </div>
@@ -137,7 +137,7 @@ const Design = (props) => {
           <div className={`${styles.design_box} container`}>
             {props.pageData?.section2Image.data ? (
               <div className={`observe fade-in`}>
-                <CldImage
+                <Image
                   src={
                     props.pageData.section2Image.data.attributes.formats?.large
                       ?.url || props.pageData.section2Image.data.attributes.url
@@ -148,7 +148,7 @@ const Design = (props) => {
                   }
                   width={665}
                   height={315}
-                ></CldImage>
+                ></Image>
               </div>
             ) : null}
 
@@ -160,7 +160,7 @@ const Design = (props) => {
 
             {props.pageData?.section2Image2.data ? (
               <div className={`observe fade-in`}>
-                <CldImage
+                <Image
                   src={
                     props.pageData.section2Image2.data.attributes.formats?.large
                       ?.url || props.pageData.section2Image2.data.attributes.url
@@ -171,7 +171,7 @@ const Design = (props) => {
                   }
                   width={590}
                   height={315}
-                ></CldImage>
+                ></Image>
               </div>
             ) : null}
           </div>
@@ -231,7 +231,7 @@ const Design = (props) => {
                     <div
                       className={`${styles.design_armor_image} observe fade-in`}
                     >
-                      <CldImage
+                      <Image
                         src={
                           item.image.data.attributes.formats?.large?.url ||
                           item.image.data.attributes.url
@@ -242,7 +242,7 @@ const Design = (props) => {
                         }
                         width={240}
                         height={240}
-                      ></CldImage>
+                      ></Image>
                     </div>
                   ) : null}
                 </div>
@@ -259,7 +259,7 @@ const Design = (props) => {
                       <p className={`modal_description`}>
                         {selectedItem.description}
                       </p>
-                      <CldImage
+                      <Image
                         src={
                           selectedItem.image.data.attributes.formats?.large
                             ?.url || selectedItem.image.data.attributes.url
@@ -270,7 +270,7 @@ const Design = (props) => {
                         }
                         width={240}
                         height={240}
-                      ></CldImage>
+                      ></Image>
                     </div>
                     <button
                       className={`modal_close`}
@@ -306,7 +306,7 @@ const Design = (props) => {
               ) : null}
 
               {props.pageData?.section4Image.data.attributes ? (
-                <CldImage
+                <Image
                   src={
                     props.pageData.section4Image.data.attributes.formats?.large
                       ?.url || props.pageData.section4Image.data.attributes.url
@@ -318,7 +318,7 @@ const Design = (props) => {
                   width={350}
                   height={350}
                   className={`observe fade-in`}
-                ></CldImage>
+                ></Image>
               ) : null}
             </div>
           </section>
@@ -342,7 +342,7 @@ const Design = (props) => {
 
           <div className={`${styles.design_box}`}>
             {props.pageData.section5Image.data.attributes ? (
-              <CldImage
+              <Image
                 src={
                   props.pageData.section5Image.data.attributes.formats?.large
                     ?.url || props.pageData.section5Image.data.attributes.url
@@ -354,7 +354,7 @@ const Design = (props) => {
                 width={710}
                 height={397}
                 className={`observe fade-in`}
-              ></CldImage>
+              ></Image>
             ) : null}
 
             {props.pageData?.section5Text ? (

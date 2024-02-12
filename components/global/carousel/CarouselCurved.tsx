@@ -1,6 +1,6 @@
 import styles from './CarouselCurved.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
 
@@ -68,7 +68,7 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
               >
                 {item.attributes?.url ? (
                   <div className={`${styles.carouselCurved_slide_img}`}>
-                    <CldImage
+                    <Image
                       src={
                         isMobile
                           ? item.attributes.formats?.small?.url
@@ -90,7 +90,7 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
                             item.attributes.height
                       }
                       className={styles.carousel_slide_img}
-                    ></CldImage>
+                    ></Image>
 
                     {item.attributes.caption ? (
                       <h4 className={`${styles.carouselCurved_slide_caption}`}>

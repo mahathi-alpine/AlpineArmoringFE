@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styles from './ComparisonSlider.module.scss';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 
 const ComparisonSlider = ({ beforeImage, afterImage }) => {
   const sliderRef = useRef(null);
@@ -102,22 +102,22 @@ const ComparisonSlider = ({ beforeImage, afterImage }) => {
   return (
     <div className={`${styles.comparisonSlider}`} ref={sliderRef}>
       <div className={`${styles.comparisonSlider_before}`} ref={beforeRef}>
-        <CldImage
+        <Image
           src={beforeImage.url}
           alt={beforeImage.alternativeText || 'Alpine Armoring'}
           width={1300}
           height={450}
           quality={100}
-        ></CldImage>
+        ></Image>
       </div>
 
       <div className={`${styles.comparisonSlider_after}`}>
-        <CldImage
+        <Image
           src={afterImage.url}
           alt={afterImage.alternativeText || 'Alpine Armoring'}
           width={1300}
           height={450}
-        ></CldImage>
+        ></Image>
       </div>
 
       <div className={`${styles.comparisonSlider_resizer}`} ref={resizerRef}>

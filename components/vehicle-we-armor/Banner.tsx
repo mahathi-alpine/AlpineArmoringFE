@@ -1,5 +1,5 @@
 import styles from './Banner.module.scss';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
@@ -71,7 +71,7 @@ const Banner = (props) => {
 
         {data.featuredImage?.data ? (
           <div className={`${styles.banner_image_wrap} observe fade-in`}>
-            <CldImage
+            <Image
               src={
                 data.featuredImage.data.attributes.formats?.large?.url ||
                 data.featuredImage.data.attributes.url
@@ -83,7 +83,7 @@ const Banner = (props) => {
               width={1000}
               height={550}
               priority
-            ></CldImage>
+            ></Image>
           </div>
         ) : null}
 

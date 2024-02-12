@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import styles from './Shipping.module.scss';
 import Banner from 'components/global/banner/Banner';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 import Seo from 'components/Seo';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
@@ -130,7 +130,7 @@ function Shipping(props) {
               </div>
 
               <div className={`${styles.shipping_box_item_image}`}>
-                <CldImage
+                <Image
                   src={
                     item.image.data.attributes.formats?.large?.url ||
                     item.image.data.attributes.url
@@ -141,7 +141,7 @@ function Shipping(props) {
                   }
                   width={1238}
                   height={346}
-                ></CldImage>
+                ></Image>
               </div>
             </div>
           ))}
@@ -164,7 +164,7 @@ function Shipping(props) {
           </div>
 
           <div className={`${styles.shipping_license_right}`}>
-            <CldImage
+            <Image
               src={
                 licenseImage.data.attributes.formats?.large?.url ||
                 licenseImage.data.attributes.url
@@ -175,7 +175,7 @@ function Shipping(props) {
               }
               width={licenseImage.data.attributes.width}
               height={licenseImage.data.attributes.height}
-            ></CldImage>
+            ></Image>
 
             <div className={`${styles.shipping_license_right_description}`}>
               {/* <p><strong>Form BIS-711</strong></p> */}

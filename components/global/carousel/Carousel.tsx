@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 import styles from './Carousel.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
 import { useIsMobile } from 'hooks/useIsMobile';
@@ -95,7 +95,7 @@ const EmblaCarousel = (props) => {
               }}
             >
               {item.attributes?.url ? (
-                <CldImage
+                <Image
                   src={
                     isMobile
                       ? item.attributes.formats?.small?.url
@@ -117,7 +117,7 @@ const EmblaCarousel = (props) => {
                         item.attributes.height
                   }
                   className={styles.carousel_slide_img}
-                ></CldImage>
+                ></Image>
               ) : null}
             </div>
           ))}

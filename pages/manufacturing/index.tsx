@@ -4,7 +4,7 @@ import Banner from 'components/global/banner/Banner';
 import Markdown from 'markdown-to-jsx';
 import { useEffect } from 'react';
 import Gallery from 'components/global/carousel/CarouselCurved';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 // import useSplitText from 'hooks/useSplitText';
 import Seo from 'components/Seo';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -88,7 +88,7 @@ function Manufacturing(props) {
               <div
                 className={`${styles.manufacturing_section1_image} ${styles.manufacturing_image} observe fade-in`}
               >
-                <CldImage
+                <Image
                   src={
                     props.pageData.section1Image.data.attributes.formats?.large
                       ?.url || props.pageData.section1Image.data.attributes.url
@@ -100,7 +100,7 @@ function Manufacturing(props) {
                   width={500}
                   height={400}
                   sizes="(min-width: 768px ) 40vw, 100vw"
-                ></CldImage>
+                ></Image>
               </div>
             ) : null}
           </div>
@@ -150,7 +150,7 @@ function Manufacturing(props) {
                 <div
                   className={`${styles.manufacturing_image} observe fade-in`}
                 >
-                  <CldImage
+                  <Image
                     src={
                       props.pageData.section2Image.data.attributes.formats
                         ?.large?.url ||
@@ -162,7 +162,7 @@ function Manufacturing(props) {
                     }
                     width={600}
                     height={475}
-                  ></CldImage>
+                  ></Image>
                 </div>
               ) : null}
 
@@ -230,7 +230,7 @@ function Manufacturing(props) {
                 <div
                   className={`${styles.manufacturing_image} observe fade-in`}
                 >
-                  <CldImage
+                  <Image
                     src={
                       props.pageData.section3Image.data.attributes.formats
                         ?.large?.url ||
@@ -242,7 +242,7 @@ function Manufacturing(props) {
                     }
                     width={600}
                     height={475}
-                  ></CldImage>
+                  ></Image>
                 </div>
               ) : null}
             </div>
