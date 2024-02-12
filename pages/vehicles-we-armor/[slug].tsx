@@ -128,6 +128,10 @@ function Vehicle(props) {
     };
   }, []);
 
+  if (!props.data) {
+    return null;
+  }
+
   return (
     <div className={`${styles.slug}`}>
       <Banner props={banner} />
@@ -145,7 +149,7 @@ function Vehicle(props) {
         className={`${styles.slug_description} anchor container_small`}
       >
         <h2 className={`c-title observe fade-in-up`}>Overview</h2>
-        {data.description ? (
+        {data?.description ? (
           <Markdown className={`observe fade-in-up`}>
             {data.description}
           </Markdown>
@@ -217,7 +221,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {data.specs ? (
+      {data?.specs ? (
         <div id="armoring-specs" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
             <h2
@@ -230,7 +234,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {data.equipment ? (
+      {data?.equipment ? (
         <div id="optional-equipment" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
             <h2
@@ -252,11 +256,11 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {data.videoUpload?.data ? (
+      {data?.videoUpload?.data ? (
         <VideoScale video={data.videoUpload.data.attributes.url} />
       ) : null}
 
-      {data.videoYoutube ? (
+      {data?.videoYoutube ? (
         <div className={`${styles.slug_yt}`}>
           <iframe
             width="860"
@@ -275,12 +279,14 @@ function Vehicle(props) {
         <div className={`slug_form slug_form_plain`} id="request-a-quote">
           <div className={`slug_form_inner container`}>
             <div className={`slug_form_left`}>
-              <p className={`slug_form_heading`}>
-                You are inquiring about
-                <strong>{data.title}</strong>
-              </p>
+              {data?.title ? (
+                <p className={`slug_form_heading`}>
+                  You are inquiring about
+                  <strong>{data.title}</strong>
+                </p>
+              ) : null}
 
-              {data.featuredImage.data ? (
+              {data?.featuredImage.data ? (
                 <Image
                   src={`${data.featuredImage.data.attributes.url}`}
                   alt="Description of the image"
@@ -298,14 +304,32 @@ function Vehicle(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticPaths() {
+  const slugsResponse = await getPageData({
+    route: 'categories',
+    fields: 'fields[0]=title&fields[1]=slug',
+  });
+
+  const slugs = slugsResponse.data.map((item) => item.attributes.slug);
+
+  const paths = slugs.map((slug) => ({ params: { slug } }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { slug } = params;
   const data = await getPageData({
     route: 'vehicles-we-armors',
-    params: `filters[slug][$eq]=${context.params.slug}`,
+    params: `filters[slug][$eq]=${slug}`,
   });
 
   return {
     props: { data },
+    revalidate: 60,
   };
 }
 

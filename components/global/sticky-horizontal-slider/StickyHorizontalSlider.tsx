@@ -57,25 +57,24 @@ const StickyHorizontalSlider = ({
                 }}
               >
                 {data.image.data?.attributes.url ? (
-                  <div
+                  <picture
                     className={`${styles.stickyHorizontalSlider_item_image_wrap}`}
                   >
-                    <picture>
-                      <source
-                        media="(min-width: 768px)"
-                        srcSet={data.image.data.attributes.formats?.large?.url}
-                      />
-                      <Image
-                        src={data.image.data.attributes.formats?.small.url}
-                        alt={
-                          data.image.data.attributes.alternativeText ||
-                          'Alpine Armoring'
-                        }
-                        fill
-                        className={styles.stickyHorizontalSlider_item_image}
-                      />
-                    </picture>
-                  </div>
+                    <source
+                      media="(min-width: 768px)"
+                      srcSet={data.image.data.attributes.formats?.large?.url}
+                    />
+                    <Image
+                      src={data.image.data.attributes.formats?.small.url}
+                      alt={
+                        data.image.data.attributes.alternativeText ||
+                        'Alpine Armoring'
+                      }
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className={styles.stickyHorizontalSlider_item_image}
+                    />
+                  </picture>
                 ) : null}
 
                 <div

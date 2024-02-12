@@ -84,7 +84,8 @@ const Layout = ({ children }) => {
         {isDarkMode && (
           <style>{`
               body {
-                background: #101010 !important;
+                background: #101010 url(/assets/noise4.png) !important;
+                background-size: 30px !important;
               }
             `}</style>
         )}

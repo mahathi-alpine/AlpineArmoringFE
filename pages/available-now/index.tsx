@@ -81,14 +81,9 @@ export async function getServerSideProps(context) {
   });
   pageData = pageData.data?.attributes || null;
 
-  // Fetching Vehicles
-  // const { category, vehicles_we_armor, q } = context.query;
   const { vehicles_we_armor, q } = context.query;
 
   let query = '';
-  // if (category) {
-  //   query += `filters[category][slug][$eq]=${category}`;
-  // }
   if (vehicles_we_armor) {
     query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
   }

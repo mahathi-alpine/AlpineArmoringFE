@@ -20,7 +20,13 @@ function Search() {
 
   return (
     // Pass our index name and the search client into the InstantSearch components parameters
-    <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={algoliaClient}>
+    <InstantSearch
+      indexName={ALGOLIA_INDEX_NAME}
+      searchClient={algoliaClient}
+      future={{
+        preserveSharedStateOnUnmount: true,
+      }}
+    >
       <div className="search_input">
         <SearchBox onChange={handleSearch} />
       </div>

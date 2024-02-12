@@ -3,12 +3,37 @@ module.exports = {
     prependData: `@import './styles/_mixins.scss';`,
   },
   images: {
-    domains: [
-      'res.cloudinary.com',
-      'assets.vercel.com',
-      'localhost',
-      'herokuapp.com',
-      'alpine-armoring-e7d249d45874.herokuapp.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.vercel.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'herokuapp.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'alpine-armoring-e7d249d45874.herokuapp.com',
+        pathname: '**',
+      },
+      // 'res.cloudinary.com',
+      // 'assets.vercel.com',
+      // 'localhost',
+      // 'herokuapp.com',
+      // 'alpine-armoring-e7d249d45874.herokuapp.com',
     ],
   },
   reactStrictMode: true,

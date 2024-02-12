@@ -17,57 +17,14 @@ import VideoScale, {
 } from 'components/global/video-scale/VideoScale';
 
 function InventoryVehicle(props) {
-  const handleTabChange = (index, titleNav) => {
-    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
-
-    const targetElement = document.getElementById(targetId);
-    targetElement.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.toggle('in-view', entry.isIntersecting);
-          observer.unobserve(entry.target);
-
-          // VideoScale
-          if (entry.target.classList.contains('videoScaleContainer')) {
-            window.addEventListener(
-              'scroll',
-              () => animateVideo(entry.target),
-              { passive: true }
-            );
-          }
-        } else {
-          if (entry.target.classList.contains('videoScaleContainer')) {
-            window.removeEventListener('scroll', () =>
-              animateVideo(entry.target)
-            );
-          }
-        }
-      });
-    });
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
-
-  if (!props.data.data) {
-    return null;
-  }
-  const data = props.data.data[0].attributes;
-  // console.log(data)
-  const topGallery = data.gallery?.data;
-  const mainText = data.description;
-  const category = data.category.data?.attributes.title;
-  const categorySlug = data.category.data?.attributes.slug;
+  // if (!props.data) {
+  //   return null;
+  // }
+  const data = props.data?.data[0].attributes;
+  const topGallery = data?.gallery?.data;
+  const mainText = data?.description;
+  const category = data?.category.data?.attributes.title;
+  const categorySlug = data?.category.data?.attributes.slug;
 
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
@@ -107,6 +64,56 @@ function InventoryVehicle(props) {
     },
   ];
 
+  const handleTabChange = (index, titleNav) => {
+    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+
+    const targetElement = document.getElementById(targetId);
+    targetElement.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    const setupObserver = () => {
+      const targets = document.querySelectorAll('.observe');
+      if (targets.length < 2) {
+        setTimeout(setupObserver, 100);
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
+
+            // VideoScale
+            if (entry.target.classList.contains('videoScaleContainer')) {
+              window.addEventListener(
+                'scroll',
+                () => animateVideo(entry.target),
+                { passive: true }
+              );
+            }
+          } else {
+            if (entry.target.classList.contains('videoScaleContainer')) {
+              window.removeEventListener('scroll', () =>
+                animateVideo(entry.target)
+              );
+            }
+          }
+        });
+      });
+
+      targets.forEach((item) => observer.observe(item));
+
+      return () => {
+        targets.forEach((item) => observer.unobserve(item));
+        observer.disconnect();
+      };
+    };
+
+    setupObserver();
+  }, []);
+
   return (
     <div className={`${styles.inventory} background-dark`}>
       <div className={`${styles.inventory_top}`}>
@@ -114,8 +121,8 @@ function InventoryVehicle(props) {
           <div className={`${styles.inventory_top_gallery_description}`}>
             <InfoIcon />
             <p>
-              {data.shortDescription
-                ? data.shortDescription
+              {data?.shortDescription
+                ? data?.shortDescription
                 : 'This armored vehicle is in stock and available to ship immediately'}
             </p>
           </div>
@@ -125,12 +132,14 @@ function InventoryVehicle(props) {
               <Carousel slides={topGallery} options={sliderTopOptions} />
             ) : null}
 
-            <div className={`${styles.inventory_armor}`}>
-              Armor
-              <br />
-              Level
-              <span>{data.armor_level}</span>
-            </div>
+            {data?.armor_level ? (
+              <div className={`${styles.inventory_armor}`}>
+                Armor
+                <br />
+                Level
+                <span>{data?.armor_level}</span>
+              </div>
+            ) : null}
           </div>
 
           <div className={`${styles.inventory_right_bottom}`}>
@@ -139,6 +148,7 @@ function InventoryVehicle(props) {
             >
               {Object.entries(vehicleDetailsSecondary).map(([key, value]) => {
                 return (
+                  data &&
                   data[value] != null && (
                     <li
                       key={key}
@@ -179,10 +189,10 @@ function InventoryVehicle(props) {
           </div>
 
           <div className={`${styles.inventory_details_title}`}>
-            {data.titleDisplay ? (
+            {data?.titleDisplay ? (
               <h1 dangerouslySetInnerHTML={{ __html: data.titleDisplay }}></h1>
-            ) : data.title ? (
-              data.title
+            ) : data?.title ? (
+              data?.title
             ) : null}
           </div>
 
@@ -218,6 +228,7 @@ function InventoryVehicle(props) {
                 <ul className={`${styles.inventory_tabs_content_list}`}>
                   {Object.entries(vehicleDetailsMain).map(([key, value]) => {
                     return (
+                      data &&
                       data[value] != null && (
                         <li
                           key={key}
@@ -236,6 +247,7 @@ function InventoryVehicle(props) {
                   {Object.entries(vehicleDetailsSecondary).map(
                     ([key, value]) => {
                       return (
+                        data &&
                         data[value] != null && (
                           <li
                             key={key}
@@ -265,7 +277,7 @@ function InventoryVehicle(props) {
 
           <div className={`${styles.inventory_top_button}`}>
             <Button
-              href="#request-a-quote"
+              href="/#request-a-quote"
               className={`${styles.inventory_top_button_link} primary rounded`}
             >
               Request a quote
@@ -297,7 +309,7 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      {data.specifications ? (
+      {data?.specifications ? (
         <div id="armoring-specs" className={`${styles.inventory_specs} anchor`}>
           <StickyHorizontalSlider
             slides={data.specifications.data}
@@ -307,7 +319,7 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      {data.accessories ? (
+      {data?.accessories ? (
         <div id="options-included" className={`anchor`}>
           <StickyHorizontalSlider
             slides={data.accessories.data}
@@ -318,7 +330,7 @@ function InventoryVehicle(props) {
       ) : null}
 
       <VideoScale
-        video={data.video.data?.attributes.url}
+        video={data?.video.data?.attributes.url}
         text1="Armored Cadillac"
         text2="ESV V-Series"
       />
@@ -329,11 +341,11 @@ function InventoryVehicle(props) {
             <div className={`slug_form_left`}>
               <p className={`slug_form_heading`}>
                 You are inquiring about this ready-to-ship
-                <strong>{data.title}</strong>
-                Vehicle ID: <span>{data.vehicleID}</span>
+                <strong>{data?.title}</strong>
+                Vehicle ID: <span>{data?.vehicleID}</span>
               </p>
 
-              {data.featuredImage.data ? (
+              {data?.featuredImage.data ? (
                 <Image
                   src={`${data.featuredImage.data.attributes.url}`}
                   alt="Description of the image"
@@ -351,15 +363,43 @@ function InventoryVehicle(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
+//   const data = await getPageData({
+//     route: 'inventories',
+//     params: `filters[slug][$eq]=${context.params.slug}`,
+//     // populate: 'deep',
+//   });
+
+//   return {
+//     props: { data },
+//   };
+// }
+export async function getStaticPaths() {
+  const slugsResponse = await getPageData({
+    route: 'categories',
+    fields: 'fields[0]=title&fields[1]=slug',
+  });
+
+  const slugs = slugsResponse.data.map((item) => item.attributes.slug);
+
+  const paths = slugs.map((slug) => ({ params: { slug } }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { slug } = params;
   const data = await getPageData({
     route: 'inventories',
-    params: `filters[slug][$eq]=${context.params.slug}`,
-    // populate: 'deep',
+    params: `filters[slug][$eq]=${slug}`,
   });
 
   return {
     props: { data },
+    revalidate: 60,
   };
 }
 
