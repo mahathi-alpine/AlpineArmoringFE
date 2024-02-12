@@ -1,8 +1,8 @@
-.blog{
-    &>div{
-        padding-top: rem(120);
-        @include breakpoint(large) {
-            padding-top: rem(160);
-        }
+.blog {
+  & > div {
+    padding-top: rem(120);
+    @include breakpoint(large) {
+      padding-top: rem(160);
     }
+  }
 }
