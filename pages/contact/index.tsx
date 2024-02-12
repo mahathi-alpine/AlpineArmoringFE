@@ -81,11 +81,14 @@ function Contact(props) {
             </div>
           </div>
         </div>
-        <Accordion
-          items={faqs.data}
-          title="Frequently asked questions"
-          button
-        />
+
+        {faqs?.data ? (
+          <Accordion
+            items={faqs.data}
+            title="Frequently asked questions"
+            button
+          />
+        ) : null}
       </div>
     </>
   );

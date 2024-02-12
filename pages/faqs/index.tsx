@@ -43,7 +43,7 @@ function FAQs(props) {
 
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
-      <Accordion items={faqs.data} />
+      {faqs?.data ? <Accordion items={faqs.data} /> : null}
     </>
   );
 }
