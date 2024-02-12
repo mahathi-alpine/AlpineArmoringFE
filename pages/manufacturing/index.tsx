@@ -268,7 +268,7 @@ function Manufacturing(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let pageData = await getPageData({
     route: 'manufacturing',
     populate: 'deep',

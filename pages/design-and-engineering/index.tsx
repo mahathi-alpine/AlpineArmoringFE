@@ -369,7 +369,7 @@ const Design = (props) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let pageData = await getPageData({
     route: 'design-and-engineering',
     populate: 'deep',

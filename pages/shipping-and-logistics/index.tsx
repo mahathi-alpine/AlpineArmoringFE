@@ -214,7 +214,7 @@ function Shipping(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let pageData = await getPageData({
     route: 'shipping',
     populate: 'deep',

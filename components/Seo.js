@@ -4,8 +4,7 @@ const Seo = ({ props }) => {
   // console.log(props)
   // return null;
 
-  let baseImgUrl =
-    'https://alpine-armoring-fe.vercel.app/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdqnw5ukdj%2Fimage%2Fupload%2Fv1707233364%2F409152199_871157431682364_6337488385506975161_n_b7a29efb1c.jpg&w=640&q=75';
+  let baseImgUrl = 'https://www.alpineco.com/media/img/about-us/main.png';
   const metaImgHash = `${props?.metaImage?.data?.attributes.hash}`;
   const metaImgUrl = `${baseImgUrl}${metaImgHash}.jpg`;
   let twitter;

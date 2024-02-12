@@ -85,7 +85,7 @@ function About(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let pageData = await getPageData({
     route: 'about',
     populate: 'deep',

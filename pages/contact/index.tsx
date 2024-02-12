@@ -112,7 +112,7 @@ function Contact(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let pageData = await getPageData({
     route: 'contact-page',
     populate: 'deep',
