@@ -20,7 +20,7 @@ function InventoryVehicle(props) {
   // if (!props.data) {
   //   return null;
   // }
-  const data = props.data?.data[0].attributes;
+  const data = props.data?.data[0]?.attributes;
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
   const category = data?.category.data?.attributes.title;
@@ -376,8 +376,8 @@ function InventoryVehicle(props) {
 // }
 export async function getStaticPaths() {
   const slugsResponse = await getPageData({
-    route: 'categories',
-    fields: 'fields[0]=title&fields[1]=slug',
+    route: 'inventories',
+    populate: 'featuredImage',
   });
 
   const slugs = slugsResponse.data.map((item) => item.attributes.slug);
