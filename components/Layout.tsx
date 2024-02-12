@@ -59,8 +59,10 @@ const Layout = ({ children }) => {
     '/shipping-and-logistics',
     '/become-a-dealer',
     '/faqs',
+    '/blog',
   ];
   const pathsDarkFooter = ['/manufacturing'];
+  const pathsPadding0 = ['/', '/blog'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)
@@ -71,7 +73,10 @@ const Layout = ({ children }) => {
   const isDarkFooter = pathsDarkFooter.some((path) =>
     router.pathname.startsWith(path)
   );
-  const isPadding0 = router.pathname === '/';
+  const isPadding0 = pathsPadding0.some((path) =>
+    router.pathname.startsWith(path)
+  );
+  // const isPadding0 = router.pathname === '/' || router.pathname === '/blog';
 
   const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.pathname);
 

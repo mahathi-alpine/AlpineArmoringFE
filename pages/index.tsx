@@ -9,7 +9,7 @@ import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
 import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/homepage/tab-section/TabSection';
-import Blog from 'components/homepage/blog/Blog';
+import Blog from 'components/global/blog/Blog';
 import Partners from 'components/homepage/partners/Partners';
 const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
@@ -28,6 +28,7 @@ function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
+  console.log(seoData);
   const topBanner = data?.topBanner;
   const quote = data?.quote;
   const categoriesData = categories?.data;
@@ -100,7 +101,7 @@ function Home({ homepageData, categories }) {
         <div className="shape-after shape-after-white"></div>
       </div>
 
-      {blog ? <Blog props={blog} /> : null}
+      {blog ? <Blog props={blog} button /> : null}
 
       {partners ? <Partners props={partners} /> : null}
     </>

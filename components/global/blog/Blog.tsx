@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import styles from './Blog.module.scss';
 
-const Blog = (props) => {
+const Blog = ({ props, button = false }) => {
   return (
     <div className={`${styles.blog}`}>
       <div className={`${styles.blog_inner} container_small`}>
@@ -20,7 +20,7 @@ const Blog = (props) => {
         </div>
 
         <div className={`${styles.blog_list}`}>
-          {props.props.slice(0, 3).map((item, index) => {
+          {props.slice(0, 3).map((item, index) => {
             const date = new Date(item.attributes.publishedAt);
             const formattedDate = date.toLocaleString('en-GB', {
               day: 'numeric',
@@ -112,14 +112,16 @@ const Blog = (props) => {
           })}
         </div>
 
-        <div className={`${styles.blog_button}`}>
-          <Button
-            href={`/blog`}
-            className={`${styles.blog_button_link} rounded primary`}
-          >
-            See All News
-          </Button>
-        </div>
+        {button ? (
+          <div className={`${styles.blog_button}`}>
+            <Button
+              href={`/blog`}
+              className={`${styles.blog_button_link} rounded primary`}
+            >
+              See All News
+            </Button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
