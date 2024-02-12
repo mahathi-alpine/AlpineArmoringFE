@@ -132,11 +132,11 @@ function Shipping(props) {
               <div className={`${styles.shipping_box_item_image}`}>
                 <Image
                   src={
-                    item.image.data.attributes.formats?.large?.url ||
-                    item.image.data.attributes.url
+                    item.image?.data.attributes.formats?.large?.url ||
+                    item.image?.data.attributes.url
                   }
                   alt={
-                    item.image.data.attributes.alternativeText ||
+                    item.image?.data.attributes.alternativeText ||
                     'Alpine Armoring'
                   }
                   width={1238}
@@ -164,18 +164,20 @@ function Shipping(props) {
           </div>
 
           <div className={`${styles.shipping_license_right}`}>
-            <Image
-              src={
-                licenseImage.data.attributes.formats?.large?.url ||
-                licenseImage.data.attributes.url
-              }
-              alt={
-                licenseImage.data.attributes.alternativeText ||
-                'Alpine Armoring'
-              }
-              width={licenseImage.data.attributes.width}
-              height={licenseImage.data.attributes.height}
-            ></Image>
+            {licenseImage ? (
+              <Image
+                src={
+                  licenseImage.data.attributes.formats?.large?.url ||
+                  licenseImage.data.attributes.url
+                }
+                alt={
+                  licenseImage.data.attributes.alternativeText ||
+                  'Alpine Armoring'
+                }
+                width={licenseImage.data.attributes.width}
+                height={licenseImage.data.attributes.height}
+              ></Image>
+            ) : null}
 
             <div className={`${styles.shipping_license_right_description}`}>
               {/* <p><strong>Form BIS-711</strong></p> */}
