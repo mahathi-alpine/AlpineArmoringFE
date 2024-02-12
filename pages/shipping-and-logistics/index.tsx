@@ -100,7 +100,7 @@ function Shipping(props) {
         ) : null}
 
         <div className={`${styles.shipping_box_wrap}`}>
-          {boxes.map((item, index) => (
+          {boxes?.map((item, index) => (
             <div
               className={`${styles.shipping_box_item} background-dark observe fade-in-up`}
               key={index}
