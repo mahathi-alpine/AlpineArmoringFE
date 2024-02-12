@@ -1,8 +1,9 @@
 import styles from './Accordion.module.scss';
 import React, { useState } from 'react';
 import Button from 'components/global/button/Button';
+import Markdown from 'markdown-to-jsx';
 
-const Accordion = ({ items, title }) => {
+const Accordion = ({ items, title = '', button = false }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const handleTitleClick = (index) => {
@@ -20,7 +21,7 @@ const Accordion = ({ items, title }) => {
             onClick={() => handleTitleClick(index)}
           >
             <div className={`${styles.accordion_item_heading_title}`}>
-              {item.title}
+              {item.attributes?.title}
             </div>
 
             <div
@@ -30,24 +31,28 @@ const Accordion = ({ items, title }) => {
             ></div>
           </div>
 
-          <div
-            style={{
-              maxHeight: activeIndex === index ? '300px' : '0',
-            }}
-            className={`${styles.accordion_item_content}`}
-          >
-            <div className={`${styles.accordion_item_content_text}`}>
-              {item.content}
+          {item.attributes?.text ? (
+            <div
+              style={{
+                maxHeight: activeIndex === index ? '300px' : '0',
+              }}
+              className={`${styles.accordion_item_content}`}
+            >
+              <Markdown className={`${styles.accordion_item_content_text}`}>
+                {item.attributes?.text}
+              </Markdown>
             </div>
-          </div>
+          ) : null}
         </div>
       ))}
 
-      <div className={`${styles.accordion_button} center`}>
-        <Button href="/faqs" className={`primary rounded`}>
-          More FAQs
-        </Button>
-      </div>
+      {button ? (
+        <div className={`${styles.accordion_button} center`}>
+          <Button href="/faqs" className={`primary rounded`}>
+            More FAQs
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 };

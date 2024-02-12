@@ -9,6 +9,7 @@ import Seo from 'components/Seo';
 
 function Contact(props) {
   const seoData = props.pageData?.seo;
+  const faqs = props?.pageData?.fa_qs;
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -37,32 +38,6 @@ function Contact(props) {
       observer.disconnect();
     };
   }, []);
-
-  const faq = [
-    { title: 'What do people mean by armored vehicles?', content: 'Content 1' },
-    {
-      title: 'How do I know what protection level I need?',
-      content: 'Content 2',
-    },
-    {
-      title: 'What countries are right hand drive (rhd)?',
-      content: 'Content 3',
-    },
-    {
-      title:
-        'What do low profile design (lpd) and high profile design (hpd) mean?',
-      content: 'Content 3',
-    },
-    {
-      title: 'How much armored weight is usually added to these vehicles?',
-      content: 'Content 3',
-    },
-    {
-      title:
-        'Are the suspension & brakes upgraded to allow for the extra weight?',
-      content: 'Content 3',
-    },
-  ];
 
   return (
     <>
@@ -106,7 +81,11 @@ function Contact(props) {
             </div>
           </div>
         </div>
-        <Accordion items={faq} title="Frequently asked questions" />
+        <Accordion
+          items={faqs.data}
+          title="Frequently asked questions"
+          button
+        />
       </div>
     </>
   );

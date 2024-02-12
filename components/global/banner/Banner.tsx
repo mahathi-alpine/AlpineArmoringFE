@@ -19,7 +19,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         />
         <Image
           src={`${bannerImage.formats?.small?.url || bannerImage.url}`}
-          alt={bannerImage.alternativeText}
+          alt={bannerImage.alternativeText || 'Alpine Armoring'}
           width={bannerImage.width}
           height={bannerImage.height}
           className={`${styles.banner_media}`}

@@ -70,10 +70,6 @@ function Inventory(props) {
   );
 }
 
-// interface TopBannerProps {
-//   data: any;
-// }
-
 export async function getServerSideProps(context) {
   let pageData = await getPageData({
     route: 'list-inventory',

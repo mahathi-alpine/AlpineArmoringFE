@@ -27,12 +27,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: rem(15);
+      font-size: clamp(0.9375rem, 0.9072rem + 0.1294vw, 1.0625rem);
+      font-weight: var(--font-medium);
       gap: 16px;
-
-      @include breakpoint(large) {
-        font-size: rem(16);
-      }
 
       &_title {
         flex: 1;
@@ -43,10 +40,16 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-in-out;
-      font-size: rem(14);
+      font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
 
       &_text {
+        display: block;
         padding-top: rem(16);
+
+        a{
+          color: var(--color-primary);
+          font-weight: var(--font-medium);
+        }
       }
     }
   }

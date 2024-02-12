@@ -30,7 +30,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   ];
 
   const linksRight = [
-    { path: '/ballistic-chart', text: 'Ballistic Chart' },
+    { path: '/ballisticchart', text: 'Ballistic Chart' },
     { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
     { path: '/design-and-engineering', text: 'Design & Engineering' },
     { path: '/manufacturing', text: 'Manufacturing' },
