@@ -85,7 +85,7 @@ function Shipping(props) {
         {banner ? <Banner props={banner} center shape="white" /> : null}
 
         <TabSlider
-          className={`${styles.shipping_tabs} observe fade-in desktop-only`}
+          className={`${styles.shipping_tabs} desktop-only`}
           props={tabSliderData}
           onTabChange={handleTabChange}
           anchor

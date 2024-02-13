@@ -1,7 +1,6 @@
 .shipping {
   &_tabs {
     position: relative;
-    // z-index: 99;
     color: var(--color-white);
     top: rem(-80);
     @include breakpoint(large) {
