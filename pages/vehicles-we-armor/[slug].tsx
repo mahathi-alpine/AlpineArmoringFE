@@ -17,7 +17,7 @@ const VideoScale = dynamic(
   () => import('components/global/video-scale/VideoScale')
 );
 import { animateVideo } from 'components/global/video-scale/VideoScale';
-const Form = dynamic(() => import('components/global/form/Form'));
+import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
   const data = props.data?.data[0]?.attributes;
@@ -71,6 +71,11 @@ function Vehicle(props) {
     },
   ];
 
+  const formData = {
+    title: data?.title,
+    featuredImage: data?.featuredImage,
+  };
+
   const handleTabChange = (index, titleNav) => {
     const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
     const targetElement = document.getElementById(targetId);
@@ -86,46 +91,65 @@ function Vehicle(props) {
   };
 
   useEffect(() => {
-    const observerAnimationTargets = document.querySelectorAll('.observe');
-    const observerAnimation = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observerAnimation.unobserve(entry.target);
-
-            // VideoScale
-            if (entry.target.classList.contains('videoScaleContainer')) {
-              window.addEventListener(
-                'scroll',
-                () => animateVideo(entry.target),
-                { passive: true }
-              );
-            }
-          } else {
-            if (entry.target.classList.contains('videoScaleContainer')) {
-              window.removeEventListener('scroll', () =>
-                animateVideo(entry.target)
-              );
-            }
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
+    const setupObserver = () => {
+      const observerAnimationTargets = document.querySelectorAll('.observe');
+      if (observerAnimationTargets.length < 1) {
+        setTimeout(setupObserver, 100);
+        return;
       }
-    );
-    observerAnimationTargets.forEach((item) => observerAnimation.observe(item));
+
+      const observerAnimation = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.toggle('in-view', entry.isIntersecting);
+              observerAnimation.unobserve(entry.target);
+
+              // VideoScale
+              if (entry.target.classList.contains('videoScaleContainer')) {
+                window.addEventListener(
+                  'scroll',
+                  () => animateVideo(entry.target),
+                  { passive: true }
+                );
+              }
+            } else {
+              if (entry.target.classList.contains('videoScaleContainer')) {
+                window.removeEventListener('scroll', () =>
+                  animateVideo(entry.target)
+                );
+              }
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.2,
+        }
+      );
+
+      observerAnimationTargets.forEach((item) =>
+        observerAnimation.observe(item)
+      );
+
+      return () => {
+        observerAnimationTargets.forEach((item) =>
+          observerAnimation.unobserve(item)
+        );
+        observerAnimation.disconnect();
+      };
+    };
+
+    setupObserver();
 
     // Clean up the observer when the component unmounts
-    return () => {
-      observerAnimationTargets.forEach((item) =>
-        observerAnimation.unobserve(item)
-      );
-      observerAnimation.disconnect();
-    };
+    // return () => {
+    //   observerAnimationTargets.forEach((item) =>
+    //     observerAnimation.unobserve(item)
+    //   );
+    //   observerAnimation.disconnect();
+    // };
   }, []);
 
   if (!props.data) {
@@ -275,30 +299,8 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      <div className={`background-dark slug_form_wrap`}>
-        <div className={`slug_form slug_form_plain`} id="request-a-quote">
-          <div className={`slug_form_inner container`}>
-            <div className={`slug_form_left`}>
-              {data?.title ? (
-                <p className={`slug_form_heading`}>
-                  You are inquiring about
-                  <strong>{data.title}</strong>
-                </p>
-              ) : null}
-
-              {data?.featuredImage.data ? (
-                <Image
-                  src={`${data.featuredImage.data.attributes.url}`}
-                  alt="Description of the image"
-                  width={600}
-                  height={400}
-                />
-              ) : null}
-            </div>
-
-            <Form />
-          </div>
-        </div>
+      <div className={`background-dark`}>
+        <InquiryForm {...formData} plain />
       </div>
     </div>
   );

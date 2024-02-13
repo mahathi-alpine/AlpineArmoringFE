@@ -20,7 +20,7 @@ const Header = ({
   setNavOpen,
   isNavOpen,
   isDarkMode,
-  isDarkHeader,
+  isHomepage,
   isNotSticky,
 }: HeaderProps) => {
   const [hState, sethState] = React.useState('-top');
@@ -59,9 +59,9 @@ const Header = ({
         ${styles.header}
         ${styles[hState]}
         ${isDarkMode ? styles.header_transparent : ''}
-        ${isDarkHeader ? styles.header_dark : ''}
         ${isNavOpen ? styles.header_navOpen : ''}
         ${isNotSticky ? styles.header_notSticky : ''}
+        ${isHomepage ? styles.header_homepage : ''}        
         b-header
       `}
       // ${isScrolling ? styles.header_sticky : ''}

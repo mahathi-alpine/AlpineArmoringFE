@@ -4,14 +4,13 @@ import { useEffect } from 'react';
 import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
-import Image from 'next/image';
 import Markdown from 'markdown-to-jsx';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Carousel from 'components/global/carousel/Carousel';
-import Form from 'components/global/form/Form';
+import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
@@ -64,6 +63,12 @@ function InventoryVehicle(props) {
     },
   ];
 
+  const formData = {
+    title: data.title,
+    vehicleID: data.vehicleID,
+    featuredImage: data.featuredImage,
+  };
+
   const handleTabChange = (index, titleNav) => {
     const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
 
@@ -74,7 +79,7 @@ function InventoryVehicle(props) {
   useEffect(() => {
     const setupObserver = () => {
       const targets = document.querySelectorAll('.observe');
-      if (targets.length < 2) {
+      if (targets.length < 1) {
         setTimeout(setupObserver, 100);
         return;
       }
@@ -277,7 +282,7 @@ function InventoryVehicle(props) {
 
           <div className={`${styles.inventory_top_button}`}>
             <Button
-              href="/#request-a-quote"
+              href="#request-a-quote"
               className={`${styles.inventory_top_button_link} primary rounded`}
             >
               Request a quote
@@ -335,30 +340,7 @@ function InventoryVehicle(props) {
         text2="ESV V-Series"
       />
 
-      <div className={`slug_form_wrap`} id="request-a-quote">
-        <div className={`slug_form`}>
-          <div className={`slug_form_inner container_small`}>
-            <div className={`slug_form_left`}>
-              <p className={`slug_form_heading`}>
-                You are inquiring about this ready-to-ship
-                <strong>{data?.title}</strong>
-                Vehicle ID: <span>{data?.vehicleID}</span>
-              </p>
-
-              {data?.featuredImage.data ? (
-                <Image
-                  src={`${data.featuredImage.data.attributes.url}`}
-                  alt="Description of the image"
-                  width={500}
-                  height={400}
-                />
-              ) : null}
-            </div>
-
-            <Form />
-          </div>
-        </div>
-      </div>
+      <InquiryForm {...formData} />
     </div>
   );
 }

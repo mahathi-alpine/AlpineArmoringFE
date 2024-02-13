@@ -70,12 +70,11 @@
     position: relative;
     margin-bottom: rem(16);
     text-transform: uppercase;
-    font-size: rem(24);
+    font-size: clamp(1.5rem, 1.0752rem + 1.8123vw, 3.25rem);
     font-weight: var(--font-demi);
-    // text-align: center;
+    letter-spacing: -1px;
     @include breakpoint(large) {
       margin-bottom: rem(32);
-      font-size: rem(52);
     }
   }
 
@@ -83,9 +82,28 @@
     position: relative;
     border-radius: 8px;
     object-fit: cover;
+    margin-bottom: rem(12);
   }
 
   &_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: rem(16);
+    @include breakpoint(medium) {
+      margin-bottom: rem(48);
+    }
+  }
+
+  &_date{
+    font-size: rem(12);
+    text-transform: uppercase;
+    font-weight: var(--font-medium);
+    @include breakpoint(medium) {
+      font-size: rem(14);
+    }
   }
 
   &_tags {
@@ -93,10 +111,8 @@
     flex-wrap: wrap;
     gap: 10px;
     font-size: rem(13);
-    margin-bottom: rem(10);
 
     @include breakpoint(medium) {
-      margin-bottom: rem(16);
       font-size: rem(14);
     }
 
@@ -104,6 +120,13 @@
       padding: rem(5) rem(10);
       background: var(--color-grayLight);
       border-radius: 8px;
+    }
+  }
+
+  &_content{
+    @include breakpoint(large) {
+      max-width: 80%;
+      margin: auto;
     }
   }
 }

@@ -50,33 +50,34 @@ const termina = localFont({
 const Layout = ({ children }) => {
   const router = useRouter();
 
+  // const pathsDarkHeader = [
+  //   '/vehicles-we-armor',
+  //   '/contact',
+  //   '/about-us',
+  //   '/design-and-engineering',
+  //   '/shipping-and-logistics',
+  //   '/become-a-dealer',
+  //   '/faqs',
+  //   '/blog',
+  // ];
+  // const isDarkHeader = pathsDarkHeader.some((path) =>
+  //   router.pathname.startsWith(path)
+  // );
+
   const pathsDarkMode = ['/available-now', '/manufacturing'];
-  const pathsDarkHeader = [
-    '/vehicles-we-armor',
-    '/contact',
-    '/about-us',
-    '/design-and-engineering',
-    '/shipping-and-logistics',
-    '/become-a-dealer',
-    '/faqs',
-    '/blog',
-  ];
   const pathsDarkFooter = ['/manufacturing'];
-  const pathsPadding0 = ['/', '/blog'];
+  const pathsPadding0 = ['/blog'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
-    router.pathname.startsWith(path)
-  );
-  const isDarkHeader = pathsDarkHeader.some((path) =>
     router.pathname.startsWith(path)
   );
   const isDarkFooter = pathsDarkFooter.some((path) =>
     router.pathname.startsWith(path)
   );
+  const isHomepage = router.pathname === '/';
   const isPadding0 = pathsPadding0.some((path) =>
     router.pathname.startsWith(path)
   );
-  // const isPadding0 = router.pathname === '/' || router.pathname === '/blog';
 
   const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.pathname);
 
@@ -95,10 +96,14 @@ const Layout = ({ children }) => {
               }
             `}</style>
         )}
-        {isPadding0 && (
+        {(isPadding0 || isHomepage) && (
           <style>{`
               body {
                 padding-top: 0 !important;
+              }
+              header{
+                background-color: rgba(23, 23, 23, 0.8);
+                backdrop-filter: blur(10px);
               }
             `}</style>
         )}
@@ -109,7 +114,7 @@ const Layout = ({ children }) => {
           isDarkMode={isDarkMode}
           setNavOpen={setNavOpen}
           isNavOpen={isNavOpen}
-          isDarkHeader={isDarkHeader}
+          isHomepage={isHomepage}
           isNotSticky={isNotSticky}
         />
 

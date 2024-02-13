@@ -1,0 +1,122 @@
+.inquiry_form {
+    position: relative;
+    padding-top: rem(32);
+    padding-bottom: rem(64);
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    background: var(--color-background);
+    width: calc(100% - 20px);
+    margin: auto;
+    color: var(--color-secondary);
+  
+    @include breakpoint(medium) {
+      padding-top: rem(48);
+    }
+  
+    @include breakpoint(large) {
+      padding-top: rem(64);
+      width: calc(100% - 128px);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+    }
+  
+    @include breakpoint(huge) {
+      padding-top: rem(100);
+    }
+  
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      height: 10px;
+      width: 10px;
+      background: url('/assets/smallCurveBg.svg') no-repeat;
+      background-size: cover;
+      @include breakpoint(large) {
+        height: 64px;
+        width: 64px;
+      }
+    }
+  
+    &:before {
+      left: -10px;
+      transform: rotate(-90deg);
+      @include breakpoint(large) {
+        left: -64px;
+      }
+    }
+  
+    &:after {
+      right: -10px;
+      @include breakpoint(large) {
+        right: -64px;
+      }
+    }
+  
+    &_wrap {
+      padding-top: rem(64);
+    }
+  
+    &_inner {
+      @include breakpoint(small) {
+        padding: 0 rem(10);
+      }
+      @include breakpoint(large) {
+        display: flex;
+        align-items: center;
+        gap: 64px;
+  
+        .inquiry_form_plain & {
+          max-width: 1528px;
+          align-items: flex-start;
+        }
+      }
+    }
+  
+    &_heading {
+      margin-bottom: rem(16);
+      font-weight: var(--font-medium);
+      font-size: clamp(1rem, 0.9545rem + 0.1942vw, 1.1875rem);
+      text-align: center;
+  
+      .inquiry_form_plain & {
+        font-size: clamp(1rem, 0.8635rem + 0.5825vw, 1.5625rem);
+        @include breakpoint(large) {
+          .inquiry_form_plain & {
+            margin-bottom: rem(40);
+          }
+        }
+      }
+  
+      // strong {
+      //   display: block;
+      // }
+  
+      span strong{
+        color: var(--color-primary);
+        font-weight: var(--font-demi);
+      }
+    }
+  
+    img {
+      margin: auto;
+      margin-bottom: rem(16);
+      border-radius: 16px;
+      max-height: 400px;
+      object-fit: cover;
+    }
+  
+    &_left {
+      @include breakpoint(medium) {
+        max-width: 500px;
+        margin: 0 auto;
+  
+        .inquiry_form_plain & {
+          max-width: 700px;
+          flex: 1;
+        }
+      }
+    }
+  }
+  

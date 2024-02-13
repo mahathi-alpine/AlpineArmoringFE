@@ -26,3 +26,151 @@
 
   --header-height: 74px;
 }
+
+
+body {
+  font-family: Termina, sans-serif;
+  color: var(--color-secondary);
+
+  &.background-dark {
+    color: var(--color-white);
+  }
+}
+
+
+em,
+i {
+  font-style: italic;
+}
+strong,
+b {
+  font-weight: var(--font-demi);
+}
+
+.bold {
+  font-weight: var(--font-medium);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-medium);
+  line-height: 1.2;
+}
+
+p,
+a {
+  line-height: 1.3;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:focus {
+  outline: 0;
+}
+* {
+  box-sizing: border-box;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+small {
+  font-size: 70%;
+  line-height: 1.3;
+  display: block;
+}
+
+.static {
+  --bodySize: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
+
+  h1{
+    margin: 0 0 30px;
+    font-size: clamp(1.875rem, 1.6626rem + 0.9061vw, 2.75rem);
+  }
+  h2 {
+    margin: 0 0 24px;
+    padding: 12px 0 0;
+    font-size: clamp(1.375rem, 1.193rem + 0.7767vw, 2.125rem);
+  }
+  h3 {
+    margin: 0 0 24px;
+    padding: 12px 0 0;
+    font-size: clamp(1.125rem, 1.0643rem + 0.2589vw, 1.375rem);
+  }
+  ul,
+  ol {
+    padding: 0 0 0 1rem;
+    margin: 0 0 2.5rem;
+    font-size: var(--bodySize);
+  }
+  ul{
+    list-style-type: disc;
+  }
+  ol {
+    display: block;
+    list-style-type: decimal;
+    margin-left: 6px;
+    li {
+      margin-bottom: rem(16);
+    }
+    ::marker {
+      font-weight: var(--font-medium);
+    }
+    li > strong {
+      font-size: 18px;
+    }
+  }
+  p {
+    margin-bottom: rem(24);
+    font-size: var(--bodySize);
+  }
+  br {
+    display: block;
+    margin: 10px 0;
+    content: '';
+  }
+  blockquote {
+    background-color: var(--color-white);    
+    border-radius: 8px;
+    font-size: var(--bodySize);
+    margin: rem(50) 0;
+    padding: rem(40) rem(20) rem(30);
+    position: relative;
+    @include breakpoint(large) {
+      padding: rem(50) rem(30) rem(40) rem(50);
+    }
+
+    &:before{
+      content: open-quote;
+      left: 10px;
+      position: absolute;
+      top: 0;
+      font-size: clamp(3.75rem, 3.4466rem + 1.2945vw, 5rem);
+      color: var(--color-primary);
+      @include breakpoint(large) {
+        top: 10px;
+      }
+    }
+
+    p{
+      margin-bottom: 0;
+      font-size: var(--bodySize);
+    }
+  }
+}
+
+.c-title {
+  margin-bottom: rem(32);
+  font-size: rem(28);
+  @include breakpoint(large) {
+    margin-bottom: rem(48);
+    font-size: rem(36);
+  }
+}

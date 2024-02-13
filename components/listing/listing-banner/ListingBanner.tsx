@@ -22,8 +22,8 @@ const TopBanner = ({ props, overlay }: ListingBannerProps) => {
         <Image
           src={`${bannerImage}`}
           alt="Description of the image"
-          width={1920}
-          height={450}
+          width={2200}
+          height={500}
           className={`${styles.banner_top_image}`}
         />
       ) : null}

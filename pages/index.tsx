@@ -28,7 +28,6 @@ function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
-  console.log(seoData);
   const topBanner = data?.topBanner;
   const quote = data?.quote;
   const categoriesData = categories?.data;

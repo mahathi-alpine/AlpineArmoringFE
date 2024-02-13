@@ -11,8 +11,6 @@
     transform 0.4s ease-in-out,
     background 0.2s ease-in-out;
   height: 74px;
-  background-color: rgba(23, 23, 23, 0.8);
-  backdrop-filter: blur(10px);
 
   @include breakpoint('large') {
     padding-top: rem(12);
@@ -25,9 +23,7 @@
     transform: none !important;
   }
 
-  &_dark:not(.header_navOpen):not(.header.up) {
-    background: transparent !important;
-    backdrop-filter: none;
+  &:not(.header_navOpen):not(.header.up):not(.header_transparent):not(.header_homepage) {
     --color-white: var(--color-dark);
 
     .header_logo path,

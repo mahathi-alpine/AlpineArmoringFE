@@ -3,18 +3,19 @@ import styles from './BlogSingle.module.scss';
 import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
+import Markdown from 'markdown-to-jsx';
 
 function BlogSingle(props) {
   const data = props.data?.data[0]?.attributes;
-  const categories = data?.categories?.data;
   //   console.log(data);
-
+  const categories = data?.categories?.data;
   const date = new Date(data?.publishedAt);
   const formattedDate = date.toLocaleString('en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
   });
+  const content = data?.content;
 
   return (
     <div className={`${styles.blogSingle}`}>
@@ -48,10 +49,8 @@ function BlogSingle(props) {
         ) : null}
 
         <div className={`${styles.blogSingle_info}`}>
-          <span className={`${styles.blogSingle_info_date}`}>
-            {formattedDate}
-          </span>
-          {/* &#8226; */}
+          <div className={`${styles.blogSingle_date}`}>{formattedDate}</div>
+
           <div className={`${styles.blogSingle_tags}`}>
             {categories?.map((item, index) => (
               <div className={`${styles.blogSingle_tags_item}`} key={index}>
@@ -60,6 +59,12 @@ function BlogSingle(props) {
             ))}
           </div>
         </div>
+
+        {content ? (
+          <div className={`${styles.blogSingle_content} static`}>
+            <Markdown>{content}</Markdown>
+          </div>
+        ) : null}
       </div>
     </div>
   );
