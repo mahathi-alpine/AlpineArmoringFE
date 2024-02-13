@@ -340,7 +340,7 @@ function InventoryVehicle(props) {
         text2="ESV V-Series"
       />
 
-      <InquiryForm {...formData} />
+      {formData ? <InquiryForm {...formData} /> : null}
     </div>
   );
 }
