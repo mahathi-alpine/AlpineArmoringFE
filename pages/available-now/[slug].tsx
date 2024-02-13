@@ -194,10 +194,8 @@ function InventoryVehicle(props) {
           </div>
 
           <div className={`${styles.inventory_details_title}`}>
-            {data?.titleDisplay ? (
-              <h1 dangerouslySetInnerHTML={{ __html: data.titleDisplay }}></h1>
-            ) : data?.title ? (
-              data?.title
+            {data?.title ? (
+              <h1 dangerouslySetInnerHTML={{ __html: data.title }}></h1>
             ) : null}
           </div>
 

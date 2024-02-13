@@ -11,10 +11,8 @@ const Banner = (props) => {
     <div className={`${styles.banner}`}>
       <div className={`${styles.banner_main}`}>
         <div className={`${styles.banner_title}`}>
-          {data.titleDisplay ? (
-            <h1 dangerouslySetInnerHTML={{ __html: data.titleDisplay }}></h1>
-          ) : data.title ? (
-            data.title
+          {data.title ? (
+            <h1 dangerouslySetInnerHTML={{ __html: data.title }}></h1>
           ) : null}
         </div>
 

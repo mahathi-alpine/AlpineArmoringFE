@@ -35,7 +35,6 @@ function Vehicle(props) {
 
   const banner = {
     title: data?.title,
-    titleDisplay: data?.titleDisplay,
     featuredImage: data?.featuredImage,
     descriptionBanner: data?.descriptionBanner,
     slug: data?.slug,

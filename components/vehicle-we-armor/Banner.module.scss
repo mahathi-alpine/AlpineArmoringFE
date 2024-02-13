@@ -20,7 +20,7 @@
     @include breakpoint(large) {
       position: absolute;
       top: 0;
-      max-width: unset;
+      // max-width: unset;
       margin: unset;
       background: #f3f3f3;
       border-bottom-right-radius: 32px;

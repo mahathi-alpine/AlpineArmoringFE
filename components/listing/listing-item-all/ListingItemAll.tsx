@@ -35,13 +35,11 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
         </div>
 
         <div className={`${styles.listing_item_content}`}>
-          {data.titleDisplay ? (
+          {data.title ? (
             <h2
               className={`${styles.listing_item_title}`}
-              dangerouslySetInnerHTML={{ __html: data.titleDisplay }}
+              dangerouslySetInnerHTML={{ __html: data.title }}
             ></h2>
-          ) : data.title ? (
-            <h2 className={`${styles.listing_item_title}`}>{data.title}</h2>
           ) : null}
         </div>
       </Link>

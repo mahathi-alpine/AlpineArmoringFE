@@ -247,6 +247,7 @@
       margin-bottom: rem(16);
       font-size: rem(30);
       font-weight: var(--font-large);
+      white-space: pre-wrap;
       @include breakpoint(large) {
         margin-bottom: rem(32);
         font-size: rem(40);

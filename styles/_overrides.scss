@@ -1,0 +1,100 @@
+
+div.yarl__slide_captions_container {
+    text-align: center;
+    @include breakpoint(large) {
+      padding: 0;
+    }
+  }
+  div.yarl__slide_title {
+    font-weight: var(--font-medium);
+    white-space: normal;
+    font-size: 16px;
+    @include breakpoint(large) {
+      display: inline-block;
+      padding: 16px 24px;
+      background-color: rgba(31, 31, 31, 0.92);
+      border-radius: 16px;
+    }
+  }
+  div.yarl__slide_description {
+    font-size: rem(14);
+    font-weight: var(--font-light);
+    @include breakpoint(large) {
+      max-width: 700px;
+      font-size: rem(16);
+    }
+  }
+  
+  @include breakpoint(large) {
+    nav.yarl__flex_center {
+      align-items: baseline;
+    }
+    button.yarl__thumbnails_thumbnail {
+      transition:
+        height 0.3s ease-in-out,
+        width 0.3s ease-in-out;
+      height: 100px;
+      &:hover {
+        height: 150px;
+        width: 300px;
+      }
+    }
+    div.yarl__thumbnails_vignette {
+      display: none;
+    }
+    div.yarl__thumbnails_container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      background: transparent;
+    }
+    div.yarl__container {
+      bottom: 111px;
+      background: transparent;
+    }
+    .yarl__thumbnails_wrapper,
+    div.yarl__slide_captions_container {
+      background: transparent;
+    }
+    .yarl__thumbnails_wrapper,
+    .yarl__portal {
+      background-color: rgba(31, 31, 31, 0.92);
+    }
+  }
+  
+  button.yarl__button {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    background: #131314;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: none;
+    transition: background 0.2s ease;
+  
+    &:hover {
+      background: var(--color-gray);
+    }
+  }
+  button.yarl__navigation_next {
+    right: 10px;
+  }
+  svg.yarl__icon {
+    width: 28px;
+    position: relative;
+  }
+  button.yarl__navigation_prev {
+    left: 10px;
+    svg.yarl__icon {
+      left: 0;
+    }
+  }
+  .yarl__slide_image,
+  .yarl__slide_wrapper video {
+    box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.35);
+  }
