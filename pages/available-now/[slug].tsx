@@ -10,7 +10,7 @@ import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/S
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Carousel from 'components/global/carousel/Carousel';
-// import InquiryForm from 'components/global/form/InquiryForm';
+import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
@@ -63,11 +63,11 @@ function InventoryVehicle(props) {
     },
   ];
 
-  // const formData = {
-  //   title: data?.title,
-  //   vehicleID: data?.vehicleID,
-  //   featuredImage: data?.featuredImage,
-  // };
+  const formData = {
+    title: data?.title,
+    vehicleID: data?.vehicleID,
+    featuredImage: data?.featuredImage,
+  };
 
   const handleTabChange = (index, titleNav) => {
     const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
@@ -340,7 +340,7 @@ function InventoryVehicle(props) {
         text2="ESV V-Series"
       />
 
-      {/* {formData ? <InquiryForm {...formData} /> : null} */}
+      {formData ? <InquiryForm {...formData} /> : null}
     </div>
   );
 }
