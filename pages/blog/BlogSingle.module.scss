@@ -97,7 +97,7 @@
     }
   }
 
-  &_date{
+  &_date {
     font-size: rem(12);
     text-transform: uppercase;
     font-weight: var(--font-medium);
@@ -123,7 +123,7 @@
     }
   }
 
-  &_content{
+  &_content {
     @include breakpoint(large) {
       max-width: 80%;
       margin: auto;

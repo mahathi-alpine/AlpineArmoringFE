@@ -27,7 +27,6 @@
   --header-height: 74px;
 }
 
-
 body {
   font-family: Termina, sans-serif;
   color: var(--color-secondary);
@@ -36,7 +35,6 @@ body {
     color: var(--color-white);
   }
 }
-
 
 em,
 i {
@@ -90,7 +88,7 @@ small {
 .static {
   --bodySize: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
 
-  h1{
+  h1 {
     margin: 0 0 30px;
     font-size: clamp(1.875rem, 1.6626rem + 0.9061vw, 2.75rem);
   }
@@ -110,7 +108,7 @@ small {
     margin: 0 0 2.5rem;
     font-size: var(--bodySize);
   }
-  ul{
+  ul {
     list-style-type: disc;
   }
   ol {
@@ -137,7 +135,7 @@ small {
     content: '';
   }
   blockquote {
-    background-color: var(--color-white);    
+    background-color: var(--color-white);
     border-radius: 8px;
     font-size: var(--bodySize);
     margin: rem(50) 0;
@@ -147,7 +145,7 @@ small {
       padding: rem(50) rem(30) rem(40) rem(50);
     }
 
-    &:before{
+    &:before {
       content: open-quote;
       left: 10px;
       position: absolute;
@@ -159,7 +157,7 @@ small {
       }
     }
 
-    p{
+    p {
       margin-bottom: 0;
       font-size: var(--bodySize);
     }
