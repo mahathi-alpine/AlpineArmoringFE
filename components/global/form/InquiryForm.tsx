@@ -28,8 +28,8 @@ const InquiryForm = (props, plain = false) => {
 
             {props?.featuredImage?.data ? (
               <Image
-                src={`${props.featuredImage?.data.attributes.url}`}
-                alt={`${props.featuredImage?.data.attributes.alternativeText}`}
+                src={`${props?.featuredImage?.data.attributes.url}`}
+                alt={`${props?.featuredImage?.data.attributes.alternativeText}`}
                 width={600}
                 height={400}
               />
