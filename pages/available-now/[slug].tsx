@@ -64,9 +64,9 @@ function InventoryVehicle(props) {
   ];
 
   const formData = {
-    title: data.title,
-    vehicleID: data.vehicleID,
-    featuredImage: data.featuredImage,
+    title: data?.title,
+    vehicleID: data?.vehicleID,
+    featuredImage: data?.featuredImage,
   };
 
   const handleTabChange = (index, titleNav) => {
