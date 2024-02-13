@@ -17,7 +17,7 @@ const VideoScale = dynamic(
   () => import('components/global/video-scale/VideoScale')
 );
 import { animateVideo } from 'components/global/video-scale/VideoScale';
-import InquiryForm from 'components/global/form/InquiryForm';
+// import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
   const data = props.data?.data[0]?.attributes;
@@ -71,10 +71,10 @@ function Vehicle(props) {
     },
   ];
 
-  const formData = {
-    title: data?.title,
-    featuredImage: data?.featuredImage,
-  };
+  // const formData = {
+  //   title: data?.title,
+  //   featuredImage: data?.featuredImage,
+  // };
 
   const handleTabChange = (index, titleNav) => {
     const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
@@ -299,9 +299,9 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      <div className={`background-dark`}>
+      {/* <div className={`background-dark`}>
         <InquiryForm {...formData} plain />
-      </div>
+      </div> */}
     </div>
   );
 }
