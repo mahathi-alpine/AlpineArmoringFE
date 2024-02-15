@@ -19,18 +19,16 @@ const syncAlgolia = async (req, res) => {
     const postCount = postsData.data.length;
 
     for (let page = 0; page < Math.ceil(postCount / pageSize); page++) {
-      const posts = postsData.data.slice(
-        page * pageSize,
-        (page + 1) * pageSize
-      );
-
-      const algoliaPosts = posts.map((post) => ({
-        objectID: post.id,
-        title: post.attributes.title,
-        slug: post.attributes.slug,
-      }));
-      console.log(algoliaPosts);
-
+      // const posts = postsData.data.slice(
+      //   page * pageSize,
+      //   (page + 1) * pageSize
+      // );
+      // const algoliaPosts = posts.map((post) => ({
+      //   objectID: post.id,
+      //   title: post.attributes.title,
+      //   slug: post.attributes.slug,
+      // }));
+      // console.log(algoliaPosts);
       // await index.saveObjects(algoliaPosts);
     }
     res.json(`Content successfully synchronized with Algolia search`);
