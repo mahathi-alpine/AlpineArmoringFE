@@ -1,5 +1,5 @@
 import { getPageData } from 'lib/api';
-import styles from './BlogSingle.module.scss';
+import styles from './NewsSingle.module.scss';
 import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
@@ -24,7 +24,7 @@ function BlogSingle(props) {
   return (
     <div className={`${styles.blogSingle}`}>
       <div className={`container_small`}>
-        <Link href="/blog" className={`${styles.blogSingle_back}`}>
+        <Link href="/news" className={`${styles.blogSingle_back}`}>
           <ArrowIcon />
           All News
         </Link>

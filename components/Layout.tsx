@@ -66,7 +66,7 @@ const Layout = ({ children }) => {
 
   const pathsDarkMode = ['/available-now', '/manufacturing'];
   const pathsDarkFooter = ['/manufacturing'];
-  const pathsPadding0 = ['/blog'];
+  const pathsPadding0 = ['/news'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)

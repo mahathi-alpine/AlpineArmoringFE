@@ -9,7 +9,7 @@ import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
 import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/homepage/tab-section/TabSection';
-import Blog from 'components/global/blog/Blog';
+import News from 'components/global/news/News';
 import Partners from 'components/homepage/partners/Partners';
 const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
@@ -35,7 +35,7 @@ function Home({ homepageData, categories }) {
   const tabSectionData = data?.tabSection;
   const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
   const ballistingTestings = data?.ballistingTestingsMedia;
-  const blog = data?.blogs?.data;
+  const news = data?.blogs?.data;
   const partners = data?.industryPartners?.data;
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function Home({ homepageData, categories }) {
         <div className="shape-after shape-after-white"></div>
       </div>
 
-      {blog ? <Blog props={blog} button /> : null}
+      {news ? <News props={news} button limit="3" /> : null}
 
       {partners ? <Partners props={partners} /> : null}
     </>

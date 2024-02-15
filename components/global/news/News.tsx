@@ -2,25 +2,26 @@ import Link from 'next/link';
 // import Image from 'next/image';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
-import styles from './Blog.module.scss';
+import styles from './News.module.scss';
 
-const Blog = ({ props, button = false }) => {
+const Blog = ({ props, button = false, limit = '' }) => {
   return (
-    <div className={`${styles.blog}`}>
-      <div className={`${styles.blog_inner} container_small`}>
-        <div className={`${styles.blog_heading}`}>
+    <div className={`${styles.news}`}>
+      <div className={`${styles.news_inner} container_small`}>
+        <div className={`${styles.news_heading}`}>
           <h3
-            className={`${styles.blog_heading_secondary} block-reveal observe`}
+            className={`${styles.news_heading_secondary} block-reveal observe`}
           >
             News
           </h3>
-          <h2 className={`${styles.blog_heading_primary} observe fade-in-up`}>
+          <h2 className={`${styles.news_heading_primary} observe fade-in-up`}>
             Armoring world
           </h2>
         </div>
 
-        <div className={`${styles.blog_list}`}>
-          {props.slice(0, 3).map((item, index) => {
+        <div className={`${styles.news_list}`}>
+          {(limit ? props.slice(0, limit) : props).map((item, index) => {
+            // {props.slice(0, limit).map((item, index) => {
             const date = new Date(item.attributes.publishedAt);
             const formattedDate = date.toLocaleString('en-GB', {
               day: 'numeric',
@@ -31,16 +32,16 @@ const Blog = ({ props, button = false }) => {
             return (
               <div
                 className={`
-                  ${styles.blog_item} 
-                  ${index === 0 ? styles.blog_item_featured : ''}
+                  ${styles.news_item} 
                   observe fade-in-up                  
                 `}
+                // ${index === 0 ? styles.news_item_featured : ''}
                 key={index}
               >
                 {item.attributes.thumbnail.data?.attributes.url ? (
                   <Link
-                    href={`/blog/${item.attributes.slug}`}
-                    className={`${styles.blog_item_image}`}
+                    href={`/news/${item.attributes.slug}`}
+                    className={`${styles.news_item_image}`}
                   >
                     <Image
                       src={
@@ -51,32 +52,35 @@ const Blog = ({ props, button = false }) => {
                         item.attributes.thumbnail.data.attributes
                           .alternativeText || 'Alpine Armoring'
                       }
-                      width={index === 0 ? 1300 : 700}
-                      height={index === 0 ? 550 : 300}
-                      sizes={
-                        index === 0
-                          ? '(min-width: 1280px ) 75vw, 100vw'
-                          : '(min-width: 1280px ) 40vw, 100vw'
-                      }
+                      // width={index === 0 ? 1300 : 700}
+                      // height={index === 0 ? 550 : 300}
+                      // sizes={
+                      //   index === 0
+                      //     ? '(min-width: 1280px ) 75vw, 100vw'
+                      //     : '(min-width: 1280px ) 40vw, 100vw'
+                      // }
+                      width={700}
+                      height={300}
+                      sizes={'(min-width: 1280px ) 40vw, 100vw'}
                     ></Image>
                   </Link>
                 ) : null}
 
-                <div className={`${styles.blog_item_content}`}>
-                  <div className={`${styles.blog_item_date}`}>
+                <div className={`${styles.news_item_content}`}>
+                  <div className={`${styles.news_item_date}`}>
                     <time dateTime={item.attributes.publishedAt}>
                       {formattedDate}
                     </time>
                   </div>
 
-                  <div className={`${styles.blog_item_content_main}`}>
-                    <div className={`${styles.blog_item_content_main_inner}`}>
+                  <div className={`${styles.news_item_content_main}`}>
+                    <div className={`${styles.news_item_content_main_inner}`}>
                       {item.attributes.categories.data.length > 0 ? (
-                        <div className={`${styles.blog_item_tags}`}>
+                        <div className={`${styles.news_item_tags}`}>
                           {item.attributes.categories.data.map(
                             (item, index) => (
                               <div
-                                className={`${styles.blog_item_tags_item}`}
+                                className={`${styles.news_item_tags_item}`}
                                 key={index}
                               >
                                 {item.attributes.name}
@@ -86,22 +90,22 @@ const Blog = ({ props, button = false }) => {
                         </div>
                       ) : null}
 
-                      <Link href={`/blog/${item.attributes.slug}`}>
-                        <h3 className={`${styles.blog_item_title}`}>
+                      <Link href={`/news/${item.attributes.slug}`}>
+                        <h3 className={`${styles.news_item_title}`}>
                           {item.attributes.title}
                         </h3>
                       </Link>
 
                       {index === 0 && item.attributes.excerpt ? (
-                        <p className={`${styles.blog_item_excerpt}`}>
+                        <p className={`${styles.news_item_excerpt}`}>
                           {item.attributes.excerpt}
                         </p>
                       ) : null}
                     </div>
 
                     <Button
-                      href={`/blog/${item.attributes.slug}`}
-                      className={`${styles.blog_item_button} rounded border desktop-only`}
+                      href={`/news/${item.attributes.slug}`}
+                      className={`${styles.news_item_button} rounded border desktop-only`}
                     >
                       Read More
                     </Button>
@@ -113,10 +117,10 @@ const Blog = ({ props, button = false }) => {
         </div>
 
         {button ? (
-          <div className={`${styles.blog_button}`}>
+          <div className={`${styles.news_button}`}>
             <Button
-              href={`/blog`}
-              className={`${styles.blog_button_link} rounded primary`}
+              href={`/news`}
+              className={`${styles.news_button_link} rounded primary`}
             >
               See All News
             </Button>

@@ -5,8 +5,8 @@
   z-index: 2;
 
   @include breakpoint(large) {
-    padding-top: rem(160);
-    padding-bottom: rem(200);
+    padding-top: rem(80);
+    padding-bottom: rem(100);
   }
 
   &_wrap {

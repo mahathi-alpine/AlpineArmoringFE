@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 // import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
-import BlogList from 'components/global/blog/Blog';
-import styles from './Blog.module.scss';
+import BlogList from 'components/global/news/News';
+import styles from './News.module.scss';
 
 function Blog(props) {
   const seoData = props?.pageData?.seo;
@@ -45,7 +45,7 @@ function Blog(props) {
       {/* {banner ? <Banner props={banner} center shape="white" /> : null} */}
 
       {posts ? (
-        <div className={`${styles.blog}`}>
+        <div className={`${styles.news}`}>
           <BlogList props={posts} />
         </div>
       ) : null}
@@ -55,7 +55,7 @@ function Blog(props) {
 
 export async function getStaticProps() {
   let pageData = await getPageData({
-    route: 'blog-page',
+    route: 'news-page',
     populate: 'deep',
   });
   pageData = pageData.data?.attributes || null;

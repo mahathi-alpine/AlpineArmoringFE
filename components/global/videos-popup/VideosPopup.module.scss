@@ -21,9 +21,10 @@
 
   &_wrap {
     position: static;
-    padding-bottom: rem(80);
+    padding-bottom: rem(20);
     @include breakpoint(medium) {
-      padding-top: rem(100);
+      padding-top: rem(50);
+      padding-bottom: 0;
     }
   }
 
