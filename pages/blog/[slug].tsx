@@ -6,8 +6,8 @@ import Image from 'next/image';
 import Markdown from 'markdown-to-jsx';
 
 function BlogSingle(props) {
-  const data = props.data?.data[0]?.attributes;
-  //   console.log(data);
+  const data =
+    props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const categories = data?.categories?.data;
   const date = new Date(data?.publishedAt);
   const formattedDate = date.toLocaleString('en-GB', {
@@ -16,6 +16,10 @@ function BlogSingle(props) {
     year: 'numeric',
   });
   const content = data?.content;
+
+  // if (!data) {
+  //   return null;
+  // }
 
   return (
     <div className={`${styles.blogSingle}`}>
@@ -73,12 +77,11 @@ function BlogSingle(props) {
 export async function getStaticPaths() {
   const slugsResponse = await getPageData({
     route: 'blogs',
-    //   populate: 'featuredImage',
   });
 
-  const slugs = slugsResponse.data.map((item) => item.attributes.slug);
+  const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
 
-  const paths = slugs.map((slug) => ({ params: { slug } }));
+  const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
 
   return {
     paths,
@@ -93,6 +96,12 @@ export async function getStaticProps({ params }) {
     params: `filters[slug][$eq]=${slug}`,
     populate: 'deep',
   });
+
+  if (!data || !data.data || data.data.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: { data },
