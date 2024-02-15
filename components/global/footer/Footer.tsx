@@ -14,17 +14,19 @@ import Link from 'next/link';
 const Footer = (isDarkMode) => {
   const links = [
     { path: '/', text: 'Home' },
-    { path: '/vehicles-we-armor', text: 'Make & Models' },
-    { path: '/available-now/type/armored-rental', text: 'Rental & Lease' },
+    { path: '/vehicles-we-armor', text: 'Makes & Models We Armor' },
     { path: '/ballisticchart', text: 'Ballistic Chart' },
+    { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     {
-      path: '/available-now/type/armored-pre-owned',
-      text: 'Pre-Owned/Stock Vehicles',
+      path: '/available-now/',
+      text: 'Stock Vehicles (New)',
     },
-    { path: '/news', text: 'News' },
+    // { path: '/news', text: 'News' },
+    { path: '/faqs', text: 'News & Media' },
+    { path: '/available-now/type/armored-rental', text: 'Pre-owned' },
+    // { path: '/special-of-the-month', text: 'Special of the Month' },
     { path: '/faqs', text: 'FAQs' },
-    { path: '/special-of-the-month', text: 'Special of the Month' },
     { path: '/contact', text: 'Contact Us' },
   ];
 
