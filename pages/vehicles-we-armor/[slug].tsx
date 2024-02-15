@@ -20,7 +20,8 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
-  const data = props.data?.data[0]?.attributes;
+  const data =
+    props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
   const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
@@ -313,9 +314,9 @@ export async function getStaticPaths() {
     fields: 'fields[0]=title&fields[1]=slug',
   });
 
-  const slugs = slugsResponse.data.map((item) => item.attributes.slug);
+  const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
 
-  const paths = slugs.map((slug) => ({ params: { slug } }));
+  const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
 
   return {
     paths,
@@ -329,6 +330,12 @@ export async function getStaticProps({ params }) {
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
   });
+
+  if (!data || !data.data || data.data.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: { data },

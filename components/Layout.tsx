@@ -101,6 +101,10 @@ const Layout = ({ children }) => {
               body {
                 padding-top: 0 !important;
               }
+            `}</style>
+        )}
+        {isHomepage && (
+          <style>{`
               header{
                 background-color: rgba(23, 23, 23, 0.8);
                 backdrop-filter: blur(10px);
