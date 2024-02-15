@@ -5,8 +5,8 @@ const syncAlgolia = async (req, res) => {
   try {
     // if (req.method === 'POST') {
     // const algoliaClient = algoliasearch(
-    //     'BWXO30HFNW',
-    //     '111a071547c99da1c0c2297d4efee592'
+    //     NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
+    //     process.env.ALGOLIA_ADMIN_KEY
     // );
 
     // const index = algoliaClient.initIndex('dev_alpine');
