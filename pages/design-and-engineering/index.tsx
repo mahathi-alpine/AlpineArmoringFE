@@ -341,7 +341,7 @@ const Design = (props) => {
           ) : null}
 
           <div className={`${styles.design_box}`}>
-            {props.pageData.section5Image.data.attributes ? (
+            {props.pageData?.section5Image.data.attributes ? (
               <Image
                 src={
                   props.pageData.section5Image.data.attributes.formats?.large
@@ -375,6 +375,12 @@ export async function getStaticProps() {
     populate: 'deep',
   });
   pageData = pageData.data?.attributes || null;
+
+  if (!pageData || !pageData.data || pageData.data.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: { pageData },
