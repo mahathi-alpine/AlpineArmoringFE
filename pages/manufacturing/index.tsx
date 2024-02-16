@@ -5,6 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import { useEffect } from 'react';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Image from 'next/image';
+import TabSlider from 'components/global/tab-slider/TabSlider';
 // import useSplitText from 'hooks/useSplitText';
 import Seo from 'components/Seo';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -40,6 +41,34 @@ function Manufacturing(props) {
     };
   }, []);
 
+  const tabSliderData = [
+    {
+      id: 0,
+      titleNav: 'Advanced Technology',
+    },
+    {
+      id: 1,
+      titleNav: 'Components & Ballistic Material',
+    },
+    {
+      id: 2,
+      titleNav: 'Production',
+    },
+  ];
+
+  const handleTabChange = (index, titleNav) => {
+    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+    const targetElement = document.getElementById(targetId);
+    const offset = 100;
+
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    });
+  };
   // useSplitText();
 
   return (
@@ -48,13 +77,19 @@ function Manufacturing(props) {
 
       <div className={`${styles.manufacturing} background-dark`}>
         {props.pageData?.banner ? (
-          <>
-            <Banner props={props.pageData.banner} shape="dark" center />
-          </>
+          <Banner props={props.pageData?.banner} center shape="dark" />
         ) : null}
+
+        <TabSlider
+          className={`${styles.manufacturing_tabs} desktop-only`}
+          props={tabSliderData}
+          onTabChange={handleTabChange}
+          anchor
+        />
 
         <section
           className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}
+          id="advanced-technology"
         >
           {props.pageData?.section1Title ? (
             <h2
@@ -121,7 +156,10 @@ function Manufacturing(props) {
           </div>
         ) : null}
 
-        <section className={`${styles.manufacturing_section2}`}>
+        <section
+          className={`${styles.manufacturing_section2}`}
+          id="components-&-ballistic-material"
+        >
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >
@@ -143,9 +181,7 @@ function Manufacturing(props) {
 
             {props.pageData?.section2Heading ? (
               <div className={`${styles.manufacturing_filling}`}>
-                {props.pageData?.section2Heading ? (
-                  <FillingText data={props.pageData?.section2Heading} small />
-                ) : null}
+                <FillingText data={props.pageData?.section2Heading} small />
               </div>
             ) : null}
 
@@ -200,7 +236,7 @@ function Manufacturing(props) {
           </div>
         </section>
 
-        <section className={`${styles.manufacturing_section3}`}>
+        <section className={`${styles.manufacturing_section3}`} id="production">
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >

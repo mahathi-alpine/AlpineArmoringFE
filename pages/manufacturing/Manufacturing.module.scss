@@ -31,6 +31,19 @@
     }
   }
 
+  &_tabs{
+    position: relative;
+    color: var(--color-white);
+    top: rem(-80);
+    @include breakpoint(large) {
+      top: rem(-127);
+    }
+
+    & > div > div {
+      display: none;
+    }
+  }
+
   &_text {
     display: block;
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);

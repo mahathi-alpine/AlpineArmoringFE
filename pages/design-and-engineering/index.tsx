@@ -376,7 +376,7 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
-  if (!pageData || !pageData.data || pageData.data.length === 0) {
+  if (!pageData) {
     return {
       notFound: true,
     };
