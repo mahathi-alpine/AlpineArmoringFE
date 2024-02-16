@@ -63,7 +63,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
           // preload="metadata"
           // poster="/assets/hpBannerPoster.jpg"
         >
-          <source src="/AlpineArmoringHP.webm" />
+          <source src="/AlpineArmoringHP.mp4" />
         </video>
 
         <div className={`${styles.hp_banner_pause}`} onClick={togglePlayPause}>

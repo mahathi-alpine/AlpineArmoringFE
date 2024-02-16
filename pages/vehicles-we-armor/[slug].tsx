@@ -230,19 +230,23 @@ function Vehicle(props) {
       ) : null}
 
       {beforeAfterSlider_Before && beforeAfterSlider_After ? (
-        <div
-          className={`${styles.slug_slider} observe fade-in container anchor`}
-        >
-          <ComparisonSlider
-            beforeImage={beforeAfterSlider_Before}
-            afterImage={beforeAfterSlider_After}
-          />
-          <p className={`${styles.slug_slider_small}`}>
-            <small>
-              The actual custom-armoring conversion may vary per client’s final
-              specs
-            </small>
-          </p>
+        <div className={`${styles.slug_slider_wrap} observe fade-in anchor`}>
+          <div className={`shape-before`}></div>
+
+          <div className={`${styles.slug_slider} container background-dark`}>
+            <ComparisonSlider
+              beforeImage={beforeAfterSlider_Before}
+              afterImage={beforeAfterSlider_After}
+            />
+            <p className={`${styles.slug_slider_small}`}>
+              <small>
+                The actual custom-armoring conversion may vary per client’s
+                final specs
+              </small>
+            </p>
+          </div>
+
+          <div className={`shape-after`}></div>
         </div>
       ) : null}
 
