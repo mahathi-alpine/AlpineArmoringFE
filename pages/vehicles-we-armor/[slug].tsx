@@ -41,6 +41,7 @@ function Vehicle(props) {
     slug: data?.slug,
     inventory: inventory,
     pdf: data?.pdf,
+    protectionLevel: data?.protectionLevel,
   };
 
   const navItems = [

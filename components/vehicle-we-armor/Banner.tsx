@@ -7,6 +7,9 @@ import PDFIcon from 'components/icons/PDF';
 const Banner = (props) => {
   const data = props.props;
 
+  const protectionLevel = data.protectionLevel || 'A4, A6, A9, A11';
+  const protectionLevelSplit = protectionLevel.split(',');
+
   return (
     <div className={`${styles.banner}`}>
       <div className={`${styles.banner_main}`}>
@@ -103,10 +106,10 @@ const Banner = (props) => {
         <div className={`${styles.banner_protection}`}>
           <h3>Offered At Protection Levels</h3>
           <div className={`${styles.banner_protection_levels}`}>
-            <span>A4</span>
-            <span>A6</span>
-            <span>A9</span>
-            <span>A11</span>
+            {/* {data?.protectionLevel} */}
+            {protectionLevelSplit.map((item, index) => (
+              <span key={index}>{item}</span>
+            ))}
           </div>
         </div>
       </div>

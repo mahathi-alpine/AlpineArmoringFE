@@ -1,11 +1,12 @@
 .listing {
   &_wrap {
     position: relative;
-    padding-bottom: rem(80);
+    padding-bottom: rem(20);
     z-index: 2;
 
     @include breakpoint(large) {
       padding-top: 0;
+      padding-bottom: rem(80);
       max-width: 1470px;
 
       &_inventory {

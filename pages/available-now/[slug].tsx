@@ -129,7 +129,7 @@ function InventoryVehicle(props) {
             <p>
               {data?.shortDescription
                 ? data?.shortDescription
-                : 'This armored vehicle is in stock and available to ship immediately'}
+                : `This ${data?.title} is in stock and available to ship immediately`}
             </p>
           </div>
 
@@ -140,10 +140,11 @@ function InventoryVehicle(props) {
 
             {data?.armor_level ? (
               <div className={`${styles.inventory_armor}`}>
-                Armor
-                <br />
-                Level
-                <span>{data?.armor_level}</span>
+                <div className={`${styles.inventory_armor_box}`}>
+                  Armor
+                  <span>Level</span>
+                </div>
+                <strong>{data?.armor_level}</strong>
               </div>
             ) : null}
           </div>
@@ -203,7 +204,7 @@ function InventoryVehicle(props) {
           <div className={`${styles.inventory_details_description}`}>
             <InfoIcon />
             <p>
-              This armored vehicle is in stock and available to ship immediately
+              This {data?.title} is in stock and available to ship immediately
             </p>
           </div>
 

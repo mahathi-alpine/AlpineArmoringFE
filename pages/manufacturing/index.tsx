@@ -53,7 +53,9 @@ function Manufacturing(props) {
           </>
         ) : null}
 
-        <section className={`${styles.manufacturing_section1} container_small`}>
+        <section
+          className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}
+        >
           {props.pageData?.section1Title ? (
             <h2
               className={`${styles.manufacturing_title} block-reveal observe`}
@@ -120,7 +122,9 @@ function Manufacturing(props) {
         ) : null}
 
         <section className={`${styles.manufacturing_section2}`}>
-          <div className={`container_small`}>
+          <div
+            className={`${styles.manufacturing_container_small} container_small`}
+          >
             {/* {props.pageData?.section2Title ? (
               <h2
                 className={`${styles.manufacturing_title} block-reveal observe`}
@@ -140,7 +144,7 @@ function Manufacturing(props) {
             {props.pageData?.section2Heading ? (
               <div className={`${styles.manufacturing_filling}`}>
                 {props.pageData?.section2Heading ? (
-                  <FillingText data={props.pageData?.section2Heading} />
+                  <FillingText data={props.pageData?.section2Heading} small />
                 ) : null}
               </div>
             ) : null}
@@ -183,7 +187,9 @@ function Manufacturing(props) {
             </div>
           ) : null}
 
-          <div className={`container_small`}>
+          <div
+            className={`${styles.manufacturing_container_small} container_small`}
+          >
             {props.pageData?.section2Text2 ? (
               <Markdown
                 className={`${styles.manufacturing_quote} observe fade-in`}
@@ -195,7 +201,9 @@ function Manufacturing(props) {
         </section>
 
         <section className={`${styles.manufacturing_section3}`}>
-          <div className={`container_small`}>
+          <div
+            className={`${styles.manufacturing_container_small} container_small`}
+          >
             {/* {props.pageData?.section3Title ? (
               <h2
                 className={`${styles.manufacturing_title} block-reveal observe`}
@@ -213,7 +221,7 @@ function Manufacturing(props) {
 
             <div className={`${styles.manufacturing_filling}`}>
               {props.pageData?.section3Heading ? (
-                <FillingText data={props.pageData?.section3Heading} />
+                <FillingText data={props.pageData?.section3Heading} small />
               ) : null}
             </div>
 
