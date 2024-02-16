@@ -124,11 +124,11 @@
       }
     }
 
-    &_box{
+    &_box {
       display: flex;
       flex-flow: column;
 
-      span{
+      span {
         text-transform: uppercase;
         line-height: 14px;
         @include breakpoint(large) {

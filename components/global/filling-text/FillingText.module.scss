@@ -22,7 +22,7 @@
   &_text {
     font-size: clamp(1.375rem, 1.1019rem + 1.165vw, 2.5rem);
 
-    .fillingText_small &{
+    .fillingText_small & {
       font-size: clamp(1.25rem, 1.068rem + 0.7767vw, 2rem);
     }
 
