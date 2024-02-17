@@ -1,5 +1,4 @@
 .design {
-
   &_title {
     margin-bottom: rem(16);
     text-transform: uppercase;
@@ -42,7 +41,7 @@
       justify-content: center;
       margin-top: rem(40);
 
-      .design_image{
+      .design_image {
         margin: unset;
       }
     }
@@ -58,7 +57,7 @@
     }
   }
 
-  &_image{
+  &_image {
     margin: auto;
   }
 
