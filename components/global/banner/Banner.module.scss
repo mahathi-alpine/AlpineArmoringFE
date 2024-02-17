@@ -18,6 +18,7 @@
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     overflow: hidden;
+    text-align: center;
 
     @include breakpoint(large) {
       height: 400px;
@@ -32,7 +33,11 @@
 
     .banner_center & {
       align-items: center;
-      text-align: center;
+    }
+    .banner_small & {
+      @include breakpoint(large) {
+        text-align: left;
+      }
     }
 
     &:before {
@@ -86,7 +91,7 @@
   }
 
   &_text {
-    display: flex;
+    display: inline-flex;
     flex-flow: column;
     gap: 8px;
     padding: rem(24) rem(16);
@@ -108,12 +113,10 @@
       max-width: 950px;
 
       .banner_small & {
-        display: inline-flex;
         padding: rem(26) rem(32);
         max-width: calc(100% - 620px);
       }
       .banner_center & {
-        display: inline-flex;
         padding: rem(32) rem(48);
         font-size: rem(32);
       }

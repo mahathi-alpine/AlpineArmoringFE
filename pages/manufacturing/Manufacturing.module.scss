@@ -1,4 +1,18 @@
 .manufacturing {
+
+  &_tabs {
+    position: relative;
+    color: var(--color-white);
+    top: rem(-70);
+    @include breakpoint(large) {
+      top: rem(-127);
+    }
+
+    & > div > div {
+      display: none;
+    }
+  }
+
   &_title {
     margin-bottom: rem(16);
     text-transform: uppercase;
@@ -28,19 +42,6 @@
     @include breakpoint(huge) {
       width: 61%;
       max-width: 1160px;
-    }
-  }
-
-  &_tabs {
-    position: relative;
-    color: var(--color-white);
-    top: rem(-80);
-    @include breakpoint(large) {
-      top: rem(-127);
-    }
-
-    & > div > div {
-      display: none;
     }
   }
 

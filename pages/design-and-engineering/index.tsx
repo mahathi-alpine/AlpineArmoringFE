@@ -98,7 +98,7 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section1Image.data ? (
-              <div className={`observe fade-in`}>
+              <div className={`${styles.design_image} observe fade-in`}>
                 <Image
                   src={
                     props.pageData.section1Image.data.attributes.formats?.large
@@ -136,7 +136,7 @@ const Design = (props) => {
 
           <div className={`${styles.design_box} container`}>
             {props.pageData?.section2Image.data ? (
-              <div className={`observe fade-in`}>
+              <div className={`${styles.design_image} observe fade-in`}>
                 <Image
                   src={
                     props.pageData.section2Image.data.attributes.formats?.large
@@ -159,7 +159,7 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section2Image2.data ? (
-              <div className={`observe fade-in`}>
+              <div className={`${styles.design_image} observe fade-in`}>
                 <Image
                   src={
                     props.pageData.section2Image2.data.attributes.formats?.large
@@ -317,7 +317,7 @@ const Design = (props) => {
                   }
                   width={350}
                   height={350}
-                  className={`observe fade-in`}
+                  className={`${styles.design_image} observe fade-in`}
                 ></Image>
               ) : null}
             </div>
@@ -353,7 +353,7 @@ const Design = (props) => {
                 }
                 width={710}
                 height={397}
-                className={`observe fade-in`}
+                className={`${styles.design_image} observe fade-in`}
               ></Image>
             ) : null}
 

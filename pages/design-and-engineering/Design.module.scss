@@ -1,4 +1,5 @@
 .design {
+
   &_title {
     margin-bottom: rem(16);
     text-transform: uppercase;
@@ -14,11 +15,17 @@
   &_heading {
     display: block;
     margin-bottom: rem(16);
-    font-size: clamp(1rem, 0.8786rem + 0.5178vw, 1.5rem);
+    font-size: rem(15);
+    @include breakpoint(large) {
+      font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
+    }
   }
 
   &_text {
-    font-size: clamp(1rem, 0.9697rem + 0.1294vw, 1.125rem);
+    font-size: rem(15);
+    @include breakpoint(large) {
+      font-size: rem(17);
+    }
 
     p {
       margin-bottom: rem(16);
@@ -34,6 +41,10 @@
       align-items: center;
       justify-content: center;
       margin-top: rem(40);
+
+      .design_image{
+        margin: unset;
+      }
     }
     @include breakpoint(huge) {
       margin-top: rem(64);
@@ -44,6 +55,16 @@
       @include breakpoint(large) {
         max-width: 500px;
       }
+    }
+  }
+
+  &_image{
+    margin: auto;
+  }
+
+  &_section1 {
+    @include breakpoint(medium) {
+      padding-top: rem(24);
     }
   }
 
@@ -59,7 +80,10 @@
 
     &_heading {
       margin-bottom: rem(16);
-      font-size: clamp(1.125rem, 0.8216rem + 1.2945vw, 2.375rem);
+      font-size: rem(15);
+      @include breakpoint(large) {
+        font-size: clamp(1.8125rem, 0.6875rem + 1.4063vw, 2.375rem);
+      }
     }
     &_top {
       &_box {

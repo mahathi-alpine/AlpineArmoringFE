@@ -129,6 +129,8 @@
 
         .filters_wrap_inner {
           visibility: visible;
+          max-width: 600px;
+          margin: auto;
           opacity: 1;
           transform: scale(1);
           transition:

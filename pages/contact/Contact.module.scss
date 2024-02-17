@@ -1,6 +1,6 @@
 .contact {
   &_main {
-    margin-bottom: rem(64);
+    margin-bottom: rem(80);
 
     @include breakpoint(large) {
       display: flex;
@@ -31,23 +31,33 @@
       }
     }
     &_right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+
+      @include breakpoint(medium) {
+        justify-content: space-evenly;
+      }
+
       @include breakpoint(large) {
-        display: flex;
-        gap: 24px;
         justify-content: space-between;
       }
+
       &_column {
         margin-bottom: rem(32);
-        @include breakpoint(large) {
+        @include breakpoint(medium) {
           margin-bottom: 0;
         }
       }
+
       p {
         margin-bottom: rem(10);
       }
+
       strong {
         font-weight: var(--font-medium);
       }
+
       @include breakpoint(large) {
         width: 50%;
         &_column {

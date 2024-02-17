@@ -6,15 +6,15 @@
 
   &_inventory {
     .stickyHorizontalSlider_inner {
-      @include breakpoint(medium) {
+      @include breakpoint(large) {
         flex-wrap: wrap;
         padding: 0 rem(16);
         gap: 16px;
       }
     }
     .stickyHorizontalSlider_item {
-      @include breakpoint(medium) {
-        flex: 0 0 calc(100% / 2 - 11px);
+      @include breakpoint(large) {
+        // flex: 0 0 calc(100% / 2 - 11px);
         flex: 100%;
         margin: 0 0 rem(16) 0;
 

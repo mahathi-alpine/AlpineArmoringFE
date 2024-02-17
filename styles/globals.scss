@@ -87,6 +87,7 @@ body {
   &:after {
     content: '';
     position: absolute;
+    // bottom: -3px;
     background-size: 100px;
     height: 100%;
     left: -50px;
@@ -112,6 +113,7 @@ body {
   }
   &:after {
     border-radius: 50% / 100% 100% 0 0;
+    top: 1px;
   }
 }
 
@@ -121,6 +123,7 @@ body {
   }
   &:after {
     border-radius: 50% / 0 0 100% 100%;
+    top: -1px;
   }
 }
 .skiptranslate,

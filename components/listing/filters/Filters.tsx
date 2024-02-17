@@ -4,7 +4,6 @@ import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
-import { useIsMobile } from 'hooks/useIsMobile';
 import SearchIcon from 'components/icons/Search';
 
 type FiltersProps = {
@@ -38,9 +37,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
   };
 
-  const isMobile = useIsMobile();
   const openFilters = () => {
-    if (isMobile) {
+    if (window.innerWidth <= 1280) {
       setFiltersOpen((filtersOpen) => {
         const newValue = !filtersOpen;
         if (newValue) {
