@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { getPageData } from 'lib/api';
 import Seo from 'components/Seo';
+import Banner from 'components/global/banner/Banner';
 import BlogList from 'components/global/news/News';
 import styles from './Media.module.scss';
-import Banner from 'components/global/banner/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import VideoSingle from './videos/VideoSingle';
 import Button from 'components/global/button/Button';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import TradeShowsSingle from './trade-shows/TradeShowsSingle';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Media(props) {
   const seoData = props?.pageData?.seo;
@@ -81,32 +82,13 @@ function Media(props) {
     gallery: imageSrcs,
   };
 
-  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 
