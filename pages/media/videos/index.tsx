@@ -12,7 +12,7 @@ function Videos(props) {
   const banner = props?.pageData?.banner;
   const videos = props?.videos;
 
-  const groupedByCategory = videos.reduce((acc, item) => {
+  const groupedByCategory = videos?.reduce((acc, item) => {
     const category = item.attributes.category.data?.attributes.name;
     if (!acc[category]) {
       acc[category] = [];
