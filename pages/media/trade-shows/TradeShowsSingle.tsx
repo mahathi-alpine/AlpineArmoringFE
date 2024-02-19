@@ -25,11 +25,11 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
 
   const handleClick = () => {
     onLightboxOpen(
-      props.attributes.title,
-      props.attributes.description,
+      data?.title,
+      data.description,
       'gallery',
       null,
-      props.attributes.gallery.data
+      data.gallery.data
     );
   };
 
@@ -41,7 +41,8 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
             `}
       onClick={handleClick}
     >
-      {data.title ? <h4>{data.title}</h4> : null}
+      {/* {data.title ? <h4>{data.title}</h4> : null} */}
+      <h4>{data.title}</h4>
 
       <p>{data.description}</p>
 
