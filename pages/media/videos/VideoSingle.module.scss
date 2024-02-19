@@ -1,90 +1,89 @@
 .video {
-    position: relative;
-    flex: 0 0 95%;
-    cursor: pointer;
-    border-radius: 8px;
-    overflow: hidden;
-    max-width: 500px;
-    margin: auto;
-  
-    @include breakpoint(medium) {
-      flex: 0 0 47%;
-      border-radius: 16px;
-    }
-  
-    @include breakpoint(large) {
-      flex: 0 0 32%;
-    }
-  
-    @include breakpoint(huge) {
-      flex: 0 0 27%;
-    }
-  
-    &:before {
-      position: absolute;
-      content: '';
-      inset: 0;
-      background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0) 100%
-      );
-    }
-  
-    &_large {
-      .video_caption {
-        font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
-  
-        @include breakpoint(large) {
-          gap: 16px;
-        }
-  
-        svg {
-          @include breakpoint(large) {
-            width: 60px;
-            height: 60px;
-          }
-        }
+  position: relative;
+  flex: 0 0 95%;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 500px;
+  margin: auto;
+
+  @include breakpoint(medium) {
+    flex: 0 0 47%;
+    border-radius: 16px;
+  }
+
+  @include breakpoint(large) {
+    flex: 0 0 32%;
+  }
+
+  @include breakpoint(huge) {
+    flex: 0 0 27%;
+  }
+
+  &:before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  &_large {
+    .video_caption {
+      font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
+
+      @include breakpoint(large) {
+        gap: 16px;
       }
-    }
-  
-    img {
-      max-height: 190px;
-      object-fit: cover;
-      width: 100%;
-      @include breakpoint(medium) {
-        max-height: 280px;
-      }
-    }
-  
-    &_caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: rem(10);
-      color: var(--color-white);
-      font-size: clamp(0.875rem, 0.8295rem + 0.1942vw, 1.0625rem);
-  
-      &_box {
-        display: flex;
-        flex-flow: column;
-        flex: 1;
-      }
-  
+
       svg {
-        width: 30px;
-        height: 30px;
+        @include breakpoint(large) {
+          width: 60px;
+          height: 60px;
+        }
       }
-    }
-  
-    &_location {
-      margin-top: rem(4);
-      font-size: rem(13);
-      color: var(--color-primary);
     }
   }
-  
+
+  img {
+    max-height: 190px;
+    object-fit: cover;
+    width: 100%;
+    @include breakpoint(medium) {
+      max-height: 280px;
+    }
+  }
+
+  &_caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: rem(10);
+    color: var(--color-white);
+    font-size: clamp(0.875rem, 0.8295rem + 0.1942vw, 1.0625rem);
+
+    &_box {
+      display: flex;
+      flex-flow: column;
+      flex: 1;
+    }
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &_location {
+    margin-top: rem(4);
+    font-size: rem(13);
+    color: var(--color-primary);
+  }
+}
