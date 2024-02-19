@@ -5,7 +5,7 @@ import BlogList from 'components/global/news/News';
 import styles from './Media.module.scss';
 import Banner from 'components/global/banner/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import VideoSingle from 'components/global/videos/VideoSingle';
+import VideoSingle from './videos/VideoSingle';
 import Button from 'components/global/button/Button';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import TradeShowsSingle from './trade-shows/TradeShowsSingle';

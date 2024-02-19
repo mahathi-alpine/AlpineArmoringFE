@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import styles from './MediaList.module.scss';
 import EmblaCarousel from 'embla-carousel';
-import VideoSingle from 'components/global/videos/VideoSingle';
-import LightboxCustom from 'components/global/lightbox/LightboxCustom';
+import VideoSingle from './videos/VideoSingle';
 import TradeShowsSingle from './trade-shows/TradeShowsSingle';
+import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 
 function MediaList({ props, itemType }) {
   const groupedByCategory = props?.reduce((acc, item) => {
