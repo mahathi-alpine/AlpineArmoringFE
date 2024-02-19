@@ -21,7 +21,7 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
   list = false,
   onLightboxOpen,
 }) => {
-  const data = props.attributes;
+  const data = props?.attributes;
 
   const handleClick = () => {
     onLightboxOpen(
