@@ -1,147 +1,145 @@
-.media{
-
-    &_heading{
-        margin-bottom: rem(32);
-        text-transform: uppercase;
-        font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
-        font-weight: var(--font-demi);
-        line-height: 1.1;
-        @include breakpoint(large) {
-          margin-bottom: rem(48);
-        }
+.media {
+  &_heading {
+    margin-bottom: rem(32);
+    text-transform: uppercase;
+    font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
+    font-weight: var(--font-demi);
+    line-height: 1.1;
+    @include breakpoint(large) {
+      margin-bottom: rem(48);
     }
+  }
 
-    &_button{
-        position: relative;
-        margin-top: rem(32);
-        text-align: center;
-        @include breakpoint(large) {
-          margin-top: rem(80);
-        }
-        &_link {
-          &:hover {
-            background: var(--color-dark) !important;
-            color: var(--color-white) !important;
-          }
-        }
+  &_button {
+    position: relative;
+    margin-top: rem(32);
+    text-align: center;
+    @include breakpoint(large) {
+      margin-top: rem(80);
     }
-
-    &_news{
-        &>div{
-            padding-top: 0;
-            @include breakpoint(large) {
-                padding-top: rem(40);
-            }
-            @include breakpoint(huge) {
-                padding-top: rem(80);
-            }
-        }
+    &_link {
+      &:hover {
+        background: var(--color-dark) !important;
+        color: var(--color-white) !important;
+      }
     }
+  }
 
-    &_videos{
+  &_news {
+    & > div {
+      padding-top: 0;
+      @include breakpoint(large) {
+        padding-top: rem(40);
+      }
+      @include breakpoint(huge) {
         padding-top: rem(80);
+      }
+    }
+  }
+
+  &_videos {
+    padding-top: rem(80);
+
+    @include breakpoint(medium) {
+      //   max-width: 730px;
+      //   margin: auto;
+      padding-top: 0;
+    }
+
+    @include breakpoint(large) {
+      width: 80%;
+      max-width: 1320px;
+      padding-top: rem(40);
+    }
+
+    &_list {
+      @include breakpoint(medium) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      & > div {
+        margin-bottom: rem(16);
 
         @include breakpoint(medium) {
-        //   max-width: 730px;
-        //   margin: auto;
-          padding-top: 0;
+          width: calc(50% - 5px);
+          flex: unset;
+          max-width: unset;
+          margin-bottom: 0;
         }
+      }
+    }
+  }
 
-        @include breakpoint(large) {
-          width: 80%;
-          max-width: 1320px;
-          padding-top: rem(40);
-        }
+  &_tradeShows {
+    padding-top: rem(80);
+    padding-bottom: rem(80);
 
-        &_list{
-            @include breakpoint(medium) {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-
-            &>div{
-                margin-bottom: rem(16);
-
-                @include breakpoint(medium) {
-                    width: calc(50% - 5px);
-                    flex: unset;
-                    max-width: unset;
-                    margin-bottom: 0;
-                }
-            }
-        }
+    @include breakpoint(medium) {
+      // max-width: 730px;
+      // margin: auto;
+      padding-top: rem(100);
     }
 
-    &_tradeShows{
-        padding-top: rem(80);
-        padding-bottom: rem(80);
+    @include breakpoint(large) {
+      width: 80%;
+      max-width: 1320px;
+      padding-top: rem(140);
+    }
 
+    &_list {
+      @include breakpoint(medium) {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 32px;
+        row-gap: 64px;
+      }
+    }
+
+    &_item {
+      padding-top: rem(16);
+      border-top: 1px solid var(--color-gray);
+      max-width: 500px;
+      margin: auto;
+      margin-bottom: rem(32);
+
+      @include breakpoint(medium) {
+        width: calc(100% / 3 - 22px);
+        margin-bottom: 0;
+        cursor: pointer;
+      }
+
+      img {
+        height: 150px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      h4 {
+        margin-bottom: rem(4);
+        font-size: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
+        letter-spacing: -1px;
         @include breakpoint(medium) {
-            // max-width: 730px;
-            // margin: auto;
-            padding-top: rem(100);
+          min-height: 44px;
         }
+      }
 
-        @include breakpoint(large) {
-          width: 80%;
-          max-width: 1320px;
-          padding-top: rem(140);
-        }
-
-        &_list{
-            @include breakpoint(medium) {
-                display: flex;
-                flex-wrap: wrap;
-                column-gap: 32px;
-                row-gap: 64px;
-            }
-        }
-
-        &_item{
-            padding-top: rem(16);
-            border-top: 1px solid var(--color-gray);
-            max-width: 500px;
-            margin: auto;
-            margin-bottom: rem(32);
-
-            @include breakpoint(medium) {
-                width: calc(100% / 3 - 22px);
-                margin-bottom: 0;
-                cursor: pointer;
-            }
-
-            img{
-                height: 150px;
-                width: 100%;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-
-            h4{
-                margin-bottom: rem(4);
-                font-size: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
-                letter-spacing: -1px;
-                @include breakpoint(medium) {
-                    min-height: 44px;
-                }
-            }
-            
-            p{
-                margin-bottom: rem(8);
-                font-size: clamp(0.8125rem, 0.7973rem + 0.0647vw, 0.875rem);
-            }
-        }
-
-        &_link{
-            margin-top: rem(16);
-            padding: rem(8) rem(20);
-            cursor: pointer;
-            @include breakpoint(small) {
-                margin: auto;
-                margin-top: rem(8);
-            }
-        }
-
+      p {
+        margin-bottom: rem(8);
+        font-size: clamp(0.8125rem, 0.7973rem + 0.0647vw, 0.875rem);
+      }
     }
+
+    &_link {
+      margin-top: rem(16);
+      padding: rem(8) rem(20);
+      cursor: pointer;
+      @include breakpoint(small) {
+        margin: auto;
+        margin-top: rem(8);
+      }
+    }
+  }
 }

@@ -1,6 +1,5 @@
 .tabSlider {
-
-  &_banner{
+  &_banner {
     position: relative;
     color: var(--color-white);
     top: rem(-70);
@@ -10,10 +9,9 @@
       margin-bottom: rem(-127);
     }
 
-    .tabSlider_nav_glider{
+    .tabSlider_nav_glider {
       display: none;
     }
-
   }
 
   &_sticky {
