@@ -44,18 +44,20 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
       {data ? <h4>{data.title}</h4> : null}
       {data ? <h4>{data.description}</h4> : null}
 
-      <Image
-        src={
-          data.gallery.data[0].attributes.formats?.large?.url ||
-          data.gallery.data[0].attributes.url
-        }
-        alt={
-          data.gallery.data[0].attributes.alternativeText || 'Alpine Armoring'
-        }
-        width={400}
-        height={300}
-        sizes={'(min-width: 1280px ) 40vw, 100vw'}
-      ></Image>
+      {data ? (
+        <Image
+          src={
+            data.gallery.data[0].attributes.formats?.large?.url ||
+            data.gallery.data[0].attributes.url
+          }
+          alt={
+            data.gallery.data[0].attributes.alternativeText || 'Alpine Armoring'
+          }
+          width={400}
+          height={300}
+          sizes={'(min-width: 1280px ) 40vw, 100vw'}
+        ></Image>
+      ) : null}
 
       <Button button className={`${styles.tradeShowsSingle_link}`}>
         View Pics
