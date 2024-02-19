@@ -30,27 +30,28 @@ function Videos(props) {
       <Seo props={seoData} />
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
-      {Object.keys(groupedByCategory).map((category, index) => {
-        const itemsInCategory = groupedByCategory[category];
+      {groupedByCategory &&
+        Object.keys(groupedByCategory).map((category, index) => {
+          const itemsInCategory = groupedByCategory[category];
 
-        return (
-          <div className={`${styles.videos_list} container`} key={index}>
-            <h2 className={`${styles.videos_list_title}`}>{category}</h2>
+          return (
+            <div className={`${styles.videos_list} container`} key={index}>
+              <h2 className={`${styles.videos_list_title}`}>{category}</h2>
 
-            <div className={`${styles.videos_list_slider} embla`}>
-              <div className={`${styles.videos_list_slider_inner}`}>
-                {itemsInCategory.map((item, index) => (
-                  <VideoSingle
-                    props={item}
-                    key={index}
-                    onVideoClick={handleLightboxOpen}
-                  />
-                ))}
+              <div className={`${styles.videos_list_slider} embla`}>
+                <div className={`${styles.videos_list_slider_inner}`}>
+                  {itemsInCategory.map((item, index) => (
+                    <VideoSingle
+                      props={item}
+                      key={index}
+                      onVideoClick={handleLightboxOpen}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </>
   );
 }
