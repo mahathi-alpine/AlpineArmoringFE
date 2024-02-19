@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { getPageData } from 'lib/api';
-// import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
 import BlogList from 'components/global/news/News';
 import styles from './Media.module.scss';
@@ -8,8 +7,8 @@ import Banner from 'components/global/banner/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import VideoSingle from 'components/global/videos/VideoSingle';
 import Button from 'components/global/button/Button';
-import Image from 'next/image';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
+import TradeShowsSingle from './trade-shows/TradeShowsSingle';
 
 function Media(props) {
   const seoData = props?.pageData?.seo;
@@ -17,7 +16,6 @@ function Media(props) {
   const news = props?.pageData?.blogs?.data;
   const videos = props?.pageData?.videos?.data;
   const tradeShows = props?.pageData?.tradeShows?.data;
-  // console.log(tradeShows)
 
   // Tabs Scroll
   const tabSliderData = [
@@ -143,7 +141,7 @@ function Media(props) {
               <VideoSingle
                 props={item}
                 key={index}
-                onVideoClick={handleLightboxOpen}
+                onLightboxOpen={handleLightboxOpen}
                 large
               />
             ))}
@@ -171,41 +169,11 @@ function Media(props) {
 
           <div className={`${styles.media_tradeShows_list}`}>
             {tradeShows.slice(0, 6).map((item, index) => (
-              <div
+              <TradeShowsSingle
                 key={index}
-                className={`${styles.media_tradeShows_item}`}
-                onClick={() =>
-                  handleLightboxOpen(
-                    item.attributes.title,
-                    item.attributes.description,
-                    'gallery',
-                    null,
-                    item.attributes.gallery.data
-                  )
-                }
-              >
-                <h4>{item.attributes.title}</h4>
-
-                <p>{item.attributes.description}</p>
-
-                <Image
-                  src={
-                    item.attributes.gallery.data[0].attributes.formats?.large
-                      ?.url || item.attributes.gallery.data[0].attributes.url
-                  }
-                  alt={
-                    item.attributes.gallery.data[0].attributes
-                      .alternativeText || 'Alpine Armoring'
-                  }
-                  width={400}
-                  height={300}
-                  sizes={'(min-width: 1280px ) 40vw, 100vw'}
-                ></Image>
-
-                <Button button className={`${styles.media_tradeShows_link}`}>
-                  View Pics
-                </Button>
-              </div>
+                props={item}
+                onLightboxOpen={handleLightboxOpen}
+              />
             ))}
           </div>
 

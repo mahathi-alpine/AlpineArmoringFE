@@ -2,7 +2,7 @@ import styles from './LightboxCustom.module.scss';
 import Image from 'next/image';
 // import useEmblaCarousel from 'embla-carousel-react';
 import EmblaCarousel from 'embla-carousel';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 const LightboxCustom = ({
   isLightboxPopupOpen,
@@ -15,12 +15,13 @@ const LightboxCustom = ({
   const [emblaApi, setEmblaApi] = useState(null);
   const sliderOptions = { loop: true };
 
+  const emblaRef = useRef(null);
+
   useEffect(() => {
-    const embla = EmblaCarousel(
-      document.querySelector('.embla'),
-      sliderOptions
-    );
-    setEmblaApi(embla);
+    if (emblaRef.current) {
+      const embla = EmblaCarousel(emblaRef.current, sliderOptions);
+      setEmblaApi(embla);
+    }
   }, []);
 
   const onPrevButtonClick = useCallback(() => {
@@ -82,7 +83,7 @@ const LightboxCustom = ({
       )}
 
       {lightboxData.contentType === 'gallery' && (
-        <div className={`${styles.lightbox_slider} embla`}>
+        <div className={`${styles.lightbox_slider}`} ref={emblaRef}>
           <div className={`${styles.lightbox_slider_inner}`}>
             {lightboxData.gallery.map((item, index) => (
               <div className={`${styles.lightbox_slider_item}`} key={index}>

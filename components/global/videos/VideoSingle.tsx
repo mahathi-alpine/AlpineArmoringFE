@@ -6,7 +6,7 @@ import { FC } from 'react';
 type VideoSingleProps = {
   props: any;
   large?: boolean;
-  onVideoClick: (
+  onLightboxOpen: (
     title: string,
     location: string,
     url: string,
@@ -17,10 +17,10 @@ type VideoSingleProps = {
 const VideoSingle: FC<VideoSingleProps> = ({
   props,
   large = false,
-  onVideoClick,
+  onLightboxOpen,
 }) => {
   const handleClick = () => {
-    onVideoClick(
+    onLightboxOpen(
       props.attributes.title,
       props.attributes.location,
       'video',

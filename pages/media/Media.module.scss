@@ -96,50 +96,5 @@
         row-gap: 64px;
       }
     }
-
-    &_item {
-      padding-top: rem(16);
-      border-top: 1px solid var(--color-gray);
-      max-width: 500px;
-      margin: auto;
-      margin-bottom: rem(32);
-
-      @include breakpoint(medium) {
-        width: calc(100% / 3 - 22px);
-        margin-bottom: 0;
-        cursor: pointer;
-      }
-
-      img {
-        height: 150px;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 8px;
-      }
-
-      h4 {
-        margin-bottom: rem(4);
-        font-size: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
-        letter-spacing: -1px;
-        @include breakpoint(medium) {
-          min-height: 44px;
-        }
-      }
-
-      p {
-        margin-bottom: rem(8);
-        font-size: clamp(0.8125rem, 0.7973rem + 0.0647vw, 0.875rem);
-      }
-    }
-
-    &_link {
-      margin-top: rem(16);
-      padding: rem(8) rem(20);
-      cursor: pointer;
-      @include breakpoint(small) {
-        margin: auto;
-        margin-top: rem(8);
-      }
-    }
   }
 }

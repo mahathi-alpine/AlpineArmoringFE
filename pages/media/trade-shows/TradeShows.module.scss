@@ -1,0 +1,70 @@
+.tradeShowsSingle {
+    padding-top: rem(16);
+    border-top: 1px solid var(--color-gray);
+    max-width: 500px;
+    margin: auto;
+    margin-bottom: rem(32);
+
+    @include breakpoint(medium) {
+        display: flex;
+        flex-flow: column;
+      width: calc(100% / 3 - 22px);
+      margin: unset;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    img {
+      height: 150px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: auto;
+    }
+
+    h4 {
+      margin-bottom: rem(4);
+      font-size: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
+      letter-spacing: -1px;
+    }
+
+    p {
+      margin-bottom: rem(8);
+      font-size: clamp(0.8125rem, 0.7973rem + 0.0647vw, 0.875rem);
+    }
+
+    &_link {
+      margin-top: rem(16);
+      padding: rem(8) rem(20);
+      cursor: pointer;
+      max-width: 130px;
+      @include breakpoint(small) {
+        margin: auto;
+        margin-top: rem(8);
+      }
+    }
+
+    &_list{
+        border: none;
+        overflow: hidden;
+        max-width: 500px;
+        flex: 0 0 95%;
+        padding-top: 0;
+
+        @include breakpoint(medium) {
+          flex: 0 0 47%;
+        }
+      
+        @include breakpoint(large) {
+          flex: 0 0 32%;
+        }
+      
+        @include breakpoint(huge) {
+          flex: 0 0 23%;
+        }
+
+        img {
+          height: 200px;
+        }
+    }
+  }
