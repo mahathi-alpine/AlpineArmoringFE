@@ -41,7 +41,7 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
             `}
       onClick={handleClick}
     >
-      <h4>{data.title}</h4>
+      {data.title ? <h4>{data.title}</h4> : null}
 
       <p>{data.description}</p>
 
