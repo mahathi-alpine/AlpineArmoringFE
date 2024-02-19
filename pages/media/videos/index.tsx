@@ -1,15 +1,15 @@
 // import { useEffect, useState, useCallback } from 'react';
 import { getPageData } from 'lib/api';
-// import Banner from 'components/global/banner/Banner';
-// import Seo from 'components/Seo';
+import Banner from 'components/global/banner/Banner';
+import Seo from 'components/Seo';
 // import styles from './Videos.module.scss';
 // import EmblaCarousel from 'embla-carousel';
 // import VideoSingle from 'components/global/videos/VideoSingle';
 // import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 
 function Videos(props) {
-  // const seoData = props?.pageData?.seo;
-  // const banner = props?.pageData?.banner;
+  const seoData = props?.pageData?.seo;
+  const banner = props?.pageData?.banner;
   const videos = props?.videos;
 
   const groupedByCategory = videos?.reduce((acc, item) => {
@@ -23,7 +23,12 @@ function Videos(props) {
 
   console.log(groupedByCategory);
 
-  return <></>;
+  return (
+    <>
+      <Seo props={seoData} />
+      {banner ? <Banner props={banner} center shape="white" /> : null}
+    </>
+  );
 }
 
 export async function getStaticProps() {
