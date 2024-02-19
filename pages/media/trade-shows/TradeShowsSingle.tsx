@@ -41,10 +41,8 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
             `}
       onClick={handleClick}
     >
-      {/* {data.title ? <h4>{data.title}</h4> : null} */}
-      {/* <h4>{data.title}</h4> */}
-
-      <p>{data.description}</p>
+      {data ? <h4>{data.title}</h4> : null}
+      {data ? <h4>{data.description}</h4> : null}
 
       <Image
         src={
