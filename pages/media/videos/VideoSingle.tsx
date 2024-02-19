@@ -48,10 +48,12 @@ const VideoSingle: FC<VideoSingleProps> = ({
       <div className={`${styles.video_caption}`}>
         <PlayIcon />
         <div className={`${styles.video_caption_box}`}>
-          <h3>{props.attributes.title}</h3>
-          <h4 className={`${styles.video_location}`}>
-            {props.attributes.location}
-          </h4>
+          {props ? <h3>{props.attributes.title}</h3> : null}
+          {props ? (
+            <h4 className={`${styles.video_location}`}>
+              {props.attributes.location}
+            </h4>
+          ) : null}
         </div>
       </div>
     </div>
