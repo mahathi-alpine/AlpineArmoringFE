@@ -4,18 +4,30 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import styles from './News.module.scss';
 
-const Blog = ({ props, button = false, limit = '' }) => {
+const Blog = ({
+  props,
+  button = false,
+  limit = '',
+  plain = false,
+  title = '',
+  subtitle = '',
+}) => {
   return (
-    <div className={`${styles.news}`}>
+    <div
+      className={`
+      ${styles.news}
+      ${plain ? styles.news_plain : ''}  
+    `}
+    >
       <div className={`${styles.news_inner} container_small`}>
         <div className={`${styles.news_heading}`}>
           <h3
             className={`${styles.news_heading_secondary} block-reveal observe`}
           >
-            News
+            {subtitle}
           </h3>
           <h2 className={`${styles.news_heading_primary} observe fade-in-up`}>
-            Armoring world
+            {title}
           </h2>
         </div>
 
@@ -96,7 +108,7 @@ const Blog = ({ props, button = false, limit = '' }) => {
                         </h3>
                       </Link>
 
-                      {index === 0 && item.attributes.excerpt ? (
+                      {item.attributes.excerpt ? (
                         <p className={`${styles.news_item_excerpt}`}>
                           {item.attributes.excerpt}
                         </p>

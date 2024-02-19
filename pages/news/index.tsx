@@ -46,7 +46,7 @@ function Blog(props) {
 
       {posts ? (
         <div className={`${styles.news}`}>
-          <BlogList props={posts} />
+          <BlogList props={posts} subtitle="News" title="Armoring world" />
         </div>
       ) : null}
     </>

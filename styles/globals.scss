@@ -227,12 +227,14 @@ body {
   align-items: center;
   justify-content: center;
   flex-flow: column;
-  min-height: 100vh;
+  margin-top: var(--header-height);
+  margin-bottom: rem(-40);
+  min-height: calc(100vh - var(--header-height) + 50px);
   background-color: #000;
   color: var(--color-white);
 
   @include breakpoint(large) {
-    min-height: 111vh;
+    min-height: calc(100vh - var(--header-height) + 100px);
   }
 
   &_h1 {

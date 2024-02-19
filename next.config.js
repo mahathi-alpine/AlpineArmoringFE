@@ -29,6 +29,11 @@ module.exports = {
         hostname: 'alpine-armoring-e7d249d45874.herokuapp.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        pathname: '**',
+      },
       // 'res.cloudinary.com',
       // 'assets.vercel.com',
       // 'localhost',

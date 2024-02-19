@@ -9,6 +9,7 @@ const TabSlider = ({
   sticky = false,
   className = '',
   anchor = false,
+  banner = false,
 }) => {
   const viewportWidth =
     typeof window !== 'undefined' ? window.innerWidth : Infinity;
@@ -134,6 +135,7 @@ const TabSlider = ({
         ${className} 
         ${styles.tabSlider}
         ${sticky ? styles.tabSlider_sticky : ''}  
+        ${banner ? styles.tabSlider_banner : ''}  
       `}
     >
       <div

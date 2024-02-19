@@ -88,6 +88,11 @@ const Layout = ({ children }) => {
       <Head>
         <title>Alpine Armoring</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <style>{`
+              body {
+                background: white;
+              }
+            `}</style>
         {isDarkMode && (
           <style>{`
               body {

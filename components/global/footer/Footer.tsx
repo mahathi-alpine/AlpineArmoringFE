@@ -23,7 +23,7 @@ const Footer = (isDarkMode) => {
       text: 'Stock Vehicles (New)',
     },
     // { path: '/news', text: 'News' },
-    { path: '/faqs', text: 'News & Media' },
+    { path: '/media', text: 'News & Media' },
     { path: '/available-now/type/armored-rental', text: 'Pre-owned' },
     // { path: '/special-of-the-month', text: 'Special of the Month' },
     { path: '/faqs', text: 'FAQs' },
