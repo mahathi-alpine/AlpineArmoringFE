@@ -37,14 +37,17 @@ const VideoSingle: FC<VideoSingleProps> = ({
             `}
       onClick={handleClick}
     >
-      <Image
-        // src={`https://i.ytimg.com/vi/${item.attributes.URLExternal}/sd3.jpg`}
-        src={`https://i.ytimg.com/vi_webp/${props.attributes.URLExternal}/sddefault.webp`}
-        alt={props.attributes.title}
-        width={500}
-        height={400}
-        sizes="(min-width: 768px ) 40vw, 100vw"
-      ></Image>
+      {props ? (
+        <Image
+          // src={`https://i.ytimg.com/vi/${item.attributes.URLExternal}/sd3.jpg`}
+          src={`https://i.ytimg.com/vi_webp/${props.attributes.URLExternal}/sddefault.webp`}
+          alt={props.attributes.title}
+          width={500}
+          height={400}
+          sizes="(min-width: 768px ) 40vw, 100vw"
+        ></Image>
+      ) : null}
+
       <div className={`${styles.video_caption}`}>
         <PlayIcon />
         <div className={`${styles.video_caption_box}`}>
