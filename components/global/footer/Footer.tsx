@@ -16,12 +16,12 @@ const Footer = (isDarkMode) => {
     { path: '/', text: 'Home' },
     { path: '/vehicles-we-armor', text: 'Makes & Models We Armor' },
     { path: '/ballisticchart', text: 'Ballistic Chart' },
-    { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
-    { path: '/become-a-dealer', text: 'Become a Dealer' },
     {
       path: '/available-now/',
       text: 'Stock Vehicles (New)',
     },
+    { path: '/become-a-dealer', text: 'Become a Dealer' },
+    { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     // { path: '/news', text: 'News' },
     { path: '/media', text: 'News & Media' },
     { path: '/available-now/type/armored-rental', text: 'Pre-owned' },
@@ -176,9 +176,6 @@ const Footer = (isDarkMode) => {
             </li>
             <li className={`${styles.footer_bottom_nav_item}`}>
               <Link href="/">Privacy Policy</Link>
-            </li>
-            <li className={`${styles.footer_bottom_nav_item}`}>
-              <Link href="/">FAQ</Link>
             </li>
             <li className={`${styles.footer_bottom_nav_item}`}>
               <Link href="/">Sitemap</Link>
