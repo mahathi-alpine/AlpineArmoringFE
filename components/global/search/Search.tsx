@@ -1,11 +1,13 @@
+// import { useState, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch } from 'react-instantsearch-dom';
+import styles from './Search.module.scss';
 import SearchBox from './SearchBox';
 import SearchHits from './SearchHits';
 
 // const searchClient = algoliasearch(
-//     process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
-//     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY,
+//   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
+//   process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 // );
 const searchClient = algoliasearch(
   'BWXO30HFNW',
@@ -13,8 +15,21 @@ const searchClient = algoliasearch(
 );
 
 export default function Search() {
+  // const [searchClient, setSearchClient] = useState(null);
+
+  // useEffect(() => {
+  //   setSearchClient(algoliasearch(
+  //     process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
+  //     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY,
+  //   ));
+  // }, []);
+
+  // if (!searchClient) {
+  //   return null;
+  // }
+
   return (
-    <div className={'algolia-search'}>
+    <div className={`${styles.search} algolia-search`}>
       <InstantSearch searchClient={searchClient} indexName="dev_alpine">
         <SearchBox />
         <SearchHits />

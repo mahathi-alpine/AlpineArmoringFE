@@ -43,11 +43,13 @@ export interface HeaderProps {
   isDarkMode?: boolean;
   isNotSticky?: boolean;
   isHomepage?: boolean;
+  openSearchPopup?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface NavigationProps {
   isNavOpen?: boolean;
   setNavOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  openSearchPopup?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // export interface SearchResult {

@@ -1,20 +1,17 @@
-// import React, { FC } from 'react';
 import React from 'react';
 import Link from 'next/link';
-// import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import Logo from 'components/icons/Logo';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 const LanguageSwitcher = dynamic(
   () => import('components/global/lang-switcher/LangSwitcher')
 );
 // import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
-// import Search from 'components/global/search/Search';
 
 const Header = ({
   setNavOpen,
@@ -22,6 +19,7 @@ const Header = ({
   isDarkMode,
   isHomepage,
   isNotSticky,
+  openSearchPopup,
 }: HeaderProps) => {
   const [hState, sethState] = React.useState('-top');
 
@@ -53,6 +51,12 @@ const Header = ({
     };
   }, []);
 
+  const [isSearchOpen, setSearchOpen] = useState(false);
+  const handleSearchClick = () => {
+    setSearchOpen(!isSearchOpen);
+    openSearchPopup(!isSearchOpen);
+  };
+
   return (
     <header
       className={`
@@ -64,7 +68,6 @@ const Header = ({
         ${isHomepage ? styles.header_homepage : ''}        
         b-header
       `}
-      // ${isScrolling ? styles.header_sticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
         <div
@@ -86,14 +89,25 @@ const Header = ({
             Contact
           </Button>
 
-          <SearchIcon className={`${styles.header_search} desktop-only`} />
-          {/* <Search /> */}
+          <div
+            // onClick={handleSearchClick}
+            onClick={() => {
+              setNavOpen(false);
+              handleSearchClick();
+            }}
+            className={`${styles.header_search} desktop-only`}
+          >
+            {isSearchOpen ? 'X' : <SearchIcon />}
+          </div>
 
           <LanguageSwitcher className={`desktop-only`} />
 
           <div
             className={`${styles.header_burger}`}
-            onClick={() => setNavOpen((prevState) => !prevState)}
+            onClick={() => {
+              setNavOpen((prevState) => !prevState);
+              openSearchPopup(false);
+            }}
           >
             <div className={`${styles.header_burger_inner}`}></div>
           </div>

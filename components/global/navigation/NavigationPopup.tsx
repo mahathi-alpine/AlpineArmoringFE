@@ -20,7 +20,11 @@ const LanguageSwitcher = dynamic(
   () => import('components/global/lang-switcher/LangSwitcher')
 );
 
-const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
+const NavigationPopup = ({
+  isNavOpen,
+  setNavOpen,
+  openSearchPopup,
+}: NavigationProps) => {
   const router = useRouter();
 
   const links = [
@@ -35,7 +39,6 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
     { path: '/design-and-engineering', text: 'Design & Engineering' },
     { path: '/manufacturing', text: 'Manufacturing' },
     { path: '/shipping-and-logistics', text: 'Shipping & Logistics' },
-    // { path: '/parts-and-accessories', text: 'Parts & Accessories' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/contact', text: 'Contact' },
   ];
@@ -188,7 +191,15 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
         </div>
 
         <div className={`${styles.navigationPopup_bottom} mobile-only`}>
-          <SearchIcon className={`${styles.navigationPopup_bottom_search}`} />
+          <div
+            onClick={() => {
+              openSearchPopup(true);
+            }}
+            className={`${styles.navigationPopup_bottom_search}`}
+          >
+            <SearchIcon />
+          </div>
+
           <LanguageSwitcher />
         </div>
       </div>

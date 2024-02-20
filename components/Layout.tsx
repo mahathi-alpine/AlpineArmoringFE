@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
 import NavigationPopup from './global/navigation/NavigationPopup';
+import Search from 'components/global/search/Search';
 
 const termina = localFont({
   src: [
@@ -83,6 +84,13 @@ const Layout = ({ children }) => {
 
   const [isNavOpen, setNavOpen] = useState(false);
 
+  // Search
+  const [isSearchVisible, setSearchVisibility] = useState(false);
+
+  const openSearchPopup = (visible) => {
+    setSearchVisibility(visible);
+  };
+
   return (
     <>
       <Head>
@@ -125,9 +133,16 @@ const Layout = ({ children }) => {
           isNavOpen={isNavOpen}
           isHomepage={isHomepage}
           isNotSticky={isNotSticky}
+          openSearchPopup={openSearchPopup}
         />
 
-        <NavigationPopup isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
+        {isSearchVisible && <Search />}
+
+        <NavigationPopup
+          isNavOpen={isNavOpen}
+          setNavOpen={setNavOpen}
+          openSearchPopup={openSearchPopup}
+        />
 
         {children}
 
