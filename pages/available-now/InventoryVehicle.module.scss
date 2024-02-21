@@ -210,6 +210,7 @@
       margin-top: 0;
       bottom: rem(16);
       left: calc(538px + 32px + 32px);
+      z-index: 3;
     }
 
     @include breakpoint(huge) {
