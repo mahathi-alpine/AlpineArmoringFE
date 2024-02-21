@@ -1,6 +1,5 @@
 .inventory {
-
-  &_heading{
+  &_heading {
     padding: rem(24) rem(16) 0 rem(16);
 
     @include breakpoint(medium) {
@@ -9,9 +8,9 @@
     }
 
     @include breakpoint(large) {
-      max-width: 1842px;      
+      max-width: 1842px;
       padding: rem(32) rem(32) 0 rem(32);
-      &>div{
+      & > div {
         max-width: calc(100% - 250px);
       }
     }
@@ -20,7 +19,7 @@
       margin-bottom: rem(12);
       font-size: clamp(1.625rem, 1.443rem + 0.7767vw, 2.375rem);
       white-space: pre-wrap;
-      letter-spacing: -.5px;
+      letter-spacing: -0.5px;
 
       @include breakpoint(medium) {
         white-space: unset;
@@ -51,23 +50,22 @@
       font-size: rem(11);
       font-weight: var(--font-demi);
       margin-bottom: rem(16);
-  
+
       @include breakpoint(large) {
         font-size: rem(14);
       }
-  
+
       span {
         margin: 0 rem(8);
         @include breakpoint(large) {
           margin: 0 rem(12);
         }
       }
-  
+
       a {
         text-decoration: underline;
       }
     }
-  
   }
 
   &_top {
@@ -124,14 +122,14 @@
     }
   }
 
-  &_main{
+  &_main {
     @include breakpoint(large) {
       position: relative;
       margin: auto;
       max-width: 1842px;
     }
   }
-  
+
   &_cta {
     position: fixed;
     bottom: rem(4);
@@ -230,7 +228,7 @@
       line-height: 1;
     }
 
-    &_part3{
+    &_part3 {
       font-size: 24px;
       letter-spacing: 2.4px;
       line-height: 1;
