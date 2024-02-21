@@ -169,7 +169,7 @@ function InventoryVehicle(props) {
               })}
             </ul>
 
-            {data.OEM?.data ? (
+            {data?.OEM?.data ? (
               <Link
                 href={data.OEM.data.attributes.url}
                 className={`${styles.inventory_sticker}`}
@@ -294,7 +294,7 @@ function InventoryVehicle(props) {
               Request a quote
             </Button>
 
-            {data.OEM?.data ? (
+            {data?.OEM?.data ? (
               <Link
                 href={data.OEM.data.attributes.url}
                 target="_blank"
