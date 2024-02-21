@@ -39,6 +39,8 @@ function InventoryVehicle(props) {
     'Color (INT)': 'color_int',
     Trim: 'trim',
     'Drive Train': 'driveTrain',
+  };
+  const vehicleDetailsSecondary = {
     Wheels: 'wheels',
     Height: 'height',
     Length: 'length',
@@ -120,21 +122,9 @@ function InventoryVehicle(props) {
 
   return (
     <div className={`${styles.inventory} background-dark`}>
-      <div className={`${styles.inventory_main}`}>
-        <div className={`${styles.inventory_heading}`}>
-          <div className={`${styles.inventory_heading_breadcrumbs}`}>
-            <Link href="/available-now">Available now</Link>
-            <span>&gt;</span>
-            <Link href={`/available-now/type/${categorySlug}`}>{category}</Link>
-          </div>
-
-          <div className={`${styles.inventory_heading_title}`}>
-            {data?.title ? (
-              <h1 dangerouslySetInnerHTML={{ __html: data.title }}></h1>
-            ) : null}
-          </div>
-
-          <div className={`${styles.inventory_heading_description}`}>
+      <div className={`${styles.inventory_top}`}>
+        <div className={`${styles.inventory_top_gallery}`}>
+          <div className={`${styles.inventory_top_gallery_description}`}>
             <InfoIcon />
             <p>
               {data?.shortDescription
@@ -142,32 +132,89 @@ function InventoryVehicle(props) {
                 : `This ${data?.title} is in stock and available to ship immediately`}
             </p>
           </div>
-        </div>
 
-        <div className={`${styles.inventory_top}`}>
-          <div className={`${styles.inventory_top_gallery}`}>
-            <div className={`${styles.inventory_top_gallery_wrap}`}>
-              {topGallery ? (
-                <Carousel slides={topGallery} options={sliderTopOptions} />
-              ) : null}
+          <div className={`${styles.inventory_top_gallery_wrap}`}>
+            {topGallery ? (
+              <Carousel slides={topGallery} options={sliderTopOptions} />
+            ) : null}
 
-              {data?.armor_level ? (
-                <div className={`${styles.inventory_armor}`}>
-                  <div className={`${styles.inventory_armor_box}`}>
-                    Armor
-                    <span>Level</span>
-                  </div>
-                  <strong>{data?.armor_level}</strong>
+            {data?.armor_level ? (
+              <div className={`${styles.inventory_armor}`}>
+                <div className={`${styles.inventory_armor_box}`}>
+                  Armor
+                  <span>Level</span>
                 </div>
-              ) : null}
-            </div>
-
-            <div
-              className={`${styles.inventory_top_shape} shape-before shape-before-dark mobile-only`}
-            ></div>
+                <strong>{data?.armor_level}</strong>
+              </div>
+            ) : null}
           </div>
 
-          <div id="oem-specs" className={`${styles.inventory_details} anchor`}>
+          <div className={`${styles.inventory_right_bottom}`}>
+            <ul
+              className={`${styles.inventory_tabs_content_list} ${styles.inventory_tabs_content_list_secondary}`}
+            >
+              {Object.entries(vehicleDetailsSecondary).map(([key, value]) => {
+                return (
+                  data &&
+                  data[value] != null && (
+                    <li
+                      key={key}
+                      className={`${styles.inventory_tabs_content_list_item}`}
+                    >
+                      {`${key}:`}
+                      <span>{`${data[value]}`}</span>
+                    </li>
+                  )
+                );
+              })}
+            </ul>
+
+            {data?.OEM?.data ? (
+              <Link
+                href={data.OEM.data.attributes.url}
+                className={`${styles.inventory_sticker}`}
+                target="_blank"
+              >
+                <span className={`${styles.inventory_sticker_part1}`}>
+                  Window
+                </span>
+                <span className={`${styles.inventory_sticker_part2}`}>
+                  Sticker
+                </span>
+                <span className={`${styles.inventory_sticker_bottom}`}>
+                  <PDFIcon />
+                  <span>OEM</span>
+                </span>
+              </Link>
+            ) : null}
+          </div>
+
+          <div
+            className={`${styles.inventory_top_shape} shape-before shape-before-dark mobile-only`}
+          ></div>
+        </div>
+
+        <div id="oem-specs" className={`${styles.inventory_details} anchor`}>
+          <div className={`${styles.inventory_breadcrumbs}`}>
+            <Link href="/available-now">Available now</Link>
+            <span>&gt;</span>
+            <Link href={`/available-now/type/${categorySlug}`}>{category}</Link>
+          </div>
+
+          <div className={`${styles.inventory_details_title}`}>
+            {data?.title ? (
+              <h1 dangerouslySetInnerHTML={{ __html: data.title }}></h1>
+            ) : null}
+          </div>
+
+          <div className={`${styles.inventory_details_description}`}>
+            <InfoIcon />
+            <p>
+              This {data?.title} is in stock and available to ship immediately
+            </p>
+          </div>
+
+          <div className={`${styles.inventory_tabs}`}>
             <TabSlider
               className={`${styles.inventory_tabs_slider}`}
               props={tabSliderData}
@@ -175,8 +222,20 @@ function InventoryVehicle(props) {
               anchor
             />
 
-            <div className={`${styles.inventory_tabs_content}`}>
-              <div className={`${styles.inventory_tabs_content_item}`}>
+            <div
+              // className={`${styles.inventory_tabs_content} ${
+              //   viewMoreClicked ? styles.inventory_tabs_content_active : ''
+              // }`}
+              className={`${styles.inventory_tabs_content}`}
+            >
+              <div
+                // className={`${styles.inventory_tabs_content_item} ${
+                //   activeDiv == '0'
+                //     ? styles.inventory_tabs_content_item_active
+                //     : ''
+                // }`}
+                className={`${styles.inventory_tabs_content_item}`}
+              >
                 <ul className={`${styles.inventory_tabs_content_list}`}>
                   {Object.entries(vehicleDetailsMain).map(([key, value]) => {
                     return (
@@ -193,36 +252,70 @@ function InventoryVehicle(props) {
                     );
                   })}
                 </ul>
+                <ul
+                  className={`${styles.inventory_tabs_content_list} ${styles.inventory_tabs_content_list_secondary}`}
+                >
+                  {Object.entries(vehicleDetailsSecondary).map(
+                    ([key, value]) => {
+                      return (
+                        data &&
+                        data[value] != null && (
+                          <li
+                            key={key}
+                            className={`${styles.inventory_tabs_content_list_item}`}
+                          >
+                            {`${key}:`}
+                            <span>{`${data[value]}`}</span>
+                          </li>
+                        )
+                      );
+                    }
+                  )}
+                </ul>
               </div>
             </div>
+
+            {/* {!viewMoreClicked && (
+              <div
+                className={`${styles.inventory_tabs_content_viewMore} mobile-only`}
+                onClick={handleViewMoreClick}
+              >
+                <span>View More</span>
+                <ChevronIcon />
+              </div>
+            )} */}
+          </div>
+
+          <div className={`${styles.inventory_top_button}`}>
+            <Button
+              href="#request-a-quote"
+              className={`${styles.inventory_top_button_link} primary rounded`}
+            >
+              Request a quote
+            </Button>
+
+            {data?.OEM?.data ? (
+              <Link
+                href={data.OEM.data.attributes.url}
+                target="_blank"
+                className={`${styles.inventory_sticker}`}
+              >
+                <span className={`${styles.inventory_sticker_box}`}>
+                  <span className={`${styles.inventory_sticker_part1}`}>
+                    Window
+                  </span>
+                  <span className={`${styles.inventory_sticker_part2}`}>
+                    Sticker
+                  </span>
+                </span>
+                <span className={`${styles.inventory_sticker_bottom}`}>
+                  <PDFIcon />
+                  <span>OEM</span>
+                </span>
+              </Link>
+            ) : null}
           </div>
         </div>
-
-        <Button
-          href="#request-a-quote"
-          className={`${styles.inventory_cta} primary rounded`}
-        >
-          Request a quote
-        </Button>
-
-        {data?.OEM?.data ? (
-          <Link
-            href={data.OEM.data.attributes.url}
-            className={`${styles.inventory_sticker}`}
-            target="_blank"
-          >
-            <PDFIcon />
-            <span>
-              <span className={`${styles.inventory_sticker_part1}`}>
-                Window
-              </span>
-              <span className={`${styles.inventory_sticker_part2}`}>
-                Sticker
-              </span>
-              <span className={`${styles.inventory_sticker_part3}`}>OEM</span>
-            </span>
-          </Link>
-        ) : null}
       </div>
 
       {mainText ? (

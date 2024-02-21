@@ -7,6 +7,7 @@
     display: flex;
     gap: 16px;
     align-items: flex-start;
+    height: 100%;
   }
 
   &_viewport {
@@ -15,6 +16,7 @@
 
     @include breakpoint(large) {
       width: calc(100% - 160px - 16px);
+      height: 100%;
     }
   }
 

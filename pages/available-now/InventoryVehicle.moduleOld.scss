@@ -1,0 +1,462 @@
+.inventory {
+  &_top {
+    position: relative;
+    z-index: 3;
+    // @include breakpoint(medium) {
+    //   display: flex;
+    //   padding: rem(32) rem(16) rem(60) rem(16);
+    //   gap: 32px;
+    // }
+    @include breakpoint(medium) {
+      max-width: 700px;
+      margin: auto;
+      padding-top: rem(32);
+    }
+    @include breakpoint(large) {
+      display: flex;
+      padding: rem(60) rem(32) 0 rem(32);
+      max-width: 1650px;
+      margin: auto;
+      gap: 32px;
+      align-items: flex-start;
+    }
+    @include breakpoint(huge) {
+      gap: 64px;
+    }
+
+    &_gallery {
+      position: relative;
+      overflow: hidden;
+      @include breakpoint(large) {
+        width: 58%;
+        order: 2;
+        flex: 1;
+      }
+
+      &_wrap {
+        position: relative;
+        @include breakpoint(large) {
+          margin-bottom: rem(8);
+        }
+      }
+
+      &_description {
+        display: none;
+        @include breakpoint(medium) {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          margin-bottom: rem(16);
+          // font-size: clamp(0.9375rem, 0.375rem + 0.7031vw, 1.21875rem);
+          // font-size: clamp(0.875rem, 0.7917rem + 0.1736vw, 1rem);
+          font-size: rem(14);
+          color: var(--color-primary);
+          font-weight: var(--font-medium);
+
+          svg path {
+            fill: var(--color-primary);
+          }
+        }
+      }
+    }
+
+    &_shape {
+      @include breakpoint(small) {
+        margin-top: -30px;
+        height: 30px;
+        &:after {
+          left: -30px;
+          right: -30px;
+        }
+      }
+    }
+
+    &_button {
+      margin-top: rem(24);
+      text-align: center;
+      display: flex;
+      gap: 64px;
+      justify-content: center;
+
+      @include breakpoint(large) {
+        justify-content: space-evenly;
+        .inventory_sticker {
+          display: none;
+        }
+      }
+
+      &_link {
+        @include breakpoint(small) {
+          position: fixed;
+          bottom: rem(4);
+          left: rem(4);
+          right: rem(4);
+          padding: rem(14) rem(24);
+          z-index: 2;
+          max-width: rem(200);
+          margin: auto;
+        }
+      }
+    }
+  }
+
+  &_armor {
+    display: flex;
+    align-items: flex-end;
+    position: absolute;
+    left: rem(8);
+    bottom: rem(32);
+    font-size: rem(12);
+    font-weight: var(--font-large);
+    line-height: 1;
+    @include breakpoint(large) {
+      font-size: rem(13);
+    }
+
+    strong {
+      margin-left: rem(4);
+      text-transform: uppercase;
+      font-size: rem(27);
+      line-height: 1;
+      font-weight: var(--font-medium);
+      @include breakpoint(large) {
+        font-size: rem(34);
+      }
+    }
+
+    &_box {
+      display: flex;
+      flex-flow: column;
+
+      span {
+        text-transform: uppercase;
+        line-height: 14px;
+        @include breakpoint(large) {
+          line-height: 18px;
+        }
+      }
+    }
+
+    @include breakpoint(medium) {
+      bottom: rem(120);
+    }
+
+    @include breakpoint(large) {
+      bottom: rem(8);
+    }
+  }
+
+  &_right_bottom {
+    display: none;
+    @include breakpoint(large) {
+      display: flex;
+      gap: 16px;
+    }
+  }
+
+  &_sticker {
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+
+    @include breakpoint(medium) {
+      flex-flow: column;
+      justify-content: flex-end;
+    }
+
+    @include breakpoint(large) {
+      flex: 1;
+    }
+
+    @include breakpoint(small) {
+      &_box {
+        display: flex;
+        flex-flow: column;
+        margin-right: rem(8);
+      }
+    }
+
+    &_bottom {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      @include breakpoint(large) {
+        padding-top: 4px;
+        font-size: rem(19);
+        gap: 6px;
+      }
+      span {
+        line-height: 1;
+      }
+    }
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+    &_part1 {
+      @include breakpoint(large) {
+        display: block;
+        font-size: rem(18);
+        letter-spacing: 0.3px;
+      }
+    }
+    &_part2 {
+      letter-spacing: 1px;
+      @include breakpoint(large) {
+        display: block;
+        font-size: rem(19);
+      }
+    }
+
+    // &_text {
+    //   display: flex;
+    //   flex-flow: column;
+    // }
+
+    span {
+      // line-height: 1.1;
+      // font-size: rem(13);
+    }
+  }
+
+  &_breadcrumbs {
+    color: var(--color-primary);
+    text-transform: uppercase;
+    font-size: rem(11);
+    font-weight: var(--font-demi);
+    margin-bottom: rem(16);
+
+    @include breakpoint(large) {
+      font-size: rem(14);
+    }
+
+    span {
+      margin: 0 rem(8);
+      @include breakpoint(large) {
+        margin: 0 rem(12);
+      }
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  &_details {
+    position: relative;
+    padding: 0 rem(16);
+    // margin-top: rem(-16);
+    z-index: 1;
+
+    @include breakpoint(medium) {
+      margin-top: rem(60);
+      text-align: center;
+    }
+
+    @include breakpoint(large) {
+      width: 42%;
+      padding: 0;
+      margin-top: 0;
+      width: 538px;
+      text-align: left;
+    }
+
+    &_title {
+      margin-bottom: rem(16);
+      font-size: rem(30);
+      font-weight: var(--font-large);
+      white-space: pre-wrap;
+      @include breakpoint(large) {
+        margin-bottom: rem(32);
+        font-size: rem(40);
+      }
+    }
+
+    &_description {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: rem(40);
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+      font-size: rem(12);
+      p {
+        flex: 1;
+      }
+      @include breakpoint(small) {
+        svg path {
+          fill: var(--color-primary);
+        }
+      }
+      @include breakpoint(medium) {
+        display: none;
+      }
+    }
+  }
+
+  &_tabs_slider {
+    @include breakpoint(medium) {
+      & > div {
+        width: 100%;
+      }
+    }
+  }
+
+  &_tabs_content {
+    position: relative;
+
+    @include breakpoint(large) {
+      .inventory_tabs_content_list_secondary {
+        display: none;
+      }
+    }
+
+    @include breakpoint(small) {
+      // max-height: 210px;
+      // overflow: hidden;
+      // transition: max-height 0.3s ease;
+
+      // &_active {
+      //   max-height: 2000px;
+      // }
+
+      // &_viewMore {
+      //   position: relative;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      //   padding: rem(20) 0;
+      //   text-align: center;
+      //   cursor: pointer;
+      //   font-size: rem(15);
+      //   overflow: hidden;
+      //   background: #0d0d0d;
+
+      //   svg {
+      //     transform: rotate(90deg);
+      //   }
+
+      //   span {
+      //     position: relative;
+      //   }
+
+      //   &:before {
+      //     position: absolute;
+      //     content: '';
+      //     left: 0;
+      //     right: 0;
+      //     top: 0;
+      //     bottom: 0;
+      //     background: linear-gradient(
+      //       0deg,
+      //       rgba(20, 19, 15, 1) 0%,
+      //       rgba(20, 19, 15, 0) 100%
+      //     );
+      //     // z-index: 1;
+      //     // background: #101010 url('/assets/noise3.png');
+      //     background: #101010 url(/assets/noise4.png);
+      //     background-size: 30px;
+      //     // filter: url(#esteisalegend);
+      //     // mix-blend-mode: soft-light;
+      //     // opacity: 0.85;
+      //     // isolation: isolate;
+      //   }
+      // }
+    }
+
+    &_item {
+      // position: absolute;
+      // top: 0;
+      // left: 0;
+      // right: 0;
+      // z-index: -1;
+      // visibility: hidden;
+
+      // &:not(.inventory_tabs_content_item_active) {
+      //   .inventory_tabs_content_list {
+      //     opacity: 0;
+      //   }
+      // }
+
+      // &_active {
+      //   position: relative;
+      //   z-index: 1;
+      //   visibility: visible;
+      // }
+    }
+
+    &_list {
+      transition: opacity 0.2s ease-in-out;
+
+      &_secondary {
+        @include breakpoint(large) {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          width: calc(100% - 160px - 16px);
+          .inventory_tabs_content_list_item {
+            width: calc(50% - 16px);
+          }
+        }
+        @include breakpoint(huge) {
+          width: calc(100% - 160px - 32px);
+          .inventory_tabs_content_list_item {
+            width: calc(50% - 32px);
+          }
+        }
+      }
+
+      &_item {
+        display: flex;
+        justify-content: space-between;
+        font-size: rem(12);
+        line-height: 1.3;
+        border-bottom: 1px solid var(--color-gray);
+        padding: rem(12) 0;
+
+        @include breakpoint(huge) {
+          font-size: rem(13);
+        }
+
+        span {
+          margin-left: rem(8);
+          text-align: right;
+          font-weight: var(--font-medium);
+        }
+
+        &_specs {
+          cursor: pointer;
+          font-size: rem(14);
+          @include breakpoint(large) {
+            font-size: rem(13);
+          }
+        }
+
+        // @include breakpoint(large) {
+        //   font-size: rem(14);
+        // }
+
+        // span {
+        //   font-weight: var(--font-large);
+        // }
+      }
+    }
+  }
+
+  &_description {
+    padding-top: rem(64);
+    padding-bottom: rem(100);
+    text-align: center;
+    font-size: rem(14);
+    @include breakpoint(large) {
+      font-size: rem(20);
+      padding-top: rem(150);
+      padding-bottom: rem(150);
+    }
+  }
+
+  &_specs {
+    padding-bottom: rem(60);
+  }
+}
