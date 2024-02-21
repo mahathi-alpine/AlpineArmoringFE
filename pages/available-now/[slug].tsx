@@ -26,6 +26,8 @@ function InventoryVehicle(props) {
   const category = data?.category.data?.attributes.title;
   const categorySlug = data?.category.data?.attributes.slug;
 
+  console.log(data.specifications);
+
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
   const vehicleDetailsMain = {
@@ -169,18 +171,24 @@ function InventoryVehicle(props) {
               })}
             </ul>
 
-            <Link href="" className={`${styles.inventory_sticker}`}>
-              <span className={`${styles.inventory_sticker_part1}`}>
-                Window
-              </span>
-              <span className={`${styles.inventory_sticker_part2}`}>
-                Sticker
-              </span>
-              <span className={`${styles.inventory_sticker_bottom}`}>
-                <PDFIcon />
-                <span>OEM</span>
-              </span>
-            </Link>
+            {data.OEM?.data ? (
+              <Link
+                href={data.OEM.data.attributes.url}
+                className={`${styles.inventory_sticker}`}
+                target="_blank"
+              >
+                <span className={`${styles.inventory_sticker_part1}`}>
+                  Window
+                </span>
+                <span className={`${styles.inventory_sticker_part2}`}>
+                  Sticker
+                </span>
+                <span className={`${styles.inventory_sticker_bottom}`}>
+                  <PDFIcon />
+                  <span>OEM</span>
+                </span>
+              </Link>
+            ) : null}
           </div>
 
           <div
@@ -288,20 +296,26 @@ function InventoryVehicle(props) {
               Request a quote
             </Button>
 
-            <Link href="" className={`${styles.inventory_sticker}`}>
-              <span className={`${styles.inventory_sticker_box}`}>
-                <span className={`${styles.inventory_sticker_part1}`}>
-                  Window
+            {data.OEM?.data ? (
+              <Link
+                href={data.OEM.data.attributes.url}
+                target="_blank"
+                className={`${styles.inventory_sticker}`}
+              >
+                <span className={`${styles.inventory_sticker_box}`}>
+                  <span className={`${styles.inventory_sticker_part1}`}>
+                    Window
+                  </span>
+                  <span className={`${styles.inventory_sticker_part2}`}>
+                    Sticker
+                  </span>
                 </span>
-                <span className={`${styles.inventory_sticker_part2}`}>
-                  Sticker
+                <span className={`${styles.inventory_sticker_bottom}`}>
+                  <PDFIcon />
+                  <span>OEM</span>
                 </span>
-              </span>
-              <span className={`${styles.inventory_sticker_bottom}`}>
-                <PDFIcon />
-                <span>OEM</span>
-              </span>
-            </Link>
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>
@@ -314,7 +328,7 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      {data?.specifications ? (
+      {data?.specifications.data.length > 0 ? (
         <div id="armoring-specs" className={`${styles.inventory_specs} anchor`}>
           <StickyHorizontalSlider
             slides={data.specifications.data}
@@ -324,7 +338,7 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      {data?.accessories ? (
+      {data?.accessories.data.length > 0 ? (
         <div id="options-included" className={`anchor`}>
           <StickyHorizontalSlider
             slides={data.accessories.data}
@@ -334,11 +348,9 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      <VideoScale
-        video={data?.video.data?.attributes.url}
-        text1="Armored Cadillac"
-        text2="ESV V-Series"
-      />
+      {data?.video.data ? (
+        <VideoScale video={data?.video.data?.attributes.url} />
+      ) : null}
 
       {formData ? <InquiryForm {...formData} /> : null}
     </div>

@@ -22,10 +22,8 @@ const Footer = (isDarkMode) => {
     },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
-    // { path: '/news', text: 'News' },
     { path: '/media', text: 'News & Media' },
     { path: '/available-now/type/armored-rental', text: 'Pre-owned' },
-    // { path: '/special-of-the-month', text: 'Special of the Month' },
     { path: '/faqs', text: 'FAQs' },
     { path: '/contact', text: 'Contact Us' },
   ];

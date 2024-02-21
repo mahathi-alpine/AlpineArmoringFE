@@ -100,7 +100,15 @@ function Home({ homepageData, categories }) {
         <div className="shape-after shape-after-white"></div>
       </div>
 
-      {news ? <News props={news} button limit="3" /> : null}
+      {news ? (
+        <News
+          props={news}
+          button
+          limit="3"
+          subtitle="News"
+          title="Armoring World"
+        />
+      ) : null}
 
       {partners ? <Partners props={partners} /> : null}
     </>

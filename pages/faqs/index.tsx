@@ -7,7 +7,7 @@ import Accordion from 'components/global/accordion/Accordion';
 function FAQs(props) {
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
-  const faqs = props?.pageData?.fa_qs;
+  const faqs = props?.faqs;
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -43,7 +43,7 @@ function FAQs(props) {
 
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
-      {faqs?.data ? <Accordion items={faqs.data} /> : null}
+      {faqs ? <Accordion items={faqs} /> : null}
     </>
   );
 }
@@ -55,8 +55,14 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  let faqs = await getPageData({
+    route: 'fa-qs',
+    populate: 'deep',
+  });
+  faqs = faqs.data || null;
+
   return {
-    props: { pageData },
+    props: { pageData, faqs },
   };
 }
 

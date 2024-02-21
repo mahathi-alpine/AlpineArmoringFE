@@ -169,17 +169,18 @@ function Vehicle(props) {
         anchor
       />
 
-      <div
-        id="overview"
-        className={`${styles.slug_description} anchor container_small`}
-      >
-        <h2 className={`c-title observe fade-in-up`}>Overview</h2>
-        {data?.description ? (
+      {data?.description ? (
+        <div
+          id="overview"
+          className={`${styles.slug_description} anchor container_small`}
+        >
+          <h2 className={`c-title observe fade-in-up`}>Overview</h2>
+
           <Markdown className={`observe fade-in-up`}>
             {data.description}
           </Markdown>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
 
       {dimensions1 && dimensions2 ? (
         <div
@@ -250,7 +251,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {data?.specs ? (
+      {data?.specs.data.length > 0 ? (
         <div id="armoring-specs" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
             <h2
@@ -263,7 +264,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {data?.equipment ? (
+      {data?.equipment.data.length > 0 ? (
         <div id="optional-equipment" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
             <h2

@@ -35,7 +35,7 @@ const Banner = (props) => {
             >
               Request a quote
             </Button>
-            <Button
+            {/* <Button
               href={`/available-now/?vehicles_we_armor=${data.slug}`}
               {...(!data.inventory?.length
                 ? { disabled: true, button: true }
@@ -43,7 +43,15 @@ const Banner = (props) => {
               className={`${styles.banner_buttons_item} shiny`}
             >
               View in-stock availability
-            </Button>
+            </Button> */}
+            {data.inventory?.length ? (
+              <Button
+                href={`/available-now/?vehicles_we_armor=${data.slug}`}
+                className={`${styles.banner_buttons_item} shiny`}
+              >
+                View in-stock availability
+              </Button>
+            ) : null}
           </div>
         </div>
       </div>
