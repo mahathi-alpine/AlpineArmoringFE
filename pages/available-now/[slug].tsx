@@ -26,6 +26,9 @@ function InventoryVehicle(props) {
   const category = data?.category.data?.attributes.title;
   const categorySlug = data?.category.data?.attributes.slug;
 
+  console.log(data.OEM);
+  console.log(data.OEM.data.attributes.url);
+
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
   const vehicleDetailsMain = {
