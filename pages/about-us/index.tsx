@@ -9,7 +9,6 @@ import FillingText from 'components/global/filling-text/FillingText';
 
 function About(props) {
   const seoData = props?.pageData?.seo;
-  // console.log(props)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');

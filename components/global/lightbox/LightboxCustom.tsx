@@ -9,9 +9,6 @@ const LightboxCustom = ({
   lightboxData,
   setLightboxPopupOpen,
 }) => {
-  // console.log(lightboxData)
-  // return null;
-
   const [emblaApi, setEmblaApi] = useState(null);
   const sliderOptions = { loop: true };
 

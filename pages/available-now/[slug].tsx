@@ -26,8 +26,6 @@ function InventoryVehicle(props) {
   const category = data?.category.data?.attributes.title;
   const categorySlug = data?.category.data?.attributes.slug;
 
-  console.log(data.specifications);
-
   const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
 
   const vehicleDetailsMain = {
@@ -328,7 +326,7 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      {data?.specifications.data.length > 0 ? (
+      {data?.specifications?.data.length > 0 ? (
         <div id="armoring-specs" className={`${styles.inventory_specs} anchor`}>
           <StickyHorizontalSlider
             slides={data.specifications.data}

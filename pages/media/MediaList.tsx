@@ -17,8 +17,6 @@ function MediaList({ props, itemType }) {
     return acc;
   }, {});
 
-  //   console.log(groupedByCategory)
-
   // Slider setup
   const [emblaApis, setEmblaApis] = useState([]);
   const [prevBtnDisabledStates, setPrevBtnDisabledStates] = useState([]);
