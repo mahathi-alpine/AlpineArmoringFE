@@ -81,7 +81,7 @@
     text-align: center;
 
     .inquiry_form_plain & {
-      font-size: clamp(1rem, 0.8635rem + 0.5825vw, 1.5625rem);
+      font-size: clamp(1rem, 0.909rem + 0.3883vw, 1.375rem);
       @include breakpoint(large) {
         .inquiry_form_plain & {
           margin-bottom: rem(40);
