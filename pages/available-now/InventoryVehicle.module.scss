@@ -212,7 +212,7 @@
       left: calc(538px + 32px + 32px);
     }
 
-    @include breakpoint(large) {
+    @include breakpoint(huge) {
       left: calc(538px + 32px + 64px);
     }
 
