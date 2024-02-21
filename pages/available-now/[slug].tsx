@@ -47,8 +47,6 @@ function InventoryVehicle(props) {
     Weight: 'weight',
   };
 
-  console.log(data);
-
   const tabSliderData = [
     {
       id: 0,
@@ -183,7 +181,9 @@ function InventoryVehicle(props) {
                   {Object.entries(vehicleDetailsMain).map(([key, value]) => {
                     return (
                       data &&
-                      data[value] != null && (
+                      data[value] != null &&
+                      data[value] != '' &&
+                      data[value] != ' ' && (
                         <li
                           key={key}
                           className={`${styles.inventory_tabs_content_list_item}`}
