@@ -47,6 +47,8 @@ function InventoryVehicle(props) {
     Weight: 'weight',
   };
 
+  console.log(data);
+
   const tabSliderData = [
     {
       id: 0,
