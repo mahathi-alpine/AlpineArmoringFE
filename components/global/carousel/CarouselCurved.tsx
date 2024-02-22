@@ -18,7 +18,12 @@ import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import NextJsImage from '../lightbox/NextJsImage';
 import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 
-const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
+const CarouselCurved = ({
+  props,
+  white = undefined,
+  squared = undefined,
+  regular = undefined,
+}) => {
   const slides = props;
 
   const options = {
@@ -45,14 +50,17 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
   return (
     <div
       className={`
-      ${styles.carouselCurved_wrapper}      
-      ${white ? styles.carouselCurved_wrapper_white : ''}
-      ${squared ? styles.carouselCurved_wrapper_squared : ''}
-    `}
+        ${styles.carouselCurved_wrapper}      
+        ${white ? styles.carouselCurved_wrapper_white : ''}
+        ${regular ? styles.carouselCurved_wrapper_regular : ''}
+        ${squared ? styles.carouselCurved_wrapper_squared : ''}
+      `}
     >
-      <div
-        className={`${styles.carouselCurved_shape} ${styles.carouselCurved_shapeAfter} shape-after shape-after-small`}
-      ></div>
+      {!regular ? (
+        <div
+          className={`${styles.carouselCurved_shape} ${styles.carouselCurved_shapeAfter} shape-after shape-after-small`}
+        ></div>
+      ) : null}
 
       <div className={`${styles.carouselCurved}`}>
         <div className={`${styles.carouselCurved_viewport}`} ref={emblaMainRef}>
@@ -67,37 +75,49 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
                 }}
               >
                 {item.attributes?.url ? (
-                  <div className={`${styles.carouselCurved_slide_img}`}>
-                    <Image
-                      src={
-                        isMobile
-                          ? item.attributes.formats?.small?.url
-                          : item.attributes.formats?.large?.url ||
-                            item.attributes.url
-                      }
-                      alt={item.attributes.alternativeText || 'Alpine Armoring'}
-                      // priority={index === 0}
-                      width={
-                        isMobile
-                          ? item.attributes.formats?.small?.width
-                          : item.attributes.formats?.large?.width ||
-                            item.attributes.width
-                      }
-                      height={
-                        isMobile
-                          ? item.attributes.formats?.small?.height
-                          : item.attributes.formats?.large?.height ||
-                            item.attributes.height
-                      }
-                      className={styles.carousel_slide_img}
-                    ></Image>
+                  <>
+                    <div className={`${styles.carouselCurved_slide_img}`}>
+                      <Image
+                        src={
+                          isMobile
+                            ? item.attributes.formats?.small?.url
+                            : item.attributes.formats?.large?.url ||
+                              item.attributes.url
+                        }
+                        alt={
+                          item.attributes.alternativeText || 'Alpine Armoring'
+                        }
+                        // priority={index === 0}
+                        width={
+                          isMobile
+                            ? item.attributes.formats?.small?.width
+                            : item.attributes.formats?.large?.width ||
+                              item.attributes.width
+                        }
+                        height={
+                          isMobile
+                            ? item.attributes.formats?.small?.height
+                            : item.attributes.formats?.large?.height ||
+                              item.attributes.height
+                        }
+                        className={styles.carousel_slide_img}
+                      ></Image>
 
-                    {item.attributes.caption ? (
-                      <h4 className={`${styles.carouselCurved_slide_caption}`}>
-                        <span>{item.attributes.caption}</span>
-                      </h4>
+                      {item.attributes.caption ? (
+                        <h4
+                          className={`${styles.carouselCurved_slide_caption}`}
+                        >
+                          <span>{item.attributes.caption}</span>
+                        </h4>
+                      ) : null}
+                    </div>
+
+                    {regular ? (
+                      <div className={styles.carouselCurved_zoom}>
+                        <ZoomIcon />
+                      </div>
                     ) : null}
-                  </div>
+                  </>
                 ) : null}
               </div>
             ))}
@@ -112,10 +132,12 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
               onClick={onNextButtonClick}
               disabled={nextBtnDisabled}
             />
-          </div>
 
-          <div className={styles.carouselCurved_zoom}>
-            <ZoomIcon />
+            {!regular ? (
+              <div className={styles.carouselCurved_zoom}>
+                <ZoomIcon />
+              </div>
+            ) : null}
           </div>
         </div>
 
@@ -140,11 +162,15 @@ const CarouselCurved = ({ props, white = undefined, squared = undefined }) => {
         })}
       </div>
 
-      <div
-        className={`${
-          styles.carouselCurved_shape
-        } shape-before shape-before-small ${white ? 'shape-before-white' : ''}`}
-      ></div>
+      {!regular ? (
+        <div
+          className={`${
+            styles.carouselCurved_shape
+          } shape-before shape-before-small ${
+            white ? 'shape-before-white' : ''
+          }`}
+        ></div>
+      ) : null}
     </div>
   );
 };

@@ -282,7 +282,7 @@ function Vehicle(props) {
           className={`${styles.slug_gallery} observe fade-in-up anchor`}
           id="gallery"
         >
-          <Gallery props={gallery} white />
+          <Gallery props={gallery} white regular />
         </div>
       ) : null}
 

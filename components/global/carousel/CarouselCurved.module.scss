@@ -16,7 +16,6 @@
   }
 
   @include breakpoint(large) {
-    // margin-top: -50px;
     margin-bottom: 70px;
   }
 
@@ -30,12 +29,18 @@
     }
   }
 
-  // &_wrapper {
-  //   padding: rem(40) 0;
-  //   @include breakpoint(medium) {
-  //     padding: rem(64) 0;
-  //   }
-  // }
+  .carouselCurved_wrapper_regular &{
+    @include breakpoint(huge) {
+      --slide-size: 32%;
+    }
+    .carouselCurved_slide_img{
+      img{
+        @include breakpoint(medium) {
+          border-radius: 16px;
+        }
+      }
+    }
+  }
 
   &_shape {
     height: 30px;
@@ -146,8 +151,8 @@
     pointer-events: none;
 
     @include breakpoint(large) {
-      bottom: rem(16);
-      right: rem(8);
+      bottom: rem(10);
+      right: rem(16);
     }
   }
 
