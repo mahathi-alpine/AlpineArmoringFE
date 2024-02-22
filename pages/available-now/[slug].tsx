@@ -179,15 +179,15 @@ function InventoryVehicle(props) {
               <div className={`${styles.inventory_tabs_content_item}`}>
                 <ul className={`${styles.inventory_tabs_content_list}`}>
                   {Object.entries(vehicleDetailsMain).map(([key, value]) => {
-                    const isDimensionKey = [
-                      'Height',
-                      'Length',
-                      'Width',
-                      'Wheelbase',
-                    ].includes(key);
-                    const dimensionValue = isDimensionKey
-                      ? `${data[value]} in (${data[value] * 2.54} cm)`
-                      : data[value];
+                    // const isDimensionKey = [
+                    //   'Height',
+                    //   'Length',
+                    //   'Width',
+                    //   'Wheelbase',
+                    // ].includes(key);
+                    // const dimensionValue = isDimensionKey
+                    //   ? `${data[value]} in (${data[value] * 2.54} cm)`
+                    //   : data[value];
 
                     return (
                       data &&
@@ -199,7 +199,7 @@ function InventoryVehicle(props) {
                           className={`${styles.inventory_tabs_content_list_item}`}
                         >
                           {`${key}:`}
-                          <span>{dimensionValue}</span>
+                          {/* <span>{dimensionValue}</span> */}
                         </li>
                       )
                     );
