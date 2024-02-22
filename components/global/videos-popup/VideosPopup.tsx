@@ -13,7 +13,6 @@ import Captions from 'yet-another-react-lightbox/plugins/captions';
 import 'yet-another-react-lightbox/plugins/captions.css';
 
 const VideosPopup = (props) => {
-  console.log(props);
   const { openLightbox, renderLightbox } = useLightbox();
 
   const slidesData = props.props.map((item) => {

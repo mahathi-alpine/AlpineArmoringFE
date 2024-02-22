@@ -32,14 +32,31 @@ const TabSection = ({ props }) => {
               <div
                 className={`${styles.tabSection_item_image} observe fade-in-up`}
               >
-                <Image
-                  src={`${item.image.data.attributes.url}`}
-                  alt="Description of the image"
-                  width={620}
-                  height={430}
-                />
+                {item.image.data.attributes.mime.startsWith('image/') ? (
+                  <Image
+                    src={`${item.image.data.attributes.url}`}
+                    alt={item.image.data.attributes.alt || 'Alpine Armoring'}
+                    width={620}
+                    height={430}
+                  />
+                ) : item.image.data.attributes.mime.startsWith('video/') ? (
+                  <video
+                    preload="none"
+                    autoPlay
+                    muted
+                    loop
+                    aria-label="Video player"
+                  >
+                    <source
+                      src={`${item.image.data.attributes.url}`}
+                      type={item.image.data.attributes.mime}
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : null}
               </div>
             ) : null}
+
             <div className={`${styles.tabSection_item_content}`}>
               <h4
                 className={`${styles.tabSection_item_title} observe fade-in-up`}

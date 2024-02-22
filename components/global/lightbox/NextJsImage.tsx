@@ -11,7 +11,7 @@ export default function NextJsImage(slide) {
             ? data.formats?.small?.url
             : data.formats?.xlarge?.url || data.url
         }
-        alt={data.alt || 'Alpine Armoring'}
+        alt={data.alternativeText || 'Alpine Armoring'}
         width={data.width}
         height={data.height}
         style={{
