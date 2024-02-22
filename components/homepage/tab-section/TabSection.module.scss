@@ -89,7 +89,8 @@
         }
       }
 
-      img, video {
+      img,
+      video {
         max-width: 100%;
         border-radius: 8px;
         box-shadow:
@@ -110,7 +111,7 @@
         font-size: rem(22);
       }
     }
-    
+
     &_link {
       display: flex;
       align-items: center;
