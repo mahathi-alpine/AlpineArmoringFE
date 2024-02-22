@@ -169,15 +169,6 @@ function InventoryVehicle(props) {
               ) : null}
             </div>
 
-            <Button
-              onClick={scroll}
-              button={true}
-              className={`${styles.inventory_cta} primary attention`}
-              attention
-            >
-              Request a quote
-            </Button>
-
             {data?.OEM?.data ? (
               <Link
                 href={data.OEM.data.attributes.url}
@@ -258,6 +249,15 @@ function InventoryVehicle(props) {
                 </ul>
               </div>
             </div>
+
+            <Button
+              onClick={scroll}
+              button={true}
+              className={`${styles.inventory_cta} primary attention`}
+              attention
+            >
+              Request a quote
+            </Button>
           </div>
         </div>
       </div>

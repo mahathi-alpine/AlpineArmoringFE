@@ -99,7 +99,7 @@
         flex: 1;
         max-width: unset;
         padding: 0;
-        padding-bottom: rem(100);
+        padding-bottom: rem(90);
       }
 
       &_wrap {
@@ -207,15 +207,19 @@
     }
 
     @include breakpoint(large) {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      margin: 0;
+      // position: absolute;
+      // bottom: 0;
+      // left: 0;
+      // margin: 0;
+      margin-top: rem(20) !important;
       justify-content: space-evenly;
       padding: 26px 24px 26px 24px !important;
-      left: 20px;
-      bottom: 20px;
-      text-transform: uppercase;
+      // left: 20px;
+      // bottom: 20px;
+      text-transform: uppercase;    
+      position: sticky;
+      bottom: 10px;
+      margin: auto;
     }
 
     @include breakpoint(huge) {
@@ -241,7 +245,7 @@
       right: 0;
       left: auto;
       z-index: 3;
-      bottom: 18px;
+      bottom: 8px;
     }
 
     @include breakpoint(huge) {
