@@ -99,7 +99,8 @@ const EmblaCarousel = (props) => {
                   src={
                     isMobile
                       ? item.attributes.formats?.small?.url
-                      : item.attributes.formats?.large?.url ||
+                      : item.attributes.formats?.xlarge?.url ||
+                        item.attributes.formats?.large?.url ||
                         item.attributes.url
                   }
                   alt={item.attributes.alternativeText || 'Alpine Armoring'}
@@ -107,13 +108,15 @@ const EmblaCarousel = (props) => {
                   width={
                     isMobile
                       ? item.attributes.formats?.small?.width
-                      : item.attributes.formats?.large?.width ||
+                      : item.attributes.formats?.xlarge?.width ||
+                        item.attributes.formats?.large?.width ||
                         item.attributes.width
                   }
                   height={
                     isMobile
                       ? item.attributes.formats?.small?.height
-                      : item.attributes.formats?.large?.height ||
+                      : item.attributes.formats?.xlarge?.height ||
+                        item.attributes.formats?.large?.height ||
                         item.attributes.height
                   }
                   className={styles.carousel_slide_img}

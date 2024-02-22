@@ -111,10 +111,9 @@
         }
       }
 
-      &>a{
+      & > a {
         display: block;
       }
-
     }
 
     &_shape {
@@ -267,16 +266,16 @@
   }
 
   &_tabs_slider {
-    &>div{
+    & > div {
       background: var(--color-secondary);
 
-      @media (min-width: 500px){
+      @media (min-width: 500px) {
         display: inline-flex;
         margin: auto;
         margin-bottom: 1.5rem;
         padding: 0.375rem;
         border-radius: 99px;
-        &>ul{
+        & > ul {
           width: 100%;
         }
       }
