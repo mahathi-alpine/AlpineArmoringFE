@@ -11,6 +11,7 @@ function Dealer(props) {
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
   //   return null;
+  console.log(props);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');

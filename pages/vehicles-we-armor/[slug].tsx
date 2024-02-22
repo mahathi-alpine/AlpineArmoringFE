@@ -234,7 +234,7 @@ function Vehicle(props) {
         <div className={`${styles.slug_slider_wrap} observe fade-in anchor`}>
           <div className={`shape-before`}></div>
 
-          <div className={`${styles.slug_slider} container background-dark`}>
+          <div className={`${styles.slug_slider} background-dark`}>
             <ComparisonSlider
               beforeImage={beforeAfterSlider_Before}
               afterImage={beforeAfterSlider_After}

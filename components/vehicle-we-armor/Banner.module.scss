@@ -146,8 +146,8 @@
       &:before {
         position: absolute;
         content: '';
-        left: -32px;
-        top: 0;
+        left: -31px;
+        top: -1px;
         height: 32px;
         width: 32px;
         background: url('/assets/smallCurveGray.svg') no-repeat;
@@ -158,7 +158,7 @@
       &:after {
         position: absolute;
         content: '';
-        right: 0;
+        right: -1px;
         bottom: -31px;
         height: 32px;
         width: 32px;
@@ -220,6 +220,7 @@
       justify-content: flex-end;
       padding: 0;
       height: calc(100vh - 74px - 64px);
+      max-height: 800px;
       background: linear-gradient(
         0,
         rgba(98, 98, 98, 1) 0%,
