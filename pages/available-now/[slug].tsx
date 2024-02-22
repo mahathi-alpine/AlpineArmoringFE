@@ -207,13 +207,6 @@ function InventoryVehicle(props) {
               <div className={`${styles.inventory_tabs_content_item}`}>
                 <ul className={`${styles.inventory_tabs_content_list}`}>
                   {Object.entries(vehicleDetailsMain).map(([key, value]) => {
-                    const isDimensionKey = [
-                      'Height',
-                      'Length',
-                      'Width',
-                      'Wheelbase',
-                    ].includes(key);
-
                     let dimensionValue = null;
 
                     if (
@@ -222,10 +215,21 @@ function InventoryVehicle(props) {
                       data[value] != '' &&
                       data[value] != ' '
                     ) {
-                      dimensionValue =
-                        isDimensionKey && data
-                          ? `${data[value]} in (${data[value] * 2.54} cm)`
-                          : data[value];
+                      if (key === 'Weight') {
+                        // Convert pounds to kilograms and round to the nearest whole number
+                        dimensionValue = `${data[value]} lbs (${Math.round(
+                          data[value] * 0.45359237
+                        )} kg) Armored`;
+                      } else if (
+                        ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
+                      ) {
+                        // Convert inches to centimeters
+                        dimensionValue = `${data[value]} in (${
+                          data[value] * 2.54
+                        } cm)`;
+                      } else {
+                        dimensionValue = data[value];
+                      }
                     }
 
                     return (
