@@ -8,8 +8,8 @@ export default function NextJsImage(slide) {
       <Image
         src={
           window.innerWidth < 768
-            ? data.formats?.small?.src
-            : data.formats?.xlarge?.src || data.src
+            ? data.formats?.small?.url
+            : data.formats?.xlarge?.url || data.url
         }
         alt={data.alt || 'Alpine Armoring'}
         width={data.width}
