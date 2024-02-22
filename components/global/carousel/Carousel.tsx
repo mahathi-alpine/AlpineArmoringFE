@@ -28,7 +28,7 @@ const EmblaCarousel = (props) => {
 
   const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
   useEffect(() => {
-    window.innerWidth >= 1280 ? setThumbsAxis('y') : setThumbsAxis('x');
+    window.innerWidth >= 1600 ? setThumbsAxis('y') : setThumbsAxis('x');
   }, []);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -71,7 +71,7 @@ const EmblaCarousel = (props) => {
   const galleryRef = useRef(null);
   const thumbsRef = useRef(null);
   useEffect(() => {
-    if (window.innerWidth >= 1280 && options.thumbs) {
+    if (window.innerWidth >= 1600 && options.thumbs) {
       const firstDivHeight = galleryRef.current.offsetHeight;
       thumbsRef.current.style.height = `${firstDivHeight}px`;
     }

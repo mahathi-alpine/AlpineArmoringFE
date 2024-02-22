@@ -162,6 +162,34 @@ function InventoryVehicle(props) {
               ) : null}
             </div>
 
+            <Button
+              href="#request-a-quote"
+              className={`${styles.inventory_cta} primary rounded`}
+            >
+              Request a quote
+            </Button>
+
+            {data?.OEM?.data ? (
+              <Link
+                href={data.OEM.data.attributes.url}
+                className={`${styles.inventory_sticker}`}
+                target="_blank"
+              >
+                <PDFIcon />
+                <span>
+                  <span className={`${styles.inventory_sticker_part1}`}>
+                    Window
+                  </span>
+                  <span className={`${styles.inventory_sticker_part2}`}>
+                    Sticker
+                  </span>
+                  <span className={`${styles.inventory_sticker_part3}`}>
+                    OEM
+                  </span>
+                </span>
+              </Link>
+            ) : null}
+
             <div
               className={`${styles.inventory_top_shape} shape-before shape-before-dark mobile-only`}
             ></div>
@@ -220,32 +248,6 @@ function InventoryVehicle(props) {
             </div>
           </div>
         </div>
-
-        <Button
-          href="#request-a-quote"
-          className={`${styles.inventory_cta} primary rounded`}
-        >
-          Request a quote
-        </Button>
-
-        {data?.OEM?.data ? (
-          <Link
-            href={data.OEM.data.attributes.url}
-            className={`${styles.inventory_sticker}`}
-            target="_blank"
-          >
-            <PDFIcon />
-            <span>
-              <span className={`${styles.inventory_sticker_part1}`}>
-                Window
-              </span>
-              <span className={`${styles.inventory_sticker_part2}`}>
-                Sticker
-              </span>
-              <span className={`${styles.inventory_sticker_part3}`}>OEM</span>
-            </span>
-          </Link>
-        ) : null}
       </div>
 
       {mainText ? (

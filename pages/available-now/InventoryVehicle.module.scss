@@ -70,6 +70,7 @@
 
   &_top {
     position: relative;
+    padding-bottom: rem(100);
     z-index: 3;
 
     @include breakpoint(large) {
@@ -83,7 +84,6 @@
     }
 
     &_gallery {
-      position: relative;
       overflow: hidden;
 
       @include breakpoint(medium) {
@@ -93,21 +93,28 @@
       }
 
       @include breakpoint(large) {
+        position: relative;
         width: 58%;
         order: 2;
         flex: 1;
         max-width: unset;
         padding: 0;
+        padding-bottom: rem(80);
       }
 
       &_wrap {
         position: relative;
         @include breakpoint(large) {
-          margin-bottom: rem(8);
+          margin-bottom: 0;
           // height: 60vH;
           // max-height: 760px;
         }
       }
+
+      &>a{
+        display: block;
+      }
+
     }
 
     &_shape {
@@ -126,29 +133,8 @@
     @include breakpoint(large) {
       position: relative;
       margin: auto;
-      max-width: 1842px;
-      padding-bottom: rem(70);
-    }
-  }
-
-  &_cta {
-    position: fixed;
-    bottom: rem(4);
-    left: rem(4);
-    right: rem(4);
-    padding: rem(14) rem(24);
-    z-index: 2;
-    max-width: rem(200);
-    margin: auto;
-
-    @include breakpoint(large) {
-      position: absolute;
-      top: rem(68);
-      right: rem(32);
-      left: auto;
-      bottom: auto;
-      margin: 0;
-      justify-content: space-evenly;
+      max-width: 2200px;
+      // padding-bottom: rem(80);
     }
   }
 
@@ -161,8 +147,17 @@
     font-size: rem(12);
     font-weight: var(--font-large);
     line-height: 1;
+
+    @include breakpoint(medium) {
+      bottom: rem(120);
+    }
+
     @include breakpoint(large) {
       font-size: rem(13);
+    }
+
+    @include breakpoint(huge) {
+      bottom: rem(8);
     }
 
     strong {
@@ -188,34 +183,49 @@
         }
       }
     }
+  }
 
-    @include breakpoint(medium) {
-      bottom: rem(120);
-    }
+  &_cta {
+    position: fixed;
+    bottom: rem(4);
+    left: rem(4);
+    right: rem(4);
+    padding: rem(14) rem(24);
+    z-index: 2;
+    max-width: rem(200);
+    margin: auto;
 
     @include breakpoint(large) {
-      bottom: rem(8);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      margin: 0;
+      justify-content: space-evenly;
+      font-size: rem(16);
+      text-transform: uppercase;
+      font-weight: var(--font-medium);
+      max-width: 280px;
+      padding: rem(20) rem(24);
     }
   }
 
   &_sticker {
-    font-weight: var(--font-medium);
-    color: var(--color-primary);
-    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     margin-top: rem(32);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
 
     @include breakpoint(large) {
-      position: absolute;
       margin-top: 0;
-      bottom: rem(16);
-      left: calc(538px + 32px + 32px);
+      right: 0;
+      left: auto;
       z-index: 3;
-    }
-
-    @include breakpoint(huge) {
-      left: calc(538px + 32px + 64px);
     }
 
     svg {
@@ -257,6 +267,21 @@
   }
 
   &_tabs_slider {
+    &>div{
+      background: var(--color-secondary);
+
+      @media (min-width: 500px){
+        display: inline-flex;
+        margin: auto;
+        margin-bottom: 1.5rem;
+        padding: 0.375rem;
+        border-radius: 99px;
+        &>ul{
+          width: 100%;
+        }
+      }
+    }
+
     @include breakpoint(medium) {
       & > div {
         width: 100%;
@@ -306,8 +331,7 @@
     font-size: rem(14);
     @include breakpoint(large) {
       font-size: rem(20);
-      padding-top: rem(150);
-      padding-bottom: rem(150);
+      padding-top: rem(100);
     }
   }
 

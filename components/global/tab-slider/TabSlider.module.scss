@@ -136,6 +136,7 @@
     }
 
     &_glider {
+      display: none;
       @include breakpoint(medium) {
         position: absolute;
         display: flex;
