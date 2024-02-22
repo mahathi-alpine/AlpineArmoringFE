@@ -8,6 +8,7 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 function Shipping(props) {
   const seoData = props?.pageData?.seo;
@@ -18,6 +19,8 @@ function Shipping(props) {
   const licenseImage = props?.pageData?.licenseImage;
   const licensePDF1 = props?.pageData?.licensePDF1.data.attributes.url;
   const licensePDF2 = props?.pageData?.licensePDF2.data.attributes.url;
+
+  const isMobile = useIsMobile();
 
   const tabSliderData = [
     {
@@ -129,15 +132,21 @@ function Shipping(props) {
 
               <div className={`${styles.shipping_box_item_image}`}>
                 <Image
+                  // src={
+                  //   item.image?.data.attributes.formats?.large?.url ||
+                  //   item.image?.data.attributes.url
+                  // }
                   src={
-                    item.image?.data.attributes.formats?.large?.url ||
-                    item.image?.data.attributes.url
+                    isMobile
+                      ? item.image?.data.attributes.formats?.small?.url
+                      : item.image?.data.attributes.formats?.large?.url ||
+                        item.image?.data.attributes.url
                   }
                   alt={
                     item.image?.data.attributes.alternativeText ||
                     'Alpine Armoring'
                   }
-                  width={1238}
+                  width={1200}
                   height={346}
                 ></Image>
               </div>

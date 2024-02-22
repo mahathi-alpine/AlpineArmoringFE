@@ -21,6 +21,7 @@
 
     @include breakpoint(huge) {
       width: calc(100% - 160px - 16px);
+      // max-height: 760px;
       // height: calc(100vh - 74px - 145px - 120px);
     }
   }
@@ -32,7 +33,9 @@
     height: 100%;
 
     @include breakpoint(huge) {
-      margin-left: 0;
+      margin-left: 0;    
+      // flex-flow: column;
+      // height: 600px;
       // height: 100%;
     }
   }
@@ -72,6 +75,7 @@
       height: 100%;
       @include breakpoint(medium) {
         border-radius: 8px;
+        max-height: 760px;
       }
     }
   }

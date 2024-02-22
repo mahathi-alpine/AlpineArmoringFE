@@ -60,11 +60,13 @@
 
       &_content {
         padding: rem(8) rem(16) rem(32) rem(16);
+
         @include breakpoint(medium) {
           padding: rem(24) rem(48) rem(48) rem(48);
         }
         @include breakpoint(large) {
-          padding: rem(80) rem(64);
+          padding: rem(64);
+          width: 45%;
         }
         @include breakpoint(huge) {
           padding: rem(80);
@@ -95,24 +97,34 @@
       }
 
       &_image {
-        flex: 0 0 55%;
+
+        @include breakpoint(large) {
+          position: absolute;
+          right: 0;
+          width: 55%;
+          height: 100%;
+        }
         img {
           height: 100%;
           object-fit: cover;
           min-height: 160px;
+          max-height: 400px;
+          @include breakpoint(large) {
+            max-height: unset;
+          }
         }
       }
 
       &:nth-child(2n) {
         flex-flow: row-reverse;
+        .shipping_box_item_image{
+          left: 0;
+          right: auto;
+        }
       }
 
       &_shape {
         background: var(--color-background);
-        // @include breakpoint(large) {
-        //   position: absolute;
-        //   width: 100%;
-        // }
       }
     }
   }

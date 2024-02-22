@@ -26,7 +26,16 @@ function InventoryVehicle(props) {
   const category = data?.category.data?.attributes.title;
   const categorySlug = data?.category.data?.attributes.slug;
 
-  const sliderTopOptions = { dragFree: false, loop: true, thumbs: true };
+  // const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
+  // useEffect(() => {
+  //   window.innerWidth >= 1600 ? setThumbsAxis('y') : setThumbsAxis('x');
+  // }, []);
+  const sliderTopOptions = {
+    dragFree: false,
+    loop: true,
+    // axis: thumbsAxis,
+    thumbs: true,
+  };
 
   const vehicleDetailsMain = {
     VIN: 'VIN',

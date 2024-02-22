@@ -18,7 +18,7 @@ const Footer = (isDarkMode) => {
     { path: '/ballisticchart', text: 'Ballistic Chart' },
     {
       path: '/available-now/',
-      text: 'Stock Vehicles (New)',
+      text: 'Available Now',
     },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
