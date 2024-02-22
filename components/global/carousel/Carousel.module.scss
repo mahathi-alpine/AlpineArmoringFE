@@ -16,7 +16,7 @@
 
     @include breakpoint(large) {
       height: calc(100vh - 74px - 142px - 108px - 120px);
-      max-height: 800px;
+      max-height: 760px;
     }
 
     @include breakpoint(huge) {
@@ -33,7 +33,7 @@
 
     @include breakpoint(huge) {
       margin-left: 0;
-      height: 100%;
+      // height: 100%;
     }
   }
 
@@ -69,7 +69,7 @@
     &_img {
       object-fit: cover;
       width: 100%;
-      height: 100%;
+      // height: 100%;
       @include breakpoint(medium) {
         border-radius: 8px;
       }

@@ -91,9 +91,18 @@
       .mask {
         animation: mask1 0.4s steps(22) forwards;
       }
-      // .attention_box3 {
-      //   background: var(--color-primary);
-      // }
+    }
+
+    &.primary{
+      background: transparent !important;
+
+      .attention_box3{
+        background: var(--color-primary);
+      }
+
+      .mask{
+        background: #1b1b1b;
+      }
     }
 
     .mask {
@@ -181,6 +190,7 @@
     }
     .c-button_text {
       position: relative;
+      color: var(--color-white);
     }
   }
 

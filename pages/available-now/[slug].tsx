@@ -75,6 +75,13 @@ function InventoryVehicle(props) {
     targetElement.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scroll = () => {
+    const element = document.getElementById('request-a-quote');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     const setupObserver = () => {
       const targets = document.querySelectorAll('.observe');
@@ -163,8 +170,10 @@ function InventoryVehicle(props) {
             </div>
 
             <Button
-              href="#request-a-quote"
-              className={`${styles.inventory_cta} primary rounded`}
+              onClick={scroll}
+              button={true}
+              className={`${styles.inventory_cta} primary attention`}
+              attention
             >
               Request a quote
             </Button>
@@ -224,9 +233,8 @@ function InventoryVehicle(props) {
                         ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
                       ) {
                         // Convert inches to centimeters
-                        dimensionValue = `${data[value]} in (${
-                          data[value] * 2.54
-                        } cm)`;
+                        dimensionValue = `${data[value]} in (
+                          ${Math.round(data[value] * 2.54)} cm)`;
                       } else {
                         dimensionValue = data[value];
                       }
