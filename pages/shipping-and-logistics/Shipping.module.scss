@@ -97,7 +97,6 @@
       }
 
       &_image {
-
         @include breakpoint(large) {
           position: absolute;
           right: 0;
@@ -117,7 +116,7 @@
 
       &:nth-child(2n) {
         flex-flow: row-reverse;
-        .shipping_box_item_image{
+        .shipping_box_item_image {
           left: 0;
           right: auto;
         }
