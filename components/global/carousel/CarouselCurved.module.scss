@@ -29,12 +29,12 @@
     }
   }
 
-  .carouselCurved_wrapper_regular &{
+  .carouselCurved_wrapper_regular & {
     @include breakpoint(huge) {
       --slide-size: 32%;
     }
-    .carouselCurved_slide_img{
-      img{
+    .carouselCurved_slide_img {
+      img {
         @include breakpoint(medium) {
           border-radius: 16px;
         }
