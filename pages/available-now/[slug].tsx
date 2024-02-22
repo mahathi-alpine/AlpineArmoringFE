@@ -186,17 +186,18 @@ function InventoryVehicle(props) {
                       'Wheelbase',
                     ].includes(key);
 
+                    let dimensionValue = null;
+
                     if (
                       data &&
                       data[value] != null &&
                       data[value] != '' &&
                       data[value] != ' '
                     ) {
-                      const dimensionValue =
+                      dimensionValue =
                         isDimensionKey && data
                           ? `${data[value]} in (${data[value] * 2.54} cm)`
                           : data[value];
-                      console.log(dimensionValue);
                     }
 
                     return (
@@ -209,7 +210,7 @@ function InventoryVehicle(props) {
                           className={`${styles.inventory_tabs_content_list_item}`}
                         >
                           {`${key}:`}
-                          {/* <span>{dimensionValue}</span> */}
+                          <span>{dimensionValue}</span>
                         </li>
                       )
                     );
