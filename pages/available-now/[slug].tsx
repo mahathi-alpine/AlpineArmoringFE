@@ -186,11 +186,11 @@ function InventoryVehicle(props) {
                       'Wheelbase',
                     ].includes(key);
 
-                    const dimensionValue =
-                      isDimensionKey && data
-                        ? `${data[value]} in (${data[value] * 2.54} cm)`
-                        : data[value];
-                    console.log(dimensionValue);
+                    // const dimensionValue =
+                    //   isDimensionKey && data
+                    //     ? `${data[value]} in (${data[value] * 2.54} cm)`
+                    //     : data[value];
+                    console.log(isDimensionKey);
 
                     return (
                       data &&
