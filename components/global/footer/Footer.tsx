@@ -23,7 +23,7 @@ const Footer = (isDarkMode) => {
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     { path: '/media', text: 'News & Media' },
-    { path: '/available-now/type/armored-rental', text: 'Pre-owned' },
+    { path: '/available-now/type/armored-pre-owned', text: 'Pre-owned' },
     { path: '/faqs', text: 'FAQs' },
     { path: '/contact', text: 'Contact Us' },
   ];

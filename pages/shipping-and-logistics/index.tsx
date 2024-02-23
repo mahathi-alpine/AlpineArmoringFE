@@ -103,7 +103,7 @@ function Shipping(props) {
         <div className={`${styles.shipping_box_wrap}`}>
           {boxes?.map((item, index) => (
             <div
-              className={`${styles.shipping_box_item} background-dark observe fade-in-up`}
+              className={`${styles.shipping_box_item} background-dark observe fade-in`}
               key={index}
               id={item.title.toLowerCase().replace(/\s+/g, '-')}
             >

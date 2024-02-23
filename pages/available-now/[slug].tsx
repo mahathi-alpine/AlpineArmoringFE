@@ -233,7 +233,7 @@ function InventoryVehicle(props) {
                         ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
                       ) {
                         // Convert inches to centimeters
-                        dimensionValue = `${data[value]} in (
+                        dimensionValue = `${data[value]} in. (
                           ${Math.round(data[value] * 2.54)} cm)`;
                       } else {
                         dimensionValue = data[value];
