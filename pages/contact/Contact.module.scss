@@ -31,23 +31,19 @@
       }
     }
     &_right {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
+      &_boxes{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
 
-      @include breakpoint(medium) {
-        justify-content: space-evenly;
-      }
-
-      @include breakpoint(large) {
-        justify-content: space-between;
-      }
-
-      &_column {
-        margin-bottom: rem(32);
         @include breakpoint(medium) {
-          margin-bottom: 0;
+          justify-content: space-evenly;
         }
+  
+        @include breakpoint(large) {
+          justify-content: space-between;
+        }
+
       }
 
       p {
@@ -78,6 +74,21 @@
         color: var(--color-primary);
         font-size: rem(20);
       }
+    }
+  }
+
+  &_map{
+    margin: rem(16) rem(-16) 0 rem(-16);
+    position: relative;
+    aspect-ratio: 2/1;
+    @include breakpoint(medium) {
+      aspect-ratio: 3/1;
+      margin: rem(16) 0 0 0;
+    }
+
+    img{
+      object-fit: cover;
+      filter: grayscale(100%) invert(100%);
     }
   }
 }
