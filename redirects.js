@@ -4,7 +4,7 @@ const redirects = () => {
   return fetch(`${apiUrl}/redirects?pagination[start]=0&pagination[limit]=-1`)
     .then((res) => res.json())
     .then((response) => {
-      const redirects = response.data.map((redirect) => ({
+      const redirects = response?.data?.map((redirect) => ({
         source: redirect.attributes.from,
         destination: redirect.attributes.to,
         permanent: redirect.attributes.type === 'permanent',
