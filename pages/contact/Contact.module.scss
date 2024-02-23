@@ -31,7 +31,7 @@
       }
     }
     &_right {
-      &_boxes{
+      &_boxes {
         display: flex;
         flex-wrap: wrap;
         gap: 24px;
@@ -39,11 +39,10 @@
         @include breakpoint(medium) {
           justify-content: space-evenly;
         }
-  
+
         @include breakpoint(large) {
           justify-content: space-between;
         }
-
       }
 
       p {
@@ -77,7 +76,7 @@
     }
   }
 
-  &_map{
+  &_map {
     margin: rem(16) rem(-16) 0 rem(-16);
     position: relative;
     aspect-ratio: 2/1;
@@ -86,7 +85,7 @@
       margin: rem(16) 0 0 0;
     }
 
-    img{
+    img {
       object-fit: cover;
       filter: grayscale(100%) invert(100%);
     }
