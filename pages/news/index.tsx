@@ -10,6 +10,8 @@ function Blog(props) {
   //   const banner = props?.pageData?.banner;
   const posts = props?.posts;
 
+  console.log(posts);
+
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
