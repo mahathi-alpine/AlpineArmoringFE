@@ -1,3 +1,5 @@
+const redirects = require('./redirects');
+
 module.exports = {
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
@@ -40,6 +42,9 @@ module.exports = {
       // 'herokuapp.com',
       // 'alpine-armoring-e7d249d45874.herokuapp.com',
     ],
+  },
+  redirects: () => {
+    return redirects();
   },
   reactStrictMode: true,
   env: {
