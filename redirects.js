@@ -10,8 +10,6 @@ const redirects = () => {
         permanent: redirect.attributes.type === 'permanent',
       }));
 
-      console.log(redirects);
-
       return redirects;
     });
 };
