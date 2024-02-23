@@ -10,8 +10,6 @@ function Blog(props) {
   //   const banner = props?.pageData?.banner;
   const posts = props?.posts;
 
-  console.log(posts);
-
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
@@ -65,6 +63,8 @@ export async function getStaticProps() {
   let posts = await getPageData({
     route: 'blogs',
     populate: 'deep',
+    sort: 'publishedAt',
+    sortType: 'desc',
   });
   posts = posts.data || null;
 

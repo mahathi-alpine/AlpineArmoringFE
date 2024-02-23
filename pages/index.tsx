@@ -124,7 +124,7 @@ export async function getStaticProps() {
 
   const categories = await getPageData({
     route: 'categories',
-    order: true,
+    sort: 'order',
     populate: 'image, inventories',
   });
 

@@ -96,7 +96,7 @@ export async function getServerSideProps(context) {
   // Fetching Types for the Filters
   const type = await getPageData({
     route: 'categories',
-    order: true,
+    sort: 'order',
     fields: 'fields[0]=title&fields[1]=slug',
   }).then((response) => response.data);
 

@@ -120,12 +120,12 @@ export async function getServerSideProps(context) {
   const [type, make] = await Promise.all([
     getPageData({
       route: 'categories',
-      order: true,
+      sort: 'order',
       fields: 'fields[0]=title&fields[1]=slug',
     }).then((res) => res.data),
     getPageData({
       route: 'makes',
-      order: true,
+      sort: 'order',
       fields: 'fields[0]=title&fields[1]=slug',
     }).then((res) => res.data),
   ]);

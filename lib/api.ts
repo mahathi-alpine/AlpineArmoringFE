@@ -3,7 +3,7 @@ import { API_URL } from 'config/index';
 export async function fetchAPI(path) {
   const requestUrl = `${API_URL}${path}`;
 
-  // console.log(requestUrl);
+  console.log(requestUrl);
 
   try {
     const [response] = await Promise.all([fetch(requestUrl)]);
@@ -22,7 +22,8 @@ interface PageDataProps {
   route?: string;
   params?: string;
   slug?: string;
-  order?: boolean;
+  sort?: string;
+  sortType?: string;
   populate?: string;
   fields?: string;
   limit?: number;
@@ -31,19 +32,20 @@ interface PageDataProps {
 export async function getPageData({
   route,
   params,
-  order,
+  sort,
+  sortType = 'asc',
   populate,
   limit,
   fields,
 }: PageDataProps) {
-  const sort = order ? '&sort=order:asc' : '';
+  const sortQuery = sort ? `&sort=${sort}:${sortType}` : '';
   const populateQuery = populate ? 'populate=' + populate : '';
   const fieldsQuery = fields ? '&' + fields : '';
   const limitQuery = limit ? '&' + limit : '';
 
   const query = params
-    ? `/${route}?${params}&${populateQuery}${sort}${fieldsQuery}${limitQuery}`
-    : `/${route}?${populateQuery}${sort}${fieldsQuery}${limitQuery}`;
+    ? `/${route}?${params}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}`
+    : `/${route}?${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}`;
 
   const pagesData = await fetchAPI(`/api${query}`);
 
