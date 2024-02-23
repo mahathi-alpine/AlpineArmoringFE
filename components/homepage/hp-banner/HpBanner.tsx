@@ -96,18 +96,14 @@ const HpBanner = ({ props }: HPBannerProps) => {
                 {props.subtitle}
               </h2>
             ) : null} */}
-            {props.subtitle ? (
-              <h2
-                className={`
-                  ${styles.hp_banner_subtitle}
-                `}
-              >
-                {props.subtitle}
-              </h2>
-            ) : null}
 
             {props.title ? (
-              <h1 className={`${styles.hp_banner_title}`}>{props.title}</h1>
+              <h1
+                dangerouslySetInnerHTML={{
+                  __html: props.title,
+                }}
+                className={`${styles.hp_banner_title}`}
+              ></h1>
             ) : null}
             {/* {props.title ? (
               <h1

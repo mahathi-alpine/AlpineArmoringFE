@@ -75,7 +75,7 @@
       height: 100%;
       @include breakpoint(medium) {
         border-radius: 8px;
-        max-height: 760px;
+        // max-height: 760px;
       }
     }
   }

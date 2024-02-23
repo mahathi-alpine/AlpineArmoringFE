@@ -28,7 +28,10 @@ function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
-  const topBanner = data?.topBanner;
+  const topBanner = {
+    title: data.topBannerTitle,
+    description: data.topBannerDescription,
+  };
   const quote = data?.quote;
   const categoriesData = categories?.data;
   const hpMiddleText = data?.hpMiddleText;
@@ -37,6 +40,8 @@ function Home({ homepageData, categories }) {
   const ballistingTestings = data?.ballistingTestingsMedia;
   const news = data?.blogs?.data;
   const partners = data?.industryPartners?.data;
+
+  // console.log(data)
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');

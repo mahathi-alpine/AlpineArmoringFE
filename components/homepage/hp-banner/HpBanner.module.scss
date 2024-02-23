@@ -123,34 +123,16 @@
     }
   }
 
-  &_subtitle {
-    font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
-    font-weight: var(--font-demi);
-    text-transform: uppercase;
-    // color: transparent;
-
-    @include breakpoint(large) {
-      margin-bottom: 0;
-    }
-
-    // span {
-    //   animation: fadeInDown 1s;
-    //   animation-fill-mode: forwards;
-    //   color: white;
-    // }
-
-    // color: white;
-    // &_noAnimation {
-    //   color: white;
-    // }
-  }
-
   &_title {
-    margin-bottom: rem(16);
-    font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
+    margin-bottom: rem(12);
     font-weight: var(--font-demi);
-    // color: white;
+    font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
     text-transform: uppercase;
+    white-space: pre-wrap;
+
+    b{
+      font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
+    }
 
     @include breakpoint(small) {
       transition-delay: unset;

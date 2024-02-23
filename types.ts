@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 
 export interface HPBannerProps {
   props: {
-    subtitle: string;
     title: string;
     description: string;
   };
