@@ -106,13 +106,13 @@ function Media(props) {
         banner
       />
 
-      {news.length > 0 ? (
+      {news?.length > 0 ? (
         <div className={`${styles.media_news}`} id="news">
           <BlogList props={news} button limit="3" plain title="News" />
         </div>
       ) : null}
 
-      {videos.length > 0 ? (
+      {videos?.length > 0 ? (
         <div className={`${styles.media_videos} container_small`} id="videos">
           <h2 className={`${styles.media_heading} observe fade-in-up`}>
             Videos
@@ -140,7 +140,7 @@ function Media(props) {
         </div>
       ) : null}
 
-      {tradeShows.length > 0 ? (
+      {tradeShows?.length > 0 ? (
         <div
           className={`${styles.media_tradeShows} container_small`}
           id="trade-shows"
