@@ -152,7 +152,9 @@ const Footer = (isDarkMode) => {
 
           <div className={`${styles.footer_column}`}>
             <h3 className={`${styles.footer_column_title}`}>QUICK LINKS</h3>
-            <ul className={`${styles.footer_column_list} ${styles.footer_nav}`}>
+            <nav
+              className={`${styles.footer_column_list} ${styles.footer_nav}`}
+            >
               {links.map((link, index) => (
                 <li className={`${styles.footer_nav_item}`} key={index}>
                   <Link
@@ -163,7 +165,7 @@ const Footer = (isDarkMode) => {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </nav>
           </div>
         </div>
 

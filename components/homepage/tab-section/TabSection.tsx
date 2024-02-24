@@ -35,7 +35,10 @@ const TabSection = ({ props }) => {
                 {item.image.data.attributes.mime.startsWith('image/') ? (
                   <Image
                     src={`${item.image.data.attributes.url}`}
-                    alt={item.image.data.attributes.alt || 'Alpine Armoring'}
+                    alt={
+                      item.image.data.attributes.alternativeText ||
+                      'Alpine Armoring'
+                    }
                     width={620}
                     height={430}
                   />

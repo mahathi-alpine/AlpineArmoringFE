@@ -50,13 +50,14 @@ module.exports = {
   env: {
     GOOGLE_TRANSLATION_CONFIG: JSON.stringify({
       languages: [
-        { title: 'En', name: 'en', flag: '/flags/USFlag.jpg' },
-        { title: 'Es', name: 'es', flag: '/flags/ESFlag.png' },
-        { title: 'Fr', name: 'fr', flag: '/flags/FRFlag.png' },
-        { title: 'Ru', name: 'ru', flag: '/flags/RUFlag.png' },
-        { title: 'CN', name: 'zh-CN', flag: '/flags/CNFlag.png' },
-        { title: 'JA', name: 'ja', flag: '/flags/JAFlag.png' },
-        { title: 'AR', name: 'ar', flag: '/flags/ARFlag.jpg' },
+        { title: 'En', name: 'en' },
+        { title: 'Es', name: 'es' },
+        { title: 'Fr', name: 'fr' },
+        { title: 'Ru', name: 'ru' },
+        { title: 'CN', name: 'zh-CN' },
+        { title: 'JA', name: 'ja' },
+        { title: 'AR', name: 'ar' },
+        { title: 'De', name: 'de' },
       ],
       defaultLanguage: 'en',
     }),

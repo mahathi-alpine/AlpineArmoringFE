@@ -97,7 +97,7 @@ function Home({ homepageData, categories }) {
 export async function getStaticProps() {
   const homepageData = await getPageData({
     route: 'homepage',
-    populate: 'deep',
+    // populate: 'deep',
   });
 
   const categories = await getPageData({

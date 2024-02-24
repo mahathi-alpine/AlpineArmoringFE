@@ -19,11 +19,7 @@ const Partners = (props) => {
               src={
                 item.attributes.url.formats?.large?.url || item.attributes.url
               }
-              alt={`Alpine Partner${
-                item.attributes.alternativeText
-                  ? ' | ' + item.attributes.alternativeText
-                  : ''
-              }`}
+              alt={item.attributes.alternativeText || 'Alpine Armoring'}
               // width={475}
               // height={320}
               width={item.attributes.width}

@@ -4,11 +4,47 @@
   font-size: rem(14);
   text-transform: uppercase;
 
-  &_current {
+  &_flag {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
     cursor: pointer;
+
+    &:before{
+      content: '';
+      left: 0;
+      top: 0;
+      width: 30px;
+      height: 20px;
+      background: url('/assets/flags_sprite.png');
+    }
+
+    &_En:before{
+      background-position: -8px -8px; 
+    }
+    &_Es:before{
+      background-position: -8px -80px; 
+    }
+    &_Fr:before{
+      background-position: -111px -43px; 
+    }
+    &_Ru:before{
+      background-position: -8px -44px; 
+    }
+    &_AR:before{
+      background-position: -54px -44px; 
+    }
+    &_CN:before{
+      background-position: -111px -8px; 
+    }
+    &_JA:before{
+      background-position: -54px -80px; 
+    }
+    &_De:before{
+      background-position: -62px -8px; 
+    }
   }
 
   &:hover {
@@ -22,14 +58,6 @@
         bottom: auto;
       }
     }
-  }
-
-  &_item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    cursor: pointer;
   }
 
   &_name {

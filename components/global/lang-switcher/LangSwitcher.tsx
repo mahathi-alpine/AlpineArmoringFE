@@ -3,7 +3,6 @@ import useLanguageSwitcher, {
   LanguageDescriptor,
 } from 'hooks/useLanguageSwitcher';
 import styles from './LangSwitcher.module.scss';
-import Image from 'next/image';
 import React from 'react';
 
 export type LanguageSwitcherProps = {
@@ -27,39 +26,33 @@ export const LanguageSwitcher = ({ className }: LanguageSwitcherProps = {}) => {
     (ld: LanguageDescriptor) => ld.name !== currentLanguage
   );
 
+  const languageClass = `langSwitcher_flag_${currentLanguageDiv?.title}`;
+
   return (
     <div className={`${className} ${styles.langSwitcher} notranslate`}>
       {currentLanguageDiv && (
-        <div className={`${styles.langSwitcher_current}`}>
-          <Image
-            src={`${currentLanguageDiv?.flag}`}
-            alt="Alpine Armoring"
-            width={30}
-            height={16}
-            className={`${styles.langSwitcher_flag}`}
-          />
+        <div className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}>
           <span className="">{currentLanguageDiv.name}</span>
         </div>
       )}
 
       <ul className={`${styles.langSwitcher_wrap}`}>
-        {otherLanguagesDiv.map((ld: LanguageDescriptor) => (
-          <li key={`l_s_${ld.name}`}>
-            <a
-              onClick={switchLanguage(ld.name)}
-              className={`${styles.langSwitcher_item}`}
-            >
-              <Image
-                src={`${ld.flag}`}
-                alt="Alpine Armoring"
-                width={30}
-                height={16}
-                className={`${styles.langSwitcher_flag}`}
-              />
-              <span className={`${styles.langSwitcher_name}`}>{ld.title}</span>
-            </a>
-          </li>
-        ))}
+        {otherLanguagesDiv.map((ld: LanguageDescriptor) => {
+          const languageClass = `langSwitcher_flag_${ld.title}`;
+
+          return (
+            <li key={`l_s_${ld.name}`}>
+              <a
+                onClick={switchLanguage(ld.name)}
+                className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}
+              >
+                <span className={`${styles.langSwitcher_name}`}>
+                  {ld.title}
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -18,7 +18,10 @@ const Categories = ({ props, allVehiclesImage }) => {
               {data.image.data ? (
                 <Image
                   src={`${data.image.data.attributes.url}`}
-                  alt="Description of the image"
+                  alt={
+                    data.image.data.attributes.alternativeText ||
+                    'Alpine Armoring'
+                  }
                   width={740}
                   height={290}
                   quality={100}
@@ -65,7 +68,7 @@ const Categories = ({ props, allVehiclesImage }) => {
           {allVehiclesImage ? (
             <Image
               src={`${allVehiclesImage.url}`}
-              alt="Description of the image"
+              alt={allVehiclesImage.alternativeText || 'Alpine Armoring'}
               width={912}
               height={355}
               quality={100}
