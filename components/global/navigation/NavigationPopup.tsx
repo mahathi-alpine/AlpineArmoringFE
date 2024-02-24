@@ -34,7 +34,7 @@ const NavigationPopup = ({
   ];
 
   const linksRight = [
-    { path: '/ballisticchart', text: 'Ballistic Chart' },
+    { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/media', text: 'News & Media' },
     { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
     { path: '/design-and-engineering', text: 'Design & Engineering' },

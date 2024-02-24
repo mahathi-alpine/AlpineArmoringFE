@@ -15,7 +15,7 @@ const Footer = (isDarkMode) => {
   const links = [
     { path: '/', text: 'Home' },
     { path: '/vehicles-we-armor', text: 'Makes & Models We Armor' },
-    { path: '/ballisticchart', text: 'Ballistic Chart' },
+    { path: '/ballistic-chart', text: 'Ballistic Chart' },
     {
       path: '/available-now/',
       text: 'Available Now',

@@ -56,25 +56,6 @@
     @include breakpoint(huge) {
       padding: rem(90) rem(48) rem(128) rem(48);
     }
-
-    &_right {
-      font-size: clamp(0.875rem, 0.8598rem + 0.0647vw, 0.9375rem);
-      @include breakpoint(large) {
-        text-align: right;
-        padding-bottom: rem(8);
-        font-size: rem(15);
-      }
-      strong,
-      b {
-        font-weight: var(--font-regular);
-        font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
-        letter-spacing: 0.45px;
-        @include breakpoint(large) {
-          display: block;
-          font-size: rem(21.5);
-        }
-      }
-    }
   }
 
   &_video {
@@ -87,6 +68,57 @@
     object-position: center center;
   }
 
+  &_title {
+    margin-bottom: rem(12);
+    font-weight: var(--font-demi);
+    font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
+    text-transform: uppercase;
+    white-space: pre-wrap;
+
+    b {
+      font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
+    }
+
+    @include breakpoint(small) {
+      transition-delay: unset;
+    }
+
+    @include breakpoint(large) {
+      margin-bottom: 0;
+    }
+  }
+
+  &_description {
+    font-size: clamp(0.875rem, 0.8598rem + 0.0647vw, 0.9375rem);
+    font-weight: var(--font-regular);
+    @include breakpoint(large) {
+      text-align: right;
+      padding-bottom: rem(8);
+      font-size: rem(15);
+    }
+    strong,
+    b {
+      font-weight: var(--font-regular);
+      font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
+      letter-spacing: 0.45px;
+      @include breakpoint(large) {
+        display: block;
+        font-size: rem(21.5);
+      }
+    }
+  }
+
+  &_shape {
+    @include breakpoint(large) {
+      height: 150px;
+      &:after {
+        box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
+        left: -150px;
+        right: -150px;
+      }
+    }
+  }
+
   &_pause {
     display: none;
     @include breakpoint(large) {
@@ -94,8 +126,6 @@
       position: absolute;
       z-index: 4;
       cursor: pointer;
-      // bottom: rem(110);
-      // right: rem(32);
       left: 0;
       right: 0;
       top: 45%;
@@ -122,62 +152,4 @@
       right: rem(48);
     }
   }
-
-  &_title {
-    margin-bottom: rem(12);
-    font-weight: var(--font-demi);
-    font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
-    text-transform: uppercase;
-    white-space: pre-wrap;
-
-    b {
-      font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
-    }
-
-    @include breakpoint(small) {
-      transition-delay: unset;
-    }
-
-    @include breakpoint(large) {
-      margin-bottom: 0;
-    }
-  }
-
-  // button {
-  //   border-radius: 8px;
-  //   background: rgba(250, 250, 250, 0.15);
-  //   color: white;
-  //   text-transform: uppercase;
-  //   font-size: 14px;
-  //   padding: rem(16) rem(32);
-  // }
-
-  &_shape {
-    @include breakpoint(large) {
-      height: 150px;
-      &:after {
-        box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
-        left: -150px;
-        right: -150px;
-      }
-    }
-  }
-
-  &_noise {
-    position: absolute;
-  }
 }
-
-// @keyframes fadeInDown {
-//   0% {
-//     opacity: 0;
-//     -webkit-transform: translate3d(0, -100%, 0);
-//     transform: translate3d(0, -100%, 0);
-//   }
-
-//   100% {
-//     opacity: 1;
-//     -webkit-transform: none;
-//     transform: none;
-//   }
-// }

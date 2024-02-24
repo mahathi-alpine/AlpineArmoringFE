@@ -58,11 +58,11 @@ const TabSection = ({ props }) => {
             ) : null}
 
             <div className={`${styles.tabSection_item_content}`}>
-              <h4
+              <h3
                 className={`${styles.tabSection_item_title} observe fade-in-up`}
               >
                 {item.title}
-              </h4>
+              </h3>
               {/* <p
                 className={`${styles.tabSection_item_description} observe fade-in-up`}
               >

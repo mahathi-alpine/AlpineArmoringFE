@@ -29,8 +29,8 @@ function Home({ homepageData, categories }) {
 
   const seoData = data?.seo;
   const topBanner = {
-    title: data.topBannerTitle,
-    description: data.topBannerDescription,
+    title: data?.topBannerTitle,
+    description: data?.topBannerDescription,
   };
   const quote = data?.quote;
   const categoriesData = categories?.data;

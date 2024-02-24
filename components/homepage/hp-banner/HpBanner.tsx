@@ -71,56 +71,33 @@ const HpBanner = ({ props }: HPBannerProps) => {
         </div>
 
         <div className={`${styles.hp_banner_content}`}>
-          <div className={`${styles.hp_banner_content_left}`}>
-            {/* <h2
-              className={`
-                ${styles.hp_banner_subtitle} animateLetter
-                ${
-                  languageCookie !== 'en'
-                    ? styles.hp_banner_subtitle_noAnimation
-                    : ''
-                }
-              `}
-            >
-              {props.subtitle}
-            </h2> */}
+          {props.title ? (
+            <h1
+              dangerouslySetInnerHTML={{
+                __html: props.title,
+              }}
+              className={`${styles.hp_banner_title}`}
+            ></h1>
+          ) : null}
 
-            {/* {props.subtitle ? (
-              <h2
-                className={`
-                  ${styles.hp_banner_subtitle} observe splitLetters
-                `}
-                data-split-delay="15"
-                data-split-duration="850"
-              >
-                {props.subtitle}
-              </h2>
-            ) : null} */}
-
-            {props.title ? (
-              <h1
-                dangerouslySetInnerHTML={{
-                  __html: props.title,
-                }}
-                className={`${styles.hp_banner_title}`}
-              ></h1>
-            ) : null}
-            {/* {props.title ? (
-              <h1
-                className={`${styles.hp_banner_title} observe splitLetters`}
-                data-split-delay="25"
-                data-split-duration="500"
-              >
-                {props.title}
-              </h1>
-            ) : null} */}
-          </div>
+          {/* <h2
+            className={`
+              ${styles.hp_banner_subtitle} animateLetter
+              ${
+                languageCookie !== 'en'
+                  ? styles.hp_banner_subtitle_noAnimation
+                  : ''
+              }
+            `}
+          >
+            {props.subtitle}
+          </h2> */}
 
           {props.description ? (
-            <p
-              className={`${styles.hp_banner_content_right}`}
+            <h2
+              className={`${styles.hp_banner_description}`}
               dangerouslySetInnerHTML={{ __html: props.description }}
-            ></p>
+            ></h2>
           ) : null}
         </div>
       </div>
