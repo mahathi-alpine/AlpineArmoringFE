@@ -7,6 +7,7 @@ import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
 import NavigationPopup from './global/navigation/NavigationPopup';
 import Search from 'components/global/search/Search';
+import ScrollToTopButton from 'components/global/scroll-to-top-button/ScrollToTopButton';
 
 const termina = localFont({
   src: [
@@ -50,20 +51,6 @@ const termina = localFont({
 
 const Layout = ({ children }) => {
   const router = useRouter();
-
-  // const pathsDarkHeader = [
-  //   '/vehicles-we-armor',
-  //   '/contact',
-  //   '/about-us',
-  //   '/design-and-engineering',
-  //   '/shipping-and-logistics',
-  //   '/become-a-dealer',
-  //   '/faqs',
-  //   '/blog',
-  // ];
-  // const isDarkHeader = pathsDarkHeader.some((path) =>
-  //   router.pathname.startsWith(path)
-  // );
 
   const pathsDarkMode = ['/available-now', '/manufacturing'];
   const pathsDarkFooter = ['/manufacturing'];
@@ -145,6 +132,8 @@ const Layout = ({ children }) => {
         />
 
         {children}
+
+        <ScrollToTopButton />
 
         <Footer isDarkMode={isDarkFooter} />
       </div>
