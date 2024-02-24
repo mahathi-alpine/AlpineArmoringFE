@@ -5,6 +5,7 @@ import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
 import Markdown from 'markdown-to-jsx';
 // import Link from 'next/link';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Dealer(props) {
   const seoData = props?.pageData?.seo;
@@ -13,31 +14,14 @@ function Dealer(props) {
   //   return null;
   // console.log(props);
 
+  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 

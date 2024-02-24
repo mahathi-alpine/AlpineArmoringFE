@@ -3,37 +3,21 @@ import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
 import Accordion from 'components/global/accordion/Accordion';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function FAQs(props) {
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const faqs = props?.faqs;
 
+  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 

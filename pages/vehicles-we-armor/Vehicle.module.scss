@@ -88,6 +88,16 @@
   }
 
   &_slider {
+    padding: rem(16) rem(8);
+
+    @include breakpoint(medium) {
+      padding: rem(40) rem(8);      
+    }
+
+    @include breakpoint(large) {
+      padding: rem(80) rem(8);
+    }
+
     &_wrap {
       margin-top: rem(100);
       margin-bottom: rem(56);
@@ -96,10 +106,6 @@
         margin-top: rem(180);
         margin-bottom: rem(140);
       }
-    }
-
-    @include breakpoint(large) {
-      padding: 80px 0;
     }
 
     &_small {

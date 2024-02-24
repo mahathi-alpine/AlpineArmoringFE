@@ -75,10 +75,7 @@ const TabSlider = ({
                   (item) => item.id === correspondingNavItem.id
                 );
                 const navItemElement = navRef.current.children[navItemIndex];
-                // navItemElement.classList.add(styles.tabSlider_nav_item_active);
-                // lastActiveNavItem.current?.classList.remove(
-                //   styles.tabSlider_nav_item_active
-                // );
+
                 lastActiveNavItem.current = navItemElement;
                 updateGliderStyle(navItemElement);
                 const tabRect = navItemElement.getBoundingClientRect();

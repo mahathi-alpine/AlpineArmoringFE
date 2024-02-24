@@ -82,6 +82,7 @@ function Media(props) {
     gallery: imageSrcs,
   };
 
+  // Animations
   const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');

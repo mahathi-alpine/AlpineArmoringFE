@@ -1,9 +1,9 @@
-// import React from 'react';
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import dynamic from 'next/dynamic';
 // import { getCookie } from 'cookies-next';
 import Seo from 'components/Seo';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -14,14 +14,6 @@ import Partners from 'components/homepage/partners/Partners';
 const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
 );
-// {
-//   isModalOpen && (
-//     <CodeSampleModal
-//       isOpen={isModalOpen}
-//       closeModal={() => setIsModalOpen(false)}
-//     />
-//   );
-// }
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
@@ -41,33 +33,14 @@ function Home({ homepageData, categories }) {
   const news = data?.blogs?.data;
   const partners = data?.industryPartners?.data;
 
-  // console.log(data)
-
+  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 

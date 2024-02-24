@@ -6,35 +6,19 @@ import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
 import Seo from 'components/Seo';
 import FillingText from 'components/global/filling-text/FillingText';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function About(props) {
   const seoData = props?.pageData?.seo;
 
+  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 

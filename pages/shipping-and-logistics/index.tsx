@@ -9,6 +9,7 @@ import Markdown from 'markdown-to-jsx';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
 import { useIsMobile } from 'hooks/useIsMobile';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Shipping(props) {
   const seoData = props?.pageData?.seo;
@@ -50,31 +51,14 @@ function Shipping(props) {
     });
   };
 
+  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 

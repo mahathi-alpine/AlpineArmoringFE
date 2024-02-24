@@ -7,36 +7,20 @@ import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
 import Seo from 'components/Seo';
 import Image from 'next/image';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Contact(props) {
   const seoData = props.pageData?.seo;
   const faqs = props?.pageData?.fa_qs;
 
+  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 

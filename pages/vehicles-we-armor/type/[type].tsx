@@ -6,6 +6,7 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import Seo from 'components/Seo';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
   const seoData = props.seo;
@@ -16,31 +17,14 @@ function Inventory(props) {
 
   topBanner = topBanner?.attributes.allBanner;
 
+  // Animations
+  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
+    targets.forEach((item) => observerRef.current.observe(item));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    // Clean up the observer when the component unmounts
     return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
+      targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
 
