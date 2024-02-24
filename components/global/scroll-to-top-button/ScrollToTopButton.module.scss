@@ -1,28 +1,28 @@
-.scrollToTopButton{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    bottom: rem(8);
-    right: rem(8);
-    background: var(--color-secondary);
-    border-radius: 100%;
-    padding: 6px;
-    z-index: 3;
-    opacity: 0;
-    transition: opacity .2s ease-in-out;
-    cursor: pointer;
+.scrollToTopButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: rem(8);
+  right: rem(8);
+  background: var(--color-secondary);
+  border-radius: 100%;
+  padding: 6px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
 
-    @include breakpoint(large) {
-        bottom: rem(16);
-        right: rem(16);
-    }
+  @include breakpoint(large) {
+    bottom: rem(16);
+    right: rem(16);
+  }
 
-    &_visible{
-        opacity: 1;
-    }
+  &_visible {
+    opacity: 1;
+  }
 
-    svg{
-        transform: rotate(-90deg);
-    }
+  svg {
+    transform: rotate(-90deg);
+  }
 }
