@@ -93,7 +93,7 @@
   &_nav {
     display: flex;
     flex-flow: column;
-    row-gap: 16px;    
+    row-gap: 16px;
     list-style: none;
     @include breakpoint(large) {
       flex-flow: unset;
