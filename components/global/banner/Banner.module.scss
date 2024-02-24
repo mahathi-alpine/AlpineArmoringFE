@@ -81,7 +81,6 @@
     width: 100%;
 
     @include breakpoint(large) {
-      // max-width: 1900px;
       padding: rem(16) 0 rem(110) rem(16);
 
       .banner_center & {
@@ -126,7 +125,7 @@
       max-width: 1090px;
     }
 
-    h1 {
+    h1, h2 {
       font-weight: var(--font-regular);
       white-space: pre-wrap;
 
