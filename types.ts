@@ -25,7 +25,6 @@ export interface IconProps {
 }
 
 export interface ButtonProps {
-  icon?: boolean;
   href?: string;
   className?: string;
   children?: ReactNode;

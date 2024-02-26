@@ -60,10 +60,13 @@ const HpBanner = ({ props }: HPBannerProps) => {
           playsInline={true}
           loop={true}
           className={`${styles.hp_banner_video}`}
+          width={1920}
+          height={1200}
           // preload="metadata"
           // poster="/assets/hpBannerPoster.jpg"
         >
-          <source src="/AlpineArmoringHP.webm" />
+          {/* <source src="AlpineArmoringHPMobile.webm" type="video/webm" media="all and (max-width: 768px)"></source> */}
+          <source src="/AlpineArmoringHP.webm" type="video/webm" />
         </video>
 
         <div className={`${styles.hp_banner_pause}`} onClick={togglePlayPause}>

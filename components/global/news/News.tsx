@@ -55,26 +55,30 @@ const Blog = ({
                     href={`/news/${item.attributes.slug}`}
                     className={`${styles.news_item_image}`}
                   >
-                    <Image
-                      src={
-                        item.attributes.thumbnail.data.attributes.formats?.large
-                          ?.url || item.attributes.thumbnail.data.attributes.url
-                      }
-                      alt={
-                        item.attributes.thumbnail.data.attributes
-                          .alternativeText || 'Alpine Armoring'
-                      }
-                      // width={index === 0 ? 1300 : 700}
-                      // height={index === 0 ? 550 : 300}
-                      // sizes={
-                      //   index === 0
-                      //     ? '(min-width: 1280px ) 75vw, 100vw'
-                      //     : '(min-width: 1280px ) 40vw, 100vw'
-                      // }
-                      width={700}
-                      height={300}
-                      sizes={'(min-width: 1280px ) 40vw, 100vw'}
-                    ></Image>
+                    <picture>
+                      <source
+                        media="(min-width: 768px)"
+                        srcSet={
+                          item.attributes.thumbnail.data.attributes.formats
+                            ?.large?.url ||
+                          item.attributes.thumbnail.data.attributes.url
+                        }
+                      />
+                      <Image
+                        src={`${
+                          item.attributes.thumbnail.data.attributes.formats
+                            ?.small?.url ||
+                          item.attributes.thumbnail.data.attributes.url
+                        }`}
+                        alt={
+                          item.attributes.thumbnail.data.attributes
+                            .alternativeText || 'Alpine Armoring'
+                        }
+                        width={700}
+                        height={300}
+                        // sizes={'(min-width: 1280px ) 40vw, 100vw'}
+                      />
+                    </picture>
                   </Link>
                 ) : null}
 

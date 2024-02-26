@@ -2,49 +2,34 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
+import dynamic from 'next/dynamic';
 
 import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
-import NavigationPopup from './global/navigation/NavigationPopup';
-import Search from 'components/global/search/Search';
-import ScrollToTopButton from 'components/global/scroll-to-top-button/ScrollToTopButton';
+const NavigationPopup = dynamic(
+  () => import('components/global/navigation/NavigationPopup')
+);
+const Search = dynamic(() => import('components/global/search/Search'));
+const ScrollToTopButton = dynamic(
+  () => import('components/global/scroll-to-top-button/ScrollToTopButton')
+);
 
 const termina = localFont({
   src: [
     {
-      path: '../public/fonts/Termina-Light.woff2',
-      weight: '300',
-      style: 'normal',
-      // display: 'swap',
-      // preload: true,
-    },
-    {
       path: '../public/fonts/Termina-Regular.woff2',
       weight: '400',
       style: 'normal',
-      // display: 'swap',
-      // preload: true,
     },
     {
       path: '../public/fonts/Termina-Medium.woff2',
       weight: '500',
       style: 'normal',
-      // display: 'swap',
-      // preload: true,
     },
     {
       path: '../public/fonts/Termina-Demi.woff2',
       weight: '600',
       style: 'normal',
-      // display: 'swap',
-      // preload: true,
-    },
-    {
-      path: '../public/fonts/Termina-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-      // display: 'swap',
-      // preload: true,
     },
   ],
 });
@@ -83,11 +68,6 @@ const Layout = ({ children }) => {
       <Head>
         <title>Alpine Armoring</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <style>{`
-              body {
-                background: white;
-              }
-            `}</style>
         {isDarkMode && (
           <style>{`
               body {

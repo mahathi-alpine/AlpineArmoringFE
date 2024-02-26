@@ -14,7 +14,7 @@ div.yarl__slide_title {
 }
 div.yarl__slide_description {
   font-size: rem(14);
-  font-weight: var(--font-light);
+  font-weight: var(--font-regular);
   @include breakpoint(large) {
     max-width: 700px;
     font-size: rem(15);

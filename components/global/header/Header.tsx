@@ -90,7 +90,6 @@ const Header = ({
           </Button>
 
           <div
-            // onClick={handleSearchClick}
             onClick={() => {
               setNavOpen(false);
               handleSearchClick();

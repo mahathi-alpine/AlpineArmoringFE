@@ -14,6 +14,10 @@ export default function App({ Component, pageProps }) {
         strategy="afterInteractive"
         src="https://www.googletagmanager.com/gtag/js?id=123"
       /> */}
+      {/* <Script
+        strategy="lazyOnload"
+        src="cookie, chatbots, newsletter"
+      /> */}
       <Script id="script-translate" strategy="afterInteractive">
         {`
           window.TranslateInit = function () {

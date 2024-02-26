@@ -16,15 +16,12 @@ const Partners = (props) => {
             key={item.id}
           >
             <Image
-              src={
-                item.attributes.url.formats?.large?.url || item.attributes.url
-              }
+              src={item.attributes.formats?.small?.url || item.attributes.url}
               alt={item.attributes.alternativeText || 'Alpine Armoring'}
-              // width={475}
-              // height={320}
-              width={item.attributes.width}
-              height={item.attributes.height}
+              width={310}
+              height={90}
               className={`${styles.partners_image}`}
+              sizes={'(min-width: 1280px ) 25vw, 40vw'}
             ></Image>
           </div>
         ))}

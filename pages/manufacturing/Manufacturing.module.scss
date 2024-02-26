@@ -48,8 +48,6 @@
     display: block;
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     line-height: 1.25;
-    // color: rgba(250, 250, 250, .9);
-    // font-weight: var(--font-light);
     margin: rem(16) 0;
 
     p {
@@ -66,10 +64,8 @@
     border-left: 2px solid var(--color-primary);
     padding-left: rem(16);
     margin: rem(24) 0 rem(24) 0;
-    // font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     line-height: 1.25;
-    // font-weight: var(--font-light);
 
     @include breakpoint(large) {
       max-width: 1200px;

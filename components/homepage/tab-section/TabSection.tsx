@@ -48,7 +48,8 @@ const TabSection = ({ props }) => {
                     autoPlay
                     muted
                     loop
-                    aria-label="Video player"
+                    width={620}
+                    height={430}
                   >
                     <source
                       src={`${item.image.data.attributes.url}`}

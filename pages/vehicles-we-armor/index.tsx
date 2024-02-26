@@ -22,7 +22,6 @@ function Inventory(props) {
     acc[category].push(item);
     return acc;
   }, {});
-  // console.log(groupedByCategory)
 
   // Animations
   const observerRef = useIntersectionObserver();

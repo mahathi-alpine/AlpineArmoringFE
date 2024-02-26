@@ -11,8 +11,6 @@ function Dealer(props) {
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
-  //   return null;
-  // console.log(props);
 
   // Animations
   const observerRef = useIntersectionObserver();

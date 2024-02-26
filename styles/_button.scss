@@ -115,8 +115,8 @@
       height: 100%;
       border-radius: 99px;
       background: var(--color-primary);
-      -webkit-mask: url('/assets/nature-sprite.png');
-      mask: url('/assets/nature-sprite.png');
+      -webkit-mask: url('/assets/nature-sprite.webp');
+      mask: url('/assets/nature-sprite.webp');
       -webkit-mask-size: 2300% 100%;
       mask-size: 2300% 100%;
       border: none;
@@ -278,44 +278,6 @@
         path {
           stroke: var(--background);
         }
-      }
-    }
-  }
-
-  // &.small {
-  //   padding: 12px 16px;
-  //   font-size: 13px;
-  //   @include breakpoint(large) {
-  //     padding: 12px 32px;
-  //     font-size: 14px;
-  //   }
-  // }
-
-  &.icon {
-    display: inline-flex;
-    align-items: center;
-    border-radius: rem(32);
-    padding: rem(6) rem(6) rem(6) rem(32);
-
-    span {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin-left: rem(24);
-      width: 43px;
-      height: 43px;
-      background: white;
-      border-radius: 100%;
-      &:after {
-        content: '';
-        right: 0;
-        top: 0;
-        background-image: url('/assets/arrow.svg');
-        width: 16px;
-        height: 16px;
-        background-size: contain;
-        background-repeat: no-repeat;
       }
     }
   }
