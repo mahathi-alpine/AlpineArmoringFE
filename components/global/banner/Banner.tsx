@@ -15,11 +15,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       <picture>
         <source
           media="(min-width: 768px)"
-          srcSet={
-            bannerImage.formats?.xlarge?.url ||
-            bannerImage.formats?.large?.url ||
-            bannerImage.url
-          }
+          srcSet={bannerImage.formats?.xlarge?.url || bannerImage.url}
         />
         <Image
           src={`${bannerImage.formats?.small?.url || bannerImage.url}`}
@@ -53,7 +49,10 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         <div className={`${styles.banner_content}`}>
           <div className={`${styles.banner_text} observe fade-in-scale`}>
             {bannerTitle ? (
-              <h1 className={`${styles.banner_title}`}>{bannerTitle}</h1>
+              <h1
+                className={`${styles.banner_title}`}
+                dangerouslySetInnerHTML={{ __html: bannerTitle }}
+              ></h1>
             ) : null}
             {bannerDescription ? (
               <h2

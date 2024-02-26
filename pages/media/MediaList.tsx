@@ -200,7 +200,6 @@ function MediaList({ props, itemType }) {
             </div>
           );
         })}
-      ;
     </>
   );
 }

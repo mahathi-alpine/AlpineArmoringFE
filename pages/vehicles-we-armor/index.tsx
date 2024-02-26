@@ -12,6 +12,18 @@ function Inventory(props) {
   const topBanner = props.pageData?.banner;
   const seoData = props.pageData?.seo;
 
+  const groupedByCategory = props.vehicles.data?.reduce((acc, item) => {
+    const category = item.attributes.category.data
+      ? item.attributes.category.data?.attributes.title
+      : item.attributes.category;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(item);
+    return acc;
+  }, {});
+  // console.log(groupedByCategory)
+
   // Animations
   const observerRef = useIntersectionObserver();
   useEffect(() => {
@@ -41,11 +53,15 @@ function Inventory(props) {
             </div>
           ) : null}
 
-          {props.vehicles.data ? (
+          {groupedByCategory ? (
             <div className={`${styles.listing_list}`}>
-              {props.vehicles.data.map((item) => (
-                <InventoryItem key={item.id} props={item} />
-              ))}
+              {Object.keys(groupedByCategory).map((category) => {
+                const itemsInCategory = groupedByCategory[category];
+
+                return itemsInCategory.map((item) => (
+                  <InventoryItem key={item.id} props={item} />
+                ));
+              })}
             </div>
           ) : null}
         </div>
@@ -59,30 +75,11 @@ function Inventory(props) {
 // }
 
 export async function getServerSideProps(context) {
-  // let topBanner: InventoryProps;
-
-  // if (context.query.category) {
-  //   topBanner = await getPageData({
-  //     route: 'categories',
-  //     slug: context.query.category,
-  //     order: true,
-  //   });
-  //   topBanner = topBanner.data[0];
-
-  // } else {
-  //   topBanner = await getPageData({ route: 'list-vehicles-we-armor' });
-  //   topBanner = topBanner.data;
-  // }
   let pageData = await getPageData({
     route: 'list-vehicles-we-armor',
     populate: 'deep',
   });
   pageData = pageData.data?.attributes || null;
-  // if (topBanner && topBanner.data) {
-  //   topBanner = topBanner.data;
-  //  } else {
-  //   // type = { type: [] };
-  // }
 
   let query = '';
   if (context.query.category) {
@@ -97,7 +94,8 @@ export async function getServerSideProps(context) {
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
     params: query,
-    populate: 'featuredImage',
+    populate: 'featuredImage, category',
+    sort: 'title',
   });
 
   // Fetching Types and Makes for the Filters
