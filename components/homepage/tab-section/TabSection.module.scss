@@ -119,6 +119,7 @@
       font-size: rem(13);
       color: var(--color-gray3);
       font-weight: var(--font-medium);
+      white-space: pre-wrap;
 
       @include breakpoint(medium) {
         font-size: rem(16);
@@ -129,7 +130,7 @@
         flex-flow: column;
       }
 
-      strong {
+      b {
         display: inline-block;
         color: var(--color-white);
         font-weight: var(--font-medium);

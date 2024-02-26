@@ -1,6 +1,4 @@
 import styles from './TabSlider.module.scss';
-// import Link from 'next/link';
-// import ChevronIcon from 'components/icons/Chevron';
 import { useEffect, useRef, useState } from 'react';
 
 const TabSlider = ({

@@ -2,9 +2,8 @@ import styles from './TabSection.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import ArrowIconCircle from 'components/icons/Arrow';
+import ArrowIcon from 'components/icons/Arrow';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import Markdown from 'markdown-to-jsx';
 
 const TabSection = ({ props }) => {
   const [activeDiv, setActiveDiv] = useState('0');
@@ -12,10 +11,18 @@ const TabSection = ({ props }) => {
     setActiveDiv(id);
   };
 
+  const sliderProps = props.map((item) => {
+    const newItem = {};
+    ['id', 'titleNav'].forEach((field) => {
+      newItem[field] = item[field];
+    });
+    return newItem;
+  });
+
   return (
     <section className={`${styles.tabSection} container`}>
       <TabSlider
-        props={props}
+        props={sliderProps}
         onTabChange={handleTabChange}
         className="fade-in-up observe"
       />
@@ -67,18 +74,17 @@ const TabSection = ({ props }) => {
               >
                 {item.title}
               </h3>
-              {/* <p
-                className={`${styles.tabSection_item_description} observe fade-in-up`}
-              >
-                {item.description}
-              </p> */}
               {item.linkText ? (
                 <Link
                   className={`${styles.tabSection_item_link} observe fade-in-up`}
-                  href="/"
+                  href={`${item.linkURL}`}
                 >
-                  <Markdown>{item.linkText}</Markdown>
-                  <ArrowIconCircle />
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: item.linkText,
+                    }}
+                  ></span>
+                  <ArrowIcon />
                 </Link>
               ) : null}
             </div>

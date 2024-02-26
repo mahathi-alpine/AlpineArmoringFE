@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
-// import useEffectOnce from 'hooks/useEffectOnce';
 import styles from './HpBanner.module.scss';
-import PauseIcon from 'components/icons/Pause';
-import PlayIcon from 'components/icons/Play';
+import dynamic from 'next/dynamic';
+const PauseIcon = dynamic(() => import('components/icons/Pause'));
+const PlayIcon = dynamic(() => import('components/icons/Play'));
 import { HPBannerProps } from 'types';
-import useSplitText from 'hooks/useSplitText';
+// import useSplitText from 'hooks/useSplitText';
 
 // const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
 const HpBanner = ({ props }: HPBannerProps) => {
@@ -22,7 +22,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   };
 
-  useSplitText();
+  // useSplitText();
 
   // useEffectOnce(() => {
   //   function stepAnimateText(props, animation, delay) {
