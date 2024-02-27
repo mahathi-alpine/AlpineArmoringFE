@@ -35,7 +35,7 @@
           background: var(--color-grayLight);
           color: var(--color-secondary);
         }
-        &_label{
+        &_label {
           opacity: 0;
         }
       }
@@ -84,7 +84,7 @@
     }
   }
 
-  &_label{
+  &_label {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -96,7 +96,7 @@
     text-transform: uppercase;
     transition: opacity 0.3s ease;
 
-    &_sold{
+    &_sold {
       background: var(--color-red);
     }
   }
