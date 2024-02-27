@@ -65,7 +65,7 @@ function Inventory(props) {
 export async function getServerSideProps(context) {
   // Fetching Vehicles
   const category = context.query.type;
-  let query = `filters[category][slug][$eq]=${category}`;
+  let query = `filters[categories][slug][$eq]=${category}`;
   const q = context.query.q;
   if (q) {
     query += `&filters[slug][$contains]=${q}`;

@@ -13,10 +13,11 @@ function Inventory(props) {
   const seoData = props.pageData?.seo;
 
   // Group vehicles by category
+  // return null;
   const groupedByCategory = props.vehicles.data?.reduce((acc, item) => {
-    const category = item.attributes.category.data
-      ? item.attributes.category.data.attributes.title
-      : item.attributes.category;
+    const category = item.attributes.categories.data[0]
+      ? item.attributes.categories.data[0].attributes.title
+      : item.attributes.categories;
     if (!acc[category]) {
       acc[category] = [];
     }
@@ -110,7 +111,7 @@ export async function getServerSideProps(context) {
     route: 'inventories',
     params: query,
     sort: 'title',
-    populate: 'featuredImage, category',
+    populate: 'featuredImage, categories',
   });
 
   // Fetching Types for the Filters

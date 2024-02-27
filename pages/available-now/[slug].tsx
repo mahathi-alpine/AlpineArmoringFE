@@ -23,8 +23,8 @@ function InventoryVehicle(props) {
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
-  const category = data?.category.data?.attributes.title;
-  const categorySlug = data?.category.data?.attributes.slug;
+  const category = data?.categories?.data[0]?.attributes.title;
+  const categorySlug = data?.categories?.data[0]?.attributes.slug;
 
   const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
   useEffect(() => {
