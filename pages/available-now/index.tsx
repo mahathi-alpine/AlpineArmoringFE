@@ -12,6 +12,8 @@ function Inventory(props) {
   const topBanner = props.pageData?.banner;
   const seoData = props.pageData?.seo;
 
+  console.log(props.vehicles.data.length);
+
   // Group vehicles by category
   // return null;
   const groupedByCategory = props.vehicles.data?.reduce((acc, item) => {
@@ -29,8 +31,6 @@ function Inventory(props) {
   const vehiclesArray = Object.entries(groupedByCategory).map(
     ([title, items]) => ({ title, items })
   );
-
-  console.log(props.vehicles.data);
 
   // Sort the vehiclesArray based on the order in props.filters.type, placing '[object Object]' at the end
   vehiclesArray.sort((a, b) => {

@@ -98,7 +98,7 @@
     text-align: center;
     border-radius: 16px;
     font-size: clamp(0.9375rem, 0.7858rem + 0.6472vw, 1.5rem);
-    background: rgba(19, 19, 19, 0.6);
+    background: rgba(19, 19, 19, 0.8);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.18);
@@ -139,6 +139,12 @@
     del {
       display: block;
       font-size: 0;
+    }
+  }
+
+  h2{
+    b{
+      color: var(--color-primary);
     }
   }
 
