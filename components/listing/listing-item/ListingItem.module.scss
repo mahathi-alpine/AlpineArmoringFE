@@ -24,14 +24,14 @@
       box-shadow:
         0 20px 25px -5px #000,
         0 8px 10px -6px #000;
-      .inventory_item{
+      .inventory_item {
         &_image:before {
           opacity: 0.5;
         }
         &_button {
           opacity: 1;
         }
-        &_level{
+        &_level {
           background: var(--color-grayLight);
           color: var(--color-secondary);
         }
@@ -125,7 +125,9 @@
     font-size: rem(13);
     color: var(--color-white);
     border-radius: 8px;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition:
+      background 0.3s ease,
+      color 0.3s ease;
 
     @include breakpoint(medium) {
       font-size: rem(14);
