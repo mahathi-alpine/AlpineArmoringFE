@@ -40,7 +40,7 @@
     object-fit: cover;
     transform: scale(0.5);
     will-change: transform;
-    filter: brightness(70%);
+    // filter: brightness(70%);
   }
 
   &_overlay {

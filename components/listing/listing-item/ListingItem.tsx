@@ -32,7 +32,7 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
           <h2 className={`${styles.inventory_item_title}`}>{data.title}</h2>
 
           <h3 className={`${styles.inventory_item_level}`}>
-            Armored to <span>level A9</span>
+            Armored to <span>level {data.armor_level}</span>
           </h3>
 
           <ul className={`${styles.inventory_item_info}`}>

@@ -72,6 +72,7 @@ export async function getServerSideProps(context) {
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
     params: query,
+    sort: 'title',
     populate: 'featuredImage',
   });
 

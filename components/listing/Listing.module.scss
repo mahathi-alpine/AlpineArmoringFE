@@ -39,6 +39,9 @@
       @include breakpoint(large) {
         flex: 1;
         font-size: rem(24);
+        position: absolute;
+        left: 0;
+        right: 0;
       }
     }
   }

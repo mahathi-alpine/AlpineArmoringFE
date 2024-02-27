@@ -24,11 +24,17 @@
       box-shadow:
         0 20px 25px -5px #000,
         0 8px 10px -6px #000;
-      .inventory_item_image:before {
-        opacity: 0.5;
-      }
-      .inventory_item_button {
-        opacity: 1;
+      .inventory_item{
+        &_image:before {
+          opacity: 0.5;
+        }
+        &_button {
+          opacity: 1;
+        }
+        &_level{
+          background: var(--color-grayLight);
+          color: var(--color-secondary);
+        }
       }
     }
   }
@@ -105,19 +111,21 @@
     font-weight: var(--font-medium);
     @include breakpoint(medium) {
       font-size: rem(20);
+      min-height: 48px;
     }
   }
 
   &_level {
     display: inline-block;
     margin-bottom: rem(30);
-    padding: rem(7) rem(12);
+    padding: rem(10) rem(24);
     text-transform: uppercase;
-    background: var(--color-grayLight);
+    background: var(--color-dark);
     font-weight: var(--font-medium);
     font-size: rem(13);
-    color: var(--color-secondary);
-    border-radius: 4px;
+    color: var(--color-white);
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
 
     @include breakpoint(medium) {
       font-size: rem(14);
@@ -126,11 +134,11 @@
     span {
       color: var(--color-primary);
       font-weight: var(--font-demi);
-      font-size: rem(16);
+      // font-size: rem(16);
 
-      @include breakpoint(large) {
-        font-size: rem(18);
-      }
+      // @include breakpoint(large) {
+      //   font-size: rem(18);
+      // }
     }
   }
 

@@ -74,7 +74,7 @@ const Header = ({
           className={`${styles.header_logo}`}
           onClick={() => setNavOpen(false)}
         >
-          <Link href={'/'}>
+          <Link href={'/'} aria-label="Alpine Armoring Logo">
             <Logo />
           </Link>
         </div>

@@ -53,7 +53,7 @@ function InventoryVehicle(props) {
     Length: 'length',
     Width: 'width',
     Wheelbase: 'wheelbase',
-    Weight: 'weight',
+    'Weight (Armored)': 'weight',
   };
 
   const tabSliderData = [
@@ -224,11 +224,15 @@ function InventoryVehicle(props) {
                       data[value] != '' &&
                       data[value] != ' '
                     ) {
-                      if (key === 'Weight') {
+                      if (key === 'Weight (Armored)') {
                         // Convert pounds to kilograms and round to the nearest whole number
-                        dimensionValue = `${data[value]} lbs (${Math.round(
-                          data[value] * 0.45359237
-                        )} kg) Armored`;
+                        const weightInKg = Math.round(data[value] * 0.45359237);
+                        // Apply thousands separator if the weight is in the thousands
+                        dimensionValue = `${data[value]} lbs (${
+                          weightInKg >= 1000
+                            ? weightInKg.toLocaleString()
+                            : weightInKg
+                        } kg)`;
                       } else if (
                         ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
                       ) {

@@ -37,6 +37,7 @@ const ScrollToTopButton = () => {
         ${isVisible ? `${styles.scrollToTopButton_visible}` : ''}
       `}
       onClick={scrollToTop}
+      aria-label="scroll to top"
     >
       <Chevron />
     </button>

@@ -12,9 +12,10 @@ function Inventory(props) {
   const topBanner = props.pageData?.banner;
   const seoData = props.pageData?.seo;
 
+  // Group vehicles by category
   const groupedByCategory = props.vehicles.data?.reduce((acc, item) => {
     const category = item.attributes.category.data
-      ? item.attributes.category.data?.attributes.title
+      ? item.attributes.category.data.attributes.title
       : item.attributes.category;
     if (!acc[category]) {
       acc[category] = [];
@@ -22,6 +23,28 @@ function Inventory(props) {
     acc[category].push(item);
     return acc;
   }, {});
+
+  // Convert the groupedByCategory object into an array of objects
+  const vehiclesArray = Object.entries(groupedByCategory).map(
+    ([title, items]) => ({ title, items })
+  );
+
+  // Sort the vehiclesArray based on the order in props.filters.type, placing '[object Object]' at the end
+  vehiclesArray.sort((a, b) => {
+    if (a.title === '[object Object]') return 1;
+    if (b.title === '[object Object]') return -1;
+
+    const indexA = props.filters.type.findIndex(
+      (c) => c.attributes.title === a.title
+    );
+    const indexB = props.filters.type.findIndex(
+      (c) => c.attributes.title === b.title
+    );
+    return indexA - indexB;
+  });
+
+  // console.log(vehiclesArray)
+  // return null;
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -52,14 +75,14 @@ function Inventory(props) {
             </div>
           ) : null}
 
-          {groupedByCategory ? (
+          {vehiclesArray ? (
             <div className={`${styles.listing_list}`}>
-              {Object.keys(groupedByCategory).map((category) => {
-                const itemsInCategory = groupedByCategory[category];
-
-                return itemsInCategory.map((item) => (
-                  <InventoryItem key={item.id} props={item} />
-                ));
+              {vehiclesArray.map((category) => {
+                return Array.isArray(category.items)
+                  ? category.items.map((item) => (
+                      <InventoryItem key={item.id} props={item} />
+                    ))
+                  : null;
               })}
             </div>
           ) : null}

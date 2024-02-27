@@ -39,17 +39,17 @@ function Inventory(props) {
         >
           {props.filters.type ? <Filters props={props.filters} /> : null}
 
-          {props.vehicles.data?.length < 1 ? (
-            <div className={`${styles.listing_empty}`}>
-              <h2>No Vehicles Found</h2>
-            </div>
-          ) : null}
-
           {props.vehicles.data ? (
             <div className={`${styles.listing_list}`}>
-              {props.vehicles.data.map((item) => (
-                <InventoryItem key={item.id} props={item} />
-              ))}
+              {props.vehicles.data && props.vehicles.data.length > 0 ? (
+                props.vehicles.data.map((item) => (
+                  <InventoryItem key={item.id} props={item} />
+                ))
+              ) : (
+                <div className={`${styles.listing_list_error}`}>
+                  No Vehicles Found
+                </div>
+              )}
             </div>
           ) : null}
         </div>
@@ -74,6 +74,7 @@ export async function getServerSideProps(context) {
   const vehicles = await getPageData({
     route: 'inventories',
     params: query,
+    sort: 'title',
     populate: 'featuredImage',
   });
 
@@ -81,7 +82,6 @@ export async function getServerSideProps(context) {
   const type = await getPageData({
     route: 'categories',
     sort: 'order',
-    // fields: 'fields[0]=title&fields[1]=slug&fields[2]=bannerText',
     fields: 'fields[0]=title&fields[1]=slug',
     populate: 'inventoryBanner.media',
   }).then((response) => response.data);
