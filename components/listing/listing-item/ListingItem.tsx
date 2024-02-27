@@ -29,7 +29,12 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
         </div>
 
         <div className={`${styles.inventory_item_content}`}>
-          <h2 className={`${styles.inventory_item_title}`}>{data.title}</h2>
+          <h2
+            className={`${styles.inventory_item_title}`}
+            dangerouslySetInnerHTML={{
+              __html: data.title,
+            }}
+          ></h2>
 
           <h3 className={`${styles.inventory_item_level}`}>
             Armored to <span>level {data.armor_level}</span>

@@ -1,6 +1,6 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
@@ -26,14 +26,14 @@ function InventoryVehicle(props) {
   const category = data?.category.data?.attributes.title;
   const categorySlug = data?.category.data?.attributes.slug;
 
-  // const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
-  // useEffect(() => {
-  //   window.innerWidth >= 1600 ? setThumbsAxis('y') : setThumbsAxis('x');
-  // }, []);
+  const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
+  useEffect(() => {
+    window.innerWidth >= 1600 ? setThumbsAxis('y') : setThumbsAxis('x');
+  }, []);
   const sliderTopOptions = {
     dragFree: false,
     loop: true,
-    // axis: thumbsAxis,
+    axis: thumbsAxis,
     thumbs: true,
   };
 

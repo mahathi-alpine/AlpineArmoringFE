@@ -201,7 +201,6 @@ const Design = (props) => {
                   <p className={`${styles.design_armor_description}`}>
                     {item.description}
                   </p>
-                  {/* <div className={`${styles.design_armor_read}`}>Read More</div> */}
                   <div
                     className={`${styles.design_armor_read}`}
                     onClick={() => handleReadMore(item)}
@@ -210,9 +209,7 @@ const Design = (props) => {
                   </div>
 
                   {item.image?.data?.attributes ? (
-                    <div
-                      className={`${styles.design_armor_image} observe fade-in`}
-                    >
+                    <div className={`${styles.design_armor_image}`}>
                       <Image
                         src={
                           item.image.data.attributes.formats?.large?.url ||

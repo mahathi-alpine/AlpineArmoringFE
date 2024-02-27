@@ -109,6 +109,7 @@
     margin-bottom: rem(16);
     font-size: rem(18);
     font-weight: var(--font-medium);
+    white-space: pre-wrap;
     @include breakpoint(medium) {
       font-size: rem(20);
       min-height: 48px;
@@ -158,6 +159,10 @@
     &_item {
       display: flex;
       justify-content: space-between;
+
+      span{
+        text-transform: uppercase;
+      }
     }
   }
 }
