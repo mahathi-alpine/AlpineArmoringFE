@@ -30,6 +30,8 @@ function Inventory(props) {
     ([title, items]) => ({ title, items })
   );
 
+  console.log(props.vehicles.data);
+
   // Sort the vehiclesArray based on the order in props.filters.type, placing '[object Object]' at the end
   vehiclesArray.sort((a, b) => {
     if (a.title === '[object Object]') return 1;
@@ -77,9 +79,11 @@ function Inventory(props) {
             <div className={`${styles.listing_list}`}>
               {vehiclesArray.map((category) => {
                 return Array.isArray(category.items)
-                  ? category.items.map((item) => (
-                      <InventoryItem key={item.id} props={item} />
-                    ))
+                  ? category.items
+                      .filter((item) => item.attributes.ownPage !== false)
+                      .map((item) => (
+                        <InventoryItem key={item.id} props={item} />
+                      ))
                   : null;
               })}
             </div>

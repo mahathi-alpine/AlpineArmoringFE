@@ -35,6 +35,9 @@
           background: var(--color-grayLight);
           color: var(--color-secondary);
         }
+        &_label{
+          opacity: 0;
+        }
       }
     }
   }
@@ -78,6 +81,23 @@
       // @include breakpoint(medium) {
       //   height: 300px;
       // }
+    }
+  }
+
+  &_label{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    padding: rem(8) rem(24);
+    background: var(--color-green);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+
+    &_sold{
+      background: var(--color-red);
     }
   }
 

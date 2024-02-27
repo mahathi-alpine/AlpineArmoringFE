@@ -37,7 +37,7 @@ const termina = localFont({
 const Layout = ({ children }) => {
   const router = useRouter();
 
-  const pathsDarkMode = ['/available-now', '/manufacturing'];
+  const pathsDarkMode = ['/available-now', '/manufacturing', '/sold-vehicles'];
   const pathsDarkFooter = ['/manufacturing'];
   const pathsPadding0 = ['/news'];
 
