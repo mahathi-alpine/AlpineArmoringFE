@@ -19,7 +19,7 @@
     font-size: rem(14);
   }
 
-  &:hover:not(.shiny):not(.primary):not(.border):not(.attention) {
+  &:hover:not(.shiny):not(.primary):not(.border):not(.attention):not(.icon) {
     background: transparent;
     border-color: var(--color-dark);
     color: var(--color-dark);
@@ -358,6 +358,24 @@
       border-radius: 50%;
       opacity: 0;
       animation: move 1s infinite ease-in-out;
+    }
+  }
+
+  &.icon{    
+    @include breakpoint(medium) {
+      padding: 14px 20px;
+    }
+
+    &:hover{
+      background: var(--color-primary);
+    }
+
+    svg{      
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 8px;
+      width: 24px;
+      height: 24px;
     }
   }
 }

@@ -3,16 +3,25 @@
   --slide-spacing: 0;
   position: relative;
 
-  @include breakpoint(huge) {
+  @include breakpoint(large) {
     display: flex;
+    flex-flow: column;
     gap: 16px;
+  }
+
+  @include breakpoint(huge) {
     align-items: flex-start;
+    flex-flow: row;
     height: 100%;
   }
 
   &_viewport {
     position: relative;
     overflow: hidden;
+
+    @include breakpoint(large) {
+      order: 2;
+    }
 
     // @include breakpoint(large) {
     //   height: calc(100vh - 74px - 142px - 108px - 120px);
@@ -107,10 +116,15 @@
       height: 100px;
     }
 
+    @include breakpoint(large) {
+      margin-top: 0;
+    }
+
     @include breakpoint(huge) {
       width: 160px;
       // padding: rem(40) 0;
       margin-top: 0;
+      order: 2;
     }
 
     &_viewport {

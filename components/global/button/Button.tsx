@@ -9,6 +9,7 @@ const Button = ({
   dot,
   attention,
   disabled,
+  iconComponent: IconComponent,
   button,
 }: ButtonProps) => {
   if (button) {
@@ -40,7 +41,10 @@ const Button = ({
 
   return (
     <Link href={href} className={`c-button_wrap`}>
-      <span className={`c-button ${className}`}>{children}</span>
+      <span className={`c-button ${className}`}>
+        {children}
+        {IconComponent ? <IconComponent /> : null}
+      </span>
     </Link>
   );
 };

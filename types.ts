@@ -30,9 +30,11 @@ export interface ButtonProps {
   children?: ReactNode;
   disabled?: boolean;
   button?: boolean;
+  // icon?: boolean;
   dot?: boolean;
   attention?: boolean;
   onClick?: () => void;
+  iconComponent?: React.ElementType;
 }
 
 export interface HeaderProps {

@@ -3,12 +3,13 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF';
+import DownloadIcon from 'components/icons/Download';
 import Link from 'next/link';
 import Markdown from 'markdown-to-jsx';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
 import Button from 'components/global/button/Button';
-import TabSlider from 'components/global/tab-slider/TabSlider';
+// import TabSlider from 'components/global/tab-slider/TabSlider';
 import Carousel from 'components/global/carousel/Carousel';
 import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {
@@ -56,20 +57,16 @@ function InventoryVehicle(props) {
     'Weight (Armored)': 'weight',
   };
 
-  const tabSliderData = [
-    {
-      id: 0,
-      titleNav: 'OEM Specs',
-    },
-    {
-      id: 1,
-      titleNav: 'Armoring Specs',
-    },
-    {
-      id: 2,
-      titleNav: 'Options Included',
-    },
-  ];
+  // const tabSliderData = [
+  //   {
+  //     id: 0,
+  //     titleNav: 'OEM Window Sticker',
+  //   },
+  //   {
+  //     id: 1,
+  //     titleNav: 'OEM Armoring Specs',
+  //   }
+  // ];
 
   const formData = {
     title: data?.title,
@@ -77,12 +74,12 @@ function InventoryVehicle(props) {
     featuredImage: data?.featuredImage,
   };
 
-  const handleTabChange = (index, titleNav) => {
-    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+  // const handleTabChange = (index, titleNav) => {
+  //   const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
 
-    const targetElement = document.getElementById(targetId);
-    targetElement.scrollIntoView({ behavior: 'smooth' });
-  };
+  //   const targetElement = document.getElementById(targetId);
+  //   targetElement.scrollIntoView({ behavior: 'smooth' });
+  // };
 
   const scroll = () => {
     const element = document.getElementById('request-a-quote');
@@ -178,7 +175,7 @@ function InventoryVehicle(props) {
               ) : null}
             </div>
 
-            {data?.OEM?.data ? (
+            {/* {data?.OEM?.data ? (
               <Link
                 href={data.OEM.data.attributes.url}
                 className={`${styles.inventory_sticker}`}
@@ -197,21 +194,23 @@ function InventoryVehicle(props) {
                   </span>
                 </span>
               </Link>
-            ) : null}
+            ) : null} */}
+
+            <Button
+              onClick={scroll}
+              button={true}
+              className={`${styles.inventory_cta} primary attention`}
+              attention
+            >
+              Request a quote
+            </Button>
 
             <div
               className={`${styles.inventory_top_shape} shape-before shape-before-dark mobile-only`}
             ></div>
           </div>
 
-          <div id="oem-specs" className={`${styles.inventory_details} anchor`}>
-            <TabSlider
-              className={`${styles.inventory_tabs_slider}`}
-              props={tabSliderData}
-              onTabChange={handleTabChange}
-              anchor
-            />
-
+          <div className={`${styles.inventory_details}`}>
             <div className={`${styles.inventory_tabs_content}`}>
               <div className={`${styles.inventory_tabs_content_item}`}>
                 <ul className={`${styles.inventory_tabs_content_list}`}>
@@ -263,14 +262,33 @@ function InventoryVehicle(props) {
               </div>
             </div>
 
-            <Button
-              onClick={scroll}
-              button={true}
-              className={`${styles.inventory_cta} primary attention`}
-              attention
-            >
-              Request a quote
-            </Button>
+            {/* <TabSlider
+              className={`${styles.inventory_tabs_slider}`}
+              props={tabSliderData}
+              onTabChange={handleTabChange}
+              anchor
+            /> */}
+
+            <div className={`${styles.inventory_pdfs}`}>
+              {/* {data?.OEM?.data ?  */}
+              <Button
+                // href={data.OEM.data.attributes.url}
+                href=""
+                iconComponent={PDFIcon}
+                className={`${styles.inventory_pdfs_button} icon rounded`}
+              >
+                OEM Window Sticker
+              </Button>
+              {/* : null } */}
+
+              <Button
+                href=""
+                iconComponent={DownloadIcon}
+                className={`${styles.inventory_pdfs_button} icon rounded`}
+              >
+                OEM Armoring Specs
+              </Button>
+            </div>
           </div>
         </div>
       </div>
