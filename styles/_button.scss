@@ -361,16 +361,16 @@
     }
   }
 
-  &.icon{    
+  &.icon {
     @include breakpoint(medium) {
       padding: 14px 20px;
     }
 
-    &:hover{
+    &:hover {
       background: var(--color-primary);
     }
 
-    svg{      
+    svg {
       display: inline-block;
       vertical-align: middle;
       margin-left: 8px;

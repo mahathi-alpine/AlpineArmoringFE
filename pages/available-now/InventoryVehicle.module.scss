@@ -70,7 +70,7 @@
 
   &_top {
     position: relative;
-    padding-bottom: rem(100);
+    // padding-bottom: rem(100);
     z-index: 3;
 
     @include breakpoint(large) {
@@ -291,7 +291,7 @@
     }
   }
 
-  &_pdfs{    
+  &_pdfs {
     margin-top: rem(24);
     display: flex;
     flex-wrap: wrap;
@@ -302,9 +302,9 @@
       justify-content: space-around;
     }
 
-    &_button{
+    &_button {
       background: var(--color-gray);
-      letter-spacing: -.5px;
+      letter-spacing: -0.5px;
     }
   }
 
@@ -359,7 +359,7 @@
         padding: rem(12) 0;
 
         @include breakpoint(large) {
-          &:first-child{
+          &:first-child {
             padding-top: 0;
           }
         }
@@ -387,12 +387,13 @@
 
   &_description {
     padding-top: rem(64);
-    padding-bottom: rem(100);
+    // padding-bottom: rem(100);
     text-align: center;
     font-size: rem(14);
     @include breakpoint(large) {
       font-size: rem(20);
-      padding-top: rem(100);
+      padding-top: rem(80);
+      padding-bottom: rem(80);
     }
   }
 
