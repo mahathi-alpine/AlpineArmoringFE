@@ -1,5 +1,4 @@
 .filters {
-
   @include breakpoint(large) {
     max-width: 320px;
   }
@@ -438,10 +437,10 @@
   cursor: pointer;
   overflow: hidden;
 
-  &_disabled{
+  &_disabled {
     pointer-events: none;
     user-select: none;
-    opacity: .3;
+    opacity: 0.3;
   }
 }
 .checkbox_span {
