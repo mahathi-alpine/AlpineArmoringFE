@@ -1,8 +1,4 @@
 .filters {
-  // color: white;
-  // &_plain {
-  //   color: var(--color-dark);
-  // }
 
   @include breakpoint(large) {
     max-width: 320px;
@@ -10,14 +6,11 @@
 
   &_plain {
     @include breakpoint(large) {
-      // position: absolute;
       max-width: 100%;
       display: flex;
       align-items: center;
       justify-content: right;
       height: 80px;
-      // top: rem(-210);
-      // margin-bottom: -100px;
       position: relative;
       z-index: 3;
       .checkbox_span {
@@ -78,7 +71,6 @@
     font-size: rem(14);
     text-decoration: underline;
     cursor: pointer;
-    // font-weight: var(--font-medium);
     flex-shrink: 0;
     @include breakpoint(large) {
       font-weight: var(--font-regular);
@@ -154,9 +146,6 @@
           visibility 0.1s ease-in;
       }
       &_close {
-        // position: absolute;
-        // top: rem(24);
-        // left: rem(16);
         font-size: rem(20);
         flex: 1;
       }
@@ -192,7 +181,6 @@
         .filters_plain & {
           display: flex;
           height: 100%;
-          // gap: 32px;
         }
       }
     }
@@ -244,11 +232,6 @@
         color: var(--color-grayDark);
       }
     }
-
-    // svg {
-    //   width: 15px;
-    //   height: 15px;
-    // }
   }
 
   &_top {
@@ -279,7 +262,6 @@
     font-size: rem(15);
     @include breakpoint(untilLarge) {
       border-top: 1px solid rgba(255, 255, 255, 0.12);
-      // border-bottom: 1px solid rgba(255,255,255,.12);
 
       &:last-child {
         border-bottom: none;
@@ -352,7 +334,6 @@
 
       @include breakpoint(large) {
         margin-bottom: rem(20);
-        // font-size: rem(18);
 
         .filters_plain & {
           margin-bottom: 0;
@@ -420,7 +401,6 @@
           .checkbox {
             &_span {
               color: var(--color-secondary);
-              // font-size: rem(14);
               font-weight: var(--font-medium);
 
               &:hover {
@@ -440,7 +420,6 @@
       @include breakpoint(untilLarge) {
         overflow: hidden;
         max-height: 0px;
-        // padding: 0 rem(16);
         transition: max-height 0.3s ease;
 
         .checkbox_link:first-child {
@@ -458,6 +437,12 @@
   margin-bottom: rem(14);
   cursor: pointer;
   overflow: hidden;
+
+  &_disabled{
+    pointer-events: none;
+    user-select: none;
+    opacity: .3;
+  }
 }
 .checkbox_span {
   position: relative;
@@ -465,7 +450,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  // padding: 2px;
   color: var(--color-grayDark);
   font-size: rem(14);
 

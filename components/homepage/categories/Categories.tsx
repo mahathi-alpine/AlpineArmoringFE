@@ -47,7 +47,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 ) : null}
 
                 <div className={`${styles.categories_item_buttons}`}>
-                  {data.inventories.data.length > 0 && (
+                  {data.inventory_vehicles?.data.length > 0 && (
                     <Button
                       href={`/available-now/type/${data.slug}`}
                       className="primary shiny"

@@ -83,7 +83,7 @@ export async function getServerSideProps(context) {
     route: 'categories',
     sort: 'order',
     fields: 'fields[0]=title&fields[1]=slug',
-    populate: 'inventoryBanner.media',
+    populate: 'inventoryBanner.media, inventory_vehicles',
   }).then((response) => response.data);
 
   const filters = type ? { type } : {};

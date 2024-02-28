@@ -12,10 +12,7 @@ function Inventory(props) {
   const topBanner = props.pageData?.banner;
   const seoData = props.pageData?.seo;
 
-  console.log(props.vehicles.data.length);
-
   // Group vehicles by category
-  // return null;
   const groupedByCategory = props.vehicles.data?.reduce((acc, item) => {
     const category = item.attributes.categories.data[0]
       ? item.attributes.categories.data[0].attributes.title
@@ -122,6 +119,7 @@ export async function getServerSideProps(context) {
   const type = await getPageData({
     route: 'categories',
     sort: 'order',
+    populate: 'inventory_vehicles',
     fields: 'fields[0]=title&fields[1]=slug',
   }).then((response) => response.data);
 

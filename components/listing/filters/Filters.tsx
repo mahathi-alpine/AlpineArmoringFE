@@ -257,12 +257,21 @@ const Filters = ({ props, plain }: FiltersProps) => {
                         <Link
                           href={newUrl}
                           scroll={false}
-                          className={`${styles.checkbox_link} ${
-                            item.attributes.slug ===
-                            currentSlug.split('/').pop().split('?')[0]
-                              ? styles.selected_filter
-                              : ''
-                          }`}
+                          className={`
+                            ${styles.checkbox_link} 
+                            ${
+                              item.attributes.inventory_vehicles?.data.length <
+                              1
+                                ? styles.checkbox_link_disabled
+                                : ''
+                            }
+                            ${
+                              item.attributes.slug ===
+                              currentSlug.split('/').pop().split('?')[0]
+                                ? styles.selected_filter
+                                : ''
+                            }
+                          `}
                           onClick={openFilters}
                           key={item.id}
                         >

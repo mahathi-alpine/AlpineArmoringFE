@@ -103,7 +103,7 @@ export async function getStaticProps() {
   const categories = await getPageData({
     route: 'categories',
     sort: 'order',
-    populate: 'image, inventories',
+    populate: 'image, inventory_vehicles',
   });
 
   // let languageCookie = getCookie('googtrans', { req, res });
