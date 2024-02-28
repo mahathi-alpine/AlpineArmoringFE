@@ -173,7 +173,7 @@
     letter-spacing: -0.5px;
     @include breakpoint(medium) {
       grid-row-gap: 24px;
-      font-size: rem(15);
+      font-size: rem(14);
     }
 
     &_item {

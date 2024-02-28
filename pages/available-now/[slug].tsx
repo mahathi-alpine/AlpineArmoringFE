@@ -45,10 +45,10 @@ function InventoryVehicle(props) {
     Trans: 'trans',
     Power: 'power',
     Year: 'year',
+    Drivetrain: 'driveTrain',
     'Color (EXT)': 'color_ext',
     'Color (INT)': 'color_int',
     Trim: 'trim',
-    'Drive Train': 'driveTrain',
     Wheels: 'wheels',
     Height: 'height',
     Length: 'length',
@@ -57,29 +57,11 @@ function InventoryVehicle(props) {
     'Weight (Armored)': 'weight',
   };
 
-  // const tabSliderData = [
-  //   {
-  //     id: 0,
-  //     titleNav: 'OEM Window Sticker',
-  //   },
-  //   {
-  //     id: 1,
-  //     titleNav: 'OEM Armoring Specs',
-  //   }
-  // ];
-
   const formData = {
     title: data?.title,
     vehicleID: data?.vehicleID,
     featuredImage: data?.featuredImage,
   };
-
-  // const handleTabChange = (index, titleNav) => {
-  //   const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
-
-  //   const targetElement = document.getElementById(targetId);
-  //   targetElement.scrollIntoView({ behavior: 'smooth' });
-  // };
 
   const scroll = () => {
     const element = document.getElementById('request-a-quote');
@@ -211,63 +193,58 @@ function InventoryVehicle(props) {
           </div>
 
           <div className={`${styles.inventory_details}`}>
-            <div className={`${styles.inventory_tabs_content}`}>
-              <div className={`${styles.inventory_tabs_content_item}`}>
-                <ul className={`${styles.inventory_tabs_content_list}`}>
-                  {Object.entries(vehicleDetailsMain).map(([key, value]) => {
-                    let dimensionValue = null;
+            <ul className={`${styles.inventory_details_list}`}>
+              {Object.entries(vehicleDetailsMain).map(([key, value]) => {
+                let dimensionValue = null;
 
-                    if (
-                      data &&
-                      data[value] != null &&
-                      data[value] != '' &&
-                      data[value] != ' '
-                    ) {
-                      if (key === 'Weight (Armored)') {
-                        // Convert pounds to kilograms and round to the nearest whole number
-                        const weightInKg = Math.round(data[value] * 0.45359237);
-                        // Apply thousands separator if the weight is in the thousands
-                        dimensionValue = `${data[value]} lbs (${
-                          weightInKg >= 1000
-                            ? weightInKg.toLocaleString()
-                            : weightInKg
-                        } kg)`;
-                      } else if (
-                        ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
-                      ) {
-                        // Convert inches to centimeters
-                        dimensionValue = `${data[value]} in. (
-                          ${Math.round(data[value] * 2.54)} cm)`;
-                      } else {
-                        dimensionValue = data[value];
-                      }
-                    }
+                if (
+                  data &&
+                  data[value] != null &&
+                  data[value] != '' &&
+                  data[value] != ' '
+                ) {
+                  if (key === 'Weight (Armored)') {
+                    // Apply thousands separator to the pounds value if it's in the thousands
+                    const poundsValue =
+                      parseInt(data[value]) >= 1000
+                        ? parseInt(data[value]).toLocaleString()
+                        : parseInt(data[value]);
+                    // Convert pounds to kilograms and round to the nearest whole number
+                    const weightInKg = Math.round(data[value] * 0.45359237);
+                    // Apply thousands separator to the kilograms value if it's in the thousands
+                    const kilogramsValue =
+                      weightInKg >= 1000
+                        ? weightInKg.toLocaleString()
+                        : weightInKg;
+                    dimensionValue = `${poundsValue} lbs (${kilogramsValue} kg)`;
+                  } else if (
+                    ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
+                  ) {
+                    // Convert inches to centimeters
+                    dimensionValue = `${data[value]} in. (${Math.round(
+                      data[value] * 2.54
+                    )} cm)`;
+                  } else {
+                    dimensionValue = data[value];
+                  }
+                }
 
-                    return (
-                      data &&
-                      data[value] != null &&
-                      data[value] != '' &&
-                      data[value] != ' ' && (
-                        <li
-                          key={key}
-                          className={`${styles.inventory_tabs_content_list_item}`}
-                        >
-                          {`${key}:`}
-                          <span>{dimensionValue}</span>
-                        </li>
-                      )
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-
-            {/* <TabSlider
-              className={`${styles.inventory_tabs_slider}`}
-              props={tabSliderData}
-              onTabChange={handleTabChange}
-              anchor
-            /> */}
+                return (
+                  data &&
+                  data[value] != null &&
+                  data[value] != '' &&
+                  data[value] != ' ' && (
+                    <li
+                      key={key}
+                      className={`${styles.inventory_details_list_item}`}
+                    >
+                      {`${key}:`}
+                      <span>{dimensionValue}</span>
+                    </li>
+                  )
+                );
+              })}
+            </ul>
 
             <div className={`${styles.inventory_pdfs}`}>
               {/* {data?.OEM?.data ?  */}
