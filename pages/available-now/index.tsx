@@ -1,19 +1,32 @@
 import React from 'react';
+import { getPageData } from 'lib/api';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
+import styles from '/components/listing/Listing.module.scss';
+
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
-import styles from '/components/listing/Listing.module.scss';
-import { getPageData } from 'lib/api';
-import { useEffect } from 'react';
 import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
+  const router = useRouter();
+  const { q } = router.query;
+
   const topBanner = props.pageData?.banner;
   const seoData = props.pageData?.seo;
 
+  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
+
+  useEffect(() => {
+    if (q) {
+      setVehiclesData(props.vehicles.data);
+    }
+  }, [q]);
+
   // Group vehicles by category
-  const groupedByCategory = props.vehicles.data?.reduce((acc, item) => {
+  const groupedByCategory = vehiclesData?.reduce((acc, item) => {
     const category = item.attributes.categories.data[0]
       ? item.attributes.categories.data[0].attributes.title
       : item.attributes.categories;
@@ -43,16 +56,67 @@ function Inventory(props) {
     return indexA - indexB;
   });
 
+  const [currentPage, setCurrentPage] = useState(2);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchMoreItems = async () => {
+    if (!hasMore) return;
+    // Increment the current page number
+    setCurrentPage(currentPage + 1);
+
+    const query = q ? `filters[slug][$contains]=${q}` : '';
+
+    // Fetch the next batch of items using the current page number
+    const vehicles = await getPageData({
+      route: 'inventories',
+      sort: 'title',
+      populate: 'featuredImage, categories',
+      page: currentPage,
+      pageSize: 18,
+      params: query,
+    });
+
+    // Merge the new items with the existing items
+    setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
+
+    const totalItems = props.vehicles.meta.pagination.total;
+    const itemsFetched = vehiclesData.length + vehicles.data.length;
+    setHasMore(itemsFetched < totalItems);
+  };
+
   // Animations
   const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
+    targets.forEach((item) => observerRef.current?.observe(item));
 
     return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
+      if (observerRef.current) {
+        targets.forEach((item) => observerRef.current.unobserve(item));
+      }
     };
   }, []);
+
+  const bottomObserverRef = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && props.vehicles.data.length == 18) {
+          fetchMoreItems();
+        }
+      });
+    });
+
+    if (bottomObserverRef.current) {
+      observer.observe(bottomObserverRef.current);
+    }
+
+    return () => {
+      if (bottomObserverRef.current) {
+        observer.unobserve(bottomObserverRef.current);
+      }
+    };
+  }, [currentPage, hasMore, props.vehicles.data.length]);
 
   return (
     <>
@@ -87,6 +151,8 @@ function Inventory(props) {
           ) : null}
         </div>
       </div>
+
+      <div ref={bottomObserverRef}></div>
     </>
   );
 }
@@ -112,7 +178,9 @@ export async function getServerSideProps(context) {
     route: 'inventories',
     params: query,
     sort: 'title',
-    populate: 'featuredImage, categories',
+    populate: 'featuredImage,categories',
+    page: 1,
+    pageSize: 18,
   });
 
   // Fetching Types for the Filters

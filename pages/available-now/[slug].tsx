@@ -9,7 +9,6 @@ import Markdown from 'markdown-to-jsx';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
 import Button from 'components/global/button/Button';
-// import TabSlider from 'components/global/tab-slider/TabSlider';
 import Carousel from 'components/global/carousel/Carousel';
 import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {

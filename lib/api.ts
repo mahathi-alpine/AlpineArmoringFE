@@ -27,6 +27,8 @@ interface PageDataProps {
   populate?: string;
   fields?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
 }
 
 export async function getPageData({
@@ -37,15 +39,17 @@ export async function getPageData({
   populate,
   limit,
   fields,
+  page,
+  pageSize,
 }: PageDataProps) {
   const sortQuery = sort ? `&sort=${sort}:${sortType}` : '';
   const populateQuery = populate ? 'populate=' + populate : '';
   const fieldsQuery = fields ? '&' + fields : '';
   const limitQuery = limit ? '&' + limit : '';
+  const pageQuery = page ? '&pagination[page]=' + page : '';
+  const pageSizeQuery = pageSize ? '&pagination[pageSize]=' + pageSize : '';
 
-  const query = params
-    ? `/${route}?${params}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}`
-    : `/${route}?${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}`;
+  const query = `/${route}?${params}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}`;
 
   const pagesData = await fetchAPI(`/api${query}`);
 

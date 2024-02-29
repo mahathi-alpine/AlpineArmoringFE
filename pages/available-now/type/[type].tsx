@@ -76,6 +76,7 @@ export async function getServerSideProps(context) {
     params: query,
     sort: 'title',
     populate: 'featuredImage',
+    pageSize: 100,
   });
 
   // Fetching Types for the Filters
