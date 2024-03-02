@@ -72,7 +72,7 @@ function Inventory(props) {
       sort: 'title',
       populate: 'featuredImage, categories',
       page: currentPage,
-      pageSize: 18,
+      pageSize: 12,
       params: query,
     });
 
@@ -101,7 +101,7 @@ function Inventory(props) {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && props.vehicles.data.length == 18) {
+        if (entry.isIntersecting && props.vehicles.data.length == 12) {
           fetchMoreItems();
         }
       });
@@ -180,7 +180,7 @@ export async function getServerSideProps(context) {
     sort: 'title',
     populate: 'featuredImage,categories',
     page: 1,
-    pageSize: 18,
+    pageSize: 12,
   });
 
   // Fetching Types for the Filters

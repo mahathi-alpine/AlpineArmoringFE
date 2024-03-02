@@ -153,15 +153,15 @@ const Filters = ({ props, plain }: FiltersProps) => {
           <FiltersIcon />
         </div>
 
-        {Object.prototype.hasOwnProperty.call(router.query, 'make') &&
-          Object.keys(router.query).length > 0 && (
-            <div
-              className={`${styles.filters_clear} bold`}
-              onClick={handleClearFilters}
-            >
-              Clear all filters
-            </div>
-          )}
+        {/* {Object.prototype.hasOwnProperty.call(router.query, 'make') && */}
+        {Object.keys(router.query).length > 0 && (
+          <div
+            className={`${styles.filters_clear} bold`}
+            onClick={handleClearFilters}
+          >
+            Clear all filters
+          </div>
+        )}
       </div>
 
       <div

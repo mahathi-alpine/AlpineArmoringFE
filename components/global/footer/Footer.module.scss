@@ -199,7 +199,6 @@
 
   &_bottom {
     padding-top: rem(32);
-    margin-top: rem(32);
     border-top: 1px solid var(--color-grayDark);
     text-align: center;
     font-size: rem(14);
@@ -210,10 +209,11 @@
     }
 
     &_nav {
-      margin-bottom: rem(50);
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-bottom: rem(32);
       @include breakpoint(large) {
-        display: flex;
-        align-items: center;
         margin-bottom: 0;
         order: 1;
         gap: 40px;

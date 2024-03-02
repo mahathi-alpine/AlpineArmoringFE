@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Markdown from 'markdown-to-jsx';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
+import Link from 'next/link';
 import Accordion from 'components/global/accordion/Accordion';
 import Seo from 'components/Seo';
 import Image from 'next/image';
@@ -57,13 +58,17 @@ function Contact(props) {
               </div>
             </div>
 
-            <div className={styles.contact_map}>
+            <Link
+              href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA"
+              className={styles.contact_map}
+              target="_blank"
+            >
               <Image
                 src="/assets/alpineArmoringMap.jpg"
                 alt={'Alpine Armoring Location'}
                 fill
               />
-            </div>
+            </Link>
           </div>
         </div>
 

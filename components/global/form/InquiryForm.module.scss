@@ -64,13 +64,16 @@
     }
     @include breakpoint(large) {
       display: flex;
-      align-items: center;
-      gap: 64px;
+      align-items: flex-end;
+      gap: 32px;
 
       .inquiry_form_plain & {
         max-width: 1528px;
         align-items: flex-start;
       }
+    }
+    @include breakpoint(huge) {
+      gap: 64px;
     }
   }
 
@@ -79,32 +82,34 @@
     font-weight: var(--font-medium);
     font-size: clamp(1rem, 0.9545rem + 0.1942vw, 1.1875rem);
     text-align: center;
+    white-space: pre-wrap;
 
     .inquiry_form_plain & {
-      font-size: clamp(1rem, 0.909rem + 0.3883vw, 1.375rem);
+      font-size: clamp(1rem, 0.7928rem + 0.884vw, 1.5rem);
       @include breakpoint(large) {
-        .inquiry_form_plain & {
-          margin-bottom: rem(40);
-        }
+        font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
       }
     }
-
-    // strong {
-    //   display: block;
-    // }
 
     span strong {
       color: var(--color-primary);
       font-weight: var(--font-demi);
     }
+
+    h4{
+      margin-bottom: 8px;
+    }
   }
 
   img {
     margin: auto;
-    margin-bottom: rem(16);
+    margin-bottom: rem(48);
     border-radius: 16px;
     max-height: 400px;
     object-fit: cover;
+    @include breakpoint(large) {
+      margin-bottom: 0;
+    }
   }
 
   &_left {
@@ -113,6 +118,7 @@
       margin: 0 auto;
 
       .inquiry_form_plain & {
+        min-width: 450px;
         max-width: 700px;
         flex: 1;
       }

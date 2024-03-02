@@ -37,7 +37,7 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
                 <div
                   className={`${styles.inventory_item_label} ${styles[flagClass]}`}
                 >
-                  {data.flag}
+                  <span>{data.flag}</span>
                 </div>
               );
             })()}

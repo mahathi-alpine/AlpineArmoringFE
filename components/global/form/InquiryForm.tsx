@@ -17,7 +17,11 @@ const InquiryForm = (props) => {
               You are inquiring about
               {!props.plain ? ' this ready-to-ship' : null}
               <h4>
-                <strong>{props?.title}</strong>
+                <strong
+                  dangerouslySetInnerHTML={{
+                    __html: props?.title,
+                  }}
+                ></strong>
               </h4>
               {!props.plain ? (
                 <span>
@@ -28,10 +32,17 @@ const InquiryForm = (props) => {
 
             {props?.featuredImage?.data ? (
               <Image
-                src={`${props?.featuredImage?.data.attributes.url}`}
-                alt={`${props?.featuredImage?.data.attributes.alternativeText}`}
-                width={600}
-                height={400}
+                src={
+                  props?.featuredImage?.data.attributes.formats?.medium.url ||
+                  props?.featuredImage?.data.attributes.url
+                }
+                alt={props?.featuredImage?.data.attributes.alternativeText}
+                width={
+                  props?.featuredImage?.data.attributes.formats?.medium.width
+                }
+                height={
+                  props?.featuredImage?.data.attributes.formats?.medium.height
+                }
               />
             ) : null}
           </div>

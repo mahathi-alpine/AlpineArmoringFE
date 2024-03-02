@@ -20,8 +20,10 @@
 
   &_static,
   &_notSticky {
-    position: absolute;
-    transform: none !important;
+    @include breakpoint('large') {
+      position: absolute;
+      transform: none !important;
+    }
   }
 
   &:not(.header_navOpen):not(.header.up):not(.header_transparent):not(
