@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
-// import Banner from 'components/global/banner/Banner';
+import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
 import BlogList from 'components/global/news/News';
 import styles from './News.module.scss';
@@ -8,7 +8,7 @@ import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Blog(props) {
   const seoData = props?.pageData?.seo;
-  //   const banner = props?.pageData?.banner;
+  const banner = props?.pageData?.banner;
   const posts = props?.posts;
 
   // Animations
@@ -26,11 +26,11 @@ function Blog(props) {
     <>
       <Seo props={seoData} />
 
-      {/* {banner ? <Banner props={banner} center shape="white" /> : null} */}
+      {banner ? <Banner props={banner} center shape="white" /> : null}
 
       {posts ? (
         <div className={`${styles.news}`}>
-          <BlogList props={posts} subtitle="News" title="Armoring world" />
+          <BlogList props={posts} />
         </div>
       ) : null}
     </>

@@ -43,9 +43,6 @@ function Inventory(props) {
     return indexA - indexB;
   });
 
-  // console.log(vehiclesArray)
-  // return null;
-
   // Animations
   const observerRef = useIntersectionObserver();
   useEffect(() => {

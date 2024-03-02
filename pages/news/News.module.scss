@@ -1,11 +1,8 @@
 .news {
   & > div {
-    padding-top: rem(120);
-    padding-bottom: rem(40);
-    @include breakpoint(large) {
-      padding-top: rem(160);
-      padding-bottom: rem(160);
-      margin-bottom: rem(-60);
+    padding-top: 0;
+    &:before, &:after{
+      display: none;
     }
   }
 }

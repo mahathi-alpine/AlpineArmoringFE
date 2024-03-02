@@ -16,13 +16,13 @@ const InquiryForm = (props) => {
             <div className={`${styles.inquiry_form_heading}`}>
               You are inquiring about
               {!props.plain ? ' this ready-to-ship' : null}
-              <h4>
+              <p>
                 <strong
                   dangerouslySetInnerHTML={{
                     __html: props?.title,
                   }}
                 ></strong>
-              </h4>
+              </p>
               {!props.plain ? (
                 <span>
                   Vehicle ID: <strong>{props?.vehicleID}</strong>

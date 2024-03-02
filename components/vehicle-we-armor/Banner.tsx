@@ -134,7 +134,7 @@ const Banner = (props) => {
         ) : null}
 
         <div className={`${styles.banner_protection}`}>
-          <h3>Offered At Protection Levels</h3>
+          <p>Offered At Protection Levels</p>
           <div className={`${styles.banner_protection_levels}`}>
             {/* {data?.protectionLevel} */}
             {protectionLevelSplit.map((item, index) => (

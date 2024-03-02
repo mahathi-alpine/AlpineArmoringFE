@@ -17,13 +17,8 @@
     top: 0;
     bottom: 90px;
     background: var(--color-white);
-    // height: 250px;
     @include breakpoint(medium) {
-      // height: 450px;
       bottom: 175px;
-    }
-    @include breakpoint(huge) {
-      // height: 870px;
     }
   }
   &:after {
@@ -39,11 +34,7 @@
     border-radius: 50%/0 0 100% 100%;
     z-index: -1;
     @include breakpoint(medium) {
-      // top: 450px;
       bottom: 120px;
-    }
-    @include breakpoint(huge) {
-      // top: 870px;
     }
   }
 
@@ -55,10 +46,6 @@
   }
 
   &_inner {
-    // @include breakpoint(medium) {
-    //   max-width: 730px;
-    //   margin: auto;
-    // }
     @include breakpoint(large) {
       width: 80%;
       max-width: 1320px;

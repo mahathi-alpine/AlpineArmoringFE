@@ -20,16 +20,25 @@ const Blog = ({
     `}
     >
       <div className={`${styles.news_inner} container_small`}>
-        <div className={`${styles.news_heading}`}>
-          <h3
-            className={`${styles.news_heading_secondary} block-reveal observe`}
-          >
-            {subtitle}
-          </h3>
-          <h2 className={`${styles.news_heading_primary} observe fade-in-up`}>
-            {title}
-          </h2>
-        </div>
+        {subtitle || title ? (
+          <div className={`${styles.news_heading}`}>
+            {subtitle ? (
+              <h3
+                className={`${styles.news_heading_secondary} block-reveal observe`}
+              >
+                {subtitle}
+              </h3>
+            ) : null}
+
+            {title ? (
+              <h2
+                className={`${styles.news_heading_primary} observe fade-in-up`}
+              >
+                {title}
+              </h2>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className={`${styles.news_list}`}>
           {(limit ? props.slice(0, limit) : props).map((item, index) => {
