@@ -1,7 +1,8 @@
 .news {
   & > div {
     padding-top: 0;
-    &:before, &:after{
+    &:before,
+    &:after {
       display: none;
     }
   }
