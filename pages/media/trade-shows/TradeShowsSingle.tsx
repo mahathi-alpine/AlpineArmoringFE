@@ -47,7 +47,7 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
       {data ? (
         <Image
           src={
-            data.gallery.data[0].attributes.formats?.large?.url ||
+            data.gallery.data[0].attributes.formats?.small?.url ||
             data.gallery.data[0].attributes.url
           }
           alt={

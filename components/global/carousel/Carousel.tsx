@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import styles from './Carousel.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
-import { useIsMobile } from 'hooks/useIsMobile';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import { Thumb } from './CarouselThumbsButton';
@@ -18,8 +17,6 @@ import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 
 const EmblaCarousel = (props) => {
-  const isMobile = useIsMobile();
-
   const { slides, options } = props;
   // const [open, setOpen] = useState(false);
   const { openLightbox, renderLightbox } = useLightbox();
@@ -95,32 +92,24 @@ const EmblaCarousel = (props) => {
               }}
             >
               {item.attributes?.url ? (
-                <Image
-                  src={
-                    isMobile
-                      ? item.attributes.formats?.small?.url
-                      : item.attributes.formats?.xlarge?.url ||
-                        item.attributes.formats?.large?.url ||
-                        item.attributes.url
-                  }
-                  alt={item.attributes.alternativeText || 'Alpine Armoring'}
-                  priority={index === 0}
-                  width={
-                    isMobile
-                      ? item.attributes.formats?.small?.width
-                      : item.attributes.formats?.xlarge?.width ||
-                        item.attributes.formats?.large?.width ||
-                        item.attributes.width
-                  }
-                  height={
-                    isMobile
-                      ? item.attributes.formats?.small?.height
-                      : item.attributes.formats?.xlarge?.height ||
-                        item.attributes.formats?.large?.height ||
-                        item.attributes.height
-                  }
-                  className={styles.carousel_slide_img}
-                ></Image>
+                <picture className={`${styles.carousel_slide_img_wrap}`}>
+                  <source
+                    media="(min-width: 500px)"
+                    srcSet={
+                      item.attributes.formats?.large?.url || item.attributes.url
+                    }
+                  />
+                  <Image
+                    src={
+                      item.attributes.formats?.small.url || item.attributes.url
+                    }
+                    alt={item.attributes.alternativeText || 'Alpine Armoring'}
+                    quality={100}
+                    priority={index === 0}
+                    fill
+                    className={styles.carousel_slide_img}
+                  />
+                </picture>
               ) : null}
             </div>
           ))}

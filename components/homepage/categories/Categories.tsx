@@ -16,7 +16,7 @@ const Categories = ({ props, allVehiclesImage }) => {
             {data.image.data ? (
               <picture>
                 <source
-                  media="(min-width: 768px)"
+                  media="(min-width: 500px)"
                   srcSet={
                     data.image.data.attributes.formats?.medium?.url ||
                     data.image.data.attributes.url
@@ -77,7 +77,7 @@ const Categories = ({ props, allVehiclesImage }) => {
         {allVehiclesImage ? (
           <picture>
             <source
-              media="(min-width: 768px)"
+              media="(min-width: 500px)"
               srcSet={
                 allVehiclesImage.formats?.medium?.url || allVehiclesImage.url
               }

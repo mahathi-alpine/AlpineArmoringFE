@@ -62,7 +62,7 @@ const StickyHorizontalSlider = ({
                   >
                     <source
                       media="(min-width: 768px)"
-                      srcSet={data.image.data.attributes.formats?.large?.url}
+                      srcSet={data.image.data.attributes.formats?.medium?.url}
                     />
                     <Image
                       src={data.image.data.attributes.formats?.small.url}

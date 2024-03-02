@@ -121,15 +121,24 @@ const Design = (props) => {
               <div className={`${styles.design_image} observe fade-in`}>
                 <Image
                   src={
-                    props.pageData.section2Image.data.attributes.formats?.large
+                    props.pageData.section2Image.data.attributes.formats?.medium
                       ?.url || props.pageData.section2Image.data.attributes.url
                   }
                   alt={
                     props.pageData.section2Image.data.attributes
                       .alternativeText || 'Alpine Armoring'
                   }
-                  width={665}
-                  height={315}
+                  quality={100}
+                  width={
+                    props.pageData.section2Image.data.attributes.formats?.medium
+                      ?.width ||
+                    props.pageData.section2Image.data.attributes.width
+                  }
+                  height={
+                    props.pageData.section2Image.data.attributes.formats?.medium
+                      ?.height ||
+                    props.pageData.section2Image.data.attributes.height
+                  }
                 ></Image>
               </div>
             ) : null}
@@ -144,15 +153,25 @@ const Design = (props) => {
               <div className={`${styles.design_image} observe fade-in`}>
                 <Image
                   src={
-                    props.pageData.section2Image2.data.attributes.formats?.large
-                      ?.url || props.pageData.section2Image2.data.attributes.url
+                    props.pageData.section2Image2.data.attributes.formats
+                      ?.medium?.url ||
+                    props.pageData.section2Image2.data.attributes.url
                   }
                   alt={
                     props.pageData.section2Image2.data.attributes
                       .alternativeText || 'Alpine Armoring'
                   }
-                  width={590}
-                  height={315}
+                  quality={100}
+                  width={
+                    props.pageData.section2Image2.data.attributes.formats
+                      ?.medium?.width ||
+                    props.pageData.section2Image2.data.attributes.width
+                  }
+                  height={
+                    props.pageData.section2Image2.data.attributes.formats
+                      ?.medium?.height ||
+                    props.pageData.section2Image2.data.attributes.height
+                  }
                 ></Image>
               </div>
             ) : null}
@@ -212,7 +231,7 @@ const Design = (props) => {
                     <div className={`${styles.design_armor_image}`}>
                       <Image
                         src={
-                          item.image.data.attributes.formats?.large?.url ||
+                          item.image.data.attributes.formats?.small?.url ||
                           item.image.data.attributes.url
                         }
                         alt={
@@ -240,7 +259,7 @@ const Design = (props) => {
                       </p>
                       <Image
                         src={
-                          selectedItem.image.data.attributes.formats?.large
+                          selectedItem.image.data.attributes.formats?.small
                             ?.url || selectedItem.image.data.attributes.url
                         }
                         alt={
@@ -287,15 +306,24 @@ const Design = (props) => {
               {props.pageData?.section4Image.data.attributes ? (
                 <Image
                   src={
-                    props.pageData.section4Image.data.attributes.formats?.large
+                    props.pageData.section4Image.data.attributes.formats?.medium
                       ?.url || props.pageData.section4Image.data.attributes.url
                   }
                   alt={
                     props.pageData.section4Image.data.attributes
                       .alternativeText || 'Alpine Armoring'
                   }
-                  width={350}
-                  height={350}
+                  quality={100}
+                  width={
+                    props.pageData.section4Image.data.attributes.formats?.medium
+                      ?.width ||
+                    props.pageData.section4Image.data.attributes.width
+                  }
+                  height={
+                    props.pageData.section4Image.data.attributes.formats?.medium
+                      ?.height ||
+                    props.pageData.section4Image.data.attributes.height
+                  }
                   className={`${styles.design_image} observe fade-in`}
                 ></Image>
               ) : null}
@@ -323,15 +351,24 @@ const Design = (props) => {
             {props.pageData?.section5Image.data.attributes ? (
               <Image
                 src={
-                  props.pageData.section5Image.data.attributes.formats?.large
+                  props.pageData.section5Image.data.attributes.formats?.medium
                     ?.url || props.pageData.section5Image.data.attributes.url
                 }
                 alt={
                   props.pageData.section5Image.data.attributes
                     .alternativeText || 'Alpine Armoring'
                 }
-                width={710}
-                height={397}
+                quality={100}
+                width={
+                  props.pageData.section5Image.data.attributes.formats?.medium
+                    ?.width ||
+                  props.pageData.section5Image.data.attributes.width
+                }
+                height={
+                  props.pageData.section5Image.data.attributes.formats?.medium
+                    ?.height ||
+                  props.pageData.section5Image.data.attributes.height
+                }
                 className={`${styles.design_image} observe fade-in`}
               ></Image>
             ) : null}

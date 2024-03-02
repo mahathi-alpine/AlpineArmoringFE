@@ -81,7 +81,7 @@ const CarouselCurved = ({
                         src={
                           isMobile
                             ? item.attributes.formats?.small?.url
-                            : item.attributes.formats?.large?.url ||
+                            : item.attributes.formats?.medium?.url ||
                               item.attributes.url
                         }
                         alt={
@@ -91,13 +91,13 @@ const CarouselCurved = ({
                         width={
                           isMobile
                             ? item.attributes.formats?.small?.width
-                            : item.attributes.formats?.large?.width ||
+                            : item.attributes.formats?.medium?.width ||
                               item.attributes.width
                         }
                         height={
                           isMobile
                             ? item.attributes.formats?.small?.height
-                            : item.attributes.formats?.large?.height ||
+                            : item.attributes.formats?.medium?.height ||
                               item.attributes.height
                         }
                         className={styles.carousel_slide_img}

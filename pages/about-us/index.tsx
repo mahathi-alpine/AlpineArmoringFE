@@ -10,6 +10,7 @@ import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function About(props) {
   const seoData = props?.pageData?.seo;
+  const boxes = props?.pageData?.boxes;
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -37,31 +38,64 @@ function About(props) {
           ) : null}
         </div>
 
-        <div className={`${styles.about_text2} container_small`}>
-          {props.pageData?.text2 ? (
-            <Markdown>{props.pageData.text2}</Markdown>
-          ) : null}
-        </div>
-
         {props.pageData?.quote ? (
           <FillingText data={props.pageData?.quote} dark />
         ) : null}
 
-        <div className={`${styles.about_image} container_small`}>
-          {props.pageData?.image1 ? (
-            <Image
-              src={
-                props.pageData.image1.data.attributes.formats?.large?.url ||
-                props.pageData.image1.data.attributes.url
-              }
-              alt={
-                props.pageData.image1.data.attributes.alternativeText ||
-                'Alpine Armoring'
-              }
-              width={1238}
-              height={346}
-            ></Image>
-          ) : null}
+        <div className={`${styles.about_box_wrap}`}>
+          {boxes?.map((item, index) => (
+            <div
+              className={`${styles.about_box_item} background-dark observe fade-in`}
+              key={index}
+            >
+              <div
+                className={`${styles.about_box_item_shape} shape-before`}
+              ></div>
+
+              <div className={`${styles.about_box_item_content}`}>
+                {item.title ? (
+                  <h2
+                    className={`${styles.about_box_item_title}`}
+                    dangerouslySetInnerHTML={{ __html: item.title }}
+                  ></h2>
+                ) : null}
+
+                {item.description ? (
+                  <p
+                    className={`${styles.about_box_item_text}`}
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  ></p>
+                ) : // <Markdown className={`${styles.about_box_item_text}`}>
+                //   {item.description}
+                // </Markdown>
+                null}
+              </div>
+
+              <div className={`${styles.about_box_item_image}`}>
+                <picture>
+                  <source
+                    media="(min-width: 768px)"
+                    srcSet={
+                      item.image?.data.attributes.formats?.large?.url ||
+                      item.image?.data.attributes.url
+                    }
+                  />
+                  <Image
+                    src={`${
+                      item.image?.data.attributes.formats?.small?.url ||
+                      item.image?.data.attributes.url
+                    }`}
+                    alt={
+                      item.image?.data.attributes.alternativeText ||
+                      'Alpine Armoring'
+                    }
+                    width={1200}
+                    height={346}
+                  />
+                </picture>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>

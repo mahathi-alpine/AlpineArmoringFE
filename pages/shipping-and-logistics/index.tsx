@@ -116,10 +116,6 @@ function Shipping(props) {
 
               <div className={`${styles.shipping_box_item_image}`}>
                 <Image
-                  // src={
-                  //   item.image?.data.attributes.formats?.large?.url ||
-                  //   item.image?.data.attributes.url
-                  // }
                   src={
                     isMobile
                       ? item.image?.data.attributes.formats?.small?.url

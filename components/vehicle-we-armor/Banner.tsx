@@ -3,8 +3,10 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 const Banner = (props) => {
+  const isMobile = useIsMobile();
   const data = props.props;
 
   const protectionLevel = data.protectionLevel || 'A4, A6, A9, A11';
@@ -80,19 +82,39 @@ const Banner = (props) => {
 
         {data.featuredImage?.data ? (
           <div className={`${styles.banner_image_wrap} observe fade-in`}>
-            <Image
-              src={
-                data.featuredImage.data.attributes.formats?.large?.url ||
-                data.featuredImage.data.attributes.url
-              }
-              alt={
-                data.featuredImage.data.attributes.alternativeText ||
-                'Alpine Armoring'
-              }
-              width={1000}
-              height={550}
-              priority
-            ></Image>
+            <picture className={`${styles.banner_image_ratio}`}>
+              <source
+                media="(min-width: 1280px)"
+                srcSet={
+                  data.featuredImage.data.attributes.formats?.large?.url ||
+                  data.featuredImage.data.attributes.url
+                }
+              />
+              <Image
+                src={
+                  data.featuredImage.data.attributes.formats?.small.url ||
+                  data.featuredImage.data.attributes.url
+                }
+                alt={
+                  data.featuredImage.data.attributes.alternativeText ||
+                  'Alpine Armoring'
+                }
+                quality={100}
+                priority
+                width={
+                  isMobile
+                    ? data.featuredImage.data.attributes.formats?.small?.width
+                    : data.featuredImage.data.attributes.formats?.large
+                        ?.width || data.featuredImage.data.attributes.width
+                }
+                height={
+                  isMobile
+                    ? data.featuredImage.data.attributes.formats?.small?.height
+                    : data.featuredImage.data.attributes.formats?.large
+                        ?.height || data.featuredImage.data.attributes.height
+                }
+              />
+            </picture>
           </div>
         ) : null}
 

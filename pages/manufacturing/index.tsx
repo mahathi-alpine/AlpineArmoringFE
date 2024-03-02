@@ -110,15 +110,22 @@ function Manufacturing(props) {
               >
                 <Image
                   src={
-                    props.pageData.section1Image.data.attributes.formats?.large
+                    props.pageData.section1Image.data.attributes.formats?.small
                       ?.url || props.pageData.section1Image.data.attributes.url
                   }
                   alt={
                     props.pageData.section1Image.data.attributes
                       .alternativeText || 'Alpine Armoring'
                   }
-                  width={500}
-                  height={400}
+                  quality={100}
+                  width={
+                    props.pageData.section1Image.data.attributes.formats?.small
+                      .width
+                  }
+                  height={
+                    props.pageData.section1Image.data.attributes.formats?.small
+                      .height
+                  }
                   sizes="(min-width: 768px ) 40vw, 100vw"
                 ></Image>
               </div>

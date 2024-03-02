@@ -59,6 +59,14 @@
         overflow: hidden;
       }
 
+      &:nth-child(2n) {
+        flex-flow: row-reverse;
+        .shipping_box_item_image {
+          left: 0;
+          right: auto;
+        }
+      }
+
       &_content {
         padding: rem(8) rem(16) rem(32) rem(16);
 
@@ -112,14 +120,6 @@
           @include breakpoint(large) {
             max-height: unset;
           }
-        }
-      }
-
-      &:nth-child(2n) {
-        flex-flow: row-reverse;
-        .shipping_box_item_image {
-          left: 0;
-          right: auto;
         }
       }
 
