@@ -2,51 +2,33 @@
   padding-bottom: rem(64);
 
   &_text {
-    padding-top: rem(64);
-    font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
-
-    font-size: 27px;
-    // font-weight: 300;
+    margin: rem(8) auto rem(24) auto;
+    font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
+    @include breakpoint(medium) {
+      margin: rem(24) auto rem(24) auto;
+    }
+    @include breakpoint(large) {
+      margin: rem(24) auto rem(100) auto;
+    }
 
     p {
       margin-bottom: rem(32);
+
       &:last-child {
         margin-bottom: 0;
       }
-    }
-  }
-
-  &_text2 {
-    padding-top: rem(32);
-    font-size: 18px;
-    margin-bottom: rem(64);
-    // font-weight: 300;
-
-    p {
-      margin-bottom: rem(32);
-      &:last-child {
-        margin-bottom: 0;
+      
+      strong{
+        color: var(--color-primary);
       }
-    }
-  }
-
-  &_image {
-    img {
-      margin: auto;
     }
   }
 
   &_box {
     &_wrap {
       margin-top: rem(100);
-      @include breakpoint(medium) {
-        padding: 0 rem(16);
-      }
-
-      @include breakpoint(large) {
-        max-width: 2200px;
-        margin: 0 auto;
-        padding: 0 rem(32);
+      @include breakpoint(small) {
+        padding: 0;
       }
     }
 
@@ -63,6 +45,12 @@
         margin-bottom: rem(64);
         border-radius: 16px;
         overflow: hidden;
+        min-height: 500px;
+        align-items: center;
+      }
+
+      &:last-child{
+        margin-bottom: 0;
       }
 
       &:nth-child(2n) {
@@ -81,7 +69,7 @@
         }
         @include breakpoint(large) {
           padding: rem(64);
-          width: 45%;
+          width: 50%;
         }
         @include breakpoint(huge) {
           padding: rem(80);
@@ -100,6 +88,9 @@
         @include breakpoint(medium) {
           font-size: rem(15);
         }
+        @include breakpoint(large) {
+          max-width: 80%;
+        }
 
         p {
           margin-bottom: rem(8);
@@ -115,7 +106,7 @@
         @include breakpoint(large) {
           position: absolute;
           right: 0;
-          width: 55%;
+          width: 50%;
           height: 100%;
         }
         img {
@@ -133,5 +124,19 @@
         background: var(--color-background);
       }
     }
+  }
+
+  &_quote{
+    @include breakpoint(large) {
+      margin: rem(64) 0;
+    }
+    @include breakpoint(huge) {
+      margin: rem(100) 0;
+    }
+  }
+
+  &_bottom_img{
+    display: flex;
+    justify-content: center;
   }
 }

@@ -43,6 +43,7 @@ export interface HeaderProps {
   isDarkMode?: boolean;
   isNotSticky?: boolean;
   isHomepage?: boolean;
+  isSearchVisible?: boolean;
   openSearchPopup?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

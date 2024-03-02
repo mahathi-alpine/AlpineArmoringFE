@@ -4,6 +4,8 @@ import { InstantSearch } from 'react-instantsearch-dom';
 import styles from './Search.module.scss';
 import SearchBox from './SearchBox';
 import SearchHits from './SearchHits';
+import { useRef } from 'react';
+import { useOutsideClick } from 'hooks/useOutsideClick';
 
 // const searchClient = algoliasearch(
 //   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
@@ -14,7 +16,15 @@ const searchClient = algoliasearch(
   'd152ea74492bb9a3eea96657ac73f8b8'
 );
 
-export default function Search() {
+export default function Search({ openSearchPopup }) {
+  const searchInnerRef = useRef(null);
+
+  useOutsideClick(searchInnerRef, () => {
+    openSearchPopup(false);
+    document.body.style.marginRight = '0';
+    document.body.classList.remove('no-scroll');
+  });
+
   // const [searchClient, setSearchClient] = useState(null);
 
   // useEffect(() => {
@@ -29,10 +39,12 @@ export default function Search() {
   // }
 
   return (
-    <div className={`${styles.search} algolia-search`}>
+    <div className={`${styles.search}`}>
       <InstantSearch searchClient={searchClient} indexName="dev_alpine">
-        <SearchBox />
-        <SearchHits />
+        <div className={`${styles.search_inner}`} ref={searchInnerRef}>
+          <SearchBox />
+          <SearchHits />
+        </div>
       </InstantSearch>
     </div>
   );

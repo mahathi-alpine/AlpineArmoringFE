@@ -38,11 +38,7 @@ function About(props) {
           ) : null}
         </div>
 
-        {props.pageData?.quote ? (
-          <FillingText data={props.pageData?.quote} dark />
-        ) : null}
-
-        <div className={`${styles.about_box_wrap}`}>
+        <div className={`${styles.about_box_wrap} container`}>
           {boxes?.map((item, index) => (
             <div
               className={`${styles.about_box_item} background-dark observe fade-in`}
@@ -97,6 +93,35 @@ function About(props) {
             </div>
           ))}
         </div>
+
+        {props.pageData?.quote ? (
+          <div className={`${styles.about_quote}`}>
+            <FillingText data={props.pageData?.quote} dark />
+          </div>
+        ) : null}
+
+        {props.pageData?.bottomImage ? (
+          <div className={`${styles.about_bottom_img} container_small`}>
+            <Image
+              src={`${
+                props.pageData?.bottomImage.data.attributes.formats?.large
+                  ?.url || props.pageData?.bottomImage.data.attributes.url
+              }`}
+              alt={
+                props.pageData?.bottomImage.data.attributes.alternativeText ||
+                'Alpine Armoring'
+              }
+              width={
+                props.pageData?.bottomImage.data.attributes.formats?.large
+                  ?.width || props.pageData?.bottomImage.data.attributes.width
+              }
+              height={
+                props.pageData?.bottomImage.data.attributes.formats?.large
+                  ?.height || props.pageData?.bottomImage.data.attributes.height
+              }
+            />
+          </div>
+        ) : null}
       </div>
     </>
   );

@@ -20,11 +20,18 @@ const Header = ({
   isHomepage,
   isNotSticky,
   openSearchPopup,
+  isSearchVisible,
 }: HeaderProps) => {
   const [hState, sethState] = React.useState('-top');
 
+  const [isSearchOpen, setSearchOpen] = useState(false);
+  const handleSearchClick = () => {
+    setSearchOpen(!isSearchOpen);
+    openSearchPopup(!isSearchOpen);
+  };
+
   useEffect(() => {
-    if (isNavOpen) {
+    if (isNavOpen || isSearchOpen) {
       document.body.style.marginRight =
         window.innerWidth - document.body.offsetWidth + 'px';
       document.body.classList.add('no-scroll');
@@ -32,7 +39,7 @@ const Header = ({
       document.body.style.marginRight = '0';
       document.body.classList.remove('no-scroll');
     }
-  }, [isNavOpen]);
+  }, [isNavOpen, isSearchOpen]);
 
   useEffect(() => {
     let lastVal = 0;
@@ -51,12 +58,6 @@ const Header = ({
     };
   }, []);
 
-  const [isSearchOpen, setSearchOpen] = useState(false);
-  const handleSearchClick = () => {
-    setSearchOpen(!isSearchOpen);
-    openSearchPopup(!isSearchOpen);
-  };
-
   return (
     <header
       className={`
@@ -65,7 +66,7 @@ const Header = ({
         ${isDarkMode ? styles.header_transparent : ''}
         ${isNavOpen ? styles.header_navOpen : ''}
         ${isNotSticky ? styles.header_notSticky : ''}
-        ${isHomepage ? styles.header_homepage : ''}        
+        ${isHomepage ? styles.header_homepage : ''}      
         b-header
       `}
     >
@@ -96,7 +97,7 @@ const Header = ({
             }}
             className={`${styles.header_search} desktop-only`}
           >
-            {isSearchOpen ? 'X' : <SearchIcon />}
+            {isSearchVisible ? 'X' : <SearchIcon />}
           </div>
 
           <LanguageSwitcher className={`desktop-only`} />

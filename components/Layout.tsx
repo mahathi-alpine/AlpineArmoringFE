@@ -95,15 +95,16 @@ const Layout = ({ children }) => {
 
       <div className={termina.className}>
         <Header
-          isDarkMode={isDarkMode}
+          isDarkMode={isDarkMode || isSearchVisible}
           setNavOpen={setNavOpen}
           isNavOpen={isNavOpen}
           isHomepage={isHomepage}
           isNotSticky={isNotSticky}
           openSearchPopup={openSearchPopup}
+          isSearchVisible={isSearchVisible}
         />
 
-        {isSearchVisible && <Search />}
+        {isSearchVisible && <Search openSearchPopup={openSearchPopup} />}
 
         <NavigationPopup
           isNavOpen={isNavOpen}
