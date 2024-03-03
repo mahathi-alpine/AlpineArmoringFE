@@ -104,20 +104,21 @@ function About(props) {
           <div className={`${styles.about_bottom_img} container_small`}>
             <Image
               src={`${
-                props.pageData?.bottomImage.data.attributes.formats?.large
+                props.pageData?.bottomImage.data?.attributes.formats?.large
                   ?.url || props.pageData?.bottomImage.data.attributes.url
               }`}
               alt={
-                props.pageData?.bottomImage.data.attributes.alternativeText ||
+                props.pageData?.bottomImage.data?.attributes.alternativeText ||
                 'Alpine Armoring'
               }
               width={
-                props.pageData?.bottomImage.data.attributes.formats?.large
-                  ?.width || props.pageData?.bottomImage.data.attributes.width
+                props.pageData?.bottomImage.data?.attributes.formats?.large
+                  ?.width || props.pageData?.bottomImage.data?.attributes.width
               }
               height={
-                props.pageData?.bottomImage.data.attributes.formats?.large
-                  ?.height || props.pageData?.bottomImage.data.attributes.height
+                props.pageData?.bottomImage.data?.attributes.formats?.large
+                  ?.height ||
+                props.pageData?.bottomImage.data?.attributes.height
               }
             />
           </div>
