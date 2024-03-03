@@ -3,7 +3,7 @@ import styles from './Form.module.scss';
 import Button from 'components/global/button/Button';
 import Dropdown from 'components/global/form/Dropdown';
 
-import { sendEmail } from 'hooks/aws-ses';
+// import { sendEmail } from 'hooks/aws-ses';
 
 const Form = () => {
   const [fullname, setFullname] = useState('');
@@ -296,19 +296,19 @@ const Form = () => {
       }, 3000);
     }
 
-    const emailDetails = {
-      to: 'recipient@example.com',
-      from: 'sender@example.com',
-      subject: 'New contact form submission',
-      message: '...',
-    };
+    // const emailDetails = {
+    //   to: 'recipient@example.com',
+    //   from: 'sender@example.com',
+    //   subject: 'New contact form submission',
+    //   message: '...',
+    // };
 
-    try {
-      await sendEmail(emailDetails);
-      console.log('Email sent successfully!');
-    } catch (error) {
-      console.error('Error sending email:', error);
-    }
+    // try {
+    //   await sendEmail(emailDetails);
+    //   console.log('Email sent successfully!');
+    // } catch (error) {
+    //   console.error('Error sending email:', error);
+    // }
 
     // console.log(fullname, email, phone, company, message, mobile);
 
