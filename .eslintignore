@@ -1,3 +1,0 @@
-{
-    "ignorePatterns": ["aws-ses.tsx", "**/hooks/*.tsx"]
-}
