@@ -28,6 +28,12 @@ const Header = ({
   const handleSearchClick = () => {
     setSearchOpen(!isSearchOpen);
     openSearchPopup(!isSearchOpen);
+    setTimeout(() => {
+      const input = document.querySelector('.search-box') as HTMLInputElement;
+      if (input) {
+        input.focus();
+      }
+    }, 100);
   };
 
   useEffect(() => {
