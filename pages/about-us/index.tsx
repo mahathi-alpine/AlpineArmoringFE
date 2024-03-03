@@ -72,17 +72,17 @@ function About(props) {
                   <source
                     media="(min-width: 768px)"
                     srcSet={
-                      item.image?.data.attributes.formats?.large?.url ||
-                      item.image?.data.attributes.url
+                      item.image?.data?.attributes.formats?.large?.url ||
+                      item.image?.data?.attributes.url
                     }
                   />
                   <Image
                     src={`${
-                      item.image?.data.attributes.formats?.small?.url ||
-                      item.image?.data.attributes.url
+                      item.image?.data?.attributes.formats?.small?.url ||
+                      item.image?.data?.attributes.url
                     }`}
                     alt={
-                      item.image?.data.attributes.alternativeText ||
+                      item.image?.data?.attributes.alternativeText ||
                       'Alpine Armoring'
                     }
                     width={1200}
@@ -105,7 +105,7 @@ function About(props) {
             <Image
               src={`${
                 props.pageData?.bottomImage.data?.attributes.formats?.large
-                  ?.url || props.pageData?.bottomImage.data.attributes.url
+                  ?.url || props.pageData?.bottomImage.data?.attributes.url
               }`}
               alt={
                 props.pageData?.bottomImage.data?.attributes.alternativeText ||
