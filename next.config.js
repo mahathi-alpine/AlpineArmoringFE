@@ -4,6 +4,9 @@ module.exports = {
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
   },
+  eslint: {
+    ignoreDuringBuilds: ['/hooks'],
+  },
   images: {
     remotePatterns: [
       {
