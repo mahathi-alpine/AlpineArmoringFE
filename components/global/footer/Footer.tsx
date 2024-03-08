@@ -175,11 +175,11 @@ const Footer = (isDarkMode) => {
               <Link href="/">About</Link>
             </li>
             <li className={`${styles.footer_bottom_nav_item}`}>
-              <Link href="/">Privacy Policy</Link>
+              <Link href="privacy-policy">Privacy Policy</Link>
             </li>
-            <li className={`${styles.footer_bottom_nav_item}`}>
-              <Link href="/">Sitemap</Link>
-            </li>
+            {/* <li className={`${styles.footer_bottom_nav_item}`}>
+              <Link href="/site-map">Sitemap</Link>
+            </li> */}
           </ul>
 
           <p className={`${styles.footer_bottom_copy}`}>

@@ -230,10 +230,12 @@ body {
   justify-content: center;
   flex-flow: column;
   margin-top: var(--header-height);
+  padding-bottom: rem(100);
   margin-bottom: rem(-40);
   min-height: calc(100vh - var(--header-height) + 50px);
   background-color: #000;
   color: var(--color-white);
+  text-align: center;
 
   @include breakpoint(large) {
     min-height: calc(100vh - var(--header-height) + 100px);
@@ -250,7 +252,12 @@ body {
   }
 
   &_h2 {
+    margin-bottom: rem(32);
     font-size: clamp(1.25rem, 1.0073rem + 1.0356vw, 2.25rem);
+
+    @include breakpoint(large) {
+      margin-bottom: rem(32);
+    }
   }
 
   &_gradient {

@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
-// import styles from './Shipping.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
 import Markdown from 'markdown-to-jsx';
-// import Link from 'next/link';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Dealer(props) {

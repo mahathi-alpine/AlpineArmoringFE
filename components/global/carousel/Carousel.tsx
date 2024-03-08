@@ -67,12 +67,29 @@ const EmblaCarousel = (props) => {
 
   const galleryRef = useRef(null);
   const thumbsRef = useRef(null);
-  useEffect(() => {
+  // Function to adjust the thumbnails container height
+  const adjustThumbsContainerHeight = () => {
     if (window.innerWidth >= 1600 && options.thumbs) {
       const firstDivHeight = galleryRef.current.offsetHeight;
       thumbsRef.current.style.height = `${firstDivHeight}px`;
     }
-  });
+  };
+  useEffect(() => {
+    adjustThumbsContainerHeight();
+
+    const handleResize = () => {
+      adjustThumbsContainerHeight();
+      if (window.innerWidth < 1600 && options.thumbs) {
+        thumbsRef.current.style.height = `auto`;
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [options.thumbs]);
 
   return (
     <div

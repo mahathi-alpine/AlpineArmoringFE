@@ -246,24 +246,27 @@ function InventoryVehicle(props) {
             </ul>
 
             <div className={`${styles.inventory_pdfs}`}>
-              {/* {data?.OEM?.data ?  */}
-              <Button
-                // href={data.OEM.data.attributes.url}
-                href=""
-                iconComponent={PDFIcon}
-                className={`${styles.inventory_pdfs_button} icon rounded`}
-              >
-                OEM Window Sticker
-              </Button>
-              {/* : null } */}
+              {data?.OEMWindowSticker?.data ? (
+                <Button
+                  href={data.OEMWindowSticker.data.attributes.url}
+                  iconComponent={PDFIcon}
+                  className={`${styles.inventory_pdfs_button} icon rounded`}
+                  target
+                >
+                  <span>OEM</span> Window Sticker
+                </Button>
+              ) : null}
 
-              <Button
-                href=""
-                iconComponent={DownloadIcon}
-                className={`${styles.inventory_pdfs_button} icon rounded`}
-              >
-                OEM Armoring Specs
-              </Button>
+              {data?.OEMArmoringSpecs?.data ? (
+                <Button
+                  href={data.OEMArmoringSpecs.data.attributes.url}
+                  iconComponent={DownloadIcon}
+                  className={`${styles.inventory_pdfs_button} icon rounded`}
+                  target
+                >
+                  Armoring Specs
+                </Button>
+              ) : null}
             </div>
           </div>
         </div>

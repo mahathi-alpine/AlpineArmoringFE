@@ -13,7 +13,10 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
   return (
     <Link
       href={`/available-now/${data.slug}`}
-      className={`${styles.inventory_item} `}
+      className={`
+        ${styles.inventory_item} 
+        ${data.flag == 'sold' ? styles.inventory_item_sold : ''}
+      `}
     >
       <div className={`${styles.inventory_item_image}`}>
         {data.featuredImage.data ? (

@@ -30,6 +30,7 @@ export interface ButtonProps {
   children?: ReactNode;
   disabled?: boolean;
   button?: boolean;
+  target?: boolean;
   // icon?: boolean;
   dot?: boolean;
   attention?: boolean;

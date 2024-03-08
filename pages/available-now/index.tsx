@@ -20,9 +20,7 @@ function Inventory(props) {
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
 
   useEffect(() => {
-    if (q) {
-      setVehiclesData(props.vehicles.data);
-    }
+    setVehiclesData(props.vehicles.data);
   }, [q]);
 
   // Group vehicles by category

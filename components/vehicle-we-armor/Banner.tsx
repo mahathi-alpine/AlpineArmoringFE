@@ -81,7 +81,7 @@ const Banner = (props) => {
         </div>
 
         {data.featuredImage?.data ? (
-          <div className={`${styles.banner_image_wrap} observe fade-in`}>
+          <div className={`${styles.banner_image_wrap}`}>
             <picture className={`${styles.banner_image_ratio}`}>
               <source
                 media="(min-width: 1280px)"
@@ -122,7 +122,7 @@ const Banner = (props) => {
           <Link
             href={data.pdf.data.attributes.url}
             target="_blank"
-            className={`${styles.banner_pdf} observe fade-in`}
+            className={`${styles.banner_pdf}`}
           >
             <span>
               <span>OEM</span>
