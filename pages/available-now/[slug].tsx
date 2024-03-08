@@ -2,7 +2,7 @@ import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import InfoIcon from 'components/icons/Info';
-import PDFIcon from 'components/icons/PDF';
+import PDFIcon from 'components/icons/PDF2';
 import DownloadIcon from 'components/icons/Download';
 import Link from 'next/link';
 import Markdown from 'markdown-to-jsx';

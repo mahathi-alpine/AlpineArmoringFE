@@ -20,7 +20,7 @@
       background 0.3s ease-in-out,
       box-shadow 0.3s ease-in-out;
 
-    &:hover {
+    &:hover:not(.inventory_item_sold) {
       background: var(--color-primary);
       box-shadow:
         0 20px 25px -5px #000,
@@ -48,7 +48,7 @@
   }
 
   &_sold {
-    pointer-events: none;
+    // pointer-events: none;
     &:before {
       position: absolute;
       content: '';

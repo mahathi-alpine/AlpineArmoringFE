@@ -126,7 +126,7 @@
     @include breakpoint(large) {
       position: relative;
       margin: auto;
-      max-width: 2200px;
+      max-width: 2000px;
     }
   }
 
@@ -323,10 +323,15 @@
       font-weight: var(--font-medium);
       text-transform: uppercase;
       font-size: rem(11);
-
+      min-width: 234px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 3px;
+
+      @include breakpoint(max) {
+        min-width: 295px;
+      }
 
       span {
         font-size: rem(12);
