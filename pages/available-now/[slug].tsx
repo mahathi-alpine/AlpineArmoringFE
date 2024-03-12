@@ -248,7 +248,10 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_pdfs}`}>
               {data?.OEMWindowSticker?.data ? (
                 <Button
-                  href={data.OEMWindowSticker.data.attributes.url}
+                  href={data.OEMWindowSticker.data.attributes.url.replace(
+                    /\.ai$/,
+                    '.pdf'
+                  )}
                   iconComponent={PDFIcon}
                   className={`${styles.inventory_pdfs_button} icon rounded`}
                   target
@@ -259,7 +262,10 @@ function InventoryVehicle(props) {
 
               {data?.OEMArmoringSpecs?.data ? (
                 <Button
-                  href={data.OEMArmoringSpecs.data.attributes.url}
+                  href={data.OEMArmoringSpecs.data.attributes.url.replace(
+                    /\.ai$/,
+                    '.pdf'
+                  )}
                   iconComponent={DownloadIcon}
                   className={`${styles.inventory_pdfs_button} icon rounded`}
                   target
