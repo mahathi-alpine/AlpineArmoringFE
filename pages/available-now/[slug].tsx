@@ -256,7 +256,7 @@ function InventoryVehicle(props) {
                   className={`${styles.inventory_pdfs_button} icon rounded`}
                   target
                 >
-                  <span>OEM</span> Window Sticker
+                  <strong>OEM</strong> Window Sticker
                 </Button>
               ) : null}
 
