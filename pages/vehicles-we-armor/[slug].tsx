@@ -267,13 +267,11 @@ function Vehicle(props) {
           id="armoring-features"
           className={`${styles.slug_specs} container anchor`}
         >
-          <div className={`container_small`}>
-            <h2
-              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
-            >
-              Armoring Features
-            </h2>
-          </div>
+          <h2
+            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+          >
+            Armoring Features
+          </h2>
           <StickyHorizontalSlider slides={data.armoringFeatures.data} />
           <div className={`divider_fade`}></div>
         </div>
@@ -284,13 +282,11 @@ function Vehicle(props) {
           id="conversion-accessories"
           className={`${styles.slug_specs} container anchor`}
         >
-          <div className={`container_small`}>
-            <h2
-              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
-            >
-              Conversion Accessories
-            </h2>
-          </div>
+          <h2
+            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+          >
+            Conversion Accessories
+          </h2>
           <StickyHorizontalSlider slides={data.conversionAccessories.data} />
           <div className={`divider_fade`}></div>
         </div>
@@ -301,13 +297,11 @@ function Vehicle(props) {
           id="communications-&-electronics"
           className={`${styles.slug_specs} container anchor`}
         >
-          <div className={`container_small`}>
-            <h2
-              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
-            >
-              Communications & Electronics
-            </h2>
-          </div>
+          <h2
+            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+          >
+            Communications & Electronics
+          </h2>
           <StickyHorizontalSlider slides={data.communications.data} />
           <div className={`divider_fade`}></div>
         </div>
@@ -318,13 +312,11 @@ function Vehicle(props) {
           id="other-options"
           className={`${styles.slug_specs} container anchor`}
         >
-          <div className={`container_small`}>
-            <h2
-              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
-            >
-              Other Options
-            </h2>
-          </div>
+          <h2
+            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+          >
+            Other Options
+          </h2>
           <StickyHorizontalSlider slides={data.otherOptions.data} />
           <div className={`divider_fade`}></div>
         </div>
