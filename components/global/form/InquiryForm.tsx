@@ -36,7 +36,10 @@ const InquiryForm = (props) => {
                   props?.featuredImage?.data.attributes.formats?.medium.url ||
                   props?.featuredImage?.data.attributes.url
                 }
-                alt={props?.featuredImage?.data.attributes.alternativeText}
+                alt={
+                  props?.featuredImage?.data.attributes.alternativeText ||
+                  'Alpine Armoring'
+                }
                 width={
                   props?.featuredImage?.data.attributes.formats?.medium.width
                 }

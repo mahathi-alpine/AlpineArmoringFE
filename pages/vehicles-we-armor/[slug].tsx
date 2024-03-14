@@ -62,19 +62,19 @@ function Vehicle(props) {
       titleNav: 'Conversion Accessories',
     },
     {
-      id: 4,
+      id: 5,
       titleNav: 'Communications & Electronics',
     },
     {
-      id: 4,
+      id: 6,
       titleNav: 'Other Options',
     },
     {
-      id: 5,
+      id: 7,
       titleNav: 'Gallery',
     },
     {
-      id: 6,
+      id: 8,
       titleNav: 'Request a quote',
       button: true,
     },
@@ -263,7 +263,10 @@ function Vehicle(props) {
       ) : null}
 
       {data?.armoringFeatures?.data.length > 0 ? (
-        <div id="armoring-features" className={`${styles.slug_specs} anchor`}>
+        <div
+          id="armoring-features"
+          className={`${styles.slug_specs} container anchor`}
+        >
           <div className={`container_small`}>
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
@@ -279,7 +282,7 @@ function Vehicle(props) {
       {data?.conversionAccessories?.data.length > 0 ? (
         <div
           id="conversion-accessories"
-          className={`${styles.slug_specs} anchor`}
+          className={`${styles.slug_specs} container anchor`}
         >
           <div className={`container_small`}>
             <h2
@@ -296,7 +299,7 @@ function Vehicle(props) {
       {data?.communications?.data.length > 0 ? (
         <div
           id="communications-&-electronics"
-          className={`${styles.slug_specs} anchor`}
+          className={`${styles.slug_specs} container anchor`}
         >
           <div className={`container_small`}>
             <h2
@@ -311,7 +314,10 @@ function Vehicle(props) {
       ) : null}
 
       {data?.otherOptions?.data.length > 0 ? (
-        <div id="other-options" className={`${styles.slug_specs} anchor`}>
+        <div
+          id="other-options"
+          className={`${styles.slug_specs} container anchor`}
+        >
           <div className={`container_small`}>
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}

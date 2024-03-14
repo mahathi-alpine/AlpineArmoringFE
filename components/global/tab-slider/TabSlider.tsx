@@ -89,8 +89,6 @@ const TabSlider = ({
         }
       );
 
-      setTimeout(() => setClickEventOccurred(false), 2000);
-
       observerAnchorTargets.forEach((item) => observerAnchor.observe(item));
 
       // Clean up the observer when the component unmounts
@@ -100,6 +98,8 @@ const TabSlider = ({
       };
     }
   }, [anchor, clickEventOccurred]);
+
+  setTimeout(() => setClickEventOccurred(false), 2000);
 
   useEffect(() => {
     if (sticky) {
