@@ -142,6 +142,7 @@
 
   &_specs {
     margin-bottom: rem(24);
+    padding-right: 0;
 
     @include breakpoint(large) {
       // padding-top: rem(70);
