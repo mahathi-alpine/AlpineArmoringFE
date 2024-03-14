@@ -3,10 +3,10 @@
   padding: rem(64) 0 0 0;
   overflow: hidden;
   @include breakpoint(medium) {
-    padding: rem(100) 0;
+    padding: rem(90) 0;
   }
   @include breakpoint(huge) {
-    padding: rem(160) 0 rem(100) 0;
+    padding: rem(130) 0 rem(100) 0;
   }
 
   &:before {

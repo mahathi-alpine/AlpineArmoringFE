@@ -1,6 +1,5 @@
 .stickyHorizontalSlider {
   position: relative;
-  // padding: rem(100) 0 0 0;
   z-index: 2;
   overflow: hidden;
 
@@ -14,8 +13,7 @@
     }
     .stickyHorizontalSlider_item {
       @include breakpoint(large) {
-        // flex: 0 0 calc(100% / 2 - 11px);
-        flex: 100%;
+        flex: 0 0 calc(100% / 4 - 12px);
         margin: 0 0 rem(16) 0;
 
         &:hover {
@@ -23,17 +21,13 @@
           .stickyHorizontalSlider_item_image {
             transform: scale(1.04);
 
-            &_wrap {
-              box-shadow:
-                0 20px 25px -5px #000,
-                0 8px 10px -6px #000;
-            }
+            // &_wrap {
+            //   box-shadow:
+            //     0 20px 25px -5px #000,
+            //     0 8px 10px -6px #000;
+            // }
           }
         }
-      }
-
-      @include breakpoint(large) {
-        flex: 0 0 calc(100% / 4 - 12px);
       }
 
       @include breakpoint(huge) {
@@ -56,7 +50,7 @@
           rgba(0, 0, 0, 0.8) 0%,
           rgba(0, 0, 0, 0) 100%
         );
-        border-radius: 8px;
+        // border-radius: 8px;
         z-index: 1;
       }
 
@@ -64,23 +58,21 @@
         position: absolute;
         bottom: 0;
         left: 0;
+        padding: rem(8);
         z-index: 1;
+        background: transparent;
+        border-radius: 0;
+        text-align: left;
       }
 
-      // &_image{
-      //   filter: brightness(0.5);
-      // }
-
-      &_title {
-        color: var(--color-white);
+      &_image{
+        border-radius: 8px;
       }
     }
   }
 
   @include breakpoint(large) {
     padding-left: 0;
-    // padding-top: rem(150);
-    // padding-bottom: rem(75);
   }
 
   @include breakpoint(huge) {
@@ -100,6 +92,7 @@
 
   &_inner {
     display: flex;
+    margin-bottom: rem(24);
 
     @include breakpoint(large) {
       overflow: unset;
@@ -121,14 +114,13 @@
 
       &:hover {
         transform: scale(0.985);
+        .stickyHorizontalSlider_item_content {
+          box-shadow:
+            0 8px 16px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
         .stickyHorizontalSlider_item_image {
           transform: scale(1.04);
-
-          &_wrap {
-            box-shadow:
-              0 8px 16px 0 rgba(0, 0, 0, 0.2),
-              0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          }
         }
       }
     }
@@ -137,13 +129,6 @@
       margin-left: rem(24);
       flex-shrink: 0;
       flex: 0 0 25%;
-
-      .stickyHorizontalSlider_curved & {
-        flex: unset;
-      }
-    }
-
-    @include breakpoint(huge) {
     }
 
     &:last-child {
@@ -154,16 +139,10 @@
       object-fit: cover;
 
       @include breakpoint(medium) {
-        height: rem(200);
         transition: transform 0.3s ease-in-out;
-
-        &_wrap {
-          transition: box-shadow 0.3s ease-in-out;
-        }
       }
 
       @include breakpoint(large) {
-        height: rem(400);
         width: 100%;
       }
 
@@ -171,43 +150,28 @@
         display: block;
         position: relative;
         overflow: hidden;
-        border-radius: 8px;
-        aspect-ratio: 70/45;
-
-        .stickyHorizontalSlider_cuvred & {
-          border-radius: 24px;
-          @include breakpoint(medium) {
-            border-radius: 32px;
-          }
-          @include breakpoint(large) {
-            border-radius: 48px;
-          }
-        }
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        aspect-ratio: 1.5/1;
       }
     }
 
     &_content {
-      padding: rem(8);
-      @include breakpoint(medium) {
-        // padding: rem(16);
-      }
+      padding: rem(16) rem(8);
+      background: #ededed;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      text-align: center;
+      transition: box-shadow 0.3s ease-in-out;
       @include breakpoint(large) {
         max-width: 600px;
+        border-bottom-left-radius: 32px;
+        border-bottom-right-radius: 32px;
       }
     }
 
     &_title {
-      // margin-bottom: rem(16);
-      font-weight: var(--font-regular);
-      color: var(--color-dark);
-      font-size: rem(15);
-      @include breakpoint(large) {
-        font-size: rem(18);
-
-        .stickyHorizontalSlider_curved & {
-          font-size: rem(25);
-        }
-      }
+      font-size: rem(14);
     }
 
     &_date {

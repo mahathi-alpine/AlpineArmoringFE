@@ -22,7 +22,7 @@
       top: 0;
       max-width: 900px;
       margin: unset;
-      background: #f3f3f3;
+      background: var(--color-background);
       border-bottom-right-radius: 32px;
       padding: rem(24) rem(40) rem(24) rem(24);
 
@@ -150,7 +150,7 @@
         top: -1px;
         height: 32px;
         width: 32px;
-        background: url('/assets/smallCurveGray.svg') no-repeat;
+        background: url('/assets/smallCurveBg.svg') no-repeat;
         background-size: cover;
         transform: rotate(180deg);
       }
@@ -162,7 +162,7 @@
         bottom: -31px;
         height: 32px;
         width: 32px;
-        background: url('/assets/smallCurveGray.svg') no-repeat;
+        background: url('/assets/smallCurveBg.svg') no-repeat;
         background-size: cover;
         transform: rotate(180deg);
       }
@@ -232,7 +232,8 @@
       position: relative;
       margin-bottom: rem(24);
       z-index: 1;
-
+      overflow: hidden;
+      
       @include breakpoint(medium) {
         max-width: 600px;
         margin: auto;

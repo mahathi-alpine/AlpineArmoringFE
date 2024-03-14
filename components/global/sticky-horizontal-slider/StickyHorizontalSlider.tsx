@@ -13,7 +13,7 @@ import useLightbox from '../lightbox/useLightbox';
 const StickyHorizontalSlider = ({
   slides,
   title = undefined,
-  curved = false,
+  // curved = false,
   inventory = false,
 }) => {
   const { openLightbox, renderLightbox } = useLightbox();
@@ -27,10 +27,10 @@ const StickyHorizontalSlider = ({
   return (
     <section
       className={`
-        ${styles.stickyHorizontalSlider}
-        ${curved ? styles.stickyHorizontalSlider_curved : ''}      
+        ${styles.stickyHorizontalSlider}      
         ${inventory ? styles.stickyHorizontalSlider_inventory : ''}   
       `}
+      // ${curved ? styles.stickyHorizontalSlider_curved : ''}
     >
       {title ? (
         <div className={`${styles.stickyHorizontalSlider_heading} container`}>
@@ -62,10 +62,11 @@ const StickyHorizontalSlider = ({
                   >
                     <source
                       media="(min-width: 768px)"
-                      srcSet={data.image.data.attributes.formats?.medium?.url}
+                      // srcSet={data.image.data.attributes.formats?.medium?.url}
                     />
                     <Image
-                      src={data.image.data.attributes.formats?.small.url}
+                      // src={data.image.data.attributes.formats?.small.url}
+                      src="/assets/specs.jpg"
                       alt={
                         data.image.data.attributes.alternativeText ||
                         'Alpine Armoring'

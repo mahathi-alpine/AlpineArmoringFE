@@ -55,11 +55,19 @@ function Vehicle(props) {
     },
     {
       id: 3,
-      titleNav: 'Armoring Specs',
+      titleNav: 'Armoring Features',
     },
     {
       id: 4,
-      titleNav: 'Optional Equipment',
+      titleNav: 'Conversion Accessories',
+    },
+    {
+      id: 4,
+      titleNav: 'Communications & Electronics',
+    },
+    {
+      id: 4,
+      titleNav: 'Other Options',
     },
     {
       id: 5,
@@ -203,11 +211,14 @@ function Vehicle(props) {
                 />
                 <Image
                   src={dimensions1.formats?.small?.url || dimensions1.url}
+                  // src="/assets/dimensions1.png"
                   alt={dimensions1.alternativeText || 'Alpine Armoring'}
                   width={dimensions1.width}
                   height={dimensions1.height}
                 />
               </picture>
+              {/* <div className={`${styles.slug_dimensions_height}`}>59 in (149 cm)</div>
+              <div className={`${styles.slug_dimensions_width}`}>83 in (210 cm)</div> */}
             </div>
 
             <div
@@ -251,29 +262,65 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {data?.specs.data.length > 0 ? (
-        <div id="armoring-specs" className={`${styles.slug_specs} anchor`}>
+      {data?.armoringFeatures?.data.length > 0 ? (
+        <div id="armoring-features" className={`${styles.slug_specs} anchor`}>
           <div className={`container_small`}>
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
             >
-              Armoring Specifications
+              Armoring Features
             </h2>
           </div>
-          <StickyHorizontalSlider slides={data.specs.data} />
+          <StickyHorizontalSlider slides={data.armoringFeatures.data} />
+          <div className={`divider_fade`}></div>
         </div>
       ) : null}
 
-      {data?.equipment.data.length > 0 ? (
-        <div id="optional-equipment" className={`${styles.slug_specs} anchor`}>
+      {data?.conversionAccessories?.data.length > 0 ? (
+        <div
+          id="conversion-accessories"
+          className={`${styles.slug_specs} anchor`}
+        >
           <div className={`container_small`}>
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
             >
-              Optional Equipment
+              Conversion Accessories
             </h2>
           </div>
-          <StickyHorizontalSlider slides={data.equipment.data} />
+          <StickyHorizontalSlider slides={data.conversionAccessories.data} />
+          <div className={`divider_fade`}></div>
+        </div>
+      ) : null}
+
+      {data?.communications?.data.length > 0 ? (
+        <div
+          id="communications-&-electronics"
+          className={`${styles.slug_specs} anchor`}
+        >
+          <div className={`container_small`}>
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            >
+              Communications & Electronics
+            </h2>
+          </div>
+          <StickyHorizontalSlider slides={data.communications.data} />
+          <div className={`divider_fade`}></div>
+        </div>
+      ) : null}
+
+      {data?.otherOptions?.data.length > 0 ? (
+        <div id="other-options" className={`${styles.slug_specs} anchor`}>
+          <div className={`container_small`}>
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            >
+              Other Options
+            </h2>
+          </div>
+          <StickyHorizontalSlider slides={data.otherOptions.data} />
+          <div className={`divider_fade`}></div>
         </div>
       ) : null}
 

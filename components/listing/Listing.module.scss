@@ -7,7 +7,7 @@
     @include breakpoint(large) {
       padding-top: 0;
       padding-bottom: rem(120);
-      max-width: 1470px;
+      // max-width: 1470px;
 
       &_inventory {
         display: flex;

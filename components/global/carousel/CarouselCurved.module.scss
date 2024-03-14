@@ -30,6 +30,7 @@
   }
 
   .carouselCurved_wrapper_regular & {
+    margin-top: 0;
     @include breakpoint(huge) {
       --slide-size: 32%;
     }
