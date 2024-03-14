@@ -233,7 +233,7 @@
       margin-bottom: rem(24);
       z-index: 1;
       overflow: hidden;
-      
+
       @include breakpoint(medium) {
         max-width: 600px;
         margin: auto;

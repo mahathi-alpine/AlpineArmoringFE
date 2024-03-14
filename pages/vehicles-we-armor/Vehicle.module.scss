@@ -51,35 +51,34 @@
       }
     }
 
-    &_height{
+    &_height {
       position: absolute;
-      right: -7vW;
-      font-size: 3vW;
-      top: calc(50% - 8.8vW);
+      right: -7vw;
+      font-size: 3vw;
+      top: calc(50% - 8.8vw);
       font-weight: var(--font-medium);
       @include breakpoint(medium) {
-        font-size: 1vW;
-        top: calc(50% - 2.9vW);
+        font-size: 1vw;
+        top: calc(50% - 2.9vw);
       }
     }
 
-    &_width{
+    &_width {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 0.1vW;
-      padding-right: 9vW;
+      bottom: 0.1vw;
+      padding-right: 9vw;
       text-align: center;
-      font-size: 3vW;
+      font-size: 3vw;
       font-weight: var(--font-medium);
       @include breakpoint(medium) {
-        padding-right: 2vW;
-        font-size: 1vW;
+        padding-right: 2vw;
+        font-size: 1vw;
       }
     }
 
     &_wrap {
-
       &_image {
         position: relative;
 
