@@ -44,6 +44,8 @@ function Home({ homepageData, categories }) {
     };
   }, []);
 
+  console.log('test');
+
   return (
     <>
       <Seo props={seoData} />
@@ -112,6 +114,7 @@ export async function getStaticProps() {
   return {
     // props: { homepageData, categories, languageCookie },
     props: { homepageData, categories },
+    revalidate: 1,
   };
 }
 

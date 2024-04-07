@@ -23,12 +23,7 @@ module.exports = {
       },
       {
         protocol: 'https',
-        hostname: 'herokuapp.com',
-        pathname: '**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'alpine-armoring-e7d249d45874.herokuapp.com',
+        hostname: 'https://alpinetesting.cloudflex-ha.com',
         pathname: '**',
       },
       {
@@ -36,11 +31,6 @@ module.exports = {
         hostname: 'i.ytimg.com',
         pathname: '**',
       },
-      // 'res.cloudinary.com',
-      // 'assets.vercel.com',
-      // 'localhost',
-      // 'herokuapp.com',
-      // 'alpine-armoring-e7d249d45874.herokuapp.com',
     ],
   },
   redirects: () => {
