@@ -49,6 +49,7 @@ export async function getStaticProps() {
     populate: 'deep',
     sort: 'publishedAt',
     sortType: 'desc',
+    pageSize: 200,
   });
   posts = posts.data || null;
 
