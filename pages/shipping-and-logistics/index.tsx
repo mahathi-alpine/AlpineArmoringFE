@@ -18,8 +18,8 @@ function Shipping(props) {
   const boxes = props?.pageData?.boxes;
   const license = props?.pageData?.licenseText;
   const licenseImage = props?.pageData?.licenseImage;
-  const licensePDF1 = props?.pageData?.licensePDF1.data.attributes?.url;
-  const licensePDF2 = props?.pageData?.licensePDF2.data.attributes?.url;
+  const licensePDF1 = props?.pageData?.licensePDF1.data?.attributes?.url;
+  const licensePDF2 = props?.pageData?.licensePDF2.data?.attributes?.url;
 
   const isMobile = useIsMobile();
 
@@ -118,12 +118,12 @@ function Shipping(props) {
                 <Image
                   src={
                     isMobile
-                      ? item.image?.data.attributes.formats?.small?.url
-                      : item.image?.data.attributes.formats?.large?.url ||
-                        item.image?.data.attributes.url
+                      ? item.image?.data?.attributes.formats?.small?.url
+                      : item.image?.data?.attributes.formats?.large?.url ||
+                        item.image?.data?.attributes.url
                   }
                   alt={
-                    item.image?.data.attributes.alternativeText ||
+                    item.image?.data?.attributes.alternativeText ||
                     'Alpine Armoring'
                   }
                   width={1200}
@@ -154,15 +154,15 @@ function Shipping(props) {
             {licenseImage ? (
               <Image
                 src={
-                  licenseImage.data.attributes.formats?.large?.url ||
-                  licenseImage.data.attributes.url
+                  licenseImage.data?.attributes.formats?.large?.url ||
+                  licenseImage.data?.attributes.url
                 }
                 alt={
-                  licenseImage.data.attributes.alternativeText ||
+                  licenseImage.data?.attributes.alternativeText ||
                   'Alpine Armoring'
                 }
-                width={licenseImage.data.attributes.width}
-                height={licenseImage.data.attributes.height}
+                width={licenseImage.data?.attributes.width}
+                height={licenseImage.data?.attributes.height}
               ></Image>
             ) : null}
 

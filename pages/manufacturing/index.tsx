@@ -153,22 +153,6 @@ function Manufacturing(props) {
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >
-            {/* {props.pageData?.section2Title ? (
-              <h2
-                className={`${styles.manufacturing_title} block-reveal observe`}
-                dangerouslySetInnerHTML={{ __html: props.pageData.section2Title }}
-              ></h2>
-            ) : null}
-
-            {props.pageData?.section2Heading ? (
-              <p
-                className={`${styles.manufacturing_section2_heading} observe fade-in`}
-                dangerouslySetInnerHTML={{
-                  __html: props.pageData.section2Heading,
-                }}
-              ></p>
-            ) : null} */}
-
             {props.pageData?.section2Heading ? (
               <div className={`${styles.manufacturing_filling}`}>
                 <FillingText data={props.pageData?.section2Heading} small />
@@ -176,7 +160,7 @@ function Manufacturing(props) {
             ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
-              {props.pageData?.section2Image ? (
+              {props.pageData?.section2Image.data ? (
                 <div
                   className={`${styles.manufacturing_image} observe fade-in`}
                 >
