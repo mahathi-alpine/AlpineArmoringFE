@@ -17,7 +17,11 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       <picture>
         <source
           media="(min-width: 768px)"
-          srcSet={bannerImage.formats?.xlarge?.url || bannerImage.url}
+          src={
+            bannerImage.width === 2200
+              ? bannerImage.url
+              : bannerImage.formats?.xlarge?.url || bannerImage.url
+          }
         />
         <Image
           src={`${bannerImage.formats?.small?.url || bannerImage.url}`}
