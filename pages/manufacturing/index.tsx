@@ -182,9 +182,9 @@ function Manufacturing(props) {
                 >
                   <Image
                     src={
-                      props.pageData.section2Image.data.attributes.formats
+                      props.pageData.section2Image.data.attributes?.formats
                         ?.large?.url ||
-                      props.pageData.section2Image.data.attributes.url
+                      props.pageData.section2Image.data.attributes?.url
                     }
                     alt={
                       props.pageData.section2Image.data.attributes
