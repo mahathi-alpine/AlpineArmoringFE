@@ -96,9 +96,9 @@ const StickyHorizontalSlider = ({
 
       {renderLightbox({
         slides: slides.map((item) => ({
-          src: item.attributes?.image.data.attributes.url,
-          width: item.attributes?.image.data.attributes.width,
-          height: item.attributes?.image.data.attributes.height,
+          src: item.attributes?.image.data?.attributes.url,
+          width: item.attributes?.image.data?.attributes.width,
+          height: item.attributes?.image.data?.attributes.height,
           title: item.attributes?.title,
           formats: item.attributes?.formats,
           alt: item.attributes?.alternativeText,
