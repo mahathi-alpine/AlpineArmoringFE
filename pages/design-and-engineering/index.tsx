@@ -303,7 +303,7 @@ const Design = (props) => {
                 </div>
               ) : null}
 
-              {props.pageData?.section4Image.data.attributes ? (
+              {props.pageData?.section4Image.data?.attributes ? (
                 <Image
                   src={
                     props.pageData.section4Image.data.attributes.formats?.medium
@@ -348,7 +348,7 @@ const Design = (props) => {
           ) : null}
 
           <div className={`${styles.design_box}`}>
-            {props.pageData?.section5Image.data.attributes ? (
+            {props.pageData?.section5Image.data?.attributes ? (
               <Image
                 src={
                   props.pageData.section5Image.data.attributes.formats?.medium
