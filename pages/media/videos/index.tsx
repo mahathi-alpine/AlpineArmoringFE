@@ -6,6 +6,7 @@ import MediaList from '../MediaList';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Videos(props) {
+  console.log(props);
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const videos = props?.videos;

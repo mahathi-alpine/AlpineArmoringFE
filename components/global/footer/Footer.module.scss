@@ -50,7 +50,7 @@
 
   &_column {
     padding-bottom: rem(40);
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       flex: 1;
       padding-bottom: rem(20);
     }
@@ -95,7 +95,7 @@
     flex-flow: column;
     row-gap: 16px;
     list-style: none;
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       flex-flow: unset;
       flex-wrap: wrap;
     }
@@ -103,7 +103,7 @@
     &_item {
       position: relative;
 
-      @include breakpoint(large) {
+      @include breakpoint(medium) {
         width: 50%;
       }
     }
@@ -213,11 +213,18 @@
       justify-content: space-evenly;
       align-items: center;
       margin-bottom: rem(32);
+
+      @include breakpoint(medium) {
+        justify-content: center;
+        gap: 32px;
+      }
+
       @include breakpoint(large) {
         margin-bottom: 0;
         order: 1;
         gap: 40px;
       }
+
       &_item {
         position: relative;
         margin-bottom: rem(20);

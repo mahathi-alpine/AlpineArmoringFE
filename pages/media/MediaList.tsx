@@ -7,7 +7,7 @@ import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 
 function MediaList({ props, itemType }) {
   const groupedByCategory = props?.reduce((acc, item) => {
-    const category = item.attributes.category.data
+    const category = item.attributes.category?.data
       ? item.attributes.category.data?.attributes.name
       : item.attributes.category;
     if (!acc[category]) {
