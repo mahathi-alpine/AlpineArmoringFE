@@ -23,8 +23,8 @@ function InventoryVehicle(props) {
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
-  const category = data?.categories?.data[0]?.attributes.title;
-  const categorySlug = data?.categories?.data[0]?.attributes.slug;
+  const category = data?.categories?.data[0]?.attributes?.title;
+  const categorySlug = data?.categories?.data[0]?.attributes?.slug;
 
   // const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
   // useEffect(() => {
@@ -248,7 +248,7 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_pdfs}`}>
               {data?.OEMWindowSticker?.data ? (
                 <Button
-                  href={data.OEMWindowSticker.data.attributes.url.replace(
+                  href={data.OEMWindowSticker.data.attributes?.url.replace(
                     /\.ai$/,
                     '.pdf'
                   )}
@@ -262,7 +262,7 @@ function InventoryVehicle(props) {
 
               {data?.OEMArmoringSpecs?.data ? (
                 <Button
-                  href={data.OEMArmoringSpecs.data.attributes.url.replace(
+                  href={data.OEMArmoringSpecs.data.attributes?.url.replace(
                     /\.ai$/,
                     '.pdf'
                   )}
@@ -307,7 +307,7 @@ function InventoryVehicle(props) {
       ) : null}
 
       {data?.video.data ? (
-        <VideoScale video={data?.video.data?.attributes.url} />
+        <VideoScale video={data?.video.data?.attributes?.url} />
       ) : null}
 
       {formData ? <InquiryForm {...formData} /> : null}
