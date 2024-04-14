@@ -9,22 +9,20 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const bannerTitle = props.title;
   const bannerDescription = props.description;
 
-  console.log(props);
-
   let mediaElement;
   if (bannerMimeType?.split('/')[0] === 'image') {
     mediaElement = (
       <picture>
         <source
           media="(min-width: 768px)"
-          src={
+          srcSet={
             bannerImage.width === 2200
               ? bannerImage.url
               : bannerImage.formats?.xlarge?.url || bannerImage.url
           }
         />
         <Image
-          src={`${bannerImage.formats?.small?.url || bannerImage.url}`}
+          src={`${bannerImage.formats?.thumbnail?.url || bannerImage.url}`}
           alt={bannerImage.alternativeText || 'Alpine Armoring'}
           width={bannerImage.width}
           height={bannerImage.height}

@@ -67,29 +67,31 @@ function About(props) {
                 null}
               </div>
 
-              <div className={`${styles.about_box_item_image}`}>
-                <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={
-                      item.image?.data?.attributes.formats?.large?.url ||
-                      item.image?.data?.attributes.url
-                    }
-                  />
-                  <Image
-                    src={`${
-                      item.image?.data?.attributes.formats?.small?.url ||
-                      item.image?.data?.attributes.url
-                    }`}
-                    alt={
-                      item.image?.data?.attributes.alternativeText ||
-                      'Alpine Armoring'
-                    }
-                    width={1200}
-                    height={346}
-                  />
-                </picture>
-              </div>
+              {item.image.data ? (
+                <div className={`${styles.about_box_item_image}`}>
+                  <picture>
+                    <source
+                      media="(min-width: 768px)"
+                      srcSet={
+                        item.image?.data?.attributes.formats?.large?.url ||
+                        item.image?.data?.attributes.url
+                      }
+                    />
+                    <Image
+                      src={`${
+                        item.image?.data?.attributes.formats?.small?.url ||
+                        item.image?.data?.attributes.url
+                      }`}
+                      alt={
+                        item.image?.data?.attributes.alternativeText ||
+                        'Alpine Armoring'
+                      }
+                      width={1200}
+                      height={346}
+                    />
+                  </picture>
+                </div>
+              ) : null}
             </div>
           ))}
         </div>
@@ -100,7 +102,7 @@ function About(props) {
           </div>
         ) : null}
 
-        {props.pageData?.bottomImage ? (
+        {props.pageData?.bottomImage.data ? (
           <div className={`${styles.about_bottom_img} container_small`}>
             <Image
               src={`${
