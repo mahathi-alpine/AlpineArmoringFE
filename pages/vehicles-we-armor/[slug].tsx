@@ -161,6 +161,8 @@ function Vehicle(props) {
     // };
   }, []);
 
+  console.log(props);
+
   if (!props.data) {
     return null;
   }
