@@ -296,7 +296,7 @@ function InventoryVehicle(props) {
         </div>
       ) : null}
 
-      {data?.accessories.data.length > 0 ? (
+      {data?.accessories?.data.length > 0 ? (
         <div id="options-included" className={`anchor`}>
           <StickyHorizontalSlider
             slides={data.accessories.data}
