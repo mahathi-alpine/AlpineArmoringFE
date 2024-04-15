@@ -92,7 +92,7 @@ const Banner = (props) => {
               />
               <Image
                 src={
-                  data.featuredImage.data.attributes.formats?.small.url ||
+                  data.featuredImage.data.attributes.formats?.thumbnail.url ||
                   data.featuredImage.data.attributes.url
                 }
                 alt={
@@ -103,13 +103,15 @@ const Banner = (props) => {
                 priority
                 width={
                   isMobile
-                    ? data.featuredImage.data.attributes.formats?.small?.width
+                    ? data.featuredImage.data.attributes.formats?.thumbnail
+                        ?.width
                     : data.featuredImage.data.attributes.formats?.large
                         ?.width || data.featuredImage.data.attributes.width
                 }
                 height={
                   isMobile
-                    ? data.featuredImage.data.attributes.formats?.small?.height
+                    ? data.featuredImage.data.attributes.formats?.thumbnail
+                        ?.height
                     : data.featuredImage.data.attributes.formats?.large
                         ?.height || data.featuredImage.data.attributes.height
                 }

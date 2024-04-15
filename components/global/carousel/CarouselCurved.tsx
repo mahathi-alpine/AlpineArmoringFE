@@ -47,8 +47,6 @@ const CarouselCurved = ({
     onNextButtonClick,
   } = usePrevNextButtons(emblaMainApi);
 
-  console.log(slides);
-
   return (
     <div
       className={`
@@ -82,7 +80,7 @@ const CarouselCurved = ({
                       <Image
                         src={
                           isMobile
-                            ? item.attributes.formats?.small?.url
+                            ? item.attributes.formats?.thumbnail?.url
                             : item.attributes.formats?.medium?.url ||
                               item.attributes.url
                         }
@@ -92,13 +90,13 @@ const CarouselCurved = ({
                         // priority={index === 0}
                         width={
                           isMobile
-                            ? item.attributes.formats?.small?.width
+                            ? item.attributes.formats?.thumbnail?.width
                             : item.attributes.formats?.medium?.width ||
                               item.attributes.width
                         }
                         height={
                           isMobile
-                            ? item.attributes.formats?.small?.height
+                            ? item.attributes.formats?.thumbnail?.height
                             : item.attributes.formats?.medium?.height ||
                               item.attributes.height
                         }

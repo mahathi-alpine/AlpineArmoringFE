@@ -87,7 +87,7 @@ const LightboxCustom = ({
                 <Image
                   src={
                     window.innerWidth < 768
-                      ? item.attributes.formats?.small?.url
+                      ? item.attributes.formats?.thumbnail?.url
                       : item.attributes.formats?.xlarge?.url ||
                         item.attributes.url
                   }

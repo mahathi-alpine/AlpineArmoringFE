@@ -118,7 +118,8 @@ const EmblaCarousel = (props) => {
                   />
                   <Image
                     src={
-                      item.attributes.formats?.small.url || item.attributes.url
+                      item.attributes.formats?.thumbnail.url ||
+                      item.attributes.url
                     }
                     alt={item.attributes.alternativeText || 'Alpine Armoring'}
                     quality={100}

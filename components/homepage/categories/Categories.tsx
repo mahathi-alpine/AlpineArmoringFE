@@ -24,7 +24,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 />
                 <Image
                   src={`${
-                    data.image.data.attributes.formats?.small?.url ||
+                    data.image.data.attributes.formats?.thumbnail?.url ||
                     data.image.data.attributes.url
                   }`}
                   alt={
@@ -84,7 +84,7 @@ const Categories = ({ props, allVehiclesImage }) => {
             />
             <Image
               src={`${
-                allVehiclesImage.formats?.small?.url || allVehiclesImage.url
+                allVehiclesImage.formats?.thumbnail?.url || allVehiclesImage.url
               }`}
               alt={allVehiclesImage.alternativeText || 'Alpine Armoring'}
               width={740}

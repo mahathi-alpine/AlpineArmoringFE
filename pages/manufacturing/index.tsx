@@ -110,8 +110,9 @@ function Manufacturing(props) {
               >
                 <Image
                   src={
-                    props.pageData.section1Image.data.attributes.formats?.small
-                      ?.url || props.pageData.section1Image.data.attributes.url
+                    props.pageData.section1Image.data.attributes.formats
+                      ?.thumbnail?.url ||
+                    props.pageData.section1Image.data.attributes.url
                   }
                   alt={
                     props.pageData.section1Image.data.attributes
@@ -119,12 +120,12 @@ function Manufacturing(props) {
                   }
                   quality={100}
                   width={
-                    props.pageData.section1Image.data.attributes.formats?.small
-                      .width
+                    props.pageData.section1Image.data.attributes.formats
+                      ?.thumbnail.width
                   }
                   height={
-                    props.pageData.section1Image.data.attributes.formats?.small
-                      .height
+                    props.pageData.section1Image.data.attributes.formats
+                      ?.thumbnail.height
                   }
                   sizes="(min-width: 768px ) 40vw, 100vw"
                 ></Image>

@@ -118,7 +118,7 @@ function Shipping(props) {
                 <Image
                   src={
                     isMobile
-                      ? item.image?.data?.attributes.formats?.small?.url
+                      ? item.image?.data?.attributes.formats?.thumbnail?.url
                       : item.image?.data?.attributes.formats?.large?.url ||
                         item.image?.data?.attributes.url
                   }

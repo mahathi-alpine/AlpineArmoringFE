@@ -65,7 +65,7 @@ const StickyHorizontalSlider = ({
                       // srcSet={data.image.data.attributes.formats?.medium?.url}
                     />
                     <Image
-                      // src={data.image.data.attributes.formats?.small.url}
+                      // src={data.image.data.attributes.formats?.thumbnail.url}
                       src="/assets/specs.jpg"
                       alt={
                         data.image.data.attributes.alternativeText ||

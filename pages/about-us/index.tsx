@@ -79,7 +79,7 @@ function About(props) {
                     />
                     <Image
                       src={`${
-                        item.image?.data?.attributes.formats?.small?.url ||
+                        item.image?.data?.attributes.formats?.thumbnail?.url ||
                         item.image?.data?.attributes.url
                       }`}
                       alt={

@@ -231,7 +231,7 @@ const Design = (props) => {
                     <div className={`${styles.design_armor_image}`}>
                       <Image
                         src={
-                          item.image.data.attributes.formats?.small?.url ||
+                          item.image.data.attributes.formats?.thumbnail?.url ||
                           item.image.data.attributes.url
                         }
                         alt={
@@ -259,7 +259,7 @@ const Design = (props) => {
                       </p>
                       <Image
                         src={
-                          selectedItem.image.data.attributes.formats?.small
+                          selectedItem.image.data.attributes.formats?.thumbnail
                             ?.url || selectedItem.image.data.attributes.url
                         }
                         alt={

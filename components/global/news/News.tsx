@@ -76,7 +76,7 @@ const Blog = ({
                       <Image
                         src={`${
                           item.attributes.thumbnail.data.attributes.formats
-                            ?.small?.url ||
+                            ?.thumbnail?.url ||
                           item.attributes.thumbnail.data.attributes.url
                         }`}
                         alt={

@@ -16,7 +16,9 @@ const Partners = (props) => {
             key={item.id}
           >
             <Image
-              src={item.attributes.formats?.small?.url || item.attributes.url}
+              src={
+                item.attributes.formats?.thumbnail?.url || item.attributes.url
+              }
               alt={item.attributes.alternativeText || 'Alpine Armoring'}
               width={310}
               height={90}
