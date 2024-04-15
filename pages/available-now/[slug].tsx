@@ -347,6 +347,7 @@ export async function getStaticProps({ params }) {
   const data = await getPageData({
     route: 'inventories',
     params: `filters[slug][$eq]=${slug}`,
+    populate: 'deep',
   });
 
   if (!data || !data.data || data.data.length === 0) {
