@@ -23,6 +23,7 @@ const CarouselCurved = ({
   white = undefined,
   squared = undefined,
   regular = undefined,
+  singular = undefined,
 }) => {
   const slides = props;
 
@@ -47,6 +48,9 @@ const CarouselCurved = ({
     onNextButtonClick,
   } = usePrevNextButtons(emblaMainApi);
 
+  // console.log(props);
+  // return null;
+
   return (
     <div
       className={`
@@ -54,9 +58,10 @@ const CarouselCurved = ({
         ${white ? styles.carouselCurved_wrapper_white : ''}
         ${regular ? styles.carouselCurved_wrapper_regular : ''}
         ${squared ? styles.carouselCurved_wrapper_squared : ''}
+        ${singular ? styles.carouselCurved_wrapper_singular : ''}
       `}
     >
-      {!regular ? (
+      {!regular && !singular ? (
         <div
           className={`${styles.carouselCurved_shape} ${styles.carouselCurved_shapeAfter} shape-after shape-after-small`}
         ></div>
@@ -81,7 +86,7 @@ const CarouselCurved = ({
                         src={
                           isMobile
                             ? item.attributes.formats?.thumbnail?.url
-                            : item.attributes.formats?.medium?.url ||
+                            : item.attributes.formats?.large?.url ||
                               item.attributes.url
                         }
                         alt={
@@ -162,7 +167,7 @@ const CarouselCurved = ({
         })}
       </div>
 
-      {!regular ? (
+      {!regular && !singular ? (
         <div
           className={`${
             styles.carouselCurved_shape

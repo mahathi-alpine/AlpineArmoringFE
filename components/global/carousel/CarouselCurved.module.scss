@@ -13,10 +13,19 @@
     .carouselCurved_wrapper_squared & {
       --slide-size: 35%;
     }
+
+    .carouselCurved_wrapper_singular & {
+      --slide-size: 100%;
+    }
   }
 
   @include breakpoint(large) {
     margin-bottom: 70px;
+
+    .carouselCurved_wrapper_singular & {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
   }
 
   @include breakpoint(huge) {
@@ -40,6 +49,18 @@
           border-radius: 16px;
         }
       }
+    }
+  }
+
+  &_wrapper_singular{
+    height: 100%;
+    &>div, 
+    .carouselCurved_viewport{
+      height: 100%;
+    }
+
+    .carouselCurved_slide{
+      padding: 0;
     }
   }
 

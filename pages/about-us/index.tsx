@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Seo from 'components/Seo';
 import FillingText from 'components/global/filling-text/FillingText';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import Gallery from 'components/global/carousel/CarouselCurved';
 
 function About(props) {
   const seoData = props?.pageData?.seo;
@@ -22,6 +23,9 @@ function About(props) {
       targets.forEach((item) => observerRef.current.unobserve(item));
     };
   }, []);
+
+  // console.log(props);
+  // return null;
 
   return (
     <>
@@ -61,35 +65,12 @@ function About(props) {
                     className={`${styles.about_box_item_text}`}
                     dangerouslySetInnerHTML={{ __html: item.description }}
                   ></p>
-                ) : // <Markdown className={`${styles.about_box_item_text}`}>
-                //   {item.description}
-                // </Markdown>
-                null}
+                ) : null}
               </div>
 
               {item.image.data ? (
                 <div className={`${styles.about_box_item_image}`}>
-                  <picture>
-                    <source
-                      media="(min-width: 768px)"
-                      srcSet={
-                        item.image?.data?.attributes.formats?.large?.url ||
-                        item.image?.data?.attributes.url
-                      }
-                    />
-                    <Image
-                      src={`${
-                        item.image?.data?.attributes.formats?.thumbnail?.url ||
-                        item.image?.data?.attributes.url
-                      }`}
-                      alt={
-                        item.image?.data?.attributes.alternativeText ||
-                        'Alpine Armoring'
-                      }
-                      width={1200}
-                      height={346}
-                    />
-                  </picture>
+                  <Gallery props={item.image.data} singular />
                 </div>
               ) : null}
             </div>
