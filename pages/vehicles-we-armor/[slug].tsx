@@ -217,6 +217,7 @@ function Vehicle(props) {
                   alt={dimensions1.alternativeText || 'Alpine Armoring'}
                   width={dimensions1.width}
                   height={dimensions1.height}
+                  unoptimized={true}
                 />
               </picture>
               {/* <div className={`${styles.slug_dimensions_height}`}>59 in (149 cm)</div>
@@ -382,7 +383,6 @@ export async function getStaticProps({ params }) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
-    populate: 'deep',
   });
 
   if (!data || !data.data || data.data.length === 0) {

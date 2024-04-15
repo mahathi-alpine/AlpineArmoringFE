@@ -8,11 +8,6 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '**',
-      },
-      {
-        protocol: 'https',
         hostname: 'assets.vercel.com',
         pathname: '**',
       },
