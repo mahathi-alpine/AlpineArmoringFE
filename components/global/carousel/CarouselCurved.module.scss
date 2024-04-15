@@ -52,14 +52,14 @@
     }
   }
 
-  &_wrapper_singular{
+  &_wrapper_singular {
     height: 100%;
-    &>div, 
-    .carouselCurved_viewport{
+    & > div,
+    .carouselCurved_viewport {
       height: 100%;
     }
 
-    .carouselCurved_slide{
+    .carouselCurved_slide {
       padding: 0;
     }
   }
