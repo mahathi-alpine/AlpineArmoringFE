@@ -210,7 +210,7 @@ function Vehicle(props) {
                   srcSet={dimensions1.formats?.large?.url || dimensions1.url}
                 />
                 <Image
-                  src={dimensions1.formats?.small?.url || dimensions1.url}
+                  src={dimensions1.formats?.thumbnail?.url || dimensions1.url}
                   // src="/assets/dimensions1.png"
                   alt={dimensions1.alternativeText || 'Alpine Armoring'}
                   width={dimensions1.width}

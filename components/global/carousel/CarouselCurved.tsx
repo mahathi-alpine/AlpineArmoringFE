@@ -47,6 +47,8 @@ const CarouselCurved = ({
     onNextButtonClick,
   } = usePrevNextButtons(emblaMainApi);
 
+  console.log(slides);
+
   return (
     <div
       className={`

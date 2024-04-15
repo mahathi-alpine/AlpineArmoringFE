@@ -9,6 +9,8 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const bannerTitle = props.title;
   const bannerDescription = props.description;
 
+  console.log(bannerImage);
+
   let mediaElement;
   if (bannerMimeType?.split('/')[0] === 'image') {
     mediaElement = (

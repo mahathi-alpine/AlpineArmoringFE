@@ -3,7 +3,7 @@ import { API_URL } from 'config/index';
 export async function fetchAPI(path) {
   const requestUrl = `${API_URL}${path}`;
 
-  // console.log(requestUrl);
+  console.log(requestUrl);
 
   try {
     const [response] = await Promise.all([fetch(requestUrl)]);
@@ -43,13 +43,14 @@ export async function getPageData({
   pageSize,
 }: PageDataProps) {
   const sortQuery = sort ? `&sort=${sort}:${sortType}` : '';
+  const paramsQuery = params ? params : '';
   const populateQuery = populate ? 'populate=' + populate : '';
   const fieldsQuery = fields ? '&' + fields : '';
   const limitQuery = limit ? '&' + limit : '';
   const pageQuery = page ? '&pagination[page]=' + page : '';
   const pageSizeQuery = pageSize ? '&pagination[pageSize]=' + pageSize : '';
 
-  const query = `/${route}?${params}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}`;
+  const query = `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}`;
 
   const pagesData = await fetchAPI(`/api${query}`);
 
