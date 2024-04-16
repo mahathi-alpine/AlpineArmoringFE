@@ -37,6 +37,9 @@ module.exports = {
     return redirects();
   },
   reactStrictMode: true,
+  experimental: {
+    largePageDataBytes: 800 * 1000,
+  },
   env: {
     GOOGLE_TRANSLATION_CONFIG: JSON.stringify({
       languages: [

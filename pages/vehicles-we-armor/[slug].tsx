@@ -361,24 +361,45 @@ function Vehicle(props) {
   );
 }
 
-export async function getStaticPaths() {
-  const slugsResponse = await getPageData({
-    route: 'categories',
-    fields: 'fields[0]=title&fields[1]=slug',
-  });
+// export async function getStaticPaths() {
+//   const slugsResponse = await getPageData({
+//     route: 'categories',
+//     fields: 'fields[0]=title&fields[1]=slug',
+//   });
 
-  const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
+//   const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
 
-  const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
+//   const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
 
-  return {
-    paths,
-    fallback: true,
-  };
-}
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
 
-export async function getStaticProps({ params }) {
-  const { slug } = params;
+// export async function getStaticProps({ params }) {
+//   const { slug } = params;
+//   const data = await getPageData({
+//     route: 'vehicles-we-armors',
+//     params: `filters[slug][$eq]=${slug}`,
+//     populate: 'deep',
+//   });
+
+//   if (!data || !data.data || data.data.length === 0) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+
+//   return {
+//     props: { data },
+//     revalidate: 60,
+//   };
+// }
+
+export async function getServerSideProps(context) {
+  const { slug } = context.query;
+
   const data = await getPageData({
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
@@ -393,7 +414,6 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { data },
-    revalidate: 60,
   };
 }
 
