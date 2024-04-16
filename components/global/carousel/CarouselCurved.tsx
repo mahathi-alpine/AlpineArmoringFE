@@ -48,9 +48,6 @@ const CarouselCurved = ({
     onNextButtonClick,
   } = usePrevNextButtons(emblaMainApi);
 
-  // console.log(props);
-  // return null;
-
   return (
     <div
       className={`
@@ -82,31 +79,42 @@ const CarouselCurved = ({
                 {item.attributes?.url ? (
                   <>
                     <div className={`${styles.carouselCurved_slide_img}`}>
-                      <Image
-                        src={
-                          isMobile
-                            ? item.attributes.formats?.thumbnail?.url
-                            : item.attributes.formats?.large?.url ||
-                              item.attributes.url
-                        }
-                        alt={
-                          item.attributes.alternativeText || 'Alpine Armoring'
-                        }
-                        // priority={index === 0}
-                        width={
-                          isMobile
-                            ? item.attributes.formats?.thumbnail?.width
-                            : item.attributes.formats?.medium?.width ||
-                              item.attributes.width
-                        }
-                        height={
-                          isMobile
-                            ? item.attributes.formats?.thumbnail?.height
-                            : item.attributes.formats?.medium?.height ||
-                              item.attributes.height
-                        }
-                        className={styles.carousel_slide_img}
-                      ></Image>
+                      {item.attributes.mime.split('/')[0] === 'image' ? (
+                        <Image
+                          src={
+                            isMobile
+                              ? item.attributes.formats?.thumbnail?.url
+                              : item.attributes.formats?.large?.url ||
+                                item.attributes.url
+                          }
+                          alt={
+                            item.attributes.alternativeText || 'Alpine Armoring'
+                          }
+                          // priority={index === 0}
+                          width={
+                            isMobile
+                              ? item.attributes.formats?.thumbnail?.width
+                              : item.attributes.formats?.medium?.width ||
+                                item.attributes.width
+                          }
+                          height={
+                            isMobile
+                              ? item.attributes.formats?.thumbnail?.height
+                              : item.attributes.formats?.medium?.height ||
+                                item.attributes.height
+                          }
+                          className={styles.carousel_slide_img}
+                        ></Image>
+                      ) : null}
+
+                      {item.attributes.mime.startsWith('video') ? (
+                        <video autoPlay muted loop>
+                          <source
+                            src={`${item.attributes.url}`}
+                            type={item.attributes.mime}
+                          />
+                        </video>
+                      ) : null}
 
                       {item.attributes.caption ? (
                         <h4
@@ -128,22 +136,24 @@ const CarouselCurved = ({
             ))}
           </div>
 
-          <div className={styles.carouselCurved_arrows}>
-            <PrevButton
-              onClick={onPrevButtonClick}
-              disabled={prevBtnDisabled}
-            />
-            <NextButton
-              onClick={onNextButtonClick}
-              disabled={nextBtnDisabled}
-            />
+          {slides.length > 1 ? (
+            <div className={styles.carouselCurved_arrows}>
+              <PrevButton
+                onClick={onPrevButtonClick}
+                disabled={prevBtnDisabled}
+              />
+              <NextButton
+                onClick={onNextButtonClick}
+                disabled={nextBtnDisabled}
+              />
 
-            {!regular ? (
-              <div className={styles.carouselCurved_zoom}>
-                <ZoomIcon />
-              </div>
-            ) : null}
-          </div>
+              {!regular ? (
+                <div className={styles.carouselCurved_zoom}>
+                  <ZoomIcon />
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
 
         {renderLightbox({

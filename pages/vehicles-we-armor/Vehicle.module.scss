@@ -1,7 +1,7 @@
 .slug {
   &_nav {
     display: none;
-    @include breakpoint(large) {
+    @include breakpoint(huge) {
       display: block;
       position: sticky;
       top: -1px;

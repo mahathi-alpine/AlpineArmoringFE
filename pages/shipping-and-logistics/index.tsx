@@ -8,8 +8,8 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import Markdown from 'markdown-to-jsx';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
-import { useIsMobile } from 'hooks/useIsMobile';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import Gallery from 'components/global/carousel/CarouselCurved';
 
 function Shipping(props) {
   const seoData = props?.pageData?.seo;
@@ -21,7 +21,7 @@ function Shipping(props) {
   const licensePDF1 = props?.pageData?.licensePDF1.data?.attributes?.url;
   const licensePDF2 = props?.pageData?.licensePDF2.data?.attributes?.url;
 
-  const isMobile = useIsMobile();
+  console.log(licenseImage);
 
   const tabSliderData = [
     {
@@ -104,32 +104,17 @@ function Shipping(props) {
                 ) : null}
 
                 {item.description ? (
-                  // <p
-                  //   className={`${styles.shipping_box_item_text}`}
-                  //   dangerouslySetInnerHTML={{ __html: item.description }}
-                  // ></p>
                   <Markdown className={`${styles.shipping_box_item_text}`}>
                     {item.description}
                   </Markdown>
                 ) : null}
               </div>
 
-              <div className={`${styles.shipping_box_item_image}`}>
-                <Image
-                  src={
-                    isMobile
-                      ? item.image?.data?.attributes?.formats?.thumbnail?.url
-                      : item.image?.data?.attributes?.formats?.large?.url ||
-                        item.image?.data?.attributes?.url
-                  }
-                  alt={
-                    item.image?.data?.attributes?.alternativeText ||
-                    'Alpine Armoring'
-                  }
-                  width={1200}
-                  height={346}
-                ></Image>
-              </div>
+              {item.image.data ? (
+                <div className={`${styles.shipping_box_item_image}`}>
+                  <Gallery props={item.image.data} singular />
+                </div>
+              ) : null}
             </div>
           ))}
         </div>
@@ -151,18 +136,18 @@ function Shipping(props) {
           </div>
 
           <div className={`${styles.shipping_license_right}`}>
-            {licenseImage ? (
+            {licenseImage.data ? (
               <Image
                 src={
-                  licenseImage.data?.attributes?.formats?.large?.url ||
-                  licenseImage.data?.attributes?.url
+                  licenseImage.data.attributes?.formats?.large?.url ||
+                  licenseImage.data.attributes?.url
                 }
                 alt={
-                  licenseImage.data?.attributes?.alternativeText ||
+                  licenseImage.data.attributes?.alternativeText ||
                   'Alpine Armoring'
                 }
-                width={licenseImage.data?.attributes.width}
-                height={licenseImage.data?.attributes.height}
+                width={licenseImage.data.attributes.width}
+                height={licenseImage.data.attributes.height}
               ></Image>
             ) : null}
 
