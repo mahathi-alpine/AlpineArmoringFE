@@ -118,9 +118,9 @@ function Shipping(props) {
                 <Image
                   src={
                     isMobile
-                      ? item.image?.data?.attributes.formats?.thumbnail?.url
-                      : item.image?.data?.attributes.formats?.large?.url ||
-                        item.image?.data?.attributes.url
+                      ? item.image?.data?.attributes?.formats?.thumbnail?.url
+                      : item.image?.data?.attributes?.formats?.large?.url ||
+                        item.image?.data?.attributes?.url
                   }
                   alt={
                     item.image?.data?.attributes.alternativeText ||
@@ -154,8 +154,8 @@ function Shipping(props) {
             {licenseImage ? (
               <Image
                 src={
-                  licenseImage.data?.attributes.formats?.large?.url ||
-                  licenseImage.data?.attributes.url
+                  licenseImage.data?.attributes?.formats?.large?.url ||
+                  licenseImage.data?.attributes?.url
                 }
                 alt={
                   licenseImage.data?.attributes.alternativeText ||
