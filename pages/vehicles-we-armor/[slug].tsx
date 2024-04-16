@@ -213,7 +213,6 @@ function Vehicle(props) {
                 />
                 <Image
                   src={dimensions1.formats?.thumbnail?.url || dimensions1.url}
-                  // src="/assets/dimensions1.png"
                   alt={dimensions1.alternativeText || 'Alpine Armoring'}
                   width={dimensions1.width}
                   height={dimensions1.height}
@@ -403,7 +402,7 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
-    populate: 'deep',
+    // populate: 'deep',
   });
 
   if (!data || !data.data || data.data.length === 0) {
