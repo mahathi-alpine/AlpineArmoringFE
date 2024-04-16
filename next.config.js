@@ -40,6 +40,7 @@ module.exports = {
   experimental: {
     largePageDataBytes: 800 * 1000,
   },
+  productionBrowserSourceMaps: true,
   env: {
     GOOGLE_TRANSLATION_CONFIG: JSON.stringify({
       languages: [

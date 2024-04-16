@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-// import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx';
 const ComparisonSlider = dynamic(
   () => import('components/global/comparison-slider/ComparisonSlider')
 );
@@ -186,9 +186,9 @@ function Vehicle(props) {
         >
           <h2 className={`c-title observe fade-in-up`}>Overview</h2>
 
-          {/* <Markdown className={`observe fade-in-up`}>
+          <Markdown className={`observe fade-in-up`}>
             {data.description}
-          </Markdown> */}
+          </Markdown>
         </div>
       ) : null}
 
@@ -403,7 +403,7 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
-    // populate: 'deep',
+    populate: 'deep',
   });
 
   if (!data || !data.data || data.data.length === 0) {
