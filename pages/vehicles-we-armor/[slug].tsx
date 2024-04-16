@@ -1,31 +1,29 @@
 import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
-// import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-// import Banner from 'components/vehicle-we-armor/Banner';
+import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
+import Banner from 'components/vehicle-we-armor/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 // import Markdown from 'markdown-to-jsx';
-// const ComparisonSlider = dynamic(
-//   () => import('components/global/comparison-slider/ComparisonSlider')
-// );
+const ComparisonSlider = dynamic(
+  () => import('components/global/comparison-slider/ComparisonSlider')
+);
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Image from 'next/image';
-// const Gallery = dynamic(
-//   () => import('components/global/carousel/CarouselCurved')
-// );
-// const VideoScale = dynamic(
-//   () => import('components/global/video-scale/VideoScale')
-// );
+const Gallery = dynamic(
+  () => import('components/global/carousel/CarouselCurved')
+);
+const VideoScale = dynamic(
+  () => import('components/global/video-scale/VideoScale')
+);
 import { animateVideo } from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
-  console.log(props);
-  // return null;
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
-  // const inventory = data?.stock?.data;
+  const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
     data?.beforeAfterSlider?.before?.data?.attributes;
   const beforeAfterSlider_After =
@@ -34,17 +32,17 @@ function Vehicle(props) {
   const dimensions1 = data?.dimensions1?.data?.attributes;
   const dimensions2 = data?.dimensions2?.data?.attributes;
 
-  // const gallery = data?.gallery?.data;
+  const gallery = data?.gallery?.data;
 
-  // const banner = {
-  //   title: data?.title,
-  //   featuredImage: data?.featuredImage,
-  //   descriptionBanner: data?.descriptionBanner,
-  //   slug: data?.slug,
-  //   inventory: inventory,
-  //   pdf: data?.pdf,
-  //   protectionLevel: data?.protectionLevel,
-  // };
+  const banner = {
+    title: data?.title,
+    featuredImage: data?.featuredImage,
+    descriptionBanner: data?.descriptionBanner,
+    slug: data?.slug,
+    inventory: inventory,
+    pdf: data?.pdf,
+    protectionLevel: data?.protectionLevel,
+  };
 
   const navItems = [
     {
@@ -165,21 +163,13 @@ function Vehicle(props) {
 
   // console.log(props);
 
-  // if (!props.data) {
-  //   return null;
-  // }
-
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  if (!mounted) {
+  if (!props.data) {
     return null;
   }
 
   return (
     <div className={`${styles.slug}`}>
-      {/* <Banner props={banner} /> */}
+      <Banner props={banner} />
 
       <TabSlider
         props={navItems}
@@ -223,6 +213,7 @@ function Vehicle(props) {
                 />
                 <Image
                   src={dimensions1.formats?.thumbnail?.url || dimensions1.url}
+                  // src="/assets/dimensions1.png"
                   alt={dimensions1.alternativeText || 'Alpine Armoring'}
                   width={dimensions1.width}
                   height={dimensions1.height}
@@ -257,10 +248,10 @@ function Vehicle(props) {
           <div className={`shape-before`}></div>
 
           <div className={`${styles.slug_slider} background-dark`}>
-            {/* <ComparisonSlider
+            <ComparisonSlider
               beforeImage={beforeAfterSlider_Before}
               afterImage={beforeAfterSlider_After}
-            /> */}
+            />
             <p className={`${styles.slug_slider_small}`}>
               <small>
                 The actual custom-armoring conversion may vary per client’s
@@ -333,18 +324,18 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {/* {gallery ? (
+      {gallery ? (
         <div
           className={`${styles.slug_gallery} observe fade-in-up anchor`}
           id="gallery"
         >
           <Gallery props={gallery} white regular />
         </div>
-      ) : null} */}
+      ) : null}
 
-      {/* {data?.videoUpload?.data ? (
+      {data?.videoUpload?.data ? (
         <VideoScale video={data.videoUpload.data.attributes.url} />
-      ) : null} */}
+      ) : null}
 
       {data?.videoYoutube ? (
         <div className={`${styles.slug_yt}`}>
