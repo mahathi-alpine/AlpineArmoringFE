@@ -403,7 +403,8 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
-    // populate: 'deep',
+    populate:
+      'beforeAfterSlider[populate][before][populate]=true&beforeAfterSlider[populate][after][populate]=true&dimensions1[populate]=true&dimensions2[populate]=true&armoringFeatures[populate][image][populate]=true&conversionAccessories[populate][image][populate]=true&otherOptions[populate][image][populate]=true&communications[populate][image][populate]=true&stock[populate]=true&stock[fields][0]=title&gallery[populate]=true&featuredImage[populate]=true&pdf[populate]=true&videoUpload[populate]=true&videoUpload[fields][0]=url',
   });
 
   if (!data || !data.data || data.data.length === 0) {
