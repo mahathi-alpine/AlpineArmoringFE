@@ -319,7 +319,7 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'inventories',
     params: `filters[slug][$eq]=${context.params.slug}`,
-    populate: 'deep',
+    // populate: 'deep',
   });
 
   if (!data || !data.data || data.data.length === 0) {
