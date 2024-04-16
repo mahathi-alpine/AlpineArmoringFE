@@ -74,20 +74,20 @@ function BlogSingle(props) {
   );
 }
 
-export async function getStaticPaths() {
-  const slugsResponse = await getPageData({
-    route: 'blogs',
-  });
+// export async function getStaticPaths() {
+//   const slugsResponse = await getPageData({
+//     route: 'blogs',
+//   });
 
-  const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
+//   const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
 
-  const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
+//   const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
 
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-}
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   };
+// }
 
 // export async function getStaticProps({ params }) {
 //   const { slug } = params;
