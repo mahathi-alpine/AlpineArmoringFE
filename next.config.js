@@ -5,6 +5,7 @@ module.exports = {
     prependData: `@import './styles/_mixins.scss';`,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
