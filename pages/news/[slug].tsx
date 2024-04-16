@@ -89,8 +89,28 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
-  const { slug } = params;
+// export async function getStaticProps({ params }) {
+//   const { slug } = params;
+//   const data = await getPageData({
+//     route: 'blogs',
+//     params: `filters[slug][$eq]=${slug}`,
+//     populate: 'deep',
+//   });
+
+//   if (!data || !data.data || data.data.length === 0) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+
+//   return {
+//     props: { data },
+//     revalidate: 60,
+//   };
+// }
+export async function getServerSideProps(context) {
+  const { slug } = context.query;
+
   const data = await getPageData({
     route: 'blogs',
     params: `filters[slug][$eq]=${slug}`,
@@ -105,7 +125,6 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { data },
-    revalidate: 60,
   };
 }
 
