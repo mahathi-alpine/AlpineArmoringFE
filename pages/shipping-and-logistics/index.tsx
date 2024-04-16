@@ -123,7 +123,7 @@ function Shipping(props) {
                         item.image?.data?.attributes?.url
                   }
                   alt={
-                    item.image?.data?.attributes.alternativeText ||
+                    item.image?.data?.attributes?.alternativeText ||
                     'Alpine Armoring'
                   }
                   width={1200}
@@ -158,7 +158,7 @@ function Shipping(props) {
                   licenseImage.data?.attributes?.url
                 }
                 alt={
-                  licenseImage.data?.attributes.alternativeText ||
+                  licenseImage.data?.attributes?.alternativeText ||
                   'Alpine Armoring'
                 }
                 width={licenseImage.data?.attributes.width}
