@@ -402,7 +402,6 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
-    populate: 'pdf',
   });
 
   if (!data || !data.data || data.data.length === 0) {
