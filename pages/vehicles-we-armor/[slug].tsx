@@ -20,7 +20,7 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
-  console.log(props);
+  // console.log(props);
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
@@ -403,8 +403,7 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
     params: `filters[slug][$eq]=${slug}`,
-    populate:
-      'dimensions1[populate]=true&dimensions2[populate]=true&armoringFeatures[populate][image][populate]=true&conversionAccessories[populate][image][populate]=true&otherOptions[populate][image][populate]=true&communications[populate][image][populate]=true&stock[populate]=true&stock[fields][0]=title&gallery[populate]=true&featuredImage[populate]=true&pdf[populate]=true&videoUpload[populate]=true&videoUpload[fields][0]=url',
+    populate: 'deep',
   });
 
   if (!data || !data.data || data.data.length === 0) {
