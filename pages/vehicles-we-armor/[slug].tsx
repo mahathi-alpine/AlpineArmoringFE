@@ -21,7 +21,7 @@ import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
   console.log(props);
-  return null;
+  // return null;
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 

@@ -315,38 +315,10 @@ function InventoryVehicle(props) {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const data = await getPageData({
-//     route: 'inventories',
-//     params: `filters[slug][$eq]=${context.params.slug}`,
-//     // populate: 'deep',
-//   });
-
-//   return {
-//     props: { data },
-//   };
-// }
-export async function getStaticPaths() {
-  const slugsResponse = await getPageData({
-    route: 'inventories',
-    populate: 'featuredImage',
-  });
-
-  const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
-
-  const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
-
-  return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  const { slug } = params;
+export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'inventories',
-    params: `filters[slug][$eq]=${slug}`,
+    params: `filters[slug][$eq]=${context.params.slug}`,
     populate: 'deep',
   });
 
@@ -358,8 +330,43 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { data },
-    revalidate: 60,
   };
 }
+
+// export async function getStaticPaths() {
+//   const slugsResponse = await getPageData({
+//     route: 'inventories',
+//     populate: 'featuredImage',
+//   });
+
+//   const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
+
+//   const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
+
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
+
+// export async function getStaticProps({ params }) {
+//   const { slug } = params;
+//   const data = await getPageData({
+//     route: 'inventories',
+//     params: `filters[slug][$eq]=${slug}`,
+//     populate: 'deep',
+//   });
+
+//   if (!data || !data.data || data.data.length === 0) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+
+//   return {
+//     props: { data },
+//     revalidate: 60,
+//   };
+// }
 
 export default InventoryVehicle;
