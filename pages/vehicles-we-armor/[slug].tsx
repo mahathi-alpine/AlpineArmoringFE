@@ -2,9 +2,9 @@ import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
 // import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import Banner from 'components/vehicle-we-armor/Banner';
+// import Banner from 'components/vehicle-we-armor/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import Markdown from 'markdown-to-jsx';
+// import Markdown from 'markdown-to-jsx';
 // const ComparisonSlider = dynamic(
 //   () => import('components/global/comparison-slider/ComparisonSlider')
 // );
@@ -25,7 +25,7 @@ function Vehicle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
-  const inventory = data?.stock?.data;
+  // const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
     data?.beforeAfterSlider?.before?.data?.attributes;
   const beforeAfterSlider_After =
@@ -36,15 +36,15 @@ function Vehicle(props) {
 
   // const gallery = data?.gallery?.data;
 
-  const banner = {
-    title: data?.title,
-    featuredImage: data?.featuredImage,
-    descriptionBanner: data?.descriptionBanner,
-    slug: data?.slug,
-    inventory: inventory,
-    pdf: data?.pdf,
-    protectionLevel: data?.protectionLevel,
-  };
+  // const banner = {
+  //   title: data?.title,
+  //   featuredImage: data?.featuredImage,
+  //   descriptionBanner: data?.descriptionBanner,
+  //   slug: data?.slug,
+  //   inventory: inventory,
+  //   pdf: data?.pdf,
+  //   protectionLevel: data?.protectionLevel,
+  // };
 
   const navItems = [
     {
@@ -179,7 +179,7 @@ function Vehicle(props) {
 
   return (
     <div className={`${styles.slug}`}>
-      <Banner props={banner} />
+      {/* <Banner props={banner} /> */}
 
       <TabSlider
         props={navItems}
@@ -196,9 +196,9 @@ function Vehicle(props) {
         >
           <h2 className={`c-title observe fade-in-up`}>Overview</h2>
 
-          <Markdown className={`observe fade-in-up`}>
+          {/* <Markdown className={`observe fade-in-up`}>
             {data.description}
-          </Markdown>
+          </Markdown> */}
         </div>
       ) : null}
 
