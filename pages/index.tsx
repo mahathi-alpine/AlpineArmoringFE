@@ -16,10 +16,8 @@ const VideosPopup = dynamic(
 );
 
 // function Home({ homepageData, categories, languageCookie }) {
-function Home({ homepageData, categories, categories2 }) {
+function Home({ homepageData, categories }) {
   console.log(categories);
-  console.log('ste');
-  console.log(categories2);
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
@@ -109,18 +107,13 @@ export async function getStaticProps() {
     // populate: 'image, inventory_vehicles',
     populate: 'deep',
   });
-  const categories2 = await getPageData({
-    route: 'categories',
-    sort: 'order',
-    populate: 'image, inventory_vehicles',
-  });
 
   // let languageCookie = getCookie('googtrans', { req, res });
   // languageCookie = languageCookie ? languageCookie.split('/').pop() : 'en';
 
   return {
     // props: { homepageData, categories, languageCookie },
-    props: { homepageData, categories, categories2 },
+    props: { homepageData, categories },
   };
 }
 
