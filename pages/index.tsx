@@ -17,7 +17,7 @@ const VideosPopup = dynamic(
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
-  console.log(categories);
+  console.log(homepageData);
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
@@ -105,6 +105,9 @@ export async function getStaticProps() {
     route: 'categories',
     sort: 'order',
     populate: 'image, inventory_vehicles',
+    fields: 'fields[0]=slug&fields[1]=title&fields[2]=order',
+    custom:
+      'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
     // populate: 'deep',
   });
 
