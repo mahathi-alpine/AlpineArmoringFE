@@ -114,6 +114,7 @@ export async function getStaticProps() {
   return {
     // props: { homepageData, categories, languageCookie },
     props: { homepageData, categories },
+    revalidate: 86400,
   };
 }
 
