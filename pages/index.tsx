@@ -17,6 +17,7 @@ const VideosPopup = dynamic(
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
+  console.log(categories);
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
@@ -103,7 +104,7 @@ export async function getStaticProps() {
   const categories = await getPageData({
     route: 'categories',
     sort: 'order',
-    populate: 'deep',
+    populate: 'image, inventory_vehicles',
   });
 
   // let languageCookie = getCookie('googtrans', { req, res });
@@ -112,7 +113,6 @@ export async function getStaticProps() {
   return {
     // props: { homepageData, categories, languageCookie },
     props: { homepageData, categories },
-    revalidate: 86400,
   };
 }
 
