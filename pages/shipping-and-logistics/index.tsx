@@ -110,7 +110,7 @@ function Shipping(props) {
 
               {item.image?.data ? (
                 <div className={`${styles.shipping_box_item_image}`}>
-                  <Gallery props={item.image.data} singular />
+                  <Gallery props={item.image?.data} singular />
                 </div>
               ) : null}
             </div>
@@ -134,7 +134,7 @@ function Shipping(props) {
           </div>
 
           <div className={`${styles.shipping_license_right}`}>
-            {licenseImage.data ? (
+            {licenseImage?.data ? (
               <Image
                 src={
                   licenseImage.data.attributes?.formats?.large?.url ||
