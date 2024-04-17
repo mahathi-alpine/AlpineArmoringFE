@@ -104,7 +104,8 @@ export async function getStaticProps() {
   const categories = await getPageData({
     route: 'categories',
     sort: 'order',
-    populate: 'image, inventory_vehicles',
+    // populate: 'image, inventory_vehicles',
+    populate: 'deep',
   });
 
   // let languageCookie = getCookie('googtrans', { req, res });
