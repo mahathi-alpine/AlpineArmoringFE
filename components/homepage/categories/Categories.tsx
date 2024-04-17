@@ -58,14 +58,15 @@ const Categories = ({ props, allVehiclesImage }) => {
                     </Button>
                   )}
 
-                  {data.slug !== 'pre-owned' && data.slug !== 'rental' && (
-                    <Button
-                      href={`/vehicles-we-armor/type/${data.slug}`}
-                      className="shiny"
-                    >
-                      {data.title.replace('Armored ', '')} we armor
-                    </Button>
-                  )}
+                  {data.slug !== 'armored-pre-owned' &&
+                    data.slug !== 'armored-rental' && (
+                      <Button
+                        href={`/vehicles-we-armor/type/${data.slug}`}
+                        className="shiny"
+                      >
+                        {data.title.replace('Armored ', '')} we armor
+                      </Button>
+                    )}
                 </div>
               </div>
             </div>
@@ -106,7 +107,7 @@ const Categories = ({ props, allVehiclesImage }) => {
               </Button>
 
               <Button href={`/vehicles-we-armor`} className="shiny">
-                All Types of vehicles we Armor
+                Vehicles we Armor
               </Button>
             </div>
           </div>

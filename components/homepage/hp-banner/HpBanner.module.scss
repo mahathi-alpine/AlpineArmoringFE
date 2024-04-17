@@ -89,12 +89,12 @@
   }
 
   &_description {
-    font-size: clamp(0.875rem, 0.8598rem + 0.0647vw, 0.9375rem);
+    font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
     font-weight: var(--font-regular);
     @include breakpoint(large) {
       text-align: right;
       padding-bottom: rem(8);
-      font-size: rem(15);
+      font-size: rem(15.3);
     }
     strong,
     b {

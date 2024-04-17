@@ -17,7 +17,6 @@ const VideosPopup = dynamic(
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
-  console.log(homepageData);
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
@@ -70,7 +69,7 @@ function Home({ homepageData, categories }) {
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
-        {ballistingTestings ? (
+        {ballistingTestings && !data?.disableCoolVideos ? (
           <div className={`observe fade-in-up`}>
             <VideosPopup props={ballistingTestings} />
           </div>

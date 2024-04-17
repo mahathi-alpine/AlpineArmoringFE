@@ -177,14 +177,16 @@ function InventoryVehicle(props) {
               </Link>
             ) : null} */}
 
-            <Button
-              onClick={scroll}
-              button={true}
-              className={`${styles.inventory_cta} primary attention`}
-              attention
-            >
-              Request a quote
-            </Button>
+            <div className={`${styles.inventory_cta_wrap}`}>
+              <Button
+                onClick={scroll}
+                button={true}
+                className={`${styles.inventory_cta} primary attention`}
+                attention
+              >
+                Request a quote
+              </Button>
+            </div>
 
             <div
               className={`${styles.inventory_top_shape} shape-before shape-before-dark mobile-only`}

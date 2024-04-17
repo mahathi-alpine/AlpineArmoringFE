@@ -303,7 +303,10 @@
 
     @include breakpoint(huge) {
       margin: 0 auto;
-      right: rem(176);
+
+      &_wrap{
+        padding-right: rem(176);
+      }
     }
   }
 
@@ -342,7 +345,7 @@
 
   &_description {
     padding-top: rem(64);
-    text-align: center;
+    // text-align: center;
     font-size: rem(14);
     @include breakpoint(large) {
       font-size: rem(20);
