@@ -97,7 +97,6 @@ function Home({ homepageData, categories }) {
 export async function getStaticProps() {
   const homepageData = await getPageData({
     route: 'homepage',
-    // populate: 'deep',
   });
 
   const categories = await getPageData({
@@ -107,7 +106,6 @@ export async function getStaticProps() {
     fields: 'fields[0]=slug&fields[1]=title&fields[2]=order',
     custom:
       'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
-    // populate: 'deep',
   });
 
   // let languageCookie = getCookie('googtrans', { req, res });

@@ -156,27 +156,6 @@ function InventoryVehicle(props) {
               ) : null}
             </div>
 
-            {/* {data?.OEM?.data ? (
-              <Link
-                href={data.OEM.data.attributes.url}
-                className={`${styles.inventory_sticker}`}
-                target="_blank"
-              >
-                <PDFIcon />
-                <span>
-                  <span className={`${styles.inventory_sticker_part1}`}>
-                    Window
-                  </span>
-                  <span className={`${styles.inventory_sticker_part2}`}>
-                    Sticker
-                  </span>
-                  <span className={`${styles.inventory_sticker_part3}`}>
-                    OEM
-                  </span>
-                </span>
-              </Link>
-            ) : null} */}
-
             <div className={`${styles.inventory_cta_wrap}`}>
               <Button
                 onClick={scroll}
@@ -321,7 +300,6 @@ export async function getServerSideProps(context) {
   const data = await getPageData({
     route: 'inventories',
     params: `filters[slug][$eq]=${context.params.slug}`,
-    populate: 'deep',
   });
 
   if (!data || !data.data || data.data.length === 0) {
