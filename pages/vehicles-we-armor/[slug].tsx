@@ -20,7 +20,6 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
-  // console.log(props);
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
