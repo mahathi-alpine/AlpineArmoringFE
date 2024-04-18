@@ -127,6 +127,7 @@
   }
 
   &_content {
+    position: relative;
     @include breakpoint(large) {
       max-width: 80%;
       margin: auto;

@@ -36,7 +36,7 @@ function About(props) {
           <Banner props={props.pageData.banner} center shape="white" />
         ) : null}
 
-        <div className={`${styles.about_text} container_small`}>
+        <div className={`${styles.about_text} observe fade-in container_small`}>
           {props.pageData?.text ? (
             <Markdown>{props.pageData.text}</Markdown>
           ) : null}

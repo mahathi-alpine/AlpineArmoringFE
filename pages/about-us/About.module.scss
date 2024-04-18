@@ -3,12 +3,14 @@
 
   &_text {
     margin: rem(8) auto rem(24) auto;
-    font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
+    // font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
+    font-size: rem(15);
     @include breakpoint(medium) {
       margin: rem(24) auto rem(24) auto;
     }
     @include breakpoint(large) {
       margin: rem(24) auto rem(100) auto;
+      font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
     }
 
     p {

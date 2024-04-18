@@ -24,7 +24,10 @@
     font-weight: var(--font-regular);
 
     .fillingText_small & {
-      font-size: clamp(1.25rem, 1.068rem + 0.7767vw, 2rem);
+      font-size: rem(15);
+      @include breakpoint(large) {
+        font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
+      }
     }
 
     span {

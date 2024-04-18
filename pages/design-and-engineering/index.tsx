@@ -194,7 +194,7 @@ const Design = (props) => {
               <div className={`${styles.design_section3_top_box}`}>
                 {props.pageData?.section3Heading ? (
                   <div
-                    className={`${styles.design_section3_heading} observe fade-in`}
+                    className={`${styles.design_section3_heading} ${styles.design_heading} observe fade-in`}
                   >
                     <Markdown>{props.pageData.section3Heading}</Markdown>
                   </div>
@@ -257,18 +257,21 @@ const Design = (props) => {
                       <p className={`modal_description`}>
                         {selectedItem.description}
                       </p>
-                      <Image
-                        src={
-                          selectedItem.image.data.attributes.formats?.thumbnail
-                            ?.url || selectedItem.image.data.attributes.url
-                        }
-                        alt={
-                          selectedItem.image.data.attributes.alternativeText ||
-                          'Alpine Armoring'
-                        }
-                        width={240}
-                        height={240}
-                      ></Image>
+                      {selectedItem.image.data ? (
+                        <Image
+                          src={
+                            selectedItem.image.data.attributes.formats
+                              ?.thumbnail?.url ||
+                            selectedItem.image.data.attributes.url
+                          }
+                          alt={
+                            selectedItem.image.data.attributes
+                              .alternativeText || 'Alpine Armoring'
+                          }
+                          width={240}
+                          height={240}
+                        ></Image>
+                      ) : null}
                     </div>
                     <button
                       className={`modal_close`}
