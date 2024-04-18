@@ -257,16 +257,16 @@ const Design = (props) => {
                       <p className={`modal_description`}>
                         {selectedItem.description}
                       </p>
-                      {selectedItem.image.data ? (
+                      {selectedItem?.image?.data ? (
                         <Image
                           src={
-                            selectedItem.image.data.attributes.formats
+                            selectedItem?.image?.data?.attributes?.formats
                               ?.thumbnail?.url ||
-                            selectedItem.image.data.attributes.url
+                            selectedItem?.image?.data?.attributes?.url
                           }
                           alt={
-                            selectedItem.image.data.attributes
-                              .alternativeText || 'Alpine Armoring'
+                            selectedItem?.image?.data?.attributes
+                              ?.alternativeText || 'Alpine Armoring'
                           }
                           width={240}
                           height={240}

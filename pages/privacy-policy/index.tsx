@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Privacy(props) {
-  console.log(props);
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
