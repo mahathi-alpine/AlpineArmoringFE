@@ -17,6 +17,9 @@ const VideosPopup = dynamic(
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
+  console.log('categories');
+  console.log(categories);
+
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;
@@ -32,8 +35,6 @@ function Home({ homepageData, categories }) {
   const ballistingTestings = data?.ballistingTestingsMedia;
   const news = data?.blogs?.data;
   const partners = data?.industryPartners?.data;
-
-  console.log(categoriesData);
 
   // Animations
   const observerRef = useIntersectionObserver();
