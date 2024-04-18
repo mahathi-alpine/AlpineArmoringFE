@@ -33,6 +33,8 @@ function Home({ homepageData, categories }) {
   const news = data?.blogs?.data;
   const partners = data?.industryPartners?.data;
 
+  console.log(categoriesData);
+
   // Animations
   const observerRef = useIntersectionObserver();
   useEffect(() => {
