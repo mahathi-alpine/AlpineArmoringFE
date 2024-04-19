@@ -23,7 +23,7 @@ const Dropdown = ({
     return () => {
       window.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isActive]);
+  }, [isActive, setIsActive]);
 
   return (
     <div

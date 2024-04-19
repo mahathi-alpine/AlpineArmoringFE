@@ -98,7 +98,7 @@ const Categories = ({ props, allVehiclesImage }) => {
         <div className={`${styles.categories_item_content}`}>
           <div className={`${styles.categories_item_content_inner}`}>
             <h3 className={`${styles.categories_item_title}`}>
-              All Armored Vehicles
+              All &nbsp;Armored Vehicles
             </h3>
 
             <div className={`${styles.categories_item_buttons}`}>

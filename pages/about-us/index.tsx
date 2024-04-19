@@ -16,13 +16,15 @@ function About(props) {
   // Animations
   const observerRef = useIntersectionObserver();
   useEffect(() => {
+    const currentObserverRef = observerRef.current; // Capture the current value of the ref
+
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
+    targets.forEach((item) => currentObserverRef.observe(item));
 
     return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
+      targets.forEach((item) => currentObserverRef.unobserve(item));
     };
-  }, []);
+  }, [observerRef]); // Include observerRef in the dependency array
 
   // console.log(props);
   // return null;
