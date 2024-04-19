@@ -44,7 +44,7 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
       {data ? <h4>{data.title}</h4> : null}
       {data ? <p>{data.description}</p> : null}
 
-      {data.gallery.data ? (
+      {data?.gallery?.data ? (
         <Image
           src={
             data.gallery.data[0].attributes.formats?.thumbnail?.url ||
