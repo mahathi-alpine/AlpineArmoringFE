@@ -9,7 +9,8 @@ function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const categories = data?.categories?.data;
-  const date = new Date(data?.publishedAt);
+  const blogDate = data?.date ? data?.date : data?.publishedAt;
+  const date = new Date(blogDate);
   const formattedDate = date.toLocaleString('en-GB', {
     day: 'numeric',
     month: 'long',
