@@ -37,7 +37,7 @@ const VideoSingle: FC<VideoSingleProps> = ({
             `}
       onClick={handleClick}
     >
-      {props ? (
+      {props.attributes.URLExternal ? (
         <Image
           // src={`https://i.ytimg.com/vi/${item.attributes.URLExternal}/sd3.jpg`}
           src={`https://i.ytimg.com/vi_webp/${props.attributes.URLExternal}/sddefault.webp`}

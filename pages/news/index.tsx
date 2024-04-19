@@ -47,8 +47,9 @@ export async function getStaticProps() {
   let posts = await getPageData({
     route: 'blogs',
     populate: 'deep',
-    sort: 'publishedAt',
-    sortType: 'desc',
+    // sort: 'publishedAt',
+    // sortType: 'desc',
+    sort: 'order',
     pageSize: 200,
   });
   posts = posts.data || null;

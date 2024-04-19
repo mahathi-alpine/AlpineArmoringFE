@@ -42,8 +42,10 @@ const Blog = ({
 
         <div className={`${styles.news_list}`}>
           {(limit ? props.slice(0, limit) : props).map((item, index) => {
-            // {props.slice(0, limit).map((item, index) => {
-            const date = new Date(item.attributes.publishedAt);
+            const blogDate = item.attributes.date
+              ? item.attributes.date
+              : item.attributes.publishedAt;
+            const date = new Date(blogDate);
             const formattedDate = date.toLocaleString('en-GB', {
               day: 'numeric',
               month: 'long',
