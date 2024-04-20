@@ -25,7 +25,7 @@ function Inventory(props) {
 
   // Group vehicles by category
   const groupedByCategory = vehiclesData?.reduce((acc, item) => {
-    const category = item.attributes.categories.data[0]
+    const category = item.attributes.categories?.data[0]
       ? item.attributes.categories.data[0].attributes.title
       : item.attributes.categories;
     if (!acc[category]) {

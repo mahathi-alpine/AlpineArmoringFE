@@ -21,10 +21,15 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
       <div className={`${styles.inventory_item_image}`}>
         {data.featuredImage.data ? (
           <Image
-            src={`${data.featuredImage.data.attributes.url}`}
-            alt="Description of the image"
-            width={475}
-            height={320}
+            src={`${data.featuredImage.data.attributes.formats.medium.url}`}
+            alt={`${data.featuredImage.data.attributes.alternativeText}`}
+            width={560}
+            height={430}
+            placeholder="blur"
+            blurDataURL={`${
+              data.featuredImage.data.attributes.formats?.thumbnail?.url ||
+              data.featuredImage.data.attributes.url
+            }`}
           />
         ) : null}
 

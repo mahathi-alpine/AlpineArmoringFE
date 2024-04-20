@@ -17,6 +17,7 @@ const VideosPopup = dynamic(
 
 // function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
+  console.log(homepageData);
   const data = homepageData.data?.attributes;
 
   const seoData = data?.seo;

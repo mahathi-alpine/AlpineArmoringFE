@@ -9,6 +9,7 @@ import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
+  console.log(props);
   const topBanner = props.pageData?.banner;
   const seoData = props.pageData?.seo;
 
