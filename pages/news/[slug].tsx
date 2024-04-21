@@ -3,7 +3,7 @@ import styles from './NewsSingle.module.scss';
 import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
-import Markdown from 'markdown-to-jsx';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function BlogSingle(props) {
   const data =
@@ -17,6 +17,8 @@ function BlogSingle(props) {
     year: 'numeric',
   });
   const content = data?.content;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   // if (!data) {
   //   return null;
@@ -66,9 +68,10 @@ function BlogSingle(props) {
         </div>
 
         {content ? (
-          <div className={`${styles.blogSingle_content} static`}>
-            <Markdown>{content}</Markdown>
-          </div>
+          <div
+            className={`${styles.blogSingle_content} static`}
+            dangerouslySetInnerHTML={{ __html: convertMarkdown(content) }}
+          ></div>
         ) : null}
       </div>
     </div>

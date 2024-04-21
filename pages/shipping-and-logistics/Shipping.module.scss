@@ -15,8 +15,7 @@
   &_heading {
     display: block;
     margin-top: rem(24);
-    // font-weight: var(--font-medium);
-    font-size: clamp(1rem, 0.7573rem + 1.0356vw, 2rem);
+    font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
     text-align: center;
     @include breakpoint(medium) {
       margin-top: rem(-40);
@@ -25,7 +24,6 @@
       margin-bottom: rem(80);
     }
     @include breakpoint(huge) {
-      // margin-top: rem(100);
       margin-bottom: rem(140);
     }
   }

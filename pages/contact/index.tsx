@@ -1,7 +1,6 @@
 import styles from './Contact.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
-import Markdown from 'markdown-to-jsx';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Link from 'next/link';
@@ -9,10 +8,13 @@ import Accordion from 'components/global/accordion/Accordion';
 import Seo from 'components/Seo';
 import Image from 'next/image';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Contact(props) {
   const seoData = props.pageData?.seo;
   const faqs = props?.pageData?.fa_qs;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -45,7 +47,11 @@ function Contact(props) {
                   Sales Inquiries
                 </h3>
                 {props.pageData?.salesInfo ? (
-                  <Markdown>{props.pageData.salesInfo}</Markdown>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: convertMarkdown(props.pageData.salesInfo),
+                    }}
+                  ></div>
                 ) : null}
               </div>
               <div className={`${styles.contact_main_right_column}`}>
@@ -53,7 +59,11 @@ function Contact(props) {
                   Parts & Service
                 </h3>
                 {props.pageData?.partsInfo ? (
-                  <Markdown>{props.pageData.partsInfo}</Markdown>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: convertMarkdown(props.pageData.partsInfo),
+                    }}
+                  ></div>
                 ) : null}
               </div>
             </div>

@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import Markdown from 'markdown-to-jsx';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 const ComparisonSlider = dynamic(
   () => import('components/global/comparison-slider/ComparisonSlider')
 );
@@ -33,6 +33,8 @@ function Vehicle(props) {
   const dimensions2 = data?.dimensions2?.data?.attributes;
 
   const gallery = data?.gallery?.data;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   const banner = {
     title: data?.title,
@@ -186,9 +188,12 @@ function Vehicle(props) {
         >
           <h2 className={`c-title observe fade-in-up`}>Overview</h2>
 
-          <Markdown className={`observe fade-in-up`}>
-            {data.description}
-          </Markdown>
+          <div
+            className={`observe fade-in-up`}
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(data.description),
+            }}
+          ></div>
         </div>
       ) : null}
 

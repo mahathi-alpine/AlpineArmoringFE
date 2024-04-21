@@ -2,13 +2,16 @@ import styles from './Design.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
-import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
 import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 const Design = (props) => {
+  // return null;
   const seoData = props.pageData?.seo;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -67,16 +70,22 @@ const Design = (props) => {
           ) : null}
 
           {props.pageData?.section1Text ? (
-            <Markdown className={`${styles.design_heading} observe fade-in`}>
-              {props.pageData.section1Text}
-            </Markdown>
+            <div
+              className={`${styles.design_heading} observe fade-in`}
+              dangerouslySetInnerHTML={{
+                __html: convertMarkdown(props.pageData.section1Text),
+              }}
+            ></div>
           ) : null}
 
           <div className={`${styles.design_box}`}>
             {props.pageData?.section1Text2 ? (
-              <Markdown className={`${styles.design_text} observe fade-in`}>
-                {props.pageData.section1Text2}
-              </Markdown>
+              <div
+                className={`${styles.design_text} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section1Text2),
+                }}
+              ></div>
             ) : null}
 
             {props.pageData?.section1Image.data ? (
@@ -110,9 +119,12 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section2Text ? (
-              <Markdown className={`${styles.design_heading} observe fade-in`}>
-                {props.pageData.section2Text}
-              </Markdown>
+              <div
+                className={`${styles.design_heading} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section2Text),
+                }}
+              ></div>
             ) : null}
           </div>
 
@@ -144,9 +156,12 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section2Text2 ? (
-              <Markdown className={`${styles.design_text} observe fade-in`}>
-                {props.pageData.section2Text2}
-              </Markdown>
+              <div
+                className={`${styles.design_text} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section2Text2),
+                }}
+              ></div>
             ) : null}
 
             {props.pageData?.section2Image2.data ? (
@@ -195,15 +210,19 @@ const Design = (props) => {
                 {props.pageData?.section3Heading ? (
                   <div
                     className={`${styles.design_section3_heading} ${styles.design_heading} observe fade-in`}
-                  >
-                    <Markdown>{props.pageData.section3Heading}</Markdown>
-                  </div>
+                    dangerouslySetInnerHTML={{
+                      __html: convertMarkdown(props.pageData.section3Heading),
+                    }}
+                  ></div>
                 ) : null}
 
                 {props.pageData?.section3Text ? (
-                  <div className={`${styles.design_text} observe fade-in`}>
-                    <Markdown>{props.pageData.section3Text}</Markdown>
-                  </div>
+                  <div
+                    className={`${styles.design_text} observe fade-in`}
+                    dangerouslySetInnerHTML={{
+                      __html: convertMarkdown(props.pageData.section3Text),
+                    }}
+                  ></div>
                 ) : null}
               </div>
             </div>
@@ -227,19 +246,20 @@ const Design = (props) => {
                     Read More
                   </div>
 
-                  {item.image?.data?.attributes ? (
+                  {item.image?.data ? (
                     <div className={`${styles.design_armor_image}`}>
                       <Image
                         src={
-                          item.image.data.attributes.formats?.thumbnail?.url ||
-                          item.image.data.attributes.url
+                          item.image.data[0].attributes.formats?.medium?.url ||
+                          item.image.data[0].attributes.url
                         }
                         alt={
-                          item.image.data.attributes.alternativeText ||
+                          item.image.data[0].attributes.alternativeText ||
                           'Alpine Armoring'
                         }
                         width={240}
                         height={240}
+                        quality={100}
                       ></Image>
                     </div>
                   ) : null}
@@ -260,16 +280,16 @@ const Design = (props) => {
                       {selectedItem?.image?.data ? (
                         <Image
                           src={
-                            selectedItem?.image?.data?.attributes?.formats
-                              ?.thumbnail?.url ||
-                            selectedItem?.image?.data?.attributes?.url
+                            selectedItem.image.data[0].attributes?.formats
+                              ?.medium?.url ||
+                            selectedItem.image.data[0].attributes?.url
                           }
                           alt={
-                            selectedItem?.image?.data?.attributes
+                            selectedItem.image.data.attributes
                               ?.alternativeText || 'Alpine Armoring'
                           }
-                          width={240}
-                          height={240}
+                          width={400}
+                          height={400}
                         ></Image>
                       ) : null}
                     </div>
@@ -294,16 +314,22 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section4Heading ? (
-              <div className={`${styles.design_heading} observe fade-in`}>
-                <Markdown>{props.pageData.section4Heading}</Markdown>
-              </div>
+              <div
+                className={`${styles.design_heading} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section4Heading),
+                }}
+              ></div>
             ) : null}
 
             <div className={`${styles.design_box}`}>
               {props.pageData?.section4Text ? (
-                <div className={`${styles.design_text} observe fade-in`}>
-                  <Markdown>{props.pageData.section4Text}</Markdown>
-                </div>
+                <div
+                  className={`${styles.design_text} observe fade-in`}
+                  dangerouslySetInnerHTML={{
+                    __html: convertMarkdown(props.pageData.section4Text),
+                  }}
+                ></div>
               ) : null}
 
               {props.pageData?.section4Image.data?.attributes ? (
@@ -345,9 +371,12 @@ const Design = (props) => {
           ) : null}
 
           {props.pageData?.section5Heading ? (
-            <div className={`${styles.design_heading} observe fade-in`}>
-              <Markdown>{props.pageData.section5Heading}</Markdown>
-            </div>
+            <div
+              className={`${styles.design_heading} observe fade-in`}
+              dangerouslySetInnerHTML={{
+                __html: convertMarkdown(props.pageData.section5Heading),
+              }}
+            ></div>
           ) : null}
 
           <div className={`${styles.design_box}`}>
@@ -377,9 +406,12 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section5Text ? (
-              <div className={`${styles.design_text} observe fade-in`}>
-                <Markdown>{props.pageData.section5Text}</Markdown>
-              </div>
+              <div
+                className={`${styles.design_text} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section5Text),
+                }}
+              ></div>
             ) : null}
           </div>
         </section>

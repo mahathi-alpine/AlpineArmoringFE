@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
-import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
 import Seo from 'components/Seo';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import Gallery from 'components/global/carousel/CarouselCurved';
@@ -12,6 +12,7 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 function About(props) {
   const seoData = props?.pageData?.seo;
   const boxes = props?.pageData?.boxes;
+  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -26,9 +27,6 @@ function About(props) {
     };
   }, [observerRef]); // Include observerRef in the dependency array
 
-  // console.log(props);
-  // return null;
-
   return (
     <>
       <Seo props={seoData} />
@@ -38,11 +36,14 @@ function About(props) {
           <Banner props={props.pageData.banner} center shape="white" />
         ) : null}
 
-        <div className={`${styles.about_text} observe fade-in container_small`}>
-          {props.pageData?.text ? (
-            <Markdown>{props.pageData.text}</Markdown>
-          ) : null}
-        </div>
+        {props.pageData?.text ? (
+          <div
+            className={`${styles.about_text} observe fade-in container_small`}
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(props.pageData.text),
+            }}
+          ></div>
+        ) : null}
 
         <div className={`${styles.about_box_wrap} container`}>
           {boxes?.map((item, index) => (

@@ -19,10 +19,14 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
 
-      strong {
-        color: var(--color-primary);
-      }
+    strong, a {
+      color: var(--color-primary);
+    }
+
+    a{
+      text-decoration: underline;
     }
   }
 

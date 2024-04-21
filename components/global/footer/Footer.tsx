@@ -175,7 +175,7 @@ const Footer = (isDarkMode) => {
               <Link href="/">About</Link>
             </li>
             <li className={`${styles.footer_bottom_nav_item}`}>
-              <Link href="privacy-policy">Privacy Policy</Link>
+              <Link href="/privacy-policy">Privacy Policy</Link>
             </li>
           </ul>
 

@@ -82,10 +82,6 @@
 
     &_heading {
       margin-bottom: rem(16);
-      // font-size: rem(15);
-      // @include breakpoint(large) {
-      //   font-size: clamp(1.8125rem, 0.6875rem + 1.4063vw, 2.375rem);
-      // }
     }
     &_top {
       &_box {
@@ -156,12 +152,12 @@
     &_title {
       text-transform: uppercase;
       font-weight: var(--font-demi);
-      // font-size: clamp(1.5rem, 1.2573rem + 1.0356vw, 2.5rem);
       margin-bottom: rem(16);
-      font-size: rem(15);
+      font-size: rem(17);
       @include breakpoint(large) {
-        min-height: 84px;
+        min-height: 40px;
         line-height: 1;
+        font-size: rem(19);
       }
     }
 

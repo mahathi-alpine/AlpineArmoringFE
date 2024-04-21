@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 const PauseIcon = dynamic(() => import('components/icons/Pause'));
 const PlayIcon = dynamic(() => import('components/icons/Play'));
 import { HPBannerProps } from 'types';
-// import useSplitText from 'hooks/useSplitText';
 
 // const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
 const HpBanner = ({ props }: HPBannerProps) => {
@@ -21,8 +20,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
       }
     }
   };
-
-  // useSplitText();
 
   // useEffectOnce(() => {
   //   function stepAnimateText(props, animation, delay) {

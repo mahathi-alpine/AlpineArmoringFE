@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
-// import styles from './Shipping.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
-import Markdown from 'markdown-to-jsx';
-// import Link from 'next/link';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Ballistic(props) {
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -30,7 +30,11 @@ function Ballistic(props) {
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
       <div className={`static container_small`}>
-        {text ? <Markdown>{text}</Markdown> : null}
+        {text ? (
+          <div
+            dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
+          ></div>
+        ) : null}
       </div>
     </>
   );

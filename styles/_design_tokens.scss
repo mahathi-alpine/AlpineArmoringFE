@@ -147,14 +147,16 @@ small {
     }
 
     &:before {
-      content: open-quote;
+      content: '\201F';
       left: 10px;
       position: absolute;
       top: 0;
-      font-size: clamp(3.75rem, 3.4466rem + 1.2945vw, 5rem);
+      top: 10px;
+      font-size: clamp(3.125rem, 2.8975rem + 0.9709vw, 4.0625rem);
       color: var(--color-primary);
+      line-height: 1.4;
       @include breakpoint(large) {
-        top: 10px;
+        top: 20px;
       }
     }
 

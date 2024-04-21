@@ -2,13 +2,15 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
 import Seo from 'components/Seo';
-import Markdown from 'markdown-to-jsx';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Dealer(props) {
   const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -27,9 +29,12 @@ function Dealer(props) {
 
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
-      <div className={`static container_small`}>
-        {text ? <Markdown>{text}</Markdown> : null}
-      </div>
+      {text ? (
+        <div
+          className={`static container_small`}
+          dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
+        ></div>
+      ) : null}
     </>
   );
 }

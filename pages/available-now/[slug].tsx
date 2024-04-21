@@ -5,7 +5,6 @@ import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF2';
 import DownloadIcon from 'components/icons/Download';
 import Link from 'next/link';
-import Markdown from 'markdown-to-jsx';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
 import Button from 'components/global/button/Button';
@@ -14,6 +13,7 @@ import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function InventoryVehicle(props) {
   // if (!props.data) {
@@ -25,6 +25,8 @@ function InventoryVehicle(props) {
   const mainText = data?.description;
   const category = data?.categories?.data[0]?.attributes?.title;
   const categorySlug = data?.categories?.data[0]?.attributes?.slug;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   // const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
   // useEffect(() => {
@@ -262,9 +264,8 @@ function InventoryVehicle(props) {
       {mainText ? (
         <div
           className={`${styles.inventory_description} container_small observe fade-in-up`}
-        >
-          <Markdown>{mainText}</Markdown>
-        </div>
+          dangerouslySetInnerHTML={{ __html: convertMarkdown(mainText) }}
+        ></div>
       ) : null}
 
       {data?.specifications?.data.length > 0 ? (

@@ -250,11 +250,11 @@
         order: 2;
         max-width: calc(100% - 550px);
         max-height: calc(100% - 150px);
+        z-index: 3;
       }
 
       @include breakpoint(huge) {
-        // bottom: -60px;
-        // padding-right: rem(120);
+        max-width: calc(100% - 600px);
       }
     }
 

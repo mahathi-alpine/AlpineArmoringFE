@@ -174,7 +174,6 @@ body {
     margin-bottom: rem(24);
     font-size: rem(32);
     @include breakpoint(large) {
-      margin-bottom: rem(40);
       font-size: rem(40);
     }
   }
