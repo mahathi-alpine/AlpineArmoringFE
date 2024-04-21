@@ -15,6 +15,10 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const canonicalUrl = `https://www.alpineco.com${router.pathname}`;
 
+  // useEffect(() => {
+  //   document.documentElement.lang = 'en-us';
+  // }, []);
+
   useEffect(() => {
     // Check if the cookie exists
     const cookieValue = getCookie('googtrans');
@@ -29,7 +33,7 @@ export default function App({ Component, pageProps }) {
         window.TranslateInit = function () {
           new window.google.translate.TranslateElement();
         };
-        window.TranslateInit(); // Call the function immediately after the script loads
+        // window.TranslateInit(); // Call the function immediately after the script loads
       };
       document.body.appendChild(script);
     }
