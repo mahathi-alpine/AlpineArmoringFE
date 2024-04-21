@@ -136,7 +136,7 @@ function Inventory(props) {
 
           {vehiclesArray ? (
             <div className={`${styles.listing_list}`}>
-              {vehiclesArray.map((category) => {
+              {vehiclesArray.map((category, indexInitial) => {
                 return Array.isArray(category.items)
                   ? category.items
                       .filter((item) => item.attributes.ownPage !== false)
@@ -144,7 +144,7 @@ function Inventory(props) {
                         <InventoryItem
                           key={item.id}
                           props={item}
-                          index={index}
+                          index={indexInitial === 0 && index === 0 ? index : 1}
                         />
                       ))
                   : null;
