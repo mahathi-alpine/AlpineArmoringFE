@@ -6,6 +6,7 @@
   @include breakpoint(medium) {
     width: calc(50% - 12px);
     margin: unset;
+    align-self: stretch;
   }
 
   @include breakpoint(large) {
@@ -71,9 +72,7 @@
   &_title {
     font-weight: var(--font-medium);
     white-space: pre-wrap;
-    @include breakpoint(large) {
-      font-size: rem(18);
-    }
+    font-size: clamp(1rem, 0.9848rem + 0.0647vw, 1.0625rem);
   }
 
   &_image {
@@ -81,6 +80,7 @@
     padding: 0 rem(16);
     img {
       max-height: 180px;
+      max-height: 200px;
       width: auto;
       margin: auto;
       object-fit: cover;

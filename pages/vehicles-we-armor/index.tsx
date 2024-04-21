@@ -9,7 +9,6 @@ import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
-  console.log(props);
   const topBanner = props.pageData?.banner;
   const seoData = props.pageData?.seo;
 
@@ -77,8 +76,8 @@ function Inventory(props) {
             <div className={`${styles.listing_list}`}>
               {vehiclesArray.map((category) => {
                 return Array.isArray(category.items)
-                  ? category.items.map((item) => (
-                      <InventoryItem key={item.id} props={item} />
+                  ? category.items.map((item, index) => (
+                      <InventoryItem key={item.id} props={item} index={index} />
                     ))
                   : null;
               })}
@@ -109,7 +108,7 @@ export async function getServerSideProps(context) {
     query += `&filters[make][slug][$eq]=${context.query.make}`;
   }
   if (context.query.q) {
-    query += `filters[slug][$contains]=${context.query.q}`;
+    query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
   }
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',

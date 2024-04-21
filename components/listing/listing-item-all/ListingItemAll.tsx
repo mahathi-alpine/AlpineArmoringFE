@@ -5,9 +5,10 @@ import Button from 'components/global/button/Button';
 
 interface InventoryItemProps {
   props: any;
+  index: number;
 }
 
-const InventoryItem = ({ props }: InventoryItemProps) => {
+const InventoryItem = ({ props, index }: InventoryItemProps) => {
   const data = props.attributes;
 
   return (
@@ -19,10 +20,15 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
         <div className={`${styles.listing_item_image}`}>
           {data.featuredImage.data ? (
             <Image
-              src={`${data.featuredImage.data.attributes.url}`}
+              // src={`${data.featuredImage.data.attributes.url}`}
+              src={`${
+                data.featuredImage.data.attributes.formats.thumbnail.url ||
+                data.featuredImage.data.attributes.url
+              }`}
               alt="Description of the image"
-              width={425}
-              height={213}
+              width={420}
+              height={200}
+              priority={index === 0}
             />
           ) : null}
 

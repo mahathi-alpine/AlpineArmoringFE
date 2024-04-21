@@ -44,7 +44,9 @@ function Inventory(props) {
               {props.vehicles.data && props.vehicles.data.length > 0 ? (
                 props.vehicles.data
                   .filter((item) => item.attributes.ownPage !== false)
-                  .map((item) => <InventoryItem key={item.id} props={item} />)
+                  .map((item, index) => (
+                    <InventoryItem key={item.id} props={item} index={index} />
+                  ))
               ) : (
                 <div className={`${styles.listing_list_error}`}>
                   No Vehicles Found
@@ -68,7 +70,7 @@ export async function getServerSideProps(context) {
   let query = `filters[categories][slug][$eq]=${category}`;
   const q = context.query.q;
   if (q) {
-    query += `&filters[slug][$contains]=${q}`;
+    query += `&filters[slug][$contains]=${q.toLowerCase()}`;
   }
 
   const vehicles = await getPageData({

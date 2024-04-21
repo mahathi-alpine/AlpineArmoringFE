@@ -48,8 +48,8 @@ function Inventory(props) {
 
           {props.vehicles.data ? (
             <div className={`${styles.listing_list}`}>
-              {props.vehicles.data.map((item) => (
-                <InventoryItem key={item.id} props={item} />
+              {props.vehicles.data.map((item, index) => (
+                <InventoryItem key={item.id} props={item} index={index} />
               ))}
             </div>
           ) : null}
@@ -66,7 +66,7 @@ export async function getServerSideProps(context) {
     query += `&filters[make][slug][$eq]=${context.query.make}`;
   }
   if (context.query.q) {
-    query += `&filters[slug][$contains]=${context.query.q}`;
+    query += `&filters[slug][$contains]=${context.query.q.toLowerCase()}`;
   }
 
   const vehicles = await getPageData({

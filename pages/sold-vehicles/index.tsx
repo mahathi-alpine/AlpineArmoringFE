@@ -40,8 +40,8 @@ function Inventory(props) {
 
           {props.vehicles.data ? (
             <div className={`${styles.listing_list}`}>
-              {props.vehicles.data.map((item) => (
-                <InventoryItem key={item.id} props={item} />
+              {props.vehicles.data.map((item, index) => (
+                <InventoryItem key={item.id} props={item} index={index} />
               ))}
             </div>
           ) : null}

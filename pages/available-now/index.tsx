@@ -140,8 +140,12 @@ function Inventory(props) {
                 return Array.isArray(category.items)
                   ? category.items
                       .filter((item) => item.attributes.ownPage !== false)
-                      .map((item) => (
-                        <InventoryItem key={item.id} props={item} />
+                      .map((item, index) => (
+                        <InventoryItem
+                          key={item.id}
+                          props={item}
+                          index={index}
+                        />
                       ))
                   : null;
               })}
@@ -169,7 +173,7 @@ export async function getServerSideProps(context) {
     query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
   }
   if (q) {
-    query += `filters[slug][$contains]=${q}`;
+    query += `filters[slug][$contains]=${q.toLowerCase()}`;
   }
 
   const vehicles = await getPageData({

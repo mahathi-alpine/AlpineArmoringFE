@@ -5,9 +5,10 @@ import styles from './ListingItem.module.scss';
 
 interface InventoryItemProps {
   props: any;
+  index: number;
 }
 
-const InventoryItem = ({ props }: InventoryItemProps) => {
+const InventoryItem = ({ props, index }: InventoryItemProps) => {
   const data = props.attributes;
 
   return (
@@ -20,17 +21,33 @@ const InventoryItem = ({ props }: InventoryItemProps) => {
     >
       <div className={`${styles.inventory_item_image}`}>
         {data.featuredImage.data ? (
-          <Image
-            src={`${data.featuredImage.data.attributes.formats.medium.url}`}
-            alt={`${data.featuredImage.data.attributes.alternativeText}`}
-            width={560}
-            height={430}
-            placeholder="blur"
-            blurDataURL={`${
-              data.featuredImage.data.attributes.formats?.thumbnail?.url ||
-              data.featuredImage.data.attributes.url
-            }`}
-          />
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcSet={`${
+                data.featuredImage.data.attributes.formats.medium.url ||
+                data.featuredImage.data.attributes.url
+              }`}
+            />
+            <Image
+              src={`${
+                data.featuredImage.data.attributes.formats.thumbnail.url ||
+                data.featuredImage.data.attributes.url
+              }`}
+              alt={
+                data.featuredImage.data.attributes.alternativeText ||
+                'Alpine Armoring'
+              }
+              width={560}
+              height={430}
+              priority={index === 0}
+              // placeholder="blur"
+              // blurDataURL={`${
+              //   data.featuredImage.data.attributes.formats?.thumbnail?.url ||
+              //   data.featuredImage.data.attributes.url
+              // }`}
+            />
+          </picture>
         ) : null}
 
         <div className={`${styles.inventory_item_button}`}>
