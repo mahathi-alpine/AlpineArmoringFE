@@ -5,7 +5,7 @@ module.exports = {
     prependData: `@import './styles/_mixins.scss';`,
   },
   images: {
-    unoptimized: true,
+    // unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,6 +20,11 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'https://alpinetesting.cloudflex-ha.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd102sycao8uwt8.cloudfront.net',
         pathname: '**',
       },
       {

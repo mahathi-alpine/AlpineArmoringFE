@@ -22,7 +22,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
           }
         />
         <Image
-          src={`${bannerImage.formats?.thumbnail?.url || bannerImage.url}`}
+          src={`${bannerImage.formats?.medium?.url || bannerImage.url}`}
           alt={bannerImage.alternativeText || 'Alpine Armoring'}
           width={bannerImage.width}
           height={bannerImage.height}
