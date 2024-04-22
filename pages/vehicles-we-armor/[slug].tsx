@@ -20,8 +20,7 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
-  const data =
-    props && props.data && props.data.data[0] && props.data.data[0].attributes;
+  const data = props?.data?.data?.[0]?.attributes ?? {};
 
   const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
@@ -399,7 +398,7 @@ export async function getServerSideProps(context) {
     params: `filters[slug][$eq]=${slug}`,
   });
 
-  const seoData = data.data[0].attributes.seo;
+  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
 
   if (!data || !data.data || data.data.length === 0) {
     return {

@@ -50,7 +50,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
-        {props.video.data ? (
+        {props.video?.data ? (
           <video
             ref={videoRef}
             muted={true}

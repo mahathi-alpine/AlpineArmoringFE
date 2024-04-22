@@ -92,10 +92,10 @@ export async function getServerSideProps(context) {
     filters = { type, make };
   }
 
-  let seoData = type.find(
+  let seoData = type?.find(
     (item) => item.attributes.slug === context.query.type
   );
-  seoData = seoData?.attributes.seo;
+  seoData = seoData?.attributes.seo || null;
 
   return {
     props: { vehicles, filters, query: context.query.type, seoData },

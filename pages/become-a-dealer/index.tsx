@@ -42,7 +42,7 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
-  const seoData = pageData.seo;
+  const seoData = pageData?.seo ?? null;
 
   return {
     props: { pageData, seoData },

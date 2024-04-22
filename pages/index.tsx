@@ -105,7 +105,7 @@ export async function getStaticProps() {
       'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
   });
 
-  const seoData = homepageData.data.attributes.seo;
+  const seoData = homepageData.data?.attributes.seo || null;
 
   // let languageCookie = getCookie('googtrans', { req, res });
   // languageCookie = languageCookie ? languageCookie.split('/').pop() : 'en';

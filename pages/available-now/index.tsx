@@ -22,16 +22,17 @@ function Inventory(props) {
   }, [q]);
 
   // Group vehicles by category
-  const groupedByCategory = vehiclesData?.reduce((acc, item) => {
-    const category = item.attributes.categories?.data[0]
-      ? item.attributes.categories.data[0].attributes.title
-      : item.attributes.categories;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(item);
-    return acc;
-  }, {});
+  const groupedByCategory =
+    vehiclesData?.reduce((acc, item) => {
+      const category = item.attributes.categories?.data[0]
+        ? item.attributes.categories.data[0].attributes.title
+        : item.attributes.categories;
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
+      return acc;
+    }, {}) || {};
 
   // Convert the groupedByCategory object into an array of objects
   const vehiclesArray = Object.entries(groupedByCategory).map(
@@ -72,13 +73,42 @@ function Inventory(props) {
       params: query,
     });
 
-    // Merge the new items with the existing items
-    setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
+    // Ensure vehicles.data is an array before updating the state
+    if (Array.isArray(vehicles.data)) {
+      setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
+    }
 
-    const totalItems = props.vehicles.meta.pagination.total;
-    const itemsFetched = vehiclesData.length + vehicles.data.length;
+    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
+    const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
     setHasMore(itemsFetched < totalItems);
+    // Merge the new items with the existing items
+    // setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
+
+    // const totalItems = props.vehicles.meta.pagination.total;
+    // const itemsFetched = vehiclesData.length + vehicles.data.length;
+    // setHasMore(itemsFetched < totalItems);
   };
+
+  // const bottomObserverRef = useRef(null);
+  // useEffect(() => {
+  //  const observer = new IntersectionObserver((entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting && Array.isArray(props.vehicles.data) && props.vehicles.data.length === 12) {
+  //         fetchMoreItems();
+  //       }
+  //     });
+  //  });
+
+  //  if (bottomObserverRef.current) {
+  //     observer.observe(bottomObserverRef.current);
+  //  }
+
+  //  return () => {
+  //     if (bottomObserverRef.current) {
+  //       observer.unobserve(bottomObserverRef.current);
+  //     }
+  //  };
+  // }, [currentPage, hasMore, props.vehicles.data]);
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -97,7 +127,7 @@ function Inventory(props) {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && props.vehicles.data.length == 12) {
+        if (entry.isIntersecting && props.vehicles.data?.length == 12) {
           fetchMoreItems();
         }
       });
@@ -112,7 +142,7 @@ function Inventory(props) {
         observer.unobserve(bottomObserverRef.current);
       }
     };
-  }, [currentPage, hasMore, props.vehicles.data.length]);
+  }, [currentPage, hasMore, props.vehicles.data]);
 
   return (
     <>
@@ -156,46 +186,56 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
-  let pageData = await getPageData({
-    route: 'list-inventory',
-    populate: 'deep',
-  });
-  pageData = pageData.data?.attributes || null;
+  try {
+    let pageData = await getPageData({
+      route: 'list-inventory',
+      populate: 'deep',
+    });
+    pageData = pageData.data?.attributes || null;
 
-  const { vehicles_we_armor, q } = context.query;
+    const { vehicles_we_armor, q } = context.query;
 
-  let query = '';
-  if (vehicles_we_armor) {
-    query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
+    let query = '';
+    if (vehicles_we_armor) {
+      query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
+    }
+    if (q) {
+      query += `filters[slug][$contains]=${q.toLowerCase()}`;
+    }
+
+    const vehicles = await getPageData({
+      route: 'inventories',
+      params: query,
+      sort: 'title',
+      populate: 'featuredImage,categories',
+      page: 1,
+      pageSize: 12,
+    });
+
+    // Fetching Types for the Filters
+    const type = await getPageData({
+      route: 'categories',
+      sort: 'order',
+      populate: 'inventory_vehicles',
+      fields: 'fields[0]=title&fields[1]=slug',
+    }).then((response) => response.data);
+
+    const filters = type ? { type } : {};
+
+    const seoData = pageData?.seo ?? null;
+
+    return {
+      props: { pageData, vehicles, filters, seoData },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      notFound: true,
+    };
+    return {
+      props: { pageData: null, vehicles: null, filters: null, seoData: null },
+    };
   }
-  if (q) {
-    query += `filters[slug][$contains]=${q.toLowerCase()}`;
-  }
-
-  const vehicles = await getPageData({
-    route: 'inventories',
-    params: query,
-    sort: 'title',
-    populate: 'featuredImage,categories',
-    page: 1,
-    pageSize: 12,
-  });
-
-  // Fetching Types for the Filters
-  const type = await getPageData({
-    route: 'categories',
-    sort: 'order',
-    populate: 'inventory_vehicles',
-    fields: 'fields[0]=title&fields[1]=slug',
-  }).then((response) => response.data);
-
-  const filters = type ? { type } : {};
-
-  const seoData = pageData.seo;
-
-  return {
-    props: { pageData, vehicles, filters, seoData },
-  };
 }
 
 export default Inventory;

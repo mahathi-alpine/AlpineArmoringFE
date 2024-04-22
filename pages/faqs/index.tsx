@@ -41,7 +41,7 @@ export async function getStaticProps() {
   });
   faqs = faqs.data || null;
 
-  const seoData = pageData.seo;
+  const seoData = pageData?.seo ?? null;
 
   return {
     props: { pageData, faqs, seoData },
