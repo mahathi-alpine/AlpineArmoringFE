@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-import Seo from 'components/Seo';
 import MediaList from '../MediaList';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Videos(props) {
-  const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const videos = props?.videos;
 
@@ -23,8 +21,6 @@ function Videos(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
       <MediaList props={videos} itemType="video" />
@@ -46,8 +42,10 @@ export async function getStaticProps() {
   });
   videos = videos.data || null;
 
+  const seoData = pageData?.seo || null;
+
   return {
-    props: { pageData, videos },
+    props: { pageData, videos, seoData },
   };
 }
 

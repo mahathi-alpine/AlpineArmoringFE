@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import dynamic from 'next/dynamic';
 // import { getCookie } from 'cookies-next';
-import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
@@ -19,7 +18,6 @@ const VideosPopup = dynamic(
 function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
-  const seoData = data?.seo;
   const topBanner = {
     title: data?.topBannerTitle,
     description: data?.topBannerDescription,
@@ -47,8 +45,6 @@ function Home({ homepageData, categories }) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       {topBanner ? (
         // <HpBanner props={topBanner} languageCookie={languageCookie} />
         <HpBanner props={topBanner} />
@@ -109,12 +105,14 @@ export async function getStaticProps() {
       'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
   });
 
+  const seoData = homepageData.data.attributes.seo;
+
   // let languageCookie = getCookie('googtrans', { req, res });
   // languageCookie = languageCookie ? languageCookie.split('/').pop() : 'en';
 
   return {
     // props: { homepageData, categories, languageCookie },
-    props: { homepageData, categories },
+    props: { homepageData, categories, seoData },
     // revalidate: 86400,
   };
 }

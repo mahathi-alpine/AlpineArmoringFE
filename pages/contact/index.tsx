@@ -5,13 +5,11 @@ import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Link from 'next/link';
 import Accordion from 'components/global/accordion/Accordion';
-import Seo from 'components/Seo';
 import Image from 'next/image';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Contact(props) {
-  const seoData = props.pageData?.seo;
   const faqs = props?.pageData?.fa_qs;
 
   const convertMarkdown = useMarkdownToHtml();
@@ -29,8 +27,6 @@ function Contact(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.contact}`}>
         {props.pageData?.banner ? (
           <Banner props={props.pageData.banner} center shape="white" />
@@ -101,8 +97,10 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData },
+    props: { pageData, seoData },
   };
 }
 

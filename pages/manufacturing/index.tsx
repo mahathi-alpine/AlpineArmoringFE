@@ -5,14 +5,11 @@ import { useEffect } from 'react';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Image from 'next/image';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import Seo from 'components/Seo';
 import FillingText from 'components/global/filling-text/FillingText';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Manufacturing(props) {
-  const seoData = props.pageData?.seo;
-
   const convertMarkdown = useMarkdownToHtml();
 
   // Animations
@@ -57,8 +54,6 @@ function Manufacturing(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.manufacturing} background-dark`}>
         {props.pageData?.banner ? (
           <Banner props={props.pageData?.banner} center shape="dark" />
@@ -283,8 +278,10 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData },
+    props: { pageData, seoData },
   };
 }
 

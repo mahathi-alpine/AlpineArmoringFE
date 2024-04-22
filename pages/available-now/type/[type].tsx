@@ -5,7 +5,6 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
-import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
@@ -13,8 +12,6 @@ function Inventory(props) {
     (item) => item.attributes.slug === props.query
   );
   topBanner = topBanner?.attributes.inventoryBanner;
-
-  const seoData = props?.seo;
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -29,8 +26,6 @@ function Inventory(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.listing} background-dark`}>
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
@@ -86,13 +81,18 @@ export async function getServerSideProps(context) {
     route: 'categories',
     sort: 'order',
     fields: 'fields[0]=title&fields[1]=slug',
-    populate: 'inventoryBanner.media, inventory_vehicles',
+    populate: 'inventoryBanner.media, inventory_vehicles, seo',
   }).then((response) => response.data);
 
   const filters = type ? { type } : {};
 
+  let seoData = filters.type?.find(
+    (item) => item.attributes.slug === context.query.type
+  );
+  seoData = seoData?.attributes.seo;
+
   return {
-    props: { vehicles, filters, query: context.query.type },
+    props: { vehicles, filters, query: context.query.type, seoData },
   };
 }
 

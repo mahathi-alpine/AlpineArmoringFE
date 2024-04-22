@@ -4,12 +4,10 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
-import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
   const topBanner = props.pageData?.banner;
-  const seoData = props.pageData?.seo;
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -24,8 +22,6 @@ function Inventory(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.listing} background-dark`}>
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
@@ -72,8 +68,10 @@ export async function getServerSideProps(context) {
     populate: 'featuredImage, categories',
   });
 
+  const seoData = pageData?.seo || null;
+
   return {
-    props: { pageData, vehicles },
+    props: { pageData, vehicles, seoData },
   };
 }
 

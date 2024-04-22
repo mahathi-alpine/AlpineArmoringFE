@@ -1,13 +1,17 @@
 import { React } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+
 const Seo = ({ props }) => {
-  // console.log(props)
+  const router = useRouter();
+  // console.log(router)
   // return null;
 
   let baseImgUrl = 'https://www.alpineco.com/media/img/about-us/main.png';
   const metaImgHash = `${props?.metaImage?.data?.attributes.hash}`;
   const metaImgUrl = `${baseImgUrl}${metaImgHash}.jpg`;
   let twitter;
+
   props?.metaSocial?.map((social) => {
     if (social.socialNetwork === 'Twitter') {
       const twitterImgHash = social?.image?.data?.attributes.hash;
@@ -21,7 +25,6 @@ const Seo = ({ props }) => {
   });
   return (
     <Head>
-      {/* <title>{`${props?.metaTitle} | Alpine Armoring`}</title> */}
       <title>{props?.metaTitle || 'Alpine Armoring'}</title>
       <meta
         name="description"
@@ -39,9 +42,11 @@ const Seo = ({ props }) => {
       <meta name="twitter:description" content={twitter?.description} />
       <meta name="twitter:image" content={twitter?.image} />
       <meta name="twitter:card" content="summary_large_image" />
-      {props?.canonicalURL && (
-        <link rel="canonical" href={props.canonicalURL} />
-      )}
+      <link
+        rel="canonical"
+        href={props?.canonicalURL || `https://www.alpineco.com${router.asPath}`}
+      />
+      <link rel="icon" href="/favicon.png" />
     </Head>
   );
 };

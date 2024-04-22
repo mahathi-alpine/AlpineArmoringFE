@@ -1,9 +1,10 @@
 import '/styles/globals.scss';
 import Layout from '../components/Layout';
 // import Script from 'next/script';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+// import Head from 'next/head';
+// import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Seo from '../components/Seo';
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -12,8 +13,10 @@ function getCookie(name) {
 }
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter();
-  const canonicalUrl = `https://www.alpineco.com${router.pathname}`;
+  const seoData = pageProps.seoData;
+
+  // const router = useRouter();
+  // const canonicalUrl = `https://www.alpineco.com${router.pathname}`;
 
   // useEffect(() => {
   //   document.documentElement.lang = 'en-us';
@@ -62,10 +65,7 @@ export default function App({ Component, pageProps }) {
           strategy="afterInteractive"
         />
       )} */}
-      <Head>
-        <link rel="icon" href="/favicon.png" />
-        <link rel="canonical" href={canonicalUrl} />
-      </Head>
+      <Seo props={seoData} />
       <Layout>
         <Component {...pageProps} />
       </Layout>

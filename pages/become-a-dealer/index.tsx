@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Dealer(props) {
-  const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
 
@@ -25,8 +23,6 @@ function Dealer(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
       {text ? (
@@ -46,8 +42,10 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData },
+    props: { pageData, seoData },
   };
 }
 

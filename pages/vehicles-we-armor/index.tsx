@@ -5,12 +5,10 @@ import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
-import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
   const topBanner = props.pageData?.banner;
-  const seoData = props.pageData?.seo;
 
   // Group vehicles by category
   const groupedByCategory = props.vehicles.data?.reduce((acc, item) => {
@@ -56,8 +54,6 @@ function Inventory(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.listing}`}>
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
 
@@ -141,8 +137,10 @@ export async function getServerSideProps(context) {
     filters = { type, make };
   }
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData, vehicles, filters },
+    props: { pageData, vehicles, filters, seoData },
   };
 }
 

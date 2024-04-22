@@ -3,14 +3,10 @@ import { getPageData } from 'lib/api';
 import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
-import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 const Design = (props) => {
-  // return null;
-  const seoData = props.pageData?.seo;
-
   const convertMarkdown = useMarkdownToHtml();
 
   const [showPopup, setShowPopup] = useState(false);
@@ -52,8 +48,6 @@ const Design = (props) => {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.design}`}>
         {props.pageData?.banner ? (
           <>
@@ -427,6 +421,8 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  const seoData = pageData.seo;
+
   if (!pageData) {
     return {
       notFound: true,
@@ -434,7 +430,7 @@ export async function getStaticProps() {
   }
 
   return {
-    props: { pageData },
+    props: { pageData, seoData },
   };
 }
 

@@ -1,12 +1,10 @@
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import Banner from 'components/global/banner/Banner';
-import Seo from 'components/Seo';
 import MediaList from '../MediaList';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 const TradeShows = (props) => {
-  const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const tradeShows = props?.tradeShows;
   // return null;
@@ -24,8 +22,6 @@ const TradeShows = (props) => {
 
   return (
     <>
-      <Seo props={seoData} />
-
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
       <MediaList props={tradeShows} itemType="tradeShow" />
@@ -46,8 +42,10 @@ export async function getStaticProps() {
   });
   tradeShows = tradeShows.data || null;
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData, tradeShows },
+    props: { pageData, tradeShows, seoData },
   };
 }
 

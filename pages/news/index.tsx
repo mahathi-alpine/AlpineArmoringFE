@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-import Seo from 'components/Seo';
 import BlogList from 'components/global/news/News';
 import styles from './News.module.scss';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Blog(props) {
-  const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const posts = props?.posts;
 
@@ -24,8 +22,6 @@ function Blog(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
       {posts ? (
@@ -54,8 +50,10 @@ export async function getStaticProps() {
   });
   posts = posts.data || null;
 
+  const seoData = pageData?.seo;
+
   return {
-    props: { pageData, posts },
+    props: { pageData, posts, seoData },
   };
 }
 

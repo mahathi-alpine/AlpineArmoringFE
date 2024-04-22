@@ -7,7 +7,6 @@ import styles from '/components/listing/Listing.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
-import Seo from 'components/Seo';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
@@ -15,7 +14,6 @@ function Inventory(props) {
   const { q } = router.query;
 
   const topBanner = props.pageData?.banner;
-  const seoData = props.pageData?.seo;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
 
@@ -118,8 +116,6 @@ function Inventory(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.listing} background-dark`}>
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
@@ -195,8 +191,10 @@ export async function getServerSideProps(context) {
 
   const filters = type ? { type } : {};
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData, vehicles, filters },
+    props: { pageData, vehicles, filters, seoData },
   };
 }
 

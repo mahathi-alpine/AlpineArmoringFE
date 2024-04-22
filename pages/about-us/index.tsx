@@ -3,14 +3,12 @@ import { getPageData } from 'lib/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
-import Seo from 'components/Seo';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import Gallery from 'components/global/carousel/CarouselCurved';
 
 function About(props) {
-  const seoData = props?.pageData?.seo;
   const boxes = props?.pageData?.boxes;
   const convertMarkdown = useMarkdownToHtml();
 
@@ -29,8 +27,6 @@ function About(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.about}`}>
         {props.pageData?.banner ? (
           <Banner props={props.pageData.banner} center shape="white" />
@@ -121,8 +117,10 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData },
+    props: { pageData, seoData },
   };
 }
 

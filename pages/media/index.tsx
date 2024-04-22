@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { getPageData } from 'lib/api';
-import Seo from 'components/Seo';
 import Banner from 'components/global/banner/Banner';
 import BlogList from 'components/global/news/News';
 import styles from './Media.module.scss';
@@ -12,7 +11,6 @@ import TradeShowsSingle from './trade-shows/TradeShowsSingle';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Media(props) {
-  const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const news = props?.pageData?.blogs?.data;
   const videos = props?.pageData?.videos?.data;
@@ -95,8 +93,6 @@ function Media(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
       <TabSlider
@@ -189,8 +185,10 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData },
+    props: { pageData, seoData },
   };
 }
 

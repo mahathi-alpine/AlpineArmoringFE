@@ -3,7 +3,6 @@ import { getPageData } from 'lib/api';
 import styles from './Shipping.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
-import Seo from 'components/Seo';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
@@ -12,7 +11,6 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Shipping(props) {
-  const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const heading = props?.pageData?.heading;
   const boxes = props?.pageData?.boxes;
@@ -64,8 +62,6 @@ function Shipping(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       <div className={`${styles.shipping}`}>
         {banner ? <Banner props={banner} center shape="white" /> : null}
 
@@ -199,8 +195,10 @@ export async function getStaticProps() {
   });
   pageData = pageData.data?.attributes || null;
 
+  const seoData = pageData?.seo || null;
+
   return {
-    props: { pageData },
+    props: { pageData, seoData },
   };
 }
 

@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-import Seo from 'components/Seo';
 import Accordion from 'components/global/accordion/Accordion';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function FAQs(props) {
-  const seoData = props?.pageData?.seo;
   const banner = props?.pageData?.banner;
   const faqs = props?.faqs;
 
@@ -23,8 +21,6 @@ function FAQs(props) {
 
   return (
     <>
-      <Seo props={seoData} />
-
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
       {faqs ? <Accordion items={faqs} /> : null}
@@ -45,8 +41,10 @@ export async function getStaticProps() {
   });
   faqs = faqs.data || null;
 
+  const seoData = pageData.seo;
+
   return {
-    props: { pageData, faqs },
+    props: { pageData, faqs, seoData },
   };
 }
 

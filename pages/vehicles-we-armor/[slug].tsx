@@ -153,17 +153,7 @@ function Vehicle(props) {
     };
 
     setupObserver();
-
-    // Clean up the observer when the component unmounts
-    // return () => {
-    //   observerAnimationTargets.forEach((item) =>
-    //     observerAnimation.unobserve(item)
-    //   );
-    //   observerAnimation.disconnect();
-    // };
   }, []);
-
-  // console.log(props);
 
   if (!props.data) {
     return null;
@@ -409,6 +399,8 @@ export async function getServerSideProps(context) {
     params: `filters[slug][$eq]=${slug}`,
   });
 
+  const seoData = data.data[0].attributes.seo;
+
   if (!data || !data.data || data.data.length === 0) {
     return {
       notFound: true,
@@ -416,7 +408,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { data },
+    props: { data, seoData },
   };
 }
 

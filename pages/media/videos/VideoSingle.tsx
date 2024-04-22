@@ -19,6 +19,8 @@ const VideoSingle: FC<VideoSingleProps> = ({
   large = false,
   onLightboxOpen,
 }) => {
+  console.log(props);
+
   const handleClick = () => {
     onLightboxOpen(
       props.attributes.title,
@@ -40,7 +42,7 @@ const VideoSingle: FC<VideoSingleProps> = ({
       {props?.attributes?.URLExternal ? (
         <Image
           // src={`https://i.ytimg.com/vi/${item.attributes.URLExternal}/sd3.jpg`}
-          src={`https://i.ytimg.com/vi_webp/${props.attributes.URLExternal}/sddefault.webp`}
+          src={`https://i.ytimg.com/vi/${props.attributes.URLExternal}/hqdefault.jpg`}
           alt={props.attributes.title}
           width={500}
           height={400}
