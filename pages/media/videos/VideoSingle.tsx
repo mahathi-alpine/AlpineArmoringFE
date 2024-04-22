@@ -19,8 +19,6 @@ const VideoSingle: FC<VideoSingleProps> = ({
   large = false,
   onLightboxOpen,
 }) => {
-  console.log(props);
-
   const handleClick = () => {
     onLightboxOpen(
       props.attributes.title,

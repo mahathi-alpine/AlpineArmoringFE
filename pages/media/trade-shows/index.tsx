@@ -42,7 +42,7 @@ export async function getStaticProps() {
   });
   tradeShows = tradeShows.data || null;
 
-  const seoData = pageData.seo;
+  const seoData = pageData?.seo || null;
 
   return {
     props: { pageData, tradeShows, seoData },
