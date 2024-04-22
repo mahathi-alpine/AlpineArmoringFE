@@ -61,7 +61,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
             width={1920}
             height={1200}
             preload="metadata"
-            // poster="/assets/hpBannerPoster.jpg"
+            poster="/assets/hpVideoPoster.jpg"
           >
             {/* <source src="AlpineArmoringHPMobile.webm" type="video/webm" media="all and (max-width: 768px)"></source> */}
             <source
