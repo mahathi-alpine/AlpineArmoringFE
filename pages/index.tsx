@@ -23,6 +23,7 @@ function Home({ homepageData, categories }) {
   const topBanner = {
     title: data?.topBannerTitle,
     description: data?.topBannerDescription,
+    video: data?.bannerVideo,
   };
   const quote = data?.quote;
   const categoriesData = categories?.data;

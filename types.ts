@@ -4,6 +4,7 @@ export interface HPBannerProps {
   props: {
     title: string;
     description: string;
+    video: any;
   };
   error?: Error;
   // languageCookie?: string;

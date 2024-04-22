@@ -50,21 +50,26 @@ const HpBanner = ({ props }: HPBannerProps) => {
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
-        <video
-          ref={videoRef}
-          muted={true}
-          autoPlay={true}
-          playsInline={true}
-          loop={true}
-          className={`${styles.hp_banner_video}`}
-          width={1920}
-          height={1200}
-          // preload="metadata"
-          // poster="/assets/hpBannerPoster.jpg"
-        >
-          {/* <source src="AlpineArmoringHPMobile.webm" type="video/webm" media="all and (max-width: 768px)"></source> */}
-          <source src="/AlpineArmoringHP.webm" type="video/webm" />
-        </video>
+        {props.video.data ? (
+          <video
+            ref={videoRef}
+            muted={true}
+            autoPlay={true}
+            playsInline={true}
+            loop={true}
+            className={`${styles.hp_banner_video}`}
+            width={1920}
+            height={1200}
+            preload="metadata"
+            // poster="/assets/hpBannerPoster.jpg"
+          >
+            {/* <source src="AlpineArmoringHPMobile.webm" type="video/webm" media="all and (max-width: 768px)"></source> */}
+            <source
+              src={`${props.video.data.attributes.url}`}
+              type={`${props.video.data.attributes.mime}`}
+            />
+          </video>
+        ) : null}
 
         <div className={`${styles.hp_banner_pause}`} onClick={togglePlayPause}>
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
