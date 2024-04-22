@@ -50,7 +50,7 @@ export async function getStaticProps() {
   });
   posts = posts.data || null;
 
-  const seoData = pageData?.seo;
+  const seoData = pageData?.seo || null;
 
   return {
     props: { pageData, posts, seoData },
