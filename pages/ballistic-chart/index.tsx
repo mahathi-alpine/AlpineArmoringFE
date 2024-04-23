@@ -41,7 +41,7 @@ export async function getStaticProps() {
     route: 'ballistic-chart',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData?.data?.attributes || null;
 
   const seoData = pageData?.seo || null;
 
