@@ -276,7 +276,7 @@ export async function getStaticProps() {
     route: 'manufacturing',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData.data?.attributes ?? null;
 
   const seoData = pageData?.seo ?? null;
 
