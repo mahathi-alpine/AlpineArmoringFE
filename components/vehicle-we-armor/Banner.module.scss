@@ -82,10 +82,10 @@
   }
 
   &_description {
-    font-size: rem(14);
+    font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     @include breakpoint(medium) {
-      font-size: rem(18);
       margin-bottom: rem(24);
+      max-width: 500px;
     }
 
     strong,

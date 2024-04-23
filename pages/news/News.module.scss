@@ -1,4 +1,9 @@
 .news {
+  padding-top: rem(16);
+  @include breakpoint(medium) {
+    padding-top: rem(24);
+  }
+  
   & > div {
     padding-top: 0;
     &:before,

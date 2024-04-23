@@ -34,6 +34,10 @@
       font-weight: var(--font-medium);
       font-size: clamp(0.75rem, 0.7197rem + 0.1294vw, 0.875rem);
 
+      @include breakpoint(medium) {
+        align-items: center;
+      }
+
       p {
         flex: 1;
       }
