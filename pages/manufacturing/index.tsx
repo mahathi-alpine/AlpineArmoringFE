@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Image from 'next/image';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import FillingText from 'components/global/filling-text/FillingText';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
@@ -151,10 +150,30 @@ function Manufacturing(props) {
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >
-            {props.pageData?.section2Heading ? (
+            {/* {props.pageData?.section2Heading ? (
               <div className={`${styles.manufacturing_filling}`}>
                 <FillingText data={props.pageData?.section2Heading} small />
               </div>
+            ) : null} */}
+            {props.pageData?.section2Title ? (
+              <h2
+                className={`${styles.manufacturing_title} block-reveal observe`}
+              >
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: props.pageData.section2Title,
+                  }}
+                ></span>
+              </h2>
+            ) : null}
+
+            {props.pageData?.section2Text ? (
+              <p
+                className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
+                dangerouslySetInnerHTML={{
+                  __html: props.pageData.section2Text,
+                }}
+              ></p>
             ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
@@ -178,11 +197,11 @@ function Manufacturing(props) {
                 </div>
               ) : null}
 
-              {props.pageData?.section2Text ? (
+              {props.pageData?.section2Text2 ? (
                 <p
                   className={`${styles.manufacturing_text} observe fade-in`}
                   dangerouslySetInnerHTML={{
-                    __html: props.pageData.section2Text,
+                    __html: props.pageData.section2Text2,
                   }}
                 ></p>
               ) : null}
@@ -198,11 +217,11 @@ function Manufacturing(props) {
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >
-            {props.pageData?.section2Text2 ? (
+            {props.pageData?.section2Text3 ? (
               <div
                 className={`${styles.manufacturing_quote} observe fade-in`}
                 dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section2Text2),
+                  __html: convertMarkdown(props.pageData.section2Text3),
                 }}
               ></div>
             ) : null}
@@ -213,11 +232,26 @@ function Manufacturing(props) {
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >
-            <div className={`${styles.manufacturing_filling}`}>
-              {props.pageData?.section3Heading ? (
-                <FillingText data={props.pageData?.section3Heading} small />
-              ) : null}
-            </div>
+            {props.pageData?.section3Title ? (
+              <h2
+                className={`${styles.manufacturing_title} block-reveal observe`}
+              >
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: props.pageData.section3Title,
+                  }}
+                ></span>
+              </h2>
+            ) : null}
+
+            {props.pageData?.section3Heading ? (
+              <p
+                className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
+                dangerouslySetInnerHTML={{
+                  __html: props.pageData.section3Heading,
+                }}
+              ></p>
+            ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
               {props.pageData?.section3Text ? (

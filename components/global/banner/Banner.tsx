@@ -40,7 +40,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         playsInline
         // controls
         className={`${styles.banner_media}`}
-        webkit-playsinline
+        // webkit-playsinline
       >
         <source src={`${bannerImage.url}`} type={bannerMimeType} />
       </video>
