@@ -10,7 +10,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const bannerDescription = props.description;
 
   let mediaElement;
-  if (bannerMimeType?.split('/')[0] === 'image') {
+  if (bannerImage && bannerMimeType?.split('/')[0] === 'image') {
     mediaElement = (
       <picture>
         <source
@@ -22,16 +22,16 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
           }
         />
         <Image
-          src={`${bannerImage.formats?.medium?.url || bannerImage.url}`}
-          alt={bannerImage.alternativeText || 'Alpine Armoring'}
-          width={bannerImage.width}
+          src={`${bannerImage?.formats?.medium?.url || bannerImage.url}`}
+          alt={bannerImage?.alternativeText || 'Alpine Armoring'}
+          width={bannerImage?.width}
           height={bannerImage.height}
           className={`${styles.banner_media}`}
           priority
         />
       </picture>
     );
-  } else if (bannerMimeType?.startsWith('video')) {
+  } else if (bannerImage && bannerMimeType?.startsWith('video')) {
     mediaElement = (
       <video
         autoPlay
@@ -42,7 +42,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         className={`${styles.banner_media}`}
         // webkit-playsinline
       >
-        <source src={`${bannerImage.url}`} type={bannerMimeType} />
+        <source src={`${bannerImage?.url}`} type={bannerMimeType} />
       </video>
     );
   }
