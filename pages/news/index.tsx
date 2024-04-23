@@ -38,7 +38,7 @@ export async function getStaticProps() {
     route: 'news-page',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData?.data?.attributes || null;
 
   let posts = await getPageData({
     route: 'blogs',
@@ -48,7 +48,7 @@ export async function getStaticProps() {
     sort: 'order',
     pageSize: 200,
   });
-  posts = posts.data || null;
+  posts = posts?.data || null;
 
   const seoData = pageData?.seo || null;
 

@@ -33,14 +33,14 @@ export async function getStaticProps() {
     route: 'video-page',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData?.data?.attributes || null;
 
   let videos = await getPageData({
     route: 'videos',
     sort: 'order',
     populate: 'deep',
   });
-  videos = videos.data || null;
+  videos = videos?.data || null;
 
   const seoData = pageData?.seo || null;
 

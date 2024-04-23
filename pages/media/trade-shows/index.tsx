@@ -34,13 +34,13 @@ export async function getStaticProps() {
     route: 'trade-shows-page',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData?.data?.attributes || null;
 
   let tradeShows = await getPageData({
     route: 'trade-shows',
     populate: 'deep',
   });
-  tradeShows = tradeShows.data || null;
+  tradeShows = tradeShows?.data || null;
 
   const seoData = pageData?.seo || null;
 
