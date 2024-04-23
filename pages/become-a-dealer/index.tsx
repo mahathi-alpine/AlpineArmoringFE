@@ -40,7 +40,7 @@ export async function getStaticProps() {
     route: 'become-a-dealer',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData.data?.attributes ?? null;
 
   const seoData = pageData?.seo ?? null;
 
