@@ -145,32 +145,15 @@ const EmblaCarousel = (props) => {
         </div>
       </div>
 
-      {/* <Lightbox
-        open={open}
-        close={() => setOpen(false)}
-        slides={slides.map((item) => ({
-          src: item.attributes?.url,
-          width: item.attributes?.width,
-          height: item.attributes?.height,
-        }))}
-        index={selectedIndex}
-        plugins={[Thumbnails]}
-        render={{ slide: NextJsImage }}
-        thumbnails={{
-          padding: 0,
-          gap: 4,
-          imageFit: 'cover',
-          borderColor: '#737373',
-          borderRadius: 8,
-        }}
-      /> */}
       {renderLightbox({
-        slides: slides.map((item) => ({
+        slides: slides.map((item, index) => ({
           src: item.attributes?.url,
           width: item.attributes?.width,
           height: item.attributes?.height,
           formats: item.attributes?.formats,
           alt: item.attributes?.alternativeText,
+          index: index,
+          selectedIndex: selectedIndex,
         })),
         plugins: [Thumbnails],
         thumbnails: {
@@ -193,7 +176,11 @@ const EmblaCarousel = (props) => {
                   onClick={() => onThumbClick(index)}
                   selected={index === selectedIndex}
                   index={index}
-                  imgSrc={item.attributes?.url}
+                  alt={item.attributes?.alternativeText}
+                  imgSrc={
+                    item.attributes?.formats.thumbnail.url ||
+                    item.attributes?.url
+                  }
                   key={index}
                 />
               ))}

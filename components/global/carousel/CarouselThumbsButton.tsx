@@ -6,11 +6,12 @@ type PropType = {
   selected: boolean;
   imgSrc: string;
   index: number;
+  alt: string;
   onClick: () => void;
 };
 
 export const Thumb: React.FC<PropType> = (props) => {
-  const { selected, imgSrc, onClick } = props;
+  const { selected, imgSrc, onClick, alt } = props;
 
   return (
     <div
@@ -25,9 +26,9 @@ export const Thumb: React.FC<PropType> = (props) => {
       >
         <Image
           src={imgSrc}
-          alt="Description of the image"
-          width={683}
-          height={642}
+          alt={alt || 'Alpine Armoring'}
+          width={270}
+          height={200}
           className={styles.carousel_thumbs_slide_img}
         />
       </button>

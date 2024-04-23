@@ -1,26 +1,24 @@
 import Image from 'next/image';
 
-export default function NextJsImage(slide) {
-  const data = slide.slide;
-
+export default function NextJsImage({ slide }) {
   return (
     <div style={{ display: 'flex', height: '100%' }}>
       <Image
         src={
           window.innerWidth < 768
-            ? data.formats?.thumbnail?.url
-            : data.formats?.xlarge?.url || data.src
+            ? slide.formats?.thumbnail?.url
+            : slide.formats?.xlarge?.url || slide.src
         }
-        alt={data.alternativeText || 'Alpine Armoring'}
-        width={data.width}
-        height={data.height}
+        alt={slide.alt || 'Alpine Armoring'}
+        width={slide.width}
+        height={slide.height}
         style={{
           height: 'auto',
           width: 'auto',
           margin: '0 auto',
           objectFit: 'contain',
         }}
-        priority
+        priority={slide.index == slide.selectedIndex}
       ></Image>
     </div>
   );

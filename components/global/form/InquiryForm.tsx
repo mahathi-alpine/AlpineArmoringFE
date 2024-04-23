@@ -33,18 +33,29 @@ const InquiryForm = (props) => {
             {props?.featuredImage?.data ? (
               <Image
                 src={
-                  props?.featuredImage?.data.attributes.formats?.medium.url ||
-                  props?.featuredImage?.data.attributes.url
+                  props.plain
+                    ? props?.featuredImage?.data.attributes.formats?.medium
+                        .url || props?.featuredImage?.data.attributes.url
+                    : props?.featuredImage?.data.attributes.formats?.thumbnail
+                        .url || props?.featuredImage?.data.attributes.url
                 }
                 alt={
                   props?.featuredImage?.data.attributes.alternativeText ||
                   'Alpine Armoring'
                 }
                 width={
-                  props?.featuredImage?.data.attributes.formats?.medium.width
+                  props.plain
+                    ? props?.featuredImage?.data.attributes.formats?.medium
+                        .width
+                    : props?.featuredImage?.data.attributes.formats?.thumbnail
+                        .width
                 }
                 height={
-                  props?.featuredImage?.data.attributes.formats?.medium.height
+                  props.plain
+                    ? props?.featuredImage?.data.attributes.formats?.medium
+                        .height
+                    : props?.featuredImage?.data.attributes.formats?.thumbnail
+                        .height
                 }
               />
             ) : null}
