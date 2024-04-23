@@ -419,7 +419,7 @@ export async function getStaticProps() {
     route: 'design-and-engineering',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData?.data?.attributes || null;
 
   const seoData = pageData?.seo ?? null;
 

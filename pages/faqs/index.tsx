@@ -33,13 +33,13 @@ export async function getStaticProps() {
     route: 'faq',
     populate: 'deep',
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData?.data?.attributes || null;
 
   let faqs = await getPageData({
     route: 'fa-qs',
     populate: 'deep',
   });
-  faqs = faqs.data || null;
+  faqs = faqs?.data || null;
 
   const seoData = pageData?.seo ?? null;
 
