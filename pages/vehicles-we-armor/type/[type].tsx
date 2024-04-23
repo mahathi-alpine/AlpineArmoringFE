@@ -81,7 +81,7 @@ export async function getServerSideProps(context) {
     }).then((res) => res.data),
     getPageData({
       route: 'makes',
-      sort: 'order',
+      sort: 'title',
       pageSize: 100,
       fields: 'fields[0]=title&fields[1]=slug',
     }).then((res) => res.data),

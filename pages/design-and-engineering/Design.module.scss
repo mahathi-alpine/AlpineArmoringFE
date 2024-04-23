@@ -155,7 +155,10 @@
       @include breakpoint(large) {
         min-height: 40px;
         line-height: 1;
-        font-size: rem(19);
+        font-size: rem(20);
+      }
+      @include breakpoint(huge) {
+        font-size: rem(22);
       }
     }
 
