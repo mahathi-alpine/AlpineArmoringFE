@@ -29,7 +29,6 @@
     &_description {
       display: flex;
       gap: 8px;
-      align-items: center;
       margin-bottom: rem(16);
       color: var(--color-primary);
       font-weight: var(--font-medium);
@@ -39,8 +38,11 @@
         flex: 1;
       }
 
-      svg path {
-        fill: var(--color-primary);
+      svg{
+        width: 20px;
+        path {
+          fill: var(--color-primary);
+        }
       }
     }
 
@@ -362,6 +364,9 @@
 
     p {
       margin-bottom: rem(16);
+      &:last-child{
+        margin-bottom: 0;
+      }
     }
   }
 

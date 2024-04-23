@@ -228,35 +228,37 @@ function InventoryVehicle(props) {
               })}
             </ul>
 
-            <div className={`${styles.inventory_pdfs}`}>
-              {data?.OEMWindowSticker?.data ? (
-                <Button
-                  href={data.OEMWindowSticker.data.attributes?.url.replace(
-                    /\.ai$/,
-                    '.pdf'
-                  )}
-                  iconComponent={PDFIcon}
-                  className={`${styles.inventory_pdfs_button} icon rounded`}
-                  target
-                >
-                  <strong>OEM</strong> Window Sticker
-                </Button>
-              ) : null}
+            {data?.OEMWindowSticker?.data || data?.OEMArmoringSpecs?.data ? (
+              <div className={`${styles.inventory_pdfs}`}>
+                {data?.OEMWindowSticker?.data ? (
+                  <Button
+                    href={data.OEMWindowSticker.data.attributes?.url.replace(
+                      /\.ai$/,
+                      '.pdf'
+                    )}
+                    iconComponent={PDFIcon}
+                    className={`${styles.inventory_pdfs_button} icon rounded`}
+                    target
+                  >
+                    <strong>OEM</strong> Window Sticker
+                  </Button>
+                ) : null}
 
-              {data?.OEMArmoringSpecs?.data ? (
-                <Button
-                  href={data.OEMArmoringSpecs.data.attributes?.url.replace(
-                    /\.ai$/,
-                    '.pdf'
-                  )}
-                  iconComponent={DownloadIcon}
-                  className={`${styles.inventory_pdfs_button} icon rounded`}
-                  target
-                >
-                  Armoring Specs
-                </Button>
-              ) : null}
-            </div>
+                {data?.OEMArmoringSpecs?.data ? (
+                  <Button
+                    href={data.OEMArmoringSpecs.data.attributes?.url.replace(
+                      /\.ai$/,
+                      '.pdf'
+                    )}
+                    iconComponent={DownloadIcon}
+                    className={`${styles.inventory_pdfs_button} icon rounded`}
+                    target
+                  >
+                    Armoring Specs
+                  </Button>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

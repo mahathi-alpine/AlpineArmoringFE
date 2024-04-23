@@ -23,13 +23,14 @@
     width: 100%;
     border-radius: 8px;
     background: var(--color-white);
-    font-size: rem(14);
+    // font-size: rem(14);
     font-weight: var(--font-medium);
     border: 1px solid transparent;
 
     &::placeholder {
       font-weight: var(--font-regular);
       color: var(--color-secondary);
+      font-size: rem(14);
     }
 
     .form_group.error & {

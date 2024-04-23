@@ -28,21 +28,22 @@
     padding: rem(10);
     height: 100px;
 
-    &:last-child {
-      flex: 0 0 100%;
-    }
+    // &:last-child {
+    //   flex: 0 0 100%;
+    // }
 
     @include breakpoint(large) {
       height: 160px;
-      &:nth-child(-n + 5) {
-        flex: 0 0 calc(100% / 5 - 13px);
-      }
-      &:nth-child(n + 6) {
-        flex: 0 0 calc(100% / 4 - 12px);
-        img {
-          height: 64px;
-        }
-      }
+      flex: 0 0 calc(100% / 4 - 12px);
+      // &:nth-child(-n + 5) {
+      //   flex: 0 0 calc(100% / 5 - 13px);
+      // }
+      // &:nth-child(n + 6) {
+      //   flex: 0 0 calc(100% / 4 - 12px);
+      //   img {
+      //     height: 64px;
+      //   }
+      // }
     }
 
     @for $i from 1 through 9 {
