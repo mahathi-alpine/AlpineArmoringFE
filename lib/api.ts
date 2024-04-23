@@ -9,9 +9,10 @@ export async function fetchAPI(path) {
     const [response] = await Promise.all([fetch(requestUrl)]);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+      return data;
     }
-    const data = await response.json();
-    return data;
   } catch (error) {
     console.error('Error fetching data:', error);
     return {
