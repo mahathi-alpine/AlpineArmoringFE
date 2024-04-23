@@ -35,7 +35,7 @@ const TabSection = ({ props }) => {
               activeDiv == index ? styles.tabSection_item_active : ''
             }`}
           >
-            {item.image.data?.attributes.url ? (
+            {item.image.data?.attributes?.url ? (
               <div
                 className={`${styles.tabSection_item_image} observe fade-in-up`}
               >
