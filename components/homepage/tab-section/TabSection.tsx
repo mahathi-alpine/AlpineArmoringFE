@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import ArrowIcon from 'components/icons/Arrow';
 import TabSlider from 'components/global/tab-slider/TabSlider';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 const TabSection = ({ props }) => {
+  const isMobile = useIsMobile();
+
   const [activeDiv, setActiveDiv] = useState('0');
   const handleTabChange = (id) => {
     setActiveDiv(id);
@@ -41,7 +44,7 @@ const TabSection = ({ props }) => {
               >
                 {item.image.data[0].attributes.mime.startsWith('image/') ? (
                   <Image
-                    src={`${item.image.data[0].attributes.url}`}
+                    src={`${item.image.data[0].attributes.formats.medium.url}`}
                     alt={
                       item.image.data[0].attributes.alternativeText ||
                       'Alpine Armoring'
@@ -55,8 +58,8 @@ const TabSection = ({ props }) => {
                     autoPlay
                     muted
                     loop
-                    width={620}
-                    height={430}
+                    width={isMobile ? 380 : 620}
+                    height={isMobile ? 200 : 430}
                   >
                     <source
                       src={`${item.image.data[0].attributes.url}`}
