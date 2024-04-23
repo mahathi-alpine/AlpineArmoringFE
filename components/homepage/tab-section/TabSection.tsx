@@ -35,21 +35,21 @@ const TabSection = ({ props }) => {
               activeDiv == index ? styles.tabSection_item_active : ''
             }`}
           >
-            {item.image.data?.attributes?.url ? (
+            {item.image?.data ? (
               <div
                 className={`${styles.tabSection_item_image} observe fade-in-up`}
               >
-                {item.image.data.attributes.mime.startsWith('image/') ? (
+                {item.image.data[0].attributes.mime.startsWith('image/') ? (
                   <Image
-                    src={`${item.image.data.attributes.url}`}
+                    src={`${item.image.data[0].attributes.url}`}
                     alt={
-                      item.image.data.attributes.alternativeText ||
+                      item.image.data[0].attributes.alternativeText ||
                       'Alpine Armoring'
                     }
                     width={620}
                     height={430}
                   />
-                ) : item.image.data.attributes.mime.startsWith('video/') ? (
+                ) : item.image.data[0].attributes.mime.startsWith('video/') ? (
                   <video
                     preload="none"
                     autoPlay
@@ -59,8 +59,8 @@ const TabSection = ({ props }) => {
                     height={430}
                   >
                     <source
-                      src={`${item.image.data.attributes.url}`}
-                      type={item.image.data.attributes.mime}
+                      src={`${item.image.data[0].attributes.url}`}
+                      type={item.image.data[0].attributes.mime}
                     />
                     Your browser does not support the video tag.
                   </video>
