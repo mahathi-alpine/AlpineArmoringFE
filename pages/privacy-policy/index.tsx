@@ -1,11 +1,9 @@
 import { getPageData } from 'lib/api';
-import Banner from 'components/global/banner/Banner';
 import { useEffect } from 'react';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Privacy(props) {
-  const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
 
   const convertMarkdown = useMarkdownToHtml();
@@ -23,12 +21,16 @@ function Privacy(props) {
 
   return (
     <>
-      {banner ? <Banner props={banner} center shape="white" /> : null}
-
       {text ? (
         <div
           className={`static container_small`}
           dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
+          style={{
+            paddingTop: '30px',
+            display: 'flex',
+            alignItems: 'center',
+            minHeight: '80vH',
+          }}
         ></div>
       ) : null}
     </>

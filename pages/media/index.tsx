@@ -183,10 +183,9 @@ export async function getStaticProps() {
     route: 'media',
     populate: 'deep',
   });
-  const seoData = pageData?.data?.[0]?.attributes?.seo ?? null;
   pageData = pageData.data?.attributes || null;
 
-  // const seoData = pageData.seo;
+  const seoData = pageData?.seo || null;
 
   return {
     props: { pageData, seoData },

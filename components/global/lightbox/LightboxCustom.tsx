@@ -82,7 +82,7 @@ const LightboxCustom = ({
       {lightboxData.contentType === 'gallery' && (
         <div className={`${styles.lightbox_slider}`} ref={emblaRef}>
           <div className={`${styles.lightbox_slider_inner}`}>
-            {lightboxData.gallery.map((item, index) => (
+            {lightboxData?.gallery?.map((item, index) => (
               <div className={`${styles.lightbox_slider_item}`} key={index}>
                 <Image
                   src={
