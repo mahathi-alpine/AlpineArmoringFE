@@ -12,7 +12,7 @@ function Inventory(props) {
 
   // Group vehicles by category
   const groupedByCategory =
-    props.vehicles?.data?.reduce((acc, item) => {
+    props.vehicles?.reduce((acc, item) => {
       const category = item.attributes.category.data
         ? item.attributes.category.data.attributes.title
         : item.attributes.category;
@@ -95,76 +95,54 @@ function Inventory(props) {
 // }
 
 export async function getServerSideProps(context) {
-  try {
-    let pageData = await getPageData({
-      route: 'list-vehicles-we-armor',
-      populate: 'deep',
-    });
-    pageData = pageData.data?.attributes || null;
+  let pageData = await getPageData({
+    route: 'list-vehicles-we-armor',
+    populate: 'deep',
+  });
+  pageData = pageData?.data?.attributes || null;
 
-    let query = '';
-    if (context.query.category) {
-      query += `&filters[category][slug][$eq]=${context.query.category}`;
-    }
-    if (context.query.make) {
-      query += `&filters[make][slug][$eq]=${context.query.make}`;
-    }
-    if (context.query.q) {
-      query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
-    }
-    let vehicles = await getPageData({
-      route: 'vehicles-we-armors',
-      params: query,
-      populate: 'featuredImage, category',
-      sort: 'title',
-    });
-    vehicles = vehicles.data?.attributes || null;
+  let query = '';
+  if (context.query.category) {
+    query += `&filters[category][slug][$eq]=${context.query.category}`;
+  }
+  if (context.query.make) {
+    query += `&filters[make][slug][$eq]=${context.query.make}`;
+  }
+  if (context.query.q) {
+    query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
+  }
+  let vehicles = await getPageData({
+    route: 'vehicles-we-armors',
+    params: query,
+    populate: 'featuredImage, category',
+    sort: 'title',
+  });
+  vehicles = vehicles?.data || null;
 
-    const [type, make] = await Promise.all([
-      getPageData({
-        route: 'categories',
-        sort: 'order',
-        fields: 'fields[0]=title&fields[1]=slug',
-      }).then((res) => res.data),
-      getPageData({
-        route: 'makes',
-        sort: 'order',
-        pageSize: 100,
-        fields: 'fields[0]=title&fields[1]=slug',
-      }).then((res) => res.data),
-    ]);
+  const [type, make] = await Promise.all([
+    getPageData({
+      route: 'categories',
+      sort: 'order',
+      fields: 'fields[0]=title&fields[1]=slug',
+    }).then((res) => res.data),
+    getPageData({
+      route: 'makes',
+      sort: 'order',
+      pageSize: 100,
+      fields: 'fields[0]=title&fields[1]=slug',
+    }).then((res) => res.data),
+  ]);
 
-    let filters = {};
-    if (type && make) {
-      filters = { type, make };
-    }
-
-    const seoData = pageData?.seo || null;
-
-    return {
-      props: { pageData, vehicles, filters, seoData },
-    };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return {
-      notFound: true,
-    };
-    return {
-      props: { pageData: null, vehicles: null, filters: null, seoData: null },
-    };
+  let filters = {};
+  if (type && make) {
+    filters = { type, make };
   }
 
-  // if (!vehicles.length === 0) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  const seoData = pageData?.seo || null;
 
-  // Fetching Types and Makes for the Filters
-
-  // return {
-  //   props: { pageData, vehicles, filters, seoData },
-  // };
+  return {
+    props: { pageData, vehicles, filters, seoData },
+  };
 }
 
 export default Inventory;
