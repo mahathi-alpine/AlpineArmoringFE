@@ -38,7 +38,7 @@
         flex: 1;
       }
 
-      svg{
+      svg {
         width: 20px;
         path {
           fill: var(--color-primary);
@@ -364,7 +364,7 @@
 
     p {
       margin-bottom: rem(16);
-      &:last-child{
+      &:last-child {
         margin-bottom: 0;
       }
     }
