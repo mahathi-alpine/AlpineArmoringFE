@@ -57,16 +57,11 @@ const StickyHorizontalSlider = ({
                 }}
               >
                 {data.image.data?.attributes.url ? (
-                  <picture
+                  <div
                     className={`${styles.stickyHorizontalSlider_item_image_wrap}`}
                   >
-                    <source
-                      media="(min-width: 768px)"
-                      // srcSet={data.image.data.attributes.formats?.medium?.url}
-                    />
                     <Image
-                      // src={data.image.data.attributes.formats?.thumbnail.url}
-                      src="/assets/specs.jpg"
+                      src={data.image.data.attributes.formats?.thumbnail.url}
                       alt={
                         data.image.data.attributes.alternativeText ||
                         'Alpine Armoring'
@@ -75,7 +70,7 @@ const StickyHorizontalSlider = ({
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className={styles.stickyHorizontalSlider_item_image}
                     />
-                  </picture>
+                  </div>
                 ) : null}
 
                 <div
