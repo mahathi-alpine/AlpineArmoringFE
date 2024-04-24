@@ -1,6 +1,9 @@
-// const redirects = require('./redirects');
+const redirects = require('./redirects');
 
 module.exports = {
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
   },
@@ -39,9 +42,9 @@ module.exports = {
       },
     ],
   },
-  // redirects: () => {
-  //   return redirects();
-  // },
+  redirects: () => {
+    return redirects();
+  },
   reactStrictMode: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
