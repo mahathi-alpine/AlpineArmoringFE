@@ -287,9 +287,7 @@ body {
   );
 }
 
-
-
-.carousel_arrows_full{
+.carousel_arrows_full {
   button {
     position: absolute;
     top: 50%;
@@ -331,7 +329,7 @@ body {
       }
     }
 
-    &:disabled{
+    &:disabled {
       opacity: 0;
     }
   }
