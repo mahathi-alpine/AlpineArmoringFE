@@ -1,4 +1,4 @@
-const redirects = require('./redirects');
+// const redirects = require('./redirects');
 
 module.exports = {
   sassOptions: {
@@ -39,9 +39,9 @@ module.exports = {
       },
     ],
   },
-  redirects: () => {
-    return redirects();
-  },
+  // redirects: () => {
+  //   return redirects();
+  // },
   reactStrictMode: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
