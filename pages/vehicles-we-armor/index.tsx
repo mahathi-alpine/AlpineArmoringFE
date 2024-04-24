@@ -4,43 +4,103 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState, useRef } from 'react';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
-function Inventory(props) {
+function VehicleWeArmor(props) {
+  const router = useRouter();
+  const { q } = router.query;
   const topBanner = props.pageData?.banner;
+  // console.log(props.vehicles)
+  // return null;
 
-  // Group vehicles by category
-  const groupedByCategory =
-    props.vehicles?.reduce((acc, item) => {
-      const category = item.attributes.category.data
-        ? item.attributes.category.data.attributes.title
-        : item.attributes.category;
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(item);
-      return acc;
-    }, {}) || {};
+  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
 
-  // Convert the groupedByCategory object into an array of objects
-  const vehiclesArray = Object.entries(groupedByCategory).map(
-    ([title, items]) => ({ title, items })
+  useEffect(() => {
+    setVehiclesData(props.vehicles.data);
+  }, [q]);
+
+  const categoryOrderMap = new Map(
+    props.filters.type?.map((category) => [
+      category.attributes.title,
+      category.attributes.order,
+    ])
   );
 
-  // Sort the vehiclesArray based on the order in props.filters.type, placing '[object Object]' at the end
-  vehiclesArray.sort((a, b) => {
-    if (a.title === '[object Object]') return 1;
-    if (b.title === '[object Object]') return -1;
+  const vehiclesArray = vehiclesData.sort((a, b) => {
+    // Correctly access the category order using the category title
+    const categoryOrderA = categoryOrderMap.get(
+      a.attributes.category.data.attributes.title
+    );
+    const categoryOrderB = categoryOrderMap.get(
+      b.attributes.category.data.attributes.title
+    );
 
-    const indexA = props.filters.type.findIndex(
-      (c) => c.attributes.title === a.title
-    );
-    const indexB = props.filters.type.findIndex(
-      (c) => c.attributes.title === b.title
-    );
-    return indexA - indexB;
+    // Compare by category order
+    if (categoryOrderA !== categoryOrderB) {
+      return Number(categoryOrderA) - Number(categoryOrderB);
+    }
+
+    // If categories are equal, compare by make title alphabetically
+    const makeOrderA = a.attributes.make
+      ? a.attributes.make.data?.attributes.title
+      : '';
+    const makeOrderB = b.attributes.make
+      ? b.attributes.make.data?.attributes.title
+      : '';
+    return makeOrderA?.localeCompare(makeOrderB);
   });
+
+  const [currentPage, setCurrentPage] = useState(2);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchMoreItems = async () => {
+    if (!hasMore) return;
+    setCurrentPage(currentPage + 1);
+
+    const query = q ? `filters[slug][$contains]=${q}` : '';
+
+    // Fetch the next batch of items using the current page number
+    const vehicles = await getPageData({
+      route: 'vehicles-we-armors',
+      sort: 'category.order',
+      populate: 'featuredImage, category, make',
+      page: currentPage,
+      pageSize: 14,
+      params: query,
+    });
+
+    // Ensure vehicles.data is an array before updating the state
+    if (Array.isArray(vehicles.data)) {
+      setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
+    }
+
+    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
+    const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
+    setHasMore(itemsFetched < totalItems);
+  };
+
+  const bottomObserverRef = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && props.vehicles.data?.length == 14) {
+          fetchMoreItems();
+        }
+      });
+    });
+
+    if (bottomObserverRef.current) {
+      observer.observe(bottomObserverRef.current);
+    }
+
+    return () => {
+      if (bottomObserverRef.current) {
+        observer.unobserve(bottomObserverRef.current);
+      }
+    };
+  }, [currentPage, hasMore, props.vehicles.data]);
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -63,13 +123,25 @@ function Inventory(props) {
         </div>
 
         <div className={`${styles.listing_wrap} container`}>
-          {props.vehicles?.data?.length < 1 ? (
+          {props.vehicles.data?.data?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
               <h2>No Vehicles Found</h2>
             </div>
           ) : null}
 
           {vehiclesArray ? (
+            <div className={`${styles.listing_list}`}>
+              {vehiclesArray.map((vehicle, index) => (
+                <InventoryItem
+                  key={index}
+                  props={vehicle}
+                  index={index === 0 ? index : 1}
+                />
+              ))}
+            </div>
+          ) : null}
+
+          {/* {vehiclesArray ? (
             <div className={`${styles.listing_list}`}>
               {vehiclesArray.map((category, indexInitial) => {
                 return Array.isArray(category.items)
@@ -83,9 +155,11 @@ function Inventory(props) {
                   : null;
               })}
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
+
+      <div ref={bottomObserverRef}></div>
     </>
   );
 }
@@ -111,19 +185,20 @@ export async function getServerSideProps(context) {
   if (context.query.q) {
     query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
   }
-  let vehicles = await getPageData({
+  const vehicles = await getPageData({
     route: 'vehicles-we-armors',
     params: query,
-    populate: 'featuredImage, category',
-    sort: 'title',
+    populate: 'featuredImage, category, make',
+    page: 1,
+    pageSize: 14,
+    sort: 'category.order',
   });
-  vehicles = vehicles?.data || null;
 
   const [type, make] = await Promise.all([
     getPageData({
       route: 'categories',
       sort: 'order',
-      fields: 'fields[0]=title&fields[1]=slug',
+      fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
     }).then((res) => res.data),
     getPageData({
       route: 'makes',
@@ -145,4 +220,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default Inventory;
+export default VehicleWeArmor;

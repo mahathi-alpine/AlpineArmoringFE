@@ -81,34 +81,7 @@ function Inventory(props) {
     const totalItems = props.vehicles?.meta?.pagination?.total || 0;
     const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
     setHasMore(itemsFetched < totalItems);
-    // Merge the new items with the existing items
-    // setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
-
-    // const totalItems = props.vehicles.meta.pagination.total;
-    // const itemsFetched = vehiclesData.length + vehicles.data.length;
-    // setHasMore(itemsFetched < totalItems);
   };
-
-  // const bottomObserverRef = useRef(null);
-  // useEffect(() => {
-  //  const observer = new IntersectionObserver((entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting && Array.isArray(props.vehicles.data) && props.vehicles.data.length === 12) {
-  //         fetchMoreItems();
-  //       }
-  //     });
-  //  });
-
-  //  if (bottomObserverRef.current) {
-  //     observer.observe(bottomObserverRef.current);
-  //  }
-
-  //  return () => {
-  //     if (bottomObserverRef.current) {
-  //       observer.unobserve(bottomObserverRef.current);
-  //     }
-  //  };
-  // }, [currentPage, hasMore, props.vehicles.data]);
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -168,7 +141,7 @@ function Inventory(props) {
                       .filter((item) => item.attributes.ownPage !== false)
                       .map((item, index) => (
                         <InventoryItem
-                          key={item.id}
+                          key={indexInitial + index}
                           props={item}
                           index={indexInitial === 0 && index === 0 ? index : 1}
                         />

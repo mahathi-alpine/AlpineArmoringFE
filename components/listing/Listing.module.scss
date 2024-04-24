@@ -29,7 +29,7 @@
     }
     @include breakpoint(large) {
       padding-top: 0;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     &_error {

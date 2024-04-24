@@ -68,6 +68,7 @@ export async function getServerSideProps(context) {
     route: 'vehicles-we-armors',
     params: query,
     sort: 'title',
+    pageSize: 100,
     populate: 'featuredImage',
   });
 
