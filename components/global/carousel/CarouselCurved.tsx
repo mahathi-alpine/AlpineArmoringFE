@@ -137,7 +137,7 @@ const CarouselCurved = ({
           </div>
 
           {slides.length > 1 ? (
-            <div className={styles.carouselCurved_arrows}>
+            <div className="carousel_arrows_full">
               <PrevButton
                 onClick={onPrevButtonClick}
                 disabled={prevBtnDisabled}
