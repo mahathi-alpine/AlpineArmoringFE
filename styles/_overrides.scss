@@ -22,17 +22,16 @@ div.yarl__slide_description {
 }
 
 @include breakpoint(large) {
-  nav.yarl__flex_center {
-    align-items: baseline;
-  }
+  // nav.yarl__flex_center {
+  //   align-items: baseline;
+  // }
   button.yarl__thumbnails_thumbnail {
-    transition:
-      height 0.3s ease-in-out,
-      width 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     height: 100px;
     &:hover {
-      height: 150px;
-      width: 300px;
+      // height: 150px;
+      // width: 300px;
+      transform: translateY(-10px);
     }
   }
   div.yarl__thumbnails_vignette {

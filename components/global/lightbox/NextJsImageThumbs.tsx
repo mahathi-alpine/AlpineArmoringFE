@@ -20,17 +20,21 @@ import {} from // RenderSlideProps,
 
 export default function NextJsImage(slide) {
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <Image
-        alt={slide.slide.alt || 'Alpine Armoring'}
-        src={slide.slide.formats.thumbnail.url || slide.slide.url}
-        loading="eager"
-        draggable={false}
-        placeholder={slide.slide.blurDataURL ? 'blur' : undefined}
-        style={{ objectFit: 'cover', height: '100%' }}
-        width={122}
-        height={82}
-      />
-    </div>
+    <>
+      {slide.slide.src ? (
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <Image
+            alt={slide.slide.alt || 'Alpine Armoring'}
+            src={slide.slide.formats?.thumbnail.url || slide.slide.url}
+            loading="eager"
+            draggable={false}
+            placeholder={slide.slide.blurDataURL ? 'blur' : undefined}
+            style={{ objectFit: 'cover', height: '100%' }}
+            width={122}
+            height={82}
+          />
+        </div>
+      ) : null}
+    </>
   );
 }

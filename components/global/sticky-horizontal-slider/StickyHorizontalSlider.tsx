@@ -1,7 +1,14 @@
 import styles from './StickyHorizontalSlider.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+
 import useEmblaCarousel from 'embla-carousel-react';
+import {
+  PrevButton,
+  NextButton,
+  usePrevNextButtons,
+} from 'components/global/carousel/CarouselArrowButtons';
+
 import NextJsImage from '../lightbox/NextJsImage';
 import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
@@ -21,8 +28,31 @@ const StickyHorizontalSlider = ({
 
   const sliderOptions = {
     dragFree: true,
+    // loop: true
   };
-  const [containerInnerRef] = useEmblaCarousel(sliderOptions);
+
+  const [containerInnerRef, emblaMainApi] = useEmblaCarousel(sliderOptions);
+
+  const onSelect = useCallback(() => {
+    if (!emblaMainApi || !emblaMainApi) return;
+    const newIndex = emblaMainApi.selectedScrollSnap();
+    setSelectedIndex(newIndex);
+    emblaMainApi.scrollTo(newIndex);
+  }, [emblaMainApi]);
+
+  useEffect(() => {
+    if (!emblaMainApi) return;
+    onSelect();
+    emblaMainApi.on('select', onSelect);
+    emblaMainApi.on('reInit', onSelect);
+  }, [emblaMainApi, onSelect]);
+
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaMainApi);
 
   return (
     <section
@@ -87,6 +117,19 @@ const StickyHorizontalSlider = ({
             );
           })}
         </div>
+
+        {slides.length > 1 ? (
+          <div className={`carousel_arrows_full`}>
+            <PrevButton
+              onClick={onPrevButtonClick}
+              disabled={prevBtnDisabled}
+            />
+            <NextButton
+              onClick={onNextButtonClick}
+              disabled={nextBtnDisabled}
+            />
+          </div>
+        ) : null}
       </div>
 
       {renderLightbox({
@@ -94,9 +137,9 @@ const StickyHorizontalSlider = ({
           src: item.attributes?.image.data?.attributes.url,
           width: item.attributes?.image.data?.attributes.width,
           height: item.attributes?.image.data?.attributes.height,
-          title: item.attributes?.title,
-          formats: item.attributes?.formats,
-          alt: item.attributes?.alternativeText,
+          title: item.attributes?.image.data?.attributes.title,
+          formats: item.attributes?.image.data?.attributes.formats,
+          alt: item.attributes?.image.data?.attributes.alternativeText,
         })),
         plugins: [Thumbnails, Captions],
         thumbnails: {

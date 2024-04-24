@@ -258,7 +258,7 @@
   }
 
   &_arrows {
-    @include breakpoint(huge) {
+    @include breakpoint(large) {
       &_main {
         display: none;
       }

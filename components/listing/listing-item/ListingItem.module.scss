@@ -49,10 +49,6 @@
   }
 
   &_sold {
-    @include breakpoint(large) {
-      flex-basis: calc(100% / 3 - 16px);
-    }
-
     &:before {
       position: absolute;
       content: '';
@@ -124,17 +120,20 @@
     transition: opacity 0.3s ease;
 
     span {
-      background: var(--color-green);
-      padding: rem(8) rem(24);
+      // padding: rem(8) rem(24);
       border-radius: 8px;
+      background: transparent;
+      color: var(--color-green);
+      font-size: rem(27);
+      font-weight: var(--font-demi);
+      text-shadow: 2px 2px 2px black;
+      @include breakpoint(large) {
+        font-size: rem(36);
+      }
     }
 
     &_sold span {
-      background: transparent;
       color: #cab996;
-      font-size: rem(40);
-      font-weight: var(--font-demi);
-      text-shadow: 2px 2px 2px black;
     }
   }
 

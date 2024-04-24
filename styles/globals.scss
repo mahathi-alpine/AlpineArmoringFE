@@ -286,3 +286,53 @@ body {
     rgba(0, 0, 0, 0) 100%
   );
 }
+
+
+
+.carousel_arrows_full{
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: rem(4);
+    -webkit-appearance: none;
+    touch-action: manipulation;
+    cursor: pointer;
+    color: white;
+    width: rem(28);
+    height: rem(28);
+    z-index: 1;
+    background: var(--color-dark);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+
+    @include breakpoint(large) {
+      margin: 0 auto;
+      width: rem(40);
+      height: rem(40);
+    }
+
+    &:nth-child(2) {
+      left: auto;
+      right: rem(4);
+    }
+
+    &:hover {
+      background: var(--color-gray);
+    }
+
+    svg {
+      width: 10px;
+      @include breakpoint(large) {
+        width: 16px;
+      }
+    }
+
+    &:disabled{
+      opacity: 0;
+    }
+  }
+}

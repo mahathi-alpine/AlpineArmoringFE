@@ -148,8 +148,8 @@
     padding-right: 0;
 
     @include breakpoint(large) {
-      // padding-top: rem(70);
       margin-bottom: rem(40);
+      padding-left: 0;
     }
   }
 

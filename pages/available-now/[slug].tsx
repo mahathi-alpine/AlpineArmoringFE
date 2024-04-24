@@ -5,7 +5,7 @@ import InfoIcon from 'components/icons/Info';
 import PDFIcon from 'components/icons/PDF2';
 import DownloadIcon from 'components/icons/Download';
 import Link from 'next/link';
-import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
+// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
@@ -267,7 +267,7 @@ function InventoryVehicle(props) {
         ></div>
       ) : null}
 
-      {data?.specifications?.data.length > 0 ? (
+      {/* {data?.specifications?.data.length > 0 ? (
         <div id="armoring-specs" className={`${styles.inventory_specs} anchor`}>
           <StickyHorizontalSlider
             slides={data.specifications.data}
@@ -275,9 +275,9 @@ function InventoryVehicle(props) {
             inventory
           />
         </div>
-      ) : null}
+      ) : null} */}
 
-      {data?.accessories?.data.length > 0 ? (
+      {/* {data?.accessories?.data.length > 0 ? (
         <div id="options-included" className={`anchor`}>
           <StickyHorizontalSlider
             slides={data.accessories.data}
@@ -285,7 +285,7 @@ function InventoryVehicle(props) {
             inventory
           />
         </div>
-      ) : null}
+      ) : null} */}
 
       {data?.video.data ? (
         <VideoScale video={data?.video.data?.attributes?.url} />
