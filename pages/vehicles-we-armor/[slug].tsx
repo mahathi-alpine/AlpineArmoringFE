@@ -178,10 +178,10 @@ function Vehicle(props) {
           id="overview"
           className={`${styles.slug_description} anchor container_small`}
         >
-          <h2 className={`c-title observe fade-in-up`}>Overview</h2>
+          <h2 className={`c-title observe fade-in`}>Overview</h2>
 
           <div
-            className={`observe fade-in-up`}
+            className={`observe fade-in`}
             dangerouslySetInnerHTML={{
               __html: convertMarkdown(data.description),
             }}
@@ -195,7 +195,7 @@ function Vehicle(props) {
           id="dimensions"
         >
           <h2
-            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
           >
             Dimensions
           </h2>
@@ -266,7 +266,7 @@ function Vehicle(props) {
           className={`${styles.slug_specs} container anchor`}
         >
           <h2
-            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
           >
             Armoring Features
           </h2>
@@ -281,7 +281,7 @@ function Vehicle(props) {
           className={`${styles.slug_specs} container anchor`}
         >
           <h2
-            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
           >
             Conversion Accessories
           </h2>
@@ -296,7 +296,7 @@ function Vehicle(props) {
           className={`${styles.slug_specs} container anchor`}
         >
           <h2
-            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
           >
             Communications & Electronics
           </h2>
@@ -311,7 +311,7 @@ function Vehicle(props) {
           className={`${styles.slug_specs} container anchor`}
         >
           <h2
-            className={`${styles.slug_dimensions_title} observe fade-in-up c-title`}
+            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
           >
             Other Options
           </h2>
@@ -322,7 +322,7 @@ function Vehicle(props) {
 
       {gallery ? (
         <div
-          className={`${styles.slug_gallery} observe fade-in-up anchor`}
+          className={`${styles.slug_gallery} observe fade-in anchor`}
           id="gallery"
         >
           <Gallery props={gallery} white regular />

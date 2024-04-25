@@ -1,15 +1,15 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
-import InfoIcon from 'components/icons/Info';
-import PDFIcon from 'components/icons/PDF2';
-import DownloadIcon from 'components/icons/Download';
+import dynamic from 'next/dynamic';
+const DownloadIcon = dynamic(() => import('components/icons/Download'));
+const InfoIcon = dynamic(() => import('components/icons/Info'));
+const PDFIcon = dynamic(() => import('components/icons/PDF2'));
 import Link from 'next/link';
 // import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
-
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
-import InquiryForm from 'components/global/form/InquiryForm';
+const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
