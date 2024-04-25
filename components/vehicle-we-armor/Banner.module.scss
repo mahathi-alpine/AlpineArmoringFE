@@ -53,7 +53,8 @@
 
     h1 {
       font-weight: var(--font-demi);
-      font-size: clamp(1.75rem, 1.4466rem + 1.2945vw, 3rem);
+      // font-size: clamp(1.75rem, 1.4466rem + 1.2945vw, 3rem);
+      font-size: clamp(2rem, 1.7573rem + 1.0356vw, 3rem);      
       line-height: 1.1;
     }
     @include breakpoint(large) {
@@ -211,14 +212,13 @@
 
   &_image {
     background: linear-gradient(0, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
-    padding: rem(24) rem(16) rem(70) rem(16);
+    padding: rem(24) rem(16) rem(100) rem(16);
 
     @include breakpoint(large) {
       position: relative;
       display: flex;
       flex-flow: column;
       align-items: flex-end;
-      padding-top: 0;
       border-top-left-radius: 32px;
       border-bottom-right-radius: 32px;
       border-bottom-left-radius: 32px;
@@ -236,14 +236,12 @@
 
     &_wrap {
       position: relative;
-      margin-bottom: rem(24);
+      margin: 0 rem(-12) rem(24) rem(-12);
       z-index: 1;
       overflow: hidden;
 
       @include breakpoint(medium) {
-        // max-width: 600px;
-        margin: auto;
-        margin-bottom: rem(24);
+        margin: 0 auto rem(24) auto;
       }
 
       @include breakpoint(large) {

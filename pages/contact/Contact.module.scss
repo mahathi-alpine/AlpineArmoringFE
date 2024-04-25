@@ -49,9 +49,9 @@
         margin-bottom: rem(10);
       }
 
-      strong {
-        font-weight: var(--font-medium);
-      }
+      // strong {
+      //   font-weight: var(--font-medium);
+      // }
 
       @include breakpoint(large) {
         width: 50%;

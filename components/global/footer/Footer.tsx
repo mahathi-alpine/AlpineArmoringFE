@@ -178,7 +178,7 @@ const Footer = (isDarkMode) => {
           </ul>
 
           <p className={`${styles.footer_bottom_copy}`}>
-            ©1993-2024. Alpine Armoring Inc. All Rights Reserved
+            ©1993-2024. Alpine Armoring Inc. <span>All Rights Reserved</span>
           </p>
         </div>
       </div>

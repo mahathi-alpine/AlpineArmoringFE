@@ -65,4 +65,16 @@
       transform-origin: right;
     }
   }
+
+  &_loading{
+    text-align: center;
+    font-weight: var(--font-medium);
+    font-size: rem(18);
+    color: var(--color-white);
+    background: var(--color-primary);
+    margin: auto;
+    width: 190px;
+    border-radius: 100px;
+    padding: 15px 5px;
+  }
 }

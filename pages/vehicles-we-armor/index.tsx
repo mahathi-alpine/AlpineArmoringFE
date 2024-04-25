@@ -55,8 +55,18 @@ function VehicleWeArmor(props) {
   const [currentPage, setCurrentPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
 
+  const [loading, setLoading] = useState(false);
+
+  const pageLimit = 14;
+
   const fetchMoreItems = async () => {
     if (!hasMore) return;
+
+    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
+
+    if (currentPage * pageLimit >= totalItems + pageLimit) return;
+
+    setLoading(true);
     setCurrentPage(currentPage + 1);
 
     const query = q ? `filters[slug][$contains]=${q}` : '';
@@ -67,26 +77,49 @@ function VehicleWeArmor(props) {
       sort: 'category.order',
       populate: 'featuredImage, category, make',
       page: currentPage,
-      pageSize: 14,
+      pageSize: pageLimit,
       params: query,
     });
 
-    // Ensure vehicles.data is an array before updating the state
     if (Array.isArray(vehicles.data)) {
       setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
     }
 
-    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
     const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
     setHasMore(itemsFetched < totalItems);
+    setLoading(false);
   };
+
+  // Debounce function
+  // function debounce(func, wait, immediate) {
+  //   let timeout;
+  //   return function executedFunction(...args) {
+  //      const later = () => {
+  //        timeout = null;
+  //        if (!immediate) func(...args);
+  //      };
+  //      const callNow = immediate && !timeout;
+  //      clearTimeout(timeout);
+  //      timeout = setTimeout(later, wait);
+  //      if (callNow) func(...args);
+  //   };
+  //  }
+
+  // const [isFirstCall, setIsFirstCall] = useState(true);
+
+  // const fetchMoreItemsDebounced = debounce(fetchMoreItems, 1000, isFirstCall);
 
   const bottomObserverRef = useRef(null);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && props.vehicles.data?.length == 14) {
+        if (entry.isIntersecting) {
           fetchMoreItems();
+          // fetchMoreItemsDebounced();
+          // fetchMoreItemsDebounced();
+          // if (isFirstCall) {
+          //   setIsFirstCall(false);
+          // }
         }
       });
     });
@@ -101,6 +134,7 @@ function VehicleWeArmor(props) {
       }
     };
   }, [currentPage, hasMore, props.vehicles.data]);
+  // }, [currentPage, hasMore, props.vehicles.data, isFirstCall]);
 
   // Animations
   const observerRef = useIntersectionObserver();
@@ -157,6 +191,13 @@ function VehicleWeArmor(props) {
             </div>
           ) : null} */}
         </div>
+      </div>
+
+      <div
+        className={`${styles.listing_loading}`}
+        style={{ opacity: loading ? 1 : 0 }}
+      >
+        Loading...
       </div>
 
       <div ref={bottomObserverRef}></div>
