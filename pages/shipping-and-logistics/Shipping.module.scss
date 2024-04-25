@@ -31,7 +31,7 @@
   &_box {
     &_wrap {
       margin-top: rem(70);
-      
+
       @include breakpoint(large) {
         max-width: 2200px;
         margin: 0 auto;
@@ -96,7 +96,7 @@
         }
       }
 
-      div{
+      div {
         margin-top: 0 !important;
       }
 
