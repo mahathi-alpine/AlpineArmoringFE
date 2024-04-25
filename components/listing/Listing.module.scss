@@ -67,6 +67,8 @@
   }
 
   &_loading {
+    position: relative;
+    top: -50px;
     text-align: center;
     font-weight: var(--font-medium);
     font-size: rem(18);

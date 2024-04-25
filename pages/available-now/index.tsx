@@ -21,44 +21,20 @@ function Inventory(props) {
     setVehiclesData(props.vehicles.data);
   }, [q]);
 
-  // Group vehicles by category
-  const groupedByCategory =
-    vehiclesData?.reduce((acc, item) => {
-      const category = item.attributes.categories?.data[0]
-        ? item.attributes.categories.data[0].attributes.title
-        : item.attributes.categories;
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(item);
-      return acc;
-    }, {}) || {};
-
-  // Convert the groupedByCategory object into an array of objects
-  const vehiclesArray = Object.entries(groupedByCategory).map(
-    ([title, items]) => ({ title, items })
-  );
-
-  // Sort the vehiclesArray based on the order in props.filters.type, placing '[object Object]' at the end
-  vehiclesArray.sort((a, b) => {
-    if (a.title === '[object Object]') return 1;
-    if (b.title === '[object Object]') return -1;
-
-    const indexA = props.filters.type.findIndex(
-      (c) => c.attributes.title === a.title
-    );
-    const indexB = props.filters.type.findIndex(
-      (c) => c.attributes.title === b.title
-    );
-    return indexA - indexB;
-  });
-
   const [currentPage, setCurrentPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const pageLimit = 6;
 
   const fetchMoreItems = async () => {
     if (!hasMore) return;
-    // Increment the current page number
+
+    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
+
+    if (currentPage * pageLimit >= totalItems + pageLimit) return;
+
+    setLoading(true);
     setCurrentPage(currentPage + 1);
 
     const query = q ? `filters[slug][$contains]=${q}` : '';
@@ -66,10 +42,10 @@ function Inventory(props) {
     // Fetch the next batch of items using the current page number
     const vehicles = await getPageData({
       route: 'inventories',
-      sort: 'title',
+      sort: 'order',
       populate: 'featuredImage, categories',
       page: currentPage,
-      pageSize: 12,
+      pageSize: pageLimit,
       params: query,
     });
 
@@ -78,9 +54,9 @@ function Inventory(props) {
       setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
     }
 
-    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
     const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
     setHasMore(itemsFetched < totalItems);
+    setLoading(false);
   };
 
   // Animations
@@ -100,7 +76,7 @@ function Inventory(props) {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && props.vehicles.data?.length == 12) {
+        if (entry.isIntersecting) {
           fetchMoreItems();
         }
       });
@@ -133,24 +109,21 @@ function Inventory(props) {
             </div>
           ) : null}
 
-          {vehiclesArray ? (
+          {vehiclesData ? (
             <div className={`${styles.listing_list}`}>
-              {vehiclesArray.map((category, indexInitial) => {
-                return Array.isArray(category.items)
-                  ? category.items
-                      .filter((item) => item.attributes.ownPage !== false)
-                      .map((item, index) => (
-                        <InventoryItem
-                          key={indexInitial + index}
-                          props={item}
-                          index={indexInitial === 0 && index === 0 ? index : 1}
-                        />
-                      ))
-                  : null;
-              })}
+              {vehiclesData.map((item, index) => (
+                <InventoryItem key={index} props={item} index={index} />
+              ))}
             </div>
           ) : null}
         </div>
+      </div>
+
+      <div
+        className={`${styles.listing_loading}`}
+        style={{ opacity: loading ? 1 : 0 }}
+      >
+        Loading...
       </div>
 
       <div ref={bottomObserverRef}></div>
@@ -179,10 +152,10 @@ export async function getServerSideProps(context) {
     const vehicles = await getPageData({
       route: 'inventories',
       params: query,
-      sort: 'title',
+      sort: 'order',
       populate: 'featuredImage,categories',
       page: 1,
-      pageSize: 12,
+      pageSize: 6,
     });
 
     // Fetching Types for the Filters

@@ -174,22 +174,6 @@ function VehicleWeArmor(props) {
               ))}
             </div>
           ) : null}
-
-          {/* {vehiclesArray ? (
-            <div className={`${styles.listing_list}`}>
-              {vehiclesArray.map((category, indexInitial) => {
-                return Array.isArray(category.items)
-                  ? category.items.map((item, index) => (
-                      <InventoryItem
-                        key={item.id}
-                        props={item}
-                        index={indexInitial === 0 && index === 0 ? index : 1}
-                      />
-                    ))
-                  : null;
-              })}
-            </div>
-          ) : null} */}
         </div>
       </div>
 
