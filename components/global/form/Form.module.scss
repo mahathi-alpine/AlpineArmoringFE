@@ -29,13 +29,12 @@
     &::placeholder {
       font-weight: var(--font-regular);
       color: var(--color-secondary);
-      
+
       @supports (-webkit-touch-callout: none) {
         @include breakpoint(small) {
           font-size: rem(14);
         }
       }
-      
     }
 
     .form_group.error & {

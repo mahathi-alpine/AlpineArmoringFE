@@ -254,8 +254,8 @@
       }
     }
 
-    &_copy{
-      span{
+    &_copy {
+      span {
         display: block;
         @include breakpoint(medium) {
           display: inline;

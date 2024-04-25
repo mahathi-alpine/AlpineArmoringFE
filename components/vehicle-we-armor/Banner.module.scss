@@ -54,7 +54,7 @@
     h1 {
       font-weight: var(--font-demi);
       // font-size: clamp(1.75rem, 1.4466rem + 1.2945vw, 3rem);
-      font-size: clamp(2rem, 1.7573rem + 1.0356vw, 3rem);      
+      font-size: clamp(2rem, 1.7573rem + 1.0356vw, 3rem);
       line-height: 1.1;
     }
     @include breakpoint(large) {
