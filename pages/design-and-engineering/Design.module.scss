@@ -5,9 +5,10 @@
     color: var(--color-primary);
     font-weight: var(--font-demi);
     white-space: pre-wrap;
-    font-size: clamp(1.125rem, 1.034rem + 0.3883vw, 1.5rem);
-    @include breakpoint(huge) {
-      margin-bottom: rem(32);
+    font-size: clamp(1.25rem, 1.1286rem + 0.5178vw, 1.75rem);
+
+    span {
+      white-space: pre-wrap;
     }
   }
 
@@ -38,14 +39,19 @@
     display: flex;
     flex-flow: column;
     gap: 32px;
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       flex-flow: row;
       align-items: center;
       justify-content: center;
       margin-top: rem(40);
 
       .design_image {
+        max-width: 50%;
         margin: unset;
+      }
+
+      .design_text{
+        width: 50%;
       }
     }
     @include breakpoint(huge) {

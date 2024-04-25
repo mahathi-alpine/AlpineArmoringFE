@@ -375,28 +375,29 @@ const Design = (props) => {
 
           <div className={`${styles.design_box}`}>
             {props.pageData?.section5Image.data?.attributes ? (
-              <Image
-                src={
-                  props.pageData.section5Image.data.attributes.formats?.medium
-                    ?.url || props.pageData.section5Image.data.attributes.url
-                }
-                alt={
-                  props.pageData.section5Image.data.attributes
-                    .alternativeText || 'Alpine Armoring'
-                }
-                quality={100}
-                width={
-                  props.pageData.section5Image.data.attributes.formats?.medium
-                    ?.width ||
-                  props.pageData.section5Image.data.attributes.width
-                }
-                height={
-                  props.pageData.section5Image.data.attributes.formats?.medium
-                    ?.height ||
-                  props.pageData.section5Image.data.attributes.height
-                }
-                className={`${styles.design_image} observe fade-in`}
-              ></Image>
+              <div className={`${styles.design_image} observe fade-in`}>
+                <Image
+                  src={
+                    props.pageData.section5Image.data.attributes.formats?.medium
+                      ?.url || props.pageData.section5Image.data.attributes.url
+                  }
+                  alt={
+                    props.pageData.section5Image.data.attributes
+                      .alternativeText || 'Alpine Armoring'
+                  }
+                  quality={100}
+                  width={
+                    props.pageData.section5Image.data.attributes.formats?.medium
+                      ?.width ||
+                    props.pageData.section5Image.data.attributes.width
+                  }
+                  height={
+                    props.pageData.section5Image.data.attributes.formats?.medium
+                      ?.height ||
+                    props.pageData.section5Image.data.attributes.height
+                  }
+                ></Image>
+              </div>
             ) : null}
 
             {props.pageData?.section5Text ? (

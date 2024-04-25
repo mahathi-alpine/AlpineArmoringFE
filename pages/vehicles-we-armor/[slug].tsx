@@ -1,14 +1,17 @@
 import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
-import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import dynamic from 'next/dynamic';
 const ComparisonSlider = dynamic(
   () => import('components/global/comparison-slider/ComparisonSlider')
 );
-import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
+const StickyHorizontalSlider = dynamic(
+  () =>
+    import('components/global/sticky-horizontal-slider/StickyHorizontalSlider')
+);
 import Image from 'next/image';
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')
@@ -16,8 +19,8 @@ const Gallery = dynamic(
 const VideoScale = dynamic(
   () => import('components/global/video-scale/VideoScale')
 );
+const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
 import { animateVideo } from 'components/global/video-scale/VideoScale';
-import InquiryForm from 'components/global/form/InquiryForm';
 
 function Vehicle(props) {
   const data = props?.data?.data?.[0]?.attributes ?? {};

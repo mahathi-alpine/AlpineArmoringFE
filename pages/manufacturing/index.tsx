@@ -1,12 +1,16 @@
 import styles from './Manufacturing.module.scss';
 import { getPageData } from 'lib/api';
-import Banner from 'components/global/banner/Banner';
 import { useEffect } from 'react';
-import Gallery from 'components/global/carousel/CarouselCurved';
-import Image from 'next/image';
-import TabSlider from 'components/global/tab-slider/TabSlider';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import Banner from 'components/global/banner/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import TabSlider from 'components/global/tab-slider/TabSlider';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+const Gallery = dynamic(
+  () => import('components/global/carousel/CarouselCurved')
+);
+// import Gallery from 'components/global/carousel/CarouselCurved';
 
 function Manufacturing(props) {
   const convertMarkdown = useMarkdownToHtml();
