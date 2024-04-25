@@ -5,8 +5,8 @@ import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useRouter } from 'next/router';
-import { useEffect, useState, useRef } from 'react';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { useEffect, useState } from 'react';
+// import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function VehicleWeArmor(props) {
   const router = useRouter();
@@ -109,43 +109,31 @@ function VehicleWeArmor(props) {
 
   // const fetchMoreItemsDebounced = debounce(fetchMoreItems, 1000, isFirstCall);
 
-  const bottomObserverRef = useRef(null);
   useEffect(() => {
+    const targets = document.querySelectorAll('.observe');
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          fetchMoreItems();
-          // fetchMoreItemsDebounced();
-          // fetchMoreItemsDebounced();
-          // if (isFirstCall) {
-          //   setIsFirstCall(false);
-          // }
+          entry.target.classList.toggle('in-view', entry.isIntersecting);
+          observer.unobserve(entry.target);
+
+          // Load more
+          if (entry.target.classList.contains('bottomObserver')) {
+            fetchMoreItems();
+          }
         }
       });
     });
 
-    if (bottomObserverRef.current) {
-      observer.observe(bottomObserverRef.current);
-    }
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      if (bottomObserverRef.current) {
-        observer.unobserve(bottomObserverRef.current);
-      }
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
   }, [currentPage, hasMore, props.vehicles.data]);
   // }, [currentPage, hasMore, props.vehicles.data, isFirstCall]);
-
-  // Animations
-  const observerRef = useIntersectionObserver();
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
-
-    return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
-    };
-  }, []);
 
   return (
     <>
@@ -184,7 +172,7 @@ function VehicleWeArmor(props) {
         Loading...
       </div>
 
-      <div ref={bottomObserverRef}></div>
+      <div className={`observe bottomObserver`}></div>
     </>
   );
 }

@@ -30,11 +30,8 @@
 
   &_box {
     &_wrap {
-      margin-top: rem(100);
-      @include breakpoint(medium) {
-        padding: 0 rem(16);
-      }
-
+      margin-top: rem(70);
+      
       @include breakpoint(large) {
         max-width: 2200px;
         margin: 0 auto;
@@ -44,11 +41,7 @@
 
     &_item {
       position: relative;
-      margin-bottom: rem(100);
-
-      @include breakpoint(medium) {
-        margin-bottom: rem(130);
-      }
+      margin-bottom: rem(50);
 
       @include breakpoint(large) {
         display: flex;
@@ -101,6 +94,14 @@
           color: var(--color-primary);
           font-weight: var(--font-medium);
         }
+      }
+
+      div{
+        margin-top: 0 !important;
+      }
+
+      img {
+        border-radius: 0 !important;
       }
 
       &_image {

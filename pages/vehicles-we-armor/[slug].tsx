@@ -8,10 +8,7 @@ import dynamic from 'next/dynamic';
 const ComparisonSlider = dynamic(
   () => import('components/global/comparison-slider/ComparisonSlider')
 );
-const StickyHorizontalSlider = dynamic(
-  () =>
-    import('components/global/sticky-horizontal-slider/StickyHorizontalSlider')
-);
+import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Image from 'next/image';
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')

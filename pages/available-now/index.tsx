@@ -1,13 +1,12 @@
 import React from 'react';
 import { getPageData } from 'lib/api';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '/components/listing/Listing.module.scss';
 
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
   const router = useRouter();
@@ -59,39 +58,72 @@ function Inventory(props) {
     setLoading(false);
   };
 
-  // Animations
-  const observerRef = useIntersectionObserver();
   useEffect(() => {
+    // const setupObserver = () => {
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current?.observe(item));
+    // if (targets.length < 1) {
+    //   setTimeout(setupObserver, 100);
+    //   return;
+    // }
 
-    return () => {
-      if (observerRef.current) {
-        targets.forEach((item) => observerRef.current.unobserve(item));
-      }
-    };
-  }, []);
-
-  const bottomObserverRef = useRef(null);
-  useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          fetchMoreItems();
+          entry.target.classList.toggle('in-view', entry.isIntersecting);
+          observer.unobserve(entry.target);
+
+          // Load more
+          if (entry.target.classList.contains('bottomObserver')) {
+            fetchMoreItems();
+          }
         }
       });
     });
 
-    if (bottomObserverRef.current) {
-      observer.observe(bottomObserverRef.current);
-    }
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      if (bottomObserverRef.current) {
-        observer.unobserve(bottomObserverRef.current);
-      }
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
+    // };
+
+    // setupObserver();
   }, [currentPage, hasMore, props.vehicles.data]);
+
+  // Animations
+  // const observerRef = useIntersectionObserver();
+  // useEffect(() => {
+  //   const targets = document.querySelectorAll('.observe');
+  //   targets.forEach((item) => observerRef.current?.observe(item));
+
+  //   return () => {
+  //     if (observerRef.current) {
+  //       targets.forEach((item) => observerRef.current.unobserve(item));
+  //     }
+  //   };
+  // }, []);
+
+  // const bottomObserverRef = useRef(null);
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver((entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         fetchMoreItems();
+  //       }
+  //     });
+  //   });
+
+  //   if (bottomObserverRef.current) {
+  //     observer.observe(bottomObserverRef.current);
+  //   }
+
+  //   return () => {
+  //     if (bottomObserverRef.current) {
+  //       observer.unobserve(bottomObserverRef.current);
+  //     }
+  //   };
+  // }, [currentPage, hasMore, props.vehicles.data]);
 
   return (
     <>
@@ -126,7 +158,8 @@ function Inventory(props) {
         Loading...
       </div>
 
-      <div ref={bottomObserverRef}></div>
+      {/* <div ref={bottomObserverRef}></div> */}
+      <div className={`observe bottomObserver`}></div>
     </>
   );
 }

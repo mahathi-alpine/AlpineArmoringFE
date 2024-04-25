@@ -41,7 +41,7 @@ function About(props) {
           ></div>
         ) : null}
 
-        <div className={`${styles.about_box_wrap} container`}>
+        <div className={`${styles.about_box_wrap}`}>
           {boxes?.map((item, index) => (
             <div
               className={`${styles.about_box_item} background-dark observe fade-in`}

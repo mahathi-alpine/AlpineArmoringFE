@@ -5,7 +5,6 @@ import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Inventory(props) {
   let topBanner = props.filters.type?.find(
@@ -15,13 +14,29 @@ function Inventory(props) {
   topBanner = topBanner?.attributes.allBanner;
 
   // Animations
-  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
   }, []);
 
