@@ -188,7 +188,7 @@ export async function getServerSideProps(context) {
       sort: 'order',
       populate: 'featuredImage,categories',
       page: 1,
-      pageSize: 6,
+      pageSize: 100,
     });
 
     // Fetching Types for the Filters
