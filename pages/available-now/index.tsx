@@ -20,43 +20,43 @@ function Inventory(props) {
     setVehiclesData(props.vehicles.data);
   }, [q]);
 
-  // const [currentPage, setCurrentPage] = useState(2);
-  // const [hasMore, setHasMore] = useState(true);
-  // const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(2);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // const pageLimit = 6;
+  const pageLimit = 6;
 
-  // const fetchMoreItems = async () => {
-  //   if (!hasMore) return;
+  const fetchMoreItems = async () => {
+    if (!hasMore) return;
 
-  //   const totalItems = props.vehicles?.meta?.pagination?.total || 0;
+    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
 
-  //   if (currentPage * pageLimit >= totalItems + pageLimit) return;
+    if (currentPage * pageLimit >= totalItems + pageLimit) return;
 
-  //   setLoading(true);
-  //   setCurrentPage(currentPage + 1);
+    setLoading(true);
+    setCurrentPage(currentPage + 1);
 
-  //   const query = q ? `filters[slug][$contains]=${q}` : '';
+    const query = q ? `filters[slug][$contains]=${q}` : '';
 
-  //   // Fetch the next batch of items using the current page number
-  //   const vehicles = await getPageData({
-  //     route: 'inventories',
-  //     sort: 'order',
-  //     populate: 'featuredImage, categories',
-  //     page: currentPage,
-  //     pageSize: pageLimit,
-  //     params: query,
-  //   });
+    // Fetch the next batch of items using the current page number
+    const vehicles = await getPageData({
+      route: 'inventories',
+      sort: 'order',
+      populate: 'featuredImage, categories',
+      page: currentPage,
+      pageSize: pageLimit,
+      params: query,
+    });
 
-  //   // Ensure vehicles.data is an array before updating the state
-  //   if (Array.isArray(vehicles.data)) {
-  //     setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
-  //   }
+    // Ensure vehicles.data is an array before updating the state
+    if (Array.isArray(vehicles.data)) {
+      setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
+    }
 
-  //   const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
-  //   setHasMore(itemsFetched < totalItems);
-  //   setLoading(false);
-  // };
+    const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
+    setHasMore(itemsFetched < totalItems);
+    setLoading(false);
+  };
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -69,7 +69,7 @@ function Inventory(props) {
 
           // Load more
           if (entry.target.classList.contains('bottomObserver')) {
-            // fetchMoreItems();
+            fetchMoreItems();
           }
         }
       });
@@ -81,42 +81,7 @@ function Inventory(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-  }, []);
-  // }, [currentPage, hasMore, props.vehicles.data]);
-
-  // Animations
-  // const observerRef = useIntersectionObserver();
-  // useEffect(() => {
-  //   const targets = document.querySelectorAll('.observe');
-  //   targets.forEach((item) => observerRef.current?.observe(item));
-
-  //   return () => {
-  //     if (observerRef.current) {
-  //       targets.forEach((item) => observerRef.current.unobserve(item));
-  //     }
-  //   };
-  // }, []);
-
-  // const bottomObserverRef = useRef(null);
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver((entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) {
-  //         fetchMoreItems();
-  //       }
-  //     });
-  //   });
-
-  //   if (bottomObserverRef.current) {
-  //     observer.observe(bottomObserverRef.current);
-  //   }
-
-  //   return () => {
-  //     if (bottomObserverRef.current) {
-  //       observer.unobserve(bottomObserverRef.current);
-  //     }
-  //   };
-  // }, [currentPage, hasMore, props.vehicles.data]);
+  }, [currentPage, hasMore, props.vehicles.data]);
 
   return (
     <>
@@ -144,12 +109,12 @@ function Inventory(props) {
         </div>
       </div>
 
-      {/* <div
+      <div
         className={`${styles.listing_loading}`}
         style={{ opacity: loading ? 1 : 0 }}
       >
         Loading...
-      </div> */}
+      </div>
 
       {/* <div ref={bottomObserverRef}></div> */}
       <div className={`observe bottomObserver`}></div>
@@ -181,7 +146,7 @@ export async function getServerSideProps(context) {
       sort: 'order',
       populate: 'featuredImage,categories',
       page: 1,
-      pageSize: 100,
+      pageSize: 6,
     });
 
     // Fetching Types for the Filters
