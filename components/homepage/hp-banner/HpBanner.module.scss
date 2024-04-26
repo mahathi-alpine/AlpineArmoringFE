@@ -1,9 +1,10 @@
 .hp_banner {
   position: relative;
   margin-bottom: rem(-30);
-  height: calc(100svh + 50px);
+  // height: calc(100svh + 50px);
+  height: 100vh;
   max-height: 800px;
-  // overflow: hidden;
+  overflow: hidden;
   z-index: 2;
   color: var(--color-white);
 
@@ -21,7 +22,7 @@
   &_inner {
     position: relative;
     height: 100%;
-    overflow: hidden;
+    // overflow: hidden;
 
     &:after {
       position: absolute;
