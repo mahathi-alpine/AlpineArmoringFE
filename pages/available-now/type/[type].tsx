@@ -4,7 +4,8 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 function Inventory(props) {
   let topBanner = props.filters.type?.find(
@@ -12,24 +13,39 @@ function Inventory(props) {
   );
   topBanner = topBanner?.attributes.inventoryBanner;
 
-  // Animations
+  const router = useRouter();
+  const { q } = router.query;
+  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
+  const [itemsToRender, setItemsToRender] = useState(6);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setVehiclesData(props.vehicles.data);
+  }, [q]);
+
+  const fetchMoreItems = () => {
+    if (itemsToRender < vehiclesData.length) {
+      setLoading(true);
+      setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.toggle('in-view', entry.isIntersecting);
+          observer.unobserve(entry.target);
+
+          if (entry.target.classList.contains('bottomObserver')) {
+            fetchMoreItems();
           }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
+        }
+      });
+    });
 
     targets.forEach((item) => observer.observe(item));
 
@@ -37,7 +53,7 @@ function Inventory(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-  }, []);
+  }, [itemsToRender]);
 
   return (
     <>
@@ -49,10 +65,11 @@ function Inventory(props) {
         >
           {props.filters.type ? <Filters props={props.filters} /> : null}
 
-          {props.vehicles.data ? (
+          {vehiclesData ? (
             <div className={`${styles.listing_list}`}>
-              {props.vehicles.data && props.vehicles.data.length > 0 ? (
-                props.vehicles.data
+              {vehiclesData.length > 0 ? (
+                vehiclesData
+                  .slice(0, itemsToRender)
                   .filter((item) => item.attributes.ownPage !== false)
                   .map((item, index) => (
                     <InventoryItem key={item.id} props={item} index={index} />
@@ -66,6 +83,15 @@ function Inventory(props) {
           ) : null}
         </div>
       </div>
+
+      <div
+        className={`${styles.listing_loading}`}
+        style={{ opacity: loading ? 1 : 0 }}
+      >
+        Loading...
+      </div>
+
+      <div className={`observe bottomObserver`}></div>
     </>
   );
 }
@@ -88,15 +114,15 @@ export async function getServerSideProps(context) {
     params: query,
     sort: 'order',
     populate: 'featuredImage',
+    fields:
+      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug',
     pageSize: 100,
   });
 
   // Fetching Types for the Filters
   const type = await getPageData({
     route: 'categories',
-    sort: 'order',
-    fields: 'fields[0]=title&fields[1]=slug',
-    populate: 'inventoryBanner.media, inventory_vehicles, seo',
+    custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug`,
   }).then((response) => response.data);
 
   const filters = type ? { type } : {};
@@ -104,7 +130,6 @@ export async function getServerSideProps(context) {
   let seoData = filters.type?.find(
     (item) => item.attributes.slug === context.query.type
   );
-  // seoData = seoData?.attributes.seo;
 
   seoData = seoData?.attributes?.seo ?? null;
 

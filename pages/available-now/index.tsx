@@ -9,71 +9,47 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 
 function Inventory(props) {
-  const router = useRouter();
-  const { q } = router.query;
-
   const topBanner = props.pageData?.banner;
 
+  const router = useRouter();
+  const { q } = router.query;
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
+  const [itemsToRender, setItemsToRender] = useState(6);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
   }, [q]);
 
-  const [currentPage, setCurrentPage] = useState(2);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-
-  const pageLimit = 6;
-
-  const fetchMoreItems = async () => {
-    if (!hasMore) return;
-
-    const totalItems = props.vehicles?.meta?.pagination?.total || 0;
-
-    if (currentPage * pageLimit >= totalItems + pageLimit) return;
-
-    setLoading(true);
-    setCurrentPage(currentPage + 1);
-
-    const query = q ? `filters[slug][$contains]=${q}` : '';
-
-    // Fetch the next batch of items using the current page number
-    const vehicles = await getPageData({
-      route: 'inventories',
-      sort: 'order',
-      populate: 'featuredImage, categories',
-      page: currentPage,
-      pageSize: pageLimit,
-      params: query,
-    });
-
-    // Ensure vehicles.data is an array before updating the state
-    if (Array.isArray(vehicles.data)) {
-      setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
+  const fetchMoreItems = () => {
+    if (itemsToRender < vehiclesData.length) {
+      setLoading(true);
+      setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
+      setLoading(false);
     }
-
-    const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
-    setHasMore(itemsFetched < totalItems);
-    setLoading(false);
   };
-
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.toggle('in-view', entry.isIntersecting);
-          observer.unobserve(entry.target);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            // observer.unobserve(entry.target);
 
-          // Load more
-          if (entry.target.classList.contains('bottomObserver')) {
-            fetchMoreItems();
+            if (entry.target.classList.contains('bottomObserver')) {
+              fetchMoreItems();
+            }
           }
-        }
-      });
-    });
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
 
     targets.forEach((item) => observer.observe(item));
 
@@ -81,7 +57,7 @@ function Inventory(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-  }, [currentPage, hasMore, props.vehicles.data]);
+  }, [itemsToRender]);
 
   return (
     <>
@@ -101,7 +77,7 @@ function Inventory(props) {
 
           {vehiclesData ? (
             <div className={`${styles.listing_list}`}>
-              {vehiclesData.map((item, index) => (
+              {vehiclesData.slice(0, itemsToRender).map((item, index) => (
                 <InventoryItem key={index} props={item} index={index} />
               ))}
             </div>
@@ -116,7 +92,6 @@ function Inventory(props) {
         Loading...
       </div>
 
-      {/* <div ref={bottomObserverRef}></div> */}
       <div className={`observe bottomObserver`}></div>
     </>
   );
@@ -126,12 +101,10 @@ export async function getServerSideProps(context) {
   try {
     let pageData = await getPageData({
       route: 'list-inventory',
-      populate: 'deep',
     });
     pageData = pageData.data?.attributes || null;
 
     const { vehicles_we_armor, q } = context.query;
-
     let query = '';
     if (vehicles_we_armor) {
       query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
@@ -145,16 +118,16 @@ export async function getServerSideProps(context) {
       params: query,
       sort: 'order',
       populate: 'featuredImage,categories',
-      page: 1,
-      pageSize: 6,
+      fields:
+        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug',
+      pageSize: 100,
     });
 
     // Fetching Types for the Filters
     const type = await getPageData({
       route: 'categories',
-      sort: 'order',
-      populate: 'inventory_vehicles',
-      fields: 'fields[0]=title&fields[1]=slug',
+      custom:
+        "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
     }).then((response) => response.data);
 
     const filters = type ? { type } : {};
@@ -169,9 +142,9 @@ export async function getServerSideProps(context) {
     return {
       notFound: true,
     };
-    return {
-      props: { pageData: null, vehicles: null, filters: null, seoData: null },
-    };
+    // return {
+    //   props: { pageData: null, vehicles: null, filters: null, seoData: null },
+    // };
   }
 }
 

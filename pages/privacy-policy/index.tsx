@@ -25,12 +25,6 @@ function Privacy(props) {
         <div
           className={`static container_small`}
           dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
-          style={{
-            paddingTop: '30px',
-            display: 'flex',
-            alignItems: 'center',
-            minHeight: '80vH',
-          }}
         ></div>
       ) : null}
     </>
