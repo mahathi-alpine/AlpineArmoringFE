@@ -334,3 +334,20 @@ body {
     }
   }
 }
+
+
+
+.boxA{
+  border: 1px solid red;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto 50px auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  video{
+    max-width: 200px;
+    height: auto;
+  }
+}
