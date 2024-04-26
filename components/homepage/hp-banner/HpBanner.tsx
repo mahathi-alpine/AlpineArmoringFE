@@ -61,13 +61,11 @@ const HpBanner = ({ props }: HPBannerProps) => {
             width={1920}
             height={1200}
             preload="metadata"
+            src={`${props.video.data.attributes.url}`}
+            // type={`${props.video.data.attributes.mime}`}
             // poster="/assets/hpVideoPoster.jpg"
           >
             {/* <source src="AlpineArmoringHPMobile.webm" type="video/webm" media="all and (max-width: 768px)"></source> */}
-            <source
-              src={`${props.video.data.attributes.url}`}
-              type={`${props.video.data.attributes.mime}`}
-            />
           </video>
         ) : null}
 
