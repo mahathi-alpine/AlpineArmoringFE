@@ -66,30 +66,20 @@ const Blog = ({
                     href={`/news/${item.attributes.slug}`}
                     className={`${styles.news_item_image}`}
                   >
-                    <picture>
-                      <source
-                        media="(min-width: 768px)"
-                        srcSet={
-                          item.attributes.thumbnail.data.attributes.formats
-                            ?.large?.url ||
-                          item.attributes.thumbnail.data.attributes.url
-                        }
-                      />
-                      <Image
-                        src={`${
-                          item.attributes.thumbnail.data.attributes.formats
-                            ?.thumbnail?.url ||
-                          item.attributes.thumbnail.data.attributes.url
-                        }`}
-                        alt={
-                          item.attributes.thumbnail.data.attributes
-                            .alternativeText || 'Alpine Armoring'
-                        }
-                        width={700}
-                        height={300}
-                        // sizes={'(min-width: 1280px ) 40vw, 100vw'}
-                      />
-                    </picture>
+                    <Image
+                      src={`${
+                        item.attributes.thumbnail.data.attributes.formats
+                          ?.medium?.url ||
+                        item.attributes.thumbnail.data.attributes.url
+                      }`}
+                      alt={
+                        item.attributes.thumbnail.data.attributes
+                          .alternativeText || 'Alpine Armoring'
+                      }
+                      width={700}
+                      height={300}
+                      sizes="(max-width: 550px) 100vw, 50vw"
+                    />
                   </Link>
                 ) : null}
 

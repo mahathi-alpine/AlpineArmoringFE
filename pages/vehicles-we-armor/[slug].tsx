@@ -200,18 +200,13 @@ function Vehicle(props) {
             <div
               className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
             >
-              <picture>
-                <source
-                  media="(min-width: 768px)"
-                  srcSet={dimensions1.formats?.large?.url || dimensions1.url}
-                />
-                <Image
-                  src={dimensions1.formats?.thumbnail?.url || dimensions1.url}
-                  alt={dimensions1.alternativeText || 'Alpine Armoring'}
-                  width={dimensions1.width}
-                  height={dimensions1.height}
-                />
-              </picture>
+              <Image
+                src={dimensions1.formats?.large?.url || dimensions1.url}
+                alt={dimensions1.alternativeText || 'Alpine Armoring'}
+                width={dimensions1.width}
+                height={dimensions1.height}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
               {/* <div className={`${styles.slug_dimensions_height}`}>59 in (149 cm)</div>
               <div className={`${styles.slug_dimensions_width}`}>83 in (210 cm)</div> */}
             </div>
@@ -219,18 +214,13 @@ function Vehicle(props) {
             <div
               className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
             >
-              <picture>
-                <source
-                  media="(min-width: 768px)"
-                  srcSet={dimensions2.formats?.large?.url || dimensions2.url}
-                />
-                <Image
-                  src={dimensions2.formats?.thumbnail?.url || dimensions2.url}
-                  alt={dimensions2.alternativeText || 'Alpine Armoring'}
-                  width={dimensions2.width}
-                  height={dimensions2.height}
-                />
-              </picture>
+              <Image
+                src={dimensions2.formats?.large?.url || dimensions2.url}
+                alt={dimensions2.alternativeText || 'Alpine Armoring'}
+                width={dimensions2.width}
+                height={dimensions2.height}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
           </div>
         </div>

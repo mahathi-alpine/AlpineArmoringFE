@@ -109,25 +109,19 @@ const EmblaCarousel = (props) => {
               }}
             >
               {item.attributes?.url ? (
-                <picture className={`${styles.carousel_slide_img_wrap}`}>
-                  <source
-                    media="(min-width: 500px)"
-                    srcSet={
-                      item.attributes.formats?.large?.url || item.attributes.url
-                    }
-                  />
+                <div className={`${styles.carousel_slide_img_wrap}`}>
                   <Image
                     src={
-                      item.attributes.formats?.thumbnail.url ||
-                      item.attributes.url
+                      item.attributes.formats?.large.url || item.attributes.url
                     }
                     alt={item.attributes.alternativeText || 'Alpine Armoring'}
                     quality={100}
                     priority={index === 0}
                     fill
                     className={styles.carousel_slide_img}
+                    sizes="(max-width: 1250px) 100vw, 50vw"
                   />
-                </picture>
+                </div>
               ) : null}
             </div>
           ))}

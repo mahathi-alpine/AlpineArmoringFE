@@ -21,33 +21,22 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
     >
       <div className={`${styles.inventory_item_image}`}>
         {data.featuredImage.data ? (
-          <picture>
-            <source
-              media="(min-width: 768px)"
-              srcSet={`${
-                data.featuredImage.data.attributes.formats.medium.url ||
-                data.featuredImage.data.attributes.url
-              }`}
-            />
-            <Image
-              src={`${
-                data.featuredImage.data.attributes.formats.thumbnail.url ||
-                data.featuredImage.data.attributes.url
-              }`}
-              alt={
-                data.featuredImage.data.attributes.alternativeText ||
-                'Alpine Armoring'
-              }
-              width={560}
-              height={430}
-              priority={index === 0}
-              // placeholder="blur"
-              // blurDataURL={`${
-              //   data.featuredImage.data.attributes.formats?.thumbnail?.url ||
-              //   data.featuredImage.data.attributes.url
-              // }`}
-            />
-          </picture>
+          <Image
+            src={`${
+              data.featuredImage.data.attributes.formats.medium.url ||
+              data.featuredImage.data.attributes.url
+            }`}
+            alt={
+              data.featuredImage.data.attributes.alternativeText ||
+              'Alpine Armoring'
+            }
+            width={560}
+            height={430}
+            priority={index === 0}
+            sizes="(max-width: 768px) 100vw, (max-width: 1600px) 50vw, 35vw"
+            // placeholder="blur"
+            // blurDataURL={`${data.featuredImage.data.attributes.formats?.thumbnail?.url}`}
+          />
         ) : null}
 
         <div className={`${styles.inventory_item_button}`}>

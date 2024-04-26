@@ -14,25 +14,21 @@ const Categories = ({ props, allVehiclesImage }) => {
             key={item.id}
           >
             {data.image.data ? (
-              <picture>
-                <source
-                  media="(min-width: 500px)"
-                  srcSet={data.image.data.attributes.formats?.medium?.url}
-                />
-                <Image
-                  src={`${
-                    data.image.data.attributes.formats?.thumbnail?.url ||
-                    data.image.data.attributes.url
-                  }`}
-                  alt={
-                    data.image.data.attributes.alternativeText ||
-                    'Alpine Armoring'
-                  }
-                  width={740}
-                  height={290}
-                  className={`${styles.categories_item_image}`}
-                />
-              </picture>
+              <Image
+                src={`${
+                  data.image.data.attributes.formats?.medium?.url ||
+                  data.image.data.attributes.url
+                }`}
+                alt={
+                  data.image.data.attributes.alternativeText ||
+                  'Alpine Armoring'
+                }
+                width={740}
+                height={290}
+                sizes="(max-width: 768px) 100vw, (max-width: 1600px) 50vw, 33vw"
+                quality={100}
+                className={`${styles.categories_item_image}`}
+              />
             ) : null}
 
             <div className={`${styles.categories_item_content}`}>
@@ -73,23 +69,17 @@ const Categories = ({ props, allVehiclesImage }) => {
 
       <div className={`${styles.categories_item} observe fade-in-up`}>
         {allVehiclesImage ? (
-          <picture>
-            <source
-              media="(min-width: 500px)"
-              srcSet={
-                allVehiclesImage.formats?.medium?.url || allVehiclesImage.url
-              }
-            />
-            <Image
-              src={`${
-                allVehiclesImage.formats?.thumbnail?.url || allVehiclesImage.url
-              }`}
-              alt={allVehiclesImage.alternativeText || 'Alpine Armoring'}
-              width={740}
-              height={290}
-              className={`${styles.categories_item_image}`}
-            />
-          </picture>
+          <Image
+            src={`${
+              allVehiclesImage.formats?.medium?.url || allVehiclesImage.url
+            }`}
+            alt={allVehiclesImage.alternativeText || 'Alpine Armoring'}
+            width={740}
+            height={290}
+            sizes="(max-width: 768px) 100vw, (max-width: 1600px) 50vw, 33vw"
+            quality={100}
+            className={`${styles.categories_item_image}`}
+          />
         ) : null}
 
         <div className={`${styles.categories_item_content}`}>

@@ -12,24 +12,16 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   let mediaElement;
   if (bannerImage && bannerMimeType?.split('/')[0] === 'image') {
     mediaElement = (
-      <picture>
-        <source
-          media="(min-width: 768px)"
-          srcSet={
-            bannerImage.width === 2200
-              ? bannerImage.url
-              : bannerImage.formats?.xlarge?.url || bannerImage.url
-          }
-        />
-        <Image
-          src={`${bannerImage?.formats?.medium?.url || bannerImage.url}`}
-          alt={bannerImage?.alternativeText || 'Alpine Armoring'}
-          width={bannerImage?.width}
-          height={bannerImage.height}
-          className={`${styles.banner_media}`}
-          priority
-        />
-      </picture>
+      <Image
+        src={`${bannerImage?.formats?.xlarge?.url || bannerImage.url}`}
+        alt={bannerImage?.alternativeText || 'Alpine Armoring'}
+        width={bannerImage.formats?.xlarge?.width || bannerImage.width}
+        height={bannerImage.formats?.xlarge?.height || bannerImage.height}
+        className={`${styles.banner_media}`}
+        priority
+        // quality='100'
+        sizes="100vw"
+      />
     );
   } else if (bannerImage && bannerMimeType?.startsWith('video')) {
     mediaElement = (
