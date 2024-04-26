@@ -58,6 +58,7 @@ const TabSection = ({ props }) => {
                     autoPlay
                     muted
                     loop
+                    playsInline
                     width={isMobile ? 380 : 620}
                     height={isMobile ? 200 : 430}
                   >
