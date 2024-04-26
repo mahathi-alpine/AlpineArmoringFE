@@ -279,6 +279,7 @@ const Form = () => {
       setTimeout(() => {
         submitBtn.classList.remove('submiting');
         submitBtn.innerHTML = 'Sent!';
+        submitBtn.classList.add('submitted');
 
         setFullname('');
         setEmail('');
@@ -293,6 +294,7 @@ const Form = () => {
 
       setTimeout(() => {
         submitBtn.innerHTML = 'Send message';
+        submitBtn.classList.remove('submitted');
       }, 3000);
     }
 

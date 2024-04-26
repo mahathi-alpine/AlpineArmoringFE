@@ -38,6 +38,7 @@ export async function getStaticProps() {
   let faqs = await getPageData({
     route: 'fa-qs',
     populate: 'deep',
+    sort: 'order',
   });
   faqs = faqs?.data || null;
 

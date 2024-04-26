@@ -25,16 +25,17 @@
     background: var(--color-white);
     font-weight: var(--font-medium);
     border: 1px solid transparent;
+    font-size: rem(14);
+
+    @supports (-webkit-touch-callout: none) {
+      @include breakpoint(small) {
+        font-size: rem(16);
+      }
+    }
 
     &::placeholder {
       font-weight: var(--font-regular);
       color: var(--color-secondary);
-
-      @supports (-webkit-touch-callout: none) {
-        @include breakpoint(small) {
-          font-size: rem(14);
-        }
-      }
     }
 
     .form_group.error & {

@@ -359,6 +359,10 @@
       opacity: 0;
       animation: move 1s infinite ease-in-out;
     }
+  }  
+
+  &.submitted{
+    background: var(--color-green);
   }
 
   &.icon {
