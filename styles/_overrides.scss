@@ -31,7 +31,7 @@ div.yarl__thumbnails_container {
   background: transparent;
 }
 @include breakpoint(small) {
-  button.yarl__thumbnails_thumbnail{
+  button.yarl__thumbnails_thumbnail {
     width: 100px;
   }
 }
