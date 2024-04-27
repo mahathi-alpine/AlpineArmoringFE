@@ -393,10 +393,25 @@
           z-index: 1;
           border-bottom-left-radius: 16px;
           border-bottom-right-radius: 16px;
-          overflow-y: scroll;
+          overflow-y: auto;
           box-shadow:
             0 0 0 0px rgba(72, 72, 75, 0.05),
             0 15px 11px -4px rgba(72, 72, 75, 0.25);
+
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+          
+          /* Track */
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            margin-bottom: 10px;         
+          }
+          
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+          }
 
           .checkbox {
             &_span {

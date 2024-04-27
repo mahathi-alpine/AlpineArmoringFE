@@ -32,6 +32,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
   });
 
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [openFiltersClicked, setOpenFiltersClicked] = useState(false);
 
   const activateFilterItem = (slug) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
@@ -39,6 +40,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const openFilters = () => {
     if (window.innerWidth <= 1280) {
+      setOpenFiltersClicked(true);
       setFiltersOpen((filtersOpen) => {
         const newValue = !filtersOpen;
         if (newValue) {
@@ -124,6 +126,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   // Close filters dropdown on click outside
   const filtersRef = useRef(null);
+  const filtersMainRef = useRef(null);
 
   useEffect(() => {
     if (window.innerWidth >= 1280) {
@@ -138,14 +141,31 @@ const Filters = ({ props, plain }: FiltersProps) => {
       return () => {
         document.removeEventListener('click', handleClickOutside);
       };
+    } else {
+      const handleClickOutside = (event) => {
+        if (filtersRef.current && !filtersRef.current.contains(event.target)) {
+          if (!openFiltersClicked) {
+            setFiltersOpen(false);
+          } else {
+            setOpenFiltersClicked(false);
+          }
+        }
+      };
+
+      document.addEventListener('click', handleClickOutside);
+
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
     }
-  }, []);
+  }, [openFiltersClicked]);
 
   return (
     <div
       className={`${styles.filters}
       ${plain ? `${styles.filters_plain}` : ''}
     `}
+      ref={filtersMainRef}
     >
       <div className={`${styles.filters_top}`}>
         <div className={`${styles.filters_top_title}`} onClick={openFilters}>
@@ -153,7 +173,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
           <FiltersIcon />
         </div>
 
-        {/* {Object.prototype.hasOwnProperty.call(router.query, 'make') && */}
         {Object.keys(router.query).length > 0 && (
           <div
             className={`${styles.filters_clear} bold`}
@@ -165,13 +184,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
       </div>
 
       <div
-        ref={filtersRef}
         className={`
           ${styles.filters_wrap}
           ${filtersOpen ? styles.filters_wrap_open : ''}
         `}
       >
-        <div className={`${styles.filters_wrap_inner}`}>
+        <div className={`${styles.filters_wrap_inner}`} ref={filtersRef}>
           <div className={`${styles.filters_wrap_top}`}>
             <div className={`${styles.filters_wrap_top_title}`}>
               <div

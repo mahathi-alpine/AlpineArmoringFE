@@ -246,7 +246,6 @@
 
       @include breakpoint(large) {
         position: relative;
-        bottom: 60px;
         right: 10px;
         display: flex;
         align-items: flex-end;
@@ -262,6 +261,7 @@
       @include breakpoint(huge) {
         max-width: calc(100% - 600px);
         flex: 1;
+        bottom: 60px;
       }
     }
 
