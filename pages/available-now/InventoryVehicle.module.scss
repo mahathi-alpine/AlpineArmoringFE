@@ -8,11 +8,7 @@
     }
 
     @include breakpoint(large) {
-      max-width: 1842px;
       padding: rem(32) rem(32) 0 rem(32);
-      & > div {
-        max-width: calc(100% - 250px);
-      }
     }
 
     &_title {
@@ -84,9 +80,6 @@
       gap: 32px;
       align-items: flex-start;
     }
-    @include breakpoint(huge) {
-      gap: 64px;
-    }
 
     &_gallery {
       @include breakpoint(medium) {
@@ -132,7 +125,7 @@
     @include breakpoint(large) {
       position: relative;
       margin: auto;
-      max-width: 2000px;
+      max-width: 1875px;
     }
   }
 
@@ -320,7 +313,7 @@
     @include breakpoint(huge) {
       margin: 0 auto;
       position: relative;
-      right: rem(88);
+      right: rem(84);
     }
   }
 

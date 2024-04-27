@@ -71,12 +71,19 @@
     top: -50px;
     text-align: center;
     font-weight: var(--font-medium);
-    font-size: rem(18);
+    font-size: rem(16);
     color: var(--color-white);
     background: var(--color-primary);
     margin: auto;
     width: 190px;
     border-radius: 100px;
     padding: 15px 5px;
+
+    &_stock{
+      margin-bottom: 30px;
+      @include breakpoint(large) {
+        margin-bottom: 80px;
+      }
+    }
   }
 }

@@ -85,13 +85,15 @@ function Inventory(props) {
       </div>
 
       <div
-        className={`${styles.listing_loading}`}
+        className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
         style={{ opacity: loading ? 1 : 0 }}
       >
         Loading...
       </div>
 
       <div className={`observe bottomObserver`}></div>
+
+      <div className="shape-before shape-before-white"></div>
     </>
   );
 }

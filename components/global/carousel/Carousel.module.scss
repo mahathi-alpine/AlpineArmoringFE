@@ -6,7 +6,7 @@
   @include breakpoint(large) {
     display: flex;
     flex-flow: column;
-    gap: 16px;
+    gap: 8px;
   }
 
   @include breakpoint(huge) {
@@ -23,15 +23,8 @@
       order: 2;
     }
 
-    // @include breakpoint(large) {
-    //   height: calc(100vh - 74px - 142px - 108px - 120px);
-    //   max-height: 760px;
-    // }
-
     @include breakpoint(huge) {
-      width: calc(100% - 160px - 16px);
-      // max-height: 760px;
-      // height: calc(100vh - 74px - 145px - 120px);
+      width: calc(100% - 160px - 8px);
     }
   }
 
@@ -43,9 +36,6 @@
 
     @include breakpoint(huge) {
       margin-left: 0;
-      // flex-flow: column;
-      // height: 600px;
-      // height: 100%;
     }
   }
 
