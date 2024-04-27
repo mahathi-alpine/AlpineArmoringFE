@@ -76,9 +76,12 @@ body {
 .shape-after {
   --background: #101010 url('/assets/noise4.png');
   position: relative;
-  overflow-x: hidden;
   overflow-x: clip;
   height: 51px;
+  @supports (-webkit-touch-callout: none) {
+    overflow-x: hidden;    
+  }
+
   @include breakpoint(large) {
     height: 100px;
 
@@ -102,6 +105,10 @@ body {
       right: -100px;
     }
   }
+}
+
+::i-block-chrome,.shape-before{
+  background: red;
 }
 
 .shape-before-white {
