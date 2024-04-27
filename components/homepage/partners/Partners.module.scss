@@ -34,7 +34,7 @@
 
     @include breakpoint(large) {
       height: 160px;
-      flex: 0 0 calc(100% / 4 - 12px);
+      flex: 0 0 calc(100% / 5 - 13px);
       // &:nth-child(-n + 5) {
       //   flex: 0 0 calc(100% / 5 - 13px);
       // }

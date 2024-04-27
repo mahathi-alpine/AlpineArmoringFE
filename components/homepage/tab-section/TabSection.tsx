@@ -55,10 +55,10 @@ const TabSection = ({ props }) => {
                 ) : item.image.data[0].attributes.mime.startsWith('video/') ? (
                   <video
                     preload="none"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
+                    muted={true}
+                    autoPlay={true}
+                    playsInline={true}
+                    loop={true}
                     width={isMobile ? 380 : 620}
                     height={isMobile ? 200 : 430}
                   >

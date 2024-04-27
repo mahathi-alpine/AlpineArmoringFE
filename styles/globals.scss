@@ -76,7 +76,8 @@ body {
 .shape-after {
   --background: #101010 url('/assets/noise4.png');
   position: relative;
-  overflow-x: clip;
+  // overflow-x: clip;
+  overflow-x: hidden;
   height: 51px;
   @include breakpoint(large) {
     height: 100px;
