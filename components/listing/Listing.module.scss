@@ -79,7 +79,7 @@
     border-radius: 100px;
     padding: 15px 5px;
 
-    &_stock{
+    &_stock {
       margin-bottom: 30px;
       @include breakpoint(large) {
         margin-bottom: 80px;
