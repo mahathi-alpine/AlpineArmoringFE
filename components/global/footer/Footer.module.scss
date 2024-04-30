@@ -5,6 +5,10 @@
   z-index: 1;
   background: var(--color-background);
 
+  @include breakpoint(small) {
+    z-index: 3;
+  }
+
   &_dark {
     background: #101010 url(/assets/noise4.png);
     background-size: 30px !important;

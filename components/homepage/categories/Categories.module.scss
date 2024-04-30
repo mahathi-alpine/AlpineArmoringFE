@@ -19,11 +19,10 @@
     width: 100%;
     padding-bottom: 51px;
 
-    @include breakpoint(medium) {
+    @media(min-width: 800px){
       width: calc(100% / 2 - 24px);
       max-width: unset;
     }
-
     @include breakpoint(large) {
       padding-bottom: 71px;
     }

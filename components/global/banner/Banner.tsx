@@ -26,11 +26,10 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   } else if (bannerImage && bannerMimeType?.startsWith('video')) {
     mediaElement = (
       <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        // controls
+        loop={true}
+        autoPlay={true}
+        muted={true}
+        playsInline={true}
         className={`${styles.banner_media}`}
         src={`${bannerImage?.url}`}
         // webkit-playsinline

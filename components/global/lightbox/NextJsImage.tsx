@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 export default function NextJsImage({ slide }) {
+  console.log(slide);
   return (
     <>
       {slide.src ? (
@@ -10,7 +11,7 @@ export default function NextJsImage({ slide }) {
               window.innerWidth < 500
                 ? slide.formats?.thumbnail?.url
                 : window.innerWidth >= 500 && window.innerWidth < 1280
-                  ? slide.formats?.large?.url
+                  ? slide.formats?.large?.url || slide.formats?.medium?.url
                   : slide.formats?.xlarge?.url || slide.src
             }
             alt={slide.alt || 'Alpine Armoring'}
@@ -18,14 +19,15 @@ export default function NextJsImage({ slide }) {
               window.innerWidth < 500
                 ? slide.formats?.thumbnail?.width
                 : window.innerWidth >= 500 && window.innerWidth < 1280
-                  ? slide.formats?.large?.width
+                  ? slide.formats?.large?.width || slide.formats?.medium?.width
                   : slide.formats?.xlarge?.width || slide.width
             }
             height={
               window.innerWidth < 500
                 ? slide.formats?.thumbnail?.height
                 : window.innerWidth >= 500 && window.innerWidth < 1280
-                  ? slide.formats?.large?.height
+                  ? slide.formats?.large?.height ||
+                    slide.formats?.medium?.height
                   : slide.formats?.xlarge?.height || slide.height
             }
             style={{

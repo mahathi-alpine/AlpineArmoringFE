@@ -28,6 +28,7 @@ const TabSection = ({ props }) => {
         props={sliderProps}
         onTabChange={handleTabChange}
         className="fade-in-up observe"
+        small
       />
 
       <div className={`${styles.tabSection_content}`}>

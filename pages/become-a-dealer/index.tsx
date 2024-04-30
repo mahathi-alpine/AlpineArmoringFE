@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Dealer(props) {
@@ -11,13 +10,29 @@ function Dealer(props) {
   const convertMarkdown = useMarkdownToHtml();
 
   // Animations
-  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
   }, []);
 

@@ -4,7 +4,10 @@ import Form from 'components/global/form/Form';
 
 const InquiryForm = (props) => {
   return (
-    <div className={`${styles.inquiry_form_wrap}`} id="request-a-quote">
+    <div
+      className={`${styles.inquiry_form_wrap} inquiryFormContainer observe`}
+      id="request-a-quote"
+    >
       <div
         className={`
                 ${styles.inquiry_form}

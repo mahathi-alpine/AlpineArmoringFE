@@ -61,7 +61,7 @@ const NavigationPopup = ({
                 className={`
                   ${styles.navigationPopup_item} 
                   ${
-                    router.pathname === link.path
+                    router.asPath === link.path
                       ? `${styles.navigationPopup_item_active}`
                       : ''
                   }`}
@@ -84,12 +84,12 @@ const NavigationPopup = ({
               <li
                 key={index}
                 className={`
-                ${styles.navigationPopup_item} 
-                ${
-                  router.pathname === link.path
-                    ? `${styles.navigationPopup_item_active}`
-                    : ''
-                }`}
+                  ${styles.navigationPopup_item} 
+                  ${
+                    router.asPath === link.path
+                      ? `${styles.navigationPopup_item_active}`
+                      : ''
+                  }`}
                 onClick={() => setNavOpen(false)}
               >
                 <Link

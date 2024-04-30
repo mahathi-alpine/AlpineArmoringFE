@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import dynamic from 'next/dynamic';
 // import { getCookie } from 'cookies-next';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -33,13 +32,29 @@ function Home({ homepageData, categories }) {
   const partners = data?.industryPartners?.data;
 
   // Animations
-  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
   }, []);
 

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
@@ -50,13 +49,29 @@ function Shipping(props) {
   };
 
   // Animations
-  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
   }, []);
 

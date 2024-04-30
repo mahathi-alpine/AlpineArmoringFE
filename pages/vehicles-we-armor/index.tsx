@@ -6,7 +6,6 @@ import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-// import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function VehicleWeArmor(props) {
   const router = useRouter();

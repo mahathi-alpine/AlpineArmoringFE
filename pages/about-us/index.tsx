@@ -5,7 +5,6 @@ import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import Gallery from 'components/global/carousel/CarouselCurved';
 
 function About(props) {
@@ -13,17 +12,31 @@ function About(props) {
   const convertMarkdown = useMarkdownToHtml();
 
   // Animations
-  const observerRef = useIntersectionObserver();
   useEffect(() => {
-    const currentObserverRef = observerRef.current; // Capture the current value of the ref
-
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => currentObserverRef.observe(item));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      targets.forEach((item) => currentObserverRef.unobserve(item));
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
-  }, [observerRef]); // Include observerRef in the dependency array
+  }, []);
 
   return (
     <>

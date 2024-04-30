@@ -183,9 +183,8 @@
     }
 
     &_right {
-      @include breakpoint(medium) {
-        max-width: 430px;
-      }
+      max-width: 430px;
+      margin: auto;
 
       &_description {
         margin-bottom: rem(16);

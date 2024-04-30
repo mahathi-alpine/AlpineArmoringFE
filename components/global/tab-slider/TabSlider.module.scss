@@ -51,6 +51,18 @@
     }
   }
 
+  &_small{    
+    @media (min-width: 500px) and (max-width: 768px){
+      .tabSlider_nav_wrap {
+        display: inline-flex;
+        margin: auto;
+        margin-bottom: 1.5rem;
+        padding: 0.375rem;
+        border-radius: 99px;
+      }
+    }
+  }
+
   &_nav {
     position: relative;
     display: flex;

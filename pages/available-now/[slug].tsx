@@ -1,6 +1,6 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
@@ -68,6 +68,8 @@ function InventoryVehicle(props) {
     }
   };
 
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
   useEffect(() => {
     const setupObserver = () => {
       const targets = document.querySelectorAll('.observe');
@@ -80,7 +82,7 @@ function InventoryVehicle(props) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
-            observer.unobserve(entry.target);
+            // observer.unobserve(entry.target);
 
             // VideoScale
             if (entry.target.classList.contains('videoScaleContainer')) {
@@ -90,11 +92,19 @@ function InventoryVehicle(props) {
                 { passive: true }
               );
             }
+            if (entry.target.classList.contains('inquiryFormContainer')) {
+              setIsFormVisible(true);
+            }
+            //
           } else {
             if (entry.target.classList.contains('videoScaleContainer')) {
               window.removeEventListener('scroll', () =>
                 animateVideo(entry.target)
               );
+            }
+            if (entry.target.classList.contains('inquiryFormContainer')) {
+              console.log('asd');
+              setIsFormVisible(false);
             }
           }
         });
@@ -155,7 +165,11 @@ function InventoryVehicle(props) {
               ) : null}
             </div>
 
-            <div className={`${styles.inventory_cta_wrap}`}>
+            <div
+              className={`${styles.inventory_cta_wrap} ${
+                isFormVisible ? styles.inventory_cta_wrap_static : ''
+              }`}
+            >
               <Button
                 onClick={scroll}
                 button={true}
@@ -291,7 +305,7 @@ function InventoryVehicle(props) {
         <VideoScale video={data?.video.data?.attributes?.url} />
       ) : null}
 
-      {formData ? <InquiryForm {...formData} /> : null}
+      {formData ? <InquiryForm {...formData} className={`formCTA`} /> : null}
     </div>
   );
 }

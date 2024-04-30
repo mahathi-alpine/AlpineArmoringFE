@@ -8,7 +8,6 @@ import VideoSingle from './videos/VideoSingle';
 import Button from 'components/global/button/Button';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import TradeShowsSingle from './trade-shows/TradeShowsSingle';
-import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 function Media(props) {
   const banner = props?.pageData?.banner;
@@ -81,13 +80,29 @@ function Media(props) {
   };
 
   // Animations
-  const observerRef = useIntersectionObserver();
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
-    targets.forEach((item) => observerRef.current.observe(item));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      }
+    );
+
+    targets.forEach((item) => observer.observe(item));
 
     return () => {
-      targets.forEach((item) => observerRef.current.unobserve(item));
+      targets.forEach((item) => observer.unobserve(item));
+      observer.disconnect();
     };
   }, []);
 

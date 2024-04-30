@@ -289,6 +289,14 @@
         bottom: 10px;
         margin: auto;
       }
+
+      &_static{
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 20px;
+      }
     }
 
     @include breakpoint(untilDesktop) {
