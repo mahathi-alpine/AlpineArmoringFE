@@ -17,8 +17,11 @@
     flex-flow: column;
     max-width: 500px;
     width: 100%;
-    padding-bottom: 51px;
+    padding-bottom: 41px;
 
+    @include breakpoint(medium) {
+      padding-bottom: 51px;
+    }
     @media (min-width: 800px) {
       width: calc(100% / 2 - 24px);
       max-width: unset;
@@ -82,7 +85,7 @@
     &_content {
       position: relative;
       background: white;
-      padding: rem(16) 0 rem(16) 0;
+      padding: rem(8) 0 rem(8) 0;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
       text-align: center;
@@ -90,6 +93,10 @@
       bottom: 0;
       left: 0;
       right: 0;
+
+      @include breakpoint(large) {
+        padding: rem(16) 0 rem(16) 0;
+      }
 
       @include breakpoint(large) {
         padding: rem(24) rem(8) rem(24) rem(8);
@@ -130,7 +137,7 @@
     }
 
     &_title {
-      font-size: rem(16);
+      font-size: rem(14);
       font-weight: var(--font-medium);
       text-transform: uppercase;
       letter-spacing: -0.8px;
@@ -153,10 +160,14 @@
       visibility: hidden;
       transition: visibility 0.6s ease-out;
       a:first-child {
-        margin-top: rem(16);
+        margin-top: rem(8);
       }
       @include breakpoint(medium) {
         max-width: 390px;
+
+        a:first-child {
+          margin-top: rem(16);
+        }
 
         a span {
           padding: 13px 16px;
