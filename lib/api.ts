@@ -14,7 +14,7 @@ export async function fetchAPI(path) {
       return data;
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    // console.error('Error fetching data:', error);
     return {
       props: {
         error: error.message,

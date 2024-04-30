@@ -91,6 +91,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const applyFilter = (item, paramKey) => {
     if (paramKey == 'make') {
       setFiltersOpen(false);
+      document.body.classList.remove('no-scroll');
     }
 
     const newQuery = { ...router.query };

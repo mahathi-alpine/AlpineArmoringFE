@@ -14,14 +14,13 @@ function Inventory(props) {
   topBanner = topBanner?.attributes.inventoryBanner;
 
   const router = useRouter();
-  const { q } = router.query;
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [q]);
+  }, [router.query]);
 
   const fetchMoreItems = () => {
     if (itemsToRender < vehiclesData.length) {

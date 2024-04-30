@@ -18,7 +18,7 @@ function VehicleWeArmor(props) {
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [q]);
+  }, [router.query]);
 
   const categoryOrderMap = new Map(
     props.filters.type?.map((category) => [
