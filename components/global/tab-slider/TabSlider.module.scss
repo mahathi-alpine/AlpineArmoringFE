@@ -51,8 +51,8 @@
     }
   }
 
-  &_small{    
-    @media (min-width: 500px) and (max-width: 768px){
+  &_small {
+    @media (min-width: 500px) and (max-width: 768px) {
       .tabSlider_nav_wrap {
         display: inline-flex;
         margin: auto;

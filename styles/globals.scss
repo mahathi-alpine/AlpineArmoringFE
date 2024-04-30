@@ -79,7 +79,7 @@ body {
   overflow-x: clip;
   height: 51px;
   @supports (-webkit-touch-callout: none) {
-    overflow-x: hidden;    
+    overflow-x: hidden;
   }
 
   @include breakpoint(large) {
@@ -107,7 +107,8 @@ body {
   }
 }
 
-::i-block-chrome,.shape-before{
+::i-block-chrome,
+.shape-before {
   overflow-x: hidden;
 }
 
