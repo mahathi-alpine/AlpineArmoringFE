@@ -35,7 +35,7 @@
       border-bottom: 1px solid var(--color-gray);
 
       .filters_plain & {
-        display: none;
+        // display: none;
         background: var(--color-white);
         border-top-left-radius: 16px;
         border-bottom-left-radius: 16px;
@@ -75,7 +75,8 @@
       font-weight: var(--font-regular);
       .filters_plain & {
         position: relative;
-        padding: 0 rem(32) 0 rem(32);
+        padding: 0 rem(16) 0 rem(16);
+        font-weight: var(--font-medium);
 
         &:after {
           position: absolute;
@@ -194,6 +195,7 @@
     border-radius: 99px;
     background: rgba(241, 243, 244, 0.24);
     font-size: rem(14);
+
     @include breakpoint(large) {
       font-size: rem(15);
 
@@ -217,6 +219,12 @@
           fill: var(--color-dark);
         }
       }
+    }    
+
+    @media(min-width: 1280px) and (max-width: 1380px){
+      .filters_plain & {
+        padding: 0 rem(16);
+      }      
     }
 
     &_icon {
@@ -317,6 +325,12 @@
           );
         }
       }
+    }
+
+    @media(min-width: 1280px) and (max-width: 1380px){
+      .filters_plain & {
+        padding: 0 rem(16);
+      }      
     }
 
     &_title {
