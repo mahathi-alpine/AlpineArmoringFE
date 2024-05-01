@@ -103,7 +103,7 @@
   &_wrap {
     @include breakpoint(untilLarge) {
       position: fixed;
-      padding: rem(70) rem(16) rem(16) rem(16);
+      padding: rem(70) rem(8) rem(16) rem(8);
       top: 0;
       bottom: 0;
       left: 0;
@@ -136,7 +136,7 @@
       }
 
       &_inner {
-        padding: rem(24) rem(16) rem(8) rem(16);
+        padding: rem(24) rem(8) rem(8) rem(8);
         background: var(--color-dark);
         border-radius: 24px;
         visibility: hidden;
