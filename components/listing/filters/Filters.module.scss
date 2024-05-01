@@ -219,12 +219,12 @@
           fill: var(--color-dark);
         }
       }
-    }    
+    }
 
-    @media(min-width: 1280px) and (max-width: 1380px){
+    @media (min-width: 1280px) and (max-width: 1380px) {
       .filters_plain & {
         padding: 0 rem(16);
-      }      
+      }
     }
 
     &_icon {
@@ -327,10 +327,10 @@
       }
     }
 
-    @media(min-width: 1280px) and (max-width: 1380px){
+    @media (min-width: 1280px) and (max-width: 1380px) {
       .filters_plain & {
         padding: 0 rem(16);
-      }      
+      }
     }
 
     &_title {
