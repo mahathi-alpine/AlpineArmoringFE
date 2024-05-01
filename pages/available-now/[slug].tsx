@@ -1,6 +1,6 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'lib/api';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
@@ -68,7 +68,7 @@ function InventoryVehicle(props) {
     }
   };
 
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  // const [isFormVisible, setIsFormVisible] = useState(false);
 
   useEffect(() => {
     const setupObserver = () => {
@@ -92,20 +92,18 @@ function InventoryVehicle(props) {
                 { passive: true }
               );
             }
-            if (entry.target.classList.contains('inquiryFormContainer')) {
-              setIsFormVisible(true);
-            }
-            //
+            // if (entry.target.classList.contains('inquiryFormContainer')) {
+            //   setIsFormVisible(true);
+            // }
           } else {
             if (entry.target.classList.contains('videoScaleContainer')) {
               window.removeEventListener('scroll', () =>
                 animateVideo(entry.target)
               );
             }
-            if (entry.target.classList.contains('inquiryFormContainer')) {
-              console.log('asd');
-              setIsFormVisible(false);
-            }
+            // if (entry.target.classList.contains('inquiryFormContainer')) {
+            //   setIsFormVisible(false);
+            // }
           }
         });
       });
@@ -166,9 +164,10 @@ function InventoryVehicle(props) {
             </div>
 
             <div
-              className={`${styles.inventory_cta_wrap} ${
-                isFormVisible ? styles.inventory_cta_wrap_static : ''
-              }`}
+              // className={`${styles.inventory_cta_wrap} ${
+              //   isFormVisible ? styles.inventory_cta_wrap_static : ''
+              // }`}
+              className={`${styles.inventory_cta_wrap}`}
             >
               <Button
                 onClick={scroll}

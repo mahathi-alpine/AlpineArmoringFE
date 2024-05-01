@@ -275,8 +275,8 @@
     &_wrap {
       position: fixed;
       bottom: rem(4);
-      left: rem(4);
-      right: rem(4);
+      left: rem(16);
+      right: rem(16);
       margin: auto;
       z-index: 2;
       @include breakpoint(medium) {

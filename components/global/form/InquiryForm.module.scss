@@ -8,6 +8,7 @@
   width: calc(100% - 32px);
   margin: auto;
   color: var(--color-secondary);
+  z-index: 3;
 
   @include breakpoint(medium) {
     padding-top: rem(48);
