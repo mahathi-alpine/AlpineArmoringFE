@@ -260,6 +260,21 @@ const Form = () => {
     setErrors({ ...errors, [field]: errorMessage });
   };
 
+  // Parses the JSON returned by a network request
+  const parseJSON = (resp) => (resp.json ? resp.json() : resp);
+  // Checks if a network request came back fine, and throws an error if not
+  const checkStatus = (resp) => {
+    if (resp.status >= 200 && resp.status < 300) {
+      return resp;
+    }
+    return parseJSON(resp).then((resp) => {
+      throw resp;
+    });
+  };
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
   const handleSubmit = async () => {
     // e.preventDefault();
 
@@ -276,26 +291,54 @@ const Form = () => {
       const submitBtn = document.querySelector('.submitButton');
       submitBtn.classList.add('submiting');
       submitBtn.innerHTML = '';
-      setTimeout(() => {
-        submitBtn.classList.remove('submiting');
-        submitBtn.innerHTML = 'Sent!';
-        submitBtn.classList.add('submitted');
 
-        setFullname('');
-        setEmail('');
-        setPhone('');
-        setMobile('');
-        setCompany('');
-        setInquiry('');
-        setCountry('');
-        setPreferredContact('');
-        setMessage('');
-      }, 1500);
+      await fetch('http://127.0.0.1:1337/api/emails', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          data: {
+            email: email,
+            name: fullname,
+            mobileNumber: mobile,
+            phoneNumber: phone,
+            company: company,
+            preferredContact: preferredContact,
+            inquiry: inquiry,
+            country: country,
+            message: message,
+            date: Date.now(),
+          },
+        }),
+      })
+        // .then(response => response.json())
+        // .then(data => console.log(data))
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(() => {
+          setTimeout(() => {
+            submitBtn.classList.remove('submiting');
+            submitBtn.innerHTML = 'Sent!';
+            submitBtn.classList.add('submitted');
 
-      setTimeout(() => {
-        submitBtn.innerHTML = 'Send message';
-        submitBtn.classList.remove('submitted');
-      }, 3000);
+            setFullname('');
+            setEmail('');
+            setPhone('');
+            setMobile('');
+            setCompany('');
+            setInquiry('');
+            setCountry('');
+            setPreferredContact('');
+            setMessage('');
+          }, 1500);
+
+          setTimeout(() => {
+            submitBtn.innerHTML = 'Send message';
+            submitBtn.classList.remove('submitted');
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
 
     // const emailDetails = {
@@ -311,8 +354,6 @@ const Form = () => {
     // } catch (error) {
     //   console.error('Error sending email:', error);
     // }
-
-    // console.log(fullname, email, phone, company, message, mobile);
 
     // const res = await fetch('/api/sendgrid', {
     //   body: JSON.stringify({
