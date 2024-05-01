@@ -12,9 +12,21 @@ type FiltersProps = {
 };
 
 const Filters = ({ props, plain }: FiltersProps) => {
+  const router = useRouter();
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    if (router.isReady) {
+      const q = Array.isArray(router.query.q)
+        ? router.query.q.join('')
+        : router.query.q || '';
+      setQuery(q);
+    }
+  }, [router.isReady, router.query]);
+
   const handleSearch = async () => {
     setFiltersOpen(false);
+    document.body.classList.remove('no-scroll');
     router.push(
       {
         pathname: router.pathname,
@@ -53,7 +65,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     }
   };
 
-  const router = useRouter();
   const currentFilterMake = router.query.make;
 
   const pathParts = router.pathname.split('/');

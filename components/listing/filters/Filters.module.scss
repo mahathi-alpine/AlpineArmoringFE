@@ -75,13 +75,13 @@
       font-weight: var(--font-regular);
       .filters_plain & {
         position: relative;
-        padding: 0 rem(16) 0 rem(16);
+        padding: 0 rem(32) 0 rem(16);
         font-weight: var(--font-medium);
 
         &:after {
           position: absolute;
           content: '';
-          right: 0;
+          right: 13px;
           top: 50%;
           transform: translateY(-50%);
           width: 1px;
@@ -224,6 +224,7 @@
     @media (min-width: 1280px) and (max-width: 1380px) {
       .filters_plain & {
         padding: 0 rem(16);
+        font-size: rem(13);
       }
     }
 
@@ -371,8 +372,11 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          font-size: rem(15);
+          font-size: rem(13);
           font-weight: var(--font-medium);
+        }
+        @include breakpoint(huge) {
+          font-size: rem(15);
         }
       }
     }
