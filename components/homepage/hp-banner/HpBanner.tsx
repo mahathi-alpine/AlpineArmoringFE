@@ -50,7 +50,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
-        {props.video?.data ? (
+        {props.video ? (
           <video
             ref={videoRef}
             muted={true}
@@ -61,11 +61,20 @@ const HpBanner = ({ props }: HPBannerProps) => {
             width={1920}
             height={1200}
             preload="metadata"
-            src={`${props.video.data.attributes.url}`}
-            // type={`${props.video.data.attributes.mime}`}
             // poster="/assets/hpVideoPoster.jpg"
           >
-            {/* <source src="AlpineArmoringHPMobile.webm" type="video/webm" media="all and (max-width: 768px)"></source> */}
+            {props.video.video_webm.data ? (
+              <source
+                src={`${props.video.video_webm.data.attributes.url}`}
+                type={`${props.video.video_webm.data.attributes.mime}`}
+              ></source>
+            ) : null}
+            {props.video.video_mp4.data ? (
+              <source
+                src={`${props.video.video_mp4.data.attributes.url}`}
+                type={`${props.video.video_mp4.data.attributes.mime}`}
+              ></source>
+            ) : null}
           </video>
         ) : null}
 
