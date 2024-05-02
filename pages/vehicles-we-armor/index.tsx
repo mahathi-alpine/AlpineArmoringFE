@@ -144,7 +144,7 @@ function VehicleWeArmor(props) {
         </div>
 
         <div className={`${styles.listing_wrap} container`}>
-          {props.vehicles.data?.data?.length < 1 ? (
+          {vehiclesArray?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
               <h2>No Vehicles Found</h2>
             </div>

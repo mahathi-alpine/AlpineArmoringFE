@@ -69,7 +69,7 @@ function Inventory(props) {
         >
           {props.filters.type ? <Filters props={props.filters} /> : null}
 
-          {props.vehicles.data?.length < 1 ? (
+          {vehiclesData?.length < 1 ? (
             <div className={`${styles.listing_list_error}`}>
               <h2>No Vehicles Found</h2>
             </div>

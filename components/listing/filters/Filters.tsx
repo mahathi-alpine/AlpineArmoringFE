@@ -74,6 +74,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const handleClearFilters = () => {
     setQuery('');
+    activeFilterTitles.make = 'Select';
     router.push(`${baseUrl}`, undefined, { scroll: false });
   };
 
