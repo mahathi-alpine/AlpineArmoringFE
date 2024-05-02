@@ -198,7 +198,7 @@
     border-radius: 99px;
     background: rgba(241, 243, 244, 0.24);
     font-size: rem(14);
-    
+
     @supports (-webkit-touch-callout: none) {
       @include breakpoint(small) {
         font-size: rem(16);

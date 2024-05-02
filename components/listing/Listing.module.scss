@@ -1,11 +1,11 @@
 .listing {
   &_wrap {
     position: relative;
-    padding: 0 rem(10)rem(80) rem(10);
+    padding: 0 rem(10) rem(80) rem(10);
     z-index: 2;
 
     @include breakpoint(large) {
-      padding: 0 rem(24)rem(120) rem(24);
+      padding: 0 rem(24) rem(120) rem(24);
 
       &_inventory {
         display: flex;
