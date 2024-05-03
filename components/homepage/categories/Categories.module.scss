@@ -17,7 +17,7 @@
     padding-bottom: 41px;
 
     &:not(:last-child) {
-     margin-bottom: rem(32); 
+      margin-bottom: rem(32);
     }
 
     @include breakpoint(medium) {
