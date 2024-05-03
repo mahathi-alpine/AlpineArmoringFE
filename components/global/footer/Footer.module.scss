@@ -97,7 +97,6 @@
   &_nav {
     display: flex;
     flex-flow: column;
-    row-gap: 16px;
     list-style: none;
     @include breakpoint(medium) {
       flex-flow: unset;
@@ -106,6 +105,10 @@
 
     &_item {
       position: relative;
+
+      &:not(:last-child) {
+       margin-bottom: rem(16); 
+      }
 
       @include breakpoint(medium) {
         width: 50%;

@@ -3,12 +3,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  row-gap: 32px;
   z-index: 2;
   @include breakpoint(medium) {
     column-gap: 32px;
-    row-gap: 64px;
-    row-gap: 32px;
   }
 
   &_item {
@@ -18,6 +15,10 @@
     max-width: 500px;
     width: 100%;
     padding-bottom: 41px;
+
+    &:not(:last-child) {
+     margin-bottom: rem(32); 
+    }
 
     @include breakpoint(medium) {
       padding-bottom: 51px;
