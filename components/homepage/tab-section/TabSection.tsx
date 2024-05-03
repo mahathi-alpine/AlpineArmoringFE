@@ -45,7 +45,7 @@ const TabSection = ({ props }) => {
               >
                 {item.image.data[0].attributes.mime.startsWith('image/') ? (
                   <Image
-                    src={`${item.image.data[0].attributes.formats.medium.url}`}
+                    src={`${item.image.data[0].attributes.formats.medium?.url}`}
                     alt={
                       item.image.data[0].attributes.alternativeText ||
                       'Alpine Armoring'
@@ -64,7 +64,7 @@ const TabSection = ({ props }) => {
                     height={isMobile ? 200 : 430}
                   >
                     <source
-                      src={`${item.image.data[0].attributes.url}`}
+                      src={`${item.image.data[0].attributes?.url}`}
                       type={item.image.data[0].attributes.mime}
                     />
                     Your browser does not support the video tag.
