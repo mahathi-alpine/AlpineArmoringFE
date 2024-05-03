@@ -22,8 +22,6 @@ const TabSection = ({ props }) => {
     return newItem;
   });
 
-  console.log(props);
-
   return (
     <section className={`${styles.tabSection} container`}>
       <TabSlider
@@ -47,7 +45,10 @@ const TabSection = ({ props }) => {
               >
                 {item.image.data[0].attributes.mime.startsWith('image/') ? (
                   <Image
-                    src={`${item.image.data[0].attributes.formats.medium?.url}`}
+                    src={`${
+                      item.image.data[0].attributes.formats.medium.url ||
+                      item.image.data[0].attributes.url
+                    }`}
                     alt={
                       item.image.data[0].attributes.alternativeText ||
                       'Alpine Armoring'
