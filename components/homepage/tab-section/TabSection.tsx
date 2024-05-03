@@ -22,6 +22,8 @@ const TabSection = ({ props }) => {
     return newItem;
   });
 
+  console.log(props);
+
   return (
     <section className={`${styles.tabSection} container`}>
       <TabSlider
