@@ -46,7 +46,7 @@ const TabSection = ({ props }) => {
                 {item.image.data[0].attributes.mime.startsWith('image/') ? (
                   <Image
                     src={`${
-                      item.image.data[0].attributes.formats.medium.url ||
+                      item.image.data[0].attributes.formats.medium?.url ||
                       item.image.data[0].attributes.url
                     }`}
                     alt={
