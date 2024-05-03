@@ -27,10 +27,22 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const handleSearch = async () => {
     setFiltersOpen(false);
     document.body.classList.remove('no-scroll');
+
+    const newQuery = { ...router.query };
+
+    // If the query is empty, remove 'q' from the new query object
+    if (!query || query.trim().length === 0) {
+      delete newQuery.q;
+    } else {
+      // If the query is not empty, add or update 'q' in the new query object
+      newQuery.q = query;
+    }
+
+    // Update the URL with the new query parameters
     router.push(
       {
         pathname: router.pathname,
-        query: { ...router.query, q: query },
+        query: newQuery,
       },
       undefined,
       { scroll: false }
@@ -50,7 +62,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
   };
 
-  const openFilters = () => {
+  const openFilters = (e) => {
     if (window.innerWidth <= 1280) {
       setOpenFiltersClicked(true);
       setFiltersOpen((filtersOpen) => {
@@ -62,6 +74,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
         }
         return newValue;
       });
+    }
+    if (e.target.innerHTML == 'All') {
+      activeFilterTitles.make = 'Select';
     }
   };
 
