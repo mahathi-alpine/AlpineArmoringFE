@@ -18,11 +18,12 @@
     width: 100%;
     max-width: 400px;
     margin-bottom: rem(24);
-    padding-bottom: rem(8);
-    padding-left: rem(8);
-    border-bottom: 1px solid var(--color-white);
+    padding: 0 0 rem(8) rem(8);
     font-size: rem(16);
     font-size: clamp(1rem, 0.8786rem + 0.5178vw, 1.5rem);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-white);
   }
 
   & > div {

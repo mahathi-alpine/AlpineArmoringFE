@@ -201,12 +201,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
     padding-bottom: rem(16);
 
     &_search {
       width: 24px;
       height: 24px;
+      margin-right: 24px;
     }
 
     &_lang {

@@ -1,16 +1,11 @@
 import { useEffect, useState, useCallback } from 'react';
 import styles from './MediaList.module.scss';
-import { install } from 'resize-observer';
 import EmblaCarousel from 'embla-carousel';
 import VideoSingle from './videos/VideoSingle';
 import TradeShowsSingle from './trade-shows/TradeShowsSingle';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 
 function MediaList({ props, itemType }) {
-  if (typeof window !== 'undefined') {
-    if (!window.ResizeObserver) install();
-  }
-
   const groupedByCategory = props?.reduce((acc, item) => {
     const category = item.attributes.category?.data
       ? item.attributes.category.data?.attributes.name

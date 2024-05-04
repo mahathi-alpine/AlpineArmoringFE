@@ -155,13 +155,15 @@
       display: flex;
       justify-content: center;
       flex-flow: column;
-      gap: 10px;
       max-width: 280px;
       margin: auto;
       visibility: hidden;
       transition: visibility 0.6s ease-out;
       a:first-child {
         margin-top: rem(8);
+      }
+      a:nth-child(2){
+        margin-top: 10px;
       }
       @include breakpoint(medium) {
         max-width: 390px;
