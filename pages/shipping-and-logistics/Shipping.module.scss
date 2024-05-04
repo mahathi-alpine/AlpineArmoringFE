@@ -210,7 +210,7 @@
         display: flex;
         align-items: center;
 
-        svg{
+        svg {
           margin-left: 4px;
           @include breakpoint(medium) {
             margin-left: 8px;
