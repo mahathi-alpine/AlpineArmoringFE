@@ -259,6 +259,9 @@
       border: 0;
       font-size: rem(14);
       padding: 0;
+      border-radius: 0;
+      color: var(--color-white);
+      outline: none;
 
       @supports (-webkit-touch-callout: none) {
         @include breakpoint(small) {

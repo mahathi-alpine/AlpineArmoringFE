@@ -173,7 +173,10 @@
     }
     .attention_box3 {
       position: absolute;
-      inset: 1px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       border-radius: 999px;
       transition: opacity 0.3s ease-in;
       opacity: 1;
