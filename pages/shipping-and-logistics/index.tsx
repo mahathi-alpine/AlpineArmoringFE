@@ -24,6 +24,7 @@ function Shipping(props) {
   if (typeof window !== 'undefined') {
     if (!window.ResizeObserver) install();
   }
+
   const convertMarkdown = useMarkdownToHtml();
 
   const tabSliderData = [

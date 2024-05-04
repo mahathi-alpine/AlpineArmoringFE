@@ -124,7 +124,6 @@
     &_link {
       display: flex;
       align-items: center;
-      gap: 20px;
       font-size: rem(13);
       color: var(--color-gray3);
       font-weight: var(--font-medium);
@@ -147,13 +146,14 @@
 
       svg {
         transition: margin 0.2s ease-in-out;
+        margin-left: 20px;
         path {
           stroke: var(--color-primary);
         }
       }
       &:hover {
         svg {
-          margin-left: 10px;
+          margin-left: 30px;
         }
       }
     }

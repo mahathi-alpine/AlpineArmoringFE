@@ -8,6 +8,7 @@ const PDFIcon = dynamic(() => import('components/icons/PDF2'));
 import Link from 'next/link';
 // import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Button from 'components/global/button/Button';
+import { install } from 'resize-observer';
 import Carousel from 'components/global/carousel/Carousel';
 const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
 import VideoScale, {
@@ -24,6 +25,10 @@ function InventoryVehicle(props) {
   const categorySlug = data?.categories?.data[0]?.attributes?.slug;
 
   const convertMarkdown = useMarkdownToHtml();
+
+  if (typeof window !== 'undefined') {
+    if (!window.ResizeObserver) install();
+  }
 
   // const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
   // useEffect(() => {

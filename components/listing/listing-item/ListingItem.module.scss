@@ -204,17 +204,22 @@
   &_info {
     display: flex;
     flex-flow: column;
-    grid-row-gap: 16px;
     font-size: rem(13);
     letter-spacing: -0.5px;
     @include breakpoint(medium) {
-      grid-row-gap: 24px;
       font-size: rem(14);
     }
 
     &_item {
       display: flex;
       justify-content: space-between;
+
+      &:not(:last-child) {
+        margin-bottom: rem(16);
+        @include breakpoint(medium) {
+          margin-bottom: rem(24);
+        }
+      }
 
       span {
         text-transform: uppercase;

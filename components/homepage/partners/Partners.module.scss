@@ -12,10 +12,6 @@
   &_wrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    @include breakpoint(large) {
-      gap: 16px;
-    }
   }
 
   &_item {
@@ -27,23 +23,23 @@
     border-radius: 12px;
     padding: rem(10);
     height: 100px;
+    margin-bottom: rem(8);
 
-    // &:last-child {
-    //   flex: 0 0 100%;
-    // }
+    &:not(:nth-child(2n)) {
+      margin-right: rem(8);
+      @include breakpoint(large) {
+        margin: unset;
+      }
+    }
 
     @include breakpoint(large) {
       height: 160px;
       flex: 0 0 calc(100% / 5 - 13px);
-      // &:nth-child(-n + 5) {
-      //   flex: 0 0 calc(100% / 5 - 13px);
-      // }
-      // &:nth-child(n + 6) {
-      //   flex: 0 0 calc(100% / 4 - 12px);
-      //   img {
-      //     height: 64px;
-      //   }
-      // }
+      margin-bottom: rem(16);
+
+      &:not(:nth-child(5n)) {
+        margin-right: rem(16);
+      }
     }
 
     @for $i from 1 through 9 {

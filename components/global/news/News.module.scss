@@ -159,7 +159,6 @@
     &_tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
       font-size: rem(13);
       margin-bottom: rem(10);
 
@@ -172,6 +171,10 @@
         padding: rem(5) rem(10);
         background: var(--color-grayLight);
         border-radius: 8px;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
       }
     }
 

@@ -69,7 +69,6 @@
       &_item {
         display: flex;
         align-items: center;
-        gap: 16px;
         margin-bottom: rem(16);
         transition: color 0.3s ease;
 
@@ -83,6 +82,10 @@
           svg path {
             transition: fill 0.3s ease;
           }
+        }
+
+        svg{
+          margin-right: 16px;
         }
 
         .footer_dark & {

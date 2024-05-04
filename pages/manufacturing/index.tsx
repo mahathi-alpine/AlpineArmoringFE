@@ -6,6 +6,7 @@ import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { install } from 'resize-observer';
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')
 );
@@ -13,6 +14,10 @@ const Gallery = dynamic(
 
 function Manufacturing(props) {
   const convertMarkdown = useMarkdownToHtml();
+
+  if (typeof window !== 'undefined') {
+    if (!window.ResizeObserver) install();
+  }
 
   // Animations
   useEffect(() => {
