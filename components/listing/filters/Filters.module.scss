@@ -137,7 +137,9 @@
           max-width: 600px;
           margin: auto;
           opacity: 1;
-          transform: scale(1);
+          transform: scale(1);    
+          max-height: 87vH;
+          overflow: hidden;
           transition:
             transform 0.3s ease-out,
             opacity 0.3s ease-out,
@@ -283,7 +285,7 @@
       }
     }
   }
-  &_wrap {
+  &_wrap {    
     @include breakpoint(large) {
       &_top {
         display: none;
@@ -320,7 +322,7 @@
     &_active {
       .filters_plain & {
         .filters_item_wrap {
-          max-height: 500px;
+          max-height: 47vH;
         }
         .filters_item_chevron {
           transform: rotate(-90deg);
@@ -483,7 +485,8 @@
       }
 
       @include breakpoint(untilLarge) {
-        overflow: hidden;
+        // overflow: hidden;
+        overflow: auto;
         max-height: 0px;
         transition: max-height 0.3s ease;
 

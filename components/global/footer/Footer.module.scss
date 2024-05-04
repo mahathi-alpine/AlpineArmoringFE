@@ -47,7 +47,9 @@
         flex: 1;
         display: flex;
         flex-flow: column;
-        gap: 24px;
+        &>:nth-child(2){
+          margin-top: rem(24);
+        }
       }
     }
   }
@@ -239,8 +241,11 @@
         position: relative;
         margin-bottom: rem(20);
 
-        @include breakpoint(large) {
+        @include breakpoint(medium) {
           margin-bottom: 0;
+        }
+
+        @include breakpoint(large) {
 
           &:after {
             position: absolute;
