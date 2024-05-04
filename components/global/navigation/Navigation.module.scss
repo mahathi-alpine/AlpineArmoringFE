@@ -1,13 +1,13 @@
 .navigation {
   @include breakpoint('untilLarge') {
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: white;
-    z-index: 1;
-    padding: 40px;
+  //   position: fixed;
+  //   left: 0;
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   background: white;
+  //   z-index: 1;
+  //   padding: 40px;
     display: none;
   }
 
@@ -16,12 +16,9 @@
   }
 
   &_list {
-    display: flex;
-    flex-flow: column;
+    display: grid;
+    grid-auto-flow:column;
     gap: 32px;
-    @include breakpoint(medium) {
-      flex-flow: row;
-    }
   }
   &_item {
     font-weight: var(--font-medium);

@@ -90,25 +90,15 @@
   }
 
   &_box {
-    // margin: rem(24) 0;
     @include breakpoint(medium) {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 45%; 
       gap: 40px;
       align-items: center;
       margin: rem(32) auto;
-
-      .manufacturing_image {
-        width: 40%;
-      }
-
-      .manufacturing_text {
-        flex: 1;
-      }
     }
     @include breakpoint(large) {
       gap: 40px;
-      // max-width: 1000px;
-      // margin: auto;
 
       .manufacturing_image {
         margin: 0;
@@ -117,10 +107,6 @@
     @include breakpoint(huge) {
       gap: 64px;
       margin: rem(64) auto;
-
-      .manufacturing_image {
-        width: 50%;
-      }
     }
   }
 
@@ -131,8 +117,6 @@
     img {
       object-fit: cover;
       border-radius: 16px;
-      // width: 100%;
-      // height: auto;
     }
   }
 
@@ -150,22 +134,6 @@
     padding-top: rem(24);
     margin-bottom: rem(24);
 
-    &_top {
-      @include breakpoint(medium) {
-        margin: auto;
-        display: flex;
-        align-items: flex-start;
-        gap: 32px;
-      }
-      @include breakpoint(large) {
-        gap: 70px;
-        max-width: 1560px;
-      }
-      @include breakpoint(huge) {
-        gap: 100px;
-      }
-    }
-
     &_box {
       overflow: hidden;
       @include breakpoint(medium) {
@@ -177,12 +145,6 @@
       margin-bottom: rem(24);
       @include breakpoint(medium) {
         margin-bottom: 0;
-      }
-    }
-
-    &_image {
-      @include breakpoint(huge) {
-        width: 44% !important;
       }
     }
 

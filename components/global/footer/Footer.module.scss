@@ -221,7 +221,8 @@
     }
 
     &_nav {
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
       justify-content: space-evenly;
       align-items: center;
       margin-bottom: rem(32);

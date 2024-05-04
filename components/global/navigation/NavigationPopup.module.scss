@@ -131,7 +131,8 @@
   }
 
   &_socials {
-    display: flex;
+    display: grid;
+    grid-auto-flow:column;  
     gap: 16px;
     margin-top: rem(24);
     @include breakpoint(medium) {
@@ -168,18 +169,17 @@
   }
 
   &_contact {
-    display: flex;
-    flex-flow: column;
+    display: grid;
+    grid-auto-flow:column; 
     gap: 16px;
     font-size: rem(13);
     @include breakpoint(large) {
-      justify-content: space-between;
-      flex-flow: row;
       margin-top: unset;
       gap: 32px;
     }
     &_item {
-      display: flex;
+      display: grid;
+      grid-auto-flow:column; 
       align-items: center;
       gap: 8px;
       transition: color 0.3s ease;

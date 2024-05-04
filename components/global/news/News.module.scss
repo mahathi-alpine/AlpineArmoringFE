@@ -133,7 +133,6 @@
           flex: 1;
           display: flex;
           flex-flow: column;
-          gap: 8px;
 
           &_inner {
             margin: auto 0;
@@ -182,6 +181,7 @@
       @include breakpoint(medium) {
         padding: rem(12) rem(24);
         display: inline-flex;
+        margin-top: rem(8);
       }
     }
 

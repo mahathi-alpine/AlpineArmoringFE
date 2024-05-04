@@ -9,8 +9,6 @@
 
   &_group {
     @include breakpoint(medium) {
-      // width: calc(50% - 5px);
-
       &_full {
         grid-column: 1 / -1;
       }

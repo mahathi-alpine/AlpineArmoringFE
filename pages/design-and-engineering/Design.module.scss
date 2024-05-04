@@ -39,33 +39,21 @@
   }
 
   &_box {
-    display: flex;
-    flex-flow: column;
+    display: grid;
     gap: 32px;
     @include breakpoint(medium) {
-      flex-flow: row;
       align-items: center;
       justify-content: center;
+      grid-template-columns: auto 50%; 
       margin-top: rem(40);
 
       .design_image {
-        max-width: 50%;
         margin: unset;
-      }
-
-      .design_text {
-        width: 50%;
       }
     }
     @include breakpoint(huge) {
       margin-top: rem(64);
       gap: 64px;
-    }
-
-    .design_text {
-      @include breakpoint(large) {
-        max-width: 500px;
-      }
     }
   }
 
@@ -82,6 +70,26 @@
     @include breakpoint(large) {
       margin: rem(120) auto rem(180) auto;
     }
+
+    .design_box{
+      &>div{
+        &:nth-child(3){
+          @include breakpoint(medium) {
+            grid-column: 1 / -1;
+
+            img{
+              margin: auto;
+            }
+          }
+          @include breakpoint(large) {
+            grid-column: unset;
+          }
+        }
+      }
+      @include breakpoint(large) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
   }
 
   &_section3 {
@@ -93,7 +101,8 @@
     &_top {
       &_box {
         @include breakpoint(large) {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr auto;
           gap: 64px;
 
           .design_text {
@@ -110,14 +119,15 @@
     padding-bottom: rem(80);
 
     @include breakpoint(medium) {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;      
+      grid-template-columns: 1fr 1fr; 
       gap: 32px;
     }
 
     @include breakpoint(large) {
       padding-top: rem(64);
       padding-bottom: rem(160);
+      grid-template-columns: repeat(4, 1fr);
     }
 
     &_item {
@@ -127,11 +137,7 @@
       margin-bottom: rem(16);
       border-radius: 24px;
       @include breakpoint(medium) {
-        width: calc(50% - 16px);
         margin-bottom: 0;
-      }
-      @include breakpoint(large) {
-        width: calc(100% / 4 - 24px);
       }
       @include breakpoint(huge) {
         padding: rem(40);

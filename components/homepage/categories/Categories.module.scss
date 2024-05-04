@@ -1,42 +1,43 @@
 .categories {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
   z-index: 2;
-  @include breakpoint(medium) {
-    column-gap: 32px;
+  row-gap: 32px;
+  
+  @media (min-width: 800px) {
+    grid-auto-columns: 1fr 1fr;
+    column-gap: 32px; 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  @include breakpoint(huge) {
+    grid-template-columns: repeat(3, 1fr); 
   }
 
   &_item {
     position: relative;
     display: flex;
     flex-flow: column;
+    margin: auto;
     max-width: 500px;
     width: 100%;
     padding-bottom: 41px;
-
-    &:not(:last-child) {
-      margin-bottom: rem(32);
-    }
 
     @include breakpoint(medium) {
       padding-bottom: 51px;
     }
     @media (min-width: 800px) {
-      width: calc(100% / 2 - 24px);
-      max-width: unset;
+      &:nth-last-child(1):nth-child(odd){
+        grid-column: auto / span 2;
+      }
     }
     @include breakpoint(large) {
+      max-width: 753px;
       padding-bottom: 71px;
     }
     @include breakpoint(huge) {
-      width: calc(100% / 3 - 22px);
-
-      // &:last-child,
-      // &:nth-last-child(2) {
-      //   width: calc(50% - 16px);
-      // }
+      &:nth-last-child(1):nth-child(odd){
+        grid-column: unset;
+      }
     }
 
     &:before {
