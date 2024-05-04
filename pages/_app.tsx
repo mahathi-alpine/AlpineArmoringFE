@@ -7,6 +7,7 @@ import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
 import Loader from 'components/global/loader/Loader';
+import { install } from 'resize-observer';
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -17,6 +18,10 @@ function getCookie(name) {
 export default function App({ Component, pageProps }) {
   const seoData = pageProps.seoData;
   const [isLoading, setIsLoading] = useState(false);
+
+  if (typeof window !== 'undefined') {
+    if (!window.ResizeObserver) install();
+  }
 
   useEffect(() => {
     const paths = [

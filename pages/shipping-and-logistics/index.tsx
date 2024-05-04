@@ -7,7 +7,6 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import PDFIcon from 'components/icons/PDF';
 import Link from 'next/link';
 
-import { install } from 'resize-observer';
 import Gallery from 'components/global/carousel/CarouselCurved';
 
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
@@ -20,10 +19,6 @@ function Shipping(props) {
   const licenseImage = props?.pageData?.licenseImage;
   const licensePDF1 = props?.pageData?.licensePDF1?.data?.attributes?.url;
   const licensePDF2 = props?.pageData?.licensePDF2?.data?.attributes?.url;
-
-  if (typeof window !== 'undefined') {
-    if (!window.ResizeObserver) install();
-  }
 
   const convertMarkdown = useMarkdownToHtml();
 
