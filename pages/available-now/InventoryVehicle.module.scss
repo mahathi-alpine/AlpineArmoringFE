@@ -24,7 +24,6 @@
 
     &_description {
       display: flex;
-      gap: 8px;
       margin-bottom: rem(16);
       color: var(--color-primary);
       font-weight: var(--font-medium);
@@ -36,10 +35,12 @@
 
       p {
         flex: 1;
+        margin: 0;
       }
 
       svg {
         width: 20px;
+        margin-right: 8px;
         path {
           fill: var(--color-primary);
         }

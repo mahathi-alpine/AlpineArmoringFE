@@ -119,7 +119,7 @@ const EmblaCarousel = (props) => {
                     priority={index === 0}
                     fill
                     className={styles.carousel_slide_img}
-                    sizes="(max-width: 1250px) 100vw, 50vw"
+                    sizes="(max-width: 1280px) 100vw, 50vw"
                   />
                 </div>
               ) : null}

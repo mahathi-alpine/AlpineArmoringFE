@@ -48,7 +48,7 @@ const Header = ({
   }, [isNavOpen, isSearchOpen]);
 
   useEffect(() => {
-    let lastVal = 0;
+    let lastVal = 74;
     window.onscroll = function () {
       const y = window.scrollY;
       if (y > lastVal) {
