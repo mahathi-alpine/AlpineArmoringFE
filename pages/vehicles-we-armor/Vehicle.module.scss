@@ -85,6 +85,12 @@
     }
 
     &_wrap {
+      @include breakpoint(medium) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
       &_image {
         position: relative;
 
@@ -92,6 +98,7 @@
           width: calc(40% - 12px);
           &:last-child {
             width: calc(60% - 12px);
+            margin-left: 24px;
           }
         }
 
@@ -100,18 +107,9 @@
           max-width: 1000px;
           &:last-child {
             width: calc(60% - 32px);
+            margin-left: 64px;
           }
         }
-      }
-
-      @include breakpoint(medium) {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 24px;
-      }
-      @include breakpoint(large) {
-        gap: 64px;
       }
     }
   }

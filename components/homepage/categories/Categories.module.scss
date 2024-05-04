@@ -2,11 +2,10 @@
   position: relative;
   display: grid;
   z-index: 2;
-  row-gap: 32px;
+  gap: 32px;
   
   @media (min-width: 800px) {
     grid-auto-columns: 1fr 1fr;
-    column-gap: 32px; 
     grid-template-columns: repeat(2, 1fr); 
   }
   @include breakpoint(huge) {
@@ -22,17 +21,14 @@
     width: 100%;
     padding-bottom: 41px;
 
-    @include breakpoint(medium) {
-      padding-bottom: 51px;
-    }
     @media (min-width: 800px) {
+      padding-bottom: 51px;
       &:nth-last-child(1):nth-child(odd){
         grid-column: auto / span 2;
       }
     }
     @include breakpoint(large) {
       max-width: 753px;
-      padding-bottom: 71px;
     }
     @include breakpoint(huge) {
       &:nth-last-child(1):nth-child(odd){

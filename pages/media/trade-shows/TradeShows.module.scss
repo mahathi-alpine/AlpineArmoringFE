@@ -8,7 +8,7 @@
   @include breakpoint(medium) {
     display: flex;
     flex-flow: column;
-    width: calc(100% / 3 - 22px);
+    // width: calc(100% / 3 - 22px);
     margin: unset;
     margin-bottom: 0;
     cursor: pointer;

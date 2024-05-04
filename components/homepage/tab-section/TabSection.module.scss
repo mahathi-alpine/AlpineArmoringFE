@@ -5,12 +5,11 @@
   z-index: 2;
 
   @include breakpoint(medium) {
-    display: flex;
-    flex-flow: column;
+    display: grid;
     gap: 32px;
   }
 
-  @include breakpoint(medium) {
+  @include breakpoint(huge) {
     gap: 48px;
   }
 
@@ -37,14 +36,11 @@
     @include breakpoint(medium) {
       display: flex;
       align-items: center;
-      gap: 32px;
       max-width: 1270px;
       margin: auto;
-      padding: 0 rem(16);
     }
     @include breakpoint(large) {
       padding: 0;
-      gap: 64px;
       padding: 0 rem(40);
     }
 
@@ -80,6 +76,7 @@
       @include breakpoint(medium) {
         width: 55%;
         margin-bottom: 0;
+        margin-right: 16px;
 
         &:before {
           position: absolute;
@@ -95,6 +92,10 @@
             filter: blur(75px);
           }
         }
+      }
+
+      @include breakpoint(large) {
+        margin-right: 64px;
       }
 
       img,

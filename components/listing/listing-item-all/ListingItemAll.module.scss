@@ -5,8 +5,9 @@
 
   @include breakpoint(medium) {
     width: calc(50% - 12px);
-    margin: unset;
     align-self: stretch;
+    margin: unset;
+    margin-bottom: rem(32);
   }
 
   @include breakpoint(large) {
@@ -32,6 +33,7 @@
 
   @include breakpoint(max) {
     width: calc(100% / 4 - 18px);
+    margin-bottom: rem(48);
   }
 
   &_inner {
