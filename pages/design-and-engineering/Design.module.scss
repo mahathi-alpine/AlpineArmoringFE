@@ -5,6 +5,7 @@
     color: var(--color-primary);
     font-weight: var(--font-demi);
     white-space: pre-wrap;
+    font-size: rem(20);
     font-size: clamp(1.25rem, 1.1286rem + 0.5178vw, 1.75rem);
 
     span {
@@ -17,11 +18,13 @@
     margin-bottom: rem(16);
     font-size: rem(15);
     @include breakpoint(large) {
+      font-size: rem(20);
       font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
     }
   }
 
   &_text {
+    font-size: rem(14);
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     line-height: 1.25;
 

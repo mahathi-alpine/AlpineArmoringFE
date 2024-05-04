@@ -13,6 +13,7 @@
 
     &_title {
       margin-bottom: rem(12);
+      font-size: rem(26);
       font-size: clamp(1.625rem, 1.443rem + 0.7767vw, 2.375rem);
       white-space: pre-wrap;
       letter-spacing: -0.5px;
@@ -27,6 +28,7 @@
       margin-bottom: rem(16);
       color: var(--color-primary);
       font-weight: var(--font-medium);
+      font-size: rem(12);
       font-size: clamp(0.75rem, 0.7197rem + 0.1294vw, 0.875rem);
 
       @include breakpoint(medium) {

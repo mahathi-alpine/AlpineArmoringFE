@@ -3,7 +3,6 @@
 
   &_text {
     margin: rem(8) auto rem(24) auto;
-    // font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
     font-size: rem(15);
     @include breakpoint(medium) {
       margin: rem(24) auto rem(24) auto;
@@ -92,6 +91,7 @@
 
       &_title {
         margin-bottom: rem(16);
+        font-size: rem(26);
         font-size: clamp(1.625rem, 1.4733rem + 0.6472vw, 2.25rem);
       }
 

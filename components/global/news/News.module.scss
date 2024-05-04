@@ -69,6 +69,7 @@
       }
     }
     &_primary {
+      font-size: rem(32);
       font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
       font-weight: var(--font-demi);
       line-height: 1.1;
@@ -182,6 +183,7 @@
     }
 
     &_title {
+      font-size: rem(19);
       font-size: clamp(1.1875rem, 0.9903rem + 0.8414vw, 2rem);
       letter-spacing: -1px;
       @include breakpoint(medium) {

@@ -1,7 +1,7 @@
 .hp_banner {
   position: relative;
   margin-bottom: rem(-30);
-  height: calc(100svh + 50px);
+  height: calc(100vh + 50px);
   max-height: 800px;
   overflow: hidden;
   z-index: 2;
@@ -71,11 +71,13 @@
   &_title {
     margin-bottom: rem(12);
     font-weight: var(--font-demi);
+    font-size: rem(24);
     font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
     text-transform: uppercase;
     white-space: pre-wrap;
 
     b {
+      font-size: rem(24);
       font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
     }
 
@@ -89,6 +91,7 @@
   }
 
   &_description {
+    font-size: rem(14);
     font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
     font-weight: var(--font-regular);
     @include breakpoint(large) {
@@ -99,6 +102,7 @@
     strong,
     b {
       font-weight: var(--font-regular);
+      font-size: rem(14);
       font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
       letter-spacing: 0.45px;
       @include breakpoint(large) {

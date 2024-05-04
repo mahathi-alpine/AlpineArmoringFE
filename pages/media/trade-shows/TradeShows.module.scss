@@ -24,12 +24,14 @@
 
   h4 {
     margin-bottom: rem(4);
+    font-size: rem(15);
     font-size: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
     letter-spacing: -1px;
   }
 
   p {
     margin-bottom: rem(8);
+    font-size: rem(13);
     font-size: clamp(0.8125rem, 0.7973rem + 0.0647vw, 0.875rem);
   }
 

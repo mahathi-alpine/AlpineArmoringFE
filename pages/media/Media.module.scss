@@ -2,6 +2,7 @@
   &_heading {
     margin-bottom: rem(32);
     text-transform: uppercase;
+    font-size: rem(32);
     font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
     font-weight: var(--font-demi);
     line-height: 1.1;

@@ -15,8 +15,8 @@
   &_heading {
     display: block;
     margin-top: rem(24);
+    font-size: rem(20);
     font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
-    // text-align: center;
     @include breakpoint(medium) {
       margin-top: rem(-40);
     }
@@ -75,6 +75,7 @@
 
       &_title {
         margin-bottom: rem(16);
+        font-size: rem(26);
         font-size: clamp(1.625rem, 1.4733rem + 0.6472vw, 2.25rem);
       }
 
@@ -150,12 +151,14 @@
 
     &_title {
       margin-bottom: rem(16);
+      font-size: rem(26);
       font-size: clamp(1.625rem, 1.4733rem + 0.6472vw, 2.25rem);
     }
 
     &_text {
       margin-bottom: rem(32);
       font-weight: var(--font-medium);
+      font-size: rem(14);
       font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
       p {
         margin-bottom: rem(8);

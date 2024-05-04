@@ -18,6 +18,7 @@
     color: var(--color-primary);
     font-weight: var(--font-demi);
     white-space: pre-wrap;
+    font-size: rem(20);
     font-size: clamp(1.25rem, 1.1286rem + 0.5178vw, 1.75rem);
 
     span {
@@ -40,6 +41,7 @@
 
   &_text {
     display: block;
+    font-size: rem(14);
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     line-height: 1.25;
     margin: rem(16) 0;
@@ -58,6 +60,7 @@
     border-left: 2px solid var(--color-primary);
     padding: rem(8) 0 rem(8) rem(16);
     margin: rem(24) 0 rem(24) 0;
+    font-size: rem(14);
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     line-height: 1.25;
 
