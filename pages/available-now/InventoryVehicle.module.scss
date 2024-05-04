@@ -335,9 +335,9 @@
     justify-content: center;
     align-items: center;
 
-    &>a:last-child {
+    & > a:last-child {
       margin-top: 8px;
-      @media(min-width: 508px) {
+      @media (min-width: 508px) {
         margin-top: 0;
         margin-left: 8px;
       }

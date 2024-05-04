@@ -52,7 +52,7 @@
       @include breakpoint(large) {
         width: 50%;
       }
-      
+
       &_column {
         &:not(:last-child) {
           margin-bottom: rem(24);
@@ -67,7 +67,7 @@
             display: flex;
             flex-flow: column;
             align-self: stretch;
-  
+
             div {
               margin-top: auto;
             }

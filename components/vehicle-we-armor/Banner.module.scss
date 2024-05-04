@@ -112,7 +112,7 @@
     flex-flow: column;
     justify-content: center;
 
-    &>a:last-child{      
+    & > a:last-child {
       margin-top: 8px;
     }
 
@@ -120,7 +120,7 @@
       position: static;
       flex-flow: row;
 
-      &>a:last-child{      
+      & > a:last-child {
         margin-top: 0;
         margin-left: 16px;
       }
