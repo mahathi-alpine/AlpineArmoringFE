@@ -29,7 +29,7 @@ const syncAlgolia = async (req, res) => {
 
     const postsData = await getPageData({
       route: route,
-      limit: pageSize,
+      pageSize: pageSize,
     });
     const postCount = postsData.data.length;
 
