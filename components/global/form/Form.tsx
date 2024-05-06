@@ -292,7 +292,7 @@ const Form = () => {
       submitBtn.classList.add('submiting');
       submitBtn.innerHTML = '';
 
-      await fetch('http://127.0.0.1:1337/api/emails', {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/emails`, {
         method: 'POST',
         headers,
         body: JSON.stringify({
