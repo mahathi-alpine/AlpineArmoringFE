@@ -6,15 +6,15 @@ import SearchBox from './SearchBox';
 import SearchHits from './SearchHits';
 import { useRef } from 'react';
 import { useOutsideClick } from 'hooks/useOutsideClick';
-
-const searchClient = algoliasearch(
-  process.env.ALGOLIA_APPLICATION_ID,
-  process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-);
 // const searchClient = algoliasearch(
 //   'BWXO30HFNW',
 //   'd152ea74492bb9a3eea96657ac73f8b8'
 // );
+
+const searchClient = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+);
 
 export default function Search({ openSearchPopup }) {
   const searchInnerRef = useRef(null);
