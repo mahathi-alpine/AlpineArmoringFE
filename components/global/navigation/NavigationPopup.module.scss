@@ -39,6 +39,7 @@
     display: flex;
     flex-flow: column;
     padding: 0 rem(16);
+    overflow: auto;
     @include breakpoint(large) {
       padding: 0 rem(48);
     }
@@ -201,7 +202,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: rem(16);
+    padding: rem(16) 0;
 
     &_search {
       width: 24px;

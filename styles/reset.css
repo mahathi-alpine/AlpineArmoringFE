@@ -35,6 +35,11 @@ button {
   cursor: revert;
 }
 
+button{
+  border: none;
+  background: transparent;
+}
+
 /* Remove list styles (bullets/numbers) */
 ol,
 ul,

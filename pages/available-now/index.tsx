@@ -13,16 +13,18 @@ function Inventory(props) {
 
   const router = useRouter();
   const { q } = router.query;
+  const { vehicles_we_armor } = router.query;
+
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [q]);
+  }, [q, vehicles_we_armor]);
 
   const fetchMoreItems = () => {
-    if (itemsToRender < vehiclesData.length) {
+    if (itemsToRender < vehiclesData?.length) {
       setLoading(true);
       setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
       setLoading(false);
@@ -57,7 +59,7 @@ function Inventory(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-  }, [itemsToRender]);
+  }, [itemsToRender, vehiclesData]);
 
   return (
     <>
