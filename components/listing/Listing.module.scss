@@ -2,7 +2,7 @@
   &_wrap {
     position: relative;
     padding: 0 rem(10) rem(80) rem(10);
-    z-index: 2;
+    z-index: 4;
 
     @include breakpoint(medium) {
       padding: 0 rem(16) rem(80) rem(16);
