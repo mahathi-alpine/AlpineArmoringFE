@@ -174,6 +174,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
         if (filtersRef.current && !filtersRef.current.contains(event.target)) {
           if (!openFiltersClicked) {
             setFiltersOpen(false);
+            document.body.classList.remove('no-scroll');
           } else {
             setOpenFiltersClicked(false);
           }

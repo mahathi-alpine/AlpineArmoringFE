@@ -20,6 +20,7 @@
     overflow: hidden;
     text-align: center;
     padding-bottom: 56px;
+    background: #0A0504;
 
     @include breakpoint(large) {
       height: 400px;

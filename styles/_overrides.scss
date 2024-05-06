@@ -30,6 +30,13 @@ div.yarl__thumbnails_container {
   padding-bottom: 8px;
   background: transparent;
 }
+button.yarl__thumbnails_thumbnail{
+  padding: 0 5px;
+
+  img{
+    min-height: 50px;
+  }
+}
 @include breakpoint(small) {
   button.yarl__thumbnails_thumbnail {
     width: 100px;

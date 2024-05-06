@@ -88,6 +88,14 @@
     margin: rem(16) rem(-16) 0 rem(-16);
     position: relative;
     aspect-ratio: 2/1;
+
+    @supports not (aspect-ratio: 16 / 9) {
+      padding-top: 67%;
+      height: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
     @include breakpoint(medium) {
       aspect-ratio: 3/1;
       margin: rem(16) 0 0 0;
