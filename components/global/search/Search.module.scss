@@ -16,7 +16,7 @@
 
   input {
     width: 100%;
-    max-width: 400px;
+    // max-width: 400px;
     margin-bottom: rem(24);
     padding: 0 0 rem(8) rem(8);
     font-size: rem(16);
@@ -31,6 +31,11 @@
 
   & > div {
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
+  }
+
+  a{
+    margin-bottom: 10px;
+    display: block;
   }
 }

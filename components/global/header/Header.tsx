@@ -8,6 +8,8 @@ import styles from './Header.module.scss';
 import { useEffect, useState } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
+import { useRouter } from 'next/router';
+
 const LanguageSwitcher = dynamic(
   () => import('components/global/lang-switcher/LangSwitcher')
 );
@@ -24,6 +26,8 @@ const Header = ({
 }: HeaderProps) => {
   const [hState, sethState] = React.useState('-top');
 
+  const router = useRouter();
+
   const [isSearchOpen, setSearchOpen] = useState(false);
   const handleSearchClick = () => {
     setSearchOpen(!isSearchOpen);
@@ -35,6 +39,19 @@ const Header = ({
       }
     }, 100);
   };
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setSearchOpen(false);
+      openSearchPopup(false);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router]);
 
   useEffect(() => {
     if (isNavOpen || isSearchOpen) {
