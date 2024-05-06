@@ -95,7 +95,7 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     @include breakpoint(medium) {
       aspect-ratio: 3/1;
       margin: rem(16) 0 0 0;
