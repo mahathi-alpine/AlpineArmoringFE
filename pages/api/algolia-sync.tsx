@@ -22,7 +22,6 @@ const syncAlgolia = async (req, res) => {
       route = 'vehicles-we-armors';
       category = 'vehicles-we-armor';
     } else {
-      // If the URL is not one of the specified, do nothing
       res.status(200).json({ message: 'No action taken' });
       return;
     }
@@ -31,6 +30,7 @@ const syncAlgolia = async (req, res) => {
       route: route,
       pageSize: pageSize,
     });
+    console.log(postsData.data);
     // const postCount = postsData.data.length;
 
     const algoliaPosts = postsData.data.map((post) => ({
