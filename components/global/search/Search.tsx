@@ -8,8 +8,8 @@ import { useRef } from 'react';
 import { useOutsideClick } from 'hooks/useOutsideClick';
 
 const searchClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
-  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+  process.env.ALGOLIA_APPLICATION_ID,
+  process.env.ALGOLIA_SEARCH_ONLY_API_KEY
 );
 // const searchClient = algoliasearch(
 //   'BWXO30HFNW',
