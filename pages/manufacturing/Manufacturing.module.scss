@@ -92,7 +92,7 @@
   &_box {
     @include breakpoint(medium) {
       display: grid;
-      grid-template-columns: auto 45%; 
+      grid-template-columns: auto 45%;
       gap: 40px;
       align-items: center;
       margin: rem(32) auto;

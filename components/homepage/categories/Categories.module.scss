@@ -3,13 +3,13 @@
   display: grid;
   z-index: 2;
   gap: 32px;
-  
+
   @media (min-width: 800px) {
     grid-auto-columns: 1fr 1fr;
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
   }
   @include breakpoint(huge) {
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
   }
 
   &_item {
@@ -23,7 +23,7 @@
 
     @media (min-width: 800px) {
       padding-bottom: 51px;
-      &:nth-last-child(1):nth-child(odd){
+      &:nth-last-child(1):nth-child(odd) {
         grid-column: auto / span 2;
       }
     }
@@ -31,7 +31,7 @@
       max-width: 753px;
     }
     @include breakpoint(huge) {
-      &:nth-last-child(1):nth-child(odd){
+      &:nth-last-child(1):nth-child(odd) {
         grid-column: unset;
       }
     }

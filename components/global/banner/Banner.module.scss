@@ -132,7 +132,7 @@
       white-space: pre-wrap;
       font-weight: var(--font-medium);
       margin: 0;
-      
+
       @supports not (aspect-ratio: 16 / 9) {
         white-space: unset;
       }

@@ -137,8 +137,8 @@
           max-width: 600px;
           margin: auto;
           opacity: 1;
-          transform: scale(1);    
-          max-height: 87vH;
+          transform: scale(1);
+          max-height: 87vh;
           overflow: hidden;
           transition:
             transform 0.3s ease-out,
@@ -285,7 +285,7 @@
       }
     }
   }
-  &_wrap {    
+  &_wrap {
     @include breakpoint(large) {
       &_top {
         display: none;
@@ -322,7 +322,7 @@
     &_active {
       .filters_plain & {
         .filters_item_wrap {
-          max-height: 47vH;
+          max-height: 47vh;
         }
         .filters_item_chevron {
           transform: rotate(-90deg);

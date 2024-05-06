@@ -44,7 +44,7 @@
     @include breakpoint(medium) {
       align-items: center;
       justify-content: center;
-      grid-template-columns: auto 50%; 
+      grid-template-columns: auto 50%;
       margin-top: rem(40);
 
       .design_image {
@@ -71,13 +71,13 @@
       margin: rem(120) auto rem(180) auto;
     }
 
-    .design_box{
-      &>div{
-        &:nth-child(3){
+    .design_box {
+      & > div {
+        &:nth-child(3) {
           @include breakpoint(medium) {
             grid-column: 1 / -1;
 
-            img{
+            img {
               margin: auto;
             }
           }
@@ -119,8 +119,8 @@
     padding-bottom: rem(80);
 
     @include breakpoint(medium) {
-      display: grid;      
-      grid-template-columns: 1fr 1fr; 
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 32px;
     }
 

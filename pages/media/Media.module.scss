@@ -60,7 +60,7 @@
 
     &_list {
       @include breakpoint(medium) {
-        display: grid;      
+        display: grid;
         grid-template-columns: auto auto;
         gap: 10px;
       }

@@ -133,7 +133,7 @@
 
   &_socials {
     display: grid;
-    grid-auto-flow:column;  
+    grid-auto-flow: column;
     gap: 16px;
     margin-top: rem(24);
     @include breakpoint(medium) {
@@ -171,7 +171,7 @@
 
   &_contact {
     display: grid;
-    grid-auto-flow:column; 
+    grid-auto-flow: column;
     gap: 16px;
     font-size: rem(13);
     @include breakpoint(large) {
@@ -180,7 +180,7 @@
     }
     &_item {
       display: grid;
-      grid-auto-flow:column; 
+      grid-auto-flow: column;
       align-items: center;
       gap: 8px;
       transition: color 0.3s ease;
