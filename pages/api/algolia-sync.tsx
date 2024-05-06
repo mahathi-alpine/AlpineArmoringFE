@@ -30,11 +30,10 @@ const syncAlgolia = async (req, res) => {
       route: route,
       pageSize: pageSize,
     });
-    console.log(postsData.data);
     // const postCount = postsData.data.length;
 
     const algoliaPosts = postsData.data.map((post) => ({
-      objectID: post.id,
+      objectID: category + '-' + post.id,
       title: post.attributes.title,
       slug: post.attributes.slug,
       category: category,
