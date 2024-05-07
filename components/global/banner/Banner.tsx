@@ -1,6 +1,6 @@
 import styles from './Banner.module.scss';
 import { BannerProps } from 'types';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import Image from 'next/image';
 
@@ -12,31 +12,46 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const videoMP4 = props.mediaMP4?.data?.attributes;
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  function isSafari() {
-    const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+  // function isSafari() {
+  //   const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
-    const isNotChrome =
-      navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
+  //   const isNotChrome =
+  //     navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
 
-    const isNotFirefox =
-      navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
+  //   const isNotFirefox =
+  //     navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
 
-    return isSafari && isNotChrome && isNotFirefox;
-  }
+  //   return isSafari && isNotChrome && isNotFirefox;
+  // }
+
+  // useEffect(() => {
+  //   if (isSafari() && videoMP4) {
+  //     const videoElement = videoRef.current;
+  //     if (videoElement) {
+  //       const webmSource = videoElement.querySelector(
+  //         'source[type="video/webm"]'
+  //       );
+  //       if (webmSource) {
+  //         webmSource.setAttribute('src', videoMP4.url);
+  //         webmSource.setAttribute('type', 'video/mp4');
+  //         videoElement.load();
+  //       }
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (isSafari() && videoMP4) {
-      const videoElement = videoRef.current;
-      if (videoElement) {
-        const webmSource = videoElement.querySelector(
-          'source[type="video/webm"]'
-        );
-        if (webmSource) {
-          webmSource.setAttribute('src', videoMP4.url);
-          webmSource.setAttribute('type', 'video/mp4');
-          videoElement.load();
-        }
-      }
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      const handleEnded = () => {
+        videoRef.current.play();
+      };
+
+      videoElement.addEventListener('ended', handleEnded);
+
+      return () => {
+        videoElement.removeEventListener('ended', handleEnded);
+      };
     }
   }, []);
 
@@ -57,10 +72,10 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   } else if ((bannerImage && bannerMimeType?.startsWith('video')) || videoMP4) {
     mediaElement = (
       <video
-        loop={true}
+        // loop={true}
+        ref={videoRef}
         autoPlay={true}
         muted={true}
-        ref={videoRef}
         playsInline={true}
         className={`${styles.banner_media}`}
         preload="metadata"

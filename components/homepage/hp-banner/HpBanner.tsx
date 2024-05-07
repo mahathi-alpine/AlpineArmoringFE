@@ -97,7 +97,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
   // });
 
   useEffect(() => {
-    videoRef.current.play();
     const videoElement = videoRef.current;
     if (videoElement) {
       const handleEnded = () => {
@@ -119,7 +118,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
           <video
             ref={videoRef}
             muted
-            // autoPlay
+            autoPlay
             playsInline
             // loop={true}
 
