@@ -97,6 +97,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
   // });
 
   useEffect(() => {
+    videoRef.current.play();
     const videoElement = videoRef.current;
     if (videoElement) {
       const handleEnded = () => {
@@ -117,9 +118,9 @@ const HpBanner = ({ props }: HPBannerProps) => {
         {props.video.video_mp4.data ? (
           <video
             ref={videoRef}
-            muted={true}
-            autoPlay={true}
-            playsInline={true}
+            muted
+            // autoPlay
+            playsInline
             // loop={true}
 
             className={`${styles.hp_banner_video}`}
