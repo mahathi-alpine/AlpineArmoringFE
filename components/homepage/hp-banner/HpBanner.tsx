@@ -21,28 +21,51 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   };
 
-  const getiOSVersion = (): [number, number, number] | null => {
-    if (/iP(hone|od|ad)/.test(navigator.platform)) {
-      const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
-      if (v) {
-        // Ensure that v[1], v[2], and v[3] are strings before parsing them.
-        // If v[3] is undefined, default to '0' to ensure it's a string.
-        return [
-          parseInt(v[1], 10),
-          parseInt(v[2], 10),
-          parseInt(v[3] || '0', 10),
-        ];
-      }
-    }
-    return null; // Return null if no match is found or if not on an iOS device.
-  };
+  // const getiOSVersion = (): [number, number, number] | null => {
+  //   if (/iP(hone|od|ad)/.test(navigator.platform)) {
+  //     const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+  //     if (v) {
+  //       return [
+  //         parseInt(v[1], 10),
+  //         parseInt(v[2], 10),
+  //         parseInt(v[3] || '0', 10),
+  //       ];
+  //     }
+  //   }
+  //   return null;
+  // };
+
+  function isSafari() {
+    const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+
+    const isNotChrome =
+      navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
+
+    const isNotFirefox =
+      navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
+
+    const isNotEdge = navigator.userAgent.toLowerCase().indexOf('edg') === -1;
+
+    const isNotOpera = navigator.userAgent.toLowerCase().indexOf('opr') === -1;
+
+    const isNotIE = navigator.userAgent.toLowerCase().indexOf('trident') === -1;
+
+    return (
+      isSafari &&
+      isNotChrome &&
+      isNotFirefox &&
+      isNotEdge &&
+      isNotOpera &&
+      isNotIE
+    );
+  }
 
   useEffect(() => {
-    const version = getiOSVersion();
+    // const version = getiOSVersion();
+    // console.log(version);
+    // if (version && version[0] === 13) {
 
-    console.log(version);
-
-    if (version && version[0] === 13) {
+    if (isSafari()) {
       const videoElement = videoRef.current;
       if (videoElement) {
         const webmSource = videoElement.querySelector(
@@ -53,10 +76,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
             'src',
             props.video.video_mp4.data.attributes.url
           );
-          webmSource.setAttribute(
-            'type',
-            props.video.video_mp4.data.attributes.mime
-          );
+          webmSource.setAttribute('type', 'video/mp4');
           videoElement.load();
         }
       }
