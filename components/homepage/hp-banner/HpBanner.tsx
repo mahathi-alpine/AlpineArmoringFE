@@ -59,7 +59,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
       isNotIE
     );
   }
-
+  console.log(isSafari);
   useEffect(() => {
     // const version = getiOSVersion();
     // console.log(version);
