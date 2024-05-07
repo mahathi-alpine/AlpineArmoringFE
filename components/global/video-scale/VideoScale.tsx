@@ -48,7 +48,7 @@ const VideoScale = ({ videoWebm, videoMP4, text1 = '', text2 = '' }) => {
   }
 
   useEffect(() => {
-    if (isSafari()) {
+    if (isSafari() && videoMP4) {
       const videoElement = videoRef.current;
       if (videoElement) {
         const webmSource = videoElement.querySelector(
