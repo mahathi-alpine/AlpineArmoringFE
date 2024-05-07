@@ -210,7 +210,6 @@
     border-radius: 99px;
     background: rgba(241, 243, 244, 0.24);
     font-size: rem(14);
-    color: var(--color-white);
 
     @supports (-webkit-touch-callout: none) {
       @include breakpoint(small) {
@@ -227,12 +226,12 @@
         background: unset;
         border: none;
         font-size: rem(15);
-        color: var(--color-dark);
         font-weight: var(--font-medium);
         order: 3;
         input {
           max-width: 140px;
           padding-right: rem(16);
+          color: var(--color-dark);
           &::placeholder {
             color: var(--color-dark);
           }
@@ -264,6 +263,7 @@
       padding: 0;
       border-radius: 0;
       outline: none;
+      color: var(--color-white);
 
       @supports (-webkit-touch-callout: none) {
         @include breakpoint(small) {

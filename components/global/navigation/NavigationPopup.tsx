@@ -44,6 +44,16 @@ const NavigationPopup = ({
     { path: '/contact', text: 'Contact' },
   ];
 
+  const handleSearchClick = () => {
+    openSearchPopup(true);
+    setTimeout(() => {
+      const input = document.querySelector('.search-box') as HTMLInputElement;
+      if (input) {
+        input.focus();
+      }
+    }, 100);
+  };
+
   return (
     <nav
       className={`${styles.navigationPopup} ${
@@ -195,7 +205,8 @@ const NavigationPopup = ({
         <div className={`${styles.navigationPopup_bottom} mobile-only`}>
           <div
             onClick={() => {
-              openSearchPopup(true);
+              // setNavOpen(false);
+              handleSearchClick();
             }}
             className={`${styles.navigationPopup_bottom_search}`}
           >

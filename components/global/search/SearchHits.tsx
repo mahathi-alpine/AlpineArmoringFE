@@ -12,7 +12,7 @@ function SearchHits({ searchState, searchResults }) {
       {searchResults?.hits.length > 0 &&
         searchResults.hits.map((hit) => (
           <div key={hit.objectID} className="text-2xl mb-3 leading-snug">
-            <Link href={`${hit.category}/${hit.slug}`}>{hit.title}</Link>
+            <Link href={`/${hit.category}/${hit.slug}`}>{hit.title}</Link>
           </div>
         ))}
     </div>

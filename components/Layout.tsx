@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
@@ -62,6 +62,11 @@ const Layout = ({ children }) => {
   const openSearchPopup = (visible) => {
     setSearchVisibility(visible);
   };
+
+  useEffect(() => {
+    openSearchPopup(false);
+    setNavOpen(false);
+  }, [router.pathname]);
 
   return (
     <>

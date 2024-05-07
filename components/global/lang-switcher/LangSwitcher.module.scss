@@ -11,13 +11,6 @@
     justify-content: space-between;
     cursor: pointer;
 
-    @include breakpoint('medium') {
-      transition: transform 0.2s ease;
-      &:hover {
-        transform: translateX(5px);
-      }
-    }
-
     &:before {
       content: '';
       left: 0;
@@ -92,6 +85,13 @@
     @include breakpoint('medium') {
       top: 21px;
       bottom: auto;
+
+      .langSwitcher_flag{
+        transition: transform 0.2s ease;
+        &:hover {
+          transform: translateX(5px);
+        }
+      }
     }
 
     img {
