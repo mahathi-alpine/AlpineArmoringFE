@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './HpBanner.module.scss';
 import dynamic from 'next/dynamic';
 const PauseIcon = dynamic(() => import('components/icons/Pause'));
@@ -35,52 +35,52 @@ const HpBanner = ({ props }: HPBannerProps) => {
   //   return null;
   // };
 
-  function isSafari() {
-    const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+  // function isSafari() {
+  //   const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
-    const isNotChrome =
-      navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
+  //   const isNotChrome =
+  //     navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
 
-    const isNotFirefox =
-      navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
+  //   const isNotFirefox =
+  //     navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
 
-    const isNotEdge = navigator.userAgent.toLowerCase().indexOf('edg') === -1;
+  //   const isNotEdge = navigator.userAgent.toLowerCase().indexOf('edg') === -1;
 
-    const isNotOpera = navigator.userAgent.toLowerCase().indexOf('opr') === -1;
+  //   const isNotOpera = navigator.userAgent.toLowerCase().indexOf('opr') === -1;
 
-    const isNotIE = navigator.userAgent.toLowerCase().indexOf('trident') === -1;
+  //   const isNotIE = navigator.userAgent.toLowerCase().indexOf('trident') === -1;
 
-    return (
-      isSafari &&
-      isNotChrome &&
-      isNotFirefox &&
-      isNotEdge &&
-      isNotOpera &&
-      isNotIE
-    );
-  }
-  useEffect(() => {
-    // const version = getiOSVersion();
-    // console.log(version);
-    // if (version && version[0] === 13) {
+  //   return (
+  //     isSafari &&
+  //     isNotChrome &&
+  //     isNotFirefox &&
+  //     isNotEdge &&
+  //     isNotOpera &&
+  //     isNotIE
+  //   );
+  // }
 
-    if (isSafari()) {
-      const videoElement = videoRef.current;
-      if (videoElement) {
-        const webmSource = videoElement.querySelector(
-          'source[type="video/webm"]'
-        );
-        if (webmSource) {
-          webmSource.setAttribute(
-            'src',
-            props.video.video_mp4.data.attributes.url
-          );
-          webmSource.setAttribute('type', 'video/mp4');
-          videoElement.load();
-        }
-      }
-    }
-  }, []);
+  // const version = getiOSVersion();
+  // console.log(version);
+  // if (version && version[0] === 13) {
+  // useEffect(() => {
+  //   if (isSafari()) {
+  //     const videoElement = videoRef.current;
+  //     if (videoElement) {
+  //       const webmSource = videoElement.querySelector(
+  //         'source[type="video/webm"]'
+  //       );
+  //       if (webmSource) {
+  //         webmSource.setAttribute(
+  //           'src',
+  //           props.video.video_mp4.data.attributes.url
+  //         );
+  //         webmSource.setAttribute('type', 'video/mp4');
+  //         videoElement.load();
+  //       }
+  //     }
+  //   }
+  // }, []);
 
   // useEffectOnce(() => {
   //   function stepAnimateText(props, animation, delay) {
