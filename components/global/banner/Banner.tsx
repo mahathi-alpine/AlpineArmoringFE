@@ -38,17 +38,14 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   }
 
   useEffect(() => {
-    if (isSafari()) {
+    if (isSafari() && videoMP4) {
       const videoElement = videoRef.current;
       if (videoElement) {
         const webmSource = videoElement.querySelector(
           'source[type="video/webm"]'
         );
         if (webmSource) {
-          webmSource.setAttribute(
-            'src',
-            props.video.video_mp4.data.attributes.url
-          );
+          webmSource.setAttribute('src', videoMP4.url);
           webmSource.setAttribute('type', 'video/mp4');
           videoElement.load();
         }
