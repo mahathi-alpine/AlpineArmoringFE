@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './HpBanner.module.scss';
 import dynamic from 'next/dynamic';
 const PauseIcon = dynamic(() => import('components/icons/Pause'));
@@ -96,6 +96,21 @@ const HpBanner = ({ props }: HPBannerProps) => {
   //   }
   // });
 
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      const handleEnded = () => {
+        togglePlayPause();
+      };
+
+      videoElement.addEventListener('ended', handleEnded);
+
+      return () => {
+        videoElement.removeEventListener('ended', handleEnded);
+      };
+    }
+  }, []);
+
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
@@ -105,7 +120,8 @@ const HpBanner = ({ props }: HPBannerProps) => {
             muted={true}
             autoPlay={true}
             playsInline={true}
-            loop={true}
+            // loop={true}
+
             className={`${styles.hp_banner_video}`}
             width={1920}
             height={1200}
@@ -118,12 +134,12 @@ const HpBanner = ({ props }: HPBannerProps) => {
                 type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
             ) : null} */}
-            {props.video.video_mp4.data ? (
-              <source
-                src={`${props.video.video_mp4.data.attributes.url}`}
-                type={`${props.video.video_mp4.data.attributes.mime}`}
-              ></source>
-            ) : null}
+            {/* {props.video.video_mp4.data ? ( */}
+            <source
+              src={`${props.video.video_mp4.data.attributes.url}`}
+              type={`${props.video.video_mp4.data.attributes.mime}`}
+            ></source>
+            {/* ) : null} */}
           </video>
         ) : null}
 
