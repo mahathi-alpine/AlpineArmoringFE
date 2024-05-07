@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './HpBanner.module.scss';
 import dynamic from 'next/dynamic';
 const PauseIcon = dynamic(() => import('components/icons/Pause'));
@@ -20,6 +20,48 @@ const HpBanner = ({ props }: HPBannerProps) => {
       }
     }
   };
+
+  const getiOSVersion = (): [number, number, number] | null => {
+    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+      const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+      if (v) {
+        // Ensure that v[1], v[2], and v[3] are strings before parsing them.
+        // If v[3] is undefined, default to '0' to ensure it's a string.
+        return [
+          parseInt(v[1], 10),
+          parseInt(v[2], 10),
+          parseInt(v[3] || '0', 10),
+        ];
+      }
+    }
+    return null; // Return null if no match is found or if not on an iOS device.
+  };
+
+  useEffect(() => {
+    const version = getiOSVersion();
+
+    console.log(version);
+
+    if (version && version[0] === 13) {
+      const videoElement = videoRef.current;
+      if (videoElement) {
+        const webmSource = videoElement.querySelector(
+          'source[type="video/mp4"]'
+        );
+        if (webmSource) {
+          webmSource.setAttribute(
+            'src',
+            props.video.video_mp4.data.attributes.url
+          );
+          webmSource.setAttribute(
+            'type',
+            props.video.video_mp4.data.attributes.mime
+          );
+          videoElement.load();
+        }
+      }
+    }
+  }, []);
 
   // useEffectOnce(() => {
   //   function stepAnimateText(props, animation, delay) {
