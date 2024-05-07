@@ -44,6 +44,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
     const videoElement = videoRef.current;
     if (videoElement) {
       const handleEnded = () => {
+        console.log('1');
         videoRef.current.play();
       };
 
@@ -74,9 +75,9 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       <video
         // loop={true}
         ref={videoRef}
-        autoPlay={true}
-        muted={true}
-        playsInline={true}
+        muted
+        autoPlay
+        playsInline
         className={`${styles.banner_media}`}
         preload="metadata"
       >
