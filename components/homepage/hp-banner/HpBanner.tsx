@@ -66,12 +66,10 @@ const HpBanner = ({ props }: HPBannerProps) => {
 
     if (isSafari()) {
       const videoElement = videoRef.current;
-      console.log('1' + videoElement);
       if (videoElement) {
         const webmSource = videoElement.querySelector(
           'source[type="video/webm"]'
         );
-        console.log('2' + webmSource);
         if (webmSource) {
           webmSource.setAttribute(
             'src',

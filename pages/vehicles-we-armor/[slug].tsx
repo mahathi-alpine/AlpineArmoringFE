@@ -33,6 +33,9 @@ function Vehicle(props) {
 
   const gallery = data?.gallery?.data;
 
+  const videoWebm = data.videoUpload.data?.attributes;
+  const videoMP4 = data.videoMP4.data?.attributes;
+
   const convertMarkdown = useMarkdownToHtml();
 
   const banner = {
@@ -316,8 +319,8 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {data?.videoUpload?.data ? (
-        <VideoScale video={data.videoUpload.data.attributes.url} />
+      {videoWebm || videoMP4 ? (
+        <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
       ) : null}
 
       {data?.videoYoutube ? (

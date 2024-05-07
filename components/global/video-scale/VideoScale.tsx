@@ -1,4 +1,5 @@
 import styles from './VideoScale.module.scss';
+import React, { useEffect, useRef } from 'react';
 
 export function animateVideo(entry) {
   const { bottom } = entry.getBoundingClientRect();
@@ -18,19 +19,74 @@ export function animateVideo(entry) {
   headerRight.style.transform = `translateX(${textTrans}px)`;
 }
 
-const VideoScale = ({ video, text1 = '', text2 = '' }) => {
+const VideoScale = ({ videoWebm, videoMP4, text1 = '', text2 = '' }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  function isSafari() {
+    const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+
+    const isNotChrome =
+      navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
+
+    const isNotFirefox =
+      navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
+
+    const isNotEdge = navigator.userAgent.toLowerCase().indexOf('edg') === -1;
+
+    const isNotOpera = navigator.userAgent.toLowerCase().indexOf('opr') === -1;
+
+    const isNotIE = navigator.userAgent.toLowerCase().indexOf('trident') === -1;
+
+    return (
+      isSafari &&
+      isNotChrome &&
+      isNotFirefox &&
+      isNotEdge &&
+      isNotOpera &&
+      isNotIE
+    );
+  }
+
+  useEffect(() => {
+    if (isSafari()) {
+      const videoElement = videoRef.current;
+      if (videoElement) {
+        const webmSource = videoElement.querySelector(
+          'source[type="video/webm"]'
+        );
+        if (webmSource) {
+          webmSource.setAttribute('src', videoMP4.url);
+          webmSource.setAttribute('type', 'video/mp4');
+          videoElement.load();
+        }
+      }
+    }
+  }, []);
+
   return (
     <section className={`${styles.videoScale} observe videoScaleContainer`}>
       <div className={`${styles.videoScale_shim}`}></div>
       <div className={`${styles.videoScale_sticky}`}>
         <video
+          ref={videoRef}
           className={`${styles.videoScale_video} videoScaleVideo`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          src={video}
-        ></video>
+          loop={true}
+          autoPlay={true}
+          muted={true}
+          playsInline={true}
+          preload="metadata"
+        >
+          {videoWebm ? (
+            <source
+              src={`${videoWebm.url}`}
+              type={`${videoWebm.mime}`}
+            ></source>
+          ) : null}
+          {videoMP4 ? (
+            <source src={`${videoMP4.url}`} type={`${videoMP4.mime}`}></source>
+          ) : null}
+        </video>
+
         <div className={`${styles.videoScale_overlay}`}>
           <h2 className="videoScale_header_left">{text1}</h2>
           <h2 className="videoScale_header_right">{text2}</h2>
