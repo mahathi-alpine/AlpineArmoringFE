@@ -10,8 +10,7 @@
   backdrop-filter: blur(20px);
   color: white;
   user-select: none;
-  z-index: 5;
-
+  z-index: 6;
   visibility: hidden;
   opacity: 0.2;
   transform: scale(1.2);
@@ -20,8 +19,10 @@
     transform 0.3s ease-in,
     opacity 0.1s ease-in,
     visibility 0.1s ease-in;
+
   @include breakpoint(large) {
     padding-top: 0;
+    z-index: 6;
   }
 
   &_open {

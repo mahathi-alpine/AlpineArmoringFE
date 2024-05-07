@@ -49,6 +49,7 @@ const NavigationPopup = ({
       className={`${styles.navigationPopup} ${
         isNavOpen ? styles.navigationPopup_open : ''
       }`}
+      id="navigationPopup"
     >
       <div className={`${styles.navigationPopup_inner} container`}>
         <div className={`${styles.navigationPopup_nav}`}>

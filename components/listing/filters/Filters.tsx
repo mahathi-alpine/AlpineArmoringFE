@@ -172,7 +172,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
     } else {
       const handleClickOutside = (event) => {
         if (filtersRef.current && !filtersRef.current.contains(event.target)) {
-          if (!openFiltersClicked) {
+          const navigationPopup = document.getElementById('navigationPopup');
+          const hasOpenClass = Array.from(navigationPopup.classList).some(
+            (className) => className.includes('open')
+          );
+
+          if (!openFiltersClicked && !hasOpenClass) {
             setFiltersOpen(false);
             document.body.classList.remove('no-scroll');
           } else {

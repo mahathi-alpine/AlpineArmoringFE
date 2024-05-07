@@ -110,7 +110,7 @@ const Header = ({
             href="/contact"
             className={`${styles.header_contact} rounded shiny transparent uppercase desktop-only`}
           >
-            Contact
+            <span onClick={() => setNavOpen(false)}>Contact</span>
           </Button>
 
           <div
