@@ -21,20 +21,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
     const isNotFirefox =
       navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
 
-    const isNotEdge = navigator.userAgent.toLowerCase().indexOf('edg') === -1;
-
-    const isNotOpera = navigator.userAgent.toLowerCase().indexOf('opr') === -1;
-
-    const isNotIE = navigator.userAgent.toLowerCase().indexOf('trident') === -1;
-
-    return (
-      isSafari &&
-      isNotChrome &&
-      isNotFirefox &&
-      isNotEdge &&
-      isNotOpera &&
-      isNotIE
-    );
+    return isSafari && isNotChrome && isNotFirefox;
   }
 
   useEffect(() => {

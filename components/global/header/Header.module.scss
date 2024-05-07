@@ -16,7 +16,6 @@
   @include breakpoint('large') {
     padding-top: rem(12);
     padding-bottom: rem(12);
-    z-index: 7;
   }
 
   &_static,

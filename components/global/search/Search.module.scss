@@ -27,6 +27,7 @@
     border-radius: 0;
     color: var(--color-white);
     outline: none;
+    -webkit-appearance: unset;
   }
 
   & > div {
