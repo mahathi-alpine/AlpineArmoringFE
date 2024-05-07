@@ -60,17 +60,18 @@ const HpBanner = ({ props }: HPBannerProps) => {
     );
   }
   useEffect(() => {
-    console.log(isSafari());
     // const version = getiOSVersion();
     // console.log(version);
     // if (version && version[0] === 13) {
 
     if (isSafari()) {
       const videoElement = videoRef.current;
+      console.log('1' + videoElement);
       if (videoElement) {
         const webmSource = videoElement.querySelector(
-          'source[type="video/mp4"]'
+          'source[type="video/webm"]'
         );
+        console.log('2' + webmSource);
         if (webmSource) {
           webmSource.setAttribute(
             'src',
