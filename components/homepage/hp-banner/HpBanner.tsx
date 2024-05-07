@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './HpBanner.module.scss';
 import dynamic from 'next/dynamic';
 const PauseIcon = dynamic(() => import('components/icons/Pause'));
@@ -35,39 +35,40 @@ const HpBanner = ({ props }: HPBannerProps) => {
   //   return null;
   // };
 
-  function isSafari() {
-    const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+  // function isSafari() {
+  //   const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
-    const isNotChrome =
-      navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
+  //   const isNotChrome =
+  //     navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
 
-    const isNotFirefox =
-      navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
+  //   const isNotFirefox =
+  //     navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
 
-    return isSafari && isNotChrome && isNotFirefox;
-  }
+  //   return isSafari && isNotChrome && isNotFirefox;
+  // }
 
   // const version = getiOSVersion();
   // console.log(version);
   // if (version && version[0] === 13) {
-  useEffect(() => {
-    if (isSafari() && props.video.video_mp4) {
-      const videoElement = videoRef.current;
-      if (videoElement) {
-        const webmSource = videoElement.querySelector(
-          'source[type="video/webm"]'
-        );
-        if (webmSource) {
-          webmSource.setAttribute(
-            'src',
-            props.video.video_mp4.data.attributes.url
-          );
-          webmSource.setAttribute('type', 'video/mp4');
-          videoElement.load();
-        }
-      }
-    }
-  }, []);
+
+  // useEffect(() => {
+  //   if (isSafari() && props.video.video_mp4) {
+  //     const videoElement = videoRef.current;
+  //     if (videoElement) {
+  //       const webmSource = videoElement.querySelector(
+  //         'source[type="video/webm"]'
+  //       );
+  //       if (webmSource) {
+  //         webmSource.setAttribute(
+  //           'src',
+  //           props.video.video_mp4.data.attributes.url
+  //         );
+  //         webmSource.setAttribute('type', 'video/mp4');
+  //         videoElement.load();
+  //       }
+  //     }
+  //   }
+  // }, []);
 
   // useEffectOnce(() => {
   //   function stepAnimateText(props, animation, delay) {
@@ -98,7 +99,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
-        {props.video ? (
+        {props.video.video_mp4.data ? (
           <video
             ref={videoRef}
             muted={true}
@@ -111,12 +112,12 @@ const HpBanner = ({ props }: HPBannerProps) => {
             preload="metadata"
             // poster="/assets/hpVideoPoster.jpg"
           >
-            {props.video.video_webm.data ? (
+            {/* {props.video.video_webm.data ? (
               <source
                 src={`${props.video.video_webm.data.attributes.url}`}
                 type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
-            ) : null}
+            ) : null} */}
             {props.video.video_mp4.data ? (
               <source
                 src={`${props.video.video_mp4.data.attributes.url}`}
