@@ -13,7 +13,7 @@
 
     @include breakpoint('medium') {
       transition: transform 0.2s ease;
-      &:hover{
+      &:hover {
         transform: translateX(5px);
       }
     }

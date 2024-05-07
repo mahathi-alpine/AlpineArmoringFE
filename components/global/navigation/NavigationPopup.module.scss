@@ -52,8 +52,8 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
-    
-    @media (max-height: 500px){
+
+    @media (max-height: 500px) {
       justify-content: flex-start;
       flex: unset;
     }
