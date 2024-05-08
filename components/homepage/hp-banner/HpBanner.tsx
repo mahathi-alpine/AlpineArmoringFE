@@ -61,6 +61,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
   // if (version && version[0] === 13) {
 
   useEffect(() => {
+    alert(parseInt(getSafariVersion()));
     if (
       isSafari() &&
       parseInt(getSafariVersion()) > 17 &&
