@@ -79,7 +79,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         autoPlay
         playsInline
         className={`${styles.banner_media}`}
-        preload="metadata"
+        preload="auto"
       >
         {bannerImage ? (
           <source
