@@ -105,13 +105,25 @@ const HpBanner = ({ props }: HPBannerProps) => {
 
       videoElement.addEventListener('ended', handleEnded);
 
-      // Start playing the video as soon as it's ready
-      videoElement.play().catch((error) => {
-        console.error('Failed to start video playback:', error);
-      });
-
       return () => {
         videoElement.removeEventListener('ended', handleEnded);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      const onVideoProgressUpdate = () => {
+        if (videoElement.buffered.end(0) > 5) {
+          videoRef.current.play();
+        }
+      };
+
+      videoElement.addEventListener('progress', onVideoProgressUpdate);
+
+      return () => {
+        videoElement.removeEventListener('progress', onVideoProgressUpdate);
       };
     }
   }, []);
@@ -126,25 +138,24 @@ const HpBanner = ({ props }: HPBannerProps) => {
             autoPlay
             playsInline
             // loop={true}
-
             className={`${styles.hp_banner_video}`}
             width={400}
             height={800}
             preload="auto"
             // poster="/assets/hpVideoPoster.jpg"
           >
-            {/* {props.video.video_webm.data ? (
+            {props.video.video_webm.data ? (
               <source
                 src={`${props.video.video_webm.data.attributes.url}`}
                 type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
-            ) : null} */}
-            {/* {props.video.video_mp4.data ? ( */}
-            <source
-              src={`${props.video.video_mp4.data.attributes.url}`}
-              type={`${props.video.video_mp4.data.attributes.mime}`}
-            ></source>
-            {/* ) : null} */}
+            ) : null}
+            {props.video.video_mp4.data ? (
+              <source
+                src={`${props.video.video_mp4.data.attributes.url}`}
+                type={`${props.video.video_mp4.data.attributes.mime}`}
+              ></source>
+            ) : null}
           </video>
         ) : null}
 
