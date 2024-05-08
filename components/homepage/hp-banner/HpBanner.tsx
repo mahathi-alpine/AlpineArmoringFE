@@ -123,16 +123,16 @@ const HpBanner = ({ props }: HPBannerProps) => {
             preload="auto"
             className={`${styles.hp_banner_video}`}
           >
-            {props.video.video_webm.data ? (
-              <source
-                src={`${props.video.video_webm.data.attributes.url}`}
-                type={`${props.video.video_webm.data.attributes.mime}`}
-              ></source>
-            ) : null}
             {props.video.video_mp4.data ? (
               <source
                 src={`${props.video.video_mp4.data.attributes.url}`}
                 type={`${props.video.video_mp4.data.attributes.mime}`}
+              ></source>
+            ) : null}
+            {props.video.video_webm.data ? (
+              <source
+                src={`${props.video.video_webm.data.attributes.url}`}
+                type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
             ) : null}
           </video>
