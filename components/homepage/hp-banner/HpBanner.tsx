@@ -63,7 +63,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
   useEffect(() => {
     if (
       isSafari() &&
-      parseInt(getSafariVersion()) <= 17 &&
+      parseInt(getSafariVersion()) < 17 &&
       props.video?.video_mp4?.data
     ) {
       const videoElement = videoRef.current;
