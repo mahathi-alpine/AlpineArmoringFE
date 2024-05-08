@@ -67,6 +67,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
       parseInt(getSafariVersion()) > 17 &&
       props.video?.video_webm?.data
     ) {
+      alert('works');
       const videoElement = videoRef.current;
       if (videoElement) {
         const mp4Source = videoElement.querySelector(
