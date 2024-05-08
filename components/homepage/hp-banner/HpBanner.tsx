@@ -61,24 +61,25 @@ const HpBanner = ({ props }: HPBannerProps) => {
     const iPadModelMatch = userAgent.match(/iPad;.*CPU.*OS (\d+_\d+)/);
     if (iPadModelMatch) {
       const osVersion = iPadModelMatch[1];
-      switch (osVersion) {
-        case '3_2':
-          return 'iPad 2';
-        case '4_3':
-          return 'iPad 3';
-        case '5_1':
-          return 'iPad 4';
-        case '6_0':
-          return 'iPad Air';
-        case '7_5':
-          return 'iPad Mini 2';
-        case '8_4':
-          return 'iPad Mini 3';
-        case '9_3':
-          return 'iPad Pro 9.7-inch';
-        default:
-          return 'Unknown iPad model';
-      }
+      return osVersion;
+      // switch (osVersion) {
+      //   case '3_2':
+      //     return 'iPad 2';
+      //   case '4_3':
+      //     return 'iPad 3';
+      //   case '5_1':
+      //     return 'iPad 4';
+      //   case '6_0':
+      //     return 'iPad Air';
+      //   case '7_5':
+      //     return 'iPad Mini 2';
+      //   case '8_4':
+      //     return 'iPad Mini 3';
+      //   case '9_3':
+      //     return 'iPad Pro 9.7-inch';
+      //   default:
+      //     return 'Unknown iPad model';
+      // }
     }
     return null;
   }
