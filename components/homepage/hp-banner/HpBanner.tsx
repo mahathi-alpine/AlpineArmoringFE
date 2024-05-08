@@ -61,15 +61,13 @@ const HpBanner = ({ props }: HPBannerProps) => {
   // if (version && version[0] === 13) {
 
   useEffect(() => {
-    if (isSafari()) {
-      alert('devicePixelRatio - ' + window.devicePixelRatio);
-      alert('innerWidth - ' + window.innerWidth);
-    }
-
     if (
       isSafari() &&
       props.video?.video_mp4?.data &&
-      parseInt(getSafariVersion()) < 17
+      (parseInt(getSafariVersion()) < 17 ||
+        (parseInt(getSafariVersion()) >= 17 &&
+          window.innerWidth > 768 &&
+          window.innerWidth < 1200))
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
