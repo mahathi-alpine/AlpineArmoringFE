@@ -63,20 +63,20 @@ const HpBanner = ({ props }: HPBannerProps) => {
   useEffect(() => {
     if (
       isSafari() &&
-      parseInt(getSafariVersion()) >= 17 &&
-      props.video?.video_webm?.data
+      parseInt(getSafariVersion()) <= 17 &&
+      props.video?.video_mp4?.data
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
-        const mp4Source = videoElement.querySelector(
-          'source[type="video/mp4"]'
+        const webmSource = videoElement.querySelector(
+          'source[type="video/webm"]'
         );
-        if (mp4Source) {
-          mp4Source.setAttribute(
+        if (webmSource) {
+          webmSource.setAttribute(
             'src',
-            props.video?.video_webm?.data.attributes.url
+            props.video?.video_mp4?.data.attributes.url
           );
-          mp4Source.setAttribute('type', 'video/webm');
+          webmSource.setAttribute('type', 'video/mp4');
           videoElement.load();
         }
       }
@@ -133,7 +133,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
             muted
             autoPlay
             playsInline
-            preload="metadata"
+            preload="auto"
             className={`${styles.hp_banner_video}`}
           >
             {props.video.video_webm.data ? (
@@ -142,12 +142,12 @@ const HpBanner = ({ props }: HPBannerProps) => {
                 type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
             ) : null}
-            {props.video.video_mp4.data ? (
+            {/* {props.video.video_mp4.data ? (
               <source
                 src={`${props.video.video_mp4.data.attributes.url}`}
                 type={`${props.video.video_mp4.data.attributes.mime}`}
               ></source>
-            ) : null}
+            ) : null} */}
           </video>
         ) : null}
 
