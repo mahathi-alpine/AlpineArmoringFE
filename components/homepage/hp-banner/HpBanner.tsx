@@ -111,12 +111,10 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   }, []);
 
-  console.log(props);
-
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
-        {props.video?.video_mp4.data ? (
+        {props.video?.video_mp4.data || props.video?.video_webm.data ? (
           <video
             ref={videoRef}
             muted
