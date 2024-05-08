@@ -53,9 +53,13 @@
     flex-flow: column;
     justify-content: center;
 
-    @media (max-height: 500px) {
+    @media (max-height: 570px) {
       justify-content: flex-start;
       flex: unset;
+
+      .navigationPopup_list_left{
+        margin-bottom: 0;
+      }
     }
 
     @include breakpoint(large) {
