@@ -111,6 +111,8 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   }, []);
 
+  console.log(props);
+
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
