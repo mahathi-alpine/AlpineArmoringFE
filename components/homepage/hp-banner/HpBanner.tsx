@@ -123,9 +123,9 @@ const HpBanner = ({ props }: HPBannerProps) => {
             // loop={true}
 
             className={`${styles.hp_banner_video}`}
-            width={1920}
-            height={1200}
-            preload="metadata"
+            width={400}
+            height={800}
+            preload="auto"
             // poster="/assets/hpVideoPoster.jpg"
           >
             {/* {props.video.video_webm.data ? (
