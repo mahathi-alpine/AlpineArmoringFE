@@ -111,23 +111,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   }, []);
 
-  useEffect(() => {
-    const videoElement = videoRef.current;
-    if (videoElement) {
-      const onVideoProgressUpdate = () => {
-        if (videoElement.buffered.end(0) > 5) {
-          videoRef.current.play();
-        }
-      };
-
-      videoElement.addEventListener('progress', onVideoProgressUpdate);
-
-      return () => {
-        videoElement.removeEventListener('progress', onVideoProgressUpdate);
-      };
-    }
-  }, []);
-
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
@@ -137,12 +120,8 @@ const HpBanner = ({ props }: HPBannerProps) => {
             muted
             autoPlay
             playsInline
-            // loop={true}
-            className={`${styles.hp_banner_video}`}
-            width={400}
-            height={800}
             preload="auto"
-            // poster="/assets/hpVideoPoster.jpg"
+            className={`${styles.hp_banner_video}`}
           >
             {props.video.video_webm.data ? (
               <source
