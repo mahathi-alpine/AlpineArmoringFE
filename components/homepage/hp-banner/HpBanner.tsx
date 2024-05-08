@@ -120,7 +120,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
             muted
             autoPlay
             playsInline
-            preload="auto"
+            preload="metadata"
             className={`${styles.hp_banner_video}`}
           >
             {props.video.video_webm.data ? (
@@ -129,12 +129,12 @@ const HpBanner = ({ props }: HPBannerProps) => {
                 type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
             ) : null}
-            {/* {props.video.video_mp4.data ? (
+            {props.video.video_mp4.data ? (
               <source
                 src={`${props.video.video_mp4.data.attributes.url}`}
                 type={`${props.video.video_mp4.data.attributes.mime}`}
               ></source>
-            ) : null} */}
+            ) : null}
           </video>
         ) : null}
 
