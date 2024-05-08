@@ -66,6 +66,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
       parseInt(getSafariVersion()) < 17 &&
       props.video?.video_mp4?.data
     ) {
+      alert('test');
       const videoElement = videoRef.current;
       if (videoElement) {
         const webmSource = videoElement.querySelector(
@@ -142,13 +143,13 @@ const HpBanner = ({ props }: HPBannerProps) => {
                 type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
             ) : null}
-            {props.video.video_mp4.data ? (
+            {/* {props.video.video_mp4.data ? (
               <source
                 src={`${props.video.video_mp4.data.attributes.url}`}
                 type={`${props.video.video_mp4.data.attributes.mime}`}
                 media="(min-width:768px)"
               ></source>
-            ) : null}
+            ) : null} */}
           </video>
         ) : null}
 
