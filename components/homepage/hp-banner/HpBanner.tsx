@@ -67,7 +67,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
       (parseInt(getSafariVersion()) < 17 ||
         (parseInt(getSafariVersion()) >= 17 &&
           window.innerWidth > 768 &&
-          window.innerWidth < 1200))
+          window.innerWidth < 1400))
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
