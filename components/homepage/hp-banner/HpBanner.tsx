@@ -61,24 +61,22 @@ const HpBanner = ({ props }: HPBannerProps) => {
   // if (version && version[0] === 13) {
 
   useEffect(() => {
-    const safariVersion = getSafariVersion();
-
     if (
       isSafari() &&
-      parseInt(safariVersion) > 17 &&
+      parseInt(getSafariVersion()) > 17 &&
       props.video?.video_webm?.data
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
-        const webmSource = videoElement.querySelector(
-          'source[type="video/webm"]'
+        const mp4Source = videoElement.querySelector(
+          'source[type="video/mp4"]'
         );
-        if (webmSource) {
-          webmSource.setAttribute(
+        if (mp4Source) {
+          mp4Source.setAttribute(
             'src',
-            props.video.video_mp4.data.attributes.url
+            props.video?.video_webm?.data.attributes.url
           );
-          webmSource.setAttribute('type', 'video/mp4');
+          mp4Source.setAttribute('type', 'video/webm');
           videoElement.load();
         }
       }
