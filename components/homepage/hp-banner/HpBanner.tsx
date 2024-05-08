@@ -105,6 +105,11 @@ const HpBanner = ({ props }: HPBannerProps) => {
 
       videoElement.addEventListener('ended', handleEnded);
 
+      // Start playing the video as soon as it's ready
+      videoElement.play().catch((error) => {
+        console.error('Failed to start video playback:', error);
+      });
+
       return () => {
         videoElement.removeEventListener('ended', handleEnded);
       };
