@@ -35,40 +35,52 @@ const HpBanner = ({ props }: HPBannerProps) => {
   //   return null;
   // };
 
-  // function isSafari() {
-  //   const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+  function isSafari() {
+    const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
-  //   const isNotChrome =
-  //     navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
+    const isNotChrome =
+      navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
 
-  //   const isNotFirefox =
-  //     navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
+    const isNotFirefox =
+      navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
 
-  //   return isSafari && isNotChrome && isNotFirefox;
-  // }
+    return isSafari && isNotChrome && isNotFirefox;
+  }
+
+  function getSafariVersion() {
+    const userAgent = navigator.userAgent;
+    const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
+    if (versionMatch) {
+      return versionMatch[1];
+    }
+    return null; // Safari version not found
+  }
 
   // const version = getiOSVersion();
   // console.log(version);
   // if (version && version[0] === 13) {
 
-  // useEffect(() => {
-  //   if (isSafari() && props.video.video_mp4) {
-  //     const videoElement = videoRef.current;
-  //     if (videoElement) {
-  //       const webmSource = videoElement.querySelector(
-  //         'source[type="video/webm"]'
-  //       );
-  //       if (webmSource) {
-  //         webmSource.setAttribute(
-  //           'src',
-  //           props.video.video_mp4.data.attributes.url
-  //         );
-  //         webmSource.setAttribute('type', 'video/mp4');
-  //         videoElement.load();
-  //       }
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    const safariVersion = getSafariVersion();
+    console.log(safariVersion);
+
+    if (isSafari() && props.video.video_mp4) {
+      const videoElement = videoRef.current;
+      if (videoElement) {
+        // const webmSource = videoElement.querySelector(
+        //   'source[type="video/webm"]'
+        // );
+        // if (webmSource) {
+        //   webmSource.setAttribute(
+        //     'src',
+        //     props.video.video_mp4.data.attributes.url
+        //   );
+        //   webmSource.setAttribute('type', 'video/mp4');
+        //   videoElement.load();
+        // }
+      }
+    }
+  }, []);
 
   // useEffectOnce(() => {
   //   function stepAnimateText(props, animation, delay) {
