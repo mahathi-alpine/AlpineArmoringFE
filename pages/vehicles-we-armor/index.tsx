@@ -27,7 +27,7 @@ function VehicleWeArmor(props) {
     ])
   );
 
-  const vehiclesArray = vehiclesData.sort((a, b) => {
+  const vehiclesArray = vehiclesData?.sort((a, b) => {
     // Correctly access the category order using the category title
     const categoryOrderA = categoryOrderMap.get(
       a.attributes.category.data.attributes.title

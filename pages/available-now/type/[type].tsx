@@ -23,7 +23,7 @@ function Inventory(props) {
   }, [router.query]);
 
   const fetchMoreItems = () => {
-    if (itemsToRender < vehiclesData.length) {
+    if (itemsToRender < vehiclesData?.length) {
       setLoading(true);
       setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
       setLoading(false);
