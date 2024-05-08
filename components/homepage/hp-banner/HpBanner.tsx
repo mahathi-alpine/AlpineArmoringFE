@@ -62,22 +62,25 @@ const HpBanner = ({ props }: HPBannerProps) => {
 
   useEffect(() => {
     const safariVersion = getSafariVersion();
-    console.log(safariVersion);
 
-    if (isSafari() && props.video.video_mp4) {
+    if (
+      isSafari() &&
+      parseInt(safariVersion) > 17 &&
+      props.video?.video_webm?.data
+    ) {
       const videoElement = videoRef.current;
       if (videoElement) {
-        // const webmSource = videoElement.querySelector(
-        //   'source[type="video/webm"]'
-        // );
-        // if (webmSource) {
-        //   webmSource.setAttribute(
-        //     'src',
-        //     props.video.video_mp4.data.attributes.url
-        //   );
-        //   webmSource.setAttribute('type', 'video/mp4');
-        //   videoElement.load();
-        // }
+        const webmSource = videoElement.querySelector(
+          'source[type="video/webm"]'
+        );
+        if (webmSource) {
+          webmSource.setAttribute(
+            'src',
+            props.video.video_mp4.data.attributes.url
+          );
+          webmSource.setAttribute('type', 'video/mp4');
+          videoElement.load();
+        }
       }
     }
   }, []);
