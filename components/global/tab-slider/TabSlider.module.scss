@@ -88,12 +88,14 @@
       position: relative;
       overflow: hidden;
       margin-left: rem(-8);
-      margin-right: rem(-16);
+      // margin-right: rem(-16);
+      margin-right: rem(-8);
       margin-bottom: rem(24);
       padding: rem(4);
       background: var(--color-primary);
-      border-top-left-radius: 99px;
-      border-bottom-left-radius: 99px;
+      // border-top-left-radius: 99px;
+      // border-bottom-left-radius: 99px;
+      border-radius: 99px;
       z-index: 2;
       box-shadow:
         0 8px 16px 0 rgba(0, 0, 0, 0.2),
