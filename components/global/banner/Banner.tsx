@@ -38,9 +38,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       isSafari() &&
       videoMP4 &&
       (parseInt(getSafariVersion()) < 17 ||
-        (parseInt(getSafariVersion()) >= 17 &&
-          window.innerWidth > 768 &&
-          window.innerWidth < 1400))
+        (parseInt(getSafariVersion()) >= 17 && window.innerWidth > 768))
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
