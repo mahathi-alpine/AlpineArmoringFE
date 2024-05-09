@@ -9,6 +9,13 @@
   border-radius: 16px;
   flex-basis: 470px;
   max-width: 570px;
+  opacity: 0;
+  animation: fade-in-opacity 2s linear forwards;
+
+  &:nth-child(-n + 6) {
+    opacity: 1;
+    animation: none;
+  }
 
   @include breakpoint(medium) {
     padding: rem(10);
@@ -221,5 +228,14 @@
         text-transform: uppercase;
       }
     }
+  }
+}
+
+@keyframes fade-in-opacity  {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
