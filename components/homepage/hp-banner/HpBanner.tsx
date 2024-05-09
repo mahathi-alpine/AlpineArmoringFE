@@ -5,7 +5,6 @@ const PauseIcon = dynamic(() => import('components/icons/Pause'));
 const PlayIcon = dynamic(() => import('components/icons/Play'));
 import { HPBannerProps } from 'types';
 
-// const HpBanner = ({ props, languageCookie }: HPBannerProps) => {
 const HpBanner = ({ props }: HPBannerProps) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -20,20 +19,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
       }
     }
   };
-
-  // const getiOSVersion = (): [number, number, number] | null => {
-  //   if (/iP(hone|od|ad)/.test(navigator.platform)) {
-  //     const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
-  //     if (v) {
-  //       return [
-  //         parseInt(v[1], 10),
-  //         parseInt(v[2], 10),
-  //         parseInt(v[3] || '0', 10),
-  //       ];
-  //     }
-  //   }
-  //   return null;
-  // };
 
   function isSafari() {
     const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
@@ -53,12 +38,8 @@ const HpBanner = ({ props }: HPBannerProps) => {
     if (versionMatch) {
       return versionMatch[1];
     }
-    return null; // Safari version not found
+    return null;
   }
-
-  // const version = getiOSVersion();
-  // console.log(version);
-  // if (version && version[0] === 13) {
 
   useEffect(() => {
     if (
@@ -86,32 +67,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   }, []);
 
-  // useEffectOnce(() => {
-  //   function stepAnimateText(props, animation, delay) {
-  //     props.forEach((text) => {
-  //       const string = text.innerHTML;
-  //       let html = '';
-  //       for (let i = 0; i < string.length; i++) {
-  //         html +=
-  //           `<span class="` +
-  //           animation +
-  //           `" style="animation-delay: ` +
-  //           i * delay +
-  //           `s">${string[i]}</span>`;
-  //       }
-  //       text.innerHTML = html;
-  //     });
-  //   }
-
-  //   if (languageCookie == 'en') {
-  //     stepAnimateText(
-  //       [...document.querySelectorAll('.animateLetter')],
-  //       'fadeInDown',
-  //       0.1
-  //     );
-  //   }
-  // });
-
   useEffect(() => {
     const videoElement = videoRef.current;
     if (videoElement) {
@@ -130,7 +85,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
   return (
     <div className={`${styles.hp_banner}`}>
       <div className={`${styles.hp_banner_inner}`}>
-        {props.video?.video_mp4.data || props.video?.video_webm.data ? (
+        {props.video?.video_webm.data || props.video.video_mp4.data ? (
           <video
             ref={videoRef}
             muted
@@ -145,13 +100,12 @@ const HpBanner = ({ props }: HPBannerProps) => {
                 type={`${props.video.video_webm.data.attributes.mime}`}
               ></source>
             ) : null}
-            {/* {props.video.video_mp4.data ? (
+            {props.video.video_mp4.data && !props.video.video_webm.data ? (
               <source
                 src={`${props.video.video_mp4.data.attributes.url}`}
                 type={`${props.video.video_mp4.data.attributes.mime}`}
-                media="(min-width:768px)"
               ></source>
-            ) : null} */}
+            ) : null}
           </video>
         ) : null}
 
@@ -168,19 +122,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
               className={`${styles.hp_banner_title}`}
             ></h1>
           ) : null}
-
-          {/* <h2
-            className={`
-              ${styles.hp_banner_subtitle} animateLetter
-              ${
-                languageCookie !== 'en'
-                  ? styles.hp_banner_subtitle_noAnimation
-                  : ''
-              }
-            `}
-          >
-            {props.subtitle}
-          </h2> */}
 
           {props.description ? (
             <h2

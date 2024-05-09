@@ -9,42 +9,57 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
   const bannerDescription = props.description;
-  const videoMP4 = props.mediaMP4?.data?.attributes;
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoMP4 = props.mediaMP4?.data;
 
-  // function isSafari() {
-  //   const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+  function isSafari() {
+    const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
-  //   const isNotChrome =
-  //     navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
+    const isNotChrome =
+      navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
 
-  //   const isNotFirefox =
-  //     navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
+    const isNotFirefox =
+      navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
 
-  //   return isSafari && isNotChrome && isNotFirefox;
-  // }
+    return isSafari && isNotChrome && isNotFirefox;
+  }
 
-  // useEffect(() => {
-  //   if (isSafari() && videoMP4) {
-  //     const videoElement = videoRef.current;
-  //     if (videoElement) {
-  //       const webmSource = videoElement.querySelector(
-  //         'source[type="video/webm"]'
-  //       );
-  //       if (webmSource) {
-  //         webmSource.setAttribute('src', videoMP4.url);
-  //         webmSource.setAttribute('type', 'video/mp4');
-  //         videoElement.load();
-  //       }
-  //     }
-  //   }
-  // }, []);
+  function getSafariVersion() {
+    const userAgent = navigator.userAgent;
+    const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
+    if (versionMatch) {
+      return versionMatch[1];
+    }
+    return null;
+  }
+
+  useEffect(() => {
+    if (
+      isSafari() &&
+      videoMP4 &&
+      (parseInt(getSafariVersion()) < 17 ||
+        (parseInt(getSafariVersion()) >= 17 &&
+          window.innerWidth > 768 &&
+          window.innerWidth < 1400))
+    ) {
+      const videoElement = videoRef.current;
+      if (videoElement) {
+        const webmSource = videoElement.querySelector(
+          'source[type="video/webm"]'
+        );
+        if (webmSource) {
+          webmSource.setAttribute('src', videoMP4.attributes.url);
+          webmSource.setAttribute('type', 'video/mp4');
+          videoElement.load();
+        }
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const videoElement = videoRef.current;
     if (videoElement) {
       const handleEnded = () => {
-        console.log('1');
         videoRef.current.play();
       };
 
@@ -66,20 +81,18 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         height={bannerImage.formats?.xlarge?.height || bannerImage.height}
         className={`${styles.banner_media}`}
         priority
-        // quality='100'
         sizes="100vw"
       />
     );
   } else if ((bannerImage && bannerMimeType?.startsWith('video')) || videoMP4) {
     mediaElement = (
       <video
-        // loop={true}
         ref={videoRef}
         muted
         autoPlay
         playsInline
-        className={`${styles.banner_media}`}
         preload="auto"
+        className={`${styles.banner_media}`}
       >
         {bannerImage ? (
           <source
@@ -87,8 +100,11 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
             type={`${bannerImage.mime}`}
           ></source>
         ) : null}
-        {videoMP4 ? (
-          <source src={`${videoMP4.url}`} type={`${videoMP4.mime}`}></source>
+        {videoMP4 && !bannerImage ? (
+          <source
+            src={`${videoMP4.attributes.url}`}
+            type={`${videoMP4.attributes.mime}`}
+          ></source>
         ) : null}
       </video>
     );
