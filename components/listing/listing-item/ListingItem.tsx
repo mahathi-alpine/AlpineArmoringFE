@@ -33,7 +33,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
             width={560}
             height={430}
             priority={index === 0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1600px) 50vw, 35vw"
+            sizes="(max-width: 1600px) 50vw, 35vw"
             // placeholder="blur"
             // blurDataURL={`${data.featuredImage.data.attributes.formats?.thumbnail?.url}`}
           />
