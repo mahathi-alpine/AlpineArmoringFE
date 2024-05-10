@@ -44,7 +44,7 @@
         @include breakpoint(large) {
           justify-content: space-between;
 
-          a:hover{
+          a:hover {
             color: var(--color-primary);
           }
         }
