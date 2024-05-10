@@ -2,6 +2,13 @@
   max-width: 425px;
   margin: auto;
   margin-bottom: rem(32);
+  opacity: 0;
+  animation: fade-in-opacity 1.5s linear forwards;
+
+  &:nth-child(-n + 14) {
+    opacity: 1;
+    animation: none;
+  }
 
   @include breakpoint(medium) {
     width: calc(50% - 12px);
@@ -102,5 +109,14 @@
     transition:
       opacity 0.3s ease,
       visibility 0.3s ease;
+  }
+}
+
+@keyframes fade-in-opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

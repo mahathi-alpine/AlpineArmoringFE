@@ -10,7 +10,7 @@
   flex-basis: 470px;
   max-width: 570px;
   opacity: 0;
-  animation: fade-in-opacity 2s linear forwards;
+  animation: fade-in-opacity 1.5s linear forwards;
 
   &:nth-child(-n + 6) {
     opacity: 1;
