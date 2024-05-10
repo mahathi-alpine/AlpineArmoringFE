@@ -16,14 +16,6 @@
   --font-medium: 500;
   --font-demi: 600;
 
-  /* spacing values */
-  --space-xs: 1.5rem; // 24px
-  --space-sm: 2rem; // 32px
-  --space-md: 5rem;
-  --space-lg: 8rem;
-  --space-xl: 10rem;
-  --space-xxl: 14rem;
-
   --header-height: 74px;
 }
 
@@ -69,8 +61,8 @@ a {
   color: inherit;
   text-decoration: none;
 }
-a:focus {
-  outline: 0;
+*:focus {
+  outline: none !important;
 }
 * {
   box-sizing: border-box;

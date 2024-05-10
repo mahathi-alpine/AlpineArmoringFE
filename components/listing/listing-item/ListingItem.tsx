@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItem.module.scss';
-// import { API_URL } from 'config/index';
 
 interface InventoryItemProps {
   props: any;

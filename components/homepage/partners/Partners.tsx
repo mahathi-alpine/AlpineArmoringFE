@@ -1,6 +1,4 @@
 import styles from './Partners.module.scss';
-// import { API_URL } from 'config/index';
-// import Image from 'next/image';
 import Image from 'next/image';
 
 const Partners = (props) => {

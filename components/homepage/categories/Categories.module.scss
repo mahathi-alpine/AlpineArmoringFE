@@ -156,22 +156,32 @@
       margin: auto;
       visibility: hidden;
       transition: visibility 0.6s ease-out;
-      a:first-child {
-        margin-top: rem(8);
+
+      a{
+        &:first-child {
+          margin-top: rem(8);
+        }
+        &:nth-child(2) {
+          margin-top: 10px;
+        }
+        span {
+          padding: 10px 5px;
+          text-transform: uppercase;
+          font-size: 12px;
+        }
       }
-      a:nth-child(2) {
-        margin-top: 10px;
-      }
+
       @include breakpoint(medium) {
         max-width: 390px;
 
-        a:first-child {
-          margin-top: rem(16);
-        }
-
-        a span {
-          padding: 13px 16px;
-          text-transform: uppercase;
+        a{
+          &:first-child {
+            margin-top: rem(16);
+          }
+          span {
+            padding: 13px 16px;
+            font-size: 13px;
+          }
         }
       }
     }

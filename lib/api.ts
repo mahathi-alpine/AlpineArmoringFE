@@ -1,7 +1,5 @@
-import { API_URL } from 'config/index';
-
 export async function fetchAPI(path) {
-  const requestUrl = `${API_URL}${path}`;
+  const requestUrl = `${process.env.NEXT_PUBLIC_API_URL}${path}`;
 
   // console.log(requestUrl);
 
