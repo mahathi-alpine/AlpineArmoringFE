@@ -10,6 +10,13 @@ const Banner = (props) => {
   const protectionLevel = data.protectionLevel || 'A4, A6, A9, A11';
   const protectionLevelSplit = protectionLevel.split(',');
 
+  const scroll = () => {
+    const element = document.getElementById('request-a-quote');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className={`${styles.banner}`}>
       <div className={`${styles.banner_main}`}>
@@ -30,7 +37,8 @@ const Banner = (props) => {
 
           <div className={`${styles.banner_buttons}`}>
             <Button
-              href="#request-a-quote"
+              onClick={scroll}
+              button={true}
               className={`${styles.banner_buttons_item} primary shiny`}
             >
               Request a quote

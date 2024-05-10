@@ -115,11 +115,11 @@ const EmblaCarousel = (props) => {
                       item.attributes.formats?.large.url || item.attributes.url
                     }
                     alt={item.attributes.alternativeText || 'Alpine Armoring'}
-                    quality={100}
+                    // quality={100}
                     priority={index === 0}
                     fill
                     className={styles.carousel_slide_img}
-                    sizes="(max-width: 1280px) 100vw, 50vw"
+                    sizes="70vw"
                   />
                 </div>
               ) : null}

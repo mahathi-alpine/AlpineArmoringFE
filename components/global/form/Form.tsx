@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Form.module.scss';
 import Button from 'components/global/button/Button';
 import Dropdown from 'components/global/form/Dropdown';
+import { useRouter } from 'next/router';
 
 // import { sendEmail } from 'hooks/aws-ses';
 
@@ -15,6 +16,8 @@ const Form = () => {
   const [country, setCountry] = useState('');
   const [preferredContact, setPreferredContact] = useState('');
   const [message, setMessage] = useState('');
+
+  const router = useRouter();
 
   const [isCompanyDropdownActive, setIsCompanyDropdownActive] = useState(false);
   const [isInquiryDropdownActive, setIsInquiryDropdownActive] = useState(false);
@@ -221,6 +224,27 @@ const Form = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  function escapeHTML(str) {
+    return str.replace(/[&<>"'/]/g, function (char) {
+      switch (char) {
+        case '&':
+          return '&amp;';
+        case '<':
+          return '&lt;';
+        case '>':
+          return '&gt;';
+        case '"':
+          return '&quot;';
+        case "'":
+          return '&#39;';
+        case '/':
+          return '&#x2F;';
+        default:
+          return char;
+      }
+    });
+  }
+
   const validateFullname = (value) => {
     const fullNamePattern = /^[A-Z ]{3,}$/i;
     if (!value) {
@@ -288,6 +312,8 @@ const Form = () => {
 
     const hasError = Object.values(newErrors).some((error) => error !== '');
     if (!hasError) {
+      const sanitizedMessage = escapeHTML(message);
+
       const submitBtn = document.querySelector('.submitButton');
       submitBtn.classList.add('submiting');
       submitBtn.innerHTML = '';
@@ -305,7 +331,8 @@ const Form = () => {
             preferredContact: preferredContact,
             inquiry: inquiry,
             country: country,
-            message: message,
+            message: sanitizedMessage,
+            route: router.asPath,
             date: Date.now(),
           },
         }),
@@ -334,7 +361,7 @@ const Form = () => {
           setTimeout(() => {
             submitBtn.innerHTML = 'Send message';
             submitBtn.classList.remove('submitted');
-          }, 3000);
+          }, 2500);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -553,8 +580,6 @@ const Form = () => {
           button={true}
           onClick={handleSubmit}
           className={`${styles.form_submit_button} submitButton primary rounded`}
-          // style={{ ...styles.button, opacity: isFormValid ? 1 : 0.5 }}
-          // disabled={!isFormValid}
         >
           Send message
         </Button>

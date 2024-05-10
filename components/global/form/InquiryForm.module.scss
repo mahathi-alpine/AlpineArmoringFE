@@ -15,14 +15,18 @@
   }
 
   @include breakpoint(large) {
-    padding-top: rem(64);
     width: calc(100% - 128px);
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
   }
 
   @include breakpoint(huge) {
-    padding-top: rem(100);
+    padding-top: rem(64);
+  }
+
+  &>div:last-child{
+    margin: unset;
+    margin-left: auto;
   }
 
   &:before,
@@ -57,6 +61,10 @@
 
   &_wrap {
     padding-top: rem(64);
+    @include breakpoint(large) {
+      max-width: 1500px;
+      margin: auto;
+    }
   }
 
   &_inner {
@@ -72,9 +80,6 @@
         max-width: 1528px;
         align-items: flex-start;
       }
-    }
-    @include breakpoint(huge) {
-      gap: 64px;
     }
   }
 
@@ -118,7 +123,7 @@
   &_left {
     @include breakpoint(medium) {
       max-width: 500px;
-      margin: 0 auto;
+      margin-left: auto;
 
       .inquiry_form_plain & {
         min-width: 450px;

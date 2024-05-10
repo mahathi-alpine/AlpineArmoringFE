@@ -71,8 +71,6 @@ function InventoryVehicle(props) {
     }
   };
 
-  // const [isFormVisible, setIsFormVisible] = useState(false);
-
   useEffect(() => {
     const setupObserver = () => {
       const targets = document.querySelectorAll('.observe');
@@ -95,18 +93,12 @@ function InventoryVehicle(props) {
                 { passive: true }
               );
             }
-            // if (entry.target.classList.contains('inquiryFormContainer')) {
-            //   setIsFormVisible(true);
-            // }
           } else {
             if (entry.target.classList.contains('videoScaleContainer')) {
               window.removeEventListener('scroll', () =>
                 animateVideo(entry.target)
               );
             }
-            // if (entry.target.classList.contains('inquiryFormContainer')) {
-            //   setIsFormVisible(false);
-            // }
           }
         });
       });
@@ -166,12 +158,7 @@ function InventoryVehicle(props) {
               ) : null}
             </div>
 
-            <div
-              // className={`${styles.inventory_cta_wrap} ${
-              //   isFormVisible ? styles.inventory_cta_wrap_static : ''
-              // }`}
-              className={`${styles.inventory_cta_wrap}`}
-            >
+            <div className={`${styles.inventory_cta_wrap}`}>
               <Button
                 onClick={scroll}
                 button={true}

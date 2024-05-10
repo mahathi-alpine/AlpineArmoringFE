@@ -27,7 +27,7 @@ export const getLanguageConfig = (): LanguageConfig | undefined => {
     try {
       cfg = JSON.parse(process.env.GOOGLE_TRANSLATION_CONFIG ?? '{}');
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }
 

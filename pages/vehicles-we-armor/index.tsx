@@ -11,8 +11,6 @@ function VehicleWeArmor(props) {
   const router = useRouter();
   const { q } = router.query;
   const topBanner = props.pageData?.banner;
-  // console.log(props.vehicles)
-  // return null;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
 

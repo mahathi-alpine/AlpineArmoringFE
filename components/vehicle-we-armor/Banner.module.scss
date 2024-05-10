@@ -112,7 +112,7 @@
     flex-flow: column;
     justify-content: center;
 
-    & > a:last-child {
+    & > a:nth-child(2) {
       margin-top: 8px;
     }
 
@@ -120,7 +120,7 @@
       position: static;
       flex-flow: row;
 
-      & > a:last-child {
+      & > a:nth-child(2) {
         margin-top: 0;
         margin-left: 16px;
       }
@@ -132,11 +132,11 @@
 
     &_item {
       max-width: 280px;
-      margin: auto;
       border-radius: 99px;
 
       @include breakpoint(small) {
         width: 100%;
+        margin: auto;
       }
     }
   }

@@ -8,7 +8,7 @@
     font-size: rem(24);
     text-align: center;
     @include breakpoint(large) {
-      margin-bottom: rem(64);
+      margin-bottom: rem(48);
       font-size: rem(32);
     }
   }

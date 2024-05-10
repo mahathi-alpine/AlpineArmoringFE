@@ -91,6 +91,7 @@
     transition:
       opacity 0.2s ease,
       transform 0.2s ease;
+
     @include breakpoint(large) {
       font-size: clamp(2.1875rem, 0.5625rem + 2.0313vw, 3rem);
     }
@@ -126,12 +127,10 @@
   }
 
   &_info {
-    align-items: center;
-    flex-flow: column;
-    padding: rem(8) 0;
     display: none;
     @include breakpoint(large) {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       flex-flow: row;
       margin-top: unset;
@@ -140,17 +139,22 @@
   }
 
   &_socials {
-    display: grid;
-    grid-auto-flow: column;
-    gap: 16px;
-    margin-top: rem(24);
     @include breakpoint(medium) {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 16px;
+      margin-top: rem(24);
+      
       &_item {
+        transition: transform 0.3s ease;
         svg path,
         svg rect {
           transition:
             fill 0.3s ease,
             stroke 0.3s ease;
+        }
+        &:hover{          
+          transform: translateY(-3px);
         }
         &:not(.navigationPopup_socials_item_tiktok):not(
             .navigationPopup_socials_item_x
@@ -178,48 +182,62 @@
   }
 
   &_contact {
-    display: grid;
-    grid-auto-flow: column;
-    gap: 16px;
-    font-size: rem(13);
-    @include breakpoint(large) {
-      margin-top: unset;
-      gap: 32px;
-    }
-    &_item {
+    @include breakpoint(medium) {
       display: grid;
       grid-auto-flow: column;
-      align-items: center;
-      gap: 8px;
-      transition: color 0.3s ease;
-      @include breakpoint(medium) {
+      gap: 16px;
+      font-size: rem(13);
+
+      &_item {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 8px;
+        font-weight: var(--font-medium);
+        transition: color 0.3s ease, transform 0.3s ease;     
+      
+        svg{
+          position: relative;
+          top: -1px;
+
+          path {
+            transition: fill 0.3s ease;
+          }
+        }
+
         &:hover {
           color: var(--color-primary);
+          transform: translateY(-3px);
+
           svg path {
             fill: var(--color-primary);
           }
         }
-        svg path {
-          transition: fill 0.3s ease;
-        }
       }
+    }
+
+    @include breakpoint(large) {
+      margin-top: unset;
+      gap: 32px;
     }
   }
 
   &_bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: rem(24) 0 rem(16) 0;
+    @include breakpoint(small) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: rem(24) 0 rem(16) 0;
 
-    &_search {
-      width: 24px;
-      height: 24px;
-      margin-right: 24px;
-    }
-
-    &_lang {
-      font-weight: 500;
+      &_search {
+        width: 24px;
+        height: 24px;
+        margin-right: 24px;
+      }
+  
+      &_lang {
+        font-weight: 500;
+      }
     }
   }
 }

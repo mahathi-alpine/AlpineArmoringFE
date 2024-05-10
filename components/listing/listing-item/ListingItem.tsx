@@ -29,12 +29,10 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
               data.featuredImage.data.attributes.alternativeText ||
               'Alpine Armoring'
             }
-            width={560}
-            height={430}
+            width={563}
+            height={433}
             priority={index === 0}
-            sizes="(max-width: 1600px) 50vw, 35vw"
-            // placeholder="blur"
-            // blurDataURL={`${data.featuredImage.data.attributes.formats?.thumbnail?.url}`}
+            sizes="(max-width: 1600px) 50vw, 30vw"
           />
         ) : null}
 

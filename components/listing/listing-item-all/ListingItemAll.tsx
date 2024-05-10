@@ -20,7 +20,6 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         <div className={`${styles.listing_item_image}`}>
           {data.featuredImage.data ? (
             <Image
-              // src={`${data.featuredImage.data.attributes.url}`}
               src={`${
                 data.featuredImage.data.attributes.formats.thumbnail.url ||
                 data.featuredImage.data.attributes.url
