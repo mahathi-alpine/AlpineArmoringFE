@@ -62,6 +62,18 @@ const Default = (type) => {
           </div>
         </div>
       ) : null}
+
+      {type.type === '4' ? (
+        <div className="loaderAbsolute">
+          <div className="loaderAbsolute_inner">
+            <div className="text">
+              <span>Loading</span>
+              <span className="dots">...</span>
+            </div>
+            <img src="/assets/Alpine-loading-icon.gif" />
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };
