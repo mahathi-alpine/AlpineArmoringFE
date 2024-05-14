@@ -305,7 +305,7 @@ export async function getServerSideProps(context) {
     params: `filters[slug][$eq]=${context.params.slug}`,
   });
 
-  const seoData = data.data ? data?.data[0].attributes.seo : null;
+  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
 
   if (!data || !data.data || data.data.length === 0) {
     return {

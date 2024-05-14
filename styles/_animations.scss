@@ -476,9 +476,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 5;
+  z-index: 6;
   color: var(--color-white);
-  font-size: 14px;
+  font-size: 17px;
   background: rgba(0, 0, 0, 0.8);
 
   &_inner {
@@ -490,6 +490,6 @@
   }
 
   .text {
-    padding: 3px 0 3px 10px;
+    padding: 6px 0 6px 10px;
   }
 }
