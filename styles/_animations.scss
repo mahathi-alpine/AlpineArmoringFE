@@ -467,7 +467,7 @@
   }
 }
 
-.loaderAbsolute{
+.loaderAbsolute {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -481,15 +481,15 @@
   font-size: 14px;
   background: rgba(0, 0, 0, 0.8);
 
-  &_inner{    
+  &_inner {
     background: #000;
   }
 
-  img{
+  img {
     max-width: 120px;
   }
 
-  .text{
+  .text {
     padding: 3px 0 3px 10px;
   }
 }
