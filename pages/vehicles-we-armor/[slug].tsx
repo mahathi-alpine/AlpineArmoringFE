@@ -182,15 +182,30 @@ function Vehicle(props) {
             <div
               className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
             >
-              <Image
-                src={dimensions1.formats?.large?.url || dimensions1.url}
-                alt={dimensions1.alternativeText || 'Alpine Armoring'}
-                width={dimensions1.width}
-                height={dimensions1.height}
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              {/* <div className={`${styles.slug_dimensions_height}`}>59 in (149 cm)</div>
-              <div className={`${styles.slug_dimensions_width}`}>83 in (210 cm)</div> */}
+              <div className={`${styles.slug_dimensions_wrap_image_box}`}>
+                <Image
+                  src={dimensions1.formats?.large?.url || dimensions1.url}
+                  // src='/assets/dimensions1.png'
+                  alt={dimensions1.alternativeText || 'Alpine Armoring'}
+                  width={dimensions1.width}
+                  height={dimensions1.height}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+
+                {data?.dimensionsWidth ? (
+                  <div className={`${styles.slug_dimensions_width}`}>
+                    {data.dimensionsWidth} in. (
+                    {Math.round(data.dimensionsWidth * 2.54)} cm)
+                  </div>
+                ) : null}
+              </div>
+
+              {data?.dimensionsHeight ? (
+                <div className={`${styles.slug_dimensions_height}`}>
+                  {data.dimensionsHeight} in.{' '}
+                  <span>({Math.round(data.dimensionsHeight * 2.54)} cm)</span>
+                </div>
+              ) : null}
             </div>
 
             <div
