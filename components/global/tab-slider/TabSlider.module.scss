@@ -24,21 +24,21 @@
     }
   }
 
-  &_sticked {
-    .tabSlider_nav_wrap {
-      background: var(--color-secondary);
-      box-shadow:
-        0 8px 16px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-    .tabSlider_nav_glider {
-      opacity: 1;
-    }
-    .tabSlider_nav_item_cta {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
+  // &_sticked {
+  //   .tabSlider_nav_wrap {
+  //     background: var(--color-secondary);
+  //     box-shadow:
+  //       0 8px 16px 0 rgba(0, 0, 0, 0.2),
+  //       0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  //   }
+  //   .tabSlider_nav_glider {
+  //     opacity: 1;
+  //   }
+  //   .tabSlider_nav_item_cta {
+  //     opacity: 1;
+  //     visibility: visible;
+  //   }
+  // }
 
   &_sticky:not(.tabSlider_sticked) {
     @include breakpoint(large) {

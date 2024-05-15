@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
     router.pathname.startsWith(path)
   );
 
-  const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.pathname);
+  // const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.pathname);
 
   const [isNavOpen, setNavOpen] = useState(false);
 
@@ -103,7 +103,7 @@ const Layout = ({ children }) => {
           setNavOpen={setNavOpen}
           isNavOpen={isNavOpen}
           isHomepage={isHomepage}
-          isNotSticky={isNotSticky}
+          // isNotSticky={isNotSticky}
           openSearchPopup={openSearchPopup}
           isSearchVisible={isSearchVisible}
         />

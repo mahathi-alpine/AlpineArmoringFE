@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
+import TabSlider from 'components/global/tab-slider/TabSlider';
 
 const Banner = (props) => {
   const data = props.props;
@@ -15,6 +16,20 @@ const Banner = (props) => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleTabChange = (index, titleNav) => {
+    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+    const targetElement = document.getElementById(targetId);
+    const offset = 100;
+
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -43,15 +58,6 @@ const Banner = (props) => {
             >
               Request a quote
             </Button>
-            {/* <Button
-              href={`/available-now/?vehicles_we_armor=${data.slug}`}
-              {...(!data.inventory?.length
-                ? { disabled: true, button: true }
-                : {})}
-              className={`${styles.banner_buttons_item} shiny`}
-            >
-              View in-stock availability
-            </Button> */}
             {data.inventory?.length ? (
               <Button
                 href={`/available-now/?vehicles_we_armor=${data.slug}`}
@@ -130,13 +136,20 @@ const Banner = (props) => {
         <div className={`${styles.banner_protection}`}>
           <p>Offered At Protection Levels</p>
           <div className={`${styles.banner_protection_levels}`}>
-            {/* {data?.protectionLevel} */}
             {protectionLevelSplit.map((item, index) => (
               <span key={index}>{item}</span>
             ))}
           </div>
         </div>
       </div>
+
+      <TabSlider
+        props={data.navItems}
+        onTabChange={handleTabChange}
+        className={`${styles.banner_nav} slug_nav container observe fade-in`}
+        sticky
+        anchor
+      />
 
       <div
         className={`${styles.banner_shape} shape-before shape-before-white`}

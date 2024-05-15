@@ -2,7 +2,6 @@ import styles from './Vehicle.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
-import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import dynamic from 'next/dynamic';
 const ComparisonSlider = dynamic(
@@ -38,6 +37,43 @@ function Vehicle(props) {
 
   const convertMarkdown = useMarkdownToHtml();
 
+  let navItems = [
+    {
+      titleNav: 'Overview',
+      isVisible: data?.description ? true : false,
+    },
+    {
+      titleNav: 'Dimensions',
+      isVisible: data?.dimensions1 && data?.dimensions2 ? true : false,
+    },
+    {
+      titleNav: 'Armoring Features',
+      isVisible: data?.armoringFeatures?.data.length > 0 ? true : false,
+    },
+    {
+      titleNav: 'Conversion Accessories',
+      isVisible: data?.conversionAccessories?.data.length > 0 ? true : false,
+    },
+    {
+      titleNav: 'Communications & Electronics',
+      isVisible: data?.communications?.data.length > 0 ? true : false,
+    },
+    {
+      titleNav: 'Other Options',
+      isVisible: data?.otherOptions?.data.length > 0 ? true : false,
+    },
+    {
+      titleNav: 'Gallery',
+      isVisible: data?.gallery ? true : false,
+    },
+    {
+      titleNav: 'Request a quote',
+      button: true,
+      isVisible: true,
+    },
+  ];
+  navItems = navItems.filter((item) => item.isVisible);
+
   const banner = {
     title: data?.title,
     featuredImage: data?.featuredImage,
@@ -46,61 +82,12 @@ function Vehicle(props) {
     inventory: inventory,
     pdf: data?.pdf,
     protectionLevel: data?.protectionLevel,
+    navItems: navItems,
   };
-
-  const navItems = [
-    {
-      id: 1,
-      titleNav: 'Overview',
-    },
-    {
-      id: 2,
-      titleNav: 'Dimensions',
-    },
-    {
-      id: 3,
-      titleNav: 'Armoring Features',
-    },
-    {
-      id: 4,
-      titleNav: 'Conversion Accessories',
-    },
-    {
-      id: 5,
-      titleNav: 'Communications & Electronics',
-    },
-    {
-      id: 6,
-      titleNav: 'Other Options',
-    },
-    {
-      id: 7,
-      titleNav: 'Gallery',
-    },
-    {
-      id: 8,
-      titleNav: 'Request a quote',
-      button: true,
-    },
-  ];
 
   const formData = {
     title: data?.title,
     featuredImage: data?.featuredImage,
-  };
-
-  const handleTabChange = (index, titleNav) => {
-    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
-    const targetElement = document.getElementById(targetId);
-    const offset = 100;
-
-    const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth',
-    });
   };
 
   useEffect(() => {
@@ -164,14 +151,6 @@ function Vehicle(props) {
   return (
     <div className={`${styles.slug}`}>
       <Banner props={banner} />
-
-      <TabSlider
-        props={navItems}
-        onTabChange={handleTabChange}
-        className={`${styles.slug_nav} slug_nav container observe fade-in`}
-        sticky
-        anchor
-      />
 
       {data?.description ? (
         <div

@@ -257,11 +257,11 @@
   }
 
   &_arrows {
-    @include breakpoint(large) {
-      &_main {
-        display: none;
-      }
-    }
+    // @include breakpoint(large) {
+    //   &_main {
+    //     display: none;
+    //   }
+    // }
 
     button {
       position: absolute;
@@ -277,33 +277,41 @@
       z-index: 1;
       padding: 0;
 
-      @include breakpoint(huge) {
-        top: 8px;
-        transform: rotate(90deg);
-        right: 0;
-        left: 0;
-        margin: 0 auto;
+      @include breakpoint(large) {
+      width: rem(24);
+      height: rem(24);
       }
+
+      // @include breakpoint(huge) {
+      //   top: 8px;
+      //   transform: rotate(90deg);
+      //   right: 0;
+      //   left: 0;
+      //   margin: 0 auto;
+      // }
 
       &:nth-child(2) {
         left: auto;
         right: rem(8);
 
-        @include breakpoint(huge) {
-          top: auto;
-          left: 0;
-          right: 0;
-          bottom: 8px;
-          transform: rotate(90deg);
-        }
+        // @include breakpoint(huge) {
+        //   top: auto;
+        //   left: 0;
+        //   right: 0;
+        //   bottom: 8px;
+        //   transform: rotate(90deg);
+        // }
       }
 
       &:disabled {
         opacity: 0.3;
       }
     }
-    svg {
-      width: 16px;
-    }
+    // svg {
+    //   width: 16px;
+    //   @include breakpoint(large) {
+    //     width: 24px;
+    //   }
+    // }
   }
 }

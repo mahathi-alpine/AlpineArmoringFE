@@ -12,6 +12,22 @@
     padding: rem(32);
   }
 
+  &_nav {
+    display: none;
+    @include breakpoint(huge) {
+      display: block;
+      margin: unset;
+      position: absolute;
+      bottom: 32px;
+      left: 0;
+      color: var(--color-white);
+
+      & > div {
+        margin: unset;
+      }
+    }
+  }
+
   &_main {
     position: relative;
     z-index: 3;

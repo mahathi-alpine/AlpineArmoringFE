@@ -20,7 +20,7 @@ const Header = ({
   isNavOpen,
   isDarkMode,
   isHomepage,
-  isNotSticky,
+  // isNotSticky,
   openSearchPopup,
   isSearchVisible,
 }: HeaderProps) => {
@@ -88,10 +88,10 @@ const Header = ({
         ${styles[hState]}
         ${isDarkMode ? styles.header_transparent : ''}
         ${isNavOpen ? styles.header_navOpen : ''}
-        ${isNotSticky ? styles.header_notSticky : ''}
         ${isHomepage ? styles.header_homepage : ''}      
         b-header
       `}
+      // ${isNotSticky ? styles.header_notSticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
         <div

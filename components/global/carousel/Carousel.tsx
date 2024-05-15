@@ -181,7 +181,7 @@ const EmblaCarousel = (props) => {
             </div>
           </div>
 
-          <div
+          {/* <div
             className={`${styles.carousel_arrows} ${styles.carousel_thumbs_arrows}`}
           >
             <PrevButton
@@ -192,7 +192,7 @@ const EmblaCarousel = (props) => {
               onClick={onNextButtonClick}
               disabled={nextBtnDisabled}
             />
-          </div>
+          </div> */}
         </div>
       ) : null}
     </div>

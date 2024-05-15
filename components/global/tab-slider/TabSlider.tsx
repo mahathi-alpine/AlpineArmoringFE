@@ -148,7 +148,7 @@ const TabSlider = ({
                 ${item.button ? styles.tabSlider_nav_item_cta : ''}
               `}
               onClick={(event) => changeTab({ index, item }, event)}
-              key={item.id}
+              key={index}
             >
               {item.titleNav}
             </li>
