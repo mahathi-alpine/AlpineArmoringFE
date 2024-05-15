@@ -278,8 +278,8 @@
       padding: 0;
 
       @include breakpoint(large) {
-      width: rem(24);
-      height: rem(24);
+        width: rem(24);
+        height: rem(24);
       }
 
       // @include breakpoint(huge) {

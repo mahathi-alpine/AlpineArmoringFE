@@ -4,7 +4,7 @@
   @include breakpoint(small) {
     display: flex;
     flex-flow: column;
-    min-height: 84vH;
+    min-height: 84vh;
   }
   @include breakpoint(large) {
     max-width: 2200px;
