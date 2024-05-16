@@ -239,7 +239,7 @@
 
   &_image {
     background: linear-gradient(0, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
-    padding: rem(24) rem(16) rem(24) rem(16);
+    padding: rem(24) rem(16) rem(56) rem(16);
     @include breakpoint(small) {
       flex: 1;
     }
@@ -326,9 +326,9 @@
     z-index: 2;
 
     @include breakpoint(medium) {
-      bottom: 75px;
+      bottom: rem(50);
       left: auto;
-      right: 10px;
+      right: rem(10);
     }
 
     @include breakpoint(large) {

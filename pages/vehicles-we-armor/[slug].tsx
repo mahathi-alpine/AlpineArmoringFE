@@ -44,7 +44,8 @@ function Vehicle(props) {
     },
     {
       titleNav: 'Dimensions',
-      isVisible: data?.dimensions1 && data?.dimensions2 ? true : false,
+      isVisible:
+        data?.dimensions1?.data && data?.dimensions2?.data ? true : false,
     },
     {
       titleNav: 'Armoring Features',
@@ -64,7 +65,7 @@ function Vehicle(props) {
     },
     {
       titleNav: 'Gallery',
-      isVisible: data?.gallery ? true : false,
+      isVisible: data?.gallery?.data ? true : false,
     },
     {
       titleNav: 'Request a quote',
@@ -72,6 +73,7 @@ function Vehicle(props) {
       isVisible: true,
     },
   ];
+
   navItems = navItems.filter((item) => item.isVisible);
 
   const banner = {

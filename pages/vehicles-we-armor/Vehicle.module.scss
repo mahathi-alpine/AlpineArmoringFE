@@ -25,11 +25,10 @@
     @include breakpoint(large) {
       font-size: rem(20);
       max-width: 1400px;
-      margin-top: rem(48);
       margin-bottom: rem(70);
     }
     @include breakpoint(huge) {
-      margin-top: rem(120);
+      margin-top: rem(70);
     }
 
     p {
