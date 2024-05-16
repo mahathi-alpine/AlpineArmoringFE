@@ -23,8 +23,8 @@ function InventoryVehicle(props) {
   const category = data?.categories?.data[0]?.attributes?.title;
   const categorySlug = data?.categories?.data[0]?.attributes?.slug;
 
-  const videoWebm = data.video?.data?.attributes;
-  const videoMP4 = data.videoMP4?.data?.attributes;
+  const videoWebm = data?.video?.data?.attributes;
+  const videoMP4 = data?.videoMP4?.data?.attributes;
 
   const convertMarkdown = useMarkdownToHtml();
 
