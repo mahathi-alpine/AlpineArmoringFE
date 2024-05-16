@@ -30,6 +30,7 @@ function Inventory(props) {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
@@ -123,7 +124,7 @@ export async function getServerSideProps(context) {
       sort: 'order',
       populate: 'featuredImage,categories',
       fields:
-        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug',
+        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label',
       pageSize: 100,
     });
 
@@ -146,9 +147,6 @@ export async function getServerSideProps(context) {
     return {
       notFound: true,
     };
-    // return {
-    //   props: { pageData: null, vehicles: null, filters: null, seoData: null },
-    // };
   }
 }
 

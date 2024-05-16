@@ -87,25 +87,6 @@ function VehicleWeArmor(props) {
     setLoading(false);
   };
 
-  // Debounce function
-  // function debounce(func, wait, immediate) {
-  //   let timeout;
-  //   return function executedFunction(...args) {
-  //      const later = () => {
-  //        timeout = null;
-  //        if (!immediate) func(...args);
-  //      };
-  //      const callNow = immediate && !timeout;
-  //      clearTimeout(timeout);
-  //      timeout = setTimeout(later, wait);
-  //      if (callNow) func(...args);
-  //   };
-  //  }
-
-  // const [isFirstCall, setIsFirstCall] = useState(true);
-
-  // const fetchMoreItemsDebounced = debounce(fetchMoreItems, 1000, isFirstCall);
-
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
@@ -115,7 +96,6 @@ function VehicleWeArmor(props) {
           entry.target.classList.toggle('in-view', entry.isIntersecting);
           observer.unobserve(entry.target);
 
-          // Load more
           if (entry.target.classList.contains('bottomObserver')) {
             fetchMoreItems();
           }
@@ -130,7 +110,6 @@ function VehicleWeArmor(props) {
       observer.disconnect();
     };
   }, [currentPage, hasMore, props.vehicles.data]);
-  // }, [currentPage, hasMore, props.vehicles.data, isFirstCall]);
 
   return (
     <>
@@ -173,10 +152,6 @@ function VehicleWeArmor(props) {
     </>
   );
 }
-
-// interface InventoryProps {
-//   data: any;
-// }
 
 export async function getServerSideProps(context) {
   let pageData = await getPageData({

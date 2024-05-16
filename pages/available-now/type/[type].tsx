@@ -64,22 +64,22 @@ function Inventory(props) {
         >
           {props.filters.type ? <Filters props={props.filters} /> : null}
 
-          {vehiclesData ? (
+          {vehiclesData && vehiclesData.length > 0 ? (
             <div className={`${styles.listing_list}`}>
-              {vehiclesData.length > 0 ? (
-                vehiclesData
-                  .slice(0, itemsToRender)
-                  .filter((item) => item.attributes.ownPage !== false)
-                  .map((item, index) => (
+              {vehiclesData.reduce((acc, item, index) => {
+                if (item.attributes.ownPage !== false) {
+                  acc[index] = (
                     <InventoryItem key={item.id} props={item} index={index} />
-                  ))
-              ) : (
-                <div className={`${styles.listing_list_error}`}>
-                  No Vehicles Found
-                </div>
-              )}
+                  );
+                }
+                return acc;
+              }, [])}
             </div>
-          ) : null}
+          ) : (
+            <div className={`${styles.listing_list_error}`}>
+              No Vehicles Found
+            </div>
+          )}
         </div>
       </div>
 
@@ -97,10 +97,6 @@ function Inventory(props) {
   );
 }
 
-// interface TopBannerProps {
-//   data: any;
-// }
-
 export async function getServerSideProps(context) {
   // Fetching Vehicles
   const category = context.query.type;
@@ -116,7 +112,7 @@ export async function getServerSideProps(context) {
     sort: 'order',
     populate: 'featuredImage',
     fields:
-      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug',
+      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage',
     pageSize: 100,
   });
 
