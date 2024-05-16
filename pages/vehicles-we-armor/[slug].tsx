@@ -32,8 +32,8 @@ function Vehicle(props) {
 
   const gallery = data?.gallery?.data;
 
-  const videoWebm = data.videoUpload.data?.attributes;
-  const videoMP4 = data.videoMP4.data?.attributes;
+  const videoWebm = data?.videoUpload.data?.attributes;
+  const videoMP4 = data?.videoMP4.data?.attributes;
 
   const convertMarkdown = useMarkdownToHtml();
 
