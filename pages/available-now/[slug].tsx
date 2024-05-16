@@ -299,10 +299,47 @@ function InventoryVehicle(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
+//   const data = await getPageData({
+//     route: 'inventories',
+//     params: `filters[slug][$eq]=${context.params.slug}`,
+//   });
+
+//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+
+//   if (!data || !data.data || data.data.length === 0) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+
+//   return {
+//     props: { data, seoData },
+//   };
+// }
+
+export async function getStaticPaths() {
+  const slugsResponse = await getPageData({
+    route: 'inventories',
+    fields: 'fields[0]=slug',
+    populate: '/',
+  });
+
+  const paths = slugsResponse.data?.reduce((acc, item) => {
+    acc.push({ params: { slug: item.attributes.slug } });
+    return acc;
+  }, []);
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
   const data = await getPageData({
     route: 'inventories',
-    params: `filters[slug][$eq]=${context.params.slug}`,
+    params: `filters[slug][$eq]=${params.slug}`,
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
@@ -317,41 +354,5 @@ export async function getServerSideProps(context) {
     props: { data, seoData },
   };
 }
-
-// export async function getStaticPaths() {
-//   const slugsResponse = await getPageData({
-//     route: 'inventories',
-//     populate: 'featuredImage',
-//   });
-
-//   const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
-
-//   const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
-
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
-
-// export async function getStaticProps({ params }) {
-//   const { slug } = params;
-//   const data = await getPageData({
-//     route: 'inventories',
-//     params: `filters[slug][$eq]=${slug}`,
-//     populate: 'deep',
-//   });
-
-//   if (!data || !data.data || data.data.length === 0) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: { data },
-//     revalidate: 60,
-//   };
-// }
 
 export default InventoryVehicle;
