@@ -330,7 +330,6 @@ export async function getStaticPaths() {
       throw new Error('Invalid data format');
     }
 
-    // Reduce the data into the paths array
     const paths = slugsResponse.data.reduce((acc, item) => {
       if (item.attributes && item.attributes.slug) {
         acc.push({ params: { slug: item.attributes.slug } });

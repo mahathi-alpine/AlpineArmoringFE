@@ -341,48 +341,42 @@ function Vehicle(props) {
   );
 }
 
-// export async function getStaticPaths() {
-//   const slugsResponse = await getPageData({
-//     route: 'categories',
-//     fields: 'fields[0]=title&fields[1]=slug',
-//   });
+export async function getStaticPaths() {
+  try {
+    const slugsResponse = await getPageData({
+      route: 'vehicles-we-armors',
+      fields: 'fields[0]=slug',
+      populate: '/',
+    });
 
-//   const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
+    if (!Array.isArray(slugsResponse.data)) {
+      throw new Error('Invalid data format');
+    }
 
-//   const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
+    const paths = slugsResponse.data.reduce((acc, item) => {
+      if (item.attributes && item.attributes.slug) {
+        acc.push({ params: { slug: item.attributes.slug } });
+      }
+      return acc;
+    }, []);
 
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    console.error('Error fetching slugs:', error);
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
+}
 
-// export async function getStaticProps({ params }) {
-//   const { slug } = params;
-//   const data = await getPageData({
-//     route: 'vehicles-we-armors',
-//     params: `filters[slug][$eq]=${slug}`,
-//     populate: 'deep',
-//   });
-
-//   if (!data || !data.data || data.data.length === 0) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: { data },
-//     revalidate: 60,
-//   };
-// }
-
-export async function getServerSideProps(context) {
-  const { slug } = context.query;
-
+export async function getStaticProps({ params }) {
   const data = await getPageData({
     route: 'vehicles-we-armors',
-    params: `filters[slug][$eq]=${slug}`,
+    params: `filters[slug][$eq]=${params.slug}`,
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
@@ -397,5 +391,26 @@ export async function getServerSideProps(context) {
     props: { data, seoData },
   };
 }
+
+// export async function getServerSideProps(context) {
+//   const { slug } = context.query;
+
+//   const data = await getPageData({
+//     route: 'vehicles-we-armors',
+//     params: `filters[slug][$eq]=${slug}`,
+//   });
+
+//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+
+//   if (!data || !data.data || data.data.length === 0) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+
+//   return {
+//     props: { data, seoData },
+//   };
+// }
 
 export default Vehicle;
