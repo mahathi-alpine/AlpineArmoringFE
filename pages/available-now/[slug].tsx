@@ -319,21 +319,36 @@ function InventoryVehicle(props) {
 // }
 
 export async function getStaticPaths() {
-  const slugsResponse = await getPageData({
-    route: 'inventories',
-    fields: 'fields[0]=slug',
-    populate: '/',
-  });
+  try {
+    const slugsResponse = await getPageData({
+      route: 'inventories',
+      fields: 'fields[0]=slug',
+      populate: '/',
+    });
 
-  const paths = slugsResponse.data?.reduce((acc, item) => {
-    acc.push({ params: { slug: item.attributes.slug } });
-    return acc;
-  }, []);
+    if (!Array.isArray(slugsResponse.data)) {
+      throw new Error('Invalid data format');
+    }
 
-  return {
-    paths,
-    fallback: true,
-  };
+    // Reduce the data into the paths array
+    const paths = slugsResponse.data.reduce((acc, item) => {
+      if (item.attributes && item.attributes.slug) {
+        acc.push({ params: { slug: item.attributes.slug } });
+      }
+      return acc;
+    }, []);
+
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    console.error('Error fetching slugs:', error);
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
 }
 
 export async function getStaticProps({ params }) {
