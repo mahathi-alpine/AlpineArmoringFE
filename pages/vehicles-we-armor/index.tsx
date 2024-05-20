@@ -23,7 +23,7 @@ function VehicleWeArmor(props) {
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [router.query]);
+  }, [router.query, make, q]);
 
   const categoryOrderMap = new Map(
     props.filters.type?.map((category) => [
@@ -67,8 +67,10 @@ function VehicleWeArmor(props) {
     (vehicle) => !q || vehicle.attributes?.slug.includes(q)
   );
 
-  console.log(make);
-  console.log('ste');
+  console.log(isLoading);
+  console.log('loading');
+  console.log(vehiclesArray);
+  console.log('vehiclesArray');
   console.log(filteredByMake);
 
   const [currentPage, setCurrentPage] = useState(2);
