@@ -14,6 +14,13 @@ function VehicleWeArmor(props) {
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
 
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    if (router.isReady) {
+      setIsLoading(false);
+    }
+  }, [router.isReady]);
+
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
   }, [router.query]);
@@ -138,14 +145,10 @@ function VehicleWeArmor(props) {
             </div>
           ) : null}
 
-          {filteredByQ ? (
+          {filteredByQ?.length > 0 && !isLoading ? (
             <div className={`${styles.listing_list}`}>
-              {filteredByQ.map((vehicle, index) => (
-                <InventoryItem
-                  key={index}
-                  props={vehicle}
-                  index={index === 0 ? index : 1}
-                />
+              {filteredByQ.map((item, index) => (
+                <InventoryItem key={item.id} props={item} index={index} />
               ))}
             </div>
           ) : null}
