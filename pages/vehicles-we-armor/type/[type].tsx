@@ -82,7 +82,7 @@ function Inventory(props) {
             </div>
           ) : null}
 
-          {filteredByQ.length > 0 && !isLoading ? (
+          {filteredByQ?.length > 0 && !isLoading ? (
             <div className={`${styles.listing_list}`}>
               {filteredByQ.map((item, index) => (
                 <InventoryItem key={item.id} props={item} index={index} />
