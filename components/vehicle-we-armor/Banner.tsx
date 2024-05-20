@@ -125,7 +125,7 @@ const Banner = (props) => {
         </div>
 
         {data.featuredImage?.data ? (
-          <div className={`${styles.banner_image_wrap} observe fade-in`}>
+          <div className={`${styles.banner_image_wrap}`}>
             <Image
               src={
                 data.featuredImage.data.attributes.formats?.large.url ||
@@ -147,6 +147,7 @@ const Banner = (props) => {
               // }
               sizes="(max-width: 768px) 50vw, 100vw"
               priority
+              className={`observe fade-in`}
             />
           </div>
         ) : null}
