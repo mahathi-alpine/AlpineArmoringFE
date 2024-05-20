@@ -153,26 +153,26 @@ function VehicleWeArmor(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
   let pageData = await getPageData({
     route: 'list-vehicles-we-armor',
     populate: 'deep',
   });
   pageData = pageData?.data?.attributes || null;
 
-  let query = '';
-  if (context.query.category) {
-    query += `&filters[category][slug][$eq]=${context.query.category}`;
-  }
-  if (context.query.make) {
-    query += `&filters[make][slug][$eq]=${context.query.make}`;
-  }
-  if (context.query.q) {
-    query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
-  }
+  // let query = '';
+  // if (context.query.category) {
+  //   query += `&filters[category][slug][$eq]=${context.query.category}`;
+  // }
+  // if (context.query.make) {
+  //   query += `&filters[make][slug][$eq]=${context.query.make}`;
+  // }
+  // if (context.query.q) {
+  //   query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
+  // }
+
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
-    params: query,
     populate: 'featuredImage, category, make',
     page: 1,
     pageSize: 14,

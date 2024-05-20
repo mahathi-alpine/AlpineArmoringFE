@@ -24,8 +24,8 @@ export default function App({ Component, pageProps }) {
     const paths = [
       '/available-now',
       '/available-now/[slug]',
-      '/vehicles-we-armor',
-      '/vehicles-we-armor/[slug]',
+      // '/vehicles-we-armor',
+      // '/vehicles-we-armor/[slug]',
     ];
 
     const handleChangeStart = (url: string) => {
