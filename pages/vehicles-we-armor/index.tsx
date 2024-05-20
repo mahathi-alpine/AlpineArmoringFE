@@ -19,7 +19,7 @@ function VehicleWeArmor(props) {
     if (router.isReady) {
       setIsLoading(false);
     }
-  }, [router.isReady]);
+  }, [router.isReady, make, q]);
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
@@ -67,10 +67,6 @@ function VehicleWeArmor(props) {
     (vehicle) => !q || vehicle.attributes?.slug.includes(q)
   );
 
-  console.log(isLoading);
-  console.log('loading');
-  console.log(vehiclesArray);
-  console.log('vehiclesArray');
   console.log(filteredByMake);
 
   const [currentPage, setCurrentPage] = useState(2);
