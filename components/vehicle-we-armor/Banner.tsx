@@ -4,6 +4,8 @@ import Button from 'components/global/button/Button';
 import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
 import TabSlider from 'components/global/tab-slider/TabSlider';
+import { useIsMobile } from 'hooks/useIsMobile';
+import { useEffect, useState } from 'react';
 
 const Banner = (props) => {
   const data = props.props;
@@ -31,6 +33,36 @@ const Banner = (props) => {
       behavior: 'smooth',
     });
   };
+
+  const [hasMounted, setHasMounted] = useState(false);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const getImageDimensions = () => {
+    let width =
+      data.featuredImage.data.attributes.formats?.thumbnail?.width ||
+      data.featuredImage.data.attributes.width;
+    let height =
+      data.featuredImage.data.attributes.formats?.thumbnail?.height ||
+      data.featuredImage.data.attributes.height;
+
+    if (hasMounted && isMobile == false) {
+      width =
+        data.featuredImage.data.attributes.formats?.large?.width ||
+        data.featuredImage.data.attributes.width;
+      height =
+        data.featuredImage.data.attributes.formats?.large?.height ||
+        data.featuredImage.data.attributes.height;
+    }
+    return {
+      width,
+      height,
+    };
+  };
+  const { width, height } = getImageDimensions();
 
   return (
     <div className={`${styles.banner}`}>
@@ -93,7 +125,7 @@ const Banner = (props) => {
         </div>
 
         {data.featuredImage?.data ? (
-          <div className={`${styles.banner_image_wrap}`}>
+          <div className={`${styles.banner_image_wrap} observe fade-in`}>
             <Image
               src={
                 data.featuredImage.data.attributes.formats?.large.url ||
@@ -103,17 +135,18 @@ const Banner = (props) => {
                 data.featuredImage.data.attributes.alternativeText ||
                 'Alpine Armoring'
               }
-              quality={100}
-              priority
-              width={
-                data.featuredImage.data.attributes.formats?.large?.width ||
-                data.featuredImage.data.attributes.width
-              }
-              height={
-                data.featuredImage.data.attributes.formats?.large?.height ||
-                data.featuredImage.data.attributes.height
-              }
+              width={width}
+              height={height}
+              // width={
+              //   data.featuredImage.data.attributes.formats?.large?.width ||
+              //   data.featuredImage.data.attributes.width
+              // }
+              // height={
+              //   data.featuredImage.data.attributes.formats?.large?.height ||
+              //   data.featuredImage.data.attributes.height
+              // }
               sizes="(max-width: 768px) 50vw, 100vw"
+              priority
             />
           </div>
         ) : null}
@@ -146,7 +179,7 @@ const Banner = (props) => {
       <TabSlider
         props={data.navItems}
         onTabChange={handleTabChange}
-        className={`${styles.banner_nav} slug_nav container observe fade-in`}
+        className={`${styles.banner_nav} slug_nav container`}
         sticky
         anchor
       />

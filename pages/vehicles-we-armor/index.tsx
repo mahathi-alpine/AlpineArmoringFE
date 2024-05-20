@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 function VehicleWeArmor(props) {
   const router = useRouter();
-  const { q } = router.query;
+  const { q, make } = router.query;
   const topBanner = props.pageData?.banner;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
@@ -48,6 +48,16 @@ function VehicleWeArmor(props) {
       : '';
     return makeOrderA?.localeCompare(makeOrderB);
   });
+
+  // Filtering vehicles based on the make parameter
+  const filteredByMake = vehiclesArray.filter(
+    (vehicle) => !make || vehicle.attributes.make?.data.attributes.slug === make
+  );
+
+  // Filtering vehicles based on the q parameter
+  const filteredByQ = filteredByMake.filter(
+    (vehicle) => !q || vehicle.attributes.slug.includes(q)
+  );
 
   const [currentPage, setCurrentPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
@@ -121,15 +131,15 @@ function VehicleWeArmor(props) {
         </div>
 
         <div className={`${styles.listing_wrap} container`}>
-          {vehiclesArray?.length < 1 ? (
+          {filteredByQ?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
               <h2>No Vehicles Found</h2>
             </div>
           ) : null}
 
-          {vehiclesArray ? (
+          {filteredByQ ? (
             <div className={`${styles.listing_list}`}>
-              {vehiclesArray.map((vehicle, index) => (
+              {filteredByQ.map((vehicle, index) => (
                 <InventoryItem
                   key={index}
                   props={vehicle}
