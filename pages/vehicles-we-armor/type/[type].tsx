@@ -4,14 +4,34 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'lib/api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 function Inventory(props) {
-  let topBanner = props.filters.type?.find(
+  const router = useRouter();
+  const { make, q } = router.query;
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setIsLoading(false);
+    }
+  }, [router.isReady]);
+
+  let topBanner = props.filters?.type?.find(
     (item) => item.attributes.slug === props.query
   );
-
   topBanner = topBanner?.attributes.allBanner;
+
+  // Filtering vehicles based on the make parameter
+  const filteredByMake = props.vehicles.data.filter(
+    (vehicle) => !make || vehicle.attributes.make.data.attributes.slug === make
+  );
+
+  // Filtering vehicles based on the q parameter
+  const filteredByQ = filteredByMake.filter(
+    (vehicle) => !q || vehicle.attributes.slug.includes(q)
+  );
 
   // Animations
   useEffect(() => {
@@ -40,25 +60,31 @@ function Inventory(props) {
     };
   }, []);
 
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
     <>
       <div className={`${styles.listing}`}>
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
 
-        <div className={`${styles.listing_all_filters} container`}>
-          {props.filters.type ? <Filters props={props.filters} plain /> : null}
-        </div>
+        {props.filters?.type ? (
+          <div className={`${styles.listing_all_filters} container`}>
+            <Filters props={props.filters} plain />
+          </div>
+        ) : null}
 
         <div className={`${styles.listing_wrap} container`}>
-          {props.vehicles.data?.length < 1 ? (
+          {filteredByQ?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
               <h2>No Vehicles Found</h2>
             </div>
           ) : null}
 
-          {props.vehicles.data ? (
+          {filteredByQ.length > 0 && !isLoading ? (
             <div className={`${styles.listing_list}`}>
-              {props.vehicles.data.map((item, index) => (
+              {filteredByQ.map((item, index) => (
                 <InventoryItem key={item.id} props={item} index={index} />
               ))}
             </div>
@@ -69,22 +95,45 @@ function Inventory(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const category = context.query.type;
-  let query = `filters[category][slug][$eq]=${category}`;
-  if (context.query.make) {
-    query += `&filters[make][slug][$eq]=${context.query.make}`;
-  }
-  if (context.query.q) {
-    query += `&filters[slug][$contains]=${context.query.q.toLowerCase()}`;
-  }
+export async function getStaticPaths() {
+  try {
+    const slugsResponse = await getPageData({
+      route: 'categories',
+      fields: 'fields[0]=slug',
+      populate: '/',
+    });
 
+    if (!Array.isArray(slugsResponse.data)) {
+      throw new Error('Invalid data format');
+    }
+
+    const paths = slugsResponse.data.reduce((acc, item) => {
+      if (item.attributes && item.attributes.slug) {
+        acc.push({ params: { type: item.attributes.slug } });
+      }
+      return acc;
+    }, []);
+
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    console.error('Error fetching slugs:', error);
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
+}
+
+export async function getStaticProps({ params }) {
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
-    params: query,
+    params: `filters[category][slug][$eq]=${params.type}`,
     sort: 'title',
     pageSize: 100,
-    populate: 'featuredImage',
+    populate: 'featuredImage, make',
   });
 
   // Fetching Types and Makes for the Filters
@@ -108,13 +157,11 @@ export async function getServerSideProps(context) {
     filters = { type, make };
   }
 
-  let seoData = type?.find(
-    (item) => item.attributes.slug === context.query.type
-  );
+  let seoData = type?.find((item) => item.attributes.slug === params.type);
   seoData = seoData?.attributes.seo || null;
 
   return {
-    props: { vehicles, filters, query: context.query.type, seoData },
+    props: { vehicles, filters, query: params.type, seoData },
   };
 }
 
