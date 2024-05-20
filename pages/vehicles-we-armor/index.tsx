@@ -67,6 +67,10 @@ function VehicleWeArmor(props) {
     (vehicle) => !q || vehicle.attributes?.slug.includes(q)
   );
 
+  console.log(make);
+  console.log('ste');
+  console.log(filteredByMake);
+
   const [currentPage, setCurrentPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
 
