@@ -23,8 +23,8 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const paths = [
       '/available-now',
-      '/available-now/[slug]',
-      // '/vehicles-we-armor',
+      // '/available-now/[slug]',
+      '/vehicles-we-armor',
       // '/vehicles-we-armor/[slug]',
     ];
 

@@ -9,22 +9,14 @@ import { useEffect, useState } from 'react';
 
 function VehicleWeArmor(props) {
   const router = useRouter();
-  const { q, make } = router.query;
+  const { q } = router.query;
   const topBanner = props.pageData?.banner;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
-  const [filteredVehicles, setFilteredVehicles] = useState([]);
-
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    if (router.isReady) {
-      setIsLoading(false);
-    }
-  }, [router.isReady, make, q]);
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [router.query, make, q]);
+  }, [router.query]);
 
   const categoryOrderMap = new Map(
     props.filters.type?.map((category) => [
@@ -56,19 +48,6 @@ function VehicleWeArmor(props) {
       : '';
     return makeOrderA?.localeCompare(makeOrderB);
   });
-
-  useEffect(() => {
-    const filteredByMake = vehiclesArray?.filter(
-      (vehicle) =>
-        !make || vehicle.attributes.make?.data?.attributes?.slug === make
-    );
-
-    const filteredByQ = filteredByMake?.filter(
-      (vehicle) => !q || vehicle.attributes?.slug.includes(q)
-    );
-
-    setFilteredVehicles(filteredByQ);
-  }, [make, q]);
 
   const [currentPage, setCurrentPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
@@ -142,16 +121,20 @@ function VehicleWeArmor(props) {
         </div>
 
         <div className={`${styles.listing_wrap} container`}>
-          {filteredVehicles?.length < 1 ? (
+          {vehiclesArray?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
               <h2>No Vehicles Found</h2>
             </div>
           ) : null}
 
-          {filteredVehicles?.length > 0 && !isLoading ? (
+          {vehiclesArray ? (
             <div className={`${styles.listing_list}`}>
-              {filteredVehicles.map((item, index) => (
-                <InventoryItem key={item.id} props={item} index={index} />
+              {vehiclesArray.map((vehicle, index) => (
+                <InventoryItem
+                  key={index}
+                  props={vehicle}
+                  index={index === 0 ? index : 1}
+                />
               ))}
             </div>
           ) : null}
@@ -170,26 +153,26 @@ function VehicleWeArmor(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
   let pageData = await getPageData({
     route: 'list-vehicles-we-armor',
     populate: 'deep',
   });
   pageData = pageData?.data?.attributes || null;
 
-  // let query = '';
-  // if (context.query.category) {
-  //   query += `&filters[category][slug][$eq]=${context.query.category}`;
-  // }
-  // if (context.query.make) {
-  //   query += `&filters[make][slug][$eq]=${context.query.make}`;
-  // }
-  // if (context.query.q) {
-  //   query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
-  // }
-
+  let query = '';
+  if (context.query.category) {
+    query += `&filters[category][slug][$eq]=${context.query.category}`;
+  }
+  if (context.query.make) {
+    query += `&filters[make][slug][$eq]=${context.query.make}`;
+  }
+  if (context.query.q) {
+    query += `filters[slug][$contains]=${context.query.q.toLowerCase()}`;
+  }
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
+    params: query,
     populate: 'featuredImage, category, make',
     page: 1,
     pageSize: 14,
