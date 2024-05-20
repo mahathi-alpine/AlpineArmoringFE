@@ -13,6 +13,7 @@ function VehicleWeArmor(props) {
   const topBanner = props.pageData?.banner;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
+  const [filteredVehicles, setFilteredVehicles] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -56,18 +57,18 @@ function VehicleWeArmor(props) {
     return makeOrderA?.localeCompare(makeOrderB);
   });
 
-  // Filtering vehicles based on the make parameter
-  const filteredByMake = vehiclesArray?.filter(
-    (vehicle) =>
-      !make || vehicle.attributes.make?.data?.attributes?.slug === make
-  );
+  useEffect(() => {
+    const filteredByMake = vehiclesArray?.filter(
+      (vehicle) =>
+        !make || vehicle.attributes.make?.data?.attributes?.slug === make
+    );
 
-  // Filtering vehicles based on the q parameter
-  const filteredByQ = filteredByMake?.filter(
-    (vehicle) => !q || vehicle.attributes?.slug.includes(q)
-  );
+    const filteredByQ = filteredByMake?.filter(
+      (vehicle) => !q || vehicle.attributes?.slug.includes(q)
+    );
 
-  console.log(filteredByMake);
+    setFilteredVehicles(filteredByQ);
+  }, [make, q]);
 
   const [currentPage, setCurrentPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
@@ -141,15 +142,15 @@ function VehicleWeArmor(props) {
         </div>
 
         <div className={`${styles.listing_wrap} container`}>
-          {filteredByQ?.length < 1 ? (
+          {filteredVehicles?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
               <h2>No Vehicles Found</h2>
             </div>
           ) : null}
 
-          {filteredByQ?.length > 0 && !isLoading ? (
+          {filteredVehicles?.length > 0 && !isLoading ? (
             <div className={`${styles.listing_list}`}>
-              {filteredByQ.map((item, index) => (
+              {filteredVehicles.map((item, index) => (
                 <InventoryItem key={item.id} props={item} index={index} />
               ))}
             </div>
