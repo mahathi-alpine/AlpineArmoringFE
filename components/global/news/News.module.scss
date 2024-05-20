@@ -69,7 +69,7 @@
     }
   }
 
-  &_featured{
+  &_featured {
     .news_inner {
       @include breakpoint(large) {
         width: 100%;
@@ -110,8 +110,8 @@
     @include breakpoint(large) {
       max-width: 1320px;
 
-      &:hover{
-        .news_item_button{
+      &:hover {
+        .news_item_button {
           opacity: 1;
         }
       }
@@ -206,7 +206,7 @@
       }
       @include breakpoint(large) {
         opacity: 0;
-        transition: opacity .3s ease-out;
+        transition: opacity 0.3s ease-out;
       }
     }
 
@@ -242,14 +242,14 @@
         float: left;
         clear: none;
 
-        &:nth-child(2){
+        &:nth-child(2) {
           margin-right: 0;
         }
 
         .news_item {
           &_image {
             width: 100%;
-            img{
+            img {
               width: 100%;
               height: 100%;
             }
@@ -276,11 +276,11 @@
           &_button {
             margin-top: rem(40);
           }
-          &_tags{
+          &_tags {
             position: absolute;
             margin: 0;
             top: 1rem;
-            right: .5rem;
+            right: 0.5rem;
           }
         }
       }
@@ -301,7 +301,7 @@
             }
           }
 
-          &_tags{
+          &_tags {
             top: 1.5rem;
             right: 1rem;
           }
@@ -326,7 +326,7 @@
   }
 }
 
-.news_social{
+.news_social {
   display: flex;
   align-items: center;
   flex-flow: row;
@@ -346,7 +346,7 @@
     padding: rem(64);
   }
 
-  svg{
+  svg {
     width: 40px;
     height: 80px;
     margin-right: rem(16);
@@ -358,21 +358,21 @@
     }
   }
 
-  h3{
+  h3 {
     font-size: 18px;
     font-size: clamp(1.125rem, 0.7913rem + 1.4239vw, 2.5rem);
     font-weight: var(--font-demi);
     text-transform: uppercase;
   }
 
-  h4{
+  h4 {
     font-size: rem(14);
     font-size: clamp(0.75rem, 0.6893rem + 0.2589vw, 1rem);
     font-weight: var(--font-demi);
     color: var(--color-primary);
     margin-bottom: rem(5);
     text-transform: uppercase;
-    
+
     @include breakpoint(large) {
       margin-bottom: rem(10);
     }
