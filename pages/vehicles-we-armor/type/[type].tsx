@@ -24,8 +24,8 @@ function Inventory(props) {
   topBanner = topBanner?.attributes.allBanner;
 
   // Filtering vehicles based on the make parameter
-  const filteredByMake = props.vehicles.data.filter(
-    (vehicle) => !make || vehicle.attributes.make.data.attributes.slug === make
+  const filteredByMake = props.vehicles?.data.filter(
+    (vehicle) => !make || vehicle.attributes.make?.data.attributes.slug === make
   );
 
   // Filtering vehicles based on the q parameter
