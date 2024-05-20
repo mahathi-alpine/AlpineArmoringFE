@@ -25,12 +25,13 @@ function Inventory(props) {
 
   // Filtering vehicles based on the make parameter
   const filteredByMake = props.vehicles?.data?.filter(
-    (vehicle) => !make || vehicle.attributes.make?.data.attributes.slug === make
+    (vehicle) =>
+      !make || vehicle.attributes.make?.data?.attributes?.slug === make
   );
 
   // Filtering vehicles based on the q parameter
   const filteredByQ = filteredByMake?.filter(
-    (vehicle) => !q || vehicle.attributes.slug.includes(q)
+    (vehicle) => !q || vehicle.attributes?.slug.includes(q)
   );
 
   // Animations
