@@ -163,7 +163,7 @@ const NavigationPopup = ({
             <li
               className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_x}`}
             >
-              <Link href="https://twitter.com/AlpineArmoring" target="_blank">
+              <Link href="https://x.com/AlpineArmoring" target="_blank">
                 <XIcon color="white" />
               </Link>
             </li>

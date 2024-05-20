@@ -115,10 +115,7 @@ const Footer = (isDarkMode) => {
                 <li
                   className={`${styles.footer_socials_item} ${styles.footer_socials_item_x}`}
                 >
-                  <Link
-                    href="https://twitter.com/AlpineArmoring"
-                    target="_blank"
-                  >
+                  <Link href="https://x.com/AlpineArmoring" target="_blank">
                     <XIcon />
                   </Link>
                 </li>

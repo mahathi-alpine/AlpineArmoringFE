@@ -1,8 +1,9 @@
 import Link from 'next/link';
-// import Image from 'next/image';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import styles from './News.module.scss';
+import React from 'react';
+import XIcon from 'components/icons/X';
 
 const Blog = ({
   props,
@@ -11,12 +12,14 @@ const Blog = ({
   plain = false,
   title = '',
   subtitle = '',
+  featured = false,
 }) => {
   return (
     <div
       className={`
       ${styles.news}
       ${plain ? styles.news_plain : ''}  
+      ${featured ? styles.news_featured : ''}       
     `}
     >
       <div className={`${styles.news_inner} container_small`}>
@@ -52,83 +55,105 @@ const Blog = ({
               year: 'numeric',
             });
 
+            const isFeaturedAndThirdItem = index === 1 && featured;
+
             return (
-              <div
-                className={`
-                  ${styles.news_item} 
-                  observe fade-in-up                  
-                `}
-                // ${index === 0 ? styles.news_item_featured : ''}
-                key={index}
-              >
-                {item.attributes.thumbnail.data?.attributes.url ? (
-                  <Link
-                    href={`/news/${item.attributes.slug}`}
-                    className={`${styles.news_item_image}`}
-                  >
-                    <Image
-                      src={`${
-                        item.attributes.thumbnail.data.attributes.formats
-                          ?.medium?.url ||
-                        item.attributes.thumbnail.data.attributes.url
-                      }`}
-                      alt={
-                        item.attributes.thumbnail.data.attributes
-                          .alternativeText || 'Alpine Armoring'
-                      }
-                      width={700}
-                      height={300}
-                      sizes="(max-width: 550px) 100vw, 50vw"
-                    />
-                  </Link>
-                ) : null}
+              <React.Fragment key={index}>
+                <div
+                  className={`
+                    ${styles.news_item} 
+                    observe fade-in-up   
+                    ${
+                      (index === 0 || index === 1) && featured
+                        ? styles.news_item_featured
+                        : ''
+                    }               
+                  `}
+                  key={index}
+                >
+                  {item.attributes.thumbnail.data?.attributes.url ? (
+                    <Link
+                      href={`/news/${item.attributes.slug}`}
+                      className={`${styles.news_item_image}`}
+                    >
+                      <Image
+                        src={`${
+                          item.attributes.thumbnail.data.attributes.formats
+                            ?.medium?.url ||
+                          item.attributes.thumbnail.data.attributes.url
+                        }`}
+                        alt={
+                          item.attributes.thumbnail.data.attributes
+                            .alternativeText || 'Alpine Armoring'
+                        }
+                        width={700}
+                        height={300}
+                        sizes="(max-width: 550px) 100vw, 50vw"
+                      />
+                    </Link>
+                  ) : null}
 
-                <div className={`${styles.news_item_content}`}>
-                  <div className={`${styles.news_item_date}`}>
-                    <time dateTime={item.attributes.publishedAt}>
-                      {formattedDate}
-                    </time>
-                  </div>
-
-                  <div className={`${styles.news_item_content_main}`}>
-                    <div className={`${styles.news_item_content_main_inner}`}>
-                      {item.attributes.categories.data.length > 0 ? (
-                        <div className={`${styles.news_item_tags}`}>
-                          {item.attributes.categories.data.map(
-                            (item, index) => (
-                              <div
-                                className={`${styles.news_item_tags_item}`}
-                                key={index}
-                              >
-                                {item.attributes.name}
-                              </div>
-                            )
-                          )}
-                        </div>
-                      ) : null}
-
-                      <Link href={`/news/${item.attributes.slug}`}>
-                        <h3 className={`${styles.news_item_title}`}>
-                          {item.attributes.title}
-                        </h3>
-                      </Link>
-
-                      {item.attributes.excerpt ? (
-                        <p className={`${styles.news_item_excerpt}`}>
-                          {item.attributes.excerpt}
-                        </p>
-                      ) : null}
+                  <div className={`${styles.news_item_content}`}>
+                    <div className={`${styles.news_item_date}`}>
+                      <time dateTime={item.attributes.publishedAt}>
+                        {formattedDate}
+                      </time>
                     </div>
 
-                    <Button
-                      href={`/news/${item.attributes.slug}`}
-                      className={`${styles.news_item_button} rounded border desktop-only`}
-                    >
-                      Read More
-                    </Button>
+                    <div className={`${styles.news_item_content_main}`}>
+                      <div className={`${styles.news_item_content_main_inner}`}>
+                        {item.attributes.categories.data.length > 0 ? (
+                          <div className={`${styles.news_item_tags}`}>
+                            {item.attributes.categories.data.map(
+                              (item, index) => (
+                                <div
+                                  className={`${styles.news_item_tags_item}`}
+                                  key={index}
+                                >
+                                  {item.attributes.name}
+                                </div>
+                              )
+                            )}
+                          </div>
+                        ) : null}
+
+                        <Link href={`/news/${item.attributes.slug}`}>
+                          <h3 className={`${styles.news_item_title}`}>
+                            {item.attributes.title}
+                          </h3>
+                        </Link>
+
+                        {item.attributes.excerpt ? (
+                          <p className={`${styles.news_item_excerpt}`}>
+                            {item.attributes.excerpt}
+                          </p>
+                        ) : null}
+                      </div>
+
+                      <Button
+                        href={`/news/${item.attributes.slug}`}
+                        className={`${styles.news_item_button} rounded border desktop-only`}
+                      >
+                        Read More
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
+
+                {isFeaturedAndThirdItem ? (
+                  <Link
+                    className={`${styles.news_social}`}
+                    href="https://x.com/AlpineArmoring"
+                    target="_blank"
+                  >
+                    <XIcon />
+                    <div className={`${styles.news_social_content}`}>
+                      <h4>Alpine Armoring X</h4>
+                      <h3>Follow Us on X</h3>
+                    </div>
+                  </Link>
+                ) : null}
+              </React.Fragment>
             );
           })}
         </div>

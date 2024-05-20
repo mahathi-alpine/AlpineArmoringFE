@@ -1,6 +1,7 @@
 import styles from './Banner.module.scss';
 import { BannerProps } from 'types';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 import Image from 'next/image';
 
@@ -69,14 +70,36 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
     }
   }, []);
 
+  const [hasMounted, setHasMounted] = useState(false);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const getImageDimensions = () => {
+    let width = bannerImage.formats?.thumbnail?.width || bannerImage.width;
+    let height = bannerImage.formats?.thumbnail?.height || bannerImage.height;
+    if (hasMounted && isMobile == false) {
+      width = bannerImage.formats?.xlarge?.width || bannerImage.width;
+      height = bannerImage.formats?.xlarge?.height || bannerImage.height;
+    }
+    return {
+      width,
+      height,
+    };
+  };
+
   let mediaElement;
   if (bannerImage && bannerMimeType?.split('/')[0] === 'image') {
+    const { width, height } = getImageDimensions();
+
     mediaElement = (
       <Image
         src={`${bannerImage?.formats?.xlarge?.url || bannerImage.url}`}
         alt={bannerImage?.alternativeText || 'Alpine Armoring'}
-        width={bannerImage.formats?.xlarge?.width || bannerImage.width}
-        height={bannerImage.formats?.xlarge?.height || bannerImage.height}
+        width={width}
+        height={height}
         className={`${styles.banner_media}`}
         priority
         sizes="100vw"
