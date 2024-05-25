@@ -151,12 +151,10 @@ body {
   }
 }
 
-
-
 $shapeSize: 32px;
 $shapeRotation: 180deg;
 $shapeColor: var(--color-background);
-.shapeCurved{  
+.shapeCurved {
   position: absolute;
   overflow: hidden;
   height: $shapeSize;
@@ -165,12 +163,12 @@ $shapeColor: var(--color-background);
   right: 0;
   bottom: -$shapeSize;
 
-  &_left{
+  &_left {
     left: -$shapeSize;
     top: 0;
   }
 
-  &_rightTop{
+  &_rightTop {
     top: $shapeSize;
     right: -$shapeSize;
     bottom: auto;
@@ -178,18 +176,18 @@ $shapeColor: var(--color-background);
     transform: rotate(90deg);
   }
 
-  &_topLeft{
+  &_topLeft {
     left: 0;
     top: -12px;
     transform: none;
   }
-  &_topRight{
+  &_topRight {
     right: 0;
     top: -12px;
     transform: rotate(-90deg);
   }
 
-  &_bottomLeft{
+  &_bottomLeft {
     left: 0;
     bottom: -$shapeSize;
     right: auto;
@@ -197,12 +195,12 @@ $shapeColor: var(--color-background);
     transform: rotate(90deg);
   }
 
-  &_leftBottom{
+  &_leftBottom {
     bottom: 0;
     height: $shapeSize / 2;
     width: $shapeSize / 2;
     left: -$shapeSize / 2;
-    transform: rotate(-90deg);    
+    transform: rotate(-90deg);
     @include breakpoint(large) {
       height: $shapeSize * 2;
       width: $shapeSize * 2;
@@ -210,12 +208,12 @@ $shapeColor: var(--color-background);
     }
   }
 
-  &_rightBottom{
+  &_rightBottom {
     bottom: 0;
     right: -$shapeSize / 2;
     height: $shapeSize / 2;
     width: $shapeSize / 2;
-    transform: none;   
+    transform: none;
     @include breakpoint(large) {
       height: $shapeSize * 2;
       width: $shapeSize * 2;
@@ -234,11 +232,11 @@ $shapeColor: var(--color-background);
     border-radius: 50%;
   }
 
-  &_white:before{
-    box-shadow: 0 0 0 $shapeSize var(--color-white);  
+  &_white:before {
+    box-shadow: 0 0 0 $shapeSize var(--color-white);
   }
 
-  &_small{
+  &_small {
     width: 12px;
     height: 12px;
   }
