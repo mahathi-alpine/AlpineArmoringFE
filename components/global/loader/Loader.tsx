@@ -66,10 +66,10 @@ const Default = (type) => {
       {type.type === '4' ? (
         <div className="loaderAbsolute">
           <div className="loaderAbsolute_inner">
-            <div className="text">
+            {/* <div className="text">
               <span>Loading</span>
               <span className="dots">...</span>
-            </div>
+            </div> */}
             <img src="/assets/Alpine-loading-icon.gif" />
           </div>
         </div>
