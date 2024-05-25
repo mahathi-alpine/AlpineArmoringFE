@@ -123,6 +123,11 @@ small {
     margin-bottom: rem(24);
     font-size: var(--bodySize);
   }
+  a{
+    color: var(--color-primary);
+    font-weight: var(--font-medium);
+    text-decoration: underline;
+  }
   br {
     display: block;
     margin: 10px 0;

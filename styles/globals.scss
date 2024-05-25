@@ -28,6 +28,12 @@ body {
   height: 100vh;
 }
 
+.large-only {
+  @include breakpoint(untilDesktop) {
+    display: none !important;
+  }
+}
+
 .desktop-only {
   @include breakpoint(small) {
     display: none !important;
@@ -144,6 +150,100 @@ body {
     top: 0;
   }
 }
+
+
+
+$shapeSize: 32px;
+$shapeRotation: 180deg;
+$shapeColor: var(--color-background);
+.shapeCurved{  
+  position: absolute;
+  overflow: hidden;
+  height: $shapeSize;
+  width: $shapeSize;
+  transform: rotate($shapeRotation);
+  right: 0;
+  bottom: -$shapeSize;
+
+  &_left{
+    left: -$shapeSize;
+    top: 0;
+  }
+
+  &_rightTop{
+    top: $shapeSize;
+    right: -$shapeSize;
+    bottom: auto;
+    left: auto;
+    transform: rotate(90deg);
+  }
+
+  &_topLeft{
+    left: 0;
+    top: -12px;
+    transform: none;
+  }
+  &_topRight{
+    right: 0;
+    top: -12px;
+    transform: rotate(-90deg);
+  }
+
+  &_bottomLeft{
+    left: 0;
+    bottom: -$shapeSize;
+    right: auto;
+    top: auto;
+    transform: rotate(90deg);
+  }
+
+  &_leftBottom{
+    bottom: 0;
+    height: $shapeSize / 2;
+    width: $shapeSize / 2;
+    left: -$shapeSize / 2;
+    transform: rotate(-90deg);    
+    @include breakpoint(large) {
+      height: $shapeSize * 2;
+      width: $shapeSize * 2;
+      left: -$shapeSize * 2;
+    }
+  }
+
+  &_rightBottom{
+    bottom: 0;
+    right: -$shapeSize / 2;
+    height: $shapeSize / 2;
+    width: $shapeSize / 2;
+    transform: none;   
+    @include breakpoint(large) {
+      height: $shapeSize * 2;
+      width: $shapeSize * 2;
+      right: -$shapeSize * 2;
+    }
+  }
+
+  &:before {
+    position: absolute;
+    content: '';
+    left: 0%;
+    top: -100%;
+    box-shadow: 0 0 0 $shapeSize $shapeColor;
+    height: 200%;
+    width: 200%;
+    border-radius: 50%;
+  }
+
+  &_white:before{
+    box-shadow: 0 0 0 $shapeSize var(--color-white);  
+  }
+
+  &_small{
+    width: 12px;
+    height: 12px;
+  }
+}
+
 .skiptranslate,
 .VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
   display: none !important;

@@ -32,6 +32,13 @@ const Categories = ({ props, allVehiclesImage }) => {
             ) : null}
 
             <div className={`${styles.categories_item_content}`}>
+              <div
+                className={`shapeCurved_topLeft shapeCurved_small shapeCurved_white shapeCurved`}
+              ></div>
+              <div
+                className={`shapeCurved_topRight shapeCurved_small shapeCurved_white shapeCurved`}
+              ></div>
+
               <div className={`${styles.categories_item_content_inner}`}>
                 {data.title ? (
                   <h3 className={`${styles.categories_item_title}`}>
@@ -83,6 +90,13 @@ const Categories = ({ props, allVehiclesImage }) => {
         ) : null}
 
         <div className={`${styles.categories_item_content}`}>
+          <div
+            className={`shapeCurved_topLeft shapeCurved_small shapeCurved_white shapeCurved`}
+          ></div>
+          <div
+            className={`shapeCurved_topRight shapeCurved_small shapeCurved_white shapeCurved`}
+          ></div>
+
           <div className={`${styles.categories_item_content_inner}`}>
             <h3 className={`${styles.categories_item_title}`}>
               All &nbsp;Armored Vehicles

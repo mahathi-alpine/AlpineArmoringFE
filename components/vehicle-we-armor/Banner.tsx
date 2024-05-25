@@ -71,6 +71,9 @@ const Banner = (props) => {
           {data.title ? (
             <h1 dangerouslySetInnerHTML={{ __html: data.title }}></h1>
           ) : null}
+          <div
+            className={`shapeCurved_bottomLeft shapeCurved large-only`}
+          ></div>
         </div>
 
         <div className={`${styles.banner_content}`}>
@@ -100,6 +103,8 @@ const Banner = (props) => {
             ) : null}
           </div>
         </div>
+
+        <div className={`shapeCurved_rightTop shapeCurved large-only`}></div>
       </div>
 
       <div className={`${styles.banner_image}`}>
@@ -174,6 +179,8 @@ const Banner = (props) => {
               <span key={index}>{item}</span>
             ))}
           </div>
+          <div className={`shapeCurved_left shapeCurved`}></div>
+          <div className={`shapeCurved_right shapeCurved`}></div>
         </div>
       </div>
 

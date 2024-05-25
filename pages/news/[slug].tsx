@@ -26,7 +26,7 @@ function BlogSingle(props) {
 
   return (
     <div className={`${styles.blogSingle}`}>
-      <div className={`container_small`}>
+      <div className={`${styles.blogSingle_inner} container_small`}>
         <Link href="/news" className={`${styles.blogSingle_back}`}>
           <ArrowIcon />
           All News
@@ -44,8 +44,8 @@ function BlogSingle(props) {
               data.thumbnail.data.attributes.alternativeText ||
               'Alpine Armoring'
             }
-            width={1500}
-            height={800}
+            width={1280}
+            height={700}
             // sizes={
             // index === 0
             //     ? '(min-width: 1280px ) 75vw, 100vw'
@@ -78,40 +78,6 @@ function BlogSingle(props) {
   );
 }
 
-// export async function getStaticPaths() {
-//   const slugsResponse = await getPageData({
-//     route: 'blogs',
-//   });
-
-//   const slugs = slugsResponse.data?.map((item) => item.attributes.slug);
-
-//   const paths = slugs ? slugs.map((slug) => ({ params: { slug } })) : [];
-
-//   return {
-//     paths,
-//     fallback: 'blocking',
-//   };
-// }
-
-// export async function getStaticProps({ params }) {
-//   const { slug } = params;
-//   const data = await getPageData({
-//     route: 'blogs',
-//     params: `filters[slug][$eq]=${slug}`,
-//     populate: 'deep',
-//   });
-
-//   if (!data || !data.data || data.data.length === 0) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: { data },
-//     revalidate: 60,
-//   };
-// }
 export async function getServerSideProps(context) {
   const { slug } = context.query;
 

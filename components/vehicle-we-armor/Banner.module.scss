@@ -52,18 +52,6 @@
       border-bottom-right-radius: 32px;
       padding: rem(24) rem(40) rem(24) rem(24);
       text-align: left;
-
-      &:after {
-        position: absolute;
-        content: '';
-        top: 31px;
-        right: -31px;
-        height: 32px;
-        width: 32px;
-        background: url('/assets/smallCurveBg.svg') no-repeat;
-        background-size: cover;
-        transform: rotate(90deg);
-      }
     }
   }
 
@@ -83,18 +71,6 @@
       padding-right: rem(48);
       z-index: 2;
       padding: 0;
-
-      &:before {
-        position: absolute;
-        content: '';
-        left: -1px;
-        bottom: -31px;
-        height: 32px;
-        width: 32px;
-        background: url('/assets/smallCurveBg.svg') no-repeat;
-        background-size: cover;
-        transform: rotate(90deg);
-      }
     }
   }
 
@@ -176,30 +152,6 @@
       border-bottom-left-radius: 32px;
       font-size: rem(16);
       z-index: 1;
-
-      &:before {
-        position: absolute;
-        content: '';
-        left: -31px;
-        top: -1px;
-        height: 32px;
-        width: 32px;
-        background: url('/assets/smallCurveBg.svg') no-repeat;
-        background-size: cover;
-        transform: rotate(180deg);
-      }
-
-      &:after {
-        position: absolute;
-        content: '';
-        right: -1px;
-        bottom: -31px;
-        height: 32px;
-        width: 32px;
-        background: url('/assets/smallCurveBg.svg') no-repeat;
-        background-size: cover;
-        transform: rotate(180deg);
-      }
     }
 
     &_levels {

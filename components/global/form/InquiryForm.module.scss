@@ -29,29 +29,6 @@
     margin-left: auto;
   }
 
-  &:before,
-  &:after {
-    position: absolute;
-    content: '';
-    bottom: -1px;
-    height: 16px;
-    width: 16px;
-    background: url('/assets/smallCurveBg.svg') no-repeat;
-    background-size: cover;
-    @include breakpoint(large) {
-      height: 64px;
-      width: 64px;
-    }
-  }
-
-  &:before {
-    left: -16px;
-    transform: rotate(-90deg);
-    @include breakpoint(large) {
-      left: -64px;
-    }
-  }
-
   &:after {
     right: -16px;
     @include breakpoint(large) {

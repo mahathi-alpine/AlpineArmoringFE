@@ -14,6 +14,8 @@ const InquiryForm = (props) => {
                 ${props.plain ? styles.inquiry_form_plain : ''}
             `}
       >
+        <div className={`shapeCurved_leftBottom shapeCurved`}></div>
+
         <div className={`${styles.inquiry_form_inner} container_small`}>
           <div className={`${styles.inquiry_form_left}`}>
             <div className={`${styles.inquiry_form_heading}`}>
@@ -66,6 +68,8 @@ const InquiryForm = (props) => {
 
           <Form />
         </div>
+
+        <div className={`shapeCurved_rightBottom shapeCurved`}></div>
       </div>
     </div>
   );
