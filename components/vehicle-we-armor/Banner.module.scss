@@ -1,11 +1,10 @@
 .banner {
   position: relative;
-  padding-top: rem(24);
+  padding-top: rem(32);
   @include breakpoint(small) {
     display: flex;
     flex-flow: column;
-    justify-content: center;
-    min-height: 83vh;
+    min-height: 80vh;
   }
   @include breakpoint(large) {
     max-width: 2200px;
@@ -193,9 +192,9 @@
   &_image {
     background: linear-gradient(0, #d0d0d2 20%, hsla(240, 2%, 82%, 0));
     padding: rem(24) rem(16) rem(72) rem(16);
-    // @include breakpoint(small) {
-    //   flex: 1;
-    // }
+    @include breakpoint(small) {
+      flex: 1;
+    }
 
     @include breakpoint(large) {
       position: relative;
