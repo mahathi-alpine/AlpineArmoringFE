@@ -224,8 +224,8 @@ const Form = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  function escapeHTML(str) {
-    return str.replace(/[&<>"'/]/g, function (char) {
+  function sanitizeInput(input) {
+    return input.replace(/[&<>"'/\w\s]/g, function (char) {
       switch (char) {
         case '&':
           return '&amp;';
@@ -311,8 +311,9 @@ const Form = () => {
     setErrors(newErrors);
 
     const hasError = Object.values(newErrors).some((error) => error !== '');
+
     if (!hasError) {
-      const sanitizedMessage = escapeHTML(message);
+      const sanitizedMessage = sanitizeInput(message);
 
       const submitBtn = document.querySelector('.submitButton');
       submitBtn.classList.add('submiting');

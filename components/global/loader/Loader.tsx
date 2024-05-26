@@ -70,7 +70,7 @@ const Default = (type) => {
               <span>Loading</span>
               <span className="dots">...</span>
             </div> */}
-            <img src="/assets/Alpine-loading-icon.gif" />
+            <img src="/assets/Alpine-loading-icon-clean.gif" />
           </div>
         </div>
       ) : null}
