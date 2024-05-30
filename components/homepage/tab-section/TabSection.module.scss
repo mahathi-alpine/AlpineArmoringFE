@@ -115,7 +115,7 @@
     &_title {
       font-size: rem(18);
       margin-bottom: rem(16);
-      font-weight: var(--font-regular);
+      font-weight: var(--font-light);
       @include breakpoint(medium) {
         margin-bottom: rem(32);
         font-size: rem(22);

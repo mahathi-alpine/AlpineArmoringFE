@@ -26,6 +26,10 @@
     }
   }
 
+  section {
+    font-weight: var(--font-thin);
+  }
+
   &_container_small {
     @include breakpoint(large) {
       width: 73%;
@@ -43,6 +47,7 @@
     display: block;
     font-size: rem(14);
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
+    font-weight: var(--font-thin);
     line-height: 1.25;
     margin: rem(16) 0;
 

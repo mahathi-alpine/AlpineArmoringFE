@@ -43,6 +43,10 @@ function Vehicle(props) {
       isVisible: data?.description ? true : false,
     },
     {
+      titleNav: 'Gallery',
+      isVisible: data?.gallery?.data ? true : false,
+    },
+    {
       titleNav: 'Dimensions',
       isVisible:
         data?.dimensions1?.data && data?.dimensions2?.data ? true : false,
@@ -62,10 +66,6 @@ function Vehicle(props) {
     {
       titleNav: 'Other Options',
       isVisible: data?.otherOptions?.data.length > 0 ? true : false,
-    },
-    {
-      titleNav: 'Gallery',
-      isVisible: data?.gallery?.data ? true : false,
     },
     {
       titleNav: 'Request a quote',
@@ -167,6 +167,15 @@ function Vehicle(props) {
               __html: convertMarkdown(data.description),
             }}
           ></div>
+        </div>
+      ) : null}
+
+      {gallery ? (
+        <div
+          className={`${styles.slug_gallery} observe fade-in anchor`}
+          id="gallery"
+        >
+          <Gallery props={gallery} white regular />
         </div>
       ) : null}
 
@@ -306,14 +315,14 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {gallery ? (
+      {/* {gallery ? (
         <div
           className={`${styles.slug_gallery} observe fade-in anchor`}
           id="gallery"
         >
           <Gallery props={gallery} white regular />
         </div>
-      ) : null}
+      ) : null} */}
 
       {videoWebm || videoMP4 ? (
         <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />

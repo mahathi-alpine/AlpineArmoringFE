@@ -37,7 +37,7 @@ i {
 }
 strong,
 b {
-  font-weight: var(--font-demi);
+  font-weight: var(--font-medium);
 }
 
 .bold {
@@ -51,7 +51,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-weight: var(--font-medium);
+  font-weight: var(--font-regular);
   line-height: 1.2;
 }
 
