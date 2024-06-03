@@ -17,6 +17,21 @@ const ScrollToTopButton = dynamic(
 const termina = localFont({
   src: [
     {
+      path: '../public/fonts/Termina-ExtraLight.woff2',
+      weight: '100',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Termina-Light.woff2',
+      weight: '200',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Termina-Thin.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
       path: '../public/fonts/Termina-Regular.woff2',
       weight: '400',
       style: 'normal',

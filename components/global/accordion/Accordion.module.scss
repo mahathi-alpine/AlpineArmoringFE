@@ -29,7 +29,7 @@
       align-items: center;
       font-size: rem(15);
       font-size: clamp(0.9375rem, 0.9072rem + 0.1294vw, 1.0625rem);
-      font-weight: var(--font-medium);
+      font-weight: var(--font-regular);
 
       &_title {
         flex: 1;
@@ -46,6 +46,7 @@
       &_text {
         display: block;
         padding-top: rem(16);
+        font-weight: var(--font-light);
 
         a {
           color: var(--color-primary);

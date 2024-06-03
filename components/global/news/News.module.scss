@@ -55,7 +55,7 @@
     &_secondary {
       margin-bottom: rem(8);
       font-size: rem(18);
-      font-weight: var(--font-demi);
+      font-weight: var(--font-medium);
       color: var(--color-primary);
       @include breakpoint(medium) {
         font-size: rem(32);
@@ -64,7 +64,7 @@
     &_primary {
       font-size: rem(32);
       font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
-      font-weight: var(--font-demi);
+      font-weight: var(--font-light);
       line-height: 1.1;
     }
   }
@@ -213,6 +213,7 @@
     &_title {
       font-size: rem(19);
       font-size: clamp(1.1875rem, 0.9903rem + 0.8414vw, 2rem);
+      font-weight: var(--font-extralight);
       letter-spacing: -1px;
       @include breakpoint(medium) {
         margin-bottom: rem(16);

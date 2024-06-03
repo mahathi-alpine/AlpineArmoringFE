@@ -24,7 +24,7 @@
       font-size: rem(33);
       margin-bottom: rem(8);
       text-transform: uppercase;
-      font-weight: var(--font-demi);
+      font-weight: var(--font-medium);
       @include breakpoint(large) {
         font-size: rem(40);
       }
@@ -33,7 +33,7 @@
     &_subheading {
       font-size: rem(17);
       color: var(--color-primary);
-      font-weight: var(--font-demi);
+      font-weight: var(--font-medium);
       @include breakpoint(large) {
         font-size: rem(20);
       }

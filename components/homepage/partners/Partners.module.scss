@@ -14,6 +14,10 @@
     flex-wrap: wrap;
   }
 
+  span {
+    font-weight: var(--font-regular);
+  }
+
   &_item {
     display: flex;
     align-items: center;

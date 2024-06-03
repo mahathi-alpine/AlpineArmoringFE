@@ -3,7 +3,7 @@
     margin-bottom: rem(16);
     text-transform: uppercase;
     color: var(--color-primary);
-    font-weight: var(--font-demi);
+    font-weight: var(--font-regular);
     white-space: pre-wrap;
     font-size: rem(20);
     font-size: clamp(1.25rem, 1.1286rem + 0.5178vw, 1.75rem);
@@ -17,6 +17,7 @@
     display: block;
     margin-bottom: rem(16);
     font-size: rem(15);
+    font-weight: var(--font-light);
     @include breakpoint(large) {
       font-size: rem(20);
       font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
@@ -27,6 +28,7 @@
     font-size: rem(14);
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
     line-height: 1.25;
+    font-weight: var(--font-light);
 
     p {
       margin-bottom: rem(16);
