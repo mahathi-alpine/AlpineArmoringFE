@@ -53,7 +53,7 @@ const Accordion = ({ items, title = '', button = false }) => {
       {button ? (
         <div className={`${styles.accordion_button} center`}>
           <Button href="/faqs" className={`primary rounded`}>
-            More FAQs
+            More FAQ
           </Button>
         </div>
       ) : null}

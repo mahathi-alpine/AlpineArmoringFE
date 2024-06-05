@@ -484,14 +484,12 @@ const Form = () => {
         className={`${styles.form_group} ${errors.company ? styles.error : ''}`}
       >
         <Dropdown
-          label="Company"
+          label="Customer Type"
           options={[
-            'Private Government',
-            'US governmental agencies',
-            'Foreign governmental agencies',
-            'Private sector',
+            'US Government Agencies',
+            'Foreign Government Agencies',
+            'Private Sector',
             'Individual',
-            'Nonprofit',
             'NGO',
             'Other',
           ]}
@@ -507,7 +505,7 @@ const Form = () => {
         className={`${styles.form_group} ${errors.inquiry ? styles.error : ''}`}
       >
         <Dropdown
-          label="Inquiry"
+          label="Your Inquiry"
           options={[
             'SUVs & Sedans',
             'SWAT & APC Trucks',
@@ -516,7 +514,7 @@ const Form = () => {
             'Rental Vehicles',
             'Parts & Accessories',
             'Warranty Related',
-            'Interested in Becoming a Dealer',
+            'To Become a Dealer',
             'Employment Opportunity',
             'Other',
           ]}
@@ -582,7 +580,7 @@ const Form = () => {
           onClick={handleSubmit}
           className={`${styles.form_submit_button} submitButton primary rounded`}
         >
-          Send message
+          Send Message
         </Button>
       </div>
     </div>

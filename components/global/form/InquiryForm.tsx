@@ -28,11 +28,11 @@ const InquiryForm = (props) => {
                   }}
                 ></strong>
               </p>
-              {!props.plain ? (
+              {/* {!props.plain ? (
                 <span>
                   Vehicle ID: <strong>{props?.vehicleID}</strong>
                 </span>
-              ) : null}
+              ) : null} */}
             </div>
 
             {props?.featuredImage?.data ? (
@@ -64,6 +64,13 @@ const InquiryForm = (props) => {
                 }
               />
             ) : null}
+            <div className={`${styles.inquiry_form_heading}`}>
+              {!props.plain ? (
+                <span>
+                  Vehicle ID: <strong>{props?.vehicleID}</strong>
+                </span>
+              ) : null}
+            </div>
           </div>
 
           <Form />

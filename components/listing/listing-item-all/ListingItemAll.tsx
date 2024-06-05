@@ -35,7 +35,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
             className={`${styles.listing_item_button} desktop-only primary small`}
             button
           >
-            View Vehicle
+            View Details
           </Button>
         </div>
 

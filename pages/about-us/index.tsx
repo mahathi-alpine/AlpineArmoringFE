@@ -45,6 +45,14 @@ function About(props) {
           <Banner props={props.pageData.banner} center shape="white" />
         ) : null}
 
+        {props.pageData?.bannerTitle ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(props.pageData.bannerTitle),
+            }}
+          ></div>
+        ) : null}
+
         {props.pageData?.text ? (
           <div
             className={`${styles.about_text} observe fade-in container_small`}

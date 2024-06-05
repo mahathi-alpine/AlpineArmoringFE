@@ -60,7 +60,7 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
       ) : null}
 
       <Button button className={`${styles.tradeShowsSingle_link}`}>
-        View Pics
+        View
       </Button>
     </div>
   );

@@ -8,9 +8,9 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
   const router = useRouter();
 
   const links = [
-    { path: '/about-us', text: 'About Us' },
-    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
     { path: '/available-now', text: 'Available Now' },
+    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
+    { path: '/', text: 'Ballistic Testing' },
   ];
 
   return (

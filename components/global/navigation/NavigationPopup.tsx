@@ -28,12 +28,13 @@ const NavigationPopup = ({
   const router = useRouter();
 
   const links = [
-    { path: '/about-us', text: 'About Us' },
-    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
     { path: '/available-now', text: 'Available Now' },
+    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
+    { path: '/', text: 'Ballistic Testing' },
   ];
 
   const linksRight = [
+    { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/media', text: 'News & Media' },
     { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
@@ -42,6 +43,8 @@ const NavigationPopup = ({
     { path: '/shipping-and-logistics', text: 'Shipping & Logistics' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/contact', text: 'Contact' },
+    { path: '/faqs', text: 'FAQ' },
+    { path: '/', text: '' },
   ];
 
   const handleSearchClick = () => {

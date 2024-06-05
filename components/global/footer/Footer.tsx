@@ -24,7 +24,7 @@ const Footer = (isDarkMode) => {
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     { path: '/media', text: 'News & Media' },
     { path: '/available-now/type/armored-pre-owned', text: 'Pre-owned' },
-    { path: '/faqs', text: 'FAQs' },
+    { path: '/faqs', text: 'FAQ' },
     { path: '/contact', text: 'Contact Us' },
   ];
 
@@ -89,10 +89,8 @@ const Footer = (isDarkMode) => {
               </ul>
             </div>
 
-            <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>
-                FOLLOW US ON SOCIALS
-              </h3>
+            <div className={`${styles.footer_column_social}`}>
+              <h3 className={`${styles.footer_column_title}`}>FOLLOW US ON</h3>
               <ul className={`${styles.footer_socials}`}>
                 <li className={`${styles.footer_socials_item}`}>
                   <Link

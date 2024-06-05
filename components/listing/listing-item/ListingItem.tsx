@@ -37,7 +37,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         ) : null}
 
         <div className={`${styles.inventory_item_button}`}>
-          <span>VIEW VEHICLE</span>
+          <span>VIEW DETAILS</span>
         </div>
 
         {data.flag && data.label ? (
