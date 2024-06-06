@@ -61,6 +61,13 @@
       padding-bottom: rem(20);
     }
 
+    &_social {
+      padding-bottom: rem(40);
+      @media (min-width: 1200px) {
+        display: flex;
+      }
+    }
+
     &_title {
       margin-bottom: rem(32);
       font-size: rem(20);
@@ -149,6 +156,13 @@
     display: flex;
     justify-content: space-between;
     max-width: 315px;
+
+    &_item{
+      margin-left: rem(32);
+      @media (max-width: 1200px) {
+        margin-left: 0;
+      }
+    }
 
     .footer_dark & {
       &_item {

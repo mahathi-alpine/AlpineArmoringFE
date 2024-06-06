@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
 import Gallery from 'components/global/carousel/CarouselCurved';
+import Counter from 'components/global/counter/Counter';
 
 function About(props) {
   const boxes = props?.pageData?.boxes;
@@ -61,6 +62,23 @@ function About(props) {
             }}
           ></div>
         ) : null}
+
+        <div className={styles.counter_section}>
+          <div className={styles.counter_grid}>
+            <div className={styles.counter_box}>
+              <h3>Countries We Serviced</h3>
+              <Counter start={0} end={100} duration={2} />
+            </div>
+            <div className={styles.counter_box}>
+              <h3>Years In Business</h3>
+              <Counter start={0} end={30} duration={2} />
+            </div>
+            <div className={styles.counter_box}>
+              <h3>Makes & Models We Armored</h3>
+              <Counter start={0} end={1000} duration={2} />
+            </div>
+          </div>
+        </div>
 
         <div className={`${styles.about_box_wrap}`}>
           {boxes?.map((item, index) => (

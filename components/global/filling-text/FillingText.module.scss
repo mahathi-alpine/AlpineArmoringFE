@@ -21,7 +21,10 @@
 
   &_text {
     font-size: clamp(1.375rem, 0.8rem + 0.6vw, 2.5rem);
-    font-weight: var(--font-light);
+    font-weight: var(--font-regular);
+    @include breakpoint(small) {
+      font-size: clamp(1rem, 0.75rem + 0.625vw, 1.25rem);
+    }
 
     .fillingText_small & {
       font-size: rem(15);

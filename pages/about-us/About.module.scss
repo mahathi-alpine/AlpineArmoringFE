@@ -4,7 +4,7 @@
   &_text {
     margin: rem(8) auto rem(24) auto;
     font-size: rem(15);
-    font-weight: var(--font-light);
+    font-weight: var(--font-regular);
     @include breakpoint(medium) {
       margin: rem(24) auto rem(24) auto;
     }
@@ -153,5 +153,27 @@
   &_bottom_img {
     display: flex;
     justify-content: center;
+  }
+  .counter_section {
+    margin: 40px;
+  }
+  
+  .counter_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .counter_box {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .counter_grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
   }
 }

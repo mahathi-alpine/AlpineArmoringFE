@@ -2,10 +2,13 @@ import styles from './Banner.module.scss';
 import { BannerProps } from 'types';
 import React, { useRef, useEffect, useState } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
+import { useRouter } from 'next/router';
 
 import Image from 'next/image';
 
 const TopBanner = ({ props, shape, center, small }: BannerProps) => {
+  const router = useRouter(); // Initialize useRouter
+  const currentRoute = router.pathname; // Get the current route
   const bannerImage = props.media.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
@@ -141,29 +144,47 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
     >
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
-
-        <div className={`${styles.banner_content}`}>
-          <div className={`${styles.banner_text} observe fade-in-scale`}>
-            {bannerTitle ? (
-              <h1
-                className={`${styles.banner_title}`}
-                dangerouslySetInnerHTML={{ __html: bannerTitle }}
-              ></h1>
-            ) : null}
-            {bannerDescription ? (
-              <h2
-                className="observe fade-in"
-                dangerouslySetInnerHTML={{ __html: bannerDescription }}
-              ></h2>
-            ) : null}
+        {/* Conditionally render the shape section based on the current route */}
+        {currentRoute === '/available-now' ||
+        currentRoute === '/vehicles-we-armor' ? (
+          <div className={`${styles.banner_content}`}>
+            <div className={`${styles.banner_text} observe fade-in-scale`}>
+              {bannerTitle ? (
+                <h1
+                  className={`${styles.banner_title}`}
+                  dangerouslySetInnerHTML={{ __html: bannerTitle }}
+                ></h1>
+              ) : null}
+              {bannerDescription ? (
+                <h2
+                  className="observe fade-in"
+                  dangerouslySetInnerHTML={{ __html: bannerDescription }}
+                ></h2>
+              ) : null}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
 
       {shape ? (
         <div
           className={`${styles.banner_shape} shape-before shape-before-${shape}`}
-        ></div>
+        >
+          <div
+            className={`${styles.banner_content} ${styles.banner_content_bottom}`}
+          >
+            <div
+              className={`${styles.banner_text} ${styles.banner_text_bottom} observe fade-in-scale`}
+            >
+              {bannerTitle ? (
+                <h1
+                  className={`${styles.banner_title}`}
+                  dangerouslySetInnerHTML={{ __html: bannerTitle }}
+                ></h1>
+              ) : null}
+            </div>
+          </div>
+        </div>
       ) : null}
     </div>
   );
