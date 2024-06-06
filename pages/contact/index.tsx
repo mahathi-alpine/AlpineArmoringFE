@@ -3,9 +3,9 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
-import Link from 'next/link';
+// import Link from 'next/link';
 import Accordion from 'components/global/accordion/Accordion';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Contact(props) {
@@ -79,7 +79,7 @@ function Contact(props) {
               </div>
             </div>
 
-            <Link
+            {/* <Link
               href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA"
               className={styles.contact_map}
               target="_blank"
@@ -89,7 +89,7 @@ function Contact(props) {
                 alt={'Alpine Armoring Location'}
                 fill
               />
-            </Link>
+            </Link> */}
           </div>
         </div>
 

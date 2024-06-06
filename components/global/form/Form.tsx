@@ -14,6 +14,7 @@ const Form = () => {
   const [company, setCompany] = useState('');
   const [inquiry, setInquiry] = useState('');
   const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
   const [preferredContact, setPreferredContact] = useState('');
   const [message, setMessage] = useState('');
 
@@ -26,6 +27,7 @@ const Form = () => {
     setIsPreferredContactDropdownActive,
   ] = useState(false);
   const [isCountryDropdownActive, setIsCountryDropdownActive] = useState(false);
+  const [isStateDropdownActive, setIsStateDropdownActive] = useState(false);
 
   const countryOptions = [
     'Afghanistan',
@@ -222,6 +224,59 @@ const Form = () => {
     'Zimbabwe',
   ];
 
+  const stateOptions = [
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming',
+  ];
+
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   function sanitizeInput(input) {
@@ -332,6 +387,7 @@ const Form = () => {
             preferredContact: preferredContact,
             inquiry: inquiry,
             country: country,
+            state: country === 'United States' ? state : '',
             message: sanitizedMessage,
             route: router.asPath,
             date: Date.now(),
@@ -355,6 +411,7 @@ const Form = () => {
             setCompany('');
             setInquiry('');
             setCountry('');
+            setState('');
             setPreferredContact('');
             setMessage('');
           }, 1500);
@@ -551,12 +608,31 @@ const Form = () => {
           label="Country"
           options={countryOptions}
           selectedOption={country}
-          setSelectedOption={setCountry}
+          setSelectedOption={(value) => {
+            setCountry(value);
+            setState(''); // Reset state if country changes
+          }}
           isActive={isCountryDropdownActive}
           setIsActive={setIsCountryDropdownActive}
         />
         <small className={`${styles.form_input_error}`}>{errors.country}</small>
       </div>
+
+      {country === 'United States' && (
+        <div
+          className={`${styles.form_group} ${errors.state ? styles.error : ''}`}
+        >
+          <Dropdown
+            label="State"
+            options={stateOptions}
+            selectedOption={state}
+            setSelectedOption={setState}
+            isActive={isStateDropdownActive}
+            setIsActive={setIsStateDropdownActive}
+          />
+          <small className={styles.form_input_error}>{errors.state}</small>
+        </div>
+      )}
 
       <div
         className={`${styles.form_group} ${styles.form_group_full} ${
