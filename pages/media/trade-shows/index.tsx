@@ -54,6 +54,7 @@ export async function getStaticProps() {
   let tradeShows = await getPageData({
     route: 'trade-shows',
     populate: 'deep',
+    sort: 'date',
     pageSize: 100,
   });
   tradeShows = tradeShows?.data || null;
