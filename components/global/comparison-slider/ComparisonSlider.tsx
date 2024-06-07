@@ -103,7 +103,7 @@ const ComparisonSlider = ({ beforeImage, afterImage }) => {
     <div className={`${styles.comparisonSlider}`} ref={sliderRef}>
       <div className={`${styles.comparisonSlider_before}`} ref={beforeRef}>
         <Image
-          src={beforeImage.formats.large.url || beforeImage.url}
+          src={beforeImage?.formats?.large?.url || beforeImage?.url}
           alt={beforeImage.alternativeText || 'Alpine Armoring'}
           width={1300}
           height={450}
@@ -114,7 +114,7 @@ const ComparisonSlider = ({ beforeImage, afterImage }) => {
 
       <div className={`${styles.comparisonSlider_after}`}>
         <Image
-          src={afterImage.formats.large.url || afterImage.url}
+          src={afterImage?.formats?.large?.url || afterImage?.url}
           alt={afterImage.alternativeText || 'Alpine Armoring'}
           width={1300}
           height={450}
