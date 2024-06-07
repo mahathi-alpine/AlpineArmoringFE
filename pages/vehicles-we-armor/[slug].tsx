@@ -3,37 +3,31 @@ import { getPageData } from 'lib/api';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
-import dynamic from 'next/dynamic';
-const ComparisonSlider = dynamic(
-  () => import('components/global/comparison-slider/ComparisonSlider')
-);
-import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
-import Image from 'next/image';
-const Gallery = dynamic(
-  () => import('components/global/carousel/CarouselCurved')
-);
-const VideoScale = dynamic(
-  () => import('components/global/video-scale/VideoScale')
-);
-const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
+// import dynamic from 'next/dynamic';
+// import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
+// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
+// import Image from 'next/image';
+// import Gallery from 'components/global/carousel/CarouselCurved';
+// import VideoScale from 'components/global/video-scale/VideoScale';
+// import InquiryForm from 'components/global/form/InquiryForm';
 import { animateVideo } from 'components/global/video-scale/VideoScale';
 
 function Vehicle(props) {
   const data = props?.data?.data?.[0]?.attributes ?? {};
 
   const inventory = data?.stock?.data;
-  const beforeAfterSlider_Before =
-    data?.beforeAfterSlider?.before?.data?.attributes;
-  const beforeAfterSlider_After =
-    data?.beforeAfterSlider?.after?.data?.attributes;
+  // const beforeAfterSlider_Before =
+  //   data?.beforeAfterSlider?.before?.data?.attributes;
+  // const beforeAfterSlider_After =
+  //   data?.beforeAfterSlider?.after?.data?.attributes;
 
-  const dimensions1 = data?.dimensions1?.data?.attributes;
-  const dimensions2 = data?.dimensions2?.data?.attributes;
+  // const dimensions1 = data?.dimensions1?.data?.attributes;
+  // const dimensions2 = data?.dimensions2?.data?.attributes;
 
-  const gallery = data?.gallery?.data;
+  // const gallery = data?.gallery?.data;
 
-  const videoWebm = data?.videoUpload?.data?.attributes;
-  const videoMP4 = data?.videoMP4?.data?.attributes;
+  // const videoWebm = data?.videoUpload?.data?.attributes;
+  // const videoMP4 = data?.videoMP4?.data?.attributes;
 
   const convertMarkdown = useMarkdownToHtml();
 
@@ -87,10 +81,10 @@ function Vehicle(props) {
     navItems: navItems,
   };
 
-  const formData = {
-    title: data?.title,
-    featuredImage: data?.featuredImage,
-  };
+  // const formData = {
+  //   title: data?.title,
+  //   featuredImage: data?.featuredImage,
+  // };
 
   useEffect(() => {
     const setupObserver = () => {
@@ -170,7 +164,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {gallery ? (
+      {/* {gallery ? (
         <div
           className={`${styles.slug_gallery} observe fade-in anchor`}
           id="gallery"
@@ -315,15 +309,6 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {/* {gallery ? (
-        <div
-          className={`${styles.slug_gallery} observe fade-in anchor`}
-          id="gallery"
-        >
-          <Gallery props={gallery} white regular />
-        </div>
-      ) : null} */}
-
       {videoWebm || videoMP4 ? (
         <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
       ) : null}
@@ -347,7 +332,7 @@ function Vehicle(props) {
         <div className={`background-dark`}>
           <InquiryForm {...formData} plain />
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
