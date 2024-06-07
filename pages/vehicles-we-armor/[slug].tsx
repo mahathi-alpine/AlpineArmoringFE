@@ -6,7 +6,7 @@ import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 // import dynamic from 'next/dynamic';
 // import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
-// import Image from 'next/image';
+import Image from 'next/image';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import VideoScale from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
@@ -21,8 +21,8 @@ function Vehicle(props) {
   // const beforeAfterSlider_After =
   //   data?.beforeAfterSlider?.after?.data?.attributes;
 
-  // const dimensions1 = data?.dimensions1?.data?.attributes;
-  // const dimensions2 = data?.dimensions2?.data?.attributes;
+  const dimensions1 = data?.dimensions1?.data?.attributes;
+  const dimensions2 = data?.dimensions2?.data?.attributes;
 
   const gallery = data?.gallery?.data;
 
@@ -173,7 +173,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {/* {dimensions1 && dimensions2 ? (
+      {dimensions1 && dimensions2 ? (
         <div
           className={`${styles.slug_dimensions} container anchor`}
           id="dimensions"
@@ -226,7 +226,7 @@ function Vehicle(props) {
             </div>
           </div>
         </div>
-      ) : null}*/}
+      ) : null}
 
       {/* {beforeAfterSlider_Before && beforeAfterSlider_After ? (
         <div className={`${styles.slug_slider_wrap} observe fade-in anchor`}>
