@@ -7,7 +7,7 @@ import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 // import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 // import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 // import Image from 'next/image';
-// import Gallery from 'components/global/carousel/CarouselCurved';
+import Gallery from 'components/global/carousel/CarouselCurved';
 // import VideoScale from 'components/global/video-scale/VideoScale';
 // import InquiryForm from 'components/global/form/InquiryForm';
 import { animateVideo } from 'components/global/video-scale/VideoScale';
@@ -24,7 +24,7 @@ function Vehicle(props) {
   // const dimensions1 = data?.dimensions1?.data?.attributes;
   // const dimensions2 = data?.dimensions2?.data?.attributes;
 
-  // const gallery = data?.gallery?.data;
+  const gallery = data?.gallery?.data;
 
   // const videoWebm = data?.videoUpload?.data?.attributes;
   // const videoMP4 = data?.videoMP4?.data?.attributes;
@@ -164,7 +164,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {/* {gallery ? (
+      {gallery ? (
         <div
           className={`${styles.slug_gallery} observe fade-in anchor`}
           id="gallery"
@@ -173,7 +173,7 @@ function Vehicle(props) {
         </div>
       ) : null}
 
-      {dimensions1 && dimensions2 ? (
+      {/* {dimensions1 && dimensions2 ? (
         <div
           className={`${styles.slug_dimensions} container anchor`}
           id="dimensions"
