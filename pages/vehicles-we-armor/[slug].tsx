@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 // import dynamic from 'next/dynamic';
-// import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
-// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
+import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
+import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 // import Image from 'next/image';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import VideoScale from 'components/global/video-scale/VideoScale';
@@ -16,10 +16,10 @@ function Vehicle(props) {
   const data = props?.data?.data?.[0]?.attributes ?? {};
 
   const inventory = data?.stock?.data;
-  // const beforeAfterSlider_Before =
-  //   data?.beforeAfterSlider?.before?.data?.attributes;
-  // const beforeAfterSlider_After =
-  //   data?.beforeAfterSlider?.after?.data?.attributes;
+  const beforeAfterSlider_Before =
+    data?.beforeAfterSlider?.before?.data?.attributes;
+  const beforeAfterSlider_After =
+    data?.beforeAfterSlider?.after?.data?.attributes;
 
   // const dimensions1 = data?.dimensions1?.data?.attributes;
   // const dimensions2 = data?.dimensions2?.data?.attributes;
@@ -226,7 +226,7 @@ function Vehicle(props) {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : null}*/}
 
       {beforeAfterSlider_Before && beforeAfterSlider_After ? (
         <div className={`${styles.slug_slider_wrap} observe fade-in anchor`}>
@@ -307,7 +307,7 @@ function Vehicle(props) {
           <StickyHorizontalSlider slides={data.otherOptions.data} />
           <div className={`divider_fade`}></div>
         </div>
-      ) : null}*/}
+      ) : null}
 
       {videoWebm || videoMP4 ? (
         <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
