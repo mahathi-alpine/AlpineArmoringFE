@@ -8,8 +8,8 @@ import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 // import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 // import Image from 'next/image';
 import Gallery from 'components/global/carousel/CarouselCurved';
-// import VideoScale from 'components/global/video-scale/VideoScale';
-// import InquiryForm from 'components/global/form/InquiryForm';
+import VideoScale from 'components/global/video-scale/VideoScale';
+import InquiryForm from 'components/global/form/InquiryForm';
 import { animateVideo } from 'components/global/video-scale/VideoScale';
 
 function Vehicle(props) {
@@ -26,8 +26,8 @@ function Vehicle(props) {
 
   const gallery = data?.gallery?.data;
 
-  // const videoWebm = data?.videoUpload?.data?.attributes;
-  // const videoMP4 = data?.videoMP4?.data?.attributes;
+  const videoWebm = data?.videoUpload?.data?.attributes;
+  const videoMP4 = data?.videoMP4?.data?.attributes;
 
   const convertMarkdown = useMarkdownToHtml();
 
@@ -81,10 +81,10 @@ function Vehicle(props) {
     navItems: navItems,
   };
 
-  // const formData = {
-  //   title: data?.title,
-  //   featuredImage: data?.featuredImage,
-  // };
+  const formData = {
+    title: data?.title,
+    featuredImage: data?.featuredImage,
+  };
 
   useEffect(() => {
     const setupObserver = () => {
@@ -307,7 +307,7 @@ function Vehicle(props) {
           <StickyHorizontalSlider slides={data.otherOptions.data} />
           <div className={`divider_fade`}></div>
         </div>
-      ) : null}
+      ) : null}*/}
 
       {videoWebm || videoMP4 ? (
         <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
@@ -332,7 +332,7 @@ function Vehicle(props) {
         <div className={`background-dark`}>
           <InquiryForm {...formData} plain />
         </div>
-      ) : null} */}
+      ) : null}
     </div>
   );
 }
