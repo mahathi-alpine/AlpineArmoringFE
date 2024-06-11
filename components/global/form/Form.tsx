@@ -333,6 +333,23 @@ const Form = () => {
     }
   };
 
+  const validateMobile = (value) => {
+    const mobilePattern = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/;
+    if (value && !mobilePattern.test(value)) {
+      return 'Please enter a valid mobile number';
+    } else {
+      return '';
+    }
+  };
+
+  const validateState = (value) => {
+    if (country === 'United States' && !value) {
+      return 'State is required';
+    } else {
+      return '';
+    }
+  };
+
   const handleFieldChange = (field, value, validator, setter) => {
     setter(value);
     const errorMessage = validator(value);
@@ -361,6 +378,8 @@ const Form = () => {
       fullname: validateFullname(fullname),
       email: validateEmail(email),
       phone: validatePhone(phone),
+      mobile: validateMobile(mobile),
+      state: validateState(state), // Validate state if the country is United States
     };
 
     setErrors(newErrors);
@@ -530,7 +549,14 @@ const Form = () => {
           type="tel"
           id="mobile"
           value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
+          onChange={(e) =>
+            handleFieldChange(
+              'mobile',
+              e.target.value,
+              validateMobile,
+              setMobile
+            )
+          }
           placeholder="Mobile Number"
           className={`${styles.form_input}`}
         />

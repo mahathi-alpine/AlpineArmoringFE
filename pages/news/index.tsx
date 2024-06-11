@@ -44,7 +44,7 @@ function Blog(props) {
           <BlogList
             featured
             props={posts}
-            subtitle="News"
+            subtitle="Latest News"
             title="Armoring World"
           />
         </div>

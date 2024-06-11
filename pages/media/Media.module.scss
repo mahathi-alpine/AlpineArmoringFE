@@ -4,7 +4,7 @@
     text-transform: uppercase;
     font-size: rem(32);
     font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
-    font-weight: var(--font-demi);
+    font-weight: var(--font-thin);
     line-height: 1.1;
     @include breakpoint(large) {
       margin-bottom: rem(48);

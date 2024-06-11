@@ -147,6 +147,29 @@ const NavigationPopup = ({
           <ul className={`${styles.navigationPopup_socials}`}>
             <li className={`${styles.navigationPopup_socials_item}`}>
               <Link
+                href="https://www.youtube.com/c/AlpineArmoring"
+                target="_blank"
+              >
+                <YoutubeIcon color="white" />
+              </Link>
+            </li>
+            <li className={`${styles.navigationPopup_socials_item}`}>
+              <Link
+                href="https://www.instagram.com/alpinearmoring/"
+                target="_blank"
+              >
+                <InstagramIcon color="white" />
+              </Link>
+            </li>
+            <li
+              className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_x}`}
+            >
+              <Link href="https://x.com/AlpineArmoring" target="_blank">
+                <XIcon color="white" />
+              </Link>
+            </li>
+            <li className={`${styles.navigationPopup_socials_item}`}>
+              <Link
                 href="https://www.facebook.com/AlpineArmoring/"
                 target="_blank"
               >
@@ -161,29 +184,6 @@ const NavigationPopup = ({
                 target="_blank"
               >
                 <TiktokIcon color="white" />
-              </Link>
-            </li>
-            <li
-              className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_x}`}
-            >
-              <Link href="https://x.com/AlpineArmoring" target="_blank">
-                <XIcon color="white" />
-              </Link>
-            </li>
-            <li className={`${styles.navigationPopup_socials_item}`}>
-              <Link
-                href="https://www.instagram.com/alpinearmoring/"
-                target="_blank"
-              >
-                <InstagramIcon color="white" />
-              </Link>
-            </li>
-            <li className={`${styles.navigationPopup_socials_item}`}>
-              <Link
-                href="https://www.youtube.com/c/AlpineArmoring"
-                target="_blank"
-              >
-                <YoutubeIcon color="white" />
               </Link>
             </li>
             <li className={`${styles.navigationPopup_socials_item}`}>

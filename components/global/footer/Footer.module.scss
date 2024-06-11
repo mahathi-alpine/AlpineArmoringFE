@@ -290,6 +290,11 @@
           display: inline;
         }
       }
+
+      &_middle {
+        color: var(--color-primary);
+        font-weight: 600;
+      }
     }
   }
 }

@@ -14,15 +14,17 @@ import Link from 'next/link';
 const Footer = (isDarkMode) => {
   const links = [
     { path: '/', text: 'Home' },
-    { path: '/vehicles-we-armor', text: 'Makes & Models We Armor' },
-    { path: '/ballistic-chart', text: 'Ballistic Chart' },
     {
       path: '/available-now/',
       text: 'Available Now',
     },
-    { path: '/become-a-dealer', text: 'Become a Dealer' },
-    { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
+    { path: '/ballistic-chart', text: 'Ballistic Chart' },
+    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
     { path: '/media', text: 'News & Media' },
+    { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
+    { path: '/about-us', text: 'About Us' },
+    { path: '#', text: 'Ballistic Testing' },
+    { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/available-now/type/armored-pre-owned', text: 'Pre-owned' },
     { path: '/faqs', text: 'FAQ' },
     { path: '/contact', text: 'Contact Us' },
@@ -94,6 +96,29 @@ const Footer = (isDarkMode) => {
               <ul className={`${styles.footer_socials}`}>
                 <li className={`${styles.footer_socials_item}`}>
                   <Link
+                    href="https://www.youtube.com/c/AlpineArmoring"
+                    target="_blank"
+                  >
+                    <YoutubeIcon />
+                  </Link>
+                </li>
+                <li className={`${styles.footer_socials_item}`}>
+                  <Link
+                    href="https://www.instagram.com/alpinearmoring/"
+                    target="_blank"
+                  >
+                    <InstagramIcon />
+                  </Link>
+                </li>
+                <li
+                  className={`${styles.footer_socials_item} ${styles.footer_socials_item_x}`}
+                >
+                  <Link href="https://x.com/AlpineArmoring" target="_blank">
+                    <XIcon />
+                  </Link>
+                </li>
+                <li className={`${styles.footer_socials_item}`}>
+                  <Link
                     href="https://www.facebook.com/AlpineArmoring/"
                     target="_blank"
                   >
@@ -108,29 +133,6 @@ const Footer = (isDarkMode) => {
                     target="_blank"
                   >
                     <TiktokIcon />
-                  </Link>
-                </li>
-                <li
-                  className={`${styles.footer_socials_item} ${styles.footer_socials_item_x}`}
-                >
-                  <Link href="https://x.com/AlpineArmoring" target="_blank">
-                    <XIcon />
-                  </Link>
-                </li>
-                <li className={`${styles.footer_socials_item}`}>
-                  <Link
-                    href="https://www.instagram.com/alpinearmoring/"
-                    target="_blank"
-                  >
-                    <InstagramIcon />
-                  </Link>
-                </li>
-                <li className={`${styles.footer_socials_item}`}>
-                  <Link
-                    href="https://www.youtube.com/c/AlpineArmoring"
-                    target="_blank"
-                  >
-                    <YoutubeIcon />
                   </Link>
                 </li>
                 <li className={`${styles.footer_socials_item}`}>
@@ -164,9 +166,9 @@ const Footer = (isDarkMode) => {
 
         <div className={`${styles.footer_bottom}`}>
           <ul className={`${styles.footer_bottom_nav}`}>
-            <li className={`${styles.footer_bottom_nav_item}`}>
+            {/* <li className={`${styles.footer_bottom_nav_item}`}>
               <Link href="/about-us">About</Link>
-            </li>
+            </li> */}
             <li className={`${styles.footer_bottom_nav_item}`}>
               <Link href="/privacy-policy">Privacy Policy</Link>
             </li>
@@ -174,6 +176,12 @@ const Footer = (isDarkMode) => {
 
           <p className={`${styles.footer_bottom_copy}`}>
             ©1993-2024. Alpine Armoring Inc. <span>All Rights Reserved</span>
+          </p>
+          <p className={`${styles.footer_bottom_copy}`}>
+            The Home of{' '}
+            <Link href="/" className={`${styles.footer_bottom_copy_middle}`}>
+              ArmoredVehicles.com
+            </Link>
           </p>
         </div>
       </div>

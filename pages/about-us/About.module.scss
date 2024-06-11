@@ -105,6 +105,7 @@
         }
         @include breakpoint(large) {
           max-width: 80%;
+          font-size: rem(22);
         }
 
         p {
@@ -141,14 +142,14 @@
     }
   }
 
-  &_quote {
-    @include breakpoint(large) {
-      margin: rem(64) 0;
-    }
-    @include breakpoint(huge) {
-      margin: rem(100) 0;
-    }
-  }
+  // &_quote {
+  //   @include breakpoint(large) {
+  //     margin: rem(64) 0;
+  //   }
+  //   @include breakpoint(huge) {
+  //     margin: rem(100) 0;
+  //   }
+  // }
 
   &_bottom_img {
     display: flex;

@@ -59,6 +59,10 @@ export async function getStaticProps() {
   });
   tradeShows = tradeShows?.data || null;
 
+  if (Array.isArray(tradeShows)) {
+    tradeShows.reverse();
+  }
+
   const seoData = pageData?.seo || null;
 
   return {

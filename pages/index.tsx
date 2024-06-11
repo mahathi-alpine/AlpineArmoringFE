@@ -95,8 +95,8 @@ function Home({ homepageData, categories }) {
           props={news}
           button
           limit="3"
-          subtitle="News"
-          title="Armoring World"
+          subtitle="Latest News"
+          // title="Armoring World"
         />
       ) : null}
 

@@ -74,7 +74,7 @@ function About(props) {
               <Counter start={0} end={30} duration={2} />
             </div>
             <div className={styles.counter_box}>
-              <h3>Makes & Models We Armored</h3>
+              <h3>Makes & Models We Have Armored</h3>
               <Counter start={0} end={1000} duration={2} />
             </div>
           </div>

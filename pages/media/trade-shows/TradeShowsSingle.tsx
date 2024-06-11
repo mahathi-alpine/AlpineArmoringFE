@@ -23,10 +23,16 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
 }) => {
   const data = props?.attributes;
 
+  // Function to extract year from yyyy-mm-dd formatted date
+  const extractYear = (dateString: string | undefined): string => {
+    if (!dateString) return '';
+    return dateString.split('-')[0];
+  };
+
   const handleClick = () => {
     onLightboxOpen(
       data?.title,
-      data.description,
+      data?.description,
       'gallery',
       null,
       data.gallery.data
@@ -41,9 +47,6 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
             `}
       onClick={handleClick}
     >
-      {data ? <h4>{data.title}</h4> : null}
-      {data ? <p>{data.description}</p> : null}
-
       {data?.gallery?.data ? (
         <Image
           src={
@@ -59,9 +62,25 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
         ></Image>
       ) : null}
 
-      <Button button className={`${styles.tradeShowsSingle_link}`}>
-        View
-      </Button>
+      <div className={styles.tradeShowsSingle_content}>
+        <div className={styles.tradeShowsSingle_left}>
+          {data ? (
+            <p className={styles.year}>{extractYear(data.date)}</p>
+          ) : null}{' '}
+          {/* Display year */}
+          {data ? <p>{data.description}</p> : null}
+        </div>
+        <div className={styles.tradeShowsSingle_right}>
+          {data ? <h4>{data.title}</h4> : null}
+          {data ? <p>{data.location}</p> : null}
+        </div>
+      </div>
+
+      <div className={styles.buttonContainer}>
+        <Button button className={`${styles.tradeShowsSingle_link}`}>
+          View
+        </Button>
+      </div>
     </div>
   );
 };

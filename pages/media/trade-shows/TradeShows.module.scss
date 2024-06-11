@@ -69,4 +69,42 @@
       height: 200px;
     }
   }
+
+  &_content {
+    display: flex;
+    flex: 1;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    text-align: center;
+  }
+
+  &_left {
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #ccc; /* Vertical line separator */
+  }
+
+  &_right {
+    flex: 1;
+    padding: 10px;
+
+    h4 {
+      margin-top: 0;
+      font-weight: bold;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  } 
+  
+  .year {
+    font-size: 2rem; /* Larger font size for year */
+    font-weight: bold; /* Bold font weight for year */
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center; /* Center align items horizontally */
+  }
 }
