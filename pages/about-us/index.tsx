@@ -10,6 +10,7 @@ import Counter from 'components/global/counter/Counter';
 
 function About(props) {
   const boxes = props?.pageData?.boxes;
+  const timelineImages = props?.pageData?.timeline?.data || [];
   const convertMarkdown = useMarkdownToHtml();
 
   // Animations
@@ -61,6 +62,12 @@ function About(props) {
               __html: convertMarkdown(props.pageData.text),
             }}
           ></div>
+        ) : null}
+
+        {timelineImages.length > 0 ? (
+          <div className={`${styles.timeline_gallery} observe fade-in`}>
+            <Gallery props={timelineImages} regular />
+          </div>
         ) : null}
 
         <div className={styles.counter_section}>

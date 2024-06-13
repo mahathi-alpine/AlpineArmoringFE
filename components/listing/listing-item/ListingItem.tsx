@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItem.module.scss';
+import { useRouter } from 'next/router';
 
 interface InventoryItemProps {
   props: any;
@@ -9,10 +10,16 @@ interface InventoryItemProps {
 
 const InventoryItem = ({ props, index }: InventoryItemProps) => {
   const data = props.attributes;
+  const router = useRouter(); // Initialize useRouter
+  const currentPath = router.asPath; // Get the current route
+
+  const linkHref = currentPath.includes('armored-rental')
+    ? `/rental-vehicles/${data.slug}`
+    : `/available-now/${data.slug}`;
 
   return (
     <Link
-      href={`/available-now/${data.slug}`}
+      href={linkHref}
       className={`
         ${styles.inventory_item} 
         ${data.flag == 'sold' ? styles.inventory_item_sold : ''}

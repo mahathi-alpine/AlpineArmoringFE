@@ -4,6 +4,9 @@
   max-width: 500px;
   margin: auto;
   margin-bottom: rem(32);
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
 
   @include breakpoint(medium) {
     display: flex;
@@ -51,7 +54,7 @@
     overflow: hidden;
     max-width: 500px;
     flex: 0 0 95%;
-    padding-top: 0;
+    // padding-top: 0;
 
     @include breakpoint(medium) {
       flex: 0 0 47%;
@@ -99,8 +102,8 @@
   }
 
   .year {
-    font-size: 2rem; /* Larger font size for year */
-    font-weight: bold; /* Bold font weight for year */
+    font-size: 1.5rem; /* Larger font size for year */
+    font-weight: 400; /* Bold font weight for year */
   }
 
   .buttonContainer {

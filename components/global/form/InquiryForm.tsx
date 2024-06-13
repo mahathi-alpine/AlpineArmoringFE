@@ -1,8 +1,11 @@
 import styles from './InquiryForm.module.scss';
 import Image from 'next/image';
 import Form from 'components/global/form/Form';
+import { useRouter } from 'next/router';
 
 const InquiryForm = (props) => {
+  const router = useRouter();
+  const currentPath = router.asPath;
   return (
     <div
       className={`${styles.inquiry_form_wrap} inquiryFormContainer observe`}
@@ -20,7 +23,11 @@ const InquiryForm = (props) => {
           <div className={`${styles.inquiry_form_left}`}>
             <div className={`${styles.inquiry_form_heading}`}>
               You are inquiring about
-              {!props.plain ? ' this ready-to-ship' : null}
+              {/* {!props.plain ? ' this ready-to-ship' : null} */}
+              {/* Render Filters conditionally based on path and filter type */}
+              {!currentPath.includes('rental-vehicles') && !props.plain
+                ? ' this ready-to-ship'
+                : ' Rental of this'}
               <p>
                 <strong
                   dangerouslySetInnerHTML={{
@@ -28,11 +35,6 @@ const InquiryForm = (props) => {
                   }}
                 ></strong>
               </p>
-              {/* {!props.plain ? (
-                <span>
-                  Vehicle ID: <strong>{props?.vehicleID}</strong>
-                </span>
-              ) : null} */}
             </div>
 
             {props?.featuredImage?.data ? (

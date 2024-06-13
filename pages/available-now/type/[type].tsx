@@ -14,6 +14,7 @@ function Inventory(props) {
   topBanner = topBanner?.attributes.inventoryBanner;
 
   const router = useRouter();
+  const currentPath = router.asPath;
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
   const [loading, setLoading] = useState(false);
@@ -62,7 +63,10 @@ function Inventory(props) {
         <div
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
-          {props.filters.type ? <Filters props={props.filters} /> : null}
+          {/* Render Filters conditionally based on path and filter type */}
+          {!currentPath.includes('armored-rental') && props.filters?.type ? (
+            <Filters props={props.filters} />
+          ) : null}
 
           {vehiclesData && vehiclesData.length > 0 ? (
             <div className={`${styles.listing_list}`}>

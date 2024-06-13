@@ -128,9 +128,7 @@ function InventoryVehicle(props) {
           <div className={`${styles.inventory_heading_description}`}>
             <InfoIcon />
             <p>
-              {data?.shortDescription
-                ? data?.shortDescription
-                : `This ${data?.title} is for available RENTAL and to ship immediately`}
+              This {data?.title} is now available for <span>RENTAL</span>
             </p>
           </div>
         </div>

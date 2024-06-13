@@ -30,6 +30,7 @@ const Form = () => {
   const [isStateDropdownActive, setIsStateDropdownActive] = useState(false);
 
   const countryOptions = [
+    'United States',
     'Afghanistan',
     'Albania',
     'Algeria',
@@ -213,7 +214,6 @@ const Form = () => {
     'Ukraine',
     'United Arab Emirates',
     'United Kingdom',
-    'United States',
     'Uruguay',
     'Uzbekistan',
     'Vanuatu',
@@ -342,6 +342,14 @@ const Form = () => {
     }
   };
 
+  const validateCountry = (value) => {
+    if (!value) {
+      return 'Country is required';
+    } else {
+      return '';
+    }
+  };
+
   const validateState = (value) => {
     if (country === 'United States' && !value) {
       return 'State is required';
@@ -379,6 +387,7 @@ const Form = () => {
       email: validateEmail(email),
       phone: validatePhone(phone),
       mobile: validateMobile(mobile),
+      country: validateCountry(country),
       state: validateState(state), // Validate state if the country is United States
     };
 
@@ -631,7 +640,7 @@ const Form = () => {
         className={`${styles.form_group} ${errors.country ? styles.error : ''}`}
       >
         <Dropdown
-          label="Country"
+          label="Country*"
           options={countryOptions}
           selectedOption={country}
           setSelectedOption={(value) => {
@@ -649,7 +658,7 @@ const Form = () => {
           className={`${styles.form_group} ${errors.state ? styles.error : ''}`}
         >
           <Dropdown
-            label="State"
+            label="State*"
             options={stateOptions}
             selectedOption={state}
             setSelectedOption={setState}
