@@ -1,5 +1,5 @@
 import styles from './Autoplay.module.scss';
-import ZoomIcon from 'components/icons/Zoom';
+// import ZoomIcon from 'components/icons/Zoom';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
@@ -43,7 +43,7 @@ const CarouselCurved = ({
   const { openLightbox, renderLightbox } = useLightbox();
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [autoplayInterval, setAutoplayInterval] = useState(null);
-  const autoplayDelay = 3000; // Adjust as needed (in milliseconds)
+  const autoplayDelay = 355000; // Adjust as needed (in milliseconds)
   const autoplayEnabled = true; // Toggle this based on your requirement
 
   const {
@@ -118,14 +118,21 @@ const CarouselCurved = ({
               >
                 {item.attributes?.url ? (
                   <>
+                    {item.attributes.alternativeText ? (
+                      <h4
+                        className={`${styles.carouselCurved_slide_alternativeText}`}
+                      >
+                        <span>{item.attributes.alternativeText}</span>
+                      </h4>
+                    ) : null}
                     <div className={`${styles.carouselCurved_slide_img}`}>
-                      {item.attributes.alternativeText ? (
+                      {/* {item.attributes.alternativeText ? (
                         <h4
-                          className={`${styles.carouselCurved_slide_caption_alternativeText}`}
+                          className={`${styles.carouselCurved_slide_alternativeText}`}
                         >
                           <span>{item.attributes.alternativeText}</span>
                         </h4>
-                      ) : null}
+                      ) : null} */}
                       {item.attributes.mime.split('/')[0] === 'image' ? (
                         <Image
                           src={
@@ -163,14 +170,19 @@ const CarouselCurved = ({
                         </video>
                       ) : null}
 
-                      {item.attributes.caption ? (
+                      {/* {item.attributes.caption ? (
                         <h4
                           className={`${styles.carouselCurved_slide_caption}`}
                         >
                           <span>{item.attributes.caption}</span>
                         </h4>
-                      ) : null}
+                      ) : null} */}
                     </div>
+                    {item.attributes.caption ? (
+                      <h4 className={`${styles.carouselCurved_slide_caption}`}>
+                        <span>{item.attributes.caption}</span>
+                      </h4>
+                    ) : null}
 
                     {/* {regular ? (
                       <div className={styles.carouselCurved_zoom}>
@@ -194,11 +206,11 @@ const CarouselCurved = ({
                 disabled={nextBtnDisabled}
               />
 
-              {!regular ? (
+              {/* {!regular ? (
                 <div className={styles.carouselCurved_zoom}>
                   <ZoomIcon />
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
           ) : null}
         </div>
