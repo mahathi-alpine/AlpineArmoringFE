@@ -944,6 +944,11 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
+embla-carousel-autoplay@^8.1.5:
+  version "8.1.5"
+  resolved "https://registry.yarnpkg.com/embla-carousel-autoplay/-/embla-carousel-autoplay-8.1.5.tgz#88451b5db9be460889d039e692cf69f5234212d0"
+  integrity sha512-9pHIezRqiO9yism7wRFwmM1j/W9c9hBNX4hq3F4aTPbK84M0M57ryG8QUwhbsTGJbDoBBVTm//YEd0T6i/5YgA==
+
 embla-carousel-class-names@^8.0.0-rc19:
   version "8.0.0-rc19"
   resolved "https://registry.yarnpkg.com/embla-carousel-class-names/-/embla-carousel-class-names-8.0.0-rc19.tgz#e03319987097ea07dc82066bb21716ef6bce601e"

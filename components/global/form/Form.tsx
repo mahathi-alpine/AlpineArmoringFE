@@ -544,7 +544,7 @@ const Form = () => {
           onChange={(e) =>
             handleFieldChange('phone', e.target.value, validatePhone, setPhone)
           }
-          placeholder="Phone Number*"
+          placeholder="Mobile Number*"
           className={`${styles.form_input}`}
           // required
         />
@@ -566,7 +566,7 @@ const Form = () => {
               setMobile
             )
           }
-          placeholder="Mobile Number"
+          placeholder="Alternate Phone Number"
           className={`${styles.form_input}`}
         />
         <small className={`${styles.form_input_error}`}>{errors.mobile}</small>

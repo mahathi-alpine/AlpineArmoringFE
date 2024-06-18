@@ -67,7 +67,7 @@ function Contact(props) {
               </div>
               <div className={`${styles.contact_main_right_column}`}>
                 <h3 className={`${styles.contact_main_right_title}`}>
-                  Parts & Service
+                  Parts, Service &<br /> Warranty
                 </h3>
                 {props.pageData?.partsInfo ? (
                   <div

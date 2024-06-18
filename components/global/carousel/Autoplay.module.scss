@@ -1,0 +1,206 @@
+.carouselCurved {
+  --slide-size: 25%;
+  --slide-spacing: 35px;
+  position: relative;
+  overflow: hidden;
+  margin-top: -20px;
+  margin-bottom: 30px;
+
+  @include breakpoint(medium) {
+    --slide-size: 25%;
+    --slide-spacing: 35px;
+
+    .carouselCurved_wrapper_squared & {
+      --slide-size: 25%;
+    }
+
+    .carouselCurved_wrapper_singular & {
+      --slide-size: 100%;
+    }
+  }
+
+  @include breakpoint(large) {
+    margin-bottom: 70px;
+
+    .carouselCurved_wrapper_singular & {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
+  @include breakpoint(huge) {
+    --slide-size: 25%;
+    margin-top: -40px;
+    margin-bottom: 60px;
+
+    .carouselCurved_wrapper_squared & {
+      --slide-size: 25%;
+    }
+  }
+
+  .carouselCurved_wrapper_regular & {
+    margin-top: 0;
+    @include breakpoint(huge) {
+      --slide-size: 25%;
+    }
+    .carouselCurved_slide_img {
+      img {
+        @include breakpoint(medium) {
+          border-radius: 16px;
+        }
+      }
+    }
+  }
+
+  &_wrapper_singular {
+    height: 100%;
+    & > div,
+    .carouselCurved_viewport {
+      height: 100%;
+    }
+
+    .carouselCurved_slide {
+      padding: 0;
+    }
+  }
+
+  &_shape {
+    height: 30px;
+    @include breakpoint(huge) {
+      height: 50px;
+    }
+    &:after {
+      left: -30px;
+      right: -30px;
+      @include breakpoint(huge) {
+        left: -50px;
+        right: -50px;
+      }
+    }
+  }
+
+  &_shapeAfter {
+    position: relative;
+    z-index: 1;
+    &:after {
+      .carouselCurved_wrapper_white & {
+        background: var(--color-background);
+      }
+    }
+  }
+
+  &_container {
+    backface-visibility: hidden;
+    display: flex;
+    touch-action: pan-y;
+
+    @include breakpoint(large) {
+      margin-left: 0;
+      height: 100%;
+    }
+  }
+
+  &_slide {
+    flex: 0 0 var(--slide-size);
+    padding-left: var(--slide-spacing);
+    position: relative;
+
+    @include breakpoint(medium) {
+      cursor: pointer;
+    }
+
+    &_img {
+      position: relative;
+      height: 100%;
+      img {
+        object-fit: cover;
+        filter: brightness(90%);
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+    }
+
+    &_caption {
+      position: absolute;
+      bottom: 0;
+      padding-bottom: rem(24);
+      left: 0;
+      right: 0;
+      text-align: center;
+      @include breakpoint(large) {
+        padding-bottom: rem(32);
+      }
+      @include breakpoint(huge) {
+        padding-bottom: rem(48);
+      }
+
+      span {
+        position: relative;
+        z-index: 1;
+        font-size: rem(24);
+        font-weight: var(--font-demi);
+        // font-size: 15px;
+        // font-weight: var(--font-regular);
+      }
+
+      &_alternativeText {
+        position: absolute;
+        top: 0;
+        padding-top: rem(24);
+        left: 0;
+        right: 0;
+        text-align: center;
+        @include breakpoint(large) {
+          padding-top: rem(32);
+        }
+        @include breakpoint(huge) {
+          padding-top: rem(48);
+        }
+
+        span {
+          position: relative;
+          z-index: 1;
+          font-size: rem(32);
+          font-weight: var(--font-demi);
+        }      
+      }
+
+      &:after {
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100px;
+        border-radius: 16px;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        @include breakpoint(huge) {
+          height: 150px;
+        }
+      }
+    }
+  }
+
+  &_zoom {
+    position: absolute;
+    right: rem(6);
+    bottom: rem(12);
+    cursor: pointer;
+    z-index: 1;
+    pointer-events: none;
+
+    @include breakpoint(large) {
+      bottom: rem(10);
+      right: rem(16);
+    }
+  }
+}

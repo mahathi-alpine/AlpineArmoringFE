@@ -5,7 +5,7 @@ import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
-import Gallery from 'components/global/carousel/CarouselCurved';
+import Gallery from 'components/global/carousel/Autoplay';
 import Counter from 'components/global/counter/Counter';
 
 function About(props) {
@@ -74,15 +74,15 @@ function About(props) {
           <div className={styles.counter_grid}>
             <div className={styles.counter_box}>
               <h3>Countries We Serviced</h3>
-              <Counter start={0} end={100} duration={2} />
+              <Counter start={0} end={88} duration={2} />
             </div>
             <div className={styles.counter_box}>
               <h3>Years In Business</h3>
-              <Counter start={0} end={30} duration={2} />
+              <Counter start={0} end={31} duration={2} />
             </div>
             <div className={styles.counter_box}>
               <h3>Makes & Models We Have Armored</h3>
-              <Counter start={0} end={1000} duration={2} />
+              <Counter start={0} end={276} duration={2} />
             </div>
           </div>
         </div>

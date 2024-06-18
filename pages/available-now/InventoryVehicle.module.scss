@@ -372,6 +372,9 @@
       padding-top: rem(80);
       padding-bottom: rem(80);
     }
+    @include breakpoint(small) {
+      font-weight: 300;
+    }
 
     p {
       margin-bottom: rem(16);

@@ -25,9 +25,11 @@ const InquiryForm = (props) => {
               You are inquiring about
               {/* {!props.plain ? ' this ready-to-ship' : null} */}
               {/* Render Filters conditionally based on path and filter type */}
-              {!currentPath.includes('rental-vehicles') && !props.plain
-                ? ' this ready-to-ship'
-                : ' Rental of this'}
+              {!props.plain
+                ? !currentPath.includes('rental-vehicles')
+                  ? ' this ready-to-ship'
+                  : ' Rental of this'
+                : null}
               <p>
                 <strong
                   dangerouslySetInnerHTML={{
