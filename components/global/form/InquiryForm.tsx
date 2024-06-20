@@ -29,7 +29,7 @@ const InquiryForm = (props) => {
                 ? !currentPath.includes('rental-vehicles')
                   ? ' this ready-to-ship'
                   : ' Rental of this'
-                : null}
+                : ' the'}
               <p>
                 <strong
                   dangerouslySetInnerHTML={{

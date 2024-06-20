@@ -286,6 +286,7 @@
   &.disabled {
     opacity: 0.3;
     pointer-events: none;
+    margin-left: 16px;
   }
 
   &.shiny {

@@ -28,6 +28,7 @@ const CarouselCurved = ({
   const slides = props;
 
   const options = {
+    // align: 'start',
     dragFree: false,
     loop: true,
     thumbs: false,
@@ -43,7 +44,7 @@ const CarouselCurved = ({
   const { openLightbox, renderLightbox } = useLightbox();
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [autoplayInterval, setAutoplayInterval] = useState(null);
-  const autoplayDelay = 355000; // Adjust as needed (in milliseconds)
+  const autoplayDelay = 3000; // Adjust as needed (in milliseconds)
   const autoplayEnabled = true; // Toggle this based on your requirement
 
   const {
@@ -118,77 +119,45 @@ const CarouselCurved = ({
               >
                 {item.attributes?.url ? (
                   <>
-                    {item.attributes.alternativeText ? (
-                      <h4
-                        className={`${styles.carouselCurved_slide_alternativeText}`}
-                      >
+                    <h4
+                      className={`${styles.carouselCurved_slide_alternativeText}`}
+                    >
+                      {item.attributes.alternativeText ? (
                         <span>{item.attributes.alternativeText}</span>
-                      </h4>
+                      ) : null}
+                    </h4>
+                    {item.attributes.mime.split('/')[0] === 'image' ? (
+                      <Image
+                        src={
+                          isMobile
+                            ? item.attributes.formats?.thumbnail?.url
+                            : item.attributes.formats?.large?.url ||
+                              item.attributes.url
+                        }
+                        alt={
+                          item.attributes.alternativeText || 'Alpine Armoring'
+                        }
+                        // priority={index === 0}
+                        width={
+                          isMobile
+                            ? item.attributes.formats?.thumbnail?.width
+                            : item.attributes.formats?.medium?.width ||
+                              item.attributes.width
+                        }
+                        height={
+                          isMobile
+                            ? item.attributes.formats?.thumbnail?.height
+                            : item.attributes.formats?.medium?.height ||
+                              item.attributes.height
+                        }
+                        className={styles.carousel_slide_img}
+                      ></Image>
                     ) : null}
-                    <div className={`${styles.carouselCurved_slide_img}`}>
-                      {/* {item.attributes.alternativeText ? (
-                        <h4
-                          className={`${styles.carouselCurved_slide_alternativeText}`}
-                        >
-                          <span>{item.attributes.alternativeText}</span>
-                        </h4>
-                      ) : null} */}
-                      {item.attributes.mime.split('/')[0] === 'image' ? (
-                        <Image
-                          src={
-                            isMobile
-                              ? item.attributes.formats?.thumbnail?.url
-                              : item.attributes.formats?.large?.url ||
-                                item.attributes.url
-                          }
-                          alt={
-                            item.attributes.alternativeText || 'Alpine Armoring'
-                          }
-                          // priority={index === 0}
-                          width={
-                            isMobile
-                              ? item.attributes.formats?.thumbnail?.width
-                              : item.attributes.formats?.medium?.width ||
-                                item.attributes.width
-                          }
-                          height={
-                            isMobile
-                              ? item.attributes.formats?.thumbnail?.height
-                              : item.attributes.formats?.medium?.height ||
-                                item.attributes.height
-                          }
-                          className={styles.carousel_slide_img}
-                        ></Image>
-                      ) : null}
-
-                      {item.attributes.mime.startsWith('video') ? (
-                        <video autoPlay muted loop>
-                          <source
-                            src={`${item.attributes.url}`}
-                            type={item.attributes.mime}
-                          />
-                        </video>
-                      ) : null}
-
-                      {/* {item.attributes.caption ? (
-                        <h4
-                          className={`${styles.carouselCurved_slide_caption}`}
-                        >
-                          <span>{item.attributes.caption}</span>
-                        </h4>
-                      ) : null} */}
-                    </div>
-                    {item.attributes.caption ? (
-                      <h4 className={`${styles.carouselCurved_slide_caption}`}>
+                    <h4 className={`${styles.carouselCurved_slide_caption}`}>
+                      {item.attributes.caption ? (
                         <span>{item.attributes.caption}</span>
-                      </h4>
-                    ) : null}
-
-                    {/* {regular ? (
-                      <div className={styles.carouselCurved_zoom}>
-                        <ZoomIcon />
-                      </div>
-                    ) : null} */}
+                      ) : null}
+                    </h4>
                   </>
                 ) : null}
               </div>

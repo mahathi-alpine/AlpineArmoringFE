@@ -171,6 +171,7 @@ small {
 .c-title {
   margin-bottom: rem(32);
   font-size: rem(26);
+  text-align: center;
   @include breakpoint(large) {
     margin-bottom: rem(48);
     font-size: rem(36);

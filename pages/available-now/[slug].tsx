@@ -40,11 +40,12 @@ function InventoryVehicle(props) {
   };
 
   const vehicleDetailsMain = {
+    Level: 'armor_level',
     VIN: 'VIN',
     'Vehicle ID': 'vehicleID',
-    Engine: 'engine',
+    'Engine and Power': 'engine',
     Trans: 'trans',
-    Power: 'power',
+    // Power: 'power',
     Year: 'year',
     Drivetrain: 'driveTrain',
     'Color (Exterior)': 'color_ext',
