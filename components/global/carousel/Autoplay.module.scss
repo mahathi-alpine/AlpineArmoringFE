@@ -136,12 +136,8 @@
       span {
         position: relative;
         z-index: 1;
-        font-size: rem(24);
+        font-size: rem(12);
         font-weight: var(--font-demi);
-        width: 100%;
-        white-space: nowrap; // Prevent text from wrapping to a new line
-        overflow: hidden; // Hide any overflow content
-        text-overflow: ellipsis; // Add ellipsis to indicate overflow
       }
     }
 
@@ -151,9 +147,7 @@
       color: #636262;
       padding: rem(16);
       text-align: center;
-      width: 100%;
       box-sizing: border-box;
-      font-size: 32px;
       font-weight: var(--font-demi);
 
       span {
@@ -161,10 +155,6 @@
         z-index: 1;
         font-size: rem(32);
         font-weight: var(--font-demi);
-        width: 100%;
-        white-space: nowrap; // Prevent text from wrapping to a new line
-        overflow: hidden; // Hide any overflow content
-        text-overflow: ellipsis; // Add ellipsis to indicate overflow
       }
     }
   }
