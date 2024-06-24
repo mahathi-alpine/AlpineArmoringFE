@@ -126,7 +126,7 @@
 
         @include breakpoint(large) {
           width: calc(40% - 32px);
-          max-width: 1000px;
+          // max-width: 1000px;
           &:last-child {
             width: calc(60% - 32px);
             margin-left: 64px;

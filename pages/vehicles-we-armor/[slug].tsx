@@ -302,7 +302,7 @@ function Vehicle(props) {
           <h2
             className={`${styles.slug_dimensions_title} observe fade-in c-title`}
           >
-            Other Options
+            Other Optional Equipment
           </h2>
           <StickyHorizontalSlider slides={data.otherOptions.data} />
           <div className={`divider_fade`}></div>

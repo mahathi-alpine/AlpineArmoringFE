@@ -100,7 +100,15 @@ const Banner = (props) => {
               >
                 View in-stock availability
               </Button>
-            ) : null}
+            ) : (
+              <Button
+                className={`${styles.banner_buttons_item} shiny`}
+                button={true}
+                disabled
+              >
+                View in-stock availability
+              </Button>
+            )}
           </div>
         </div>
 

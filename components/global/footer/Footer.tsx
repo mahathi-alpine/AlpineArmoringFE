@@ -10,8 +10,12 @@ import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
 import MailIcon from 'components/icons/Mail';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const Footer = (isDarkMode) => {
+  const router = useRouter(); // Initialize useRouter
+  const currentRoute = router.pathname; // Get the current route
   const links = [
     { path: '/', text: 'Home' },
     {
@@ -39,11 +43,24 @@ const Footer = (isDarkMode) => {
     >
       <div className={`${styles.footer_inner} container`}>
         <div className={`${styles.footer_top}`}>
-          <h2 className={`${styles.footer_top_heading}`}>Alpine Armoring</h2>
-          <h3 className={`${styles.footer_top_subheading}`}>
-            {/* eslint-disable-next-line react/no-unescaped-entities */}
-            "no one protects you better" ®
-          </h3>
+          <div className={styles.footer_content}>
+            <div className={styles.footer_text}>
+              <h2 className={styles.footer_top_heading}>Alpine Armoring</h2>
+              <h3 className={styles.footer_top_subheading}>
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
+                "no one protects you better" ®
+              </h3>
+            </div>
+            {currentRoute === '/about-us' && (
+              <div className={styles.footer_image}>
+                <Image
+                  src="/assets/armored-vehicles.png"
+                  alt="armored vehicles"
+                  fill
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         <div className={`${styles.footer_middle}`}>

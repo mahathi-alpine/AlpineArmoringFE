@@ -155,11 +155,43 @@
     display: flex;
     justify-content: center;
   }
+  &_downloads {
+    justify-content: space-between;
+    font-size: rem(14);
+    font-weight: var(--font-medium);
+    letter-spacing: -0.5px;
+
+    & > a {
+      display: flex;
+      align-items: center;
+      margin-top: 3rem;
+
+      svg {
+        margin-left: 4px;
+        @include breakpoint(medium) {
+          margin-left: 8px;
+        }
+      }
+    }
+
+    svg {
+      width: 30px;
+      height: 30px;
+      @include breakpoint(medium) {
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    span {
+      display: block;
+    }
+  }
   .counter_section {
     margin: 40px auto;
 
     @include breakpoint(large) {
-      max-width: 2135px;
+      max-width: 1840px;
     }
   }
 

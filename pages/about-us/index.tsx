@@ -3,14 +3,19 @@ import { getPageData } from 'lib/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
+import Link from 'next/link';
+import PDFIcon from 'components/icons/PDF';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
-import Gallery from 'components/global/carousel/Autoplay';
+import Autoplay from 'components/global/carousel/Autoplay';
+import Gallery from 'components/global/carousel/CarouselCurved';
 import Counter from 'components/global/counter/Counter';
 
 function About(props) {
   const boxes = props?.pageData?.boxes;
   const timelineImages = props?.pageData?.timeline?.data || [];
+  const certificate1 = props?.pageData?.certificate1?.data?.attributes?.url;
+  const certificate2 = props?.pageData?.certificate2?.data?.attributes?.url;
   const convertMarkdown = useMarkdownToHtml();
 
   // Animations
@@ -66,7 +71,7 @@ function About(props) {
 
         {timelineImages.length > 0 ? (
           <div className={`${styles.timeline_gallery} observe fade-in`}>
-            <Gallery props={timelineImages} regular />
+            <Autoplay props={timelineImages} regular autoplay />
           </div>
         ) : null}
 
@@ -111,6 +116,32 @@ function About(props) {
                     dangerouslySetInnerHTML={{ __html: item.description }}
                   ></p>
                 ) : null}
+                {item.title === 'Our Certifications' && (
+                  <div className={`${styles.about_downloads}`}>
+                    {certificate1 ? (
+                      <Link href={certificate1} target="_blank">
+                        <span>
+                          BESCHUSSAMT MÜNCHEN
+                          <span style={{ fontSize: '27px' }}>
+                            VIEW CERTIFICATES
+                          </span>
+                        </span>
+                        <PDFIcon />
+                      </Link>
+                    ) : null}
+                    {certificate2 ? (
+                      <Link href={certificate2} target="_blank">
+                        <span>
+                          OTHER INDEPENDENT LABORATORIES
+                          <span style={{ fontSize: '27px' }}>
+                            VIEW CERTIFICATES
+                          </span>
+                        </span>
+                        <PDFIcon />
+                      </Link>
+                    ) : null}
+                  </div>
+                )}
               </div>
 
               {item.image.data ? (

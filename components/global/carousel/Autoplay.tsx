@@ -1,7 +1,6 @@
 import styles from './Autoplay.module.scss';
-// import ZoomIcon from 'components/icons/Zoom';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
 
 import useEmblaCarousel from 'embla-carousel-react';
@@ -18,23 +17,31 @@ import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import NextJsImage from '../lightbox/NextJsImage';
 import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 
-const CarouselCurved = ({
+// Define the props interface
+interface AutoplayProps {
+  props: any;
+  white?: any;
+  squared?: any;
+  regular?: any;
+  singular?: any;
+  autoplay?: boolean;
+}
+
+const Autoplay: React.FC<AutoplayProps> = ({
   props,
   white = undefined,
   squared = undefined,
   regular = undefined,
   singular = undefined,
+  autoplay = false,
 }) => {
   const slides = props;
 
   const options = {
-    // align: 'start',
-    dragFree: false,
+    dragFree: true,
     loop: true,
     thumbs: false,
     variableWidth: true,
-    slidesToScroll: 1, // Adjust the number of slides to scroll at once
-    skipSnaps: false, // Disable user control during autoplay
   };
 
   const isMobile = useIsMobile();
@@ -43,9 +50,6 @@ const CarouselCurved = ({
 
   const { openLightbox, renderLightbox } = useLightbox();
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [autoplayInterval, setAutoplayInterval] = useState(null);
-  const autoplayDelay = 3000; // Adjust as needed (in milliseconds)
-  const autoplayEnabled = true; // Toggle this based on your requirement
 
   const {
     prevBtnDisabled,
@@ -54,33 +58,30 @@ const CarouselCurved = ({
     onNextButtonClick,
   } = usePrevNextButtons(emblaMainApi);
 
-  const startAutoplay = () => {
-    if (autoplayEnabled && !autoplayInterval) {
-      const interval = setInterval(() => {
-        emblaMainApi.scrollNext();
-      }, autoplayDelay);
-      setAutoplayInterval(interval);
-    }
-  };
-
-  const stopAutoplay = () => {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      setAutoplayInterval(null);
-    }
-  };
+  // Autoplay functionality
+  const [isAutoplay, setIsAutoplay] = useState(autoplay);
+  const autoplayInterval = useRef<any>(null);
 
   useEffect(() => {
-    if (emblaMainApi) {
-      emblaMainApi.on('init', startAutoplay);
-      emblaMainApi.on('destroy', stopAutoplay);
-      emblaMainApi.on('pointerDown', stopAutoplay);
-      emblaMainApi.on('pointerUp', startAutoplay);
-      emblaMainApi.on('select', () => {
-        setSelectedIndex(emblaMainApi.selectedScrollSnap());
-      });
+    if (isAutoplay && emblaMainApi) {
+      autoplayInterval.current = setInterval(() => {
+        if (emblaMainApi.canScrollNext()) {
+          emblaMainApi.scrollNext();
+        } else {
+          emblaMainApi.scrollTo(0);
+        }
+      }, 3000); // Change slide every 3 seconds
+    } else {
+      clearInterval(autoplayInterval.current);
     }
-  }, [emblaMainApi]);
+    return () => clearInterval(autoplayInterval.current);
+  }, [isAutoplay, emblaMainApi]);
+
+  const handleLightboxOpen = (index) => {
+    setSelectedIndex(index);
+    openLightbox();
+    setIsAutoplay(false); // Stop autoplay when lightbox is opened
+  };
 
   return (
     <div
@@ -92,13 +93,6 @@ const CarouselCurved = ({
         ${singular ? styles.carouselCurved_wrapper_singular : ''}
       `}
     >
-      {/* {autoplayEnabled && (
-        <button className={styles.autoplayButton} onClick={stopAutoplay}></button>
-      )}
-      {!autoplayEnabled && (
-        <button className={styles.autoplayButton} onClick={startAutoplay}>Start Autoplay</button>
-      )} */}
-
       {!regular && !singular ? (
         <div
           className={`${styles.carouselCurved_shape} ${styles.carouselCurved_shapeAfter} shape-after shape-after-small`}
@@ -112,52 +106,61 @@ const CarouselCurved = ({
               <div
                 className={styles.carouselCurved_slide}
                 key={index}
-                onClick={() => {
-                  setSelectedIndex(index);
-                  openLightbox();
-                }}
+                onClick={() => handleLightboxOpen(index)}
               >
                 {item.attributes?.url ? (
                   <>
-                    <h4
-                      className={`${styles.carouselCurved_slide_alternativeText}`}
-                    >
-                      {item.attributes.alternativeText ? (
-                        <span>{item.attributes.alternativeText}</span>
+                    <div className={`${styles.carouselCurved_slide_img}`}>
+                      <h4
+                        className={`${styles.carouselCurved_slide_alternativeText}`}
+                      >
+                        {item.attributes.alternativeText ? (
+                          <span>{item.attributes.alternativeText}</span>
+                        ) : null}
+                      </h4>
+                      {item.attributes.mime.split('/')[0] === 'image' ? (
+                        <Image
+                          src={
+                            isMobile
+                              ? item.attributes.formats?.thumbnail?.url
+                              : item.attributes.formats?.large?.url ||
+                                item.attributes.url
+                          }
+                          alt={
+                            item.attributes.alternativeText || 'Alpine Armoring'
+                          }
+                          // priority={index === 0}
+                          width={
+                            isMobile
+                              ? item.attributes.formats?.thumbnail?.width
+                              : item.attributes.formats?.medium?.width ||
+                                item.attributes.width
+                          }
+                          height={
+                            isMobile
+                              ? item.attributes.formats?.thumbnail?.height
+                              : item.attributes.formats?.medium?.height ||
+                                item.attributes.height
+                          }
+                          className={styles.carousel_slide_img}
+                        ></Image>
                       ) : null}
-                    </h4>
-                    {item.attributes.mime.split('/')[0] === 'image' ? (
-                      <Image
-                        src={
-                          isMobile
-                            ? item.attributes.formats?.thumbnail?.url
-                            : item.attributes.formats?.large?.url ||
-                              item.attributes.url
-                        }
-                        alt={
-                          item.attributes.alternativeText || 'Alpine Armoring'
-                        }
-                        // priority={index === 0}
-                        width={
-                          isMobile
-                            ? item.attributes.formats?.thumbnail?.width
-                            : item.attributes.formats?.medium?.width ||
-                              item.attributes.width
-                        }
-                        height={
-                          isMobile
-                            ? item.attributes.formats?.thumbnail?.height
-                            : item.attributes.formats?.medium?.height ||
-                              item.attributes.height
-                        }
-                        className={styles.carousel_slide_img}
-                      ></Image>
-                    ) : null}
-                    <h4 className={`${styles.carouselCurved_slide_caption}`}>
-                      {item.attributes.caption ? (
-                        <span>{item.attributes.caption}</span>
+
+                      <h4 className={`${styles.carouselCurved_slide_caption}`}>
+                        {item.attributes.caption ? (
+                          <span>{item.attributes.caption}</span>
+                        ) : null}
+                      </h4>
+
+                      {item.attributes.mime.startsWith('video') ? (
+                        <video autoPlay muted loop>
+                          <source
+                            src={`${item.attributes.url}`}
+                            type={item.attributes.mime}
+                          />
+                        </video>
                       ) : null}
-                    </h4>
+                    </div>
                   </>
                 ) : null}
               </div>
@@ -174,12 +177,6 @@ const CarouselCurved = ({
                 onClick={onNextButtonClick}
                 disabled={nextBtnDisabled}
               />
-
-              {/* {!regular ? (
-                <div className={styles.carouselCurved_zoom}>
-                  <ZoomIcon />
-                </div>
-              ) : null} */}
             </div>
           ) : null}
         </div>
@@ -218,4 +215,4 @@ const CarouselCurved = ({
   );
 };
 
-export default CarouselCurved;
+export default Autoplay;

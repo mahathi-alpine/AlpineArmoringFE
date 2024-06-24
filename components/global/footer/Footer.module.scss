@@ -301,3 +301,29 @@
     }
   }
 }
+.footer_inner {
+  .footer_top {
+    .footer_content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .footer_text {
+        flex: 1;
+      }
+
+      .footer_image {
+        flex: 1;
+        position: relative;
+        height: 200px; // Adjust height as needed
+
+        img {
+          object-fit: contain;
+        }
+        @include breakpoint(small) {
+          display: none;
+        }
+      }
+    }
+  }
+}
