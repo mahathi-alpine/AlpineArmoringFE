@@ -1,12 +1,9 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import Button from 'components/global/button/Button';
 import styles from './Article.module.scss';
 import React from 'react';
 
 const Article = ({
   props,
-  button = false,
   limit = '',
   plain = false,
   title = '',
@@ -58,49 +55,19 @@ const Article = ({
                   `}
                   key={index}
                 >
-                  {item.attributes.thumbnail.data?.attributes.url ? (
-                    <Link
-                      href={`/landing/${item.attributes.slug}`}
-                      className={`${styles.article_item_image}`}
-                    >
-                      <Image
-                        src={`${
-                          item.attributes.thumbnail.data.attributes.formats
-                            ?.medium?.url ||
-                          item.attributes.thumbnail.data.attributes.url
-                        }`}
-                        alt={
-                          item.attributes.thumbnail.data.attributes
-                            .alternativeText || 'Alpine Armoring'
-                        }
-                        width={700}
-                        height={300}
-                        sizes="(max-width: 550px) 100vw, 50vw"
-                      />
-                    </Link>
-                  ) : null}
                   <div className={`${styles.article_item_content}`}>
                     <div className={`${styles.article_item_content_main}`}>
                       <div
                         className={`${styles.article_item_content_main_inner}`}
                       >
-                        <Link href={`/landing/${item.attributes.slug}`}>
+                        <Link
+                          href={`/countries-we-service/${item.attributes.slug}`}
+                        >
                           <h3 className={`${styles.article_item_title}`}>
-                            {item.attributes.title}
+                            {item.attributes.excerpt}
                           </h3>
                         </Link>
-                        {item.attributes.excerpt ? (
-                          <p className={`${styles.article_item_excerpt}`}>
-                            {item.attributes.excerpt}
-                          </p>
-                        ) : null}
                       </div>
-                      <Button
-                        href={`/landing/${item.attributes.slug}`}
-                        className={`${styles.article_item_button} rounded border desktop-only`}
-                      >
-                        Read More
-                      </Button>
                     </div>
                   </div>
                 </div>
@@ -108,16 +75,6 @@ const Article = ({
             );
           })}
         </div>
-        {button ? (
-          <div className={`${styles.article_button}`}>
-            <Button
-              href={`/landing`}
-              className={`${styles.article_button_link} rounded primary`}
-            >
-              See All Articles
-            </Button>
-          </div>
-        ) : null}
       </div>
     </div>
   );

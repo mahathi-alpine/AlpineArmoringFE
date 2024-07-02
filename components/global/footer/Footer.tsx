@@ -57,6 +57,7 @@ const Footer = (isDarkMode) => {
                   src="/assets/armored-vehicles.png"
                   alt="armored vehicles"
                   fill
+                  objectPosition="right"
                 />
               </div>
             )}

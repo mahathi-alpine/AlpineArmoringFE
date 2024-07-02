@@ -44,8 +44,8 @@ function Article(props) {
           <ArticleList
             featured
             props={posts}
-            subtitle="Countries"
-            title="Landing Pages"
+            subtitle="Countries We Service"
+            // title="Landing Pages"
           />
         </div>
       ) : null}

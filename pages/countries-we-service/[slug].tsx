@@ -4,18 +4,30 @@ import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import dynamic from 'next/dynamic';
+const LandingInquiryForm = dynamic(
+  () => import('components/global/form/LandingInquiryForm')
+);
 
 function ArticleSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const content = data?.content;
 
+  const formData = {
+    title: data?.title,
+    featuredImage: data?.featuredImage,
+  };
+
   const convertMarkdown = useMarkdownToHtml();
 
   return (
     <div className={`${styles.articleSingle}`}>
       <div className={`${styles.articleSingle_inner} container_small`}>
-        <Link href="/landing" className={`${styles.articleSingle_back}`}>
+        <Link
+          href="/countries-we-service"
+          className={`${styles.articleSingle_back}`}
+        >
           <ArrowIcon />
           All Articles
         </Link>
@@ -43,6 +55,9 @@ function ArticleSingle(props) {
             className={`${styles.articleSingle_content} static`}
             dangerouslySetInnerHTML={{ __html: convertMarkdown(content) }}
           ></div>
+        ) : null}
+        {formData ? (
+          <LandingInquiryForm {...formData} className={`formCTA`} />
         ) : null}
       </div>
     </div>
