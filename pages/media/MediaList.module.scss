@@ -1,6 +1,7 @@
 .mediaList {
   &_list {
     padding-top: rem(40);
+    // padding-bottom: rem(50);
     margin-bottom: rem(40);
     overflow: hidden;
 
@@ -21,13 +22,17 @@
         }
       }
 
+      &_arrows{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: rem(20);
+      }
+
       &_arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: -10px;
-        height: 40px;
-        width: 40px;
+        margin: 0 10px;
+        height: 30px;
+        width: 30px;
         border-radius: 20px;
         background: var(--color-dark);
         display: flex;
@@ -36,6 +41,8 @@
         cursor: pointer;
 
         @include breakpoint(large) {
+          height: 40px;
+          width: 40px;
           transition: background 0.2s ease;
           &:hover {
             background: var(--color-gray);
@@ -43,17 +50,21 @@
         }
 
         &_next {
-          left: auto;
-          right: -10px;
-          transform: translateY(-50%) rotate(180deg);
+          transform: rotate(180deg);
         }
 
         &_disabled {
-          opacity: 0;
+          background: var(--color-grayDark);
+          &:hover{
+            background: var(--color-grayDark);
+          }
         }
 
         svg {
-          width: 16px;
+          width: 12px;
+          @include breakpoint(large) {
+            width: 16px;
+          }
           path {
             fill: var(--color-white);
           }
