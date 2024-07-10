@@ -53,6 +53,7 @@ export async function getStaticProps() {
   let videos = await getPageData({
     route: 'videos',
     sort: 'order',
+    pageSize: 1000,
     populate: 'deep',
   });
   videos = videos?.data || null;
