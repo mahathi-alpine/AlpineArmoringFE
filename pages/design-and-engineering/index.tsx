@@ -4,9 +4,11 @@ import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 const Design = (props) => {
   const convertMarkdown = useMarkdownToHtml();
+  const isMobile = useIsMobile();
 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -139,28 +141,49 @@ const Design = (props) => {
           <div className={`${styles.design_box} container`}>
             {props.pageData?.section1Image2.data ? (
               <div className={`${styles.design_image} observe fade-in`}>
-                <Image
-                  src={
-                    props.pageData.section1Image2.data.attributes.formats
-                      ?.medium?.url ||
-                    props.pageData.section1Image2.data.attributes.url
-                  }
-                  alt={
-                    props.pageData.section1Image2.data.attributes
-                      .alternativeText || 'Alpine Armoring'
-                  }
-                  quality={100}
-                  width={
-                    props.pageData.section1Image2.data.attributes.formats
-                      ?.medium?.width ||
-                    props.pageData.section1Image2.data.attributes.width
-                  }
-                  height={
-                    props.pageData.section1Image2.data.attributes.formats
-                      ?.medium?.height ||
-                    props.pageData.section1Image2.data.attributes.height
-                  }
-                ></Image>
+                {props.pageData.section1Image2.data.attributes.mime.startsWith(
+                  'image/'
+                ) ? (
+                  <Image
+                    src={`${
+                      props.pageData.section1Image2.data.attributes.formats
+                        .medium?.url ||
+                      props.pageData.section1Image2.data.attributes.url
+                    }`}
+                    alt={
+                      props.pageData.section1Image2.data.attributes
+                        .alternativeText || 'Alpine Armoring'
+                    }
+                    width={
+                      props.pageData.section1Image2.data.attributes.formats
+                        ?.medium?.width ||
+                      props.pageData.section1Image2.data.attributes.width
+                    }
+                    height={
+                      props.pageData.section1Image2.data.attributes.formats
+                        ?.medium?.height ||
+                      props.pageData.section1Image2.data.attributes.height
+                    }
+                  />
+                ) : props.pageData.section1Image2.data.attributes.mime.startsWith(
+                    'video/'
+                  ) ? (
+                  <video
+                    preload="none"
+                    muted={true}
+                    autoPlay={true}
+                    playsInline={true}
+                    loop={true}
+                    width={isMobile ? 380 : 620}
+                    height={isMobile ? 200 : 430}
+                  >
+                    <source
+                      src={`${props.pageData.section1Image2.data.attributes?.url}`}
+                      type={props.pageData.section1Image2.data.attributes.mime}
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : null}
               </div>
             ) : null}
 
