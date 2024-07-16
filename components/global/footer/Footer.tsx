@@ -27,7 +27,7 @@ const Footer = (isDarkMode) => {
     { path: '/media', text: 'News & Media' },
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     { path: '/about-us', text: 'About Us' },
-    { path: '#', text: 'Ballistic Testing' },
+    { path: '/ballistic-testing', text: 'Ballistic Testing' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/available-now/type/armored-pre-owned', text: 'Pre-owned' },
     { path: '/faqs', text: 'FAQ' },
@@ -51,7 +51,8 @@ const Footer = (isDarkMode) => {
                 "no one protects you better" ®
               </h3>
             </div>
-            {currentRoute === '/about-us' && (
+            {(currentRoute === '/about-us' ||
+              currentRoute.includes('/countries-we-service')) && (
               <div className={styles.footer_image}>
                 <Image
                   src="/assets/armored-vehicles.png"

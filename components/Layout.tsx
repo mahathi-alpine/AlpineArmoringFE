@@ -52,8 +52,14 @@ const termina = localFont({
 const Layout = ({ children }) => {
   const router = useRouter();
 
-  const pathsDarkMode = ['/available-now', '/manufacturing', '/sold-vehicles'];
-  const pathsDarkFooter = ['/manufacturing'];
+  const pathsDarkMode = [
+    '/available-now',
+    '/rental-vehicles',
+    '/ballistic-testing',
+    '/manufacturing',
+    '/sold-vehicles',
+  ];
+  const pathsDarkFooter = ['/ballistic-testing', '/manufacturing'];
   const pathsPadding0 = ['/news/'];
 
   const isDarkMode = pathsDarkMode.some((path) =>

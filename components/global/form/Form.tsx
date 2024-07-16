@@ -13,6 +13,7 @@ const Form = () => {
   const [mobile, setMobile] = useState('');
   const [company, setCompany] = useState('');
   const [inquiry, setInquiry] = useState('');
+  const [hear, setHear] = useState('');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [preferredContact, setPreferredContact] = useState('');
@@ -26,6 +27,7 @@ const Form = () => {
     isPreferredContactDropdownActive,
     setIsPreferredContactDropdownActive,
   ] = useState(false);
+  const [isHearDropdownActive, setIsHearDropdownActive] = useState(false);
   const [isCountryDropdownActive, setIsCountryDropdownActive] = useState(false);
   const [isStateDropdownActive, setIsStateDropdownActive] = useState(false);
 
@@ -324,9 +326,7 @@ const Form = () => {
 
   const validatePhone = (value) => {
     const phonePattern = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/;
-    if (!value) {
-      return 'Phone is required';
-    } else if (!phonePattern.test(value)) {
+    if (value && !phonePattern.test(value)) {
       return 'Please enter a valid phone number';
     } else {
       return '';
@@ -335,7 +335,9 @@ const Form = () => {
 
   const validateMobile = (value) => {
     const mobilePattern = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/;
-    if (value && !mobilePattern.test(value)) {
+    if (!value) {
+      return 'Mobile Number is required';
+    } else if (!mobilePattern.test(value)) {
       return 'Please enter a valid mobile number';
     } else {
       return '';
@@ -414,6 +416,7 @@ const Form = () => {
             company: company,
             preferredContact: preferredContact,
             inquiry: inquiry,
+            hear: hear,
             country: country,
             state: country === 'United States' ? state : '',
             message: sanitizedMessage,
@@ -438,6 +441,7 @@ const Form = () => {
             setMobile('');
             setCompany('');
             setInquiry('');
+            setHear('');
             setCountry('');
             setState('');
             setPreferredContact('');
@@ -535,23 +539,6 @@ const Form = () => {
       </div>
 
       <div
-        className={`${styles.form_group} ${errors.phone ? styles.error : ''}`}
-      >
-        <input
-          type="tel"
-          id="phone"
-          value={phone}
-          onChange={(e) =>
-            handleFieldChange('phone', e.target.value, validatePhone, setPhone)
-          }
-          placeholder="Mobile Number*"
-          className={`${styles.form_input}`}
-          // required
-        />
-        <small className={`${styles.form_input_error}`}>{errors.phone}</small>
-      </div>
-
-      <div
         className={`${styles.form_group} ${errors.mobile ? styles.error : ''}`}
       >
         <input
@@ -566,10 +553,27 @@ const Form = () => {
               setMobile
             )
           }
+          placeholder="Mobile Number*"
+          className={`${styles.form_input}`}
+          // required
+        />
+        <small className={`${styles.form_input_error}`}>{errors.mobile}</small>
+      </div>
+
+      <div
+        className={`${styles.form_group} ${errors.mobile ? styles.error : ''}`}
+      >
+        <input
+          type="tel"
+          id="phone"
+          value={phone}
+          onChange={(e) =>
+            handleFieldChange('phone', e.target.value, validatePhone, setPhone)
+          }
           placeholder="Alternate Phone Number"
           className={`${styles.form_input}`}
         />
-        <small className={`${styles.form_input_error}`}>{errors.mobile}</small>
+        <small className={`${styles.form_input_error}`}>{errors.phone}</small>
       </div>
 
       <div
@@ -578,9 +582,9 @@ const Form = () => {
         <Dropdown
           label="Customer Type"
           options={[
-            'US Government Agencies',
-            'Foreign Government Agencies',
-            'Private Sector',
+            'US Government Agency',
+            'Foreign Government Agency',
+            'Private Sector/Corporate',
             'Individual',
             'NGO',
             'Other',
@@ -634,6 +638,30 @@ const Form = () => {
         <small className={`${styles.form_input_error}`}>
           {errors.preferredContact}
         </small>
+      </div>
+
+      <div
+        className={`${styles.form_group} ${errors.hear ? styles.error : ''}`}
+      >
+        <Dropdown
+          label="How Did You Hear About Us"
+          options={[
+            'Instagram',
+            'Facebook',
+            'TikTok',
+            'YouTube',
+            'Search Engine (Google, Bing, etc.)',
+            'Repeat Customer',
+            'Email or Newsletter',
+            'Referral',
+            'Other',
+          ]}
+          selectedOption={hear}
+          setSelectedOption={setHear}
+          isActive={isHearDropdownActive}
+          setIsActive={setIsHearDropdownActive}
+        />
+        <small className={`${styles.form_input_error}`}>{errors.hear}</small>
       </div>
 
       <div

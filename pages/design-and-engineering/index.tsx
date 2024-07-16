@@ -69,7 +69,7 @@ const Design = (props) => {
           </>
         ) : null}
 
-        <section className={`${styles.design_section1} container_small`}>
+        {/* <section className={`${styles.design_section1} container_small`}>
           {props.pageData?.section1Title ? (
             <h2
               className={`${styles.design_title} observe fade-in`}
@@ -109,6 +109,92 @@ const Design = (props) => {
                   }
                   width={840}
                   height={445}
+                ></Image>
+              </div>
+            ) : null}
+          </div>
+        </section> */}
+
+        <section className={`${styles.design_section2}`}>
+          <div className={`container_small`}>
+            {props.pageData?.section1Title ? (
+              <h2
+                className={`${styles.design_title} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: props.pageData.section1Title,
+                }}
+              ></h2>
+            ) : null}
+
+            {props.pageData?.section1Text ? (
+              <div
+                className={`${styles.design_heading} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section1Text),
+                }}
+              ></div>
+            ) : null}
+          </div>
+
+          <div className={`${styles.design_box} container`}>
+            {props.pageData?.section1Image2.data ? (
+              <div className={`${styles.design_image} observe fade-in`}>
+                <Image
+                  src={
+                    props.pageData.section1Image2.data.attributes.formats
+                      ?.medium?.url ||
+                    props.pageData.section1Image2.data.attributes.url
+                  }
+                  alt={
+                    props.pageData.section1Image2.data.attributes
+                      .alternativeText || 'Alpine Armoring'
+                  }
+                  quality={100}
+                  width={
+                    props.pageData.section1Image2.data.attributes.formats
+                      ?.medium?.width ||
+                    props.pageData.section1Image2.data.attributes.width
+                  }
+                  height={
+                    props.pageData.section1Image2.data.attributes.formats
+                      ?.medium?.height ||
+                    props.pageData.section1Image2.data.attributes.height
+                  }
+                ></Image>
+              </div>
+            ) : null}
+
+            {props.pageData?.section1Text2 ? (
+              <div
+                className={`${styles.design_text} observe fade-in`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section1Text2),
+                }}
+              ></div>
+            ) : null}
+
+            {props.pageData?.section1Image.data ? (
+              <div className={`${styles.design_image} observe fade-in`}>
+                <Image
+                  src={
+                    props.pageData.section1Image.data.attributes.formats?.medium
+                      ?.url || props.pageData.section1Image.data.attributes.url
+                  }
+                  alt={
+                    props.pageData.section1Image.data.attributes
+                      .alternativeText || 'Alpine Armoring'
+                  }
+                  quality={100}
+                  width={
+                    props.pageData.section1Image.data.attributes.formats?.medium
+                      ?.width ||
+                    props.pageData.section1Image.data.attributes.width
+                  }
+                  height={
+                    props.pageData.section1Image.data.attributes.formats?.medium
+                      ?.height ||
+                    props.pageData.section1Image.data.attributes.height
+                  }
                 ></Image>
               </div>
             ) : null}

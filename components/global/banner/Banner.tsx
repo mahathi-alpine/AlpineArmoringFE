@@ -176,11 +176,24 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
             <div
               className={`${styles.banner_text} ${styles.banner_text_bottom} observe fade-in-scale`}
             >
-              {bannerTitle ? (
-                <h1
-                  className={`${styles.banner_title}`}
-                  dangerouslySetInnerHTML={{ __html: bannerTitle }}
-                ></h1>
+              {currentRoute === '/contact' ||
+              currentRoute === '/about-us' ||
+              currentRoute === '/ballistic-testing' ||
+              currentRoute === '/become-a-delaer' ||
+              currentRoute === '/design-and-engineering' ||
+              currentRoute === '/manufacturing' ||
+              currentRoute === '/faqs' ||
+              currentRoute === '/shipping-and-logistics' ||
+              currentRoute === '/media' ||
+              currentRoute === '/shipping-and-logistics' ? (
+                <div>
+                  {bannerTitle ? (
+                    <h1
+                      className={`${styles.banner_title}`}
+                      dangerouslySetInnerHTML={{ __html: bannerTitle }}
+                    ></h1>
+                  ) : null}
+                </div>
               ) : null}
             </div>
           </div>

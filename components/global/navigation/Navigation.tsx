@@ -10,7 +10,7 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
   const links = [
     { path: '/available-now', text: 'Available Now' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
-    { path: '#', text: 'Ballistic Testing' },
+    { path: '/ballistic-testing', text: 'Ballistic Testing' },
   ];
 
   return (
