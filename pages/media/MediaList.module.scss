@@ -22,7 +22,7 @@
         }
       }
 
-      &_arrows{
+      &_arrows {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -55,7 +55,7 @@
 
         &_disabled {
           background: var(--color-grayDark);
-          &:hover{
+          &:hover {
             background: var(--color-grayDark);
           }
         }

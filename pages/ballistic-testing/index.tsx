@@ -9,6 +9,7 @@ import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import PlayIcon from 'components/icons/Play';
 import { useIsMobile } from 'hooks/useIsMobile';
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')
@@ -202,36 +203,76 @@ function Testing(props) {
                   {props?.pageData?.titleGallery1}
                 </h2>
               )}
-              {certificate1 ? (
-                <Link href={certificate1} target="_blank">
-                  {props.pageData?.section1Gallery1.data ? (
-                    <div className={styles.imageWrapper}>
-                      <Image
-                        src={
-                          props.pageData.section1Gallery1.data.attributes
-                            .formats?.medium?.url ||
-                          props.pageData.section1Gallery1.data.attributes.url
-                        }
-                        alt={
-                          props.pageData.section1Gallery1.data.attributes
-                            .alternativeText || 'Alpine Armoring'
-                        }
-                        quality={100}
-                        width={
-                          props.pageData.section1Gallery1.data.attributes
-                            .formats?.medium?.width ||
-                          props.pageData.section1Gallery1.data.attributes.width
-                        }
-                        height={
-                          props.pageData.section1Gallery1.data.attributes
-                            .formats?.medium?.height ||
-                          props.pageData.section1Gallery1.data.attributes.height
-                        }
-                      ></Image>
-                    </div>
-                  ) : null}
-                </Link>
-              ) : null}
+              <div style={{ display: 'flex' }}>
+                {certificate1 ? (
+                  <Link
+                    href={certificate1}
+                    target="_blank"
+                    style={{ maxWidth: '200px' }}
+                  >
+                    {props.pageData?.section1Gallery1.data ? (
+                      <div
+                        className={styles.imageWrapper}
+                        style={{ maxWidth: '100%' }}
+                      >
+                        <Image
+                          src={
+                            props.pageData.section1Gallery1.data.attributes
+                              .formats?.medium?.url ||
+                            props.pageData.section1Gallery1.data.attributes.url
+                          }
+                          alt={
+                            props.pageData.section1Gallery1.data.attributes
+                              .alternativeText || 'Alpine Armoring'
+                          }
+                          quality={100}
+                          width={
+                            props.pageData.section1Gallery1.data.attributes
+                              .formats?.medium?.width ||
+                            props.pageData.section1Gallery1.data.attributes
+                              .width
+                          }
+                          height={
+                            props.pageData.section1Gallery1.data.attributes
+                              .formats?.medium?.height ||
+                            props.pageData.section1Gallery1.data.attributes
+                              .height
+                          }
+                        ></Image>
+                      </div>
+                    ) : null}
+                  </Link>
+                ) : null}
+                {props.pageData?.section1Gallery12.data ? (
+                  <div
+                    className={`${styles.manufacturing_image} observe fade-in`}
+                    style={{ margin: '0 0 0 40px' }}
+                  >
+                    {props.pageData.section1Gallery12.data.attributes.mime.startsWith(
+                      'video/'
+                    ) ? (
+                      <video
+                        preload="none"
+                        muted={true}
+                        autoPlay={true}
+                        playsInline={true}
+                        loop={true}
+                        width={isMobile ? 380 : 390}
+                        height={isMobile ? 200 : 250}
+                      >
+                        <source
+                          src={`${props.pageData.section1Gallery12.data.attributes?.url}`}
+                          type={
+                            props.pageData.section1Gallery12.data.attributes
+                              .mime
+                          }
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
             </div>
             <div className={styles.gallerySection}>
               {props?.pageData?.titleGallery2 && (
@@ -239,36 +280,76 @@ function Testing(props) {
                   {props?.pageData?.titleGallery2}
                 </h2>
               )}
-              {certificate2 ? (
-                <Link href={certificate2} target="_blank">
-                  {props.pageData?.section1Gallery2.data ? (
-                    <div className={styles.imageWrapper}>
-                      <Image
-                        src={
-                          props.pageData.section1Gallery2.data.attributes
-                            .formats?.medium?.url ||
-                          props.pageData.section1Gallery2.data.attributes.url
-                        }
-                        alt={
-                          props.pageData.section1Gallery2.data.attributes
-                            .alternativeText || 'Alpine Armoring'
-                        }
-                        quality={100}
-                        width={
-                          props.pageData.section1Gallery2.data.attributes
-                            .formats?.medium?.width ||
-                          props.pageData.section1Gallery2.data.attributes.width
-                        }
-                        height={
-                          props.pageData.section1Gallery2.data.attributes
-                            .formats?.medium?.height ||
-                          props.pageData.section1Gallery2.data.attributes.height
-                        }
-                      ></Image>
-                    </div>
-                  ) : null}
-                </Link>
-              ) : null}
+              <div style={{ display: 'flex' }}>
+                {certificate2 ? (
+                  <Link
+                    href={certificate2}
+                    target="_blank"
+                    style={{ maxWidth: '200px' }}
+                  >
+                    {props.pageData?.section1Gallery2.data ? (
+                      <div
+                        className={styles.imageWrapper}
+                        style={{ maxWidth: '100%' }}
+                      >
+                        <Image
+                          src={
+                            props.pageData.section1Gallery2.data.attributes
+                              .formats?.medium?.url ||
+                            props.pageData.section1Gallery2.data.attributes.url
+                          }
+                          alt={
+                            props.pageData.section1Gallery2.data.attributes
+                              .alternativeText || 'Alpine Armoring'
+                          }
+                          quality={100}
+                          width={
+                            props.pageData.section1Gallery2.data.attributes
+                              .formats?.medium?.width ||
+                            props.pageData.section1Gallery2.data.attributes
+                              .width
+                          }
+                          height={
+                            props.pageData.section1Gallery2.data.attributes
+                              .formats?.medium?.height ||
+                            props.pageData.section1Gallery2.data.attributes
+                              .height
+                          }
+                        ></Image>
+                      </div>
+                    ) : null}
+                  </Link>
+                ) : null}
+                {props.pageData?.section1Gallery22.data ? (
+                  <div
+                    className={`${styles.manufacturing_image} observe fade-in`}
+                    style={{ margin: '0 0 0 40px' }}
+                  >
+                    {props.pageData.section1Gallery22.data.attributes.mime.startsWith(
+                      'video/'
+                    ) ? (
+                      <video
+                        preload="none"
+                        muted={true}
+                        autoPlay={true}
+                        playsInline={true}
+                        loop={true}
+                        width={isMobile ? 380 : 390}
+                        height={isMobile ? 200 : 250}
+                      >
+                        <source
+                          src={`${props.pageData.section1Gallery22.data.attributes?.url}`}
+                          type={
+                            props.pageData.section1Gallery22.data.attributes
+                              .mime
+                          }
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         </section>
@@ -331,29 +412,38 @@ function Testing(props) {
                         item.image.data[0].attributes.formats?.medium?.url ||
                         item.image.data[0].attributes.url
                       }
+                      style={{ padding: '10px', marginTop: '10px' }}
                       alt={
                         item.image.data[0].attributes.alternativeText ||
                         'Alpine Armoring'
                       }
-                      width={120}
-                      height={120}
+                      width={250}
+                      height={250}
                       quality={100}
                     ></Image>
                     <Image
                       src={
-                        item.image.data[0].attributes.formats?.medium?.url ||
-                        item.image.data[0].attributes.url
+                        item.image.data[1].attributes.formats?.medium?.url ||
+                        item.image.data[1].attributes.url
                       }
+                      style={{ padding: '10px', marginTop: '10px' }}
                       alt={
-                        item.image.data[0].attributes.alternativeText ||
+                        item.image.data[1].attributes.alternativeText ||
                         'Alpine Armoring'
                       }
-                      width={120}
-                      height={120}
+                      width={250}
+                      height={250}
                       quality={100}
                     ></Image>
                   </div>
                 ) : null}
+                <Link
+                  href={'/media/videos'}
+                  target="_blank"
+                  style={{ textAlign: 'center' }}
+                >
+                  <PlayIcon />
+                </Link>
               </div>
             ))}
 
@@ -438,6 +528,7 @@ function Testing(props) {
                     key={index}
                     style={{
                       marginRight: index === videos.length - 1 ? 0 : '10px',
+                      width: '33%',
                     }}
                   >
                     <VideoSingle
@@ -575,12 +666,17 @@ function Testing(props) {
               </div>
             ) : null}
           </div>
-          {props.pageData?.section4Gallery.data ? (
+          {/* {props.pageData?.section4Gallery.data ? (
             <div className={`${styles.slug_gallery}`}>
               <Gallery props={props.pageData?.section4Gallery.data} />
             </div>
-          ) : null}
+          ) : null} */}
         </section>
+        {props.pageData?.section4Gallery.data ? (
+          <div className={`${styles.slug_gallery}`}>
+            <Gallery props={props.pageData?.section4Gallery.data} />
+          </div>
+        ) : null}
       </div>
       {isLightboxPopupOpen ? (
         <LightboxCustom

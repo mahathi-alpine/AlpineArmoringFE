@@ -102,13 +102,13 @@
     }
 
     @include breakpoint(medium) {
-      aspect-ratio: 3/1;
+      aspect-ratio: 2.6/1;
       margin: rem(16) 0 0 0;
     }
 
     img {
       object-fit: cover;
-      filter: grayscale(100%) invert(100%);
+      // filter: grayscale(100%) invert(100%);
     }
   }
 }
