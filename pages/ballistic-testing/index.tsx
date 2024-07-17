@@ -405,7 +405,7 @@ function Testing(props) {
                   Read More
                 </div>
 
-                {item.image?.data ? (
+                {/* {item.image?.data ? (
                   <div className={`${styles.manufacturing_armor_image}`}>
                     <Image
                       src={
@@ -436,7 +436,7 @@ function Testing(props) {
                       quality={100}
                     ></Image>
                   </div>
-                ) : null}
+                ) : null} */}
                 <Link
                   href={'/media/videos'}
                   target="_blank"
