@@ -409,12 +409,12 @@ function Testing(props) {
                   <div className={`${styles.manufacturing_armor_image}`}>
                     <Image
                       src={
-                        item.image.data[0].attributes.formats?.medium?.url ||
-                        item.image.data[0].attributes.url
+                        item.image?.data[0].attributes.formats?.medium?.url ||
+                        item.image?.data[0].attributes.url
                       }
                       style={{ padding: '10px', marginTop: '10px' }}
                       alt={
-                        item.image.data[0].attributes.alternativeText ||
+                        item.image?.data[0].attributes.alternativeText ||
                         'Alpine Armoring'
                       }
                       width={250}
@@ -423,12 +423,12 @@ function Testing(props) {
                     ></Image>
                     <Image
                       src={
-                        item.image.data[1].attributes.formats?.medium?.url ||
-                        item.image.data[1].attributes.url
+                        item.image?.data[1].attributes.formats?.medium?.url ||
+                        item.image?.data[1].attributes.url
                       }
                       style={{ padding: '10px', marginTop: '10px' }}
                       alt={
-                        item.image.data[1].attributes.alternativeText ||
+                        item.image?.data[1].attributes.alternativeText ||
                         'Alpine Armoring'
                       }
                       width={250}
