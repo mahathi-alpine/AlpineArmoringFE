@@ -85,7 +85,7 @@ function Contact(props) {
               target="_blank"
             >
               <Image
-                src="/assets/alpineLocations.png"
+                src="/assets/alpineLocations.jpg"
                 alt={'Alpine Armoring Location'}
                 fill
               />
