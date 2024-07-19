@@ -36,13 +36,13 @@ const NavigationPopup = ({
   const linksRight = [
     { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
-    { path: '/media', text: 'News & Media' },
+    { path: '/news', text: 'Pressroom' },
+    { path: '/media', text: 'Videos & Trade Shows' },
     { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
     { path: '/design-and-engineering', text: 'Design & Engineering' },
     { path: '/manufacturing', text: 'Manufacturing' },
     { path: '/shipping-and-logistics', text: 'Shipping & Logistics' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
-    { path: '/contact', text: 'Contact' },
     { path: '/faqs', text: 'FAQ' },
     { path: '/', text: '' },
   ];

@@ -32,8 +32,8 @@
 
   &_container_small {
     @include breakpoint(large) {
-      width: 73%;
-      max-width: 1050px;
+      // width: 73%;
+      // max-width: 1050px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -70,7 +70,7 @@
     line-height: 1.25;
 
     @include breakpoint(large) {
-      max-width: 1200px;
+      // max-width: 1200px;
       margin: rem(40) auto rem(40) auto;
       padding-left: rem(20);
     }

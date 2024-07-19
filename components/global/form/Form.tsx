@@ -628,7 +628,7 @@ const Form = () => {
         }`}
       >
         <Dropdown
-          label="I prefer to be contacted via"
+          label="I Prefer To Be Contacted Via"
           options={['Mobile', 'Landline', 'Email', 'Text', 'Whatsapp']}
           selectedOption={preferredContact}
           setSelectedOption={setPreferredContact}

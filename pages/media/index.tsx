@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-import BlogList from 'components/global/news/News';
+// import BlogList from 'components/global/news/News';
 import styles from './Media.module.scss';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import VideoSingle from './videos/VideoSingle';
@@ -11,7 +11,7 @@ import TradeShowsSingle from './trade-shows/TradeShowsSingle';
 
 function Media(props) {
   const banner = props?.pageData?.banner;
-  const news = props?.pageData?.blogs?.data;
+  // const news = props?.pageData?.blogs?.data;
   const videos = props?.pageData?.videos?.data;
   const tradeShows = props?.pageData?.tradeShows?.data;
 
@@ -19,14 +19,10 @@ function Media(props) {
   const tabSliderData = [
     {
       id: 0,
-      titleNav: 'News',
-    },
-    {
-      id: 1,
       titleNav: 'Videos',
     },
     {
-      id: 2,
+      id: 1,
       titleNav: 'Trade Shows',
     },
   ];
@@ -118,11 +114,11 @@ function Media(props) {
         banner
       />
 
-      {news?.length > 0 ? (
+      {/* {news?.length > 0 ? (
         <div className={`${styles.media_news}`} id="news">
           <BlogList props={news} button limit="3" plain title="News" />
         </div>
-      ) : null}
+      ) : null} */}
 
       {videos?.length > 0 ? (
         <div className={`${styles.media_videos} container_small`} id="videos">
