@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-// import BlogList from 'components/global/news/News';
 import styles from './Media.module.scss';
-import TabSlider from 'components/global/tab-slider/TabSlider';
 import VideoSingle from './videos/VideoSingle';
 import Button from 'components/global/button/Button';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
@@ -11,35 +9,8 @@ import TradeShowsSingle from './trade-shows/TradeShowsSingle';
 
 function Media(props) {
   const banner = props?.pageData?.banner;
-  // const news = props?.pageData?.blogs?.data;
   const videos = props?.pageData?.videos?.data;
   const tradeShows = props?.pageData?.tradeShows?.data;
-
-  // Tabs Scroll
-  const tabSliderData = [
-    {
-      id: 0,
-      titleNav: 'Videos',
-    },
-    {
-      id: 1,
-      titleNav: 'Trade Shows',
-    },
-  ];
-
-  const handleTabChange = (index, titleNav) => {
-    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
-    const targetElement = document.getElementById(targetId);
-    const offset = 100;
-
-    const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth',
-    });
-  };
 
   // Lightbox
   const [selectedTitle, setSelectedTitle] = useState('');
@@ -105,20 +76,6 @@ function Media(props) {
   return (
     <>
       {banner ? <Banner props={banner} center shape="white" /> : null}
-
-      <TabSlider
-        className={`${styles.manufacturing_tabs} desktop-only`}
-        props={tabSliderData}
-        onTabChange={handleTabChange}
-        anchor
-        banner
-      />
-
-      {/* {news?.length > 0 ? (
-        <div className={`${styles.media_news}`} id="news">
-          <BlogList props={news} button limit="3" plain title="News" />
-        </div>
-      ) : null} */}
 
       {videos?.length > 0 ? (
         <div className={`${styles.media_videos} container_small`} id="videos">

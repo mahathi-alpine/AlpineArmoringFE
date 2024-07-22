@@ -178,12 +178,12 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
             >
               {currentRoute === '/contact' ||
               currentRoute === '/about-us' ||
+              currentRoute === '/ballistic-chart' ||
               currentRoute === '/ballistic-testing' ||
               currentRoute === '/become-a-delaer' ||
               currentRoute === '/design-and-engineering' ||
               currentRoute === '/manufacturing' ||
               currentRoute === '/faqs' ||
-              currentRoute === '/shipping-and-logistics' ||
               currentRoute === '/media' ||
               currentRoute === '/shipping-and-logistics' ? (
                 <div>
