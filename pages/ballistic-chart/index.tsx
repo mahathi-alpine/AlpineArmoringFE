@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import Image from 'next/image';
 
 function Ballistic(props) {
   const banner = props?.pageData?.banner;
-  const text = props?.pageData?.text;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   useEffect(() => {
@@ -39,14 +36,24 @@ function Ballistic(props) {
   return (
     <>
       {banner ? <Banner props={banner} center shape="white" /> : null}
-
-      <div className={`static container_small`}>
-        {text ? (
-          <div
-            dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
-          ></div>
-        ) : null}
-      </div>
+      {props.pageData?.chart.data ? (
+        <div>
+          <Image
+            src={
+              props.pageData.chart.data.attributes.url ||
+              props.pageData.chart.data.attributes.formats?.medium
+            }
+            alt={
+              props.pageData.chart.data.attributes.alternativeText ||
+              'Ballistic Chart'
+            }
+            layout="responsive"
+            width={2200} // specify the natural width of your image
+            height={1238} // specify the natural height of your image
+            style={{ position: 'relative' }}
+          ></Image>
+        </div>
+      ) : null}
     </>
   );
 }
