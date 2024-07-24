@@ -44,7 +44,8 @@ export const useMarkdownToHtml = () => {
     converted = converted.replace(bulletListRegex, '<ul><li>$1</li></ul>');
 
     // Ensure the first and last paragraphs are wrapped in <p> tags
-    converted = `<p>${converted}</p>`;
+    // converted = `<p>${converted}</p>`;
+    converted = `${converted}`;
 
     return converted;
   };
