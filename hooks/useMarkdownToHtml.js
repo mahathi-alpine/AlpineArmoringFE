@@ -4,10 +4,6 @@ export const useMarkdownToHtml = () => {
     const boldRegex = /\*\*(.*?)\*\*/g;
     let converted = markdown.replace(boldRegex, '<strong>$1</strong>');
 
-    // Replace italic text syntax with HTML italic tags
-    const italicRegex = /_(\w+)_/g;
-    converted = converted.replace(italicRegex, '<em>$1</em>');
-
     // Replace underline text syntax with HTML underline tags
     // Note: Underline is not standard in HTML, so we'll use <u> for demonstration
     const underlineRegex = /\+(.*?)\+/g;
@@ -23,6 +19,26 @@ export const useMarkdownToHtml = () => {
     // Replace link syntax with HTML anchor tags
     const linkRegex = /\[(.*?)\]\((.*?)\)/g;
     converted = converted.replace(linkRegex, '<a href="$2">$1</a>');
+
+    // Replace italic text syntax with HTML italic tags
+    // const italicRegex = /_(\w+)_/g;
+    // converted = converted.replace(italicRegex, '<em>$1</em>');
+    function wrapWithEmOutsideLinks(text) {
+      // Split the input into segments that are outside and inside <a> tags
+      const parts = text.split(/(<a[^>]+>[^<]+<\/a>)/g);
+
+      // Apply the <em> wrapping only to segments outside <a> tags
+      const modifiedParts = parts.map((part) => {
+        if (!part.startsWith('<a')) {
+          const regex = /_(\w+)_/g;
+          return part.replace(regex, '<em>$1</em>');
+        }
+        return part;
+      });
+
+      return modifiedParts.join('');
+    }
+    converted = wrapWithEmOutsideLinks(converted);
 
     // Convert blockquotes
     const blockquoteRegex = /^>(.*)$/gm;
