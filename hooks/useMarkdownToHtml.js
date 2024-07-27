@@ -5,7 +5,7 @@ export const useMarkdownToHtml = () => {
     let converted = markdown.replace(boldRegex, '<strong>$1</strong>');
 
     // Replace italic text syntax with HTML italic tags
-    const italicRegex = /_(.*?)_/g;
+    const italicRegex = /_(\w+)_/g;
     converted = converted.replace(italicRegex, '<em>$1</em>');
 
     // Replace underline text syntax with HTML underline tags
