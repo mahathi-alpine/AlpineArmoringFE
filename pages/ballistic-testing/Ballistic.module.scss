@@ -1,4 +1,4 @@
-.ballistic{
+.ballistic {
   margin: auto;
   max-width: 1925px;
   font-family: Manrope;
@@ -6,38 +6,40 @@
   color: #fff;
 
   @include breakpoint(untilDesktop) {
-    overflow-x: auto; 
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  &_wrapper{
+  &_wrapper {
     display: flex;
     background: url('/assets/ballistic/base.png');
     background-repeat: no-repeat;
     background-size: cover;
-    padding-left: 0.52vW;
-    padding-top: 1.875vW;
+    padding-left: 0.52vw;
+    padding-top: 1.875vw;
     min-width: max-content;
   }
 
-  &_heading{
-    img{
+  &_heading {
+    img {
       margin: auto;
     }
 
-    &_submenu{
+    &_submenu {
       display: flex;
     }
   }
 
-  &_column{
-
-    &_heading{
+  &_column {
+    &_heading {
       text-transform: uppercase;
-      margin-bottom: 1vW;
+      margin-bottom: 1vw;
       text-align: center;
-      color: #F1F1F3;
-      text-shadow: 1px 2px 2px #000, 0px 5.6px 50.4px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px #000;
+      color: #f1f1f3;
+      text-shadow:
+        1px 2px 2px #000,
+        0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+        0px 4.235px 6.841px #000;
       font-size: 18px;
 
       @include breakpoint(large) {
@@ -45,11 +47,11 @@
       }
 
       @include breakpoint(huge) {
-        margin-bottom: 1.6vW;
+        margin-bottom: 1.6vw;
       }
     }
 
-    &_item{
+    &_item {
       display: block;
       position: relative;
       text-align: center;
@@ -62,11 +64,11 @@
       }
 
       @include breakpoint(huge) {
-        letter-spacing: 0.025vW;
+        letter-spacing: 0.025vw;
       }
 
       &:after {
-        background-image: linear-gradient(180deg, #fff 54.25%, #B0B0B0 73.58%);
+        background-image: linear-gradient(180deg, #fff 54.25%, #b0b0b0 73.58%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -78,7 +80,10 @@
         text-align: center;
       }
       &:before {
-        text-shadow: 1px 2px 2px #000, 0px 5.6px 50.4px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px #000;
+        text-shadow:
+          1px 2px 2px #000,
+          0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+          0px 4.235px 6.841px #000;
         content: attr(data-text);
         position: absolute;
         top: 0;
@@ -87,41 +92,40 @@
         text-align: center;
       }
 
-      &_small{
+      &_small {
         font-size: clamp(0.6875rem, 0.3125rem + 0.4688vw, 0.875rem);
-        margin: 0.1vW 0;
+        margin: 0.1vw 0;
 
-        &:first-child{
-          margin-top: -0.3vW;
+        &:first-child {
+          margin-top: -0.3vw;
         }
-        &:last-child{
+        &:last-child {
           margin-bottom: 0;
         }
       }
 
-      &_wrap{
+      &_wrap {
         // padding: 10px 3px;
-        min-height: 3.1vW;
+        min-height: 3.1vw;
       }
-
     }
 
-    &_items{
+    &_items {
       display: flex;
 
-      li:not(.ballistic_column_heading){
+      li:not(.ballistic_column_heading) {
       }
     }
 
-    &_logo{
-      .ballistic_heading{
-        padding-bottom: 0.833vW;
-        img{
-          width: 4.2vW;
+    &_logo {
+      .ballistic_heading {
+        padding-bottom: 0.833vw;
+        img {
+          width: 4.2vw;
         }
       }
-      .ballistic_column_items{
-        img{
+      .ballistic_column_items {
+        img {
           margin: auto;
         }
 
@@ -130,157 +134,160 @@
         }
       }
 
-      &_weaponImg{
-        img{
+      &_weaponImg {
+        img {
           width: auto;
         }
         @include breakpoint(large) {
-          &:first-child img{
-            width: 3.1777vW;
-            margin-bottom: 1.1vW;
+          &:first-child img {
+            width: 3.1777vw;
+            margin-bottom: 1.1vw;
           }
-          &:nth-child(2) img{
-            width: 2.865vW;
-            margin-bottom: 1.3vW;
+          &:nth-child(2) img {
+            width: 2.865vw;
+            margin-bottom: 1.3vw;
           }
-          &:nth-child(3) img{
-            width: 3.8vW;
-            margin-bottom: 1.25vW;
+          &:nth-child(3) img {
+            width: 3.8vw;
+            margin-bottom: 1.25vw;
           }
-          &:nth-child(4) img{
-            width: 4.584vW;
-            margin-bottom: 1.5vW;
+          &:nth-child(4) img {
+            width: 4.584vw;
+            margin-bottom: 1.5vw;
           }
-          &:nth-child(5) img{
-            width: 7.6vW;
-            margin-bottom: 1.4vW;
+          &:nth-child(5) img {
+            width: 7.6vw;
+            margin-bottom: 1.4vw;
           }
-          &:nth-child(6) img{
-            width: 6.72vW;
-            margin-bottom: 1.15vW;
+          &:nth-child(6) img {
+            width: 6.72vw;
+            margin-bottom: 1.15vw;
           }
-          &:nth-child(7) img{
-            width: 7.084vW;
-            margin-bottom: 1vW;
+          &:nth-child(7) img {
+            width: 7.084vw;
+            margin-bottom: 1vw;
           }
-          &:nth-child(8) img{
-            width: 7.554vW;
-            margin-bottom: 1vW;
+          &:nth-child(8) img {
+            width: 7.554vw;
+            margin-bottom: 1vw;
           }
-          &:nth-child(9) img{
-            width: 7.09vW;
-            margin-bottom: 1vW;
+          &:nth-child(9) img {
+            width: 7.09vw;
+            margin-bottom: 1vw;
           }
-          &:nth-child(10) img{
-            width: 8.49vW;
-            margin-bottom: 1.5vW;
+          &:nth-child(10) img {
+            width: 8.49vw;
+            margin-bottom: 1.5vw;
           }
-          &:nth-child(11) img{
-            width: 7.35vW;
-            margin-bottom: 1.2vW;
+          &:nth-child(11) img {
+            width: 7.35vw;
+            margin-bottom: 1.2vw;
           }
-          &:nth-child(12) img{
-            width: 9.12vW;
-            margin-bottom: 1vW;
+          &:nth-child(12) img {
+            width: 9.12vw;
+            margin-bottom: 1vw;
           }
-          &:nth-child(13) img{
-            width: 12.5vW;
+          &:nth-child(13) img {
+            width: 12.5vw;
           }
         }
       }
     }
 
-    &_weapon{
-      padding-top: 1.5vW;
+    &_weapon {
+      padding-top: 1.5vw;
 
       @include breakpoint(untilDesktop) {
         order: 2;
       }
 
-      .ballistic_heading{
-        margin-bottom: 1.3vW;
+      .ballistic_heading {
+        margin-bottom: 1.3vw;
 
-        img{
+        img {
           position: relative;
-          left: -1.1vW;
-          width: 10.5vW;
+          left: -1.1vw;
+          width: 10.5vw;
         }
       }
 
-      .ballistic_column_items_column{
-        &:first-child{
-          .ballistic_column_item_wrap:last-child{
-            margin-top: 0.9vW;
+      .ballistic_column_items_column {
+        &:first-child {
+          .ballistic_column_item_wrap:last-child {
+            margin-top: 0.9vw;
           }
         }
-        &:nth-child(2){
-          .ballistic_column_item_wrap{
-            &:nth-child(11){
-              margin-top: 0.3vW;
+        &:nth-child(2) {
+          .ballistic_column_item_wrap {
+            &:nth-child(11) {
+              margin-top: 0.3vw;
             }
-            &:nth-child(12){
-              margin-top: 0.3vW;
+            &:nth-child(12) {
+              margin-top: 0.3vw;
             }
-            &:nth-child(14){
-              margin-top: 0.9vW;
+            &:nth-child(14) {
+              margin-top: 0.9vw;
             }
           }
         }
-        &:nth-child(3){
-          padding-left: 1.45vW;
-          padding-right: 1.45vW;      
+        &:nth-child(3) {
+          padding-left: 1.45vw;
+          padding-right: 1.45vw;
         }
       }
     }
 
-    &_levels{
-      padding-top: 0.6vW;
+    &_levels {
+      padding-top: 0.6vw;
 
-      .ballistic_heading{
-        img{
-          width: 18.5vW;
-          margin-top: -2.2vW;
-          margin-bottom: -1vW;
+      .ballistic_heading {
+        img {
+          width: 18.5vw;
+          margin-top: -2.2vw;
+          margin-bottom: -1vw;
           position: relative;
           left: 38px;
         }
       }
 
-      .ballistic_column_heading{
+      .ballistic_column_heading {
         letter-spacing: -0.36px;
       }
 
-      .ballistic_column_item{
+      .ballistic_column_item {
         font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
         line-height: 18px;
         letter-spacing: 0.6px;
         min-width: 72px;
       }
 
-      .ballistic_column_items_column{
-        &:first-child{
-          .ballistic_column_heading{
+      .ballistic_column_items_column {
+        &:first-child {
+          .ballistic_column_heading {
             transform: rotate(-6deg);
           }
         }
-        
-        &:nth-child(2){
-          .ballistic_column_heading{
+
+        &:nth-child(2) {
+          .ballistic_column_heading {
             transform: rotate(-2deg);
           }
         }
 
-        &:nth-child(3){
-
-          .ballistic_column_heading{
+        &:nth-child(3) {
+          .ballistic_column_heading {
             position: relative;
             font-size: clamp(1.0625rem, 0.1875rem + 1.0938vw, 1.5rem);
             letter-spacing: -0.68px;
             color: transparent;
             text-shadow: none;
-  
+
             &:after {
-              background-image: linear-gradient(180deg, #F6E1A6 26.42%, #A88C34 73.58%);
+              background-image: linear-gradient(
+                180deg,
+                #f6e1a6 26.42%,
+                #a88c34 73.58%
+              );
               -webkit-background-clip: text;
               background-clip: text;
               -webkit-text-fill-color: transparent;
@@ -292,7 +299,10 @@
               text-align: center;
             }
             &:before {
-              text-shadow: 1px 2px 2px #000, 0px 5.6px 50.4px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px #000;
+              text-shadow:
+                1px 2px 2px #000,
+                0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+                0px 4.235px 6.841px #000;
               content: 'ALPINE';
               position: absolute;
               top: 0;
@@ -302,59 +312,67 @@
             }
           }
 
-          .ballistic_column_item{
+          .ballistic_column_item {
             position: relative;
-            line-height: 2.5vW;
+            line-height: 2.5vw;
 
-            &_small{
+            &_small {
               margin: 0;
-              &:first-child{
-                &:before, &:after{
-                  padding-right: 0.5vW;
+              &:first-child {
+                &:before,
+                &:after {
+                  padding-right: 0.5vw;
                 }
               }
-              &:nth-child(2){
+              &:nth-child(2) {
                 font-size: 10px;
                 line-height: 10px;
                 min-width: unset;
                 position: relative;
-                top: -1.8vW;
-                left: 0.5vW;
+                top: -1.8vw;
+                left: 0.5vw;
               }
-              &:nth-child(3){
+              &:nth-child(3) {
                 font-size: 10px;
                 line-height: 10px;
                 min-width: unset;
                 position: relative;
-                top: -1.8vW;
-                left: 0.5vW;                
+                top: -1.8vw;
+                left: 0.5vw;
               }
             }
 
-            &_wrap{
+            &_wrap {
               background: url('/assets/ballistic/ballistic_level.png') no-repeat;
               width: 80px;
-              height: 2.5vW;
+              height: 2.5vw;
               font-family: Termina;
             }
 
             &:after {
-              background-image: linear-gradient(180deg, #F6E1A6 26.42%, #A88C34 73.58%);
+              background-image: linear-gradient(
+                180deg,
+                #f6e1a6 26.42%,
+                #a88c34 73.58%
+              );
             }
             &:before {
-              text-shadow: 1px 2px 2px #000, 0px 5.6px 50.4px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px #000;
-            }            
+              text-shadow:
+                1px 2px 2px #000,
+                0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+                0px 4.235px 6.841px #000;
+            }
           }
         }
-        
-        &:nth-child(4){
-          .ballistic_column_heading{
+
+        &:nth-child(4) {
+          .ballistic_column_heading {
             transform: rotate(2deg);
           }
         }
-        
-        &:nth-child(5){
-          .ballistic_column_heading{
+
+        &:nth-child(5) {
+          .ballistic_column_heading {
             transform: rotate(6deg);
           }
         }
