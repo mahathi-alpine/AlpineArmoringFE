@@ -1,341 +1,341 @@
 .manufacturing {
-    &_tabs {
-      position: relative;
-      color: var(--color-white);
-      top: rem(-70);
-      @include breakpoint(large) {
-        top: rem(-127);
-      }
-  
-      & > div > div {
-        display: none;
-      }
+  &_tabs {
+    position: relative;
+    color: var(--color-white);
+    top: rem(-70);
+    @include breakpoint(large) {
+      top: rem(-127);
     }
-  
-    &_title {
-      margin-bottom: rem(16);
-      text-transform: uppercase;
-      color: var(--color-primary);
-      font-weight: var(--font-demi);
+
+    & > div > div {
+      display: none;
+    }
+  }
+
+  &_title {
+    margin-bottom: rem(16);
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: var(--font-demi);
+    white-space: pre-wrap;
+    font-size: rem(20);
+    font-size: clamp(1.25rem, 1.1286rem + 0.5178vw, 1.75rem);
+
+    span {
       white-space: pre-wrap;
-      font-size: rem(20);
-      font-size: clamp(1.25rem, 1.1286rem + 0.5178vw, 1.75rem);
-  
-      span {
-        white-space: pre-wrap;
-      }
     }
-  
-    section {
-      font-weight: var(--font-thin);
+  }
+
+  section {
+    font-weight: var(--font-thin);
+  }
+
+  &_container_small {
+    @include breakpoint(large) {
+      margin-left: auto;
+      margin-right: auto;
     }
-  
-    &_container_small {
-      @include breakpoint(large) {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-  
-    &_text {
-      display: block;
-      font-size: rem(14);
-      font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
-      font-weight: var(--font-thin);
-      line-height: 1.25;
-      margin: rem(16) 0;
-  
-      p {
-        margin-bottom: rem(16);
-      }
-  
-      a {
-        color: var(--color-primary);
-        font-weight: var(--font-medium);
-      }
-    }
-  
-    &_quote {
-      border-left: 2px solid var(--color-primary);
-      padding: rem(8) 0 rem(8) rem(16);
-      margin: rem(24) 0 rem(24) 0;
-      font-size: rem(14);
-      font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
-      line-height: 1.25;
-  
-      @include breakpoint(large) {
-        max-width: 1200px;
-        margin: rem(40) auto rem(40) auto;
-        padding-left: rem(20);
-      }
-  
-      p {
-        margin-bottom: rem(16);
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-  
-    &_filling {
+  }
+
+  &_text {
+    display: block;
+    font-size: rem(14);
+    font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
+    font-weight: var(--font-thin);
+    line-height: 1.25;
+    margin: rem(16) 0;
+
+    p {
       margin-bottom: rem(16);
-  
-      & > div {
-        padding: 0;
-      }
-      h3 {
-        text-transform: uppercase;
+    }
+
+    a {
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+    }
+  }
+
+  &_quote {
+    border-left: 2px solid var(--color-primary);
+    padding: rem(8) 0 rem(8) rem(16);
+    margin: rem(24) 0 rem(24) 0;
+    font-size: rem(14);
+    font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
+    line-height: 1.25;
+
+    @include breakpoint(large) {
+      max-width: 1200px;
+      margin: rem(40) auto rem(40) auto;
+      padding-left: rem(20);
+    }
+
+    p {
+      margin-bottom: rem(16);
+      &:last-child {
+        margin-bottom: 0;
       }
     }
-  
-    &_armor {
-      overflow: hidden;
-      padding-top: rem(32);
+  }
+
+  &_filling {
+    margin-bottom: rem(16);
+
+    & > div {
+      padding: 0;
+    }
+    h3 {
+      text-transform: uppercase;
+    }
+  }
+
+  &_armor {
+    overflow: hidden;
+    padding-top: rem(32);
+    padding-bottom: rem(20);
+
+    @include breakpoint(medium) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @include breakpoint(large) {
+      padding-top: rem(64);
       padding-bottom: rem(20);
-  
-      @include breakpoint(medium) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
-      }
-  
-      @include breakpoint(large) {
-        padding-top: rem(64);
-        padding-bottom: rem(20);
-        grid-template-columns: repeat(3, 1fr);
-      }
-  
-      &_item {
-        display: flex;
-        flex-flow: column;
-        padding: rem(32) rem(24) rem(16) rem(24);
-        margin-bottom: rem(16);
-        border-radius: 24px;
-        @include breakpoint(medium) {
-          margin-bottom: 0;
-        }
-        @include breakpoint(huge) {
-          padding: rem(40);
-        }
-        &:first-child {
-          background: #d3c65e4d;
-        }
-        &:nth-child(2) {
-          background: #c6baa04d;
-        }
-        &:nth-child(3) {
-          background: #5653584d;
-        }
-        &:nth-child(4) {
-          background: #c7bca74d;
-        }
-  
-        @for $i from 1 through 4 {
-          &:nth-of-type(#{$i}) {
-            transition-delay: $i * 0.1s;
-          }
-        }
-      }
-  
-      &_title {
-        text-transform: uppercase;
-        font-weight: var(--font-demi);
-        margin-bottom: rem(16);
-        font-size: rem(17);
-        @include breakpoint(large) {
-          min-height: 40px;
-          line-height: 1;
-          font-size: rem(20);
-        }
-        @include breakpoint(huge) {
-          font-size: rem(22);
-        }
-      }
-  
-      &_description {
-        font-size: rem(15);
-        height: 3.6em;
-        overflow: hidden;
-      }
-  
-      &_image {
-        display: inline-flex;
-        position: relative;
-        // margin: rem(24) auto 0 auto;
-        max-width: 200px;
-        // @include breakpoint(large) {
-        //   margin: rem(32) 0 -90px auto;
-        //   right: -50px;
-        // }
-        @include breakpoint(huge) {
-          max-width: 240px;
-        }
-      }
-  
-      &_read {
-        margin-top: rem(8);
-        text-decoration: underline;
-        font-weight: var(--font-demi);
-        font-size: rem(15);
-        cursor: pointer;
-      }
+      grid-template-columns: repeat(3, 1fr);
     }
-  
-    &_box {
+
+    &_item {
+      display: flex;
+      flex-flow: column;
+      padding: rem(32) rem(24) rem(16) rem(24);
+      margin-bottom: rem(16);
+      border-radius: 24px;
       @include breakpoint(medium) {
-        display: grid;
-        grid-template-columns: auto 45%;
-        gap: 40px;
-        align-items: center;
-        margin: rem(32) auto;
-      }
-      @include breakpoint(large) {
-        gap: 40px;
-  
-        .manufacturing_image {
-          margin: 0;
-        }
+        margin-bottom: 0;
       }
       @include breakpoint(huge) {
-        gap: 64px;
-        margin: rem(64) auto;
+        padding: rem(40);
+      }
+      &:first-child {
+        background: #d3c65e4d;
+      }
+      &:nth-child(2) {
+        background: #c6baa04d;
+      }
+      &:nth-child(3) {
+        background: #5653584d;
+      }
+      &:nth-child(4) {
+        background: #c7bca74d;
+      }
+
+      @for $i from 1 through 4 {
+        &:nth-of-type(#{$i}) {
+          transition-delay: $i * 0.1s;
+        }
       }
     }
-  
+
+    &_title {
+      text-transform: uppercase;
+      font-weight: var(--font-demi);
+      margin-bottom: rem(16);
+      font-size: rem(17);
+      @include breakpoint(large) {
+        min-height: 40px;
+        line-height: 1;
+        font-size: rem(20);
+      }
+      @include breakpoint(huge) {
+        font-size: rem(22);
+      }
+    }
+
+    &_description {
+      font-size: rem(15);
+      height: 3.6em;
+      overflow: hidden;
+    }
+
     &_image {
+      display: inline-flex;
       position: relative;
-      margin: rem(24) 0;
-  
-      img {
-        object-fit: cover;
-        border-radius: 16px;
+      // margin: rem(24) auto 0 auto;
+      max-width: 200px;
+      // @include breakpoint(large) {
+      //   margin: rem(32) 0 -90px auto;
+      //   right: -50px;
+      // }
+      @include breakpoint(huge) {
+        max-width: 240px;
       }
     }
-  
+
+    &_read {
+      margin-top: rem(8);
+      text-decoration: underline;
+      font-weight: var(--font-demi);
+      font-size: rem(15);
+      cursor: pointer;
+    }
+  }
+
+  &_box {
+    @include breakpoint(medium) {
+      display: grid;
+      grid-template-columns: auto 45%;
+      gap: 40px;
+      align-items: center;
+      margin: rem(32) auto;
+    }
+    @include breakpoint(large) {
+      gap: 40px;
+
+      .manufacturing_image {
+        margin: 0;
+      }
+    }
+    @include breakpoint(huge) {
+      gap: 64px;
+      margin: rem(64) auto;
+    }
+  }
+
+  &_image {
+    position: relative;
+    margin: rem(24) 0;
+
+    img {
+      object-fit: cover;
+      border-radius: 16px;
+    }
+  }
+
+  &_heading {
+    display: block;
+    margin-bottom: rem(16);
+    font-size: rem(15);
+    white-space: pre-wrap;
+    @include breakpoint(large) {
+      font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
+    }
+  }
+
+  &_section1 {
+    padding-top: rem(24);
+    margin-bottom: rem(24);
+
+    &_box {
+      overflow: hidden;
+      @include breakpoint(medium) {
+        max-width: 585px;
+      }
+    }
+
+    &_heading {
+      margin-bottom: rem(24);
+      @include breakpoint(medium) {
+        margin-bottom: 0;
+      }
+    }
+
+    &_image2 {
+      @include breakpoint(large) {
+        margin: rem(48) auto;
+      }
+      @include breakpoint(huge) {
+        margin-top: rem(64);
+      }
+      img {
+        margin: auto;
+      }
+    }
+  }
+
+  &_section2 {
+    margin-top: rem(72);
+    margin-bottom: rem(72);
+    @include breakpoint(large) {
+      margin-bottom: rem(140);
+      margin-top: rem(140);
+    }
+    @include breakpoint(huge) {
+      margin-bottom: rem(164);
+      // margin-top: rem(164);
+    }
+
+    &_heading {
+      // font-size: rem(18);
+      @include breakpoint(large) {
+        font-size: rem(28);
+      }
+      @include breakpoint(huge) {
+        font-size: rem(32);
+      }
+    }
+
+    &_image {
+      margin-bottom: rem(24);
+    }
+  }
+
+  &_section3 {
     &_heading {
       display: block;
       margin-bottom: rem(16);
-      font-size: rem(15);
-      white-space: pre-wrap;
       @include breakpoint(large) {
-        font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
-      }
-    }
-  
-    &_section1 {
-      padding-top: rem(24);
-      margin-bottom: rem(24);
-  
-      &_box {
-        overflow: hidden;
-        @include breakpoint(medium) {
-          max-width: 585px;
-        }
-      }
-  
-      &_heading {
-        margin-bottom: rem(24);
-        @include breakpoint(medium) {
-          margin-bottom: 0;
-        }
-      }
-  
-      &_image2 {
-        @include breakpoint(large) {
-          margin: rem(48) auto;
-        }
-        @include breakpoint(huge) {
-          margin-top: rem(64);
-        }
-        img {
-          margin: auto;
-        }
-      }
-    }
-  
-    &_section2 {
-      margin-top: rem(72);
-      margin-bottom: rem(72);
-      @include breakpoint(large) {
-        margin-bottom: rem(140);
-        margin-top: rem(140);
-      }
-      @include breakpoint(huge) {
-        margin-bottom: rem(164);
-        // margin-top: rem(164);
-      }
-  
-      &_heading {
-        // font-size: rem(18);
-        @include breakpoint(large) {
-          font-size: rem(28);
-        }
-        @include breakpoint(huge) {
-          font-size: rem(32);
-        }
-      }
-  
-      &_image {
-        margin-bottom: rem(24);
-      }
-    }
-  
-    &_section3 {
-      &_heading {
-        display: block;
-        margin-bottom: rem(16);
-        @include breakpoint(large) {
-          font-size: rem(24);
-        }
+        font-size: rem(24);
       }
     }
   }
-  
-  @keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      transform: translateY(1.4em);
-    }
-  
-    100% {
-      opacity: 1;
-      transform: none;
-    }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(1.4em);
   }
-  .galleryContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 40px;
+
+  100% {
+    opacity: 1;
+    transform: none;
   }
-  
-  .gallerySection {
-    flex: 1;
-  }
-  
-  .title {
-    text-align: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    font-size: 24px;
-    color: var(--color-primary);
-  }
-  
-  .images {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .imageWrapper {
-    flex: 1 1 calc(25% - 10px); // Adjust as needed to fit 4 images in a row
-    max-width: calc(25% - 10px);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .imageWrapper img {
-    width: 100%;
-    height: auto;
-  }
+}
+.galleryContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.gallerySection {
+  flex: 1;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 24px;
+  color: var(--color-primary);
+}
+
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.imageWrapper {
+  flex: 1 1 calc(25% - 10px); // Adjust as needed to fit 4 images in a row
+  max-width: calc(25% - 10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: auto;
+}
