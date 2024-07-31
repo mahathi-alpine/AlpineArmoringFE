@@ -46,6 +46,11 @@ const termina = localFont({
       weight: '600',
       style: 'normal',
     },
+    {
+      path: '../public/fonts/Manrope-ExtraBold.ttf',
+      weight: '800',
+      style: 'normal',
+    },
   ],
 });
 
@@ -55,11 +60,10 @@ const Layout = ({ children }) => {
   const pathsDarkMode = [
     '/available-now',
     '/rental-vehicles',
-    '/ballistic-testing',
     '/manufacturing',
     '/sold-vehicles',
   ];
-  const pathsDarkFooter = ['/ballistic-testing', '/manufacturing'];
+  const pathsDarkFooter = ['/manufacturing'];
   const pathsPadding0 = ['/news/'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
