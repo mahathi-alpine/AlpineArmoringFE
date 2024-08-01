@@ -128,16 +128,8 @@ function Manufacturing(props) {
                     props.pageData.section1Image.data.attributes
                       .alternativeText || 'Alpine Armoring'
                   }
-                  quality={100}
-                  width={
-                    props.pageData.section1Image.data.attributes.formats?.medium
-                      .width
-                  }
-                  height={
-                    props.pageData.section1Image.data.attributes.formats?.medium
-                      .height
-                  }
-                  sizes="(min-width: 768px ) 40vw, 100vw"
+                  width={600}
+                  height={475}
                 ></Image>
               </div>
             ) : null}
