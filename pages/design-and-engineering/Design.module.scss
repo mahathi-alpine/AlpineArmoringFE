@@ -69,13 +69,36 @@
   }
 
   &_section1 {
-    padding-top: rem(24);
-  }
-
-  &_section2 {
     margin: rem(80) auto rem(80) auto;
     @include breakpoint(large) {
       margin: rem(40) auto rem(40) auto;
+    }
+
+    .design_box {
+      & > div {
+        &:nth-child(3) {
+          @include breakpoint(medium) {
+            grid-column: 1 / -1;
+
+            img {
+              margin: auto;
+            }
+          }
+          @include breakpoint(large) {
+            grid-column: unset;
+          }
+        }
+      }
+      @include breakpoint(large) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  &_section2 {
+    margin: rem(80) auto rem(120) auto;
+    @include breakpoint(large) {
+      margin: rem(40) auto rem(120) auto;
     }
 
     .design_box {
@@ -213,9 +236,9 @@
     }
   }
 
-  &_section4 {
-    padding-bottom: rem(64);
-  }
+  // &_section4 {
+  //   padding-bottom: rem(64);
+  // }
 
   &_section5 {
     padding-top: rem(64);

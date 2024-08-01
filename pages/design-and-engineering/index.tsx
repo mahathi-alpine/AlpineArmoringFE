@@ -117,7 +117,7 @@ const Design = (props) => {
           </div>
         </section> */}
 
-        <section className={`${styles.design_section2}`}>
+        <section className={`${styles.design_section1}`}>
           <div className={`container_small`}>
             {props.pageData?.section1Title ? (
               <h2
@@ -174,8 +174,8 @@ const Design = (props) => {
                     autoPlay={true}
                     playsInline={true}
                     loop={true}
-                    width={isMobile ? 380 : 620}
-                    height={isMobile ? 200 : 430}
+                    width={isMobile ? 380 : 500}
+                    height={isMobile ? 200 : 380}
                   >
                     <source
                       src={`${props.pageData.section1Image2.data.attributes?.url}`}
