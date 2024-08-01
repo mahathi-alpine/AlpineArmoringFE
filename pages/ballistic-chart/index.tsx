@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { getPageData } from 'lib/api';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
+import BallisticChart from 'components/global/ballistic-chart/BallisticChart';
 
 function Ballistic(props) {
   const banner = props?.pageData?.banner;
@@ -35,6 +36,7 @@ function Ballistic(props) {
 
   return (
     <>
+      <BallisticChart />
       {banner ? <Banner props={banner} center shape="white" /> : null}
       {props.pageData?.chart.data ? (
         <div>

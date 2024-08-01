@@ -1,7 +1,6 @@
 import styles from './Testing.module.scss';
 import { getPageData } from 'lib/api';
 import { useEffect, useState, useRef } from 'react';
-import BallisticChart from 'components/global/ballistic-chart/BallisticChart';
 import Banner from 'components/global/banner/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -134,8 +133,6 @@ function BallisticTesting(props) {
 
   return (
     <>
-      <BallisticChart />
-
       <div className={`${styles.manufacturing} background-dark`}>
         {props.pageData?.banner ? (
           <Banner props={props.pageData?.banner} center shape="dark" />

@@ -4,298 +4,408 @@
   font-family: Manrope;
   font-weight: 800;
   color: #fff;
+  margin-bottom: 200px;
 
   @include breakpoint(untilDesktop) {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  &_wrapper {
+  table, td, th {
+    // border: 1px solid black;
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: -2.708vW;
+    @include breakpoint(max) {
+        margin-top: -52px;
+    }
+  }
+
+  &_heading{
     display: flex;
+    align-items: center;
+  }
+  
+  &_wrapper {
     background: url('/assets/ballistic/base.png');
     background-repeat: no-repeat;
     background-size: cover;
     padding-left: 0.52vw;
     padding-top: 1.875vw;
     min-width: max-content;
+    flex-flow: column;
+
+    @include breakpoint(max) {
+        padding-top: 36px;
+    }
   }
 
-  &_heading {
+  &_weaponImg {
     img {
       margin: auto;
     }
+  }
 
-    &_submenu {
-      display: flex;
+  table {
+    tbody{        
+        @include breakpoint(untilLarge) {
+            display: flex;
+            flex-direction: column;
+        }
     }
   }
 
-  &_column {
-    &_heading {
-      text-transform: uppercase;
-      margin-bottom: 1vw;
-      text-align: center;
-      color: #f1f1f3;
-      text-shadow:
-        1px 2px 2px #000,
-        0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-        0px 4.235px 6.841px #000;
-      font-size: 18px;
-
-      @include breakpoint(large) {
-        font-size: clamp(0.875rem, 0.375rem + 0.625vw, 1.125rem);
-      }
-
-      @include breakpoint(huge) {
-        margin-bottom: 1.6vw;
-      }
+  &_row{
+    margin-bottom: 2px;
+    @include breakpoint(untilLarge) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
-    &_item {
-      display: block;
-      position: relative;
-      text-align: center;
-      letter-spacing: -0.5px;
-      line-height: 14px;
-      color: transparent;
+    &_header{
+        display: flex;
+        justify-content: space-between;
 
-      @include breakpoint(large) {
-        font-size: clamp(0.75rem, 0.25rem + 0.625vw, 1rem);
-      }
-
-      @include breakpoint(huge) {
-        letter-spacing: 0.025vw;
-      }
-
-      &:after {
-        background-image: linear-gradient(180deg, #fff 54.25%, #b0b0b0 73.58%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-      }
-      &:before {
-        text-shadow:
-          1px 2px 2px #000,
-          0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-          0px 4.235px 6.841px #000;
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-      }
-
-      &_small {
-        font-size: clamp(0.6875rem, 0.3125rem + 0.4688vw, 0.875rem);
-        margin: 0.1vw 0;
-
-        &:first-child {
-          margin-top: -0.3vw;
-        }
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-
-      &_wrap {
-        // padding: 10px 3px;
-        min-height: 3.1vw;
-      }
-    }
-
-    &_items {
-      display: flex;
-
-      li:not(.ballistic_column_heading) {
-      }
-    }
-
-    &_logo {
-      .ballistic_heading {
-        padding-bottom: 0.833vw;
-        img {
-          width: 4.2vw;
-        }
-      }
-      .ballistic_column_items {
-        img {
-          margin: auto;
-        }
-
-        @include breakpoint(untilDesktop) {
-          width: 240px;
-        }
-      }
-
-      &_weaponImg {
-        img {
-          width: auto;
-        }
-        @include breakpoint(large) {
-          &:first-child img {
-            width: 3.1777vw;
-            margin-bottom: 1.1vw;
-          }
-          &:nth-child(2) img {
-            width: 2.865vw;
-            margin-bottom: 1.3vw;
-          }
-          &:nth-child(3) img {
-            width: 3.8vw;
-            margin-bottom: 1.25vw;
-          }
-          &:nth-child(4) img {
-            width: 4.584vw;
-            margin-bottom: 1.5vw;
-          }
-          &:nth-child(5) img {
-            width: 7.6vw;
-            margin-bottom: 1.4vw;
-          }
-          &:nth-child(6) img {
-            width: 6.72vw;
-            margin-bottom: 1.15vw;
-          }
-          &:nth-child(7) img {
-            width: 7.084vw;
-            margin-bottom: 1vw;
-          }
-          &:nth-child(8) img {
-            width: 7.554vw;
-            margin-bottom: 1vw;
-          }
-          &:nth-child(9) img {
-            width: 7.09vw;
-            margin-bottom: 1vw;
-          }
-          &:nth-child(10) img {
-            width: 8.49vw;
-            margin-bottom: 1.5vw;
-          }
-          &:nth-child(11) img {
-            width: 7.35vw;
-            margin-bottom: 1.2vw;
-          }
-          &:nth-child(12) img {
-            width: 9.12vw;
-            margin-bottom: 1vw;
-          }
-          &:nth-child(13) img {
-            width: 12.5vw;
-          }
-        }
-      }
-    }
-
-    &_weapon {
-      padding-top: 1.5vw;
-
-      @include breakpoint(untilDesktop) {
-        order: 2;
-      }
-
-      .ballistic_heading {
-        margin-bottom: 1.3vw;
-
-        img {
-          position: relative;
-          left: -1.1vw;
-          width: 10.5vw;
-        }
-      }
-
-      .ballistic_column_items_column {
-        &:first-child {
-          .ballistic_column_item_wrap:last-child {
-            margin-top: 0.9vw;
-          }
-        }
-        &:nth-child(2) {
-          .ballistic_column_item_wrap {
-            &:nth-child(11) {
-              margin-top: 0.3vw;
-            }
-            &:nth-child(12) {
-              margin-top: 0.3vw;
-            }
-            &:nth-child(14) {
-              margin-top: 0.9vw;
-            }
-          }
-        }
-        &:nth-child(3) {
-          padding-left: 1.45vw;
-          padding-right: 1.45vw;
-        }
-      }
-    }
-
-    &_levels {
-      padding-top: 0.6vw;
-
-      .ballistic_heading {
-        img {
-          width: 18.5vw;
-          margin-top: -2.2vw;
-          margin-bottom: -1vw;
-          position: relative;
-          left: 38px;
-        }
-      }
-
-      .ballistic_column_heading {
-        letter-spacing: -0.36px;
-      }
-
-      .ballistic_column_item {
-        font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
-        line-height: 18px;
-        letter-spacing: 0.6px;
-        min-width: 72px;
-      }
-
-      .ballistic_column_items_column {
-        &:first-child {
-          .ballistic_column_heading {
-            transform: rotate(-6deg);
-          }
-        }
-
-        &:nth-child(2) {
-          .ballistic_column_heading {
-            transform: rotate(-2deg);
-          }
-        }
-
-        &:nth-child(3) {
-          .ballistic_column_heading {
+        .ballistic_row_item{
             position: relative;
-            font-size: clamp(1.0625rem, 0.1875rem + 1.0938vw, 1.5rem);
-            letter-spacing: -0.68px;
+            &:first-child{
+                left: 4.3vW;
+                @include breakpoint(max) {
+                    left: 83px;
+                }
+                img{
+                    max-width: 80px;
+                    @include breakpoint(large) {
+                        width: 4.2vW;
+                    }
+                }
+            }
+            &:nth-child(2){
+                left: 6vW;
+                top: 1.5vW;
+                @include breakpoint(max) {
+                    left: 115px;
+                    top: 28px;
+                }
+                img{
+                    max-width: 200px;
+                    @include breakpoint(large) {
+                        width: 10.42vW;
+                    }
+                }
+            }
+            &:nth-child(3){
+                left: 8.5vW;
+                top: -1.6vW;
+                @include breakpoint(max) {
+                    left: 165px;
+                    top: -30px;
+                }
+                img{
+                    max-width: 353px;
+                    @include breakpoint(large) {
+                        width: 19.8vW;
+                    }
+                }
+            }
+            &:nth-child(4){
+                left: 3.7vW;
+                top: -0.5vW;
+                @include breakpoint(max) {
+                    left: 72px;
+                    top: -9px;
+                }
+                img{
+                    max-width: 380px;
+                    @include breakpoint(large) {
+                        width: 19.8vW;
+                    }
+                }
+            }
+            &:nth-child(5){
+                left: -2vW;
+                @include breakpoint(max) {
+                    left: -40px;
+                }
+                img{
+                    max-width: 192px;
+                    @include breakpoint(large) {
+                        width: 10vW;
+                    }
+                }
+            }
+        }
+    }
+
+    &_navigation{
+        .ballistic_row_item{
+            padding-bottom: 0.677vW;
+            text-transform: uppercase;
+            color: #f1f1f3;
+            text-shadow:
+              1px 2px 2px #000,
+              0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+              0px 4.235px 6.841px #000;
+            font-size: 18px;
+
+            @include breakpoint(large) {
+              font-size: clamp(0.875rem, 0.375rem + 0.625vw, 1.125rem);
+            }
+            @include breakpoint(max) {
+                padding-bottom: 13px;
+            }
+
+            span{
+                position: relative;
+                padding-right: 13px;
+                &>span{
+                    display: flex;
+                    flex-flow: column;
+                    position: absolute;
+                    right: -13px;
+                    top: 9px;
+                    small{
+                        line-height: 5px;
+                    }
+                }
+            }
+
+            &:nth-child(5){
+                position: relative;
+                transform: rotate(-6deg);
+                top: -0.417vW;
+                @include breakpoint(max) {
+                    top: -8px;
+                }
+            }
+
+            &:nth-child(6){
+                position: relative;
+                transform: rotate(-2deg);
+                top: -0.833vW;
+                @include breakpoint(max) {
+                    top: -16px;
+                }
+            }
+
+            &:nth-child(8){
+                position: relative;
+                transform: rotate(2deg);
+                top: -0.833vW;
+                @include breakpoint(max) {
+                    top: -16px;
+                }
+            }
+
+            &:nth-child(9){
+                position: relative;
+                transform: rotate(6deg);
+                top: -0.417vW;
+                @include breakpoint(max) {
+                    top: -8px;
+                }
+            }
+
+            &:nth-child(7){
+                position: relative;
+                font-size: clamp(1.0625rem, 0.1875rem + 1.0938vw, 1.5rem);
+                letter-spacing: -0.68px;
+                color: transparent;
+                text-shadow: none;
+                top: -0.99vW;
+                left: -0.677vW;
+                @include breakpoint(max) {
+                    top: -19px;
+                    left: -13px;
+                }
+    
+                &:after {
+                  background-image: linear-gradient(
+                    180deg,
+                    #f6e1a6 26.42%,
+                    #a88c34 73.58%
+                  );
+                  -webkit-background-clip: text;
+                  background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  content: 'ALPINE';
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  text-align: center;
+                }
+                &:before {
+                  text-shadow:
+                    1px 2px 2px #000,
+                    0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+                    0px 4.235px 6.841px #000;
+                  content: 'ALPINE';
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  text-align: center;
+                }
+            }
+        }
+    }
+
+    &_item{
+        tbody &{
+            padding: 0 2px 1.198vW 2px;
+            @include breakpoint(max) {
+                padding-bottom: 23px;
+            }
+
+            &:first-child{
+                width: 12.5vw;
+                max-width: 240px;
+            }
+            &:nth-child(2){
+                width: 9.115vW;
+                max-width: 175px;
+            }
+            &:nth-child(3){
+                width: 10.156vW;
+                max-width: 195px;
+            }
+            &:nth-child(4){
+                width: 7.917vw;
+                max-width: 152px;
+            }
+            &:nth-child(5){
+                width: 3.646vw;
+                max-width: 70px;
+            }
+            &:nth-child(6){
+                width: 3.958vw;
+                max-width: 76px;
+            }
+            &:nth-child(8){
+                width: 2.448vw;
+                max-width: 47px;
+            }
+            &:nth-child(9){
+                width: 5.469vw;
+                max-width: 105px;
+            }
+            &:nth-child(10){
+                width: 5.469vw;
+                max-width: 105px;
+            }
+            @include breakpoint(untilLarge) {
+                order: 2;
+                &:nth-child(7){
+                    order: 0;
+                    width: 100px;
+                    position: sticky;
+                    left: 0;
+                }
+            }
+            &_level{
+                position: relative;
+                display: flex;   
+                align-items: center;
+                justify-content: center;
+                background: url('/assets/ballistic/ballistic_level.png') no-repeat;
+                width: 80px;
+                height: 48px;
+                font-family: Termina;   
+                padding: 0;   
+
+                .ballistic_row_item_text{
+                    font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
+                    line-height: 18px;
+                    letter-spacing: 0.6px;
+
+                    &:after {
+                      background-image: linear-gradient(
+                        180deg,
+                        #f6e1a6 26.42%,
+                        #a88c34 73.58%
+                      );
+                    }
+                    &:before {
+                      text-shadow:
+                        1px 2px 2px #000,
+                        0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+                        0px 4.235px 6.841px #000;
+                    }
+                }  
+
+                &_small{
+                    padding-right: 10px;
+                    span{
+                        &:nth-child(2),
+                        &:nth-child(3){
+                            position: absolute;
+                            font-size: 10px;
+                            right: 24px;
+                            top: 9px;
+                        }
+
+                        &:last-child{
+                            top: 21px;
+                        }
+                    }
+                }
+            }
+            &:nth-child(5),
+            &:nth-child(6),
+            &:nth-child(8),
+            &:nth-child(9){
+                .ballistic_row_item_text{
+                    font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
+                }
+            }
+            &:nth-child(12),
+            &:nth-child(10){
+                .ballistic_row_item_text{
+                    font-size: clamp(0.75rem, 0.5rem + 0.3125vw, 0.875rem);                    
+                    line-height: 16px;
+                }
+            }
+            &:nth-child(10){
+                span:not(:first-child){
+                    font-size: 12px;
+                }
+            }
+        }
+
+        &_text{
+            display: block;
+            position: relative;
+            text-align: center;
+            letter-spacing: -0.5px;
+            line-height: 14px;
             color: transparent;
-            text-shadow: none;
+
+            @include breakpoint(large) {
+              font-size: clamp(0.75rem, 0.25rem + 0.625vw, 1rem);
+            }
+      
+            @include breakpoint(huge) {
+              letter-spacing: 0.025vw;
+            }
 
             &:after {
-              background-image: linear-gradient(
-                180deg,
-                #f6e1a6 26.42%,
-                #a88c34 73.58%
-              );
+              background-image: linear-gradient(180deg, #fff 54.25%, #b0b0b0 73.58%);
               -webkit-background-clip: text;
               background-clip: text;
               -webkit-text-fill-color: transparent;
-              content: 'ALPINE';
+              content: attr(data-text);
               position: absolute;
               top: 0;
               left: 0;
               right: 0;
+              bottom: -2px;
               text-align: center;
             }
             &:before {
@@ -303,80 +413,184 @@
                 1px 2px 2px #000,
                 0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
                 0px 4.235px 6.841px #000;
-              content: 'ALPINE';
+              content: attr(data-text);
               position: absolute;
               top: 0;
               left: 0;
               right: 0;
               text-align: center;
             }
-          }
-
-          .ballistic_column_item {
-            position: relative;
-            line-height: 2.5vw;
 
             &_small {
-              margin: 0;
-              &:first-child {
-                &:before,
-                &:after {
-                  padding-right: 0.5vw;
-                }
-              }
-              &:nth-child(2) {
-                font-size: 10px;
-                line-height: 10px;
-                min-width: unset;
-                position: relative;
-                top: -1.8vw;
-                left: 0.5vw;
-              }
-              &:nth-child(3) {
-                font-size: 10px;
-                line-height: 10px;
-                min-width: unset;
-                position: relative;
-                top: -1.8vw;
-                left: 0.5vw;
-              }
+              font-size: clamp(0.6875rem, 0.3125rem + 0.4688vw, 0.875rem);
+              line-height: 16px;
             }
 
-            &_wrap {
-              background: url('/assets/ballistic/ballistic_level.png') no-repeat;
-              width: 80px;
-              height: 2.5vw;
-              font-family: Termina;
-            }
-
-            &:after {
-              background-image: linear-gradient(
-                180deg,
-                #f6e1a6 26.42%,
-                #a88c34 73.58%
-              );
-            }
-            &:before {
-              text-shadow:
-                1px 2px 2px #000,
-                0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-                0px 4.235px 6.841px #000;
-            }
-          }
         }
+    }
 
-        &:nth-child(4) {
-          .ballistic_column_heading {
-            transform: rotate(2deg);
-          }
+    .ballistic_bullets img{
+        margin: auto;
+    }
+    
+    @include breakpoint(large) {
+        &:first-child{
+            .ballistic_weaponImg img {
+                width: 3.1777vw;
+                max-width: 61px;
+            }
+            .ballistic_bullets img{         
+                width: 4.583vW;
+                max-width: 88px;
+            }
         }
+        &:nth-child(2){
+            .ballistic_weaponImg img {
+                width: 2.865vw;
+                max-width: 55px;
+            }
+            .ballistic_bullets img{       
+                width: 3.385vw;
+                max-width: 65px;
+            }
+        } 
+        &:nth-child(3){
+            .ballistic_weaponImg img {
+                width: 3.8vw;
+                max-width: 73px;
+            }
+            .ballistic_bullets img{      
+                width: 4.74vw;
+                max-width: 91px;
+            }
+        }
+        &:nth-child(4){
+            .ballistic_weaponImg img {
+                width: 4.584vw;
+                max-width: 88px;
+            }
+            .ballistic_bullets img{      
+                width: 5.469vw;
+                max-width: 105px;
+            }
+        }
+        &:nth-child(5){
+            .ballistic_weaponImg img {
+                width: 7.6vw;
+                max-width: 146px;
+            }
+            .ballistic_bullets img{      
+                width: 6.563vw;
+                max-width: 126px;
+            }
+        }
+        &:nth-child(6){
+            .ballistic_weaponImg img {
+                width: 6.72vw;
+                max-width: 129px;
+            }
+            .ballistic_bullets img{     
+                width: 6.146vw;
+                max-width: 118px;
+            }
+        }
+        &:nth-child(7){
+            .ballistic_weaponImg img {
+                width: 7.084vw;
+                max-width: 136px;
+            }
+            .ballistic_bullets img{      
+                width: 6.823vw;
+                max-width: 131px;
+            }
+        }
+        &:nth-child(8){
+            .ballistic_weaponImg img {
+                width: 7.554vw;
+                max-width: 145px;
+            }
+            .ballistic_bullets img{      
+                width: 7.031vw;
+                max-width: 135px;
+            }
+        }
+        
+        &:nth-child(9){
+            .ballistic_weaponImg img {
+                width: 7.09vw;
+                max-width: 136px;
+            }
+            .ballistic_bullets img{       
+                width: 6.823vw;
+                max-width: 131px;
+            }
+        }
+        &:nth-child(10){
+            .ballistic_weaponImg img {
+                width: 8.49vw;
+                max-width: 163px;
+            }
+            .ballistic_bullets img{       
+                width: 8.49vw;
+                max-width: 163px;
+            }
+        }
+        &:nth-child(11){
+            .ballistic_weaponImg img {
+                width: 7.35vw;
+                max-width: 141px;
+            }
+            .ballistic_bullets img{      
+                width: 9.427vw;
+                max-width: 181px;
+            }
+        }
+        &:nth-child(12){
+            .ballistic_weaponImg img {
+                width: 9.12vw;
+                max-width: 175px;
+            }
+            .ballistic_bullets img{       
+                width: 9.635vw;
+                max-width: 185px;
+            }
+        }
+        &:nth-child(13){
+            .ballistic_weaponImg img {
+                width: 12.5vw;
+                max-width: 240px;
+            }
+            .ballistic_bullets img{     
+                width: 10.781vw;
+                max-width: 207px;
+            }
+        }
+    }
+  }
 
-        &:nth-child(5) {
-          .ballistic_column_heading {
-            transform: rotate(6deg);
-          }
-        }
-      }
+  &_compare_button{
+    position: relative;
+    margin: auto;
+      width: 48px;
+      height: 24px;
+      border-radius: 12px;
+      border-radius: 12px;
+    border: 1px solid var(--top, rgba(93, 99, 108, 0.94));
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0px 6px 4px 0px #000 inset, 0px 4.235px 6.841px 0px #000;
+
+    &:after{
+        position: absolute;
+        content: '';
+        top: 2px;
+        left: 2px;
+        width: 18px;
+        height: 18px;
+        border-radius: 18px;
+        border: 1px solid var(--a2, #6D757E);
+        background: var(--top, conic-gradient(from 174deg at 50% 50%, rgba(93, 99, 108, 0.94) 9.0211620926857deg, rgba(85, 91, 105, 0.92) 21.830037832260132deg, rgba(223, 223, 223, 0.90) 41.428300738334656deg, #72798A 62.987961173057556deg, rgba(169, 171, 179, 0.92) 83.06422591209412deg, #CBCDD2 120.42210817337036deg, #FFF 149.34895992279053deg, #5E646A 185.93356132507324deg, rgba(142, 149, 157, 0.99) 218.8548445701599deg, #FFF 245.10023832321167deg, rgba(126, 134, 146, 0.88) 269.34818029403687deg, rgba(87, 93, 107, 0.96) 283.72726678848267deg, #6D7580 300.98698139190674deg, #F1F1F3 337.04535484313965deg, rgba(151, 154, 163, 0.99) 349.3067193031311deg, rgba(177, 179, 185, 0.97) 355.7901334762573deg));
+
+        box-shadow: 1px 2px 2px 0px #000, 0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px 0px #000;
     }
   }
 }

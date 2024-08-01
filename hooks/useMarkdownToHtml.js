@@ -1,5 +1,6 @@
 export const useMarkdownToHtml = () => {
   const convertMarkdown = (markdown) => {
+    console.log(markdown);
     // Replace bold text syntax with HTML bold tags
     const boldRegex = /\*\*(.*?)\*\*/g;
     let converted = markdown.replace(boldRegex, '<strong>$1</strong>');
