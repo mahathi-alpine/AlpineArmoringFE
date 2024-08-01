@@ -36,8 +36,10 @@ function Ballistic(props) {
 
   return (
     <>
-      <BallisticChart />
       {banner ? <Banner props={banner} center shape="white" /> : null}
+
+      <BallisticChart />
+
       {props.pageData?.chart.data ? (
         <div>
           <Image

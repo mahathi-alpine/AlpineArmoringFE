@@ -11,10 +11,20 @@
     -webkit-overflow-scrolling: touch;
   }
 
+  &:before{
+    position: fixed;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: -1;
+  }
+
   table,
   td,
   th {
-    // border: 1px solid black;
     vertical-align: middle;
     text-align: center;
   }
@@ -22,9 +32,14 @@
   table {
     border-collapse: collapse;
     width: 100%;
-    margin-top: -2.708vw;
+    margin-top: -2.344vw;
     @include breakpoint(max) {
-      margin-top: -52px;
+      margin-top: -45px;
+    }
+
+    tbody {
+        display: flex;
+        flex-direction: column;
     }
   }
 
@@ -33,17 +48,29 @@
     align-items: center;
   }
 
+  &_logo_mobile{
+    @include breakpoint(large) {
+        display: none;
+      }
+  }
+
   &_wrapper {
-    background: url('/assets/ballistic/base.png');
+    background: url('/assets/ballistic/base_mobile.png');
     background-repeat: no-repeat;
     background-size: cover;
-    padding-left: 0.52vw;
     padding-top: 1.875vw;
     min-width: max-content;
     flex-flow: column;
 
+    @include breakpoint(large) {
+        background: url('/assets/ballistic/base.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding-bottom: 3.385vW;
+      }
     @include breakpoint(max) {
       padding-top: 36px;
+      padding-bottom: 65px;
     }
   }
 
@@ -53,101 +80,211 @@
     }
   }
 
-  table {
-    tbody {
-      @include breakpoint(untilLarge) {
-        display: flex;
-        flex-direction: column;
+  &_header {
+    display: flex;
+    justify-content: space-between;
+
+    @include breakpoint(untilDesktop) {
+      background: url('/assets/ballistic/base_header_mobile.png');
+    }
+
+    &_item {
+      position: relative;
+
+      @include breakpoint(untilDesktop) {
+        order: 2;
+      }
+
+      &:first-child {
+        left: 4.792vW;
+        @include breakpoint(max) {
+          left: 92px;
+        }
+
+        @include breakpoint(untilDesktop) {
+          order: 0;
+        }
+
+        img {
+          width: 37.333vW;
+          max-width: 140px;
+          @include breakpoint(large) {
+            width: 4.2vw;
+            max-width: 80px;
+          }
+        }
+      }
+      &:nth-child(2) {
+        left: 6.406vw;
+        top: 1.5vw;
+        @include breakpoint(max) {
+          left: 123px;
+          top: 28px;
+        }
+        img {
+          max-width: 200px;
+          @include breakpoint(large) {
+            width: 10.42vw;
+          }
+        }
+      }
+      &:nth-child(3) {
+        left: 8.802vw;
+        top: -1.6vw;
+        @include breakpoint(max) {
+          left: 169px;
+          top: -30px;
+        }
+        @include breakpoint(untilDesktop) {
+          order: 1;
+        }
+        img {
+          max-width: 353px;
+          @include breakpoint(large) {
+            width: 18.3vw;
+          }
+        }
+      }
+      &:nth-child(4) {
+        left: 3.7vw;
+        top: -0.5vw;
+        @include breakpoint(max) {
+          left: 72px;
+          top: -9px;
+        }
+        img {
+          max-width: 380px;
+          @include breakpoint(large) {
+            width: 19.8vw;
+          }
+        }
+      }
+      &:nth-child(5) {
+        left: -2vw;
+        @include breakpoint(max) {
+          left: -40px;
+        }
+        img {
+          max-width: 192px;
+          @include breakpoint(large) {
+            width: 10vw;
+          }
+        }
       }
     }
   }
 
   &_row {
-    margin-bottom: 2px;
-    @include breakpoint(untilLarge) {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    
+    &:nth-child(2){     
+        @include breakpoint(large) { 
+            margin-top: -0.365vW;   
+        }
+        @include breakpoint(max) { 
+            margin-top: -7px;
+        }        
     }
+    &:nth-child(3){          
+        @include breakpoint(large) {  
+            margin-top: -0.26vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -5px;
+        }
+    }
+    
+    &:nth-child(4){          
+        @include breakpoint(large) {      
+            margin-top: -0.26vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -5px;
+        }
+    }
+    &:nth-child(5){          
+        @include breakpoint(large) {       
+            margin-top: -0.26vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -5px;
+        }
+    }
+    &:nth-child(6){          
+        @include breakpoint(large) {       
+            margin-top: -0.26vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -5px;
+        }
+    }
+    &:nth-child(7){          
+        @include breakpoint(large) {      
+            margin-top: -0.26vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -5px;
+        }
+    }
+    &:nth-child(8){          
+        @include breakpoint(large) {  
+            margin-top: -0.469vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -9px;
+        }
+    }
+    &:nth-child(9){          
+        @include breakpoint(large) {       
+            margin-top: -0.469vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -9px;
+        }
+    }
+    &:nth-child(10){          
+        @include breakpoint(large) {       
+            margin-top: -0.26vW;
+        }
+        @include breakpoint(max) { 
+            margin-top: -5px;
+        }
+    }
+    &:nth-child(12){        
+        @include breakpoint(large) {  
+            margin-top: -0.26vW;
 
-    &_header {
-      display: flex;
-      justify-content: space-between;
-
-      .ballistic_row_item {
-        position: relative;
-        &:first-child {
-          left: 4.3vw;
-          @include breakpoint(max) {
-            left: 83px;
-          }
-          img {
-            max-width: 80px;
-            @include breakpoint(large) {
-              width: 4.2vw;
+            .ballistic_row_item:nth-child(10){
+                .ballistic_row_item_text{
+                    line-height: 12px;
+                }
             }
-          }
         }
-        &:nth-child(2) {
-          left: 6vw;
-          top: 1.5vw;
-          @include breakpoint(max) {
-            left: 115px;
-            top: 28px;
-          }
-          img {
-            max-width: 200px;
-            @include breakpoint(large) {
-              width: 10.42vw;
-            }
-          }
+        @include breakpoint(max) { 
+            margin-top: -5px;
         }
-        &:nth-child(3) {
-          left: 8.5vw;
-          top: -1.6vw;
-          @include breakpoint(max) {
-            left: 165px;
-            top: -30px;
-          }
-          img {
-            max-width: 353px;
-            @include breakpoint(large) {
-              width: 19.8vw;
-            }
-          }
+    }
+    &:nth-child(13){                 
+        @include breakpoint(large) {       
+            margin-top: -0.469vW;
         }
-        &:nth-child(4) {
-          left: 3.7vw;
-          top: -0.5vw;
-          @include breakpoint(max) {
-            left: 72px;
-            top: -9px;
-          }
-          img {
-            max-width: 380px;
-            @include breakpoint(large) {
-              width: 19.8vw;
-            }
-          }
+        @include breakpoint(max) { 
+            margin-top: -9px;
         }
-        &:nth-child(5) {
-          left: -2vw;
-          @include breakpoint(max) {
-            left: -40px;
-          }
-          img {
-            max-width: 192px;
-            @include breakpoint(large) {
-              width: 10vw;
-            }
-          }
-        }
-      }
     }
 
     &_navigation {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
       .ballistic_row_item {
-        padding-bottom: 0.677vw;
+        position: relative;
+        margin-bottom: -0.365vW;
         text-transform: uppercase;
         color: #f1f1f3;
         text-shadow:
@@ -160,18 +297,28 @@
           font-size: clamp(0.875rem, 0.375rem + 0.625vw, 1.125rem);
         }
         @include breakpoint(max) {
-          padding-bottom: 13px;
+            margin-bottom: -7px;
+        }
+        @include breakpoint(untilLarge) {
+            order: 2;
         }
 
         span {
           position: relative;
-          padding-right: 13px;
+          padding-right: 0.677vW;
+          @include breakpoint(max) {
+            padding-right: 13px;
+          }
           & > span {
             display: flex;
             flex-flow: column;
             position: absolute;
-            right: -13px;
-            top: 9px;
+            right: -0.677vW;
+            top: 0.469vW;
+            @include breakpoint(max) {
+                right: -13px;
+                top: 9px;
+            }
             small {
               line-height: 5px;
             }
@@ -179,7 +326,6 @@
         }
 
         &:nth-child(5) {
-          position: relative;
           transform: rotate(-6deg);
           top: -0.417vw;
           @include breakpoint(max) {
@@ -188,29 +334,10 @@
         }
 
         &:nth-child(6) {
-          position: relative;
           transform: rotate(-2deg);
           top: -0.833vw;
           @include breakpoint(max) {
             top: -16px;
-          }
-        }
-
-        &:nth-child(8) {
-          position: relative;
-          transform: rotate(2deg);
-          top: -0.833vw;
-          @include breakpoint(max) {
-            top: -16px;
-          }
-        }
-
-        &:nth-child(9) {
-          position: relative;
-          transform: rotate(6deg);
-          top: -0.417vw;
-          @include breakpoint(max) {
-            top: -8px;
           }
         }
 
@@ -220,11 +347,14 @@
           letter-spacing: -0.68px;
           color: transparent;
           text-shadow: none;
-          top: -0.99vw;
-          left: -0.677vw;
+          top: -1.354vw;
+          left: -0.104vw;
           @include breakpoint(max) {
-            top: -19px;
-            left: -13px;
+            top: -26px;
+            left: -2px;
+          }
+          @include breakpoint(untilLarge) {
+            order: 0;
           }
 
           &:after {
@@ -256,26 +386,76 @@
             text-align: center;
           }
         }
+
+        &:nth-child(8) {
+          transform: rotate(2deg);
+          top: -0.833vw;
+          @include breakpoint(max) {
+            top: -16px;
+          }
+        }
+
+        &:nth-child(9) {
+          transform: rotate(6deg);
+          top: -0.417vw;
+          @include breakpoint(max) {
+            top: -8px;
+          }
+        }
+
+        &:nth-child(13) {
+            left: 0.104vW;
+            width: unset;
+            max-width: unset;
+            color: transparent;
+            text-shadow: none;
+            @include breakpoint(max) {
+                left: 2px;
+            }       
+
+            &:after {
+              background-image: linear-gradient(
+                180deg,
+                #f6e1a6 26.42%,
+                #a88c34 73.58%
+              );
+              -webkit-background-clip: text;
+              background-clip: text;
+              -webkit-text-fill-color: transparent;
+              content: 'COMPARE';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              text-align: center;
+            }
+            &:before {
+              text-shadow:
+                1px 2px 2px #000,
+                0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+                0px 4.235px 6.841px #000;
+              content: 'COMPARE';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              text-align: center;
+            }     
+        }
       }
     }
 
     &_item {
-      tbody & {
-        padding: 0 2px 1.198vw 2px;
-        @include breakpoint(max) {
-          padding-bottom: 23px;
-        }
-
         &:first-child {
-          width: 12.5vw;
-          max-width: 240px;
+            width: 12.917vw;
+            max-width: 248px;
         }
         &:nth-child(2) {
           width: 9.115vw;
           max-width: 175px;
         }
         &:nth-child(3) {
-          width: 10.156vw;
+          width: 10.19vw;
           max-width: 195px;
         }
         &:nth-child(4) {
@@ -283,30 +463,48 @@
           max-width: 152px;
         }
         &:nth-child(5) {
-          width: 3.646vw;
-          max-width: 70px;
+          width: 4.271vw;
+          max-width: 82px;
         }
         &:nth-child(6) {
           width: 3.958vw;
           max-width: 76px;
         }
         &:nth-child(8) {
-          width: 2.448vw;
-          max-width: 47px;
+          width: 3.49vw;
+          max-width: 67px;
         }
         &:nth-child(9) {
-          width: 5.469vw;
-          max-width: 105px;
+          width: 4.479vw;
+          max-width: 86px;
         }
         &:nth-child(10) {
-          width: 5.469vw;
+          width: 6vw;
           max-width: 105px;
         }
+        &:nth-child(11) {
+          width: 7.448vw;
+          max-width: 143px;
+        }
+        &:nth-child(12) {
+          width: 9.271vw;
+          max-width: 178px;
+        }
+        &:nth-child(13) {
+            width: 2.5vW;
+            max-width: 48px;
+            margin-left: auto;
+        }
+        &:nth-child(14) {
+            width: 12.083vw;
+            max-width: 232px;
+            margin-left: auto;
+        }
+      tbody & {
         @include breakpoint(untilLarge) {
           order: 2;
           &:nth-child(7) {
             order: 0;
-            width: 100px;
             position: sticky;
             left: 0;
           }
@@ -317,15 +515,17 @@
           align-items: center;
           justify-content: center;
           background: url('/assets/ballistic/ballistic_level.png') no-repeat;
-          width: 80px;
-          height: 48px;
+          background-size: cover;
+          width: 4.167vW;
+          max-width: 80px;
+          height: 2.5vW;
+          max-height: 48px;
           font-family: Termina;
           padding: 0;
 
           .ballistic_row_item_text {
-            font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
+            font-size: clamp(0.875rem, 0.125rem + 0.9375vw, 1.25rem);
             line-height: 18px;
-            letter-spacing: 0.6px;
 
             &:after {
               background-image: linear-gradient(
@@ -343,18 +543,29 @@
           }
 
           &_small {
-            padding-right: 10px;
+            padding-right: 0.521vW;
+            @include breakpoint(max) {
+                padding-right: 10px;
+            }
             span {
               &:nth-child(2),
               &:nth-child(3) {
                 position: absolute;
-                font-size: 10px;
-                right: 24px;
-                top: 9px;
+                font-size: clamp(0.5rem, 0.25rem + 0.3125vw, 0.625rem);
+                right: 1.25vW;
+                top: 0.47vW;
+                line-height: 1.5;
+                @include breakpoint(max) {
+                    right: 24px;
+                    top: 11px;
+                }
               }
 
               &:last-child {
-                top: 21px;
+                top: 1.095vW;
+                @include breakpoint(max) {
+                    top: 23px;
+                }
               }
             }
           }
@@ -364,19 +575,19 @@
         &:nth-child(8),
         &:nth-child(9) {
           .ballistic_row_item_text {
-            font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
+            font-size: clamp(0.8125rem, -0.0625rem + 1.0938vw, 1.25rem);
           }
         }
         &:nth-child(12),
         &:nth-child(10) {
           .ballistic_row_item_text {
-            font-size: clamp(0.75rem, 0.5rem + 0.3125vw, 0.875rem);
+            font-size: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
             line-height: 16px;
           }
         }
         &:nth-child(10) {
           span:not(:first-child) {
-            font-size: 12px;
+            font-size: clamp(0.5625rem, 0.1875rem + 0.4688vw, 0.75rem);
           }
         }
       }
@@ -391,10 +602,6 @@
 
         @include breakpoint(large) {
           font-size: clamp(0.75rem, 0.25rem + 0.625vw, 1rem);
-        }
-
-        @include breakpoint(huge) {
-          letter-spacing: 0.025vw;
         }
 
         &:after {
@@ -441,68 +648,68 @@
     @include breakpoint(large) {
       &:first-child {
         .ballistic_weaponImg img {
-          width: 3.1777vw;
-          max-width: 61px;
+          width: 4.635vw;
+          max-width: 89px;
         }
         .ballistic_bullets img {
-          width: 4.583vw;
-          max-width: 88px;
+          width: 6.042vw;
+          max-width: 116px;
         }
       }
       &:nth-child(2) {
         .ballistic_weaponImg img {
-          width: 2.865vw;
-          max-width: 55px;
+          width: 4.375vw;
+          max-width: 84px;
         }
         .ballistic_bullets img {
-          width: 3.385vw;
-          max-width: 65px;
+          width: 4.844vw;
+          max-width: 93px;
         }
       }
       &:nth-child(3) {
         .ballistic_weaponImg img {
-          width: 3.8vw;
-          max-width: 73px;
-        }
-        .ballistic_bullets img {
-          width: 4.74vw;
-          max-width: 91px;
-        }
-      }
-      &:nth-child(4) {
-        .ballistic_weaponImg img {
-          width: 4.584vw;
-          max-width: 88px;
-        }
-        .ballistic_bullets img {
-          width: 5.469vw;
-          max-width: 105px;
-        }
-      }
-      &:nth-child(5) {
-        .ballistic_weaponImg img {
-          width: 7.6vw;
-          max-width: 146px;
-        }
-        .ballistic_bullets img {
-          width: 6.563vw;
-          max-width: 126px;
-        }
-      }
-      &:nth-child(6) {
-        .ballistic_weaponImg img {
-          width: 6.72vw;
-          max-width: 129px;
+          width: 5.313vw;
+          max-width: 102px;
         }
         .ballistic_bullets img {
           width: 6.146vw;
           max-width: 118px;
         }
       }
+      &:nth-child(4) {
+        .ballistic_weaponImg img {
+          width: 6.042vw;
+          max-width: 116px;
+        }
+        .ballistic_bullets img {
+          width: 6.927vw;
+          max-width: 133px;
+        }
+      }
+      &:nth-child(5) {
+        .ballistic_weaponImg img {
+          width: 9.063vw;
+          max-width: 174px;
+        }
+        .ballistic_bullets img {
+          width: 8.125vw;
+          max-width: 156px;
+        }
+      }
+      &:nth-child(6) {
+        .ballistic_weaponImg img {
+          width: 8.229vw;
+          max-width: 158px;
+        }
+        .ballistic_bullets img {
+          width: 7.552vw;
+          max-width: 145px;
+        }
+      }
       &:nth-child(7) {
         .ballistic_weaponImg img {
-          width: 7.084vw;
-          max-width: 136px;
+          width: 8.594vw;
+          max-width: 165px;
         }
         .ballistic_bullets img {
           width: 6.823vw;
@@ -511,63 +718,63 @@
       }
       &:nth-child(8) {
         .ballistic_weaponImg img {
-          width: 7.554vw;
-          max-width: 145px;
+          width: 9.063vw;
+          max-width: 174px;
         }
         .ballistic_bullets img {
-          width: 7.031vw;
-          max-width: 135px;
+            width: 8.177vw;
+            max-width: 157px;
         }
       }
 
       &:nth-child(9) {
         .ballistic_weaponImg img {
-          width: 7.09vw;
-          max-width: 136px;
+          width: 8.594vw;
+          max-width: 165px;
         }
         .ballistic_bullets img {
-          width: 6.823vw;
-          max-width: 131px;
+          width: 8.177vw;
+          max-width: 157px;
         }
       }
       &:nth-child(10) {
         .ballistic_weaponImg img {
-          width: 8.49vw;
-          max-width: 163px;
+          width: 10vw;
+          max-width: 192px;
         }
         .ballistic_bullets img {
-          width: 8.49vw;
-          max-width: 163px;
+          width: 9.948vw;
+          max-width: 191px;
         }
       }
       &:nth-child(11) {
         .ballistic_weaponImg img {
-          width: 7.35vw;
-          max-width: 141px;
-        }
-        .ballistic_bullets img {
-          width: 9.427vw;
-          max-width: 181px;
-        }
-      }
-      &:nth-child(12) {
-        .ballistic_weaponImg img {
-          width: 9.12vw;
-          max-width: 175px;
-        }
-        .ballistic_bullets img {
-          width: 9.635vw;
-          max-width: 185px;
-        }
-      }
-      &:nth-child(13) {
-        .ballistic_weaponImg img {
-          width: 12.5vw;
-          max-width: 240px;
+          width: 8.854vw;
+          max-width: 170px;
         }
         .ballistic_bullets img {
           width: 10.781vw;
           max-width: 207px;
+        }
+      }
+      &:nth-child(12) {
+        .ballistic_weaponImg img {
+            width: 10.573vw;
+          max-width: 203px;
+        }
+        .ballistic_bullets img {
+          width: 11.042vw;
+          max-width: 212px;
+        }
+      }
+      &:nth-child(13) {
+        .ballistic_weaponImg img {
+          width: 13.75vw;
+          max-width: 264px;
+        }
+        .ballistic_bullets img {
+          width: 12.083vw;
+          max-width: 232px;
         }
       }
     }
@@ -576,9 +783,10 @@
   &_compare_button {
     position: relative;
     margin: auto;
-    width: 48px;
-    height: 24px;
-    border-radius: 12px;
+    width: 2.5vW;
+    max-width: 48px;
+    height: 1.25vW;
+    max-height: 24px;
     border-radius: 12px;
     border: 1px solid var(--top, rgba(93, 99, 108, 0.94));
     background: rgba(255, 255, 255, 0.08);
@@ -589,10 +797,12 @@
     &:after {
       position: absolute;
       content: '';
-      top: 2px;
-      left: 2px;
-      width: 18px;
-      height: 18px;
+      top: 0.104vW;
+      left: 0.104vW;
+      width: 0.938vW;
+      height: 0.938vW;
+      max-width: 18px;
+      max-height: 18px;
       border-radius: 18px;
       border: 1px solid var(--a2, #6d757e);
       background: var(

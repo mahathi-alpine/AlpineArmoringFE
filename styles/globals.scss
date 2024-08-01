@@ -34,6 +34,12 @@ body {
   }
 }
 
+.untilLarge-only {
+  @include breakpoint(large) {
+    display: none !important;
+  }
+}
+
 .desktop-only {
   @include breakpoint(small) {
     display: none !important;
