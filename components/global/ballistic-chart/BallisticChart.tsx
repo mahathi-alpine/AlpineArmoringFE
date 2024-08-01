@@ -2,7 +2,7 @@ import styles from './BallisticChart.module.scss';
 import Image from 'next/image';
 
 const BallisticChart = () => {
-  const items2 = [
+  const items = [
     {
       name: ['.38 Special '],
       caliber: ['9 x 29mmR'],
@@ -183,58 +183,79 @@ const BallisticChart = () => {
       <div className={`${styles.ballistic}`}>
         <div className={`${styles.ballistic_wrapper}`}>
           <div className={`${styles.ballistic_header}`}>
-            <div className={`${styles.ballistic_header_item}`}>
-              <Image
-                src="/assets/ballistic/ballistic_logo_mobile.png"
-                alt=""
-                width="64"
-                height="140"
-                className="untilLarge-only"
-              ></Image>
-              <Image
-                src="/assets/ballistic/ballistic_logo.png"
-                alt=""
-                width="80"
-                height="122"
-                className="large-only"
-              ></Image>
-            </div>
-            <div className={`${styles.ballistic_header_item}`}>
-              <img
-                src={`/assets/ballistic/heading_weapon.png`}
-                width="200"
-                alt=""
-              />
-            </div>
-            <div className={`${styles.ballistic_header_item}`}>
-              <Image
-                src="/assets/ballistic/heading_levels_mobile.png"
-                alt=""
-                width="64"
-                height="227"
-                className="untilLarge-only"
-              ></Image>
-              <Image
-                src="/assets/ballistic/heading_levels.png"
-                alt=""
-                width="353"
-                height="143"
-                className="large-only"
-              ></Image>
-            </div>
-            <div className={`${styles.ballistic_header_item}`}>
-              <img
-                src={`/assets/ballistic/heading_projectile.png`}
-                width="200"
-                alt=""
-              />
-            </div>
-            <div className={`${styles.ballistic_header_item}`}>
-              <img
-                src={`/assets/ballistic/heading_best.png`}
-                width="200"
-                alt=""
-              />
+            <div className={`${styles.ballistic_header_inner}`}>
+              <div className={`${styles.ballistic_header_item}`}>
+                <Image
+                  src="/assets/ballistic/ballistic_logo_mobile.png"
+                  alt=""
+                  width="140"
+                  height="64"
+                  className="untilLarge-only"
+                ></Image>
+                <Image
+                  src="/assets/ballistic/ballistic_logo.png"
+                  alt=""
+                  width="80"
+                  height="122"
+                  className="large-only"
+                ></Image>
+              </div>
+              <div className={`${styles.ballistic_header_item}`}>
+                <Image
+                  src="/assets/ballistic/heading_weapon_mobile.png"
+                  alt=""
+                  width="243"
+                  height="64"
+                  className="untilLarge-only"
+                ></Image>
+                <Image
+                  src="/assets/ballistic/heading_weapon.png"
+                  alt=""
+                  width="230"
+                  height="50"
+                  className="large-only"
+                ></Image>
+              </div>
+              <div className={`${styles.ballistic_header_item}`}>
+                <Image
+                  src="/assets/ballistic/heading_levels_mobile.png"
+                  alt=""
+                  width="227"
+                  height="64"
+                  className="untilLarge-only"
+                ></Image>
+                <Image
+                  src="/assets/ballistic/heading_levels.png"
+                  alt=""
+                  width="353"
+                  height="143"
+                  className="large-only"
+                ></Image>
+              </div>
+              <div className={`${styles.ballistic_header_item}`}>
+                <Image
+                  src="/assets/ballistic/heading_projectile_mobile.png"
+                  alt=""
+                  width="303"
+                  height="92"
+                  className="untilLarge-only"
+                ></Image>
+                <Image
+                  src="/assets/ballistic/heading_projectile.png"
+                  alt=""
+                  width="379"
+                  height="135"
+                  className="large-only"
+                ></Image>
+              </div>
+              <div className={`${styles.ballistic_header_item}`}>
+                <Image
+                  src="/assets/ballistic/heading_best.png"
+                  alt=""
+                  width="140"
+                  height="78"
+                ></Image>
+              </div>
             </div>
           </div>
 
@@ -275,7 +296,7 @@ const BallisticChart = () => {
             </thead>
 
             <tbody>
-              {items2.map((item, index) => (
+              {items.map((item, index) => (
                 <tr className={`${styles.ballistic_row}`} key={index}>
                   <td className={`${styles.ballistic_row_item}`}>
                     <div
