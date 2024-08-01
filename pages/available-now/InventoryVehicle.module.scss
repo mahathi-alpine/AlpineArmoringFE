@@ -371,6 +371,7 @@
       font-size: rem(20);
       padding-top: rem(80);
       padding-bottom: rem(80);
+      font-weight: 300;
     }
     @include breakpoint(small) {
       font-weight: 300;

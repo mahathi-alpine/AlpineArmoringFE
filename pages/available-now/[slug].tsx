@@ -154,7 +154,7 @@ function InventoryVehicle(props) {
                     Armor
                     <span>Level</span>
                   </div>
-                  <strong>{data?.armor_level.slice(0, 2)}</strong>
+                  <strong>{data?.armor_level}</strong>
                 </div>
               ) : null}
             </div>

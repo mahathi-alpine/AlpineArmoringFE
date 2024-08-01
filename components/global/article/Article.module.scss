@@ -88,13 +88,13 @@
 
   &_item {
     margin: auto;
-    margin-bottom: rem(40);
+    margin-bottom: rem(16);
     max-width: 500px;
     clear: both;
 
     @include breakpoint(medium) {
       display: flex;
-      margin-bottom: rem(60);
+      margin-bottom: rem(16);
       max-width: unset;
 
       &:hover {

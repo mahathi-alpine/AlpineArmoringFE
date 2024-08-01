@@ -179,18 +179,29 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
               {currentRoute === '/contact' ||
               currentRoute === '/about-us' ||
               currentRoute === '/ballistic-chart' ||
-              currentRoute === '/ballistic-testing' ||
-              currentRoute === '/become-a-delaer' ||
+              currentRoute === '/become-a-dealer' ||
+              currentRoute === '/news' ||
               currentRoute === '/design-and-engineering' ||
-              currentRoute === '/manufacturing' ||
-              currentRoute === '/faqs' ||
+              currentRoute === '/faqs' ? (
+                <div>
+                  {bannerTitle ? (
+                    <h1
+                      className={`${styles.banner_title}`}
+                      dangerouslySetInnerHTML={{ __html: bannerTitle }}
+                    ></h1>
+                  ) : null}
+                </div>
+              ) : null}
+              {currentRoute === '/manufacturing' ||
               currentRoute === '/media' ||
+              currentRoute === '/ballistic-testing' ||
               currentRoute === '/shipping-and-logistics' ? (
                 <div>
                   {bannerTitle ? (
                     <h1
                       className={`${styles.banner_title}`}
                       dangerouslySetInnerHTML={{ __html: bannerTitle }}
+                      style={{ marginTop: '30px' }}
                     ></h1>
                   ) : null}
                 </div>

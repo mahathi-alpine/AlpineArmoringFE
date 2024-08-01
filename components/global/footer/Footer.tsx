@@ -24,7 +24,7 @@ const Footer = (isDarkMode) => {
     },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
-    { path: '/media', text: 'News & Media' },
+    { path: '/news', text: 'Pressroom' },
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
@@ -194,7 +194,7 @@ const Footer = (isDarkMode) => {
           </ul>
 
           <p className={`${styles.footer_bottom_copy}`}>
-            ©1993-2024. Alpine Armoring Inc. <span>All Rights Reserved</span>
+            ©1997-2024. Alpine Armoring Inc. <span>All Rights Reserved</span>
           </p>
           <p className={`${styles.footer_bottom_copy}`}>
             The Home of{' '}

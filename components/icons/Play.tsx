@@ -3,8 +3,8 @@ import React from 'react';
 const PlayIcon = () => {
   return (
     <svg
-      height="64"
-      width="64"
+      height="48"
+      width="48"
       viewBox="0 0 459 459"
       xmlns="http://www.w3.org/2000/svg"
       stroke="#ffffff"

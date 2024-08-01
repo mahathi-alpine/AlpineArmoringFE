@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import styles from './News.module.scss';
 import React from 'react';
-import XIcon from 'components/icons/X';
+// import XIcon from 'components/icons/X';
 
 const Blog = ({
   props,
@@ -55,7 +55,7 @@ const Blog = ({
               year: 'numeric',
             });
 
-            const isFeaturedAndThirdItem = index === 1 && featured;
+            // const isFeaturedAndThirdItem = index === 1 && featured;
 
             return (
               <React.Fragment key={index}>
@@ -140,7 +140,7 @@ const Blog = ({
                   </div>
                 </div>
 
-                {isFeaturedAndThirdItem ? (
+                {/* {isFeaturedAndThirdItem ? (
                   <Link
                     className={`${styles.news_social}`}
                     href="https://x.com/AlpineArmoring"
@@ -152,7 +152,7 @@ const Blog = ({
                       <h3>Follow Us on X</h3>
                     </div>
                   </Link>
-                ) : null}
+                ) : null} */}
               </React.Fragment>
             );
           })}

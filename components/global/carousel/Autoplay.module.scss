@@ -126,6 +126,7 @@
       color: #636262;
       padding: rem(20);
       text-align: center;
+      border-radius: 0 0 15px 15px;
 
       span {
         position: relative;
@@ -143,6 +144,7 @@
       text-align: center;
       box-sizing: border-box;
       font-weight: var(--font-demi);
+      border-radius: 15px 15px 0 0;
 
       span {
         position: relative;

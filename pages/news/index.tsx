@@ -44,8 +44,8 @@ function Blog(props) {
           <BlogList
             featured
             props={posts}
-            subtitle="Latest News"
-            title="Armoring World"
+            // subtitle="Latest News"
+            // title="Armoring World"
           />
         </div>
       ) : null}
@@ -63,9 +63,9 @@ export async function getStaticProps() {
   let posts = await getPageData({
     route: 'blogs',
     populate: 'deep',
-    // sort: 'publishedAt',
-    // sortType: 'desc',
-    sort: 'order',
+    sort: 'publishedAt',
+    sortType: 'desc',
+    // sort: 'order',
     pageSize: 200,
   });
   posts = posts?.data || null;
