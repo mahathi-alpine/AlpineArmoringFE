@@ -73,9 +73,9 @@
   }
 
   &_section2 {
-    margin: rem(80) auto rem(120) auto;
+    margin: rem(80) auto rem(80) auto;
     @include breakpoint(large) {
-      margin: rem(40) auto rem(80) auto;
+      margin: rem(40) auto rem(40) auto;
     }
 
     .design_box {
@@ -222,7 +222,7 @@
     padding-bottom: rem(64);
     @include breakpoint(large) {
       padding-top: rem(32);
-      padding-bottom: rem(64);
+      padding-bottom: rem(32);
     }
   }
 }
