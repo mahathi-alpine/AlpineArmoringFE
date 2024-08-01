@@ -121,7 +121,7 @@ const Design = (props) => {
           <div className={`container_small`}>
             {props.pageData?.section1Title ? (
               <h2
-                className={`${styles.design_title} observe fade-in`}
+                className={`${styles.design_title} block-reveal observe fade-in`}
                 dangerouslySetInnerHTML={{
                   __html: props.pageData.section1Title,
                 }}
@@ -228,7 +228,7 @@ const Design = (props) => {
           <div className={`container_small`}>
             {props.pageData?.section2Title ? (
               <h2
-                className={`${styles.design_title} observe fade-in`}
+                className={`${styles.design_title} block-reveal observe fade-in`}
                 dangerouslySetInnerHTML={{
                   __html: props.pageData.section2Title,
                 }}
@@ -316,7 +316,7 @@ const Design = (props) => {
             <div className={`${styles.design_section3_top} container_small`}>
               {props.pageData?.section3Title ? (
                 <h2
-                  className={`${styles.design_title} observe fade-in`}
+                  className={`${styles.design_title} block-reveal observe fade-in`}
                   dangerouslySetInnerHTML={{
                     __html: props.pageData.section3Title,
                   }}
@@ -423,7 +423,7 @@ const Design = (props) => {
           <section className={`${styles.design_section4} container_small`}>
             {props.pageData?.section4Title ? (
               <h2
-                className={`${styles.design_title} observe fade-in`}
+                className={`${styles.design_title} block-reveal observe fade-in`}
                 dangerouslySetInnerHTML={{
                   __html: props.pageData.section4Title,
                 }}

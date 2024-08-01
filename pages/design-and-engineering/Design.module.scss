@@ -3,7 +3,7 @@
     margin-bottom: rem(16);
     text-transform: uppercase;
     color: var(--color-primary);
-    font-weight: var(--font-regular);
+    font-weight: var(--font-demi);
     white-space: pre-wrap;
     font-size: rem(20);
     font-size: clamp(1.25rem, 1.1286rem + 0.5178vw, 1.75rem);
@@ -75,7 +75,7 @@
   &_section2 {
     margin: rem(80) auto rem(120) auto;
     @include breakpoint(large) {
-      margin: rem(120) auto rem(180) auto;
+      margin: rem(40) auto rem(80) auto;
     }
 
     .design_box {
@@ -133,7 +133,7 @@
 
     @include breakpoint(large) {
       padding-top: rem(64);
-      padding-bottom: rem(160);
+      padding-bottom: rem(150);
       grid-template-columns: repeat(4, 1fr);
     }
 
@@ -221,8 +221,8 @@
     padding-top: rem(64);
     padding-bottom: rem(64);
     @include breakpoint(large) {
-      padding-top: rem(100);
-      padding-bottom: rem(140);
+      padding-top: rem(32);
+      padding-bottom: rem(64);
     }
   }
 }
