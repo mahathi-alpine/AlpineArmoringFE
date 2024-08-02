@@ -273,21 +273,21 @@ const BallisticChart = () => {
                 <th className={`${styles.ballistic_row_item}`}>Cen</th>
                 <th className={`${styles.ballistic_row_item}`}>
                   <span>
-                    Weight
-                    <span>
+                    Weight±
+                    {/* <span>
                       <small>+</small>
                       <small>-</small>
-                    </span>
+                    </span> */}
                   </span>
                 </th>
                 <th className={`${styles.ballistic_row_item}`}>Type</th>
                 <th className={`${styles.ballistic_row_item}`}>
                   <span>
-                    Velocity
-                    <span>
+                    Velocity±
+                    {/* <span>
                       <small>+</small>
                       <small>-</small>
-                    </span>
+                    </span> */}
                   </span>
                 </th>
                 <th className={`${styles.ballistic_row_item}`}>Compare</th>
