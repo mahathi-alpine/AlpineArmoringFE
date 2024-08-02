@@ -113,7 +113,6 @@
       }
 
       &:first-child {
-
         @include breakpoint(untilDesktop) {
           order: 0;
           left: 153px;
@@ -124,19 +123,17 @@
           left: 4.792vw;
 
           img {
-              width: 4.2vw;
-              max-width: 80px;
-            }
+            width: 4.2vw;
+            max-width: 80px;
+          }
         }
 
         @include breakpoint(max) {
           left: 92px;
         }
-
       }
 
       &:nth-child(2) {
-
         @include breakpoint(untilDesktop) {
           left: -48px;
         }
@@ -155,11 +152,9 @@
           left: 110px;
           top: 28px;
         }
-
       }
 
       &:nth-child(3) {
-
         @include breakpoint(untilDesktop) {
           order: 1;
           left: 4px;
@@ -184,7 +179,6 @@
       }
 
       &:nth-child(4) {
-
         @include breakpoint(untilDesktop) {
           left: 8px;
         }
@@ -250,7 +244,7 @@
       }
     }
 
-    &:first-child{      
+    &:first-child {
       @include breakpoint(untilLarge) {
         margin-top: -6px;
       }
@@ -427,7 +421,7 @@
         //     position: absolute;
         //     @include breakpoint(large) {
         //       right: -0.677vw;
-        //       top: 0.469vw;              
+        //       top: 0.469vw;
         //     }
         //     @include breakpoint(max) {
         //       right: -13px;
@@ -439,7 +433,7 @@
         //   }
         // }
 
-        &:first-child{
+        &:first-child {
           @include breakpoint(untilLarge) {
             order: 1;
             width: 290px;
@@ -447,19 +441,19 @@
           }
         }
 
-        &:nth-child(2){
+        &:nth-child(2) {
           @include breakpoint(untilLarge) {
             width: 163px;
           }
         }
 
-        &:nth-child(3){
+        &:nth-child(3) {
           @include breakpoint(untilLarge) {
             width: 207px;
           }
         }
 
-        &:nth-child(4){
+        &:nth-child(4) {
           @include breakpoint(untilLarge) {
             width: 140px;
           }
@@ -573,13 +567,13 @@
           }
         }
 
-        &:nth-child(10){
+        &:nth-child(10) {
           @include breakpoint(untilLarge) {
             width: 116px;
           }
         }
 
-        &:nth-child(12){
+        &:nth-child(12) {
           @include breakpoint(untilLarge) {
             width: 170px;
           }
