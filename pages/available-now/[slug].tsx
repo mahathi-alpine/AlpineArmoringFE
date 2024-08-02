@@ -43,7 +43,7 @@ function InventoryVehicle(props) {
     Level: 'armor_level',
     VIN: 'VIN',
     'Vehicle ID': 'vehicleID',
-    'Engine and Power': 'engine',
+    'Engine & Power': 'engine',
     Trans: 'trans',
     // Power: 'power',
     Year: 'year',

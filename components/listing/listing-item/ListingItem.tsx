@@ -72,7 +72,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         ></h2>
 
         <h3 className={`${styles.inventory_item_level}`}>
-          Armored to <span>level {data.armor_level.slice(0, 2)}</span>
+          Armored to <span>level {data.armor_level}</span>
         </h3>
 
         <ul className={`${styles.inventory_item_info}`}>
