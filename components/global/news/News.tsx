@@ -50,7 +50,7 @@ const Blog = ({
               : item.attributes.publishedAt;
             const date = new Date(blogDate);
             const formattedDate = date.toLocaleString('en-GB', {
-              day: 'numeric',
+              // day: 'numeric',
               month: 'long',
               year: 'numeric',
             });
