@@ -87,8 +87,9 @@
     img {
       position: relative;
       margin: auto;
-      @include breakpoint(untilLarge) {
-        top: 5px;
+      top: 5px;
+      @media (min-width: 1280px) and (max-width: 1920px) {
+        top: 0.26vw;
       }
     }
   }
@@ -244,6 +245,15 @@
       }
     }
 
+    &_active{
+      .ballistic_row_item_text:after{
+        background-image: linear-gradient(180deg, #ffefc2 26.42%, #d1af42 73.58%);
+      }
+      .ballistic_compare_view{
+        display: block;
+      }
+    }
+
     &:first-child {
       @include breakpoint(untilLarge) {
         margin-top: -6px;
@@ -360,12 +370,6 @@
       }
       @include breakpoint(large) {
         margin-top: -0.26vw;
-
-        .ballistic_row_item:nth-child(10) {
-          .ballistic_row_item_text {
-            line-height: 12px;
-          }
-        }
       }
       @include breakpoint(max) {
         margin-top: -5px;
@@ -376,10 +380,10 @@
         margin-top: -11px;
       }
       @include breakpoint(large) {
-        margin-top: -0.469vw;
+        margin-top: -0.3vw;
       }
       @include breakpoint(max) {
-        margin-top: -9px;
+        margin-top: -6px;
       }
     }
 
@@ -402,7 +406,7 @@
           order: 2;
         }
         @include breakpoint(large) {
-          font-size: clamp(0.875rem, 0.375rem + 0.625vw, 1.125rem);
+          font-size: clamp(0.75rem, 0rem + 0.9375vw, 1.125rem);
           margin-bottom: -0.365vw;
         }
         @include breakpoint(max) {
@@ -488,7 +492,7 @@
 
         &:nth-child(7) {
           position: relative;
-          font-size: clamp(1.0625rem, 0.1875rem + 1.0938vw, 1.5rem);
+          font-size: clamp(1rem, 0rem + 1.25vw, 1.5rem);
           letter-spacing: -0.68px;
           color: transparent;
           text-shadow: none;
@@ -510,11 +514,7 @@
           }
 
           &:after {
-            background-image: linear-gradient(
-              180deg,
-              #f6e1a6 26.42%,
-              #a88c34 73.58%
-            );
+            background-image: linear-gradient(180deg, #ffefc2 26.42%, #d1af42 73.58%);            
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -580,7 +580,6 @@
         }
 
         &:nth-child(13) {
-          left: 0.521vw;
           width: unset;
           max-width: unset;
           color: transparent;
@@ -589,17 +588,15 @@
           @include breakpoint(untilLarge) {
             width: 130px;
           }
-
+          @include breakpoint(large) {
+            left: 1.875vW;
+          }
           @include breakpoint(max) {
-            left: 2px;
+            left: 36px;
           }
 
           &:after {
-            background-image: linear-gradient(
-              180deg,
-              #f6e1a6 26.42%,
-              #a88c34 73.58%
-            );
+            background-image: linear-gradient(180deg, #ffefc2 26.42%, #d1af42 73.58%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -634,8 +631,8 @@
           padding-left: 13px;
         }
         @include breakpoint(large) {
-          width: 12.917vw;
-          max-width: 248px;
+          width: 13.542vw;
+          max-width: 260px;
         }
       }
       &:nth-child(2) {
@@ -643,6 +640,10 @@
         @include breakpoint(large) {
           width: 9.115vw;
           max-width: 175px;
+          margin-left: -0.625vW;
+        }
+        @include breakpoint(max) {
+          margin-left: -12px;
         }
       }
       &:nth-child(3) {
@@ -675,8 +676,8 @@
           width: 73px;
         }
         @include breakpoint(large) {
-          width: 3.958vw;
-          max-width: 76px;
+          width: 3.646vw;
+          max-width: 70px;
         }
       }
       &:nth-child(8) {
@@ -704,8 +705,8 @@
           width: 108px;
         }
         @include breakpoint(large) {
-          width: 6vw;
-          max-width: 105px;
+          width: 6.2vw;
+          max-width: 110px;
         }
       }
       &:nth-child(11) {
@@ -713,8 +714,8 @@
           width: 138px;
         }
         @include breakpoint(large) {
-          width: 7.448vw;
-          max-width: 143px;
+          width: 6.667vw;
+          max-width: 128px;
         }
       }
       &:nth-child(12) {
@@ -722,19 +723,22 @@
           width: 184px;
         }
         @include breakpoint(large) {
-          width: 9.271vw;
-          max-width: 178px;
+          width: 8.6vw;
+          max-width: 170px;
         }
       }
       &:nth-child(13) {
         @include breakpoint(untilLarge) {
           width: 100px;
-          left: 5px;
         }
         @include breakpoint(large) {
-          width: 2.5vw;
-          max-width: 48px;
+          width: 5.833vW;
+          max-width: 112px;
           margin-left: auto;
+          margin-right: -0.521vW;
+          @include breakpoint(max) {
+            margin-right: -10px;
+          }
         }
       }
       &:nth-child(14) {
@@ -742,7 +746,7 @@
           width: 224px;
         }
         @include breakpoint(large) {
-          width: 12.083vw;
+          width: 11vw;
           max-width: 232px;
           margin-left: auto;
         }
@@ -832,28 +836,29 @@
           }
 
           &_small {
-            padding-right: 0.521vw;
-            @include breakpoint(max) {
-              padding-right: 10px;
+            padding-right: 10px;
+            @media (min-width: 1280px) and (max-width: 1920px) {
+              padding-right: 0.521vw;
             }
             span {
               &:nth-child(2),
               &:nth-child(3) {
                 position: absolute;
-                font-size: clamp(0.5rem, 0.25rem + 0.3125vw, 0.625rem);
-                right: 1.25vw;
-                top: 0.47vw;
-                line-height: 1.5;
-                @include breakpoint(max) {
-                  right: 24px;
-                  top: 11px;
+                right: 24px;
+                top: 10px;
+                font-size: 10px;
+                @media (min-width: 1280px) and (max-width: 1920px) {
+                  right: 1.25vw;
+                  top: 0.7vw;
+                  line-height: 0.6vW;
+                  font-size: clamp(0.5rem, 0.25rem + 0.3125vw, 0.625rem);
                 }
               }
 
               &:last-child {
-                top: 1.095vw;
-                @include breakpoint(max) {
-                  top: 23px;
+                top: 20px;
+                @media (min-width: 1280px) and (max-width: 1920px) {
+                  top: 1.25vw;
                 }
               }
             }
@@ -876,7 +881,9 @@
             line-height: 16px;
             @include breakpoint(large) {
               font-size: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
-              line-height: 16px;
+            }
+            @media (min-width: 1280px) and (max-width: 1920px) {
+              line-height: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
             }
           }
         }
@@ -887,6 +894,9 @@
             @include breakpoint(large) {
               font-size: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
               line-height: 16px;
+            }
+            @media (min-width: 1280px) and (max-width: 1920px) {
+              line-height: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
             }
           }
           span:not(:first-child) {
@@ -909,7 +919,7 @@
         z-index: 1;
 
         @include breakpoint(large) {
-          font-size: clamp(0.75rem, 0.25rem + 0.625vw, 1rem);
+          font-size: clamp(0.625rem, -0.125rem + 0.9375vw, 1rem);
         }
 
         &:after {
@@ -947,20 +957,27 @@
           line-height: 16px;
 
           @include breakpoint(large) {
-            font-size: clamp(0.6875rem, 0.3125rem + 0.4688vw, 0.875rem);
+            font-size: clamp(0.5625rem, -0.0625rem + 0.7813vw, 0.875rem);
+          }
+          
+          @media (min-width: 1280px) and (max-width: 1920px) {
+            line-height: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
           }
         }
       }
     }
 
     .ballistic_bullets img {
+      position: relative;
+      top: 5px;
       @include breakpoint(untilLarge) {
-        position: relative;
-        top: 5px;
         margin-left: auto;
       }
       @include breakpoint(large) {
         margin: auto;
+      }
+      @media (min-width: 1280px) and (max-width: 1920px) {
+        top: 0.26vw;
       }
     }
 
@@ -1166,110 +1183,150 @@
     }
   }
 
-  &_compare_button {
-    position: relative;
-    display: inline-block;
-    margin: auto;
-    width: 48px;
-    height: 24px;
+  &_compare{
+    display: flex;
+    justify-content: center;
 
-    @include breakpoint(large) {
-      width: 2.5vw;
-      height: 1.25vw;
-      max-width: 48px;
-      max-height: 24px;
+    &_button {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 24px;
+  
+      @include breakpoint(large) {
+        width: 2.5vw;
+        height: 1.25vw;
+        max-width: 48px;
+        max-height: 24px;
+      }
+  
+      &_slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 12px;
+        border: 1px solid #edeeef;
+        background: #141414;
+        box-shadow:
+          0px 6px 4px 0px #000 inset,
+          0px 4.235px 6.841px 0px #000;
+        cursor: pointer;
+        transition: background 0.2s ease-in-out;
+  
+        &:after {
+          position: absolute;
+          content: '';
+          width: 18px;
+          height: 18px;
+          top: 2px;
+          left: 2px;
+          border-radius: 100%;
+          border: 1px solid var(--a2, #6d757e);
+          background: var(
+            --top,
+            conic-gradient(
+              from 174deg at 50% 50%,
+              rgba(93, 99, 108, 0.94) 9.0211620926857deg,
+              rgba(85, 91, 105, 0.92) 21.830037832260132deg,
+              rgba(223, 223, 223, 0.9) 41.428300738334656deg,
+              #72798a 62.987961173057556deg,
+              rgba(169, 171, 179, 0.92) 83.06422591209412deg,
+              #cbcdd2 120.42210817337036deg,
+              #fff 149.34895992279053deg,
+              #5e646a 185.93356132507324deg,
+              rgba(142, 149, 157, 0.99) 218.8548445701599deg,
+              #fff 245.10023832321167deg,
+              rgba(126, 134, 146, 0.88) 269.34818029403687deg,
+              rgba(87, 93, 107, 0.96) 283.72726678848267deg,
+              #6d7580 300.98698139190674deg,
+              #f1f1f3 337.04535484313965deg,
+              rgba(151, 154, 163, 0.99) 349.3067193031311deg,
+              rgba(177, 179, 185, 0.97) 355.7901334762573deg
+            )
+          );
+          transition: transform 0.1s ease-in-out;
+  
+          box-shadow:
+            1px 2px 2px 0px #000,
+            0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
+            0px 4.235px 6.841px 0px #000;
+  
+          @include breakpoint(large) {
+            top: 0.1vw;
+            left: 0.1vw;
+            width: 0.93vw;
+            height: 0.93vw;
+            max-width: 18px;
+            max-height: 18px;
+          }
+        }
+      }
+  
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+  
+        &:checked + span {
+          background: linear-gradient(
+            89deg,
+            #bcae7d27 0.69%,
+            #e6deb240 0.04%,
+            #cdbf8ecc 0.97%,
+            #9f9160 61%
+          );
+        }
+  
+        &:checked + span::after {
+          transform: translateX(24px);
+          @include breakpoint(large) {
+            transform: translateX(1.25vw);
+          }
+        }
+      }
     }
-
-    &_slider {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+    
+    &_view{
+      display: none;
+      position: relative;
+      width: 60px;
+      height: 24px;
+      margin-left: auto;
+      text-transform: uppercase;
+      color: #212121;
+      text-align: center;
       border-radius: 12px;
       border: 1px solid #edeeef;
-      background: #141414;
-      box-shadow:
-        0px 6px 4px 0px #000 inset,
-        0px 4.235px 6.841px 0px #000;
+      font-size: 14px;
+      background: var(--56, linear-gradient(89deg, #BCAE7D 27.69%, #E6DEB2 40.04%, #CDBF8E 49.97%, #9F9160 61%, #928455 71.82%));
+      box-shadow: 0px 4.24px 6.84px 0px #000, 2px 2px 2px 0px rgba(0, 0, 0, 0.30) inset;      
       cursor: pointer;
-      transition: background 0.4s ease-in-out;
+  
+      @include breakpoint(untilLarge) {
+        display: none !important;
+      }
 
-      &:after {
+      @include breakpoint(large) {
+        width: 3.125vw;
+        height: 1.25vw;
+        max-width: 60px;
+        max-height: 24px;
+        line-height: clamp(0.5rem, -0.375rem + 1.0938vw, 0.9375rem);
+        font-size: clamp(0.5625rem, 0.1875rem + 0.4688vw, 0.75rem);
+      }
+
+      span{
         position: absolute;
-        content: '';
-        width: 18px;
-        height: 18px;
-        top: 2px;
         left: 2px;
-        border-radius: 18px;
-        border: 1px solid var(--a2, #6d757e);
-        background: var(
-          --top,
-          conic-gradient(
-            from 174deg at 50% 50%,
-            rgba(93, 99, 108, 0.94) 9.0211620926857deg,
-            rgba(85, 91, 105, 0.92) 21.830037832260132deg,
-            rgba(223, 223, 223, 0.9) 41.428300738334656deg,
-            #72798a 62.987961173057556deg,
-            rgba(169, 171, 179, 0.92) 83.06422591209412deg,
-            #cbcdd2 120.42210817337036deg,
-            #fff 149.34895992279053deg,
-            #5e646a 185.93356132507324deg,
-            rgba(142, 149, 157, 0.99) 218.8548445701599deg,
-            #fff 245.10023832321167deg,
-            rgba(126, 134, 146, 0.88) 269.34818029403687deg,
-            rgba(87, 93, 107, 0.96) 283.72726678848267deg,
-            #6d7580 300.98698139190674deg,
-            #f1f1f3 337.04535484313965deg,
-            rgba(151, 154, 163, 0.99) 349.3067193031311deg,
-            rgba(177, 179, 185, 0.97) 355.7901334762573deg
-          )
-        );
-        transition: transform 0.2s ease-in-out;
-
-        box-shadow:
-          1px 2px 2px 0px #000,
-          0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
-          0px 4.235px 6.841px 0px #000;
-
-        @include breakpoint(large) {
-          top: 0.1vw;
-          left: 0.1vw;
-          width: 0.93vw;
-          height: 0.93vw;
-          max-width: 18px;
-          max-height: 18px;
-        }
-      }
-    }
-
-    input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-
-      &:checked + span {
-        background: linear-gradient(
-          89deg,
-          #bcae7d27 0.69%,
-          #e6deb240 0.04%,
-          #cdbf8ecc 0.97%,
-          #9f9160 61%
-        );
-      }
-
-      &:checked + span::after {
-        @include breakpoint(large) {
-          -webkit-transform: translateX(1.25vw);
-          -ms-transform: translateX(1.25vw);
-          transform: translateX(1.25vw);
-        }
-        @include breakpoint(max) {
-          -webkit-transform: translateX(24px);
-          -ms-transform: translateX(24px);
-          transform: translateX(24px);
-        }
+        top: 2px;
+        right: 2px;
+        bottom: 2px;        
+        border-radius: 12px;
+        border: 1px solid rgba(166, 149, 64, 0.28);
+        background: linear-gradient(96deg, #1C1C1C -9.54%, #FFF 26.04%, #FFF 58.76%, #303030 105.26%);
+        box-shadow: 1px 2px 2px 0px #000, 0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px 0px #000;
       }
     }
   }

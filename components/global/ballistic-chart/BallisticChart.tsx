@@ -178,6 +178,12 @@ const BallisticChart = () => {
     },
   ];
 
+  // Function to toggle active state for a specific row
+  const setRowActive = (index) => {
+    const row = document.querySelector('tbody').children[index];
+    row.classList.toggle(styles.ballistic_row_active);
+  };
+
   return (
     <>
       <div className={`${styles.ballistic}`}>
@@ -271,25 +277,9 @@ const BallisticChart = () => {
                 <th className={`${styles.ballistic_row_item}`}>Alpine</th>
                 <th className={`${styles.ballistic_row_item}`}>Nij</th>
                 <th className={`${styles.ballistic_row_item}`}>Cen</th>
-                <th className={`${styles.ballistic_row_item}`}>
-                  <span>
-                    Weight±
-                    {/* <span>
-                      <small>+</small>
-                      <small>-</small>
-                    </span> */}
-                  </span>
-                </th>
+                <th className={`${styles.ballistic_row_item}`}>Weight±</th>
                 <th className={`${styles.ballistic_row_item}`}>Type</th>
-                <th className={`${styles.ballistic_row_item}`}>
-                  <span>
-                    Velocity±
-                    {/* <span>
-                      <small>+</small>
-                      <small>-</small>
-                    </span> */}
-                  </span>
-                </th>
+                <th className={`${styles.ballistic_row_item}`}>Velocity±</th>
                 <th className={`${styles.ballistic_row_item}`}>Compare</th>
                 <th className={`${styles.ballistic_row_item}`}></th>
               </tr>
@@ -303,12 +293,12 @@ const BallisticChart = () => {
                       key={index}
                       className={`${styles.ballistic_weaponImg}`}
                     >
-                      <img
+                      <Image
                         src={`/assets/ballistic/weapon_A${item.level[0]}.png`}
                         alt=""
                         width="264"
                         height="71"
-                      />
+                      ></Image>
                     </div>
                   </td>
 
@@ -380,14 +370,14 @@ const BallisticChart = () => {
 
                   <td
                     className={`
-                                    ${styles.ballistic_row_item} 
-                                    ${styles.ballistic_row_item_level}
-                                    ${
-                                      item.level.length > 1
-                                        ? styles.ballistic_row_item_level_small
-                                        : ''
-                                    }
-                                `}
+                      ${styles.ballistic_row_item} 
+                      ${styles.ballistic_row_item_level}
+                      ${
+                        item.level.length > 1
+                          ? styles.ballistic_row_item_level_small
+                          : ''
+                      }
+                  `}
                   >
                     <span
                       data-text="A"
@@ -468,24 +458,32 @@ const BallisticChart = () => {
                     ))}
                   </td>
 
-                  <td className={`${styles.ballistic_row_item}`}>
+                  <td
+                    className={`${styles.ballistic_row_item} ${styles.ballistic_compare}`}
+                  >
                     <label className={`${styles.ballistic_compare_button}`}>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        onClick={() => setRowActive(index)}
+                      />
                       <span
                         className={`${styles.ballistic_compare_button_slider}`}
                       ></span>
                     </label>
+                    <button className={`${styles.ballistic_compare_view}`}>
+                      <span>View</span>
+                    </button>
                   </td>
 
                   <td
                     className={`${styles.ballistic_row_item} ${styles.ballistic_bullets}`}
                   >
-                    <img
+                    <Image
                       src={`/assets/ballistic/bullet${index + 1}.png`}
                       alt=""
                       width="232"
                       height="56"
-                    />
+                    ></Image>
                   </td>
                 </tr>
               ))}
