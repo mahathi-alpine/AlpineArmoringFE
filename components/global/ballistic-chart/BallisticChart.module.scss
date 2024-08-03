@@ -245,11 +245,15 @@
       }
     }
 
-    &_active{
-      .ballistic_row_item_text:after{
-        background-image: linear-gradient(180deg, #ffefc2 26.42%, #d1af42 73.58%);
+    &_active {
+      .ballistic_row_item_text:after {
+        background-image: linear-gradient(
+          180deg,
+          #ffefc2 26.42%,
+          #d1af42 73.58%
+        );
       }
-      .ballistic_compare_view{
+      .ballistic_compare_view {
         display: block;
       }
     }
@@ -514,7 +518,11 @@
           }
 
           &:after {
-            background-image: linear-gradient(180deg, #ffefc2 26.42%, #d1af42 73.58%);            
+            background-image: linear-gradient(
+              180deg,
+              #ffefc2 26.42%,
+              #d1af42 73.58%
+            );
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -589,14 +597,18 @@
             width: 130px;
           }
           @include breakpoint(large) {
-            left: 1.875vW;
+            left: 1.875vw;
           }
           @include breakpoint(max) {
             left: 36px;
           }
 
           &:after {
-            background-image: linear-gradient(180deg, #ffefc2 26.42%, #d1af42 73.58%);
+            background-image: linear-gradient(
+              180deg,
+              #ffefc2 26.42%,
+              #d1af42 73.58%
+            );
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -640,7 +652,7 @@
         @include breakpoint(large) {
           width: 9.115vw;
           max-width: 175px;
-          margin-left: -0.625vW;
+          margin-left: -0.625vw;
         }
         @include breakpoint(max) {
           margin-left: -12px;
@@ -732,10 +744,10 @@
           width: 100px;
         }
         @include breakpoint(large) {
-          width: 5.833vW;
+          width: 5.833vw;
           max-width: 112px;
           margin-left: auto;
-          margin-right: -0.521vW;
+          margin-right: -0.521vw;
           @include breakpoint(max) {
             margin-right: -10px;
           }
@@ -850,7 +862,7 @@
                 @media (min-width: 1280px) and (max-width: 1920px) {
                   right: 1.25vw;
                   top: 0.7vw;
-                  line-height: 0.6vW;
+                  line-height: 0.6vw;
                   font-size: clamp(0.5rem, 0.25rem + 0.3125vw, 0.625rem);
                 }
               }
@@ -959,7 +971,7 @@
           @include breakpoint(large) {
             font-size: clamp(0.5625rem, -0.0625rem + 0.7813vw, 0.875rem);
           }
-          
+
           @media (min-width: 1280px) and (max-width: 1920px) {
             line-height: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
           }
@@ -1183,7 +1195,7 @@
     }
   }
 
-  &_compare{
+  &_compare {
     display: flex;
     justify-content: center;
 
@@ -1192,14 +1204,14 @@
       display: inline-block;
       width: 48px;
       height: 24px;
-  
+
       @include breakpoint(large) {
         width: 2.5vw;
         height: 1.25vw;
         max-width: 48px;
         max-height: 24px;
       }
-  
+
       &_slider {
         position: absolute;
         top: 0;
@@ -1214,7 +1226,7 @@
           0px 4.235px 6.841px 0px #000;
         cursor: pointer;
         transition: background 0.2s ease-in-out;
-  
+
         &:after {
           position: absolute;
           content: '';
@@ -1247,12 +1259,12 @@
             )
           );
           transition: transform 0.1s ease-in-out;
-  
+
           box-shadow:
             1px 2px 2px 0px #000,
             0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
             0px 4.235px 6.841px 0px #000;
-  
+
           @include breakpoint(large) {
             top: 0.1vw;
             left: 0.1vw;
@@ -1263,12 +1275,12 @@
           }
         }
       }
-  
+
       input {
         opacity: 0;
         width: 0;
         height: 0;
-  
+
         &:checked + span {
           background: linear-gradient(
             89deg,
@@ -1278,7 +1290,7 @@
             #9f9160 61%
           );
         }
-  
+
         &:checked + span::after {
           transform: translateX(24px);
           @include breakpoint(large) {
@@ -1287,8 +1299,8 @@
         }
       }
     }
-    
-    &_view{
+
+    &_view {
       display: none;
       position: relative;
       width: 60px;
@@ -1300,10 +1312,22 @@
       border-radius: 12px;
       border: 1px solid #edeeef;
       font-size: 14px;
-      background: var(--56, linear-gradient(89deg, #BCAE7D 27.69%, #E6DEB2 40.04%, #CDBF8E 49.97%, #9F9160 61%, #928455 71.82%));
-      box-shadow: 0px 4.24px 6.84px 0px #000, 2px 2px 2px 0px rgba(0, 0, 0, 0.30) inset;      
+      background: var(
+        --56,
+        linear-gradient(
+          89deg,
+          #bcae7d 27.69%,
+          #e6deb2 40.04%,
+          #cdbf8e 49.97%,
+          #9f9160 61%,
+          #928455 71.82%
+        )
+      );
+      box-shadow:
+        0px 4.24px 6.84px 0px #000,
+        2px 2px 2px 0px rgba(0, 0, 0, 0.3) inset;
       cursor: pointer;
-  
+
       @include breakpoint(untilLarge) {
         display: none !important;
       }
@@ -1317,16 +1341,25 @@
         font-size: clamp(0.5625rem, 0.1875rem + 0.4688vw, 0.75rem);
       }
 
-      span{
+      span {
         position: absolute;
         left: 2px;
         top: 2px;
         right: 2px;
-        bottom: 2px;        
+        bottom: 2px;
         border-radius: 12px;
         border: 1px solid rgba(166, 149, 64, 0.28);
-        background: linear-gradient(96deg, #1C1C1C -9.54%, #FFF 26.04%, #FFF 58.76%, #303030 105.26%);
-        box-shadow: 1px 2px 2px 0px #000, 0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px 0px #000;
+        background: linear-gradient(
+          96deg,
+          #1c1c1c -9.54%,
+          #fff 26.04%,
+          #fff 58.76%,
+          #303030 105.26%
+        );
+        box-shadow:
+          1px 2px 2px 0px #000,
+          0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
+          0px 4.235px 6.841px 0px #000;
       }
     }
   }
