@@ -580,7 +580,7 @@
         }
 
         &:nth-child(13) {
-          left: 0.104vw;
+          left: 0.521vw;
           width: unset;
           max-width: unset;
           color: transparent;
@@ -910,7 +910,6 @@
 
         @include breakpoint(large) {
           font-size: clamp(0.75rem, 0.25rem + 0.625vw, 1rem);
-          letter-spacing: -0.5px;
         }
 
         &:after {
@@ -1169,15 +1168,10 @@
 
   &_compare_button {
     position: relative;
+    display: inline-block;
     margin: auto;
     width: 48px;
     height: 24px;
-    border-radius: 12px;
-    border: 1px solid #edeeef;
-    background: #141414;
-    box-shadow:
-      0px 6px 4px 0px #000 inset,
-      0px 4.235px 6.841px 0px #000;
 
     @include breakpoint(large) {
       width: 2.5vw;
@@ -1186,50 +1180,92 @@
       max-height: 24px;
     }
 
-    &:after {
+    &_slider{
       position: absolute;
-      content: '';
-      width: 18px;
-      height: 18px;
-      top: 2px;
-      left: 2px;
-      border-radius: 18px;
-      border: 1px solid var(--a2, #6d757e);
-      background: var(
-        --top,
-        conic-gradient(
-          from 174deg at 50% 50%,
-          rgba(93, 99, 108, 0.94) 9.0211620926857deg,
-          rgba(85, 91, 105, 0.92) 21.830037832260132deg,
-          rgba(223, 223, 223, 0.9) 41.428300738334656deg,
-          #72798a 62.987961173057556deg,
-          rgba(169, 171, 179, 0.92) 83.06422591209412deg,
-          #cbcdd2 120.42210817337036deg,
-          #fff 149.34895992279053deg,
-          #5e646a 185.93356132507324deg,
-          rgba(142, 149, 157, 0.99) 218.8548445701599deg,
-          #fff 245.10023832321167deg,
-          rgba(126, 134, 146, 0.88) 269.34818029403687deg,
-          rgba(87, 93, 107, 0.96) 283.72726678848267deg,
-          #6d7580 300.98698139190674deg,
-          #f1f1f3 337.04535484313965deg,
-          rgba(151, 154, 163, 0.99) 349.3067193031311deg,
-          rgba(177, 179, 185, 0.97) 355.7901334762573deg
-        )
-      );
-
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 12px;
+      border: 1px solid #edeeef;
+      background: #141414;
       box-shadow:
-        1px 2px 2px 0px #000,
-        0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
+        0px 6px 4px 0px #000 inset,
         0px 4.235px 6.841px 0px #000;
+      cursor: pointer;
+      transition: background .4s ease-in-out;
 
-      @include breakpoint(large) {
-        top: 0.104vw;
-        left: 0.104vw;
-        width: 0.938vw;
-        height: 0.938vw;
-        max-width: 18px;
-        max-height: 18px;
+      &:after {
+        position: absolute;
+        content: '';
+        width: 18px;
+        height: 18px;
+        top: 2px;
+        left: 2px;
+        border-radius: 18px;
+        border: 1px solid var(--a2, #6d757e);
+        background: var(
+          --top,
+          conic-gradient(
+            from 174deg at 50% 50%,
+            rgba(93, 99, 108, 0.94) 9.0211620926857deg,
+            rgba(85, 91, 105, 0.92) 21.830037832260132deg,
+            rgba(223, 223, 223, 0.9) 41.428300738334656deg,
+            #72798a 62.987961173057556deg,
+            rgba(169, 171, 179, 0.92) 83.06422591209412deg,
+            #cbcdd2 120.42210817337036deg,
+            #fff 149.34895992279053deg,
+            #5e646a 185.93356132507324deg,
+            rgba(142, 149, 157, 0.99) 218.8548445701599deg,
+            #fff 245.10023832321167deg,
+            rgba(126, 134, 146, 0.88) 269.34818029403687deg,
+            rgba(87, 93, 107, 0.96) 283.72726678848267deg,
+            #6d7580 300.98698139190674deg,
+            #f1f1f3 337.04535484313965deg,
+            rgba(151, 154, 163, 0.99) 349.3067193031311deg,
+            rgba(177, 179, 185, 0.97) 355.7901334762573deg
+          )
+        );
+        transition: transform .2s ease-in-out;
+  
+        box-shadow:
+          1px 2px 2px 0px #000,
+          0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
+          0px 4.235px 6.841px 0px #000;
+  
+        @include breakpoint(large) {
+          top: 0.1vw;
+          left: 0.1vw;
+          width: 0.93vw;
+          height: 0.93vw;
+          max-width: 18px;
+          max-height: 18px;
+        }
+      }
+
+    }
+
+
+    input{      
+      opacity: 0;
+      width: 0;
+      height: 0;   
+
+      &:checked + span {
+        background: linear-gradient(89deg, #BCAE7D27 .69%, #E6DEB240 .04%, #cdbf8ecc .97%, #9F9160 61%);
+      }
+      
+      &:checked + span::after {
+        @include breakpoint(large) {
+          -webkit-transform: translateX(1.25vW);
+          -ms-transform: translateX(1.25vW);
+          transform: translateX(1.25vW);
+        }
+        @include breakpoint(max) {
+          -webkit-transform: translateX(24px);
+          -ms-transform: translateX(24px);
+          transform: translateX(24px);
+        }
       }
     }
   }

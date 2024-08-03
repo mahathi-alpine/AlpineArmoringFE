@@ -469,7 +469,12 @@ const BallisticChart = () => {
                   </td>
 
                   <td className={`${styles.ballistic_row_item}`}>
-                    <div className={`${styles.ballistic_compare_button}`}></div>
+                    <label className={`${styles.ballistic_compare_button}`}>
+                      <input type="checkbox" />
+                      <span
+                        className={`${styles.ballistic_compare_button_slider}`}
+                      ></span>
+                    </label>
                   </td>
 
                   <td
