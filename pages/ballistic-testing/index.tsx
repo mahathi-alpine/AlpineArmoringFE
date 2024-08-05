@@ -4,15 +4,18 @@ import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import VideoSingle from 'pages/media/videos/VideoSingle';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
-import Gallery from 'components/global/carousel/CarouselCurved';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import PlayIcon from 'components/icons/Play';
 import { useIsMobile } from 'hooks/useIsMobile';
+import MediaList from 'pages/media/MediaList';
+const Gallery = dynamic(
+  () => import('components/global/carousel/CarouselCurved')
+);
 
-function BallisticTesting(props) {
+function Testing(props) {
   const convertMarkdown = useMarkdownToHtml();
   const title = props?.pageData?.mainTitle;
   const heading = props?.pageData?.heading;
@@ -133,13 +136,13 @@ function BallisticTesting(props) {
 
   return (
     <>
-      <div className={`${styles.manufacturing} background-dark`}>
+      <div className={`${styles.testing} background-dark`}>
         {props.pageData?.banner ? (
           <Banner props={props.pageData?.banner} center shape="dark" />
         ) : null}
 
         <TabSlider
-          className={`${styles.manufacturing_tabs} desktop-only`}
+          className={`${styles.testing_tabs} desktop-only`}
           props={tabSliderData}
           onTabChange={handleTabChange}
           anchor
@@ -147,7 +150,7 @@ function BallisticTesting(props) {
 
         {title ? (
           <div
-            className={`${styles.manufacturing_title} observe fade-in container_small`}
+            className={`${styles.testing_title} observe fade-in container_small`}
           >
             <p dangerouslySetInnerHTML={{ __html: title }}></p>
           </div>
@@ -155,20 +158,18 @@ function BallisticTesting(props) {
 
         {heading ? (
           <div
-            className={`${styles.manufacturing_heading} observe fade-in container_small`}
+            className={`${styles.testing_heading} observe fade-in container_small`}
           >
             <p dangerouslySetInnerHTML={{ __html: heading }}></p>
           </div>
         ) : null}
 
         <section
-          className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}
+          className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
           id="ballistic-certifications"
         >
           {props.pageData?.section1Title ? (
-            <h2
-              className={`${styles.manufacturing_title} block-reveal observe`}
-            >
+            <h2 className={`${styles.testing_title} block-reveal observe`}>
               <span
                 dangerouslySetInnerHTML={{
                   __html: props.pageData.section1Title,
@@ -179,22 +180,20 @@ function BallisticTesting(props) {
 
           {props.pageData?.section1Heading ? (
             <p
-              className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
+              className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
                 __html: props.pageData.section1Heading,
               }}
             ></p>
           ) : null}
-
           {props.pageData?.section1Text ? (
             <div
-              className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} fade-in observe`}
+              className={`${styles.testing_section1_text1} ${styles.testing_text} fade-in observe`}
               dangerouslySetInnerHTML={{
                 __html: convertMarkdown(props.pageData.section1Text),
               }}
             ></div>
           ) : null}
-
           <div className={styles.galleryContainer}>
             <div className={styles.gallerySection}>
               {props?.pageData?.titleGallery1 && (
@@ -202,8 +201,7 @@ function BallisticTesting(props) {
                   {props?.pageData?.titleGallery1}
                 </h2>
               )}
-
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
                 {certificate1 ? (
                   <Link
                     href={certificate1}
@@ -245,49 +243,118 @@ function BallisticTesting(props) {
                 ) : null}
                 {props.pageData?.section1Gallery12.data ? (
                   <div
-                    className={`${styles.manufacturing_image} observe fade-in`}
-                    style={{ margin: '0 0 0 40px' }}
+                    className={`${styles.testing_image} observe fade-in`}
+                    style={{
+                      margin: '0 0 0 40px',
+                      width: isMobile ? '100%' : 'auto',
+                    }}
                   >
-                    {props.pageData.section1Gallery12.data.attributes.mime.startsWith(
-                      'video/'
-                    ) ? (
-                      <video
-                        preload="none"
-                        muted={true}
-                        autoPlay={true}
-                        playsInline={true}
-                        loop={true}
-                        width={isMobile ? 380 : 390}
-                        height={isMobile ? 200 : 250}
+                    <div
+                      className={`${styles.testing_image} observe fade-in`}
+                      style={{ margin: '0 0 0 0', position: 'relative' }}
+                    >
+                      {/* Thumbnail with play button */}
+                      <div
+                        style={{ cursor: 'pointer', position: 'relative' }}
+                        onClick={() =>
+                          handleLightboxOpen(
+                            props.pageData?.titleGallery1,
+                            '',
+                            'video',
+                            props.pageData?.linkURL1
+                          )
+                        }
                       >
-                        <source
-                          src={`${props.pageData.section1Gallery12.data.attributes?.url}`}
-                          type={
+                        <Image
+                          src={
                             props.pageData.section1Gallery12.data.attributes
-                              .mime
+                              .formats?.medium?.url ||
+                            props.pageData.section1Gallery12.data.attributes.url
                           }
+                          alt={props.pageData?.titleGallery1}
+                          width={isMobile ? 380 : 300}
+                          height={isMobile ? 200 : 200}
+                          style={{ width: '100%', height: 'auto' }}
                         />
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : null}
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            pointerEvents: 'none',
+                          }}
+                        >
+                          <PlayIcon />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ) : null}
               </div>
             </div>
-
             <div className={styles.gallerySection}>
               {props?.pageData?.titleGallery2 && (
                 <h2 className={styles.title}>
                   {props?.pageData?.titleGallery2}
                 </h2>
               )}
-
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+                {props.pageData?.section1Gallery22.data ? (
+                  <div
+                    className={`${styles.testing_image} observe fade-in`}
+                    style={{
+                      margin: '0 0 0 40px',
+                      width: isMobile ? '100%' : 'auto',
+                    }}
+                  >
+                    <div
+                      className={`${styles.testing_image} observe fade-in`}
+                      style={{ margin: '0 0 0 0', position: 'relative' }}
+                    >
+                      {/* Thumbnail with play button */}
+                      <div
+                        style={{ cursor: 'pointer', position: 'relative' }}
+                        onClick={() =>
+                          handleLightboxOpen(
+                            props.pageData?.titleGallery2,
+                            '',
+                            'video',
+                            props.pageData?.linkURL2
+                          )
+                        }
+                      >
+                        <Image
+                          src={
+                            props.pageData.section1Gallery22.data.attributes
+                              .formats?.medium?.url ||
+                            props.pageData.section1Gallery22.data.attributes.url
+                          }
+                          alt={props.pageData?.titleGallery2}
+                          width={isMobile ? 380 : 300}
+                          height={isMobile ? 200 : 200}
+                          style={{ width: '100%', height: 'auto' }}
+                        />
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            pointerEvents: 'none',
+                          }}
+                        >
+                          <PlayIcon />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
                 {certificate2 ? (
                   <Link
                     href={certificate2}
                     target="_blank"
-                    style={{ maxWidth: '200px' }}
+                    style={{ maxWidth: '200px', margin: '0 0 0 40px' }}
                   >
                     {props.pageData?.section1Gallery2.data ? (
                       <div
@@ -322,48 +389,16 @@ function BallisticTesting(props) {
                     ) : null}
                   </Link>
                 ) : null}
-                {props.pageData?.section1Gallery22.data ? (
-                  <div
-                    className={`${styles.manufacturing_image} observe fade-in`}
-                    style={{ margin: '0 0 0 40px' }}
-                  >
-                    {props.pageData.section1Gallery22.data.attributes.mime.startsWith(
-                      'video/'
-                    ) ? (
-                      <video
-                        preload="none"
-                        muted={true}
-                        autoPlay={true}
-                        playsInline={true}
-                        loop={true}
-                        width={isMobile ? 380 : 390}
-                        height={isMobile ? 200 : 250}
-                      >
-                        <source
-                          src={`${props.pageData.section1Gallery22.data.attributes?.url}`}
-                          type={
-                            props.pageData.section1Gallery22.data.attributes
-                              .mime
-                          }
-                        />
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : null}
-                  </div>
-                ) : null}
               </div>
             </div>
           </div>
         </section>
-
         <section
-          className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}
+          className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
           id="material-testing"
         >
           {props.pageData?.section2Title ? (
-            <h2
-              className={`${styles.manufacturing_title} block-reveal observe`}
-            >
+            <h2 className={`${styles.testing_title} block-reveal observe`}>
               <span
                 dangerouslySetInnerHTML={{
                   __html: props.pageData.section2Title,
@@ -374,80 +409,64 @@ function BallisticTesting(props) {
 
           {props.pageData?.section2Heading ? (
             <p
-              className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
+              className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
                 __html: props.pageData.section2Heading,
               }}
             ></p>
           ) : null}
 
-          {props.pageData?.section2Text ? (
-            <div
-              className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} fade-in observe`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section2Text),
-              }}
-            ></div>
-          ) : null}
-
-          <div className={`${styles.manufacturing_armor} container`}>
+          <div className={`${styles.testing_armor} container`}>
             {props.pageData?.section2Armor.map((item, index) => (
               <div
-                className={`${styles.manufacturing_armor_item}  observe fade-in-up`}
+                className={`${styles.testing_armor_item}  observe fade-in-up`}
                 key={index}
               >
-                <h4 className={`${styles.manufacturing_armor_title}`}>
+                <h4 className={`${styles.testing_armor_title}`}>
                   {item.title}
                 </h4>
-                <p className={`${styles.manufacturing_armor_description}`}>
+                <p className={`${styles.testing_armor_description}`}>
                   {item.description}
                 </p>
-
                 <div
-                  className={`${styles.manufacturing_armor_read}`}
+                  className={`${styles.testing_armor_read}`}
                   onClick={() => handleReadMore(item)}
                 >
                   Read More
                 </div>
-                {/* {item.image?.data ? (
-                  <div className={`${styles.manufacturing_armor_image}`}>
-                    <Image
-                      src={
-                        item.image?.data[0].attributes.formats?.medium?.url ||
-                        item.image?.data[0].attributes.url
-                      }
-                      style={{ padding: '10px', marginTop: '10px' }}
-                      alt={
-                        item.image?.data[0].attributes.alternativeText ||
-                        'Alpine Armoring'
-                      }
-                      width={250}
-                      height={250}
-                      quality={100}
-                    ></Image>
-                    <Image
-                      src={
-                        item.image?.data[1].attributes.formats?.medium?.url ||
-                        item.image?.data[1].attributes.url
-                      }
-                      style={{ padding: '10px', marginTop: '10px' }}
-                      alt={
-                        item.image?.data[1].attributes.alternativeText ||
-                        'Alpine Armoring'
-                      }
-                      width={250}
-                      height={250}
-                      quality={100}
-                    ></Image>
+
+                {item.image?.data && (
+                  <div className={`${styles.testing_armor_image}`}>
+                    {item.image.data.map((imgData, imgIndex) => (
+                      <Image
+                        key={imgIndex}
+                        src={
+                          imgData.attributes.formats?.medium?.url ||
+                          imgData.attributes.url
+                        }
+                        alt={
+                          imgData.attributes.alternativeText ||
+                          'Alpine Armoring'
+                        }
+                        width={250}
+                        height={250}
+                        quality={100}
+                      />
+                    ))}
                   </div>
-                ) : null} */}
-                <Link
-                  href={'/media/videos'}
-                  target="_blank"
-                  style={{ textAlign: 'center' }}
+                )}
+                <div
+                  style={{
+                    cursor: 'pointer',
+                    position: 'relative',
+                    textAlign: 'center',
+                  }}
+                  onClick={() =>
+                    handleLightboxOpen(item.title, '', 'video', item.linkURL)
+                  }
                 >
                   <PlayIcon />
-                </Link>
+                </div>
               </div>
             ))}
 
@@ -462,20 +481,26 @@ function BallisticTesting(props) {
                     <p className={`modal_description`}>
                       {selectedItem.description}
                     </p>
-                    {selectedItem?.image?.data ? (
-                      <Image
-                        src={
-                          selectedItem.image.data[0].attributes?.formats?.medium
-                            ?.url || selectedItem.image.data[0].attributes?.url
-                        }
-                        alt={
-                          selectedItem.image.data.attributes?.alternativeText ||
-                          'Alpine Armoring'
-                        }
-                        width={400}
-                        height={400}
-                      ></Image>
-                    ) : null}
+                    {selectedItem?.image?.data && (
+                      <div className={`modal_images`}>
+                        {selectedItem.image.data.map((imgData, imgIndex) => (
+                          <Image
+                            key={imgIndex}
+                            src={
+                              imgData.attributes.formats?.medium?.url ||
+                              imgData.attributes.url
+                            }
+                            alt={
+                              imgData.attributes.alternativeText ||
+                              'Alpine Armoring'
+                            }
+                            width={400}
+                            height={400}
+                            quality={100}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <button
                     className={`modal_close`}
@@ -486,15 +511,12 @@ function BallisticTesting(props) {
             )}
           </div>
         </section>
-
         <section
-          className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}
+          className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
           id="live-fire-testing"
         >
           {props.pageData?.section3Title ? (
-            <h2
-              className={`${styles.manufacturing_title} block-reveal observe`}
-            >
+            <h2 className={`${styles.testing_title} block-reveal observe`}>
               <span
                 dangerouslySetInnerHTML={{
                   __html: props.pageData.section3Title,
@@ -505,57 +527,20 @@ function BallisticTesting(props) {
 
           {props.pageData?.section3Heading ? (
             <p
-              className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
+              className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
                 __html: props.pageData.section3Heading,
               }}
             ></p>
           ) : null}
-          {/* {props.pageData?.section3Text ? (
-              <div
-                className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} fade-in observe`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section3Text),
-                }}
-              ></div>
-            ) : null} */}
-          {videos?.length > 0 ? (
-            <div
-              className={`${styles.media_videos} container_small`}
-              id="videos"
-            >
-              <div
-                className={`${styles.media_videos_list}`}
-                style={{ display: 'flex', gap: '10px', marginTop: '20px' }}
-              >
-                {videos.map((item, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      marginRight: index === videos.length - 1 ? 0 : '10px',
-                      width: '33%',
-                    }}
-                  >
-                    <VideoSingle
-                      props={item}
-                      key={index}
-                      onLightboxOpen={handleLightboxOpen}
-                      large
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
+          <MediaList props={videos} itemType="video" />
         </section>
         <section
-          className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}
+          className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
           id="vehicle-dynamic-testing"
         >
           {props.pageData?.section4Title ? (
-            <h2
-              className={`${styles.manufacturing_title} block-reveal observe`}
-            >
+            <h2 className={`${styles.testing_title} block-reveal observe`}>
               <span
                 dangerouslySetInnerHTML={{
                   __html: props.pageData.section4Title,
@@ -566,16 +551,16 @@ function BallisticTesting(props) {
 
           {props.pageData?.section4Heading ? (
             <p
-              className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
+              className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
                 __html: props.pageData.section4Heading,
               }}
             ></p>
           ) : null}
-          <div className={`${styles.manufacturing_box}`}>
+          <div className={`${styles.testing_box}`}>
             {props.pageData?.section4Text ? (
               <div
-                className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} fade-in observe`}
+                className={`${styles.testing_section1_text1} ${styles.testing_text} fade-in observe`}
                 dangerouslySetInnerHTML={{
                   __html: convertMarkdown(props.pageData.section4Text),
                 }}
@@ -583,7 +568,7 @@ function BallisticTesting(props) {
             ) : null}
 
             {props.pageData?.section4Image.data ? (
-              <div className={`${styles.manufacturing_image} observe fade-in`}>
+              <div className={`${styles.testing_image} observe fade-in`}>
                 {props.pageData.section4Image.data.attributes.mime.startsWith(
                   'image/'
                 ) ? (
@@ -603,36 +588,37 @@ function BallisticTesting(props) {
                 ) : props.pageData.section4Image.data.attributes.mime.startsWith(
                     'video/'
                   ) ? (
-                  <video
-                    preload="none"
-                    muted={true}
-                    autoPlay={true}
-                    playsInline={true}
-                    loop={true}
-                    width={isMobile ? 380 : 620}
-                    height={isMobile ? 200 : 430}
-                  >
-                    <source
-                      src={`${props.pageData.section4Image.data.attributes?.url}`}
-                      type={props.pageData.section4Image.data.attributes.mime}
-                    />
-                    Your browser does not support the video tag.
-                  </video>
+                  <div className={styles.videoResponsive}>
+                    <video
+                      preload="none"
+                      muted={true}
+                      autoPlay={true}
+                      playsInline={true}
+                      loop={true}
+                      className={styles.responsiveVideo}
+                    >
+                      <source
+                        src={`${props.pageData.section4Image.data.attributes?.url}`}
+                        type={props.pageData.section4Image.data.attributes.mime}
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                 ) : null}
               </div>
             ) : null}
           </div>
-          <div className={`${styles.manufacturing_box}`}>
+          <div className={`${styles.testing_box}`}>
             {props.pageData?.section4Text2 ? (
               <div
-                className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} fade-in observe`}
+                className={`${styles.testing_section1_text1} ${styles.testing_text} fade-in observe`}
                 dangerouslySetInnerHTML={{
                   __html: convertMarkdown(props.pageData.section4Text2),
                 }}
               ></div>
             ) : null}
             {props.pageData?.section4Image2.data ? (
-              <div className={`${styles.manufacturing_image} observe fade-in`}>
+              <div className={`${styles.testing_image} observe fade-in`}>
                 {props.pageData.section4Image2.data.attributes.mime.startsWith(
                   'image/'
                 ) ? (
@@ -652,34 +638,32 @@ function BallisticTesting(props) {
                 ) : props.pageData.section4Image2.data.attributes.mime.startsWith(
                     'video/'
                   ) ? (
-                  <video
-                    preload="none"
-                    muted={true}
-                    autoPlay={true}
-                    playsInline={true}
-                    loop={true}
-                    width={isMobile ? 380 : 620}
-                    height={isMobile ? 200 : 430}
-                  >
-                    <source
-                      src={`${props.pageData.section4Image2.data.attributes?.url}`}
-                      type={props.pageData.section4Image2.data.attributes.mime}
-                    />
-                    Your browser does not support the video tag.
-                  </video>
+                  <div className={styles.videoResponsive}>
+                    <video
+                      preload="none"
+                      muted={true}
+                      autoPlay={true}
+                      playsInline={true}
+                      loop={true}
+                      className={styles.responsiveVideo}
+                    >
+                      <source
+                        src={`${props.pageData.section4Image2.data.attributes?.url}`}
+                        type={
+                          props.pageData.section4Image2.data.attributes.mime
+                        }
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                 ) : null}
               </div>
             ) : null}
           </div>
-          {/* {props.pageData?.section4Gallery.data ? (
-            <div className={`${styles.slug_gallery}`}>
-              <Gallery props={props.pageData?.section4Gallery.data} />
-            </div>
-          ) : null} */}
         </section>
         {props.pageData?.section4Gallery.data ? (
           <div className={`${styles.slug_gallery}`}>
-            <Gallery props={props.pageData?.section4Gallery.data} />
+            <Gallery props={props.pageData?.section4Gallery.data} squared />
           </div>
         ) : null}
       </div>
@@ -708,4 +692,4 @@ export async function getStaticProps() {
   };
 }
 
-export default BallisticTesting;
+export default Testing;

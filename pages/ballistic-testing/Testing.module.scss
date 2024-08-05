@@ -1,4 +1,4 @@
-.manufacturing {
+.testing {
   &_tabs {
     position: relative;
     color: var(--color-white);
@@ -160,15 +160,29 @@
 
     &_image {
       display: inline-flex;
-      position: relative;
-      // margin: rem(24) auto 0 auto;
-      max-width: 200px;
-      // @include breakpoint(large) {
-      //   margin: rem(32) 0 -90px auto;
-      //   right: -50px;
-      // }
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 10px 0;
       @include breakpoint(huge) {
         max-width: 240px;
+      }
+      img {
+        border-radius: 15px;
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        transition: transform 0.3s, box-shadow 0.3s;
+    
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @include breakpoint(large) {
+          width: 45%;
+        }
       }
     }
 
@@ -187,7 +201,7 @@
       grid-template-columns: auto 45%;
       gap: 40px;
       align-items: center;
-      margin: rem(32) auto;
+      margin: rem(24) auto;
     }
     @include breakpoint(large) {
       gap: 40px;
@@ -198,7 +212,7 @@
     }
     @include breakpoint(huge) {
       gap: 64px;
-      margin: rem(64) auto;
+      margin: rem(24) auto;
     }
   }
 
@@ -207,6 +221,10 @@
     margin: rem(24) 0;
 
     img {
+      object-fit: cover;
+      border-radius: 16px;
+    }
+    video {
       object-fit: cover;
       border-radius: 16px;
     }
@@ -338,4 +356,15 @@
 .imageWrapper img {
   width: 100%;
   height: auto;
+}
+.videoResponsive {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.responsiveVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

@@ -4,8 +4,11 @@ import EmblaCarousel from 'embla-carousel';
 import VideoSingle from './videos/VideoSingle';
 import TradeShowsSingle from './trade-shows/TradeShowsSingle';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
+import { useRouter } from 'next/router';
 
 function MediaList({ props, itemType }) {
+  const router = useRouter(); // Initialize useRouter
+  const currentRoute = router.pathname; // Get the current route
   const groupedByCategory = props?.reduce((acc, item) => {
     const category = item.attributes.category?.data
       ? item.attributes.category.data?.attributes.name
@@ -137,9 +140,13 @@ function MediaList({ props, itemType }) {
 
           return (
             <div className={`${styles.mediaList_list} container`} key={index}>
-              <h2 className={`${styles.mediaList_list_title} fade-in observe`}>
-                {category}
-              </h2>
+              {currentRoute !== '/ballistic-testing' ? (
+                <h2
+                  className={`${styles.mediaList_list_title} fade-in observe`}
+                >
+                  {category}
+                </h2>
+              ) : null}
 
               <div className={`${styles.mediaList_list_slider} embla`}>
                 <div className={`${styles.mediaList_list_slider_inner}`}>
