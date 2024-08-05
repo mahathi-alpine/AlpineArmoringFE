@@ -38,8 +38,10 @@
       margin-right: auto;
     }
     @include breakpoint(huge) {
-      width: 61%;
-      max-width: 1160px;
+      // width: 61%;
+      // max-width: 1160px;
+      width: 95%;
+      max-width: 2200px;
     }
   }
 
@@ -71,7 +73,7 @@
 
     @include breakpoint(large) {
       // max-width: 1200px;
-      margin: rem(40) auto rem(40) auto;
+      margin: rem(24) auto rem(24) auto;
       padding-left: rem(20);
     }
 
@@ -105,7 +107,7 @@
       grid-template-columns: auto 45%;
       gap: 40px;
       align-items: center;
-      margin: rem(32) auto;
+      margin: rem(24) auto;
     }
     @include breakpoint(large) {
       gap: 40px;
@@ -116,7 +118,7 @@
     }
     @include breakpoint(huge) {
       gap: 64px;
-      margin: rem(64) auto;
+      margin: rem(24) auto;
     }
   }
 
@@ -160,10 +162,10 @@
 
     &_image2 {
       @include breakpoint(large) {
-        margin: rem(48) auto;
+        margin: rem(24) auto;
       }
       @include breakpoint(huge) {
-        margin-top: rem(64);
+        margin-top: rem(32);
       }
       img {
         margin: auto;
@@ -172,16 +174,16 @@
   }
 
   &_section2 {
-    margin-top: rem(72);
-    margin-bottom: rem(72);
-    @include breakpoint(large) {
-      margin-bottom: rem(140);
-      margin-top: rem(140);
-    }
-    @include breakpoint(huge) {
-      margin-bottom: rem(164);
-      // margin-top: rem(164);
-    }
+    margin-top: rem(32);
+    margin-bottom: rem(32);
+    // @include breakpoint(large) {
+    //   margin-bottom: rem(140);
+    //   margin-top: rem(140);
+    // }
+    // @include breakpoint(huge) {
+    //   margin-bottom: rem(164);
+    //   margin-top: rem(164);
+    // }
 
     &_heading {
       // font-size: rem(18);

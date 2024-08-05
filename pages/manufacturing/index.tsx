@@ -180,6 +180,15 @@ function Manufacturing(props) {
             ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
+              {props.pageData?.section2Text2 ? (
+                <p
+                  className={`${styles.manufacturing_text} observe fade-in`}
+                  dangerouslySetInnerHTML={{
+                    __html: convertMarkdown(props.pageData.section2Text2),
+                  }}
+                ></p>
+              ) : null}
+
               {props.pageData?.section2Image.data ? (
                 <div
                   className={`${styles.manufacturing_image} observe fade-in`}
@@ -199,23 +208,8 @@ function Manufacturing(props) {
                   ></Image>
                 </div>
               ) : null}
-
-              {props.pageData?.section2Text2 ? (
-                <p
-                  className={`${styles.manufacturing_text} observe fade-in`}
-                  dangerouslySetInnerHTML={{
-                    __html: convertMarkdown(props.pageData.section2Text2),
-                  }}
-                ></p>
-              ) : null}
             </div>
           </div>
-
-          {props.pageData?.section2Gallery.data ? (
-            <div className={`${styles.slug_gallery}`}>
-              <Gallery props={props.pageData?.section2Gallery.data} squared />
-            </div>
-          ) : null}
 
           <div
             className={`${styles.manufacturing_container_small} container_small`}
@@ -229,6 +223,12 @@ function Manufacturing(props) {
               ></div>
             ) : null}
           </div>
+
+          {props.pageData?.section2Gallery.data ? (
+            <div className={`${styles.slug_gallery}`}>
+              <Gallery props={props.pageData?.section2Gallery.data} squared />
+            </div>
+          ) : null}
         </section>
 
         <section className={`${styles.manufacturing_section3}`} id="production">
@@ -299,7 +299,7 @@ function Manufacturing(props) {
 
           {props.pageData?.section3Gallery.data ? (
             <div className={`${styles.slug_gallery}`}>
-              <Gallery props={props.pageData?.section3Gallery.data} />
+              <Gallery props={props.pageData?.section3Gallery.data} squared />
             </div>
           ) : null}
         </section>
