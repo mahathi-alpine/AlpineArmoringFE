@@ -1,5 +1,6 @@
 import styles from './BallisticChart.module.scss';
 import Image from 'next/image';
+import React, { useState } from 'react';
 
 const BallisticChart = () => {
   const items = [
@@ -167,8 +168,8 @@ const BallisticChart = () => {
       name: ['Barrett'],
       caliber: ['.50 BMG (12.7 x 99mm)'],
       class: ['Rifle'],
-      stanag: 'I',
-      ul: '5',
+      stanag: '-',
+      ul: '10+',
       level: ['12'],
       nij: 'N/A',
       cen: 'BR7+',
@@ -178,10 +179,36 @@ const BallisticChart = () => {
     },
   ];
 
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showChosen, setShowChosen] = useState(false);
+
   // Function to toggle active state for a specific row
   const setRowActive = (index) => {
     const row = document.querySelector('tbody').children[index];
     row.classList.toggle(styles.ballistic_row_active);
+
+    const currentSelectedRows = [...selectedRows];
+    if (!currentSelectedRows.includes(index)) {
+      if (currentSelectedRows.length < 2) {
+        currentSelectedRows.push(index);
+      }
+    } else {
+      const rowIndex = currentSelectedRows.indexOf(index);
+      currentSelectedRows.splice(rowIndex, 1);
+    }
+    setSelectedRows(currentSelectedRows);
+    // setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
+  const showChosenItems = () => {
+    if (selectedRows.length === 2) {
+      setShowChosen(true);
+    }
   };
 
   return (
@@ -490,6 +517,478 @@ const BallisticChart = () => {
             </tbody>
           </table>
         </div>
+
+        <div
+          className={`${styles.ballistic_popup} ${
+            showPopup ? styles.ballistic_popup_active : ''
+          }`}
+        >
+          <p className={`${styles.ballistic_popup_text}`}>
+            Level A2 successfully added to comparison list
+          </p>
+          <button
+            className={`${styles.ballistic_popup_button}`}
+            onClick={showChosenItems}
+          >
+            See list
+          </button>
+          <div
+            className={`${styles.ballistic_popup_close}`}
+            data-text="Close"
+            onClick={closePopup}
+          >
+            Close
+          </div>
+        </div>
+
+        {selectedRows.length > 1 ? (
+          <div
+            className={`${styles.ballistic_choosen} ${
+              showChosen ? styles.ballistic_choosen_active : ''
+            }`}
+          >
+            <div className={`${styles.ballistic_choosen_inner}`}>
+              <div className={`${styles.ballistic_choosen_heading}`}>
+                <h2>Comparison</h2>
+                <p>(Alpine’s Levels vs. Others)</p>
+                <button className={`${styles.ballistic_choosen_close}`}>
+                  X
+                </button>
+              </div>
+
+              <div className={`${styles.ballistic_choosen_list}`}>
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <Image
+                      src="/assets/ballistic/ballistic_logo.png"
+                      alt=""
+                      width="60"
+                      height="90"
+                      className={`${styles.ballistic_choosen_list_left_logo}`}
+                    ></Image>
+                  </div>
+
+                  <div
+                    className={`
+                      ${styles.ballistic_choosen_list_item} 
+                      ${styles.ballistic_choosen_list_item_level}
+                      ${
+                        items[selectedRows[0]].level.length > 1
+                          ? styles.ballistic_choosen_list_item_level_small
+                          : ''
+                      }`}
+                  >
+                    <span data-text="A">A</span>
+                    {items[selectedRows[0]].level.map((listItem, spanIndex) => (
+                      <span key={spanIndex} data-text={listItem}>
+                        {listItem}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div
+                    className={`
+                      ${styles.ballistic_choosen_list_item} 
+                      ${styles.ballistic_choosen_list_item_level}
+                      ${
+                        items[selectedRows[1]].level.length > 1
+                          ? styles.ballistic_choosen_list_item_level_small
+                          : ''
+                      }`}
+                    data-text={`A${items[selectedRows[1]].level}`}
+                  >
+                    <span data-text="A">A</span>
+                    {items[selectedRows[1]].level.map((listItem, spanIndex) => (
+                      <span key={spanIndex} data-text={listItem}>
+                        {listItem}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div
+                    className={`${styles.ballistic_choosen_list_left}`}
+                  ></div>
+
+                  <div
+                    className={`${styles.ballistic_choosen_list_item} ${styles.ballistic_choosen_list_item_name}`}
+                  >
+                    <Image
+                      src={`/assets/ballistic/weapon_A${
+                        items[selectedRows[0]].level[0]
+                      }.png`}
+                      alt=""
+                      width="264"
+                      height="71"
+                    ></Image>
+
+                    {items[selectedRows[0]].name.map((listItem, spanIndex) => (
+                      <span key={spanIndex}>{listItem}</span>
+                    ))}
+                  </div>
+
+                  <div
+                    className={`${styles.ballistic_choosen_list_item} ${styles.ballistic_choosen_list_item_name}`}
+                  >
+                    <Image
+                      src={`/assets/ballistic/weapon_A${
+                        items[selectedRows[1]].level[0]
+                      }.png`}
+                      alt=""
+                      width="100"
+                      height="40"
+                    ></Image>
+
+                    <span>{items[selectedRows[1]].name}</span>
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="Stanag"
+                    >
+                      Stanag
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[0]].stanag}`}
+                    >
+                      {items[selectedRows[0]].stanag}
+                    </span>
+                  </div>
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[1]].stanag}`}
+                    >
+                      {items[selectedRows[1]].stanag}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="Ul"
+                    >
+                      Ul
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[0]].ul}`}
+                    >
+                      {items[selectedRows[0]].ul}
+                    </span>
+                  </div>
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[1]].ul}`}
+                    >
+                      {items[selectedRows[1]].ul}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="nij"
+                    >
+                      nij
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[0]].nij}`}
+                    >
+                      {items[selectedRows[0]].nij}
+                    </span>
+                  </div>
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[1]].nij}`}
+                    >
+                      {items[selectedRows[1]].nij}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="cen"
+                    >
+                      cen
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[0]].cen}`}
+                    >
+                      {items[selectedRows[0]].cen}
+                    </span>
+                  </div>
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    <span
+                      className={`${styles.ballistic_choosen_list_item_span}`}
+                      data-text={`${items[selectedRows[1]].cen}`}
+                    >
+                      {items[selectedRows[1]].cen}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="caliber"
+                    >
+                      caliber
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[0]].caliber.map(
+                      (listItem, spanIndex) => (
+                        <span
+                          key={spanIndex}
+                          data-text={listItem}
+                          className={`${
+                            styles.ballistic_choosen_list_item_span
+                          } ${
+                            items[selectedRows[0]].caliber.length > 1
+                              ? styles.ballistic_choosen_list_item_span_small
+                              : ''
+                          }`}
+                        >
+                          {listItem}
+                        </span>
+                      )
+                    )}
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[1]].caliber.map(
+                      (listItem, spanIndex) => (
+                        <span
+                          key={spanIndex}
+                          data-text={listItem}
+                          className={`${
+                            styles.ballistic_choosen_list_item_span
+                          } ${
+                            items[selectedRows[1]].caliber.length > 1
+                              ? styles.ballistic_choosen_list_item_span_small
+                              : ''
+                          }`}
+                        >
+                          {listItem}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="class"
+                    >
+                      class
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[0]].class.map((listItem, spanIndex) => (
+                      <span
+                        key={spanIndex}
+                        data-text={listItem}
+                        className={`${
+                          styles.ballistic_choosen_list_item_span
+                        } ${
+                          items[selectedRows[0]].class.length > 1
+                            ? styles.ballistic_choosen_list_item_span_small
+                            : ''
+                        }`}
+                      >
+                        {listItem}
+                      </span>
+                    ))}
+                  </div>
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[1]].class.map((listItem, spanIndex) => (
+                      <span
+                        key={spanIndex}
+                        data-text={listItem}
+                        className={`${
+                          styles.ballistic_choosen_list_item_span
+                        } ${
+                          items[selectedRows[1]].class.length > 1
+                            ? styles.ballistic_choosen_list_item_span_small
+                            : ''
+                        }`}
+                      >
+                        {listItem}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="weight"
+                    >
+                      weight
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[0]].weight.map(
+                      (listItem, spanIndex) => (
+                        <span
+                          key={spanIndex}
+                          data-text={listItem}
+                          className={`${styles.ballistic_choosen_list_item_span} ${styles.ballistic_choosen_list_item_span_weight}`}
+                        >
+                          {listItem}
+                        </span>
+                      )
+                    )}
+                  </div>
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[1]].weight.map(
+                      (listItem, spanIndex) => (
+                        <span
+                          key={spanIndex}
+                          data-text={listItem}
+                          className={`${styles.ballistic_choosen_list_item_span} ${styles.ballistic_choosen_list_item_span_weight}`}
+                        >
+                          {listItem}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="type"
+                    >
+                      type
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[0]].type.map((listItem, spanIndex) => (
+                      <span
+                        key={spanIndex}
+                        className={`${
+                          styles.ballistic_choosen_list_item_span
+                        } ${
+                          items[selectedRows[0]].type.length > 1
+                            ? styles.ballistic_choosen_list_item_span_small
+                            : ''
+                        }`}
+                      >
+                        {listItem}
+                      </span>
+                    ))}
+                  </div>
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[1]].type.map((listItem, spanIndex) => (
+                      <span
+                        key={spanIndex}
+                        className={`${
+                          styles.ballistic_choosen_list_item_span
+                        } ${
+                          items[selectedRows[1]].type.length > 1
+                            ? styles.ballistic_choosen_list_item_span_small
+                            : ''
+                        }`}
+                      >
+                        {listItem}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_choosen_row}`}>
+                  <div className={`${styles.ballistic_choosen_list_left}`}>
+                    <div
+                      className={`${styles.ballistic_choosen_list_left_item}`}
+                      data-text="velocity"
+                    >
+                      velocity
+                    </div>
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[0]].velocity.map(
+                      (listItem, spanIndex) => (
+                        <span
+                          key={spanIndex}
+                          className={`${
+                            styles.ballistic_choosen_list_item_span
+                          } ${
+                            items[selectedRows[0]].velocity.length > 1
+                              ? styles.ballistic_choosen_list_item_span_small
+                              : ''
+                          }`}
+                        >
+                          {listItem.split('(')[0].trim()}
+                          <br />({listItem.split('(')[1].replace(')', '')})
+                        </span>
+                      )
+                    )}
+                  </div>
+
+                  <div className={`${styles.ballistic_choosen_list_item}`}>
+                    {items[selectedRows[1]].velocity.map(
+                      (listItem, spanIndex) => (
+                        <span
+                          key={spanIndex}
+                          className={`
+                          ${styles.ballistic_choosen_list_item_span}
+                          ${
+                            items[selectedRows[1]].velocity.length > 1
+                              ? styles.ballistic_choosen_list_item_span_small
+                              : ''
+                          }`}
+                        >
+                          {listItem.split('(')[0].trim()}
+                          <br />({listItem.split('(')[1].replace(')', '')})
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </>
   );
