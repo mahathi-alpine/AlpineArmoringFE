@@ -33,6 +33,12 @@
     z-index: -1;
   }
 
+  &_comparisonActive{
+    .ballistic_row:not(.ballistic_row_active){
+      opacity: .12;
+    }
+  }
+
   table,
   td,
   th {
@@ -818,7 +824,6 @@
           justify-content: center;
           width: 80px;
           height: 48px;
-          font-family: Termina;
           padding: 0;
 
           &:after {
@@ -1544,7 +1549,6 @@
         border-left: 2px solid #e1e1e1;
 
         &_level {
-          font-family: Termina;
           font-size: 20px;
           font-weight: 700;
           letter-spacing: 0.6px;

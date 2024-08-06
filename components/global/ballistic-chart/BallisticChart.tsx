@@ -238,9 +238,47 @@ const BallisticChart = () => {
     // document.querySelector('tbody tr').classList.remove(styles.ballistic_row_active);
   };
 
+  const showComparisonDesktop = (index, button) => {
+    if (window.innerWidth >= 1280) {
+      document
+        .getElementById('ballistic-chart')
+        .classList.add(styles.ballistic_comparisonActive);
+
+      const compareButtons = document.querySelectorAll(
+        `.${styles.ballistic_compare_view}`
+      );
+
+      if (button.classList.contains(styles.ballistic_compare_view_active)) {
+        document
+          .querySelector('tbody')
+          .children[index].classList.remove(styles.ballistic_row_active);
+        button.classList.remove(styles.ballistic_compare_view_active);
+        button.querySelector('span').textContent = 'View';
+
+        if (
+          document.querySelectorAll(`.${styles.ballistic_row_active}`).length <
+          1
+        ) {
+          document
+            .getElementById('ballistic-chart')
+            .classList.remove(styles.ballistic_comparisonActive);
+
+          compareButtons.forEach((element) => {
+            element.querySelector('span').textContent = 'View';
+          });
+        }
+      } else {
+        compareButtons.forEach((element) => {
+          element.classList.add(styles.ballistic_compare_view_active);
+          element.querySelector('span').textContent = 'Close';
+        });
+      }
+    }
+  };
+
   return (
     <>
-      <div className={`${styles.ballistic}`}>
+      <div className={`${styles.ballistic}`} id="ballistic-chart">
         <div className={`${styles.ballistic_wrapper}`}>
           <div className={`${styles.ballistic_header}`}>
             <div className={`${styles.ballistic_header_inner}`}>
@@ -523,7 +561,12 @@ const BallisticChart = () => {
                         className={`${styles.ballistic_compare_button_slider}`}
                       ></span>
                     </div>
-                    <button className={`${styles.ballistic_compare_view}`}>
+                    <button
+                      className={`${styles.ballistic_compare_view}`}
+                      onClick={(e) =>
+                        showComparisonDesktop(index, e.currentTarget)
+                      }
+                    >
                       <span>View</span>
                     </button>
                   </td>
