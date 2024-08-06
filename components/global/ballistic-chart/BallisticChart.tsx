@@ -195,22 +195,30 @@ const BallisticChart = () => {
 
     if (isActive) {
       row.classList.remove(styles.ballistic_row_active);
-      const rowIndex = currentSelectedRows.indexOf(index);
-      currentSelectedRows.splice(rowIndex, 1);
-      currentSelectedLevels.splice(rowIndex, 1);
-      setMoreSelected(false);
+      if (window.innerWidth < 1280) {
+        const rowIndex = currentSelectedRows.indexOf(index);
+        currentSelectedRows.splice(rowIndex, 1);
+        currentSelectedLevels.splice(rowIndex, 1);
+        setMoreSelected(false);
+      }
     } else if (currentSelectedRows.length < 2) {
       row.classList.add(styles.ballistic_row_active);
-      currentSelectedRows.push(index);
-      currentSelectedLevels.push(items[index].level[0]);
-      setShowPopup(true);
+      if (window.innerWidth < 1280) {
+        currentSelectedRows.push(index);
+        currentSelectedLevels.push(items[index].level[0]);
+        setShowPopup(true);
+      }
     } else {
-      setShowPopup(true);
-      setMoreSelected(true);
+      if (window.innerWidth < 1280) {
+        setShowPopup(true);
+        setMoreSelected(true);
+      }
     }
 
-    setSelectedRows(currentSelectedRows);
-    setSelectedLevels(currentSelectedLevels);
+    if (window.innerWidth < 1280) {
+      setSelectedRows(currentSelectedRows);
+      setSelectedLevels(currentSelectedLevels);
+    }
   };
 
   const closePopup = () => {
