@@ -33,9 +33,9 @@
     z-index: -1;
   }
 
-  &_comparisonActive{
-    .ballistic_row:not(.ballistic_row_active){
-      opacity: .12;
+  &_comparisonActive {
+    .ballistic_row:not(.ballistic_row_active) {
+      opacity: 0.12;
     }
   }
 
