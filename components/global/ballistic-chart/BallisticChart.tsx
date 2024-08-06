@@ -182,23 +182,35 @@ const BallisticChart = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showChosen, setShowChosen] = useState(false);
+  const [selectedLevels, setSelectedLevels] = useState([]);
+  const [moreSelected, setMoreSelected] = useState(false);
 
-  // Function to toggle active state for a specific row
   const setRowActive = (index) => {
-    const row = document.querySelector('tbody').children[index];
-    row.classList.toggle(styles.ballistic_row_active);
-
     const currentSelectedRows = [...selectedRows];
-    if (!currentSelectedRows.includes(index)) {
-      if (currentSelectedRows.length < 2) {
-        currentSelectedRows.push(index);
-      }
-    } else {
+    const currentSelectedLevels = [...selectedLevels];
+
+    const row = document.querySelector('tbody').children[index];
+
+    const isActive = row.classList.contains(styles.ballistic_row_active);
+
+    if (isActive) {
+      row.classList.remove(styles.ballistic_row_active);
       const rowIndex = currentSelectedRows.indexOf(index);
       currentSelectedRows.splice(rowIndex, 1);
+      currentSelectedLevels.splice(rowIndex, 1);
+      setMoreSelected(false);
+    } else if (currentSelectedRows.length < 2) {
+      row.classList.add(styles.ballistic_row_active);
+      currentSelectedRows.push(index);
+      currentSelectedLevels.push(items[index].level[0]);
+      setShowPopup(true);
+    } else {
+      setShowPopup(true);
+      setMoreSelected(true);
     }
+
     setSelectedRows(currentSelectedRows);
-    // setShowPopup(true);
+    setSelectedLevels(currentSelectedLevels);
   };
 
   const closePopup = () => {
@@ -209,6 +221,13 @@ const BallisticChart = () => {
     if (selectedRows.length === 2) {
       setShowChosen(true);
     }
+  };
+
+  const closePopupComparison = () => {
+    setShowPopup(false);
+    setShowChosen(false);
+    // setSelectedRows([]);
+    // document.querySelector('tbody tr').classList.remove(styles.ballistic_row_active);
   };
 
   return (
@@ -488,15 +507,14 @@ const BallisticChart = () => {
                   <td
                     className={`${styles.ballistic_row_item} ${styles.ballistic_compare}`}
                   >
-                    <label className={`${styles.ballistic_compare_button}`}>
-                      <input
-                        type="checkbox"
-                        onClick={() => setRowActive(index)}
-                      />
+                    <div
+                      className={`${styles.ballistic_compare_button}`}
+                      onClick={() => setRowActive(index)}
+                    >
                       <span
                         className={`${styles.ballistic_compare_button_slider}`}
                       ></span>
-                    </label>
+                    </div>
                     <button className={`${styles.ballistic_compare_view}`}>
                       <span>View</span>
                     </button>
@@ -518,30 +536,45 @@ const BallisticChart = () => {
           </table>
         </div>
 
-        <div
-          className={`${styles.ballistic_popup} ${
-            showPopup ? styles.ballistic_popup_active : ''
-          }`}
-        >
-          <p className={`${styles.ballistic_popup_text}`}>
-            Level A2 successfully added to comparison list
-          </p>
-          <button
-            className={`${styles.ballistic_popup_button}`}
-            onClick={showChosenItems}
-          >
-            See list
-          </button>
+        {showPopup && (
           <div
-            className={`${styles.ballistic_popup_close}`}
-            data-text="Close"
-            onClick={closePopup}
+            className={`${styles.ballistic_popup} ${
+              showPopup ? styles.ballistic_popup_active : ''
+            }`}
           >
-            Close
-          </div>
-        </div>
+            <div className={`${styles.ballistic_popup_text}`}>
+              {selectedLevels.length > 0 && !moreSelected && (
+                <div>
+                  Level A{selectedLevels[selectedLevels.length - 1]}{' '}
+                  successfully added to comparison list
+                </div>
+              )}
+              {selectedLevels.length == 1 && (
+                <div>Select one more level to see the comparison</div>
+              )}
+              {moreSelected && <div>You can compare only two levels</div>}
+            </div>
 
-        {selectedRows.length > 1 ? (
+            {selectedLevels.length == 2 && (
+              <button
+                className={`${styles.ballistic_popup_button}`}
+                onClick={showChosenItems}
+              >
+                See list
+              </button>
+            )}
+
+            <div
+              className={`${styles.ballistic_popup_close}`}
+              data-text="Close"
+              onClick={closePopup}
+            >
+              Close
+            </div>
+          </div>
+        )}
+
+        {showChosen ? (
           <div
             className={`${styles.ballistic_choosen} ${
               showChosen ? styles.ballistic_choosen_active : ''
@@ -551,7 +584,10 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_choosen_heading}`}>
                 <h2>Comparison</h2>
                 <p>(Alpine’s Levels vs. Others)</p>
-                <button className={`${styles.ballistic_choosen_close}`}>
+                <button
+                  className={`${styles.ballistic_choosen_close}`}
+                  onClick={closePopupComparison}
+                >
                   X
                 </button>
               </div>
@@ -595,14 +631,19 @@ const BallisticChart = () => {
                           ? styles.ballistic_choosen_list_item_level_small
                           : ''
                       }`}
-                    data-text={`A${items[selectedRows[1]].level}`}
                   >
-                    <span data-text="A">A</span>
-                    {items[selectedRows[1]].level.map((listItem, spanIndex) => (
-                      <span key={spanIndex} data-text={listItem}>
-                        {listItem}
-                      </span>
-                    ))}
+                    <div
+                      className={`${styles.ballistic_choosen_list_item_level_inner}`}
+                    >
+                      <span data-text="A">A</span>
+                      {items[selectedRows[1]].level.map(
+                        (listItem, spanIndex) => (
+                          <span key={spanIndex} data-text={listItem}>
+                            {listItem}
+                          </span>
+                        )
+                      )}
+                    </div>
                   </div>
                 </div>
 

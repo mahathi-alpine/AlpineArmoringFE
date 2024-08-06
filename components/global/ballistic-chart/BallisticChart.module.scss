@@ -1,3 +1,14 @@
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/Manrope-ExtraBold.ttf");
+  font-weight: 800;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/Manrope-Medium.ttf");
+  font-weight: 500;
+}
+
 .ballistic {
   margin: auto;
   max-width: 1925px;
@@ -1280,12 +1291,8 @@
         }
       }
 
-      input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-
-        &:checked + span {
+      .ballistic_row_active & {
+        span {
           background: linear-gradient(
             89deg,
             #bcae7d27 0.69%,
@@ -1293,15 +1300,16 @@
             #cdbf8ecc 0.97%,
             #9f9160 61%
           );
-        }
 
-        &:checked + span::after {
-          transform: translateX(24px);
-          @include breakpoint(large) {
-            transform: translateX(1.25vw);
+          &::after {
+            transform: translateX(24px);
+            @include breakpoint(large) {
+              transform: translateX(1.25vw);
+            }
           }
         }
       }
+
     }
 
     &_view {
@@ -1543,6 +1551,16 @@
           letter-spacing: 0.6px;
           padding: 4px 0;
           flex-flow: row;
+          display: block;
+
+          &_inner{
+            position: relative;
+            max-width: 100px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
 
           &_small {
             position: relative;
@@ -1682,7 +1700,7 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    max-width: 260px;
+    max-width: 315px;
     margin: auto;
     padding: 10px 24px 24px 24px;
     border-radius: 20px;
@@ -1707,6 +1725,13 @@
       letter-spacing: 0.32px;
       text-transform: capitalize;
       margin-bottom: 15px;
+      font-weight: 500;
+
+      div:nth-child(2){
+        font-size: 12px;
+        line-height: 15px;
+        margin-top: 10px;
+      }
     }
 
     &_button {
