@@ -1,11 +1,11 @@
 @font-face {
   font-family: Manrope;
-  src: url("/fonts/Manrope-ExtraBold.ttf");
+  src: url('/fonts/Manrope-ExtraBold.ttf');
   font-weight: 800;
 }
 @font-face {
   font-family: Manrope;
-  src: url("/fonts/Manrope-Medium.ttf");
+  src: url('/fonts/Manrope-Medium.ttf');
   font-weight: 500;
 }
 
@@ -1309,7 +1309,6 @@
           }
         }
       }
-
     }
 
     &_view {
@@ -1553,7 +1552,7 @@
           flex-flow: row;
           display: block;
 
-          &_inner{
+          &_inner {
             position: relative;
             max-width: 100px;
             margin: auto;
@@ -1727,7 +1726,7 @@
       margin-bottom: 15px;
       font-weight: 500;
 
-      div:nth-child(2){
+      div:nth-child(2) {
         font-size: 12px;
         line-height: 15px;
         margin-top: 10px;
