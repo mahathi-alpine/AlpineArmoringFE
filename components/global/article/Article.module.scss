@@ -87,6 +87,9 @@
   }
   &_container {
     display: inline-grid;
+    @include breakpoint(small) {
+      width: 100%;
+    }
   }
 
   &_section {
@@ -146,13 +149,16 @@
       font-weight: 700;
       margin: 0;
       position: relative;
-      max-width: 168px;
-      max-height: 24px;
-      overflow: hidden;
-      transition: all 0.3s ease-in-out;
-      white-space: nowrap;
-      text-overflow: ellipsis;
       cursor: pointer;
+
+      @include breakpoint(medium) {
+        max-width: 168px;
+        max-height: 24px;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
 
     h2:hover {
