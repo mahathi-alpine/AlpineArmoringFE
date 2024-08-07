@@ -1,6 +1,6 @@
 import styles from './Autoplay.module.scss';
 import Image from 'next/image';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
 
 import useEmblaCarousel from 'embla-carousel-react';
@@ -49,7 +49,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
 
   const { openLightbox, renderLightbox } = useLightbox();
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const {
     prevBtnDisabled,
@@ -60,7 +60,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
 
   // Autoplay functionality
   const [isAutoplay, setIsAutoplay] = useState(autoplay);
-  const autoplayInterval = useRef<any>(null);
+  const autoplayInterval = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isAutoplay && emblaMainApi) {
@@ -71,17 +71,29 @@ const Autoplay: React.FC<AutoplayProps> = ({
           emblaMainApi.scrollTo(0);
         }
       }, 3000); // Change slide every 3 seconds
-    } else {
+    } else if (autoplayInterval.current) {
       clearInterval(autoplayInterval.current);
     }
-    return () => clearInterval(autoplayInterval.current);
+    return () => {
+      if (autoplayInterval.current) clearInterval(autoplayInterval.current);
+    };
   }, [isAutoplay, emblaMainApi]);
 
-  const handleLightboxOpen = (index) => {
+  const handleLightboxOpen = (index: number) => {
     setSelectedIndex(index);
     openLightbox();
     setIsAutoplay(false); // Stop autoplay when lightbox is opened
   };
+
+  // Handler for pausing autoplay on mouse hover
+  const handleMouseEnter = useCallback(() => {
+    setIsAutoplay(false);
+  }, []);
+
+  // Handler for resuming autoplay on mouse leave
+  const handleMouseLeave = useCallback(() => {
+    setIsAutoplay(true);
+  }, []);
 
   return (
     <div
@@ -99,7 +111,11 @@ const Autoplay: React.FC<AutoplayProps> = ({
         ></div>
       ) : null}
 
-      <div className={`${styles.carouselCurved}`}>
+      <div
+        className={`${styles.carouselCurved}`}
+        onMouseEnter={handleMouseEnter} // Pause on hover
+        onMouseLeave={handleMouseLeave} // Resume on leave
+      >
         <div className={`${styles.carouselCurved_viewport}`} ref={emblaMainRef}>
           <div className={`${styles.carouselCurved_container}`}>
             {slides.map((item, index) => (
