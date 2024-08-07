@@ -70,7 +70,7 @@ const Article = ({
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
-                                  src={`/assets/countries/${item.attributes.excerpt
+                                  src={`/assets/places/${item.attributes.excerpt
                                     .toLowerCase()
                                     .replace(/\s+/g, '-')}.png`}
                                   alt={item.attributes.excerpt}
@@ -124,7 +124,7 @@ const Article = ({
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
-                                  src={`/assets/countries/${item.attributes.excerpt
+                                  src={`/assets/places/${item.attributes.excerpt
                                     .toLowerCase()
                                     .replace(/\s+/g, '-')}.png`}
                                   alt={item.attributes.excerpt}
@@ -178,7 +178,7 @@ const Article = ({
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
-                                  src={`/assets/countries/${item.attributes.excerpt
+                                  src={`/assets/places/${item.attributes.excerpt
                                     .toLowerCase()
                                     .replace(/\s+/g, '-')}.png`}
                                   alt={item.attributes.excerpt}
