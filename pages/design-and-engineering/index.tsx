@@ -4,11 +4,9 @@ import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
-import { useIsMobile } from 'hooks/useIsMobile';
 
 const Design = (props) => {
   const convertMarkdown = useMarkdownToHtml();
-  const isMobile = useIsMobile();
 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -168,21 +166,24 @@ const Design = (props) => {
                 ) : props.pageData.section1Image2.data.attributes.mime.startsWith(
                     'video/'
                   ) ? (
-                  <video
-                    preload="none"
-                    muted={true}
-                    autoPlay={true}
-                    playsInline={true}
-                    loop={true}
-                    width={isMobile ? 380 : 500}
-                    height={isMobile ? 200 : 380}
-                  >
-                    <source
-                      src={`${props.pageData.section1Image2.data.attributes?.url}`}
-                      type={props.pageData.section1Image2.data.attributes.mime}
-                    />
-                    Your browser does not support the video tag.
-                  </video>
+                  <div className={styles.videoResponsive}>
+                    <video
+                      preload="none"
+                      muted={true}
+                      autoPlay={true}
+                      playsInline={true}
+                      loop={true}
+                      className={styles.responsiveVideo}
+                    >
+                      <source
+                        src={`${props.pageData.section1Image2.data.attributes?.url}`}
+                        type={
+                          props.pageData.section1Image2.data.attributes.mime
+                        }
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                 ) : null}
               </div>
             ) : null}
