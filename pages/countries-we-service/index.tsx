@@ -44,7 +44,7 @@ function Article(props) {
           <ArticleList
             featured
             props={posts}
-            subtitle="Countries We Service"
+            subtitle="Locations We Service"
             // title="Landing Pages"
           />
         </div>

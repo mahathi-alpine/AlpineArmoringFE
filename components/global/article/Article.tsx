@@ -29,7 +29,7 @@ const Article = ({
           <div className={`${styles.article_heading}`}>
             {subtitle ? (
               <h3
-                className={`${styles.article_heading_secondary} block-reveal observe`}
+                className={`${styles.article_heading_primary} block-reveal observe`}
               >
                 {subtitle}
               </h3>
@@ -41,8 +41,12 @@ const Article = ({
           {/* Render countries */}
           {countries.length > 0 && (
             <>
-              <h3>Countries</h3>
-              <div>
+              <h3
+                className={`${styles.article_heading_secondary} block-reveal observe`}
+              >
+                COUNTRIES
+              </h3>
+              <div style={{ marginBottom: '4rem' }}>
                 {(limit ? countries.slice(0, limit) : countries).map(
                   (item, index) => (
                     <React.Fragment key={`country-${index}`}>
@@ -95,8 +99,12 @@ const Article = ({
           {/* Render states */}
           {states.length > 0 && (
             <>
-              <h3>States</h3>
-              <div>
+              <h3
+                className={`${styles.article_heading_secondary} block-reveal observe`}
+              >
+                STATES
+              </h3>
+              <div style={{ marginBottom: '4rem' }}>
                 {(limit ? states.slice(0, limit) : states).map(
                   (item, index) => (
                     <React.Fragment key={`state-${index}`}>
@@ -145,12 +153,15 @@ const Article = ({
               </div>
             </>
           )}
-
           {/* Render cities */}
           {cities.length > 0 && (
             <>
-              <h3>Cities</h3>
-              <div>
+              <h3
+                className={`${styles.article_heading_secondary} block-reveal observe`}
+              >
+                CITIES
+              </h3>
+              <div style={{ marginBottom: '4rem' }}>
                 {(limit ? cities.slice(0, limit) : cities).map(
                   (item, index) => (
                     <React.Fragment key={`city-${index}`}>
