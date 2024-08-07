@@ -201,18 +201,15 @@ function Testing(props) {
                   {props?.pageData?.titleGallery1}
                 </h2>
               )}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+              <div className={styles.galleryTest}>
                 {certificate1 ? (
                   <Link
                     href={certificate1}
                     target="_blank"
-                    style={{ maxWidth: '200px' }}
+                    className={styles.galleryTest_link}
                   >
                     {props.pageData?.section1Gallery1.data ? (
-                      <div
-                        className={styles.imageWrapper}
-                        style={{ maxWidth: '100%' }}
-                      >
+                      <div className={styles.imageWrapper}>
                         <Image
                           src={
                             props.pageData.section1Gallery1.data.attributes
@@ -242,51 +239,40 @@ function Testing(props) {
                   </Link>
                 ) : null}
                 {props.pageData?.section1Gallery12.data ? (
-                  <div
-                    className={`${styles.testing_image} observe fade-in`}
-                    style={{
-                      margin: '0 0 0 40px',
-                      width: isMobile ? '100%' : 'auto',
-                    }}
-                  >
+                  <div className={`${styles.testing_image} observe fade-in`}>
+                    {/* Thumbnail with play button */}
                     <div
-                      className={`${styles.testing_image} observe fade-in`}
-                      style={{ margin: '0 0 0 0', position: 'relative' }}
+                      style={{ cursor: 'pointer', position: 'relative' }}
+                      onClick={() =>
+                        handleLightboxOpen(
+                          props.pageData?.titleGallery1,
+                          '',
+                          'video',
+                          props.pageData?.linkURL1
+                        )
+                      }
                     >
-                      {/* Thumbnail with play button */}
-                      <div
-                        style={{ cursor: 'pointer', position: 'relative' }}
-                        onClick={() =>
-                          handleLightboxOpen(
-                            props.pageData?.titleGallery1,
-                            '',
-                            'video',
-                            props.pageData?.linkURL1
-                          )
+                      <Image
+                        src={
+                          props.pageData.section1Gallery12.data.attributes
+                            .formats?.medium?.url ||
+                          props.pageData.section1Gallery12.data.attributes.url
                         }
+                        alt={props.pageData?.titleGallery1}
+                        width={isMobile ? 380 : 300}
+                        height={isMobile ? 200 : 200}
+                        style={{ width: '100%', height: 'auto' }}
+                      />
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          pointerEvents: 'none',
+                        }}
                       >
-                        <Image
-                          src={
-                            props.pageData.section1Gallery12.data.attributes
-                              .formats?.medium?.url ||
-                            props.pageData.section1Gallery12.data.attributes.url
-                          }
-                          alt={props.pageData?.titleGallery1}
-                          width={isMobile ? 380 : 300}
-                          height={isMobile ? 200 : 200}
-                          style={{ width: '100%', height: 'auto' }}
-                        />
-                        <div
-                          style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            pointerEvents: 'none',
-                          }}
-                        >
-                          <PlayIcon />
-                        </div>
+                        <PlayIcon />
                       </div>
                     </div>
                   </div>
@@ -299,53 +285,42 @@ function Testing(props) {
                   {props?.pageData?.titleGallery2}
                 </h2>
               )}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+              <div className={styles.galleryTest}>
                 {props.pageData?.section1Gallery22.data ? (
-                  <div
-                    className={`${styles.testing_image} observe fade-in`}
-                    style={{
-                      margin: '0 0 0 40px',
-                      width: isMobile ? '100%' : 'auto',
-                    }}
-                  >
+                  <div className={`${styles.testing_image} observe fade-in`}>
+                    {/* Thumbnail with play button */}
                     <div
-                      className={`${styles.testing_image} observe fade-in`}
-                      style={{ margin: '0 0 0 0', position: 'relative' }}
+                      style={{ cursor: 'pointer', position: 'relative' }}
+                      onClick={() =>
+                        handleLightboxOpen(
+                          props.pageData?.titleGallery2,
+                          '',
+                          'video',
+                          props.pageData?.linkURL2
+                        )
+                      }
                     >
-                      {/* Thumbnail with play button */}
-                      <div
-                        style={{ cursor: 'pointer', position: 'relative' }}
-                        onClick={() =>
-                          handleLightboxOpen(
-                            props.pageData?.titleGallery2,
-                            '',
-                            'video',
-                            props.pageData?.linkURL2
-                          )
+                      <Image
+                        src={
+                          props.pageData.section1Gallery22.data.attributes
+                            .formats?.medium?.url ||
+                          props.pageData.section1Gallery22.data.attributes.url
                         }
+                        alt={props.pageData?.titleGallery2}
+                        width={isMobile ? 380 : 300}
+                        height={isMobile ? 200 : 200}
+                        style={{ width: '100%', height: 'auto' }}
+                      />
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          pointerEvents: 'none',
+                        }}
                       >
-                        <Image
-                          src={
-                            props.pageData.section1Gallery22.data.attributes
-                              .formats?.medium?.url ||
-                            props.pageData.section1Gallery22.data.attributes.url
-                          }
-                          alt={props.pageData?.titleGallery2}
-                          width={isMobile ? 380 : 300}
-                          height={isMobile ? 200 : 200}
-                          style={{ width: '100%', height: 'auto' }}
-                        />
-                        <div
-                          style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            pointerEvents: 'none',
-                          }}
-                        >
-                          <PlayIcon />
-                        </div>
+                        <PlayIcon />
                       </div>
                     </div>
                   </div>
@@ -354,13 +329,10 @@ function Testing(props) {
                   <Link
                     href={certificate2}
                     target="_blank"
-                    style={{ maxWidth: '200px', margin: '0 0 0 40px' }}
+                    className={styles.galleryTest_link}
                   >
                     {props.pageData?.section1Gallery2.data ? (
-                      <div
-                        className={styles.imageWrapper}
-                        style={{ maxWidth: '100%' }}
-                      >
+                      <div className={styles.imageWrapper}>
                         <Image
                           src={
                             props.pageData.section1Gallery2.data.attributes
