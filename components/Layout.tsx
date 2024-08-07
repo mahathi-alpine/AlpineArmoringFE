@@ -62,8 +62,9 @@ const Layout = ({ children }) => {
     '/rental-vehicles',
     '/manufacturing',
     '/sold-vehicles',
+    '/ballistic-testing',
   ];
-  const pathsDarkFooter = ['/manufacturing'];
+  const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
   const pathsPadding0 = ['/news/'];
 
   const isDarkMode = pathsDarkMode.some((path) =>

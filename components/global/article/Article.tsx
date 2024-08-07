@@ -47,40 +47,14 @@ const Article = ({
                   (item, index) => (
                     <React.Fragment key={`country-${index}`}>
                       <div
-                        className={`
-                        observe fade-in-up                
+                        className={`${styles.article_container}
+                        observe fade-in-up
                       `}
-                        style={{ display: 'inline-grid' }}
                       >
-                        <ul
-                          style={{
-                            display: 'grid',
-                            gridTemplateColumns:
-                              'repeat(auto-fill, minmax(250px, 1fr))',
-                            gap: '1.125rem',
-                            listStyle: 'none',
-                            padding: '0',
-                            margin: '0',
-                          }}
-                        >
-                          <li
-                            style={{
-                              padding: '0.5625rem',
-                            }}
-                          >
+                        <ul className={`${styles.article_section}`}>
+                          <li>
                             <Link
-                              style={{
-                                height: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                padding: '2rem',
-                                borderRadius: '10px',
-                                backgroundColor: '#fff',
-                                boxShadow: '0 4px 30px 0 #e8e5e2',
-                                textDecoration: 'none',
-                                cursor: 'pointer',
-                                transition: 'all 0.5s ease-in-out',
-                              }}
+                              className={`${styles.article_link}`}
                               href={`/countries-we-service/${item.attributes.slug}`}
                               onMouseOver={(e) =>
                                 (e.currentTarget.style.boxShadow =
@@ -91,48 +65,21 @@ const Article = ({
                                   '0 4px 30px 0 #e8e5e2')
                               }
                             >
-                              <div
-                                style={{
-                                  order: '-1',
-                                  minHeight: '1px',
-                                  fontSize: '0.75rem',
-                                  fontWeight: '700',
-                                  textTransform: 'uppercase',
-                                }}
-                              >
+                              <div className={`${styles.article_region}`}>
                                 {item.attributes.region}
                               </div>
-                              <div style={{ margin: '0.75rem 0' }}>
-                                <div style={{}}>
-                                  <Image
-                                    src={`/assets/countries/${item.attributes.excerpt
-                                      .toLowerCase()
-                                      .replace(/\s+/g, '-')}.png`}
-                                    alt={item.attributes.excerpt}
-                                    width={45}
-                                    height={26}
-                                  />
-                                </div>
+                              <div className={`${styles.article_flag}`}>
+                                <Image
+                                  src={`/assets/countries/${item.attributes.excerpt
+                                    .toLowerCase()
+                                    .replace(/\s+/g, '-')}.png`}
+                                  alt={item.attributes.excerpt}
+                                  width={45}
+                                  height={26}
+                                />
                               </div>
-                              <div
-                                style={{
-                                  color: '#00205b',
-                                  fontSize: '1.25rem',
-                                  fontWeight: '700',
-                                  flexGrow: 1,
-                                }}
-                              >
-                                <h2
-                                  style={{
-                                    color: '#00205b',
-                                    fontSize: '1.25rem',
-                                    fontWeight: '700',
-                                    margin: '0',
-                                    position: 'relative',
-                                  }}
-                                >
-                                  {item.attributes.excerpt}
-                                </h2>
+                              <div className={`${styles.article_country}`}>
+                                <h2>{item.attributes.excerpt}</h2>
                               </div>
                             </Link>
                           </li>
@@ -154,40 +101,14 @@ const Article = ({
                   (item, index) => (
                     <React.Fragment key={`state-${index}`}>
                       <div
-                        className={`
+                        className={`${styles.article_container}
                         observe fade-in-up                
                       `}
-                        style={{ display: 'inline-grid' }}
                       >
-                        <ul
-                          style={{
-                            display: 'grid',
-                            gridTemplateColumns:
-                              'repeat(auto-fill, minmax(250px, 1fr))',
-                            gap: '1.125rem',
-                            listStyle: 'none',
-                            padding: '0',
-                            margin: '0',
-                          }}
-                        >
-                          <li
-                            style={{
-                              padding: '0.5625rem',
-                            }}
-                          >
+                        <ul className={`${styles.article_section}`}>
+                          <li>
                             <Link
-                              style={{
-                                height: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                padding: '2rem',
-                                borderRadius: '10px',
-                                backgroundColor: '#fff',
-                                boxShadow: '0 4px 30px 0 #e8e5e2',
-                                textDecoration: 'none',
-                                cursor: 'pointer',
-                                transition: 'all 0.5s ease-in-out',
-                              }}
+                              className={`${styles.article_link}`}
                               href={`/countries-we-service/${item.attributes.slug}`}
                               onMouseOver={(e) =>
                                 (e.currentTarget.style.boxShadow =
@@ -198,48 +119,21 @@ const Article = ({
                                   '0 4px 30px 0 #e8e5e2')
                               }
                             >
-                              <div
-                                style={{
-                                  order: '-1',
-                                  minHeight: '1px',
-                                  fontSize: '0.75rem',
-                                  fontWeight: '700',
-                                  textTransform: 'uppercase',
-                                }}
-                              >
+                              <div className={`${styles.article_region}`}>
                                 {item.attributes.region}
                               </div>
-                              <div style={{ margin: '0.75rem 0' }}>
-                                <div style={{}}>
-                                  <Image
-                                    src={`/assets/countries/${item.attributes.excerpt
-                                      .toLowerCase()
-                                      .replace(/\s+/g, '-')}.png`}
-                                    alt={item.attributes.excerpt}
-                                    width={45}
-                                    height={26}
-                                  />
-                                </div>
+                              <div className={`${styles.article_flag}`}>
+                                <Image
+                                  src={`/assets/countries/${item.attributes.excerpt
+                                    .toLowerCase()
+                                    .replace(/\s+/g, '-')}.png`}
+                                  alt={item.attributes.excerpt}
+                                  width={45}
+                                  height={26}
+                                />
                               </div>
-                              <div
-                                style={{
-                                  color: '#00205b',
-                                  fontSize: '1.25rem',
-                                  fontWeight: '700',
-                                  flexGrow: 1,
-                                }}
-                              >
-                                <h2
-                                  style={{
-                                    color: '#00205b',
-                                    fontSize: '1.25rem',
-                                    fontWeight: '700',
-                                    margin: '0',
-                                    position: 'relative',
-                                  }}
-                                >
-                                  {item.attributes.excerpt}
-                                </h2>
+                              <div className={`${styles.article_country}`}>
+                                <h2>{item.attributes.excerpt}</h2>
                               </div>
                             </Link>
                           </li>
@@ -261,40 +155,14 @@ const Article = ({
                   (item, index) => (
                     <React.Fragment key={`city-${index}`}>
                       <div
-                        className={`
+                        className={`${styles.article_container}
                         observe fade-in-up                
                       `}
-                        style={{ display: 'inline-grid' }}
                       >
-                        <ul
-                          style={{
-                            display: 'grid',
-                            gridTemplateColumns:
-                              'repeat(auto-fill, minmax(250px, 1fr))',
-                            gap: '1.125rem',
-                            listStyle: 'none',
-                            padding: '0',
-                            margin: '0',
-                          }}
-                        >
-                          <li
-                            style={{
-                              padding: '0.5625rem',
-                            }}
-                          >
+                        <ul className={`${styles.article_section}`}>
+                          <li>
                             <Link
-                              style={{
-                                height: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                padding: '2rem',
-                                borderRadius: '10px',
-                                backgroundColor: '#fff',
-                                boxShadow: '0 4px 30px 0 #e8e5e2',
-                                textDecoration: 'none',
-                                cursor: 'pointer',
-                                transition: 'all 0.5s ease-in-out',
-                              }}
+                              className={`${styles.article_link}`}
                               href={`/countries-we-service/${item.attributes.slug}`}
                               onMouseOver={(e) =>
                                 (e.currentTarget.style.boxShadow =
@@ -305,48 +173,21 @@ const Article = ({
                                   '0 4px 30px 0 #e8e5e2')
                               }
                             >
-                              <div
-                                style={{
-                                  order: '-1',
-                                  minHeight: '1px',
-                                  fontSize: '0.75rem',
-                                  fontWeight: '700',
-                                  textTransform: 'uppercase',
-                                }}
-                              >
+                              <div className={`${styles.article_region}`}>
                                 {item.attributes.region}
                               </div>
-                              <div style={{ margin: '0.75rem 0' }}>
-                                <div style={{}}>
-                                  <Image
-                                    src={`/assets/countries/${item.attributes.excerpt
-                                      .toLowerCase()
-                                      .replace(/\s+/g, '-')}.png`}
-                                    alt={item.attributes.excerpt}
-                                    width={45}
-                                    height={26}
-                                  />
-                                </div>
+                              <div className={`${styles.article_flag}`}>
+                                <Image
+                                  src={`/assets/countries/${item.attributes.excerpt
+                                    .toLowerCase()
+                                    .replace(/\s+/g, '-')}.png`}
+                                  alt={item.attributes.excerpt}
+                                  width={45}
+                                  height={26}
+                                />
                               </div>
-                              <div
-                                style={{
-                                  color: '#00205b',
-                                  fontSize: '1.25rem',
-                                  fontWeight: '700',
-                                  flexGrow: 1,
-                                }}
-                              >
-                                <h2
-                                  style={{
-                                    color: '#00205b',
-                                    fontSize: '1.25rem',
-                                    fontWeight: '700',
-                                    margin: '0',
-                                    position: 'relative',
-                                  }}
-                                >
-                                  {item.attributes.excerpt}
-                                </h2>
+                              <div className={`${styles.article_country}`}>
+                                <h2>{item.attributes.excerpt}</h2>
                               </div>
                             </Link>
                           </li>
