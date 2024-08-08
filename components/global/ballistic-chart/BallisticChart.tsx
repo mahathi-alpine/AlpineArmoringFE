@@ -307,7 +307,7 @@ const BallisticChart = () => {
       const scrollLeft = scrollAreaRef.current.scrollLeft;
       headerRef.current.style.transform = `translateX(-${scrollLeft}px)`;
     }
-  }, 6);
+  }, 3);
 
   const handleWindowScroll = () => {
     if (window.pageYOffset >= 74) {
