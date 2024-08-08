@@ -1,6 +1,6 @@
 import styles from './BallisticChart.module.scss';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const BallisticChart = () => {
   const items = [
@@ -184,17 +184,42 @@ const BallisticChart = () => {
   const [showChosen, setShowChosen] = useState(false);
   const [selectedLevels, setSelectedLevels] = useState([]);
   const [moreSelected, setMoreSelected] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  const scrollAreaRef = useRef(null);
+  const containerRef = useRef(null);
+  const tableRef = useRef(null);
+  const headerRef = useRef(null);
+  const interactedPopupRef = useRef(null);
 
   const setRowActive = (index) => {
     const currentSelectedRows = [...selectedRows];
     const currentSelectedLevels = [...selectedLevels];
 
-    const row = document.querySelector('tbody').children[index];
+    const row = tableRef.current.children[index];
 
     const isActive = row.classList.contains(styles.ballistic_row_active);
 
     if (isActive) {
       row.classList.remove(styles.ballistic_row_active);
+
+      if (
+        document.querySelectorAll(`.${styles.ballistic_row_active}`).length < 1
+      ) {
+        containerRef.current.classList.remove(
+          styles.ballistic_comparisonActive
+        );
+
+        const compareButtons = document.querySelectorAll(
+          `.${styles.ballistic_compare_view}`
+        );
+
+        compareButtons.forEach((element) => {
+          element.querySelector('span').textContent = 'View';
+          element.classList.remove(styles.ballistic_compare_view_active);
+        });
+      }
+
       if (window.innerWidth < 1280) {
         const rowIndex = currentSelectedRows.indexOf(index);
         currentSelectedRows.splice(rowIndex, 1);
@@ -240,18 +265,16 @@ const BallisticChart = () => {
 
   const showComparisonDesktop = (index, button) => {
     if (window.innerWidth >= 1280) {
-      document
-        .getElementById('ballistic-chart')
-        .classList.add(styles.ballistic_comparisonActive);
+      containerRef.current.classList.add(styles.ballistic_comparisonActive);
 
       const compareButtons = document.querySelectorAll(
         `.${styles.ballistic_compare_view}`
       );
 
       if (button.classList.contains(styles.ballistic_compare_view_active)) {
-        document
-          .querySelector('tbody')
-          .children[index].classList.remove(styles.ballistic_row_active);
+        tableRef.current.children[index].classList.remove(
+          styles.ballistic_row_active
+        );
         button.classList.remove(styles.ballistic_compare_view_active);
         button.querySelector('span').textContent = 'View';
 
@@ -259,9 +282,9 @@ const BallisticChart = () => {
           document.querySelectorAll(`.${styles.ballistic_row_active}`).length <
           1
         ) {
-          document
-            .getElementById('ballistic-chart')
-            .classList.remove(styles.ballistic_comparisonActive);
+          containerRef.current.classList.remove(
+            styles.ballistic_comparisonActive
+          );
 
           compareButtons.forEach((element) => {
             element.querySelector('span').textContent = 'View';
@@ -276,11 +299,93 @@ const BallisticChart = () => {
     }
   };
 
+  const handleScrollAreaScroll = () => {
+    if (scrollAreaRef.current && headerRef.current) {
+      const scrollLeft = scrollAreaRef.current.scrollLeft;
+      headerRef.current.style.transform = `translateX(-${scrollLeft}px)`;
+    }
+  };
+
+  const handleWindowScroll = () => {
+    if (window.pageYOffset >= 74) {
+      containerRef.current.classList.add(styles.ballistic_header_active);
+    } else {
+      containerRef.current.classList.remove(styles.ballistic_header_active);
+    }
+  };
+
+  // const handleClickOutside = (event) => {
+  //   if (interactedPopupRef.current && !interactedPopupRef.current.contains(event.target)) {
+  //     setHasInteracted(false);
+  //     interactedPopupRef.current.classList.add(`${styles.ballistic_popup_interact_disable}`)
+  //     console.log(interactedPopupRef.current.classList)
+  //   }
+  // };
+
+  // const handleInteraction = () => {
+  //   if (!hasInteracted) {
+  //     // if(interactedPopupRef.current && !interactedPopupRef.current.classList.contains(`${styles.ballistic_popup_interact_disable}`)){
+  //       if (interactedPopupRef.current){
+  //         setHasInteracted(true);
+  //         interactedPopupRef.current.classList.add(`${styles.ballistic_popup_interact_disable}`)
+  //         console.log(interactedPopupRef.current.classList)
+  //       }
+  //     // }
+  //   }
+  // }
+
+  useEffect(() => {
+    const handleInteraction = () => {
+      if (!hasInteracted) {
+        setHasInteracted(true);
+      } else {
+        interactedPopupRef.current.classList.add(
+          `${styles.ballistic_popup_interact_disable}`
+        );
+      }
+    };
+
+    window.addEventListener('touchstart', handleInteraction);
+    // window.addEventListener('click', handleInteraction);
+
+    return () => {
+      window.removeEventListener('touchstart', handleInteraction);
+      // window.removeEventListener('click', handleInteraction);
+    };
+  }, [hasInteracted]);
+
+  useEffect(() => {
+    if (window.innerWidth < 1280) {
+      window.addEventListener('scroll', handleWindowScroll);
+
+      scrollAreaRef.current.addEventListener('scroll', handleScrollAreaScroll);
+
+      // window.addEventListener('touchstart', handleInteraction);
+      // window.addEventListener('click', handleInteraction);
+
+      // document.addEventListener('mousedown', handleClickOutside);
+
+      return () => {
+        window.removeEventListener('scroll', handleWindowScroll);
+
+        scrollAreaRef.current.removeEventListener(
+          'scroll',
+          handleScrollAreaScroll
+        );
+
+        // window.removeEventListener('touchstart', handleInteraction);
+        // window.removeEventListener('click', handleInteraction);
+
+        // document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, []);
+
   return (
     <>
-      <div className={`${styles.ballistic}`} id="ballistic-chart">
-        <div className={`${styles.ballistic_wrapper}`}>
-          <div className={`${styles.ballistic_header}`}>
+      <div className={`${styles.ballistic}`} ref={scrollAreaRef}>
+        <div className={`${styles.ballistic_wrapper}`} ref={containerRef}>
+          <div className={`${styles.ballistic_header}`} ref={headerRef}>
             <div className={`${styles.ballistic_header_inner}`}>
               <div className={`${styles.ballistic_header_item}`}>
                 <Image
@@ -355,237 +460,242 @@ const BallisticChart = () => {
                 ></Image>
               </div>
             </div>
+            <div className={`${styles.ballistic_navigation}`}>
+              <div className={`${styles.ballistic_row_item}`}></div>
+              <div className={`${styles.ballistic_row_item}`}>Name</div>
+              <div className={`${styles.ballistic_row_item}`}>Caliber</div>
+              <div className={`${styles.ballistic_row_item}`}>Class</div>
+              <div className={`${styles.ballistic_row_item}`}>Stanag</div>
+              <div className={`${styles.ballistic_row_item}`}>UL</div>
+              <div className={`${styles.ballistic_row_item}`}>Alpine</div>
+              <div className={`${styles.ballistic_row_item}`}>Nij</div>
+              <div className={`${styles.ballistic_row_item}`}>Cen</div>
+              <div className={`${styles.ballistic_row_item}`}>Weight±</div>
+              <div className={`${styles.ballistic_row_item}`}>Type</div>
+              <div className={`${styles.ballistic_row_item}`}>Velocity±</div>
+              <div className={`${styles.ballistic_row_item}`}>Compare</div>
+              <div className={`${styles.ballistic_row_item}`}></div>
+            </div>
           </div>
 
-          <table>
-            <thead>
-              <tr className={`${styles.ballistic_row_navigation}`}>
-                <th className={`${styles.ballistic_row_item}`}></th>
-                <th className={`${styles.ballistic_row_item}`}>Name</th>
-                <th className={`${styles.ballistic_row_item}`}>Caliber</th>
-                <th className={`${styles.ballistic_row_item}`}>Class</th>
-                <th className={`${styles.ballistic_row_item}`}>Stanag</th>
-                <th className={`${styles.ballistic_row_item}`}>UL</th>
-                <th className={`${styles.ballistic_row_item}`}>Alpine</th>
-                <th className={`${styles.ballistic_row_item}`}>Nij</th>
-                <th className={`${styles.ballistic_row_item}`}>Cen</th>
-                <th className={`${styles.ballistic_row_item}`}>Weight±</th>
-                <th className={`${styles.ballistic_row_item}`}>Type</th>
-                <th className={`${styles.ballistic_row_item}`}>Velocity±</th>
-                <th className={`${styles.ballistic_row_item}`}>Compare</th>
-                <th className={`${styles.ballistic_row_item}`}></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {items.map((item, index) => (
-                <tr className={`${styles.ballistic_row}`} key={index}>
-                  <td className={`${styles.ballistic_row_item}`}>
-                    <div
-                      key={index}
-                      className={`${styles.ballistic_weaponImg}`}
-                    >
-                      <Image
-                        src={`/assets/ballistic/weapon_A${item.level[0]}.png`}
-                        alt=""
-                        width="264"
-                        height="71"
-                      ></Image>
-                    </div>
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    {item.name.map((listItem, spanIndex) => (
-                      <span
-                        key={spanIndex}
-                        data-text={listItem}
-                        className={`${styles.ballistic_row_item_text} ${
-                          item.name.length > 1
-                            ? styles.ballistic_row_item_text_small
-                            : ''
-                        }`}
-                      >
-                        {listItem}
-                      </span>
-                    ))}
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    {item.caliber.map((listItem, spanIndex) => (
-                      <span
-                        key={spanIndex}
-                        data-text={listItem}
-                        className={`${styles.ballistic_row_item_text} ${
-                          item.caliber.length > 1
-                            ? styles.ballistic_row_item_text_small
-                            : ''
-                        }`}
-                      >
-                        {listItem}
-                      </span>
-                    ))}
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    {item.class.map((listItem, spanIndex) => (
-                      <span
-                        key={spanIndex}
-                        data-text={listItem}
-                        className={`${styles.ballistic_row_item_text} ${
-                          item.class.length > 1
-                            ? styles.ballistic_row_item_text_small
-                            : ''
-                        }`}
-                      >
-                        {listItem}
-                      </span>
-                    ))}
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    <span
-                      data-text={item.stanag}
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      {item.stanag}
-                    </span>
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    <span
-                      data-text={item.ul}
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      {item.ul}
-                    </span>
-                  </td>
-
-                  <td
-                    className={`
-                      ${styles.ballistic_row_item} 
-                      ${styles.ballistic_row_item_level}
-                      ${
-                        item.level.length > 1
-                          ? styles.ballistic_row_item_level_small
-                          : ''
-                      }
-                  `}
-                  >
-                    <span
-                      data-text="A"
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      A
-                    </span>
-                    {item.level.map((listItem, spanIndex) => (
-                      <span
-                        key={spanIndex}
-                        data-text={listItem}
-                        className={`${styles.ballistic_row_item_text}`}
-                      >
-                        {listItem}
-                      </span>
-                    ))}
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    <span
-                      data-text={item.nij}
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      {item.nij}
-                    </span>
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    <span
-                      data-text={item.cen}
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      {item.cen}
-                    </span>
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    {item.weight.map((listItem, spanIndex) => (
-                      <span
-                        key={spanIndex}
-                        data-text={listItem}
-                        className={`${styles.ballistic_row_item_text} ${
-                          item.weight.length > 1
-                            ? styles.ballistic_row_item_text_small
-                            : ''
-                        }`}
-                      >
-                        {listItem}
-                      </span>
-                    ))}
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    {item.type.map((listItem, spanIndex) => (
-                      <span
-                        key={spanIndex}
-                        data-text={listItem}
-                        className={`${styles.ballistic_row_item_text} ${
-                          item.type.length > 1
-                            ? styles.ballistic_row_item_text_small
-                            : ''
-                        }`}
-                      >
-                        {listItem}
-                      </span>
-                    ))}
-                  </td>
-
-                  <td className={`${styles.ballistic_row_item}`}>
-                    {item.velocity.map((listItem, spanIndex) => (
-                      <span
-                        key={spanIndex}
-                        data-text={listItem}
-                        className={`${styles.ballistic_row_item_text}`}
-                      >
-                        {listItem}
-                      </span>
-                    ))}
-                  </td>
-
-                  <td
-                    className={`${styles.ballistic_row_item} ${styles.ballistic_compare}`}
-                  >
-                    <div
-                      className={`${styles.ballistic_compare_button}`}
-                      onClick={() => setRowActive(index)}
-                    >
-                      <span
-                        className={`${styles.ballistic_compare_button_slider}`}
-                      ></span>
-                    </div>
-                    <button
-                      className={`${styles.ballistic_compare_view}`}
-                      onClick={(e) =>
-                        showComparisonDesktop(index, e.currentTarget)
-                      }
-                    >
-                      <span>View</span>
-                    </button>
-                  </td>
-
-                  <td
-                    className={`${styles.ballistic_row_item} ${styles.ballistic_bullets}`}
-                  >
+          <div className={`${styles.ballistic_table}`} ref={tableRef}>
+            {items.map((item, index) => (
+              <div className={`${styles.ballistic_row}`} key={index}>
+                <div className={`${styles.ballistic_row_item}`}>
+                  <div key={index} className={`${styles.ballistic_weaponImg}`}>
                     <Image
-                      src={`/assets/ballistic/bullet${index + 1}.png`}
+                      src={`/assets/ballistic/weapon_A${item.level[0]}.png`}
                       alt=""
-                      width="232"
-                      height="56"
+                      width="264"
+                      height="71"
                     ></Image>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  {item.name.map((listItem, spanIndex) => (
+                    <span
+                      key={spanIndex}
+                      data-text={listItem}
+                      className={`${styles.ballistic_row_item_text} ${
+                        item.name.length > 1
+                          ? styles.ballistic_row_item_text_small
+                          : ''
+                      }`}
+                    >
+                      {listItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  {item.caliber.map((listItem, spanIndex) => (
+                    <span
+                      key={spanIndex}
+                      data-text={listItem}
+                      className={`${styles.ballistic_row_item_text} ${
+                        item.caliber.length > 1
+                          ? styles.ballistic_row_item_text_small
+                          : ''
+                      }`}
+                    >
+                      {listItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  {item.class.map((listItem, spanIndex) => (
+                    <span
+                      key={spanIndex}
+                      data-text={listItem}
+                      className={`${styles.ballistic_row_item_text} ${
+                        item.class.length > 1
+                          ? styles.ballistic_row_item_text_small
+                          : ''
+                      }`}
+                    >
+                      {listItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  <span
+                    data-text={item.stanag}
+                    className={`${styles.ballistic_row_item_text}`}
+                  >
+                    {item.stanag}
+                  </span>
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  <span
+                    data-text={item.ul}
+                    className={`${styles.ballistic_row_item_text}`}
+                  >
+                    {item.ul}
+                  </span>
+                </div>
+
+                <div
+                  className={`
+                    ${styles.ballistic_row_item} 
+                    ${styles.ballistic_row_item_level}
+                    ${
+                      item.level.length > 1
+                        ? styles.ballistic_row_item_level_small
+                        : ''
+                    }
+                `}
+                >
+                  <span
+                    data-text="A"
+                    className={`${styles.ballistic_row_item_text}`}
+                  >
+                    A
+                  </span>
+                  {item.level.map((listItem, spanIndex) => (
+                    <span
+                      key={spanIndex}
+                      data-text={listItem}
+                      className={`${styles.ballistic_row_item_text}`}
+                    >
+                      {listItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  <span
+                    data-text={item.nij}
+                    className={`${styles.ballistic_row_item_text}`}
+                  >
+                    {item.nij}
+                  </span>
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  <span
+                    data-text={item.cen}
+                    className={`${styles.ballistic_row_item_text}`}
+                  >
+                    {item.cen}
+                  </span>
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  {item.weight.map((listItem, spanIndex) => (
+                    <span
+                      key={spanIndex}
+                      data-text={listItem}
+                      className={`${styles.ballistic_row_item_text} ${
+                        item.weight.length > 1
+                          ? styles.ballistic_row_item_text_small
+                          : ''
+                      }`}
+                    >
+                      {listItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  {item.type.map((listItem, spanIndex) => (
+                    <span
+                      key={spanIndex}
+                      data-text={listItem}
+                      className={`${styles.ballistic_row_item_text} ${
+                        item.type.length > 1
+                          ? styles.ballistic_row_item_text_small
+                          : ''
+                      }`}
+                    >
+                      {listItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div className={`${styles.ballistic_row_item}`}>
+                  {item.velocity.map((listItem, spanIndex) => (
+                    <span
+                      key={spanIndex}
+                      data-text={listItem}
+                      className={`${styles.ballistic_row_item_text}`}
+                    >
+                      {listItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div
+                  className={`${styles.ballistic_row_item} ${styles.ballistic_compare}`}
+                >
+                  <div
+                    className={`${styles.ballistic_compare_button}`}
+                    onClick={() => setRowActive(index)}
+                  >
+                    <span
+                      className={`${styles.ballistic_compare_button_slider}`}
+                    ></span>
+                  </div>
+                  <button
+                    className={`${styles.ballistic_compare_view}`}
+                    onClick={(e) =>
+                      showComparisonDesktop(index, e.currentTarget)
+                    }
+                  >
+                    <span>View</span>
+                  </button>
+                </div>
+
+                <div
+                  className={`${styles.ballistic_row_item} ${styles.ballistic_bullets}`}
+                >
+                  <Image
+                    src={`/assets/ballistic/bullet${index + 1}.png`}
+                    alt=""
+                    width="232"
+                    height="56"
+                  ></Image>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
+        {hasInteracted && (
+          <div
+            className={`${styles.ballistic_popup} ${
+              styles.ballistic_popup_interact
+            } ${hasInteracted ? styles.ballistic_popup_active : ''}`}
+            ref={interactedPopupRef}
+          >
+            <div className={`${styles.ballistic_popup_text}`}>
+              To view the entire chart, scroll horizontally and vertically
+            </div>
+          </div>
+        )}
 
         {showPopup && (
           <div

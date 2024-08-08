@@ -8,18 +8,26 @@
   src: url('/fonts/Manrope-Medium.ttf');
   font-weight: 500;
 }
+@font-face {
+  font-family: Termina;
+  src: url('/fonts/Termina-Demi.woff2');
+  font-weight: 500;
+}
 
 .ballistic {
-  margin: auto;
-  max-width: 1925px;
+  margin-bottom: 200px;
   font-family: Manrope;
   font-weight: 800;
   color: #fff;
-  margin-bottom: 200px;
+  text-align: center;
 
   @include breakpoint(untilDesktop) {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+  @include breakpoint(large) {
+    margin: auto;
+    max-width: 1925px;
   }
 
   &:before {
@@ -39,30 +47,9 @@
     }
   }
 
-  table,
-  td,
-  th {
-    vertical-align: middle;
-    text-align: center;
-  }
-
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: -2.344vw;
-
-    @include breakpoint(untilLarge) {
-      margin-top: -26px;
-    }
-
-    @include breakpoint(max) {
-      margin-top: -45px;
-    }
-
-    tbody {
-      display: flex;
-      flex-direction: column;
-    }
+  &_table {
+    display: flex;
+    flex-direction: column;
   }
 
   &_heading {
@@ -83,10 +70,20 @@
     min-width: max-content;
 
     @include breakpoint(untilLarge) {
-      background-position: -8px 85px;
+      background-position: -8px 83px;
       padding-bottom: 24px;
       padding-right: 33px;
       background-size: 100%;
+      width: 1874px;
+
+      &.ballistic_header_active{
+        padding-top: 18px;
+        margin-top: 74px;
+        background-position: -8px 10px;
+      }
+      &:not(.ballistic_header_active) .ballistic_header{
+        transform: none !important;
+      }
     }
 
     @include breakpoint(large) {
@@ -118,9 +115,14 @@
     }
 
     @include breakpoint(untilDesktop) {
-      position: sticky;
-      top: 0;
+      width: 1874px;
       background: url('/assets/ballistic/base_header_mobile.png');
+
+      .ballistic_header_active &{
+        position: fixed;
+        top: 0;
+        z-index: 8;
+      }
     }
 
     &_item {
@@ -153,7 +155,7 @@
 
       &:nth-child(2) {
         @include breakpoint(untilDesktop) {
-          left: -48px;
+          left: -42px;
         }
 
         @include breakpoint(large) {
@@ -175,7 +177,6 @@
       &:nth-child(3) {
         @include breakpoint(untilDesktop) {
           order: 1;
-          left: 4px;
         }
 
         @include breakpoint(large) {
@@ -198,7 +199,7 @@
 
       &:nth-child(4) {
         @include breakpoint(untilDesktop) {
-          left: 8px;
+          left: -57px;
         }
 
         @include breakpoint(large) {
@@ -218,7 +219,7 @@
       }
       &:nth-child(5) {
         @include breakpoint(untilLarge) {
-          left: -43px;
+          left: -40px;
           top: 12px;
         }
         @include breakpoint(large) {
@@ -235,6 +236,245 @@
             max-width: 140px;
             width: 7.292vw;
           }
+        }
+      }
+    }
+  }
+
+  &_navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: -28px;
+
+    @include breakpoint(large) {
+      margin-top: -2.344vw;
+    }
+    @include breakpoint(max) {
+      margin-top: -45px;
+    }
+
+    .ballistic_row_item {
+      position: relative;
+      text-transform: uppercase;
+      color: #f1f1f3;
+      text-shadow:
+        1px 2px 2px #000,
+        0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+        0px 4.235px 6.841px #000;
+      font-size: 18px;
+
+      @include breakpoint(untilLarge) {
+        order: 2;
+      }
+      @include breakpoint(large) {
+        font-size: clamp(0.75rem, 0rem + 0.9375vw, 1.125rem);
+        margin-bottom: -0.365vw;
+      }
+      @include breakpoint(max) {
+        margin-bottom: -7px;
+      }
+
+      &:first-child {
+        @include breakpoint(untilLarge) {
+          order: 1;
+          width: 290px;
+          padding-left: 0;
+        }
+      }
+
+      &:nth-child(2) {
+        @include breakpoint(untilLarge) {
+          width: 163px;
+        }
+      }
+
+      &:nth-child(3) {
+        @include breakpoint(untilLarge) {
+          width: 215px;
+          left: -6px;
+        }
+      }
+
+      &:nth-child(4) {
+        @include breakpoint(untilLarge) {
+          width: 122px;
+        }
+      }
+
+      &:nth-child(5) {
+        @include breakpoint(untilLarge) {
+          order: 1;
+        }
+        @include breakpoint(large) {
+          transform: rotate(-6deg);
+          top: -0.417vw;
+        }
+        @include breakpoint(max) {
+          top: -8px;
+        }
+      }
+
+      &:nth-child(6) {
+        @include breakpoint(untilLarge) {
+          order: 1;
+          width: 96px;
+          left: -4px;
+        }
+        @include breakpoint(large) {
+          transform: rotate(-2deg);
+          top: -0.833vw;
+        }
+        @include breakpoint(max) {
+          top: -16px;
+        }
+      }
+
+      &:nth-child(7) {
+        position: relative;
+        font-size: clamp(1rem, 0rem + 1.25vw, 1.5rem);
+        letter-spacing: -0.68px;
+        color: transparent;
+        text-shadow: none;
+
+        @include breakpoint(untilLarge) {
+          order: 0;
+          font-size: 19px;
+          left: 18px;
+        }
+
+        @include breakpoint(large) {
+          top: -1.354vw;
+          left: -0.104vw;
+        }
+
+        @include breakpoint(max) {
+          top: -26px;
+          left: -2px;
+        }
+
+        &:after {
+          background-image: linear-gradient(
+            180deg,
+            #ffefc2 26.42%,
+            #d1af42 73.58%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          content: 'ALPINE';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          text-align: center;
+        }
+        &:before {
+          text-shadow:
+            1px 2px 2px #000,
+            0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+            0px 4.235px 6.841px #000;
+          content: 'ALPINE';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          text-align: center;
+        }
+      }
+
+      &:nth-child(8) {
+        @include breakpoint(untilLarge) {
+          order: 1;
+          width: 35px;
+          left: -21px;
+        }
+        @include breakpoint(large) {
+          transform: rotate(2deg);
+          top: -0.833vw;
+        }
+        @include breakpoint(max) {
+          top: -16px;
+        }
+      }
+
+      &:nth-child(9) {
+        @include breakpoint(untilLarge) {
+          order: 1;
+          width: 74px;
+          left: -9px;
+        }
+        @include breakpoint(large) {
+          transform: rotate(6deg);
+          top: -0.417vw;
+        }
+        @include breakpoint(max) {
+          top: -8px;
+        }
+      }
+
+      &:nth-child(10) {
+        @include breakpoint(untilLarge) {
+          width: 123px;
+          left: 10px;
+        }
+      }
+
+      &:nth-child(12) {
+        @include breakpoint(untilLarge) {
+          width: 167px;
+        }
+      }
+
+      &:nth-child(13) {
+        width: unset;
+        max-width: unset;
+        color: transparent;
+        text-shadow: none;
+
+        @include breakpoint(untilLarge) {
+          width: 130px;
+        }
+        // @include breakpoint(large) {
+        //   left: 1.875vw;
+        // }
+        // @include breakpoint(max) {
+        //   left: 36px;
+        // }
+
+        &:after {
+          background-image: linear-gradient(
+            180deg,
+            #ffefc2 26.42%,
+            #d1af42 73.58%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          content: 'COMPARE';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          text-align: center;
+        }
+        &:before {
+          text-shadow:
+            1px 2px 2px #000,
+            0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+            0px 4.235px 6.841px #000;
+          content: 'COMPARE';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          text-align: center;
+        }
+      }
+
+      &:nth-child(14) {
+        @include breakpoint(untilLarge) {
+          width: auto;
         }
       }
     }
@@ -412,250 +652,6 @@
       }
     }
 
-    &_navigation {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-      .ballistic_row_item {
-        position: relative;
-        text-transform: uppercase;
-        color: #f1f1f3;
-        text-shadow:
-          1px 2px 2px #000,
-          0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-          0px 4.235px 6.841px #000;
-        font-size: 18px;
-
-        @include breakpoint(untilLarge) {
-          order: 2;
-        }
-        @include breakpoint(large) {
-          font-size: clamp(0.75rem, 0rem + 0.9375vw, 1.125rem);
-          margin-bottom: -0.365vw;
-        }
-        @include breakpoint(max) {
-          margin-bottom: -7px;
-        }
-
-        // span {
-        //   position: relative;
-        //   padding-right: 0.677vw;
-        //   @include breakpoint(max) {
-        //     padding-right: 13px;
-        //   }
-        //   & > span {
-        //     display: flex;
-        //     flex-flow: column;
-        //     position: absolute;
-        //     @include breakpoint(large) {
-        //       right: -0.677vw;
-        //       top: 0.469vw;
-        //     }
-        //     @include breakpoint(max) {
-        //       right: -13px;
-        //       top: 9px;
-        //     }
-        //     small {
-        //       line-height: 5px;
-        //     }
-        //   }
-        // }
-
-        &:first-child {
-          @include breakpoint(untilLarge) {
-            order: 1;
-            width: 290px;
-            padding-left: 0;
-          }
-        }
-
-        &:nth-child(2) {
-          @include breakpoint(untilLarge) {
-            width: 163px;
-          }
-        }
-
-        &:nth-child(3) {
-          @include breakpoint(untilLarge) {
-            width: 207px;
-          }
-        }
-
-        &:nth-child(4) {
-          @include breakpoint(untilLarge) {
-            width: 140px;
-          }
-        }
-
-        &:nth-child(5) {
-          @include breakpoint(untilLarge) {
-            order: 1;
-          }
-          @include breakpoint(large) {
-            transform: rotate(-6deg);
-            top: -0.417vw;
-          }
-          @include breakpoint(max) {
-            top: -8px;
-          }
-        }
-
-        &:nth-child(6) {
-          @include breakpoint(untilLarge) {
-            order: 1;
-            width: 88px;
-          }
-          @include breakpoint(large) {
-            transform: rotate(-2deg);
-            top: -0.833vw;
-          }
-          @include breakpoint(max) {
-            top: -16px;
-          }
-        }
-
-        &:nth-child(7) {
-          position: relative;
-          font-size: clamp(1rem, 0rem + 1.25vw, 1.5rem);
-          letter-spacing: -0.68px;
-          color: transparent;
-          text-shadow: none;
-
-          @include breakpoint(untilLarge) {
-            order: 0;
-            font-size: 19px;
-            left: 18px;
-          }
-
-          @include breakpoint(large) {
-            top: -1.354vw;
-            left: -0.104vw;
-          }
-
-          @include breakpoint(max) {
-            top: -26px;
-            left: -2px;
-          }
-
-          &:after {
-            background-image: linear-gradient(
-              180deg,
-              #ffefc2 26.42%,
-              #d1af42 73.58%
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            content: 'ALPINE';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-          }
-          &:before {
-            text-shadow:
-              1px 2px 2px #000,
-              0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-              0px 4.235px 6.841px #000;
-            content: 'ALPINE';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-          }
-        }
-
-        &:nth-child(8) {
-          @include breakpoint(untilLarge) {
-            order: 1;
-            width: 47px;
-          }
-          @include breakpoint(large) {
-            transform: rotate(2deg);
-            top: -0.833vw;
-          }
-          @include breakpoint(max) {
-            top: -16px;
-          }
-        }
-
-        &:nth-child(9) {
-          @include breakpoint(untilLarge) {
-            order: 1;
-            width: 70px;
-          }
-          @include breakpoint(large) {
-            transform: rotate(6deg);
-            top: -0.417vw;
-          }
-          @include breakpoint(max) {
-            top: -8px;
-          }
-        }
-
-        &:nth-child(10) {
-          @include breakpoint(untilLarge) {
-            width: 116px;
-          }
-        }
-
-        &:nth-child(12) {
-          @include breakpoint(untilLarge) {
-            width: 170px;
-          }
-        }
-
-        &:nth-child(13) {
-          width: unset;
-          max-width: unset;
-          color: transparent;
-          text-shadow: none;
-
-          @include breakpoint(untilLarge) {
-            width: 130px;
-          }
-          @include breakpoint(large) {
-            left: 1.875vw;
-          }
-          @include breakpoint(max) {
-            left: 36px;
-          }
-
-          &:after {
-            background-image: linear-gradient(
-              180deg,
-              #ffefc2 26.42%,
-              #d1af42 73.58%
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            content: 'COMPARE';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-          }
-          &:before {
-            text-shadow:
-              1px 2px 2px #000,
-              0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-              0px 4.235px 6.841px #000;
-            content: 'COMPARE';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-          }
-        }
-      }
-    }
-
     &_item {
       position: relative;
       &:first-child {
@@ -776,7 +772,7 @@
       }
       &:nth-child(14) {
         @include breakpoint(untilLarge) {
-          width: 224px;
+          width: 215px;
         }
         @include breakpoint(large) {
           width: 11vw;
@@ -792,7 +788,7 @@
           width: auto;
         }
       }
-      tbody & {
+      .ballistic_table & {
         @include breakpoint(untilLarge) {
           order: 6;
           &:first-child {
@@ -825,6 +821,8 @@
           width: 80px;
           height: 48px;
           padding: 0;
+          font-family: 'Termina';
+          font-weight: 700;
 
           &:after {
             position: absolute;
@@ -876,7 +874,7 @@
               &:nth-child(2),
               &:nth-child(3) {
                 position: absolute;
-                right: 24px;
+                right: 25px;
                 top: 10px;
                 font-size: 10px;
                 @media (min-width: 1280px) and (max-width: 1920px) {
@@ -1085,6 +1083,9 @@
       }
       .ballistic_bullets img {
         width: 156px;
+        @include breakpoint(untilLarge) {
+          top: 2px;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 8.125vw;
         }
@@ -1099,7 +1100,10 @@
         }
       }
       .ballistic_bullets img {
-        width: 145px;
+        width: 132px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 7.552vw;
         }
@@ -1114,7 +1118,10 @@
         }
       }
       .ballistic_bullets img {
-        width: 131px;
+        width: 140px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 6.823vw;
         }
@@ -1129,7 +1136,10 @@
         }
       }
       .ballistic_bullets img {
-        width: 157px;
+        width: 144px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 8.177vw;
         }
@@ -1144,7 +1154,10 @@
         }
       }
       .ballistic_bullets img {
-        width: 157px;
+        width: 140px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 8.177vw;
         }
@@ -1162,7 +1175,10 @@
         }
       }
       .ballistic_bullets img {
-        width: 191px;
+        width: 172px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 9.948vw;
         }
@@ -1172,12 +1188,18 @@
     &:nth-child(11) {
       .ballistic_weaponImg img {
         width: 170px;
+        @include breakpoint(untilLarge) {
+          top: 4px;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 8.854vw;
         }
       }
       .ballistic_bullets img {
-        width: 207px;
+        width: 188px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 10.781vw;
         }
@@ -1187,12 +1209,18 @@
     &:nth-child(12) {
       .ballistic_weaponImg img {
         width: 203px;
+        @include breakpoint(untilLarge) {
+          top: 2px;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 10.573vw;
         }
       }
       .ballistic_bullets img {
-        width: 212px;
+        width: 195px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 10.781vw;
         }
@@ -1208,6 +1236,9 @@
       }
       .ballistic_bullets img {
         width: 224px;
+        @include breakpoint(untilLarge) {
+          top: 0;
+        }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 12.083vw;
         }
@@ -1819,6 +1850,22 @@
         left: 0;
         right: 0;
         text-align: center;
+      }
+    }
+
+    &_interact{
+      font-size: 14px;
+      padding: 50px 24px;
+      width: 228px;
+
+      .ballistic_popup_text{
+        margin-bottom: 0;
+        line-height: 20px;
+        text-transform: none;
+      }
+
+      &_disable{
+        display: none !important;
       }
     }
   }

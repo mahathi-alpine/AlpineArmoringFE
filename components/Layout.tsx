@@ -46,11 +46,6 @@ const termina = localFont({
       weight: '600',
       style: 'normal',
     },
-    {
-      path: '../public/fonts/Manrope-ExtraBold.ttf',
-      weight: '800',
-      style: 'normal',
-    },
   ],
 });
 
