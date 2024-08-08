@@ -118,6 +118,7 @@
       width: 1874px;
       background: url('/assets/ballistic/base_header_mobile.png');
       will-change: transform;
+      transition: transform .2s linear;
 
       .ballistic_header_active & {
         position: fixed;
