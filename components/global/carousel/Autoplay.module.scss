@@ -134,7 +134,7 @@
       white-space: normal;
       transition: max-height 0.3s ease-in-out; /* Smooth transition */
       cursor: pointer; /* Change cursor to indicate interactivity */
-    
+
       &:hover {
         max-height: none; /* Allow full height on hover */
         background-color: #f5f5f5; /* Optional: Change background color on hover */

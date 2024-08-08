@@ -76,12 +76,12 @@
       background-size: 100%;
       width: 1874px;
 
-      &.ballistic_header_active{
+      &.ballistic_header_active {
         padding-top: 18px;
         margin-top: 74px;
         background-position: -8px 10px;
       }
-      &:not(.ballistic_header_active) .ballistic_header{
+      &:not(.ballistic_header_active) .ballistic_header {
         transform: none !important;
       }
     }
@@ -118,7 +118,7 @@
       width: 1874px;
       background: url('/assets/ballistic/base_header_mobile.png');
 
-      .ballistic_header_active &{
+      .ballistic_header_active & {
         position: fixed;
         top: 0;
         z-index: 8;
@@ -1853,18 +1853,18 @@
       }
     }
 
-    &_interact{
+    &_interact {
       font-size: 14px;
       padding: 50px 24px;
       width: 228px;
 
-      .ballistic_popup_text{
+      .ballistic_popup_text {
         margin-bottom: 0;
         line-height: 20px;
         text-transform: none;
       }
 
-      &_disable{
+      &_disable {
         display: none !important;
       }
     }
