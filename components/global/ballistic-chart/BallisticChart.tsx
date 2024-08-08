@@ -1,6 +1,7 @@
 import styles from './BallisticChart.module.scss';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import { debounce } from 'lodash';
 
 const BallisticChart = () => {
   const items = [
@@ -301,12 +302,12 @@ const BallisticChart = () => {
     }
   };
 
-  const handleScrollAreaScroll = () => {
+  const handleScrollAreaScroll = debounce(() => {
     if (scrollAreaRef.current && headerRef.current) {
       const scrollLeft = scrollAreaRef.current.scrollLeft;
       headerRef.current.style.transform = `translateX(-${scrollLeft}px)`;
     }
-  };
+  }, 2);
 
   const handleWindowScroll = () => {
     if (window.pageYOffset >= 74) {
