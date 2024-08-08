@@ -383,6 +383,11 @@
         margin-bottom: 0;
       }
     }
+
+    a{
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+    }
   }
 
   &_specs {

@@ -314,26 +314,6 @@ const BallisticChart = () => {
     }
   };
 
-  // const handleClickOutside = (event) => {
-  //   if (interactedPopupRef.current && !interactedPopupRef.current.contains(event.target)) {
-  //     setHasInteracted(false);
-  //     interactedPopupRef.current.classList.add(`${styles.ballistic_popup_interact_disable}`)
-  //     console.log(interactedPopupRef.current.classList)
-  //   }
-  // };
-
-  // const handleInteraction = () => {
-  //   if (!hasInteracted) {
-  //     // if(interactedPopupRef.current && !interactedPopupRef.current.classList.contains(`${styles.ballistic_popup_interact_disable}`)){
-  //       if (interactedPopupRef.current){
-  //         setHasInteracted(true);
-  //         interactedPopupRef.current.classList.add(`${styles.ballistic_popup_interact_disable}`)
-  //         console.log(interactedPopupRef.current.classList)
-  //       }
-  //     // }
-  //   }
-  // }
-
   useEffect(() => {
     const handleInteraction = () => {
       if (!hasInteracted) {
@@ -358,25 +338,22 @@ const BallisticChart = () => {
     if (window.innerWidth < 1280) {
       window.addEventListener('scroll', handleWindowScroll);
 
-      scrollAreaRef.current.addEventListener('scroll', handleScrollAreaScroll);
-
-      // window.addEventListener('touchstart', handleInteraction);
-      // window.addEventListener('click', handleInteraction);
-
-      // document.addEventListener('mousedown', handleClickOutside);
+      if (scrollAreaRef.current) {
+        scrollAreaRef.current.addEventListener(
+          'scroll',
+          handleScrollAreaScroll
+        );
+      }
 
       return () => {
         window.removeEventListener('scroll', handleWindowScroll);
 
-        scrollAreaRef.current.removeEventListener(
-          'scroll',
-          handleScrollAreaScroll
-        );
-
-        // window.removeEventListener('touchstart', handleInteraction);
-        // window.removeEventListener('click', handleInteraction);
-
-        // document.removeEventListener('mousedown', handleClickOutside);
+        if (scrollAreaRef.current) {
+          scrollAreaRef.current.removeEventListener(
+            'scroll',
+            handleScrollAreaScroll
+          );
+        }
       };
     }
   }, []);
