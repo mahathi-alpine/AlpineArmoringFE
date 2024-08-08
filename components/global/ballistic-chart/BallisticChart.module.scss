@@ -117,6 +117,7 @@
     @include breakpoint(untilDesktop) {
       width: 1874px;
       background: url('/assets/ballistic/base_header_mobile.png');
+      will-change: transform;
 
       .ballistic_header_active & {
         position: fixed;
