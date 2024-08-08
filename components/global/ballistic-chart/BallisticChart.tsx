@@ -16,6 +16,7 @@ const BallisticChart = () => {
       cen: 'BR1',
       weight: ['125 grains', '8.09 grams'],
       type: ['FMJ'],
+      typeFull: ['Full Metal Jacket'],
       velocity: ['1,075 ft/s (328 m/s)'],
     },
     {
@@ -159,6 +160,7 @@ const BallisticChart = () => {
       cen: 'BR7',
       weight: ['165/151/154', 'grains', '10.69/9.78/9.98', 'grams'],
       type: ['FMJ/PB/HC', 'FMJ/PB/HC/WC', 'API/PB/HC'],
+      typeFull: ['Full Metal Jacket'],
       velocity: [
         '2,880 ft/s (878 m/s)',
         '2,690 ft/s (820 m/s)',
@@ -305,7 +307,7 @@ const BallisticChart = () => {
       const scrollLeft = scrollAreaRef.current.scrollLeft;
       headerRef.current.style.transform = `translateX(-${scrollLeft}px)`;
     }
-  }, 12);
+  }, 5);
 
   const handleWindowScroll = () => {
     if (window.pageYOffset >= 74) {
@@ -612,6 +614,11 @@ const BallisticChart = () => {
                       {listItem}
                     </span>
                   ))}
+                  {item.typeFull ? (
+                    <div className={`${styles.ballistic_tooltip}`}>
+                      {item.typeFull}
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className={`${styles.ballistic_row_item}`}>
