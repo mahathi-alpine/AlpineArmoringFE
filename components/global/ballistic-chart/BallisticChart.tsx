@@ -189,10 +189,8 @@ const BallisticChart = () => {
   const [moreSelected, setMoreSelected] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
 
-  const scrollAreaRef = useRef(null);
   const containerRef = useRef(null);
   const tableRef = useRef(null);
-  const headerRef = useRef(null);
   const interactedPopupRef = useRef(null);
 
   const setRowActive = (index) => {
@@ -323,9 +321,9 @@ const BallisticChart = () => {
 
   return (
     <>
-      <div className={`${styles.ballistic}`} ref={scrollAreaRef}>
+      <div className={`${styles.ballistic}`}>
         <div className={`${styles.ballistic_wrapper}`} ref={containerRef}>
-          <div className={`${styles.ballistic_header}`} ref={headerRef}>
+          <div className={`${styles.ballistic_header}`}>
             <div className={`${styles.ballistic_header_inner}`}>
               <div className={`${styles.ballistic_header_item}`}>
                 <Image
