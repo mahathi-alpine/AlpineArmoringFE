@@ -30,6 +30,7 @@ const BallisticChart = () => {
       cen: 'BR2',
       weight: ['124 grains', '15.55 grams'],
       type: ['FMJ /RN'],
+      typeFull: ['Full Metal Jacket / Round Nose'],
       velocity: ['1,075 ft/s (328 m/s)'],
     },
     {
@@ -43,6 +44,7 @@ const BallisticChart = () => {
       cen: 'BR3',
       weight: ['158 grains', '10.23 grams'],
       type: ['FMJ /JSP'],
+      typeFull: ['Full Metal Jacket / Jacketed Soft Point'],
       velocity: ['1,430 ft/s (436 m/s)'],
     },
     {
@@ -56,6 +58,7 @@ const BallisticChart = () => {
       cen: 'BR4',
       weight: ['240 grains', '15.55 grams'],
       type: ['JHP'],
+      typeFull: ['Jacketed Hollow Point'],
       velocity: ['1,430 ft/s (436 m/s)'],
     },
     {
@@ -82,6 +85,7 @@ const BallisticChart = () => {
       cen: 'BR4+',
       weight: ['125 grains', '8.10 grams'],
       type: ['FMJ'],
+      typeFull: ['Full Metal Jacket'],
       velocity: ['2,185 ft/s (666 m/s)'],
     },
     {
@@ -95,6 +99,7 @@ const BallisticChart = () => {
       cen: 'BR5',
       weight: ['120 grains', '7.77 grams'],
       type: ['FMJ'],
+      typeFull: ['Full Metal Jacket'],
       velocity: ['2,380 ft/s (725 m/s)'],
     },
     {
@@ -108,6 +113,7 @@ const BallisticChart = () => {
       cen: 'BR5',
       weight: ['56 grains', '3.63 grams'],
       type: ['FMJ/BT'],
+      typeFull: ['Full Metal Jacket / Boattail Bullet'],
       velocity: ['3,080 ft/s (940 m/s)'],
     },
     {
@@ -121,6 +127,7 @@ const BallisticChart = () => {
       cen: 'BR5',
       weight: ['56 grains', '3.63 grams'],
       type: ['FMJ/BT'],
+      typeFull: ['Full Metal Jacket / Boattail Bullet'],
       velocity: ['2,950 ft/s (900 m/s)'],
     },
     {
@@ -134,6 +141,7 @@ const BallisticChart = () => {
       cen: 'BR6+',
       weight: ['149 grains', '9.65 grams'],
       type: ['FMJ Ball'],
+      typeFull: ['Full Metal Jacket'],
       velocity: ['2,780 ft/s (847 m/s)'],
     },
     {
@@ -147,6 +155,10 @@ const BallisticChart = () => {
       cen: 'BR7',
       weight: ['122/62 grains', '7.90/4.02 grams'],
       type: ['API/PB/HC', 'GT/AP/BT'],
+      typeFull: [
+        'Armor Piercing Incendiary/Pointed Bullet/Hard Core',
+        'Green Tip AP/Armor Piercing/Boattail Bullet',
+      ],
       velocity: ['2,395 ft/s (730 m/s)', '3,020 ft/s (920 m/s)'],
     },
     {
@@ -160,7 +172,11 @@ const BallisticChart = () => {
       cen: 'BR7',
       weight: ['165/151/154', 'grains', '10.69/9.78/9.98', 'grams'],
       type: ['FMJ/PB/HC', 'FMJ/PB/HC/WC', 'API/PB/HC'],
-      typeFull: ['Full Metal Jacket'],
+      typeFull: [
+        'Full Metal Jacket/Pointed Bullet/Hard Core',
+        'Full Metal Jacket/Pointed Bullet/Hard Core/Wadcutter',
+        'Armor Piercing Incendiary/Pointed Bullet/Hard Core',
+      ],
       velocity: [
         '2,880 ft/s (878 m/s)',
         '2,690 ft/s (820 m/s)',
@@ -178,6 +194,7 @@ const BallisticChart = () => {
       cen: 'BR7+',
       weight: ['661 grains', '42.83 grams'],
       type: ['FMJ/Ball'],
+      typeFull: ['Full Metal Jacket/Ball'],
       velocity: ['3,080 ft/s (940 m/s)'],
     },
   ];
@@ -329,7 +346,7 @@ const BallisticChart = () => {
                 <Image
                   src="/assets/ballistic/ballistic_logo_mobile.png"
                   alt=""
-                  width="130"
+                  width="132"
                   height="47"
                   className="untilLarge-only"
                   priority
@@ -584,7 +601,9 @@ const BallisticChart = () => {
                   ))}
                   {item.typeFull ? (
                     <div className={`${styles.ballistic_tooltip}`}>
-                      {item.typeFull}
+                      {item.typeFull.map((listItem, spanIndex) => (
+                        <span key={spanIndex}>{listItem}</span>
+                      ))}
                     </div>
                   ) : null}
                 </div>
