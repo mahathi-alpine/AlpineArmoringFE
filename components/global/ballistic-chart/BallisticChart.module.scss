@@ -9,6 +9,11 @@
   font-weight: 500;
 }
 @font-face {
+  font-family: Manrope;
+  src: url('/fonts/Manrope-Regular.ttf');
+  font-weight: 400;
+}
+@font-face {
   font-family: Termina;
   src: url('/fonts/Termina-Demi.woff2');
   font-weight: 500;
@@ -932,6 +937,10 @@
             font-size: clamp(0.5625rem, 0.1875rem + 0.4688vw, 0.75rem);
           }
         }
+      }
+
+      span:has(~ .ballistic_tooltip){
+        cursor: pointer;
       }
 
       &_text {

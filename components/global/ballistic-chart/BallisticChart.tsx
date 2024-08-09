@@ -688,14 +688,14 @@ const BallisticChart = () => {
             </div>
           </div>
         )}
-
-        {showChosen && (
-          <BallisticChartChosen
-            items={selectedRows.map((index) => items[index])}
-            onClose={closePopupComparison}
-          />
-        )}
       </div>
+
+      {showChosen && (
+        <BallisticChartChosen
+          items={selectedRows.map((index) => items[index])}
+          onClose={closePopupComparison}
+        />
+      )}
     </>
   );
 };

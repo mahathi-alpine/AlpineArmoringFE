@@ -11,6 +11,8 @@
   backdrop-filter: blur(8px);
   z-index: 8;
   text-align: center;
+  color: white;
+  font-family: Manrope;
 
   &_inner {
     position: relative;
@@ -174,6 +176,7 @@
         padding: 4px 0;
         flex-flow: row;
         display: block;
+        font-family: 'Termina', "Manrope";
 
         &_inner {
           position: relative;
@@ -190,12 +193,12 @@
           span:nth-child(2),
           span:nth-child(3) {
             position: absolute;
-            right: 30px;
-            top: 2px;
+            right: 25px;
+            top: 0;
             font-size: 10px;
           }
           span:nth-child(3) {
-            top: 12px;
+            top: 10px;
           }
         }
 

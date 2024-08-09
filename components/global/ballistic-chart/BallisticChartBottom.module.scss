@@ -140,4 +140,127 @@
       }
     }
   }
+
+  &_main{
+    &_title{
+        text-transform: uppercase;
+        text-align: center;
+        text-shadow: 1px 2px 2px #000, 0px 5.6px 50.4px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px #000;
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 24px;
+        letter-spacing: 0.6px;
+        margin-bottom: 18px;
+
+    }
+    &_list{
+        padding: 0 19px 0 20px;
+        &_item{
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        &_level{
+            text-transform: uppercase;
+        }
+    }
+    &_item{
+        &:first-child{
+            background-image: url('/assets/ballistic/ballistic_bottom_main_first_base.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 38px;
+            max-width: 307px;
+            height: 460px;
+            margin: auto;
+            margin-bottom: 5px;
+            color: white;
+            font-size: 11px;
+
+            .ballistic_bottom_main_list_level{
+                display: block;
+                width: 79px;
+                border-radius: 20px;
+                border: 1px solid #92E5FF;
+                background: #464646;
+                box-shadow: 0px -4px 12px 0px #000 inset, 0px 4px 8px 0px rgba(0, 0, 0, 0.50);
+                color: #67DCEF;
+                text-align: center;
+                text-shadow: 1px 2px 2px #000, 0px 5.6px 50.4px rgba(0, 0, 0, 0.50), 0px 4.235px 6.841px #000;
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 19px; 
+                letter-spacing: 0.56px;
+                text-decoration-line: underline;
+                margin-right: 8px;
+
+                @include breakpoint(large) {
+                    width: 92px;
+                }
+            }
+
+            .ballistic_bottom_main_list_pdf{
+                flex: 1;
+                font-weight: 400;
+                line-height: 14px;
+                text-transform: capitalize;
+                
+                small{
+                    font-size: 9px;
+                    line-height: 10px;
+                }
+            }
+        }
+
+        &:nth-child(2){
+            background-image: url('/assets/ballistic/ballistic_bottom_main_second_base.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 35px;
+            max-width: 307px;
+            height: 330px;
+            margin: auto;
+            margin-bottom: 40px;
+            font-size: 12px;
+            color: #050505;
+            font-weight: 500;
+
+            .ballistic_bottom_main_list{
+                padding: 0 18px 0 27px;
+
+                &_item{
+                    margin-bottom: 0;
+                }
+            }
+
+            .ballistic_bottom_main_title{
+                margin-bottom: 10px;
+                text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.50);
+            }
+
+            .ballistic_bottom_main_list_level{
+                font-size: 12px;
+                line-height: 16px;
+                width: 98px;
+                border-bottom: 1px dashed black;
+                border-bottom-style: dashed;
+                line-height: 7px;
+                margin-right: 2px;
+
+                strong{
+                    position: relative;
+                    font-weight: 800;
+                    background: #938556;
+                }
+
+            }
+
+            .ballistic_bottom_main_list_pdf{
+                letter-spacing: 0.48px;
+                color: #000;
+                line-height: 16px;
+            }
+        }
+    }
+  }
 }
