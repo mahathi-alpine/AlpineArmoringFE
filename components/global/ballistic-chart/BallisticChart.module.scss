@@ -50,6 +50,9 @@
   &_table {
     display: flex;
     flex-direction: column;
+    @include breakpoint(untilDesktop) {
+      height: 1000px;
+    }
   }
 
   &_heading {
@@ -75,15 +78,16 @@
       padding-right: 33px;
       background-size: 100%;
       width: 1874px;
+      height: 846px;
 
-      &.ballistic_header_active {
-        padding-top: 18px;
-        margin-top: 74px;
-        background-position: -8px 10px;
-      }
-      &:not(.ballistic_header_active) .ballistic_header {
-        transform: none !important;
-      }
+      // &.ballistic_header_active {
+      //   padding-top: 18px;
+      //   margin-top: 74px;
+      //   background-position: -8px 10px;
+      // }
+      // &:not(.ballistic_header_active) .ballistic_header {
+      //   transform: none !important;
+      // }
     }
 
     @include breakpoint(large) {
@@ -117,14 +121,17 @@
     @include breakpoint(untilDesktop) {
       width: 1874px;
       background: url('/assets/ballistic/base_header_mobile.png');
-      will-change: transform;
-      transition: transform 0.05s linear;
+      // will-change: transform;
+      // transition: transform 0.05s linear;
+      position: sticky;
+      top: 0px;
+      z-index: 3;
 
-      .ballistic_header_active & {
-        position: fixed;
-        top: 0;
-        z-index: 8;
-      }
+      // .ballistic_header_active & {
+      //   position: fixed;
+      //   top: 0;
+      //   z-index: 8;
+      // }
     }
 
     &_item {

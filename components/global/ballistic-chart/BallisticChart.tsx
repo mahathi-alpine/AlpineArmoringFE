@@ -1,7 +1,6 @@
 import styles from './BallisticChart.module.scss';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
-import { debounce } from 'lodash';
 
 const BallisticChart = () => {
   const items = [
@@ -302,20 +301,20 @@ const BallisticChart = () => {
     }
   };
 
-  const handleScrollAreaScroll = debounce(() => {
-    if (scrollAreaRef.current && headerRef.current) {
-      const scrollLeft = scrollAreaRef.current.scrollLeft;
-      headerRef.current.style.transform = `translateX(-${scrollLeft}px)`;
-    }
-  }, 10);
+  // const handleScrollAreaScroll = () => {
+  //   if (scrollAreaRef.current && headerRef.current) {
+  //     const scrollLeft = scrollAreaRef.current.scrollLeft;
+  //     headerRef.current.style.transform = `translateX(-${scrollLeft}px)`;
+  //   }
+  // };
 
-  const handleWindowScroll = () => {
-    if (window.pageYOffset >= 74) {
-      containerRef.current.classList.add(styles.ballistic_header_active);
-    } else {
-      containerRef.current.classList.remove(styles.ballistic_header_active);
-    }
-  };
+  // const handleWindowScroll = () => {
+  //   if (window.pageYOffset >= 74) {
+  //     containerRef.current.classList.add(styles.ballistic_header_active);
+  //   } else {
+  //     containerRef.current.classList.remove(styles.ballistic_header_active);
+  //   }
+  // };
 
   useEffect(() => {
     const handleInteraction = () => {
@@ -337,29 +336,29 @@ const BallisticChart = () => {
     };
   }, [hasInteracted]);
 
-  useEffect(() => {
-    if (window.innerWidth < 1280) {
-      window.addEventListener('scroll', handleWindowScroll);
+  // useEffect(() => {
+  //   if (window.innerWidth < 1280) {
+  //     // window.addEventListener('scroll', handleWindowScroll);
 
-      if (scrollAreaRef.current) {
-        scrollAreaRef.current.addEventListener(
-          'scroll',
-          handleScrollAreaScroll
-        );
-      }
+  //     // if (scrollAreaRef.current) {
+  //     //   scrollAreaRef.current.addEventListener(
+  //     //     'scroll',
+  //     //     handleScrollAreaScroll
+  //     //   );
+  //     // }
 
-      return () => {
-        window.removeEventListener('scroll', handleWindowScroll);
+  //     return () => {
+  //       // window.removeEventListener('scroll', handleWindowScroll);
 
-        if (scrollAreaRef.current) {
-          scrollAreaRef.current.removeEventListener(
-            'scroll',
-            handleScrollAreaScroll
-          );
-        }
-      };
-    }
-  }, []);
+  //       // if (scrollAreaRef.current) {
+  //       //   scrollAreaRef.current.removeEventListener(
+  //       //     'scroll',
+  //       //     handleScrollAreaScroll
+  //       //   );
+  //       // }
+  //     };
+  //   }
+  // }, []);
 
   return (
     <>
