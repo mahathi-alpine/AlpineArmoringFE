@@ -8,8 +8,8 @@ const BallisticChartBottom = () => {
         <Image
           src="/assets/ballistic/ballistic_logo_mobile.png"
           alt=""
-          width="202"
-          height="84"
+          width="275"
+          height="99"
           className={`${styles.ballistic_bottom_top_logo}`}
         ></Image>
         <div className={`${styles.ballistic_bottom_top_content}`}>

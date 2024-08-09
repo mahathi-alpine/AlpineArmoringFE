@@ -329,8 +329,8 @@ const BallisticChart = () => {
                 <Image
                   src="/assets/ballistic/ballistic_logo_mobile.png"
                   alt=""
-                  width="140"
-                  height="64"
+                  width="130"
+                  height="47"
                   className="untilLarge-only"
                   priority
                 ></Image>

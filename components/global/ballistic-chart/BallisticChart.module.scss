@@ -67,10 +67,12 @@
   }
 
   &_wrapper {
+    position: relative;
     background-image: url('/assets/ballistic/base_mobile.png');
     background-repeat: no-repeat;
     background-size: cover;
     min-width: max-content;
+    z-index: 2;
 
     @include breakpoint(untilLarge) {
       background-position: -8px 83px;
@@ -79,15 +81,6 @@
       background-size: 100%;
       width: 1874px;
       height: 846px;
-
-      // &.ballistic_header_active {
-      //   padding-top: 18px;
-      //   margin-top: 74px;
-      //   background-position: -8px 10px;
-      // }
-      // &:not(.ballistic_header_active) .ballistic_header {
-      //   transform: none !important;
-      // }
     }
 
     @include breakpoint(large) {
@@ -121,17 +114,9 @@
     @include breakpoint(untilDesktop) {
       width: 1874px;
       background: url('/assets/ballistic/base_header_mobile.png');
-      // will-change: transform;
-      // transition: transform 0.05s linear;
       position: sticky;
       top: 0px;
       z-index: 3;
-
-      // .ballistic_header_active & {
-      //   position: fixed;
-      //   top: 0;
-      //   z-index: 8;
-      // }
     }
 
     &_item {
@@ -144,8 +129,8 @@
       &:first-child {
         @include breakpoint(untilDesktop) {
           order: 0;
-          left: 153px;
-          top: 14px;
+          left: 163px;
+          top: 27px;
         }
 
         @include breakpoint(large) {
@@ -164,7 +149,7 @@
 
       &:nth-child(2) {
         @include breakpoint(untilDesktop) {
-          left: -42px;
+          left: -37px;
         }
 
         @include breakpoint(large) {
@@ -186,6 +171,7 @@
       &:nth-child(3) {
         @include breakpoint(untilDesktop) {
           order: 1;
+          left: 17px;
         }
 
         @include breakpoint(large) {
@@ -208,7 +194,7 @@
 
       &:nth-child(4) {
         @include breakpoint(untilDesktop) {
-          left: -57px;
+          left: 20px;
         }
 
         @include breakpoint(large) {
@@ -228,7 +214,7 @@
       }
       &:nth-child(5) {
         @include breakpoint(untilLarge) {
-          left: -40px;
+          left: -32px;
           top: 12px;
         }
         @include breakpoint(large) {
