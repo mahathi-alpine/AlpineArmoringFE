@@ -2,6 +2,7 @@
   font-family: Manrope;
 
   &_top {
+    position: relative;
     text-align: center;
     background-image: url('/assets/ballistic/ballistic_bottom_top_base.png');
     background-repeat: no-repeat;
@@ -11,6 +12,22 @@
     height: 270px;
     margin: auto;
     margin-bottom: 40px;
+
+    @include breakpoint(untilLarge) {
+        &:before{
+            position: absolute;
+            content: '';
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-image: url('/assets/ballistic/ballistic_bottom_top_base.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+    }
+
 
     @include breakpoint(large) {
       background-image: url('/assets/ballistic/ballistic_bottom_top_base_desktop.png');
@@ -34,8 +51,8 @@
     }
 
     &_content {
-      position: relative;
-      z-index: 1;
+    //   position: relative;
+    //   z-index: 1;
 
       &_title {
         position: relative;

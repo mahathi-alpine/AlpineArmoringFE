@@ -35,17 +35,6 @@
     max-width: 1925px;
   }
 
-  &:before {
-    position: fixed;
-    content: '';
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: #fff;
-    z-index: -1;
-  }
-
   &_comparisonActive {
     .ballistic_row:not(.ballistic_row_active) {
       opacity: 0.12;

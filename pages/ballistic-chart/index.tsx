@@ -3,10 +3,10 @@ import BallisticChartBottom from 'components/global/ballistic-chart/BallisticCha
 
 function Ballistic() {
   return (
-    <>
+    <div className={`bg-white`}>
       <BallisticChart />
       <BallisticChartBottom />
-    </>
+    </div>
   );
 }
 
