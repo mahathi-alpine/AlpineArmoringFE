@@ -6,7 +6,7 @@ import BallisticChartChosen from './BallisticChartChosen';
 const BallisticChart = () => {
   const items = [
     {
-      name: ['.38 Special '],
+      name: ['.38 Special'],
       caliber: ['9 x 29mmR'],
       class: ['Revolver'],
       stanag: '-',

@@ -2,14 +2,165 @@ import styles from './BallisticChartBottom.module.scss';
 import Image from 'next/image';
 
 const BallisticChartBottom = () => {
+  const ballisticStandards = [
+    {
+      name: 'NIJ',
+      text: 'National Institute of Justice (0101.07/0123.00)',
+    },
+    {
+      name: 'UL',
+      text: 'Underwriters Laboratories – Standards & Engagements 752',
+    },
+    {
+      name: 'CEN',
+      text: 'European Committee for Standardization – BR 1063',
+    },
+    {
+      name: 'DIN',
+      text: 'German Institute for Standardization',
+    },
+    {
+      name: 'STANAG',
+      text: 'Standardization Agreement by NATO - 4569',
+      smallText:
+        'Protection Levels for Occupants of Logistic and Light Armored Vehicles',
+    },
+    {
+      name: 'VPAM',
+      text: 'Association of Testing Centers for Attack-Resistant Materials and Constructions',
+    },
+    {
+      name: 'OTHER',
+      text: 'Internationally Recognized Ballistic Testing Standards (for reference)',
+    },
+  ];
+
+  const projectileAcronyms = [
+    {
+      name: 'AP',
+      text: 'Armor Piercing',
+    },
+    {
+      name: 'API',
+      text: 'Armor Piercing Incendiary',
+    },
+    {
+      name: 'FMJ',
+      text: 'Full Metal Jacket',
+    },
+    {
+      name: 'JHP',
+      text: 'Jacketed Hollow Point',
+    },
+    {
+      name: 'JSP',
+      text: 'Jacketed Soft Point',
+    },
+    {
+      name: 'RN',
+      text: 'Round Nose',
+    },
+    {
+      name: 'GT',
+      text: 'Green Tip AP',
+    },
+    {
+      name: 'PB',
+      text: 'Pointed Bullet',
+    },
+    {
+      name: 'BT',
+      text: 'Boattail Bullet',
+    },
+    {
+      name: 'HC',
+      text: 'Hard Core',
+    },
+    {
+      name: 'WC',
+      text: 'Wadcutter',
+    },
+    {
+      name: 'LC',
+      text: 'Lead Core',
+    },
+    {
+      name: 'BZ',
+      text: 'Brillouin Zone',
+    },
+  ];
+
+  const otherAcronyms = [
+    {
+      name: 'NATO',
+      text: 'North Atlantic Treaty Organization',
+    },
+    {
+      name: 'ANSI',
+      text: 'American National Standards Institute',
+    },
+    {
+      name: 'Ö-Norm',
+      text: 'Austrian Standards Institute',
+    },
+    {
+      name: 'SNV',
+      text: 'Swiss Standards Association',
+    },
+    {
+      name: 'BSI',
+      text: 'British Standards Institution',
+    },
+    {
+      name: 'HOSDM',
+      text: 'The UK Home Office Scientific Development Branch',
+    },
+    {
+      name: 'EASC',
+      text: 'Euro-Asian Council For Standardization Metrology And Certification',
+    },
+    {
+      name: 'GOST',
+      text: 'Russian Government Standards (Gosudarstvennyy Standart)',
+    },
+    {
+      name: 'ISO',
+      text: 'International Standards Organization',
+    },
+    {
+      name: 'AS/NZS',
+      text: 'Standards for Australia and New Zealand (2343:1997)',
+    },
+    {
+      name: 'NGA',
+      text: 'National Glass Association',
+    },
+    {
+      name: 'UHH',
+      text: 'Ultra-high Hardness (Armour steel alloy of 578-655 HBW)',
+    },
+    {
+      name: 'ARMOX',
+      text: 'Ballistic Steel brand by SSAB for armored vehicles',
+    },
+    {
+      name: 'RAMOR',
+      text: 'Ballistic Steel brand by SSAB for armored vehicles',
+    },
+    {
+      name: '12 FAM 380',
+      text: 'US State Dept. armored vehicle (LAV/HAV) program for Levels C, D, & E',
+    },
+  ];
+
   return (
     <div className={`${styles.ballistic_bottom}`}>
       <div className={`${styles.ballistic_bottom_top}`}>
         <Image
-          src="/assets/ballistic/ballistic_logo_mobile.png"
+          src="/assets/ballistic/ballistic_logo_big.png"
           alt=""
-          width="275"
-          height="99"
+          width="384"
+          height="229"
           className={`${styles.ballistic_bottom_top_logo}`}
         ></Image>
         <div className={`${styles.ballistic_bottom_top_content}`}>
@@ -34,69 +185,28 @@ const BallisticChartBottom = () => {
             LINKS TO BALLISTIC STANDARDS
           </h2>
           <ul className={`${styles.ballistic_bottom_main_list}`}>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                Nij
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                National Institute of Justice (0101.07/0123.00)
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                UL
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Underwriters Laboratories – Standards & Engagements 752
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                CEN
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                European Committee for Standardization – BR 1063
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                DIN
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                German Institute for Standardization
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                sTANAG
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Standardization Agreement by NATO - 4569
-                <br />
-                <small>
-                  Protection Levels for Occupants of Logistic and Light Armored
-                  Vehicles
-                </small>
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                VPAM
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Association of Testing Centers for Attack-Resistant Materials
-                and Constructions
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                OTHER
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Internationally Recognized Ballistic Testing Standards (for
-                reference)
-              </span>
-            </li>
+            {ballisticStandards.map((item, index) => (
+              <li
+                className={`${styles.ballistic_bottom_main_list_item}`}
+                key={index}
+              >
+                <span className={`${styles.ballistic_bottom_main_list_level}`}>
+                  <strong>{item.name}</strong>
+                </span>
+                <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
+                  {item.text}
+                  {item.smallText && (
+                    <>
+                      <br />
+                      <small>
+                        Protection Levels for Occupants of Logistic and Light
+                        Armored Vehicles
+                      </small>
+                    </>
+                  )}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -105,110 +215,40 @@ const BallisticChartBottom = () => {
             PROJECTILE ACRONYMS
           </h2>
           <ul className={`${styles.ballistic_bottom_main_list}`}>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>AP</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Armor Piercing
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>API</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Armor Piercing Incendiary
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>FMJ</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Full Metal Jacket
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>JHP</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Jacketed Hollow Point
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>JSP</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Jacketed Soft Point
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>RN</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Round Nose
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>GT</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Green Tip AP
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>PB</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Pointed Bullet
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>BT</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Boattail Bullet
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>HC</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Hard Core
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>WC</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Wadcutter
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>LC</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Lead Core
-              </span>
-            </li>
-            <li className={`${styles.ballistic_bottom_main_list_item}`}>
-              <span className={`${styles.ballistic_bottom_main_list_level}`}>
-                <strong>BZ</strong>
-              </span>
-              <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                Brillouin Zone
-              </span>
-            </li>
+            {projectileAcronyms.map((item, index) => (
+              <li
+                className={`${styles.ballistic_bottom_main_list_item}`}
+                key={index}
+              >
+                <span className={`${styles.ballistic_bottom_main_list_level}`}>
+                  <strong>{item.name}</strong>
+                </span>
+                <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
+                  {item.text}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={`${styles.ballistic_bottom_main_item}`}>
+          <h2 className={`${styles.ballistic_bottom_main_title}`}>
+            OTHER ACRONYMS
+          </h2>
+          <ul className={`${styles.ballistic_bottom_main_list}`}>
+            {otherAcronyms.map((item, index) => (
+              <li
+                className={`${styles.ballistic_bottom_main_list_item}`}
+                key={index}
+              >
+                <span className={`${styles.ballistic_bottom_main_list_level}`}>
+                  <strong>{item.name}</strong>
+                </span>
+                <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
+                  {item.text}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
