@@ -1,105 +1,116 @@
-.ballistic_bottom{
-    font-family: Manrope;
-    
-    &_top{
-        text-align: center;
-        background-image: url('/assets/ballistic/ballistic_bottom_top_base.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        padding-top: 20px;
-        max-width: 307px;
-        height: 270px;
-        margin: auto;
+.ballistic_bottom {
+  font-family: Manrope;
 
-        &_logo{
-            margin: auto;
-            margin-bottom: 13px;
-        }
+  &_top {
+    text-align: center;
+    background-image: url('/assets/ballistic/ballistic_bottom_top_base.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20px;
+    max-width: 307px;
+    height: 270px;
+    margin: auto;
 
-        &_content{
-            position: relative;
-            z-index: 1;
-
-            &_title{
-                position: relative;
-                text-transform: uppercase;
-                color: transparent;
-                font-size: 17px;
-                font-weight: 800;
-                line-height: 24px;
-                letter-spacing: 0.68px;
-                margin-bottom: 30px;
-
-                &:after {
-                  background-image: linear-gradient(
-                    180deg,
-                    #fff 54.25%,
-                    #b0b0b0 73.58%
-                  );
-                  -webkit-background-clip: text;
-                  background-clip: text;
-                  -webkit-text-fill-color: transparent;
-                  content: attr(data-text);
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  bottom: -2px;
-                  text-align: center;
-                }
-                &:before {
-                  text-shadow:
-                    1px 2px 2px #000,
-                    0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-                    0px 4.235px 6.841px #000;
-                  content: attr(data-text);
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  text-align: center;
-                }
-            }
-
-
-            &_button {
-                display: block;
-                position: relative;
-                border-radius: 30px;
-                font-weight: 800;
-                border: 1px solid rgba(166, 149, 64, 0.28);
-                background: linear-gradient(
-                  96deg,
-                  #1c1c1c -9.54%,
-                  #fff 26.04%,
-                  #fff 58.76%,
-                  #303030 105.26%
-                );
-                box-shadow:
-                  1px 2px 2px 0px #000,
-                  0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
-                  0px 4.235px 6.841px 0px #000;
-                margin: auto;
-                color: #5c5c5c;
-                width: 124px;
-                text-transform: uppercase;
-                text-align: center;
-                line-height: 37px;
-          
-                &:before {
-                  position: absolute;
-                  content: '';
-                  left: -7px;
-                  right: -7px;
-                  top: -7px;
-                  bottom: -7px;
-                  border-radius: 30px;
-                  border: 1px solid var(--top, rgba(93, 99, 108, 0.94));
-                  background: var(--56, linear-gradient(89deg, #BCAE7D 27.69%, #E6DEB2 40.04%, #CDBF8E 49.97%, #9F9160 61%, #928455 71.82%));
-                  box-shadow: 0px 4.24px 6.84px 0px #000, 2px 2px 2px 0px rgba(0, 0, 0, 0.30) inset;
-                  z-index: -1;
-                }
-              }
-        }
+    &_logo {
+      margin: auto;
+      margin-bottom: 13px;
     }
+
+    &_content {
+      position: relative;
+      z-index: 1;
+
+      &_title {
+        position: relative;
+        text-transform: uppercase;
+        color: transparent;
+        font-size: 17px;
+        font-weight: 800;
+        line-height: 24px;
+        letter-spacing: 0.68px;
+        margin-bottom: 30px;
+
+        &:after {
+          background-image: linear-gradient(
+            180deg,
+            #fff 54.25%,
+            #b0b0b0 73.58%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          content: attr(data-text);
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: -2px;
+          text-align: center;
+        }
+        &:before {
+          text-shadow:
+            1px 2px 2px #000,
+            0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+            0px 4.235px 6.841px #000;
+          content: attr(data-text);
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          text-align: center;
+        }
+      }
+
+      &_button {
+        display: block;
+        position: relative;
+        border-radius: 30px;
+        font-weight: 800;
+        border: 1px solid rgba(166, 149, 64, 0.28);
+        background: linear-gradient(
+          96deg,
+          #1c1c1c -9.54%,
+          #fff 26.04%,
+          #fff 58.76%,
+          #303030 105.26%
+        );
+        box-shadow:
+          1px 2px 2px 0px #000,
+          0px 5.6px 50.4px 0px rgba(0, 0, 0, 0.5),
+          0px 4.235px 6.841px 0px #000;
+        margin: auto;
+        color: #5c5c5c;
+        width: 124px;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 37px;
+
+        &:before {
+          position: absolute;
+          content: '';
+          left: -7px;
+          right: -7px;
+          top: -7px;
+          bottom: -7px;
+          border-radius: 30px;
+          border: 1px solid var(--top, rgba(93, 99, 108, 0.94));
+          background: var(
+            --56,
+            linear-gradient(
+              89deg,
+              #bcae7d 27.69%,
+              #e6deb2 40.04%,
+              #cdbf8e 49.97%,
+              #9f9160 61%,
+              #928455 71.82%
+            )
+          );
+          box-shadow:
+            0px 4.24px 6.84px 0px #000,
+            2px 2px 2px 0px rgba(0, 0, 0, 0.3) inset;
+          z-index: -1;
+        }
+      }
+    }
+  }
 }
