@@ -319,6 +319,27 @@ const BallisticChart = () => {
   };
 
   useEffect(() => {
+    if (window.innerWidth < 1280) {
+      const handleScroll = () => {
+        console.log(window.pageYOffset);
+        if (window.pageYOffset >= 300 && window.pageYOffset < 580) {
+          tableRef.current.classList.add(styles.ballistic_table_active);
+        } else if (window.pageYOffset > 580) {
+          tableRef.current.classList.remove(styles.ballistic_table_active);
+        } else {
+          tableRef.current.classList.remove(styles.ballistic_table_active);
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
     const handleInteraction = () => {
       if (!hasInteracted) {
         setHasInteracted(true);
@@ -329,10 +350,10 @@ const BallisticChart = () => {
       }
     };
 
-    window.addEventListener('touchstart', handleInteraction);
+    containerRef.current.addEventListener('touchstart', handleInteraction);
 
     return () => {
-      window.removeEventListener('touchstart', handleInteraction);
+      containerRef.current.removeEventListener('touchstart', handleInteraction);
     };
   }, [hasInteracted]);
 
