@@ -46,7 +46,7 @@
     display: flex;
     flex-direction: column;
     @include breakpoint(untilDesktop) {
-      &_active{
+      &_active {
         height: 950px;
       }
     }
