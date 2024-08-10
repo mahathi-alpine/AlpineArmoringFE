@@ -28,7 +28,7 @@
   @include breakpoint(untilDesktop) {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: -230px;
+    margin-bottom: -100px;
   }
   @include breakpoint(large) {
     margin: auto;
@@ -45,7 +45,7 @@
     display: flex;
     flex-direction: column;
     @include breakpoint(untilDesktop) {
-      height: 1000px;
+      height: 890px;
     }
   }
 
