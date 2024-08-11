@@ -249,7 +249,7 @@ const BallisticChart = () => {
       row.classList.add(styles.ballistic_row_active);
       if (window.innerWidth < 1280) {
         currentSelectedRows.push(index);
-        currentSelectedLevels.push(items[index].level[0]);
+        currentSelectedLevels.push(items[index].level);
         setShowPopup(true);
       }
     } else {
@@ -324,7 +324,7 @@ const BallisticChart = () => {
         // const chartTopOffset = containerRef.current.getBoundingClientRect();
         // const isChartAtTheTop = chartTopOffset.top <= 0;
 
-        if (window.pageYOffset > 200) {
+        if (window.pageYOffset > 100) {
           tableRef.current.classList.add(styles.ballistic_table_active);
         }
 
@@ -708,7 +708,16 @@ const BallisticChart = () => {
             <div className={`${styles.ballistic_popup_text}`}>
               {selectedLevels.length > 0 && !moreSelected && (
                 <div>
-                  Level A{selectedLevels[selectedLevels.length - 1]}{' '}
+                  Level A
+                  <span
+                    className={`${
+                      selectedLevels.length == 2
+                        ? styles.ballistic_popup_text_levels
+                        : ''
+                    }`}
+                  >
+                    {selectedLevels[selectedLevels.length - 1]}{' '}
+                  </span>
                   successfully added to comparison list
                 </div>
               )}
