@@ -321,14 +321,20 @@ const BallisticChart = () => {
   useEffect(() => {
     if (window.innerWidth < 1280) {
       const handleScroll = () => {
-        console.log(window.pageYOffset);
-        if (window.pageYOffset >= 300 && window.pageYOffset < 580) {
+        // const chartTopOffset = containerRef.current.getBoundingClientRect();
+        // const isChartAtTheTop = chartTopOffset.top <= 0;
+
+        if (window.pageYOffset > 200) {
           tableRef.current.classList.add(styles.ballistic_table_active);
-        } else if (window.pageYOffset > 580) {
-          tableRef.current.classList.remove(styles.ballistic_table_active);
-        } else {
-          tableRef.current.classList.remove(styles.ballistic_table_active);
         }
+
+        // if (window.pageYOffset >= 300 && window.pageYOffset < 580) {
+        //   tableRef.current.classList.add(styles.ballistic_table_active);
+        // } else if (window.pageYOffset > 580) {
+        //   tableRef.current.classList.remove(styles.ballistic_table_active);
+        // } else {
+        //   tableRef.current.classList.remove(styles.ballistic_table_active);
+        // }
       };
 
       window.addEventListener('scroll', handleScroll);
@@ -342,7 +348,9 @@ const BallisticChart = () => {
   useEffect(() => {
     const handleInteraction = () => {
       if (!hasInteracted) {
-        setHasInteracted(true);
+        if (window.pageYOffset > 200) {
+          setHasInteracted(true);
+        }
       } else {
         interactedPopupRef.current.classList.add(
           `${styles.ballistic_popup_interact_disable}`
