@@ -76,13 +76,13 @@
     background-repeat: no-repeat;
     background-size: cover;
     min-width: max-content;
-    z-index: 8;
 
     @include breakpoint(untilLarge) {
       background-position: -8px 83px;
       padding-bottom: 24px;
       padding-right: 33px;
       background-size: 100%;
+      z-index: 8;
       // width: 1874px;
       // height: 846px;
     }
