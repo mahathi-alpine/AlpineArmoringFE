@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+// import React, { useState, useEffect, useRef } from 'react';
 
 export default function NextJsImage({ slide }) {
-  const [pdfSrc, setPdfSrc] = useState('');
-  const iframeRef = useRef(null);
+  // const [pdfSrc, setPdfSrc] = useState('');
+  // const iframeRef = useRef(null);
 
-  useEffect(() => {
-    setPdfSrc(`${slide.src}`);
-  }, []);
+  // useEffect(() => {
+  //   setPdfSrc(`${slide.src}`);
+  // }, []);
 
-  useEffect(() => {
-    if (iframeRef.current && pdfSrc) {
-      iframeRef.current.src = pdfSrc;
-    }
-  }, [pdfSrc]);
+  // useEffect(() => {
+  //   if (iframeRef.current && pdfSrc) {
+  //     iframeRef.current.src = pdfSrc;
+  //   }
+  // }, [pdfSrc]);
 
   return (
     <>
