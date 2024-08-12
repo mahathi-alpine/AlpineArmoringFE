@@ -351,7 +351,7 @@ const BallisticChart = () => {
   useEffect(() => {
     const handleInteraction = () => {
       if (!hasInteracted) {
-        if (window.pageYOffset > 200) {
+        if (window.pageYOffset > 100) {
           setHasInteracted(true);
         }
       } else {

@@ -6,8 +6,9 @@ export default function NextJsImage({ slide }) {
           data={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
           type="application/pdf"
           style={{
-            width: `${slide.width}px`,
+            // width: `${slide.width}px`,
             // height: `${slide.height}px`,
+            width: 830,
             height: `100vH`,
             maxWidth: '100%',
           }}
@@ -15,7 +16,7 @@ export default function NextJsImage({ slide }) {
           <embed
             src={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
             style={{
-              width: `${slide.width}px`,
+              width: 830,
               height: `100vH`,
               maxWidth: '100%',
             }}

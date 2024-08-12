@@ -16,28 +16,34 @@ const BallisticChartBottom = () => {
     {
       name: 'UL',
       text: 'Underwriters Laboratories – Standards & Engagements 752',
+      url: '18bbiLicM3QDSXONia4MFtK-o9Upn3xmt',
     },
     {
       name: 'CEN',
       text: 'European Committee for Standardization – BR 1063',
+      url: '18cv4OJWT7jMh5fCFNki6aB3XQ-whwBq0',
     },
     {
       name: 'DIN',
       text: 'German Institute for Standardization',
+      url: '18dFPahm2n-93fu_Q0etg0GEbYVngvULn',
     },
     {
       name: 'STANAG',
       text: 'Standardization Agreement by NATO - 4569',
       smallText:
         'Protection Levels for Occupants of Logistic and Light Armored Vehicles',
+      url: '18fZmfyArn0l1doYRinPLxqJyrqOMUKeO',
     },
     {
       name: 'VPAM',
       text: 'Association of Testing Centers for Attack-Resistant Materials and Constructions',
+      url: '18i41IlKUMbTbXVFjbGZngPTmQOa3zPa1',
     },
     {
       name: 'OTHER',
       text: 'Internationally Recognized Ballistic Testing Standards (for reference)',
+      url: '18gpmBavwGIfHaRLPzre0GbsWr_86NS8F',
     },
   ];
 
@@ -162,40 +168,6 @@ const BallisticChartBottom = () => {
   const { openLightbox, renderLightbox } = useLightbox();
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const slides = [
-    {},
-    {
-      src: '18bbiLicM3QDSXONia4MFtK-o9Upn3xmt',
-      width: 830,
-      height: 560,
-    },
-    {
-      src: '18cv4OJWT7jMh5fCFNki6aB3XQ-whwBq0',
-      width: 826,
-      height: 300,
-    },
-    {
-      src: '18dFPahm2n-93fu_Q0etg0GEbYVngvULn',
-      width: 826,
-      height: 300,
-    },
-    {
-      src: '18fZmfyArn0l1doYRinPLxqJyrqOMUKeO',
-      width: 826,
-      height: 300,
-    },
-    {
-      src: '18i41IlKUMbTbXVFjbGZngPTmQOa3zPa1',
-      width: 826,
-      height: 300,
-    },
-    {
-      src: '18gpmBavwGIfHaRLPzre0GbsWr_86NS8F',
-      width: 826,
-      height: 300,
-    },
-  ];
-
   return (
     <div className={`${styles.ballistic_bottom}`}>
       <BallisticChartBottomHeading />
@@ -214,8 +186,10 @@ const BallisticChartBottom = () => {
                 <span
                   className={`${styles.ballistic_bottom_main_list_level}`}
                   onClick={() => {
-                    setSelectedIndex(index);
-                    openLightbox();
+                    if (item.url) {
+                      setSelectedIndex(index);
+                      openLightbox();
+                    }
                   }}
                 >
                   <strong>{item.name}</strong>
@@ -281,6 +255,16 @@ const BallisticChartBottom = () => {
       </div>
 
       {renderLightbox({
+        slides: [{ src: ballisticStandards[selectedIndex]?.url }],
+        plugins: [Zoom],
+        render: {
+          slide: pdfViewer,
+          buttonPrev: () => null,
+          buttonNext: () => null,
+        },
+      })}
+
+      {/* {renderLightbox({
         slides: slides.map((item) => ({
           src: item.src,
           width: item.width,
@@ -293,7 +277,7 @@ const BallisticChartBottom = () => {
           buttonNext: () => null,
         },
         index: selectedIndex,
-      })}
+      })} */}
     </div>
   );
 };
