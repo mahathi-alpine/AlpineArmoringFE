@@ -1,10 +1,12 @@
 import styles from './BallisticChartBottom.module.scss';
-import Image from 'next/image';
+import BallisticChartBottomHeading from './BallisticChartBottomHeading';
+import { useState } from 'react';
 
 import useLightbox from '../lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
-import NextJsImage from '../lightbox/NextJsImage';
+import pdfViewer from '../lightbox/pdfViewer';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+// import { Lightbox } from 'yet-another-react-lightbox';
 
 const BallisticChartBottom = () => {
   const ballisticStandards = [
@@ -159,50 +161,33 @@ const BallisticChartBottom = () => {
   ];
 
   const { openLightbox, renderLightbox } = useLightbox();
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const slides = [
+    {
+      src: '18glK6RvY-0itVOh0Se__v2P3Z5eXCjiZ',
+      width: 830,
+      height: 560,
+    },
+    {
+      src: '1XpoiHTetYIXT2PFUcHiC5rGH9nHUgZUh',
+      width: 300,
+      height: 300,
+    },
+  ];
+  // const [isOpen, setIsOpen] = useState(false);
+
+  // const openLightbox = () => {
+  //   setIsOpen(true);
+  // };
+
+  // const closeLightbox = () => {
+  //   setIsOpen(false);
+  // };
 
   return (
     <div className={`${styles.ballistic_bottom}`}>
-      <div className={`${styles.ballistic_bottom_top}`}>
-        <Image
-          src="/assets/ballistic/ballistic_logo_big.png"
-          alt=""
-          width="384"
-          height="229"
-          className={`${styles.ballistic_bottom_top_logo}`}
-        ></Image>
-        <div className={`${styles.ballistic_bottom_top_content}`}>
-          <h2
-            className={`${styles.ballistic_bottom_top_content_title}`}
-            data-text="PROJECTILE ENCYCLOPEDIA"
-          >
-            PROJECTILE ENCYCLOPEDIA
-          </h2>
-          <button
-            className={`${styles.ballistic_bottom_top_content_button}`}
-            onClick={() => {
-              openLightbox();
-            }}
-          >
-            Discover
-          </button>
-        </div>
-      </div>
-
-      {renderLightbox({
-        slides: [
-          {
-            src: '/assets/ballistic/Alpine-bullet-poster.jpg',
-            width: 4500,
-            height: 3000,
-          },
-        ],
-        plugins: [Zoom],
-        render: {
-          slide: NextJsImage,
-          buttonPrev: ballisticStandards.length >= 1 ? () => null : undefined,
-          buttonNext: ballisticStandards.length >= 1 ? () => null : undefined,
-        },
-      })}
+      <BallisticChartBottomHeading />
 
       <div className={`${styles.ballistic_bottom_main}`}>
         <div className={`${styles.ballistic_bottom_main_item}`}>
@@ -215,7 +200,13 @@ const BallisticChartBottom = () => {
                 className={`${styles.ballistic_bottom_main_list_item}`}
                 key={index}
               >
-                <span className={`${styles.ballistic_bottom_main_list_level}`}>
+                <span
+                  className={`${styles.ballistic_bottom_main_list_level}`}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    openLightbox();
+                  }}
+                >
                   <strong>{item.name}</strong>
                 </span>
                 <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
@@ -277,6 +268,52 @@ const BallisticChartBottom = () => {
           </ul>
         </div>
       </div>
+
+      {/* <Lightbox
+        open={isOpen}
+        close={closeLightbox}
+        slides={slides}
+        render={{
+          slide: ({ slide }) =>            
+            <iframe
+              width="100%"
+              height="600px"
+              src={`${slide?.src}#toolbar=0`}
+              style={{ border: 'none' }}
+            />
+        }}
+      /> */}
+
+      {renderLightbox({
+        slides: slides.map((item) => ({
+          src: item.src,
+          width: item.width,
+          height: item.height,
+        })),
+        plugins: [Zoom],
+        render: {
+          // slide: ({ slide }) => {
+          // <iframe
+          //   src={`https://docs.google.com/viewer?url=${slide.src}.pdf&embedded=true`}
+          //   width={`${slide.width}`}
+          //   height={`${slide.height}`}
+          // />,
+          // <object
+          //   data={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
+          //   type="application/pdf"
+          //   style={{width: `${slide.width}px`, height: `${slide.height}px`, maxWidth: '100%'}}
+          // >
+          //   <embed
+          //     src={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
+          //     style={{width: `${slide.width}px`, height: `${slide.height}px`, maxWidth: '100%'}}
+          //   />
+          // </object>},
+          slide: pdfViewer,
+          buttonPrev: () => null,
+          buttonNext: () => null,
+        },
+        index: selectedIndex,
+      })}
     </div>
   );
 };

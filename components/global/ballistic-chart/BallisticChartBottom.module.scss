@@ -249,6 +249,7 @@
           letter-spacing: 0.56px;
           text-decoration-line: underline;
           margin-right: 8px;
+          cursor: pointer;
 
           @include breakpoint(large) {
             width: 92px;
@@ -302,7 +303,7 @@
           padding: 0 18px 0 27px;
 
           @media (min-width: 1280px) and (max-width: 1920px) {
-            padding: 0 1.146vw 0 2.24vw;
+            padding: 0 1.146vw 0 1.7vw;
           }
           @include breakpoint(max) {
             padding: 0 20px 0 43px;
@@ -341,7 +342,7 @@
         }
 
         .ballistic_bottom_main_list_pdf {
-          letter-spacing: 0.48px;
+          letter-spacing: 0.2px;
           color: #000;
           line-height: 16px;
           font-size: 12px;

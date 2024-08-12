@@ -1,7 +1,7 @@
 import styles from './CarouselCurved.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
 
 import useEmblaCarousel from 'embla-carousel-react';
