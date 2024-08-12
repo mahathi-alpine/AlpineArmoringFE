@@ -7,7 +7,8 @@ export default function NextJsImage({ slide }) {
           type="application/pdf"
           style={{
             width: `${slide.width}px`,
-            height: `${slide.height}px`,
+            // height: `${slide.height}px`,
+            height: `100vH`,
             maxWidth: '100%',
           }}
         >
@@ -15,7 +16,7 @@ export default function NextJsImage({ slide }) {
             src={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
             style={{
               width: `${slide.width}px`,
-              height: `${slide.height}px`,
+              height: `100vH`,
               maxWidth: '100%',
             }}
           />

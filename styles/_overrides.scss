@@ -42,6 +42,11 @@ button.yarl__thumbnails_thumbnail {
     width: 100px;
   }
 }
+@include breakpoint(untilLarge) {
+  .yarl__container object{
+    padding-top: 55px;
+  }
+}
 @include breakpoint(large) {
   button.yarl__thumbnails_thumbnail {
     transition: transform 0.3s ease-in-out;

@@ -6,7 +6,6 @@ import useLightbox from '../lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
 import pdfViewer from '../lightbox/pdfViewer';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
-// import { Lightbox } from 'yet-another-react-lightbox';
 
 const BallisticChartBottom = () => {
   const ballisticStandards = [
@@ -164,26 +163,38 @@ const BallisticChartBottom = () => {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const slides = [
+    {},
     {
-      src: '18glK6RvY-0itVOh0Se__v2P3Z5eXCjiZ',
+      src: '18bbiLicM3QDSXONia4MFtK-o9Upn3xmt',
       width: 830,
       height: 560,
     },
     {
-      src: '1XpoiHTetYIXT2PFUcHiC5rGH9nHUgZUh',
-      width: 300,
+      src: '18cv4OJWT7jMh5fCFNki6aB3XQ-whwBq0',
+      width: 826,
+      height: 300,
+    },
+    {
+      src: '18dFPahm2n-93fu_Q0etg0GEbYVngvULn',
+      width: 826,
+      height: 300,
+    },
+    {
+      src: '18fZmfyArn0l1doYRinPLxqJyrqOMUKeO',
+      width: 826,
+      height: 300,
+    },
+    {
+      src: '18i41IlKUMbTbXVFjbGZngPTmQOa3zPa1',
+      width: 826,
+      height: 300,
+    },
+    {
+      src: '18gpmBavwGIfHaRLPzre0GbsWr_86NS8F',
+      width: 826,
       height: 300,
     },
   ];
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const openLightbox = () => {
-  //   setIsOpen(true);
-  // };
-
-  // const closeLightbox = () => {
-  //   setIsOpen(false);
-  // };
 
   return (
     <div className={`${styles.ballistic_bottom}`}>
@@ -269,21 +280,6 @@ const BallisticChartBottom = () => {
         </div>
       </div>
 
-      {/* <Lightbox
-        open={isOpen}
-        close={closeLightbox}
-        slides={slides}
-        render={{
-          slide: ({ slide }) =>            
-            <iframe
-              width="100%"
-              height="600px"
-              src={`${slide?.src}#toolbar=0`}
-              style={{ border: 'none' }}
-            />
-        }}
-      /> */}
-
       {renderLightbox({
         slides: slides.map((item) => ({
           src: item.src,
@@ -292,22 +288,6 @@ const BallisticChartBottom = () => {
         })),
         plugins: [Zoom],
         render: {
-          // slide: ({ slide }) => {
-          // <iframe
-          //   src={`https://docs.google.com/viewer?url=${slide.src}.pdf&embedded=true`}
-          //   width={`${slide.width}`}
-          //   height={`${slide.height}`}
-          // />,
-          // <object
-          //   data={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
-          //   type="application/pdf"
-          //   style={{width: `${slide.width}px`, height: `${slide.height}px`, maxWidth: '100%'}}
-          // >
-          //   <embed
-          //     src={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
-          //     style={{width: `${slide.width}px`, height: `${slide.height}px`, maxWidth: '100%'}}
-          //   />
-          // </object>},
           slide: pdfViewer,
           buttonPrev: () => null,
           buttonNext: () => null,
