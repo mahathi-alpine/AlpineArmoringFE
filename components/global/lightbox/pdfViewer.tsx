@@ -17,30 +17,32 @@ export default function NextJsImage({ slide }) {
   return (
     <>
       {slide.src ? (
-        <iframe ref={iframeRef} style={{ width: `100%`, height: `100vH` }}>
-          <p>It appears your web browser doesn&apos;t support iframes.</p>
-        </iframe>
-      ) : // <object
-      //   data={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
-      //   type="application/pdf"
-      //   style={{
-      //     // width: `${slide.width}px`,
-      //     // height: `${slide.height}px`,
-      //     width: 830,
-      //     height: `100vH`,
-      //     maxWidth: '100%',
-      //   }}
-      // >
-      //   <embed
-      //     src={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
-      //     style={{
-      //       width: 830,
-      //       height: `100vH`,
-      //       maxWidth: '100%',
-      //     }}
-      //   />
-      // </object>
-      null}
+        // <iframe ref={iframeRef} style={{ width: `100%`, height: `100vH` }}>
+        //   <p>It appears your web browser doesn&apos;t support iframes.</p>
+        // </iframe>
+        <object
+          // data={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
+          data={`${slide.src}`}
+          type="application/pdf"
+          style={{
+            // width: `${slide.width}px`,
+            // height: `${slide.height}px`,
+            width: 830,
+            height: `100vH`,
+            maxWidth: '100%',
+          }}
+        >
+          <embed
+            // src={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
+            src={`${slide.src}`}
+            style={{
+              width: 830,
+              height: `100vH`,
+              maxWidth: '100%',
+            }}
+          />
+        </object>
+      ) : null}
     </>
   );
 }
