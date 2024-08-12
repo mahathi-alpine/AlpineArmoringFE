@@ -32,7 +32,7 @@
     // margin-bottom: -170px;
     margin-bottom: 30px;
     &_active {
-      max-height: 90vH;
+      max-height: 90vh;
     }
   }
   @include breakpoint(large) {
