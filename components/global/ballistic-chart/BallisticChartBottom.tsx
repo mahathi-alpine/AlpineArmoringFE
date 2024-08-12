@@ -1,6 +1,11 @@
 import styles from './BallisticChartBottom.module.scss';
 import Image from 'next/image';
 
+import useLightbox from '../lightbox/useLightbox';
+import 'yet-another-react-lightbox/styles.css';
+import NextJsImage from '../lightbox/NextJsImage';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+
 const BallisticChartBottom = () => {
   const ballisticStandards = [
     {
@@ -153,6 +158,8 @@ const BallisticChartBottom = () => {
     },
   ];
 
+  const { openLightbox, renderLightbox } = useLightbox();
+
   return (
     <div className={`${styles.ballistic_bottom}`}>
       <div className={`${styles.ballistic_bottom_top}`}>
@@ -172,12 +179,30 @@ const BallisticChartBottom = () => {
           </h2>
           <button
             className={`${styles.ballistic_bottom_top_content_button}`}
-            // onClick={showChosenItems}
+            onClick={() => {
+              openLightbox();
+            }}
           >
             Discover
           </button>
         </div>
       </div>
+
+      {renderLightbox({
+        slides: [
+          {
+            src: '/assets/ballistic/Alpine-bullet-poster.jpg',
+            width: 4500,
+            height: 3000,
+          },
+        ],
+        plugins: [Zoom],
+        render: {
+          slide: NextJsImage,
+          buttonPrev: ballisticStandards.length >= 1 ? () => null : undefined,
+          buttonNext: ballisticStandards.length >= 1 ? () => null : undefined,
+        },
+      })}
 
       <div className={`${styles.ballistic_bottom_main}`}>
         <div className={`${styles.ballistic_bottom_main_item}`}>

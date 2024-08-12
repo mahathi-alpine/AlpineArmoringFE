@@ -361,7 +361,12 @@ const BallisticChart = () => {
     containerRef.current.addEventListener('touchstart', handleInteraction);
 
     return () => {
-      containerRef.current.removeEventListener('touchstart', handleInteraction);
+      if (containerRef.current) {
+        containerRef.current.removeEventListener(
+          'touchstart',
+          handleInteraction
+        );
+      }
     };
   }, [hasInteracted]);
 

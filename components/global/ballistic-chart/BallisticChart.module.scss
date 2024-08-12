@@ -955,6 +955,7 @@
         &:hover {
           & ~ .ballistic_tooltip {
             opacity: 1;
+            z-index: 2;
           }
         }
 
@@ -1431,7 +1432,6 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 15px;
-    z-index: 2;
     min-width: max-content;
     line-height: 15px;
     opacity: 0;
