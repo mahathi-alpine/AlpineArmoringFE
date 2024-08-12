@@ -1,16 +1,11 @@
 import styles from './Banner.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
-// import Link from 'next/link';
+import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
 import { useEffect, useState } from 'react';
-
-import useLightbox from 'components/global/lightbox/useLightbox';
-import 'yet-another-react-lightbox/styles.css';
-import pdfViewer from 'components/global/lightbox/pdfViewer';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 const Banner = (props) => {
   const data = props.props;
@@ -68,8 +63,6 @@ const Banner = (props) => {
     };
   };
   const { width, height } = getImageDimensions();
-
-  const { openLightbox, renderLightbox } = useLightbox();
 
   return (
     <div className={`${styles.banner}`}>
@@ -173,31 +166,18 @@ const Banner = (props) => {
         ) : null}
 
         {data.pdf?.data ? (
-          <>
-            <div
-              className={`${styles.banner_pdf}`}
-              onClick={() => {
-                openLightbox();
-              }}
-            >
-              <span>
-                <span>OEM</span>
-                <br />
-                Specs
-              </span>
-              <PDFIcon />
-            </div>
-
-            {renderLightbox({
-              slides: [{ src: data.pdf.data.attributes.url }],
-              plugins: [Zoom],
-              render: {
-                slide: pdfViewer,
-                buttonPrev: () => null,
-                buttonNext: () => null,
-              },
-            })}
-          </>
+          <Link
+            href={data.pdf.data.attributes.url}
+            target="_blank"
+            className={`${styles.banner_pdf}`}
+          >
+            <span>
+              <span>OEM</span>
+              <br />
+              Specs
+            </span>
+            <PDFIcon />
+          </Link>
         ) : null}
 
         <div className={`${styles.banner_protection}`}>

@@ -277,7 +277,6 @@
     align-items: center;
     font-size: rem(15);
     z-index: 2;
-    cursor: pointer;
 
     @include breakpoint(medium) {
       bottom: rem(50);

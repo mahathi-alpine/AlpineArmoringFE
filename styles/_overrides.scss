@@ -43,14 +43,11 @@ button.yarl__thumbnails_thumbnail {
   }
 }
 @include breakpoint(untilLarge) {
-  .yarl__container iframe {
+  .yarl__container object {
     padding-top: 80px;
   }
 }
 @include breakpoint(large) {
-  .yarl__container iframe {
-    padding-top: 50px;
-  }
   button.yarl__thumbnails_thumbnail {
     transition: transform 0.3s ease-in-out;
     height: 100px;

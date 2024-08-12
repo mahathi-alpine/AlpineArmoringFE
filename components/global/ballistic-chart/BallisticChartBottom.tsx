@@ -2,9 +2,9 @@ import styles from './BallisticChartBottom.module.scss';
 import BallisticChartBottomHeading from './BallisticChartBottomHeading';
 import { useState } from 'react';
 
-import useLightbox from 'components/global/lightbox/useLightbox';
+import useLightbox from '../lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
-import pdfViewer from 'components/global/lightbox/pdfViewer';
+import pdfViewer from '../lightbox/pdfViewer';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 const BallisticChartBottom = () => {
@@ -16,34 +16,34 @@ const BallisticChartBottom = () => {
     {
       name: 'UL',
       text: 'Underwriters Laboratories – Standards & Engagements 752',
-      url: 'https://d102sycao8uwt8.cloudfront.net/1_Underwriters_Laboratories_UL_Standards_Engagements_752_e99e91e366.pdf',
+      url: '18bbiLicM3QDSXONia4MFtK-o9Upn3xmt',
     },
     {
       name: 'CEN',
       text: 'European Committee for Standardization – BR 1063',
-      url: 'https://d102sycao8uwt8.cloudfront.net/3_European_Standard_CEN_1063_4ceb0751a9.pdf',
+      url: '18cv4OJWT7jMh5fCFNki6aB3XQ-whwBq0',
     },
     {
       name: 'DIN',
       text: 'German Institute for Standardization',
-      url: 'https://d102sycao8uwt8.cloudfront.net/4_DIN_German_Institute_for_Standardization_c4611340a5.pdf',
+      url: '18dFPahm2n-93fu_Q0etg0GEbYVngvULn',
     },
     {
       name: 'STANAG',
       text: 'Standardization Agreement by NATO - 4569',
       smallText:
         'Protection Levels for Occupants of Logistic and Light Armored Vehicles',
-      url: 'https://d102sycao8uwt8.cloudfront.net/5_NATO_AEP_55_STANAG_4569_1519d2b880.pdf',
+      url: '18fZmfyArn0l1doYRinPLxqJyrqOMUKeO',
     },
     {
       name: 'VPAM',
       text: 'Association of Testing Centers for Attack-Resistant Materials and Constructions',
-      url: 'https://d102sycao8uwt8.cloudfront.net/6_VPAM_BRV_1_e855007558.pdf',
+      url: '18i41IlKUMbTbXVFjbGZngPTmQOa3zPa1',
     },
     {
       name: 'OTHER',
       text: 'Internationally Recognized Ballistic Testing Standards (for reference)',
-      url: 'https://d102sycao8uwt8.cloudfront.net/7_Other_common_Protection_Standards_table_cb14682ba5.pdf',
+      url: '18gpmBavwGIfHaRLPzre0GbsWr_86NS8F',
     },
   ];
 
