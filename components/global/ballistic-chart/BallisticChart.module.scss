@@ -29,7 +29,11 @@
   @include breakpoint(untilDesktop) {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: -170px;
+    // margin-bottom: -170px;
+    margin-bottom: 30px;
+    &_active {
+      max-height: 90vH;
+    }
   }
   @include breakpoint(large) {
     margin: auto;
@@ -49,10 +53,9 @@
       // transition: max-height .3s ease-in-out;
       // height: 950px;
       // max-height: 725px;
-      &_active {
-        height: 950px;
-      }
-      // height: 950px;
+      // &_active {
+      //   height: 950px;
+      // }
     }
   }
 
@@ -81,7 +84,7 @@
       padding-right: 33px;
       background-size: 100%;
       // width: 1874px;
-      height: 846px;
+      // height: 846px;
     }
 
     @include breakpoint(large) {

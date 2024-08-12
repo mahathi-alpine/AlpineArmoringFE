@@ -325,7 +325,10 @@ const BallisticChart = () => {
         // const isChartAtTheTop = chartTopOffset.top <= 0;
 
         if (window.pageYOffset > 100) {
-          tableRef.current.classList.add(styles.ballistic_table_active);
+          // tableRef.current.classList.add(styles.ballistic_table_active);
+          document
+            .querySelector(`.${styles.ballistic}`)
+            .classList.add(styles.ballistic_active);
         }
 
         // if (window.pageYOffset >= 300 && window.pageYOffset < 580) {
