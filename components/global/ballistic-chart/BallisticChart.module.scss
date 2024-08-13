@@ -301,16 +301,26 @@
         }
       }
 
+      &:nth-child(5),
+      &:nth-child(6),
+      &:nth-child(8),
+      &:nth-child(9) {
+        @include breakpoint(large) {
+          font-family: Termina;
+          font-size: clamp(0.625rem, 0rem + 0.7813vw, 0.9375rem);
+        }
+      }
+
       &:nth-child(5) {
         @include breakpoint(untilLarge) {
           order: 1;
         }
         @include breakpoint(large) {
           transform: rotate(-6deg);
-          top: -0.417vw;
+          top: -0.26vw;
         }
         @include breakpoint(max) {
-          top: -8px;
+          top: -5px;
         }
       }
 
@@ -322,10 +332,10 @@
         }
         @include breakpoint(large) {
           transform: rotate(-2deg);
-          top: -0.833vw;
+          top: -0.677vw;
         }
         @include breakpoint(max) {
-          top: -16px;
+          top: -13px;
         }
       }
 
@@ -343,13 +353,23 @@
         }
 
         @include breakpoint(large) {
-          top: -1.354vw;
-          left: -0.104vw;
+          top: -1.198vw;
+          left: -0.729vw;
+          font-family: Termina;
+          color: #efd585;            
+            text-shadow:
+            1px 2px 2px #000,
+            0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+            0px 4.235px 6.841px #000;
+
+          &:before, &:after{
+            display: none;
+          }
         }
 
         @include breakpoint(max) {
-          top: -26px;
-          left: -2px;
+          top: -23px;
+          left: -14px;
         }
 
         &:after {
@@ -390,10 +410,12 @@
         }
         @include breakpoint(large) {
           transform: rotate(2deg);
-          top: -0.833vw;
+          top: -0.677vw;
+          left: -1.51vw;
         }
         @include breakpoint(max) {
-          top: -16px;
+          left: -29px;
+          top: -13px;
         }
       }
 
@@ -405,10 +427,12 @@
         }
         @include breakpoint(large) {
           transform: rotate(6deg);
-          top: -0.417vw;
+          top: -0.26vw;
+          left: -1.771vw;
         }
         @include breakpoint(max) {
-          top: -8px;
+          top: -5px;
+          left: -34px;
         }
       }
 
@@ -416,6 +440,12 @@
         @include breakpoint(untilLarge) {
           width: 113px;
           left: 10px;
+        }
+        @include breakpoint(large) {
+          margin-left: -1.771vw;
+        }
+        @include breakpoint(max) {
+          margin-left: -34px;
         }
       }
 
@@ -701,8 +731,8 @@
           width: 57px;
         }
         @include breakpoint(large) {
-          width: 4.271vw;
-          max-width: 82px;
+          width: 3.385vw;
+          max-width: 65px;
         }
       }
       &:nth-child(6) {
@@ -710,8 +740,8 @@
           width: 73px;
         }
         @include breakpoint(large) {
-          width: 3.646vw;
-          max-width: 70px;
+          width: 4.167vw;
+          max-width: 80px;
         }
       }
       &:nth-child(8) {
@@ -720,8 +750,8 @@
           left: -18px;
         }
         @include breakpoint(large) {
-          width: 4.479vw;
-          max-width: 86px;
+          width: 4.948vw;
+          max-width: 95px;
         }
       }
       &:nth-child(9) {
@@ -736,8 +766,8 @@
           left: -12px;
         }
         @include breakpoint(large) {
-          width: 3.438vw;
-          max-width: 66px;
+          width: 3.281vw;
+          max-width: 63px;
         }
       }
       &:nth-child(10) {
@@ -792,7 +822,8 @@
           margin-left: auto;
         }
         @include breakpoint(max) {
-          width: 256px;
+          width: 270px;
+          max-width: unset;
         }
       }
       thead & {
@@ -840,7 +871,11 @@
           font-weight: 700;
 
           .ballistic_row_item_text{
-            color: #efd585;
+            color: #efd585;            
+            text-shadow:
+            1px 2px 2px #000,
+            0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+            0px 4.235px 6.841px #000;
           }
 
           &:after {
@@ -1302,7 +1337,7 @@
           width: 12.2vw;
         }
         @include breakpoint(max) {
-          width: 256px;
+          width: 270px;
         }
       }
     }
@@ -1401,7 +1436,7 @@
 
           &::after {
             transform: translateX(24px);
-            @include breakpoint(large) {
+            @media (min-width: 1280px) and (max-width: 1920px) {
               transform: translateX(1.25vw);
             }
           }
