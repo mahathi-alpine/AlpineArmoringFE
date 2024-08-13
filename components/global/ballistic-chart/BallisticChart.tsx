@@ -569,16 +569,10 @@ const BallisticChart = () => {
                     }
                 `}
                 >
-                  <span
-                    data-text="A"
-                    className={`${styles.ballistic_row_item_text}`}
-                  >
-                    A
-                  </span>
+                  <span className={`${styles.ballistic_row_item_text}`}>A</span>
                   {item.level.map((listItem, spanIndex) => (
                     <span
                       key={spanIndex}
-                      data-text={listItem}
                       className={`${styles.ballistic_row_item_text}`}
                     >
                       {listItem}

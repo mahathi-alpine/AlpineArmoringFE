@@ -437,9 +437,9 @@
         color: transparent;
         text-shadow: none;
 
-        @include breakpoint(untilLarge) {
-          width: 104px;
-        }
+        // @include breakpoint(untilLarge) {
+        //   width: 104px;
+        // }
         // @include breakpoint(large) {
         //   left: 1.875vw;
         // }
@@ -743,7 +743,7 @@
       &:nth-child(10) {
         @include breakpoint(untilLarge) {
           width: 100px;
-          margin-left: 60px;
+          margin-left: 75px;
         }
         @include breakpoint(large) {
           width: 6.24vw;
@@ -770,7 +770,7 @@
       }
       &:nth-child(13) {
         @include breakpoint(untilLarge) {
-          width: 100px;
+          width: 85px;
         }
         @include breakpoint(large) {
           width: 5.833vw;
@@ -839,6 +839,10 @@
           font-family: 'Termina';
           font-weight: 700;
 
+          .ballistic_row_item_text{
+            color: #efd585;
+          }
+
           &:after {
             position: absolute;
             content: '';
@@ -859,24 +863,26 @@
           }
 
           .ballistic_row_item_text {
-            font-size: 20px;
+            font-size: 22px;
             @media (min-width: 1280px) and (max-width: 1920px) {
-              font-size: clamp(0.875rem, 0.125rem + 0.9375vw, 1.25rem);
+              font-size: clamp(0.875rem, -0.125rem + 1.25vw, 1.375rem);
             }
             line-height: 18px;
 
             &:after {
-              background-image: linear-gradient(
-                180deg,
-                #f6e1a6 26.42%,
-                #a88c34 73.58%
-              );
+              display: none;
+              // background-image: linear-gradient(
+              //   180deg,
+              //   #f6e1a6 26.42%,
+              //   #a88c34 73.58%
+              // );
             }
             &:before {
-              text-shadow:
-                1px 2px 2px #000,
-                0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-                0px 4.235px 6.841px #000;
+              display: none;
+              // text-shadow:
+              //   1px 2px 2px #000,
+              //   0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+              //   0px 4.235px 6.841px #000;
             }
           }
 
@@ -889,7 +895,7 @@
               &:nth-child(2),
               &:nth-child(3) {
                 position: absolute;
-                right: 25px;
+                right: 24px;
                 top: 10px;
                 font-size: 10px;
                 @media (min-width: 1280px) and (max-width: 1920px) {
