@@ -31,7 +31,7 @@ const BallisticChart = () => {
       weight: ['124 grains', '15.55 grams'],
       type: ['FMJ /RN'],
       typeFull: ['Full Metal Jacket / Round Nose'],
-      velocity: ['1,075 ft/s (328 m/s)'],
+      velocity: ['1,305 ft/s (398 m/s)'],
     },
     {
       name: ['.357 Magnum'],
@@ -68,7 +68,7 @@ const BallisticChart = () => {
       stanag: '-',
       ul: '4',
       level: ['S', 'G'],
-      nij: 'IIIA',
+      nij: 'HG2+',
       cen: 'SG2',
       weight: ['436 grains', '28.25 grams'],
       type: ['Slug'],
@@ -114,7 +114,7 @@ const BallisticChart = () => {
       weight: ['56 grains', '3.63 grams'],
       type: ['FMJ/BT'],
       typeFull: ['Full Metal Jacket / Boattail Bullet'],
-      velocity: ['3,080 ft/s (940 m/s)'],
+      velocity: ['3,210 ft/s (978 m/s)'],
     },
     {
       name: ['M4/M16'],
@@ -125,10 +125,10 @@ const BallisticChart = () => {
       level: ['8'],
       nij: 'RF1',
       cen: 'BR5',
-      weight: ['56 grains', '3.63 grams'],
+      weight: ['62 grains', '4 grams'],
       type: ['FMJ/BT'],
       typeFull: ['Full Metal Jacket / Boattail Bullet'],
-      velocity: ['2,950 ft/s (900 m/s)'],
+      velocity: ['3,110 ft/s (948 m/s)'],
     },
     {
       name: ['Remington 700'],
@@ -187,10 +187,10 @@ const BallisticChart = () => {
       name: ['Barrett'],
       caliber: ['.50 BMG (12.7 x 99mm)'],
       class: ['Rifle'],
-      stanag: '-',
+      stanag: 'III+',
       ul: '10+',
       level: ['12'],
-      nij: 'N/A',
+      nij: 'RF3+',
       cen: 'BR7+',
       weight: ['661 grains', '42.83 grams'],
       type: ['FMJ/Ball'],
@@ -349,28 +349,30 @@ const BallisticChart = () => {
   }, []);
 
   useEffect(() => {
-    const handleInteraction = () => {
-      if (!hasInteracted) {
-        if (window.pageYOffset > 100) {
-          setHasInteracted(true);
+    if (window.innerWidth < 1280) {
+      const handleInteraction = () => {
+        if (!hasInteracted) {
+          if (window.pageYOffset > 100) {
+            setHasInteracted(true);
+          }
+        } else {
+          interactedPopupRef.current.classList.add(
+            `${styles.ballistic_popup_interact_disable}`
+          );
         }
-      } else {
-        interactedPopupRef.current.classList.add(
-          `${styles.ballistic_popup_interact_disable}`
-        );
-      }
-    };
+      };
 
-    containerRef.current.addEventListener('touchstart', handleInteraction);
+      containerRef.current.addEventListener('touchstart', handleInteraction);
 
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener(
-          'touchstart',
-          handleInteraction
-        );
-      }
-    };
+      return () => {
+        if (containerRef.current) {
+          containerRef.current.removeEventListener(
+            'touchstart',
+            handleInteraction
+          );
+        }
+      };
+    }
   }, [hasInteracted]);
 
   return (
@@ -531,11 +533,7 @@ const BallisticChart = () => {
                     <span
                       key={spanIndex}
                       data-text={listItem}
-                      className={`${styles.ballistic_row_item_text} ${
-                        item.class.length > 1
-                          ? styles.ballistic_row_item_text_small
-                          : ''
-                      }`}
+                      className={`${styles.ballistic_row_item_text}`}
                     >
                       {listItem}
                     </span>

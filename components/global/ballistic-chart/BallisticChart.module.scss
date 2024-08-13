@@ -82,7 +82,7 @@
       padding-bottom: 24px;
       padding-right: 33px;
       background-size: 100%;
-      z-index: 8;
+      z-index: 5;
       // width: 1874px;
       // height: 846px;
     }
@@ -133,8 +133,8 @@
       &:first-child {
         @include breakpoint(untilDesktop) {
           order: 0;
-          left: 163px;
-          top: 27px;
+          left: 150px;
+          top: 25px;  
         }
 
         @include breakpoint(large) {
@@ -157,8 +157,8 @@
         }
 
         @include breakpoint(large) {
-          left: 5.729vw;
-          top: 1.5vw;
+          left: 6vw;
+          top: 1.65vw;
 
           img {
             width: 10.42vw;
@@ -167,24 +167,24 @@
         }
 
         @include breakpoint(max) {
-          left: 110px;
-          top: 28px;
+          left: 115px;
+          top: 32px;
         }
       }
 
       &:nth-child(3) {
         @include breakpoint(untilDesktop) {
           order: 1;
-          left: 17px;
+          left: 10px;
         }
 
         @include breakpoint(large) {
-          left: 7.552vw;
+          left: 7.4vw;
           top: -1.6vw;
         }
 
         @include breakpoint(max) {
-          left: 145px;
+          left: 142px;
           top: -30px;
         }
 
@@ -198,16 +198,16 @@
 
       &:nth-child(4) {
         @include breakpoint(untilDesktop) {
-          left: 20px;
+          left: -50px;
         }
 
         @include breakpoint(large) {
           left: 1.875vw;
-          top: -0.5vw;
+          top: -0.4vw;
         }
         @include breakpoint(max) {
           left: 36px;
-          top: -9px;
+          top: -7.6px;
         }
         img {
           max-width: 380px;
@@ -223,11 +223,11 @@
         }
         @include breakpoint(large) {
           left: -3.281vw;
-          top: 1.667vw;
+          top: 1.1vw;
         }
         @include breakpoint(max) {
           left: -63px;
-          top: 32px;
+          top: 21px;
         }
         img {
           max-width: 127px;
@@ -297,7 +297,7 @@
 
       &:nth-child(4) {
         @include breakpoint(untilLarge) {
-          width: 122px;
+          width: 68px;
         }
       }
 
@@ -401,7 +401,7 @@
         @include breakpoint(untilLarge) {
           order: 1;
           width: 74px;
-          left: -9px;
+          left: -2px;
         }
         @include breakpoint(large) {
           transform: rotate(6deg);
@@ -414,14 +414,20 @@
 
       &:nth-child(10) {
         @include breakpoint(untilLarge) {
-          width: 123px;
+          width: 113px;
           left: 10px;
+        }
+      }
+
+      &:nth-child(11) {
+        @include breakpoint(untilLarge) {
+          left: 2px;
         }
       }
 
       &:nth-child(12) {
         @include breakpoint(untilLarge) {
-          width: 167px;
+          width: 155px;
         }
       }
 
@@ -432,7 +438,7 @@
         text-shadow: none;
 
         @include breakpoint(untilLarge) {
-          width: 130px;
+          width: 104px;
         }
         // @include breakpoint(large) {
         //   left: 1.875vw;
@@ -683,7 +689,7 @@
       }
       &:nth-child(4) {
         @include breakpoint(untilLarge) {
-          width: 152px;
+          width: 100px;
         }
         @include breakpoint(large) {
           width: 7.917vw;
@@ -714,26 +720,33 @@
           left: -18px;
         }
         @include breakpoint(large) {
-          width: 3.49vw;
-          max-width: 67px;
+          width: 4.479vw;
+          max-width: 86px;
         }
       }
       &:nth-child(9) {
+        text-align: left;
+        .ballistic_row_item_text:before, 
+        .ballistic_row_item_text:after{
+          text-align: left;
+        }
+        
         @include breakpoint(untilLarge) {
           width: 54px;
           left: -12px;
         }
         @include breakpoint(large) {
-          width: 4.479vw;
-          max-width: 86px;
+          width: 3.438vw;
+          max-width: 66px;
         }
       }
       &:nth-child(10) {
         @include breakpoint(untilLarge) {
-          width: 108px;
+          width: 100px;
+          margin-left: 60px;
         }
         @include breakpoint(large) {
-          width: 6.2vw;
+          width: 6.24vw;
           max-width: 110px;
         }
       }
@@ -742,17 +755,17 @@
           width: 138px;
         }
         @include breakpoint(large) {
-          width: 6.667vw;
-          max-width: 128px;
+          width: 6.25vw;
+          max-width: 120px;
         }
       }
       &:nth-child(12) {
         @include breakpoint(untilLarge) {
-          width: 184px;
+          width: 150px;
         }
         @include breakpoint(large) {
-          width: 8.6vw;
-          max-width: 170px;
+          width: 8.56vw;
+          max-width: 162px;
         }
       }
       &:nth-child(13) {
@@ -762,7 +775,6 @@
         @include breakpoint(large) {
           width: 5.833vw;
           max-width: 112px;
-          margin-left: auto;
           margin-right: -0.521vw;
           @include breakpoint(max) {
             margin-right: -10px;
@@ -771,12 +783,16 @@
       }
       &:nth-child(14) {
         @include breakpoint(untilLarge) {
-          width: 215px;
+          width: 269px;
+          margin-left: -20px;
         }
         @include breakpoint(large) {
-          width: 11vw;
-          max-width: 232px;
+          width: 12.21vW;
+          max-width: 255px;
           margin-left: auto;
+        }
+        @include breakpoint(max) {
+          width: 256px;
         }
       }
       thead & {
@@ -946,7 +962,7 @@
         display: block;
         position: relative;
         text-align: center;
-        line-height: 14px;
+        line-height: 15px;
         letter-spacing: 0.48px;
         color: transparent;
         z-index: 1;
@@ -1062,7 +1078,7 @@
         }
       }
       .ballistic_bullets img {
-        width: 118px;
+        width: 120px;
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 6.146vw;
         }
@@ -1077,9 +1093,12 @@
         }
       }
       .ballistic_bullets img {
-        width: 133px;
+        width: 125px;
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 6.927vw;
+          width: 6.25vw;
+        }
+        @include breakpoint(max) {
+          width: 120px;
         }
       }
     }
@@ -1097,7 +1116,10 @@
           top: 2px;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 8.125vw;
+          width: 7.188vw;
+        }
+        @include breakpoint(max) {
+          width: 138px;
         }
       }
     }
@@ -1110,12 +1132,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 132px;
+        width: 140px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 7.552vw;
+          width: 6.771vw;
+        }
+        @include breakpoint(max) {
+          width: 130px;
         }
       }
     }
@@ -1128,12 +1153,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 140px;
+        width: 145px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 6.823vw;
+          width: 6.771vw;
+        }
+        @include breakpoint(max) {
+          width: 130px;
         }
       }
     }
@@ -1146,12 +1174,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 144px;
+        width: 135px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 8.177vw;
+          width: 6.25vw;
+        }
+        @include breakpoint(max) {
+          width: 120px;
         }
       }
     }
@@ -1164,12 +1195,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 140px;
+        width: 120px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 8.177vw;
+          width: 5.885vw;
+        }
+        @include breakpoint(max) {
+          width: 113px;
         }
       }
     }
@@ -1185,12 +1219,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 172px;
+        width: 170px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 9.948vw;
+          width: 7.552vw;
+        }
+        @include breakpoint(max) {
+          width: 145px;
         }
       }
     }
@@ -1206,12 +1243,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 188px;
+        width: 140px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 10.781vw;
+          width: 6.406vw;
+        }
+        @include breakpoint(max) {
+          width: 123px;
         }
       }
     }
@@ -1227,12 +1267,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 195px;
+        width: 170px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 10.781vw;
+          width: 7.552vw;
+        }
+        @include breakpoint(max) {
+          width: 145px;
         }
       }
     }
@@ -1245,12 +1288,15 @@
         }
       }
       .ballistic_bullets img {
-        width: 224px;
+        width: 269px;
         @include breakpoint(untilLarge) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 12.083vw;
+          width: 12.2vw;
+        }
+        @include breakpoint(max) {
+          width: 256px;
         }
       }
     }
