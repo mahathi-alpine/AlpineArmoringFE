@@ -134,7 +134,7 @@
         @include breakpoint(untilDesktop) {
           order: 0;
           left: 150px;
-          top: 25px;  
+          top: 25px;
         }
 
         @include breakpoint(large) {
@@ -726,11 +726,11 @@
       }
       &:nth-child(9) {
         text-align: left;
-        .ballistic_row_item_text:before, 
-        .ballistic_row_item_text:after{
+        .ballistic_row_item_text:before,
+        .ballistic_row_item_text:after {
           text-align: left;
         }
-        
+
         @include breakpoint(untilLarge) {
           width: 54px;
           left: -12px;
@@ -787,7 +787,7 @@
           margin-left: -20px;
         }
         @include breakpoint(large) {
-          width: 12.21vW;
+          width: 12.21vw;
           max-width: 255px;
           margin-left: auto;
         }
