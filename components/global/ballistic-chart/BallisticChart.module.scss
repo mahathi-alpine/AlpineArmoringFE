@@ -437,15 +437,15 @@
         color: transparent;
         text-shadow: none;
 
-        // @include breakpoint(untilLarge) {
-        //   width: 104px;
-        // }
-        // @include breakpoint(large) {
-        //   left: 1.875vw;
-        // }
-        // @include breakpoint(max) {
-        //   left: 36px;
-        // }
+        @include breakpoint(untilLarge) {
+          width: 104px;
+        }
+        @include breakpoint(large) {
+          left: 0.677vw;
+        }
+        @include breakpoint(max) {
+          left: 13px;
+        }
 
         &:after {
           background-image: linear-gradient(
@@ -743,7 +743,7 @@
       &:nth-child(10) {
         @include breakpoint(untilLarge) {
           width: 100px;
-          margin-left: 75px;
+          margin-left: 60px;
         }
         @include breakpoint(large) {
           width: 6.24vw;
@@ -770,7 +770,7 @@
       }
       &:nth-child(13) {
         @include breakpoint(untilLarge) {
-          width: 85px;
+          width: 100px;
         }
         @include breakpoint(large) {
           width: 5.833vw;
