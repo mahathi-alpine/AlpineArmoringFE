@@ -468,7 +468,14 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_row_item}`}>Name</div>
               <div className={`${styles.ballistic_row_item}`}>Caliber</div>
               <div className={`${styles.ballistic_row_item}`}>Class</div>
-              <div className={`${styles.ballistic_row_item}`}>Stanag</div>
+              <div className={`${styles.ballistic_row_item}`}>
+                <span>S</span>
+                <span>t</span>
+                <span>a</span>
+                <span>n</span>
+                <span>a</span>
+                <span>g</span>
+              </div>
               <div className={`${styles.ballistic_row_item}`}>UL</div>
               <div className={`${styles.ballistic_row_item}`}>Alpine</div>
               <div className={`${styles.ballistic_row_item}`}>Nij</div>

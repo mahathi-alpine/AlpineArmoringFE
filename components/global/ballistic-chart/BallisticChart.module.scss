@@ -269,6 +269,11 @@
       @include breakpoint(large) {
         font-size: clamp(0.75rem, 0rem + 0.9375vw, 1.125rem);
         margin-bottom: -0.365vw;
+
+        span{
+          position: relative;
+          display: inline-block;
+        }
       }
       @include breakpoint(max) {
         margin-bottom: -7px;
@@ -316,12 +321,35 @@
           order: 1;
         }
         @include breakpoint(large) {
-          transform: rotate(-6deg);
-          top: -0.26vw;
+          // top: -0.26vw;
+          // width: 4.271vW;
+          // max-width: 82px;
+          display: flex;
+
+          span{
+            &:first-child{
+              transform: rotate(-14deg);
+            }
+            &:nth-child(2){
+              transform: rotate(-10deg) translate(0px, -2.5px);
+            }
+            &:nth-child(3){
+              transform: rotate(-10deg) translate(0px, -4px);
+            }
+            &:nth-child(4){
+              transform: rotate(-9deg) translate(0px, -6px);
+            }
+            &:nth-child(5){
+              transform: rotate(-7deg) translate(0px, -7px);
+            }
+            &:nth-child(6){
+              transform: rotate(-7deg) translate(0px, -8px);
+            }
+          }
         }
-        @include breakpoint(max) {
-          top: -5px;
-        }
+        // @include breakpoint(max) {
+        //   top: -5px;
+        // }
       }
 
       &:nth-child(6) {
@@ -767,7 +795,7 @@
         }
         @include breakpoint(large) {
           width: 3.281vw;
-          max-width: 63px;
+          max-width: 66px;
         }
       }
       &:nth-child(10) {
@@ -777,7 +805,7 @@
         }
         @include breakpoint(large) {
           width: 6.24vw;
-          max-width: 110px;
+          max-width: 116px;
         }
       }
       &:nth-child(11) {
