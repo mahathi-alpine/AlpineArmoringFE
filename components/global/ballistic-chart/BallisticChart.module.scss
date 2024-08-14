@@ -270,7 +270,7 @@
         font-size: clamp(0.75rem, 0rem + 0.9375vw, 1.125rem);
         margin-bottom: -0.365vw;
 
-        span{
+        span {
           position: relative;
           display: inline-block;
         }
@@ -326,24 +326,24 @@
           // max-width: 82px;
           display: flex;
 
-          span{
-            &:first-child{
+          span {
+            &:first-child {
               transform: rotate(-14deg);
             }
-            &:nth-child(2){
-              transform: rotate(-10deg) translate(0px, -2.5px);
+            &:nth-child(2) {
+              transform: rotate(-8deg) translate(0px, -1.5px);
             }
-            &:nth-child(3){
-              transform: rotate(-10deg) translate(0px, -4px);
+            &:nth-child(3) {
+              transform: rotate(-10deg) translate(0px, -3.5px);
             }
-            &:nth-child(4){
-              transform: rotate(-9deg) translate(0px, -6px);
+            &:nth-child(4) {
+              transform: rotate(-9deg) translate(0px, -5.5px);
             }
-            &:nth-child(5){
-              transform: rotate(-7deg) translate(0px, -7px);
+            &:nth-child(5) {
+              transform: rotate(-6deg) translate(0px, -7px);
             }
-            &:nth-child(6){
-              transform: rotate(-7deg) translate(0px, -8px);
+            &:nth-child(6) {
+              transform: rotate(-7deg) translate(0px, -9px);
             }
           }
         }
@@ -369,7 +369,7 @@
 
       &:nth-child(7) {
         position: relative;
-        font-size: clamp(1rem, 0rem + 1.25vw, 1.5rem);
+        font-size: clamp(0.875rem, 0rem + 1.0938vw, 1.3125rem);
         letter-spacing: -0.68px;
         color: transparent;
         text-shadow: none;
@@ -381,23 +381,24 @@
         }
 
         @include breakpoint(large) {
-          top: -1.198vw;
-          left: -0.729vw;
+          top: -1.042vw;
+          left: -0.521vw;
           font-family: Termina;
-          color: #efd585;            
-            text-shadow:
+          color: #efd585;
+          text-shadow:
             1px 2px 2px #000,
             0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
             0px 4.235px 6.841px #000;
 
-          &:before, &:after{
+          &:before,
+          &:after {
             display: none;
           }
         }
 
         @include breakpoint(max) {
-          top: -23px;
-          left: -14px;
+          top: -20px;
+          left: -10px;
         }
 
         &:after {
@@ -439,11 +440,11 @@
         @include breakpoint(large) {
           transform: rotate(2deg);
           top: -0.677vw;
-          left: -1.51vw;
+          left: -0.938vw;
         }
         @include breakpoint(max) {
           left: -29px;
-          top: -13px;
+          top: -18px;
         }
       }
 
@@ -456,11 +457,11 @@
         @include breakpoint(large) {
           transform: rotate(6deg);
           top: -0.26vw;
-          left: -1.771vw;
+          left: -0.885vw;
         }
         @include breakpoint(max) {
           top: -5px;
-          left: -34px;
+          left: -17px;
         }
       }
 
@@ -898,12 +899,12 @@
           font-family: 'Termina';
           font-weight: 700;
 
-          .ballistic_row_item_text{
-            color: #efd585;            
+          .ballistic_row_item_text {
+            color: #efd585;
             text-shadow:
-            1px 2px 2px #000,
-            0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
-            0px 4.235px 6.841px #000;
+              1px 2px 2px #000,
+              0px 5.6px 50.4px rgba(0, 0, 0, 0.5),
+              0px 4.235px 6.841px #000;
           }
 
           &:after {
