@@ -143,7 +143,7 @@
     &_sold {
       position: absolute;
       bottom: 50%; /* Start from the vertical center */
-      left: 50%;   /* Start from the horizontal center */
+      left: 50%; /* Start from the horizontal center */
       transform: translate(-50%, 50%) rotate(-35deg); /* Move back to the true center and rotate */
       transform-origin: center; /* Rotate around the center of the text */
       font-weight: var(--font-medium);

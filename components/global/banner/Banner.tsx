@@ -201,7 +201,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
                     <h1
                       className={`${styles.banner_title}`}
                       dangerouslySetInnerHTML={{ __html: bannerTitle }}
-                      style={{ marginTop: '30px' }}
+                      style={{ marginTop: '1.5rem' }}
                     ></h1>
                   ) : null}
                 </div>

@@ -26,9 +26,9 @@
     }
   }
 
-  &:not(.header_navOpen):not(.header.up):not(.header.down):not(.header_transparent):not(
-      .header_homepage
-    ) {
+  &:not(.header_navOpen):not(.header.up):not(.header.down):not(
+      .header_transparent
+    ):not(.header_homepage) {
     --color-white: var(--color-dark);
 
     .header_logo path,
