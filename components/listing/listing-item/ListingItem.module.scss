@@ -118,7 +118,7 @@
 
   &_label {
     position: absolute;
-    bottom: 10%;
+    bottom: 0;
     left: 0;
     right: 0;
     // transform: translateY(-50%);
@@ -140,8 +140,22 @@
       }
     }
 
-    &_sold span {
-      color: #cab996;
+    &_sold {
+      position: absolute;
+      bottom: 50%; /* Start from the vertical center */
+      left: 50%;   /* Start from the horizontal center */
+      transform: translate(-50%, 50%) rotate(-35deg); /* Move back to the true center and rotate */
+      transform-origin: center; /* Rotate around the center of the text */
+      font-weight: var(--font-medium);
+      text-transform: uppercase;
+      text-align: center;
+      transition: opacity 0.3s ease;
+
+      span {
+        color: #710000;
+        font-size: rem(40);
+        text-shadow: 2px 2px 2px #c5b9a0;
+      }
     }
   }
 

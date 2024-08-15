@@ -128,7 +128,7 @@ const Article = ({
                               }
                             >
                               <div className={`${styles.article_region}`}>
-                                {item.attributes.region}
+                                United States
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
@@ -184,19 +184,6 @@ const Article = ({
                                   '0 4px 30px 0 #e8e5e2')
                               }
                             >
-                              <div className={`${styles.article_region}`}>
-                                {item.attributes.region}
-                              </div>
-                              <div className={`${styles.article_flag}`}>
-                                <Image
-                                  src={`/assets/places/${item.attributes.excerpt
-                                    .toLowerCase()
-                                    .replace(/\s+/g, '-')}.png`}
-                                  alt={item.attributes.excerpt}
-                                  width={45}
-                                  height={26}
-                                />
-                              </div>
                               <div className={`${styles.article_country}`}>
                                 <h2>{item.attributes.excerpt}</h2>
                               </div>

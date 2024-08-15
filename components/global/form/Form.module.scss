@@ -120,14 +120,14 @@
       border-radius: 6px;
       margin-top: 26px;
       padding: 0 20px;
-      max-height: 180px;
+      max-height: 330px;
       overflow-y: auto;
       transition: 0.2s ease-in-out;
       height: 0;
       z-index: 1;
 
       &_active {
-        height: 180px;
+        height: fit-content;
       }
 
       &::-webkit-scrollbar {

@@ -26,7 +26,7 @@
     }
   }
 
-  &:not(.header_navOpen):not(.header.up):not(.header_transparent):not(
+  &:not(.header_navOpen):not(.header.up):not(.header.down):not(.header_transparent):not(
       .header_homepage
     ) {
     --color-white: var(--color-dark);
@@ -49,8 +49,11 @@
     }
   }
 
-  &.down {
-    transform: translateY(-100px);
+  // &.down {
+  //   transform: translateY(-100px);
+  // }
+  &.down:not(.header_navOpen) {
+    background: var(--color-dark);
   }
   &.up:not(.header_navOpen) {
     background: var(--color-dark);

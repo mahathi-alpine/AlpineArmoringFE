@@ -179,6 +179,17 @@ const Autoplay: React.FC<AutoplayProps> = ({
                     </div>
                   </>
                 ) : null}
+
+                {index === 0 && slides.length > 1 && (
+                  <div>
+                    <Image
+                      src="/assets/alpine-shield.png"
+                      alt={'Alpine Shield'}
+                      fill
+                      className={styles.carouselCurved_shield}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>

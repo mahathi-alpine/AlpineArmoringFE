@@ -60,18 +60,29 @@ export async function getStaticProps() {
   });
   pageData = pageData?.data?.attributes || null;
 
-  let posts = await getPageData({
-    route: 'articles',
-    populate: 'deep',
-    sort: 'excerpt',
-    pageSize: 200,
-  });
-  posts = posts?.data || null;
+  const pageSize = 100;
+  let allPosts = [];
+  let page = 1;
+  let totalPages = 1;
+
+  while (page <= totalPages) {
+    const response = await getPageData({
+      route: 'articles',
+      populate: 'deep',
+      sort: 'excerpt',
+      pageSize: pageSize,
+      page: page,
+    });
+    const posts = response?.data || [];
+    allPosts = [...allPosts, ...posts];
+    totalPages = response?.meta?.pagination?.pageCount || 1;
+    page++;
+  }
 
   const seoData = pageData?.seo || null;
 
   return {
-    props: { pageData, posts, seoData },
+    props: { pageData, posts: allPosts, seoData },
   };
 }
 

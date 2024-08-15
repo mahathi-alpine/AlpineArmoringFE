@@ -180,4 +180,11 @@
       right: rem(16);
     }
   }
+
+  &_shield {
+    display: block;
+    max-width: 30px;
+    max-height: 31px;
+    margin: auto 3px;
+  }
 }
