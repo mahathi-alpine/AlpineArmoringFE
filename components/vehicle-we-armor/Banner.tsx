@@ -1,11 +1,15 @@
 import styles from './Banner.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
-import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
 import { useEffect, useState } from 'react';
+
+import useLightbox from 'components/global/lightbox/useLightbox';
+import 'yet-another-react-lightbox/styles.css';
+import pdfPopup from 'components/global/lightbox/pdfPopup';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 const Banner = (props) => {
   const data = props.props;
@@ -63,6 +67,9 @@ const Banner = (props) => {
     };
   };
   const { width, height } = getImageDimensions();
+
+  const { openLightbox, renderLightbox } = useLightbox();
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   return (
     <div className={`${styles.banner}`}>
@@ -166,9 +173,11 @@ const Banner = (props) => {
         ) : null}
 
         {data.pdf?.data ? (
-          <Link
-            href={data.pdf.data.attributes.url}
-            target="_blank"
+          <div
+            onClick={() => {
+              setSelectedIndex(data.pdf.data.attributes.url);
+              openLightbox();
+            }}
             className={`${styles.banner_pdf}`}
           >
             <span>
@@ -177,7 +186,7 @@ const Banner = (props) => {
               Specs
             </span>
             <PDFIcon />
-          </Link>
+          </div>
         ) : null}
 
         <div className={`${styles.banner_protection}`}>
@@ -203,6 +212,15 @@ const Banner = (props) => {
       <div
         className={`${styles.banner_shape} shape-before shape-before-white`}
       ></div>
+      {renderLightbox({
+        slides: [{ src: selectedIndex }],
+        plugins: [Zoom],
+        render: {
+          slide: pdfPopup,
+          buttonPrev: () => null,
+          buttonNext: () => null,
+        },
+      })}
     </div>
   );
 };

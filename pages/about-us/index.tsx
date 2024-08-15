@@ -1,15 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getPageData } from 'lib/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
-import Link from 'next/link';
 import PDFIcon from 'components/icons/PDF';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
 import Autoplay from 'components/global/carousel/Autoplay';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Counter from 'components/global/counter/Counter';
+
+import useLightbox from 'components/global/lightbox/useLightbox';
+import 'yet-another-react-lightbox/styles.css';
+import pdfPopup from 'components/global/lightbox/pdfPopup';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 function About(props) {
   const boxes = props?.pageData?.boxes;
@@ -44,6 +48,9 @@ function About(props) {
       observer.disconnect();
     };
   }, []);
+
+  const { openLightbox, renderLightbox } = useLightbox();
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   return (
     <>
@@ -119,26 +126,50 @@ function About(props) {
                 {item.title === 'Our Certifications' && (
                   <div className={`${styles.about_downloads}`}>
                     {certificate1 ? (
-                      <Link href={certificate1} target="_blank">
-                        <span>
+                      <div
+                        onClick={() => {
+                          setSelectedIndex(certificate1);
+                          openLightbox();
+                        }}
+                        style={{ cursor: 'pointer', display: 'inline-block' }}
+                      >
+                        <span
+                          style={{
+                            marginTop: '40px',
+                            display: 'inline-block',
+                            marginRight: '10px',
+                          }}
+                        >
                           BESCHUSSAMT MÜNCHEN
                           <span style={{ fontSize: '27px' }}>
                             VIEW CERTIFICATES
                           </span>
                         </span>
                         <PDFIcon />
-                      </Link>
+                      </div>
                     ) : null}
                     {certificate2 ? (
-                      <Link href={certificate2} target="_blank">
-                        <span>
+                      <div
+                        onClick={() => {
+                          setSelectedIndex(certificate2);
+                          openLightbox();
+                        }}
+                        style={{ cursor: 'pointer', display: 'inline-block' }}
+                      >
+                        <span
+                          style={{
+                            marginTop: '40px',
+                            display: 'inline-block',
+                            marginRight: '10px',
+                          }}
+                        >
                           OTHER INDEPENDENT LABORATORIES
                           <span style={{ fontSize: '27px' }}>
                             VIEW CERTIFICATES
                           </span>
                         </span>
                         <PDFIcon />
-                      </Link>
+                      </div>
                     ) : null}
                   </div>
                 )}
@@ -182,6 +213,15 @@ function About(props) {
             />
           </div>
         ) : null}
+        {renderLightbox({
+          slides: [{ src: selectedIndex }],
+          plugins: [Zoom],
+          render: {
+            slide: pdfPopup,
+            buttonPrev: () => null,
+            buttonNext: () => null,
+          },
+        })}
       </div>
     </>
   );

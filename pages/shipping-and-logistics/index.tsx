@@ -1,15 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getPageData } from 'lib/api';
 import styles from './Shipping.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import PDFIcon from 'components/icons/PDF';
-import Link from 'next/link';
 
 import Gallery from 'components/global/carousel/CarouselCurved';
 
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+
+import useLightbox from 'components/global/lightbox/useLightbox';
+import 'yet-another-react-lightbox/styles.css';
+import pdfPopup from 'components/global/lightbox/pdfPopup';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 function Shipping(props) {
   const banner = props?.pageData?.banner;
@@ -76,6 +80,9 @@ function Shipping(props) {
       observer.disconnect();
     };
   }, []);
+
+  const { openLightbox, renderLightbox } = useLightbox();
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   return (
     <>
@@ -175,18 +182,38 @@ function Shipping(props) {
 
             <div className={`${styles.shipping_license_downloads}`}>
               {licensePDF1 ? (
-                <Link href={licensePDF1} target="_blank">
-                  <span>
+                <div
+                  onClick={() => {
+                    setSelectedIndex(licensePDF1);
+                    openLightbox();
+                  }}
+                  style={{
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <span style={{ marginRight: '10px' }}>
                     <span style={{ fontSize: '18px' }}>Download</span>
                     Form BIS-711
                   </span>
                   <PDFIcon />
-                </Link>
+                </div>
               ) : null}
 
               {licensePDF2 ? (
-                <Link href={licensePDF2} target="_blank">
-                  <span>
+                <div
+                  onClick={() => {
+                    setSelectedIndex(licensePDF2);
+                    openLightbox();
+                  }}
+                  style={{
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <span style={{ marginRight: '10px' }}>
                     <span style={{ fontSize: '15px' }}>
                       Instructions
                       <br />
@@ -195,11 +222,20 @@ function Shipping(props) {
                     Form BIS-711
                   </span>
                   <PDFIcon />
-                </Link>
+                </div>
               ) : null}
             </div>
           </div>
         </div>
+        {renderLightbox({
+          slides: [{ src: selectedIndex }],
+          plugins: [Zoom],
+          render: {
+            slide: pdfPopup,
+            buttonPrev: () => null,
+            buttonNext: () => null,
+          },
+        })}
       </div>
     </>
   );
