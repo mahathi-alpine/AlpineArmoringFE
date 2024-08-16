@@ -315,7 +315,7 @@
           // font-size: clamp(0.625rem, 0rem + 0.7813vw, 0.9375rem);
           font-size: 0;
 
-          img{
+          img {
             position: relative;
           }
         }
@@ -326,10 +326,10 @@
           order: 1;
         }
         @include breakpoint(large) {
-          width: 4.427vW;
+          width: 4.427vw;
           max-width: 85px;
-          top: -0.521vW;
-          left: -0.26vW;
+          top: -0.521vw;
+          left: -0.26vw;
         }
         @include breakpoint(max) {
           top: -10px;
@@ -344,10 +344,10 @@
           left: -4px;
         }
         @include breakpoint(large) {
-          width: 1.667vW;
+          width: 1.667vw;
           max-width: 32px;
           top: -0.729vw;
-          margin-left: 0.365vW;
+          margin-left: 0.365vw;
         }
         @include breakpoint(max) {
           top: -14px;
@@ -356,7 +356,6 @@
       }
 
       &:nth-child(7) {
-
         @include breakpoint(untilLarge) {
           position: relative;
           font-size: clamp(0.875rem, 0rem + 1.0938vw, 1.3125rem);
@@ -371,10 +370,10 @@
         @include breakpoint(large) {
           font-size: 0;
           max-width: 80px;
-          width: 4.167vW;
-          top: -0.833vW;
-          margin-left: 1.094vW;
-          margin-right: 1.458vW;
+          width: 4.167vw;
+          top: -0.833vw;
+          margin-left: 1.094vw;
+          margin-right: 1.458vw;
           // top: -1.042vw;
           // left: -0.521vw;
           // font-family: Termina;
@@ -435,9 +434,9 @@
           left: -21px;
         }
         @include breakpoint(large) {
-          width: 1.823vW;
+          width: 1.823vw;
           max-width: 35px;
-          top: -0.677vW;
+          top: -0.677vw;
         }
         @include breakpoint(max) {
           top: -13px;
@@ -451,11 +450,11 @@
           left: -2px;
         }
         @include breakpoint(large) {
-          width: 2.344vW;
+          width: 2.344vw;
           max-width: 45px;
-          top: -0.26vW;
-          margin-left: 1.406vW;
-          margin-right: 2.865vW;
+          top: -0.26vw;
+          margin-left: 1.406vw;
+          margin-right: 2.865vw;
         }
         @include breakpoint(max) {
           top: -5px;
