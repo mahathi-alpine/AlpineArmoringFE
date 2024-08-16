@@ -482,7 +482,7 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_row_item}`}>
                 UL
                 <Image
-                  src="/assets/ballistic/UL.png"
+                  src="/assets/ballistic/chartNav_ul.png"
                   alt=""
                   width="29"
                   height="22"
@@ -515,7 +515,7 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_row_item}`}>
                 Cen
                 <Image
-                  src="/assets/ballistic/CEN.png"
+                  src="/assets/ballistic/chartNav_cen.png"
                   alt=""
                   width="45"
                   height="23"
