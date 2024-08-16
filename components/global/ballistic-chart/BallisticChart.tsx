@@ -469,17 +469,60 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_row_item}`}>Caliber</div>
               <div className={`${styles.ballistic_row_item}`}>Class</div>
               <div className={`${styles.ballistic_row_item}`}>
-                <span>S</span>
-                <span>t</span>
-                <span>a</span>
-                <span>n</span>
-                <span>a</span>
-                <span>g</span>
+                Stanag
+                <Image
+                  src="/assets/ballistic/stanag.png"
+                  alt=""
+                  width="85"
+                  height="29"
+                  className="large-only"
+                  priority
+                ></Image>
               </div>
-              <div className={`${styles.ballistic_row_item}`}>UL</div>
-              <div className={`${styles.ballistic_row_item}`}>Alpine</div>
-              <div className={`${styles.ballistic_row_item}`}>Nij</div>
-              <div className={`${styles.ballistic_row_item}`}>Cen</div>
+              <div className={`${styles.ballistic_row_item}`}>
+                UL
+                <Image
+                  src="/assets/ballistic/ul.png"
+                  alt=""
+                  width="29"
+                  height="22"
+                  className="large-only"
+                  priority
+                ></Image>
+              </div>
+              <div className={`${styles.ballistic_row_item}`}>
+                Alpine
+                <Image
+                  src="/assets/ballistic/alpine.png"
+                  alt=""
+                  width="78"
+                  height="21"
+                  className="large-only"
+                  priority
+                ></Image>
+              </div>
+              <div className={`${styles.ballistic_row_item}`}>
+                Nij
+                <Image
+                  src="/assets/ballistic/nij.png"
+                  alt=""
+                  width="33"
+                  height="22"
+                  className="large-only"
+                  priority
+                ></Image>
+              </div>
+              <div className={`${styles.ballistic_row_item}`}>
+                Cen
+                <Image
+                  src="/assets/ballistic/cen.png"
+                  alt=""
+                  width="45"
+                  height="23"
+                  className="large-only"
+                  priority
+                ></Image>
+              </div>
               <div className={`${styles.ballistic_row_item}`}>Weight±</div>
               <div className={`${styles.ballistic_row_item}`}>Type</div>
               <div className={`${styles.ballistic_row_item}`}>Velocity±</div>

@@ -12,11 +12,12 @@ const BallisticChartBottom = () => {
     {
       name: 'NIJ',
       text: 'National Institute of Justice (0101.07/0123.00)',
+      url: '19rObIeih67-cJvBEfGQncN0f91XCTquV',
     },
     {
       name: 'UL',
       text: 'Underwriters Laboratories – Standards & Engagements 752',
-      url: '18bbiLicM3QDSXONia4MFtK-o9Upn3xmt',
+      url: '18cJkbVt1HTsXGJnz4TosYo9X0RUUYlU9',
     },
     {
       name: 'CEN',
