@@ -70,21 +70,25 @@ function Inventory(props) {
         <div
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
-          {props.filters.type ? <Filters props={props.filters} /> : null}
+          <div className={`${styles.listing_wrap_filtered}`}>
+            {props.filters.type ? <Filters props={props.filters} /> : null}
+          </div>
 
-          {vehiclesData?.length < 1 ? (
-            <div className={`${styles.listing_list_error}`}>
-              <h2>No Vehicles Found</h2>
-            </div>
-          ) : null}
+          <div className={`${styles.listing_wrap_shown}`}>
+            {vehiclesData?.length < 1 ? (
+              <div className={`${styles.listing_list_error}`}>
+                <h2>No Vehicles Found</h2>
+              </div>
+            ) : null}
 
-          {vehiclesData ? (
-            <div className={`${styles.listing_list}`}>
-              {vehiclesData.slice(0, itemsToRender).map((item, index) => (
-                <InventoryItem key={index} props={item} index={index} />
-              ))}
-            </div>
-          ) : null}
+            {vehiclesData ? (
+              <div className={`${styles.listing_list}`}>
+                {vehiclesData.slice(0, itemsToRender).map((item, index) => (
+                  <InventoryItem key={index} props={item} index={index} />
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
 

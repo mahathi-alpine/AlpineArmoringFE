@@ -16,6 +16,19 @@
         gap: 50px;
         max-width: 2200px;
       }
+
+      &_filtered {
+        flex: 1 0 300px;
+        position: sticky;
+        top: 20px;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      &_shown {
+        flex: 3 1 auto;
+        margin-left: 20px;
+      }
     }
   }
   &_list {
