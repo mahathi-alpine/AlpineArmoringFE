@@ -36,7 +36,7 @@ const NavigationPopup = ({
   const linksRight = [
     { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
-    { path: '/news', text: 'Pressroom' },
+    { path: '/news', text: 'Press Release' },
     { path: '/media', text: 'Videos & Trade Shows' },
     { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
     { path: '/design-and-engineering', text: 'Design & Engineering' },
@@ -134,14 +134,10 @@ const NavigationPopup = ({
               Sales@AlpineCo.com
             </Link>
 
-            <Link
-              href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA"
-              target="_blank"
-              className={`${styles.navigationPopup_contact_item}`}
-            >
+            <div className={`${styles.navigationPopup_contact_item}`}>
               <MapIcon />
               Chantilly, Virginia, USA
-            </Link>
+            </div>
           </div>
 
           <ul className={`${styles.navigationPopup_socials}`}>

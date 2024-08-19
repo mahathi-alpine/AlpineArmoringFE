@@ -99,6 +99,10 @@
     padding-left: var(--slide-spacing);
     position: relative;
 
+    &:first-child {
+      margin-left: calc(var(--slide-spacing) *1.5);
+    }
+
     @include breakpoint(medium) {
       cursor: pointer;
     }
@@ -185,6 +189,6 @@
     display: block;
     max-width: 30px;
     max-height: 31px;
-    margin: auto 3px;
+    margin: auto -23px;
   }
 }

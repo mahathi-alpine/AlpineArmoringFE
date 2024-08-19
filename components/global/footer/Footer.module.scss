@@ -227,7 +227,7 @@
   }
 
   &_bottom {
-    padding-top: rem(32);
+    padding-bottom: rem(16);
     border-top: 1px solid var(--color-grayDark);
     text-align: center;
     font-size: rem(14);
@@ -297,6 +297,18 @@
       &_middle {
         color: var(--color-primary);
         font-weight: 600;
+      }      
+
+      @include breakpoint(medium) {
+        &_background {
+          background-image: url("/assets/footer-american-flag.png");
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          display: inline-block;
+          margin-left: -2.5%;
+        }
       }
     }
   }

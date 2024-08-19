@@ -24,14 +24,14 @@ const Footer = (isDarkMode) => {
     },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
-    { path: '/news', text: 'Pressroom' },
+    { path: '/news', text: 'Press Release' },
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/available-now/type/armored-pre-owned', text: 'Pre-owned' },
     { path: '/countries-we-service', text: 'Places We Serve' },
-    { path: '#', text: 'All Downloads' },
+    { path: '/all-downloads', text: 'All Downloads' },
     { path: '/faqs', text: 'FAQ' },
     { path: '/contact', text: 'Contact Us' },
   ];
@@ -99,15 +99,9 @@ const Footer = (isDarkMode) => {
                     Sales@AlpineCo.com
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="https://maps.app.goo.gl/H49yxzm1B3ZMRqLbA"
-                    target="_blank"
-                    className={`${styles.footer_column_list_item}`}
-                  >
-                    <MapIcon color="#2d2d27" />
-                    Chantilly, Virginia, USA
-                  </Link>
+                <li className={`${styles.footer_column_list_item}`}>
+                  <MapIcon color="#2d2d27" />
+                  Chantilly, Virginia, USA
                 </li>
               </ul>
             </div>
@@ -187,9 +181,6 @@ const Footer = (isDarkMode) => {
 
         <div className={`${styles.footer_bottom}`}>
           <ul className={`${styles.footer_bottom_nav}`}>
-            {/* <li className={`${styles.footer_bottom_nav_item}`}>
-              <Link href="/about-us">About</Link>
-            </li> */}
             <li className={`${styles.footer_bottom_nav_item}`}>
               <Link href="/privacy-policy">Privacy Policy</Link>
             </li>
@@ -198,7 +189,9 @@ const Footer = (isDarkMode) => {
           <p className={`${styles.footer_bottom_copy}`}>
             ©1997-2024. Alpine Armoring Inc. <span>All Rights Reserved</span>
           </p>
-          <p className={`${styles.footer_bottom_copy}`}>
+          <p
+            className={`${styles.footer_bottom_copy} ${styles.footer_bottom_copy_background}`}
+          >
             The Home of{' '}
             <Link href="/" className={`${styles.footer_bottom_copy_middle}`}>
               ArmoredVehicles.com
