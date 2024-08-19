@@ -297,11 +297,11 @@
       &_middle {
         color: var(--color-primary);
         font-weight: 600;
-      }      
+      }
 
       @include breakpoint(medium) {
         &_background {
-          background-image: url("/assets/footer-american-flag.png");
+          background-image: url('/assets/footer-american-flag.png');
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center;

@@ -100,7 +100,7 @@
     position: relative;
 
     &:first-child {
-      margin-left: calc(var(--slide-spacing) *1.5);
+      margin-left: calc(var(--slide-spacing) * 1.5);
     }
 
     @include breakpoint(medium) {
