@@ -145,8 +145,8 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
         {/* Conditionally render the shape section based on the current route */}
-        {currentRoute === '/available-now' ||
-        currentRoute === '/vehicles-we-armor' ? (
+        {currentRoute.startsWith('/available-now') ||
+        currentRoute.startsWith('/vehicles-we-armor') ? (
           <div className={`${styles.banner_content}`}>
             <div className={`${styles.banner_text} observe fade-in-scale`}>
               {bannerTitle ? (
