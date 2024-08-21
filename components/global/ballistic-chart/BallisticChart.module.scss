@@ -41,7 +41,8 @@
   }
 
   &_comparisonActive {
-    .ballistic_row:not(.ballistic_row_active) .ballistic_row_item:not(.ballistic_compare){
+    .ballistic_row:not(.ballistic_row_active)
+      .ballistic_row_item:not(.ballistic_compare) {
       opacity: 0.12;
     }
   }
@@ -236,7 +237,7 @@
 
     @include breakpoint(large) {
       margin-top: -2.344vw;
-      margin-bottom: 0.313vW;
+      margin-bottom: 0.313vw;
     }
     @include breakpoint(max) {
       margin-top: -45px;
@@ -767,7 +768,7 @@
           margin-left: 60px;
         }
         @include breakpoint(large) {
-          width: 7.083vW;
+          width: 7.083vw;
           max-width: 136px;
         }
       }
@@ -795,12 +796,12 @@
         }
         @include breakpoint(large) {
           margin-left: auto;
-        //   width: 5.833vw;
-        //   max-width: 112px;
-        //   margin-right: -0.521vw;
-        // }
-        // @include breakpoint(max) {
-        //   margin-right: -10px;
+          //   width: 5.833vw;
+          //   max-width: 112px;
+          //   margin-right: -0.521vw;
+          // }
+          // @include breakpoint(max) {
+          //   margin-right: -10px;
         }
       }
       &:nth-child(14) {
@@ -811,12 +812,12 @@
         @include breakpoint(large) {
           width: 12.21vw;
           max-width: 255px;
-          margin-left: -0.26vW;
+          margin-left: -0.26vw;
         }
         @include breakpoint(max) {
           margin-left: -5px;
-        //   width: 270px;
-        //   max-width: unset;
+          //   width: 270px;
+          //   max-width: unset;
         }
       }
       thead & {
@@ -893,7 +894,7 @@
           .ballistic_row_item_text {
             font-size: 22px;
             line-height: 18px;
-            
+
             @media (min-width: 1280px) and (max-width: 1920px) {
               font-size: clamp(0.875rem, -0.125rem + 1.25vw, 1.375rem);
             }
