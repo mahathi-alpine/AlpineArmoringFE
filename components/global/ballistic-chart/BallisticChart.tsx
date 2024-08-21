@@ -218,6 +218,10 @@ const BallisticChart = () => {
 
     const isActive = row.classList.contains(styles.ballistic_row_active);
 
+    if (window.innerWidth >= 1280) {
+      containerRef.current.classList.add(styles.ballistic_comparisonActive);
+    }
+
     if (isActive) {
       row.classList.remove(styles.ballistic_row_active);
       setShowPopup(false);
@@ -229,14 +233,14 @@ const BallisticChart = () => {
           styles.ballistic_comparisonActive
         );
 
-        const compareButtons = document.querySelectorAll(
-          `.${styles.ballistic_compare_view}`
-        );
+        // const compareButtons = document.querySelectorAll(
+        //   `.${styles.ballistic_compare_view}`
+        // );
 
-        compareButtons.forEach((element) => {
-          element.querySelector('span').textContent = 'View';
-          element.classList.remove(styles.ballistic_compare_view_active);
-        });
+        // compareButtons.forEach((element) => {
+        //   element.querySelector('span').textContent = 'View';
+        //   element.classList.remove(styles.ballistic_compare_view_active);
+        // });
       }
 
       if (window.innerWidth < 1280) {
@@ -265,6 +269,42 @@ const BallisticChart = () => {
     }
   };
 
+  // const showComparisonDesktop = (index, button) => {
+  //   if (window.innerWidth >= 1280) {
+  //     containerRef.current.classList.add(styles.ballistic_comparisonActive);
+
+  //     const compareButtons = document.querySelectorAll(
+  //       `.${styles.ballistic_compare_view}`
+  //     );
+
+  //     if (button.classList.contains(styles.ballistic_compare_view_active)) {
+  //       tableRef.current.children[index].classList.remove(
+  //         styles.ballistic_row_active
+  //       );
+  //       button.classList.remove(styles.ballistic_compare_view_active);
+  //       button.querySelector('span').textContent = 'View';
+
+  //       if (
+  //         document.querySelectorAll(`.${styles.ballistic_row_active}`).length <
+  //         1
+  //       ) {
+  //         containerRef.current.classList.remove(
+  //           styles.ballistic_comparisonActive
+  //         );
+
+  //         compareButtons.forEach((element) => {
+  //           element.querySelector('span').textContent = 'View';
+  //         });
+  //       }
+  //     } else {
+  //       compareButtons.forEach((element) => {
+  //         element.classList.add(styles.ballistic_compare_view_active);
+  //         element.querySelector('span').textContent = 'Close';
+  //       });
+  //     }
+  //   }
+  // };
+
   const closePopup = () => {
     setShowPopup(false);
   };
@@ -280,42 +320,6 @@ const BallisticChart = () => {
     setShowChosen(false);
     // setSelectedRows([]);
     // document.querySelector('tbody tr').classList.remove(styles.ballistic_row_active);
-  };
-
-  const showComparisonDesktop = (index, button) => {
-    if (window.innerWidth >= 1280) {
-      containerRef.current.classList.add(styles.ballistic_comparisonActive);
-
-      const compareButtons = document.querySelectorAll(
-        `.${styles.ballistic_compare_view}`
-      );
-
-      if (button.classList.contains(styles.ballistic_compare_view_active)) {
-        tableRef.current.children[index].classList.remove(
-          styles.ballistic_row_active
-        );
-        button.classList.remove(styles.ballistic_compare_view_active);
-        button.querySelector('span').textContent = 'View';
-
-        if (
-          document.querySelectorAll(`.${styles.ballistic_row_active}`).length <
-          1
-        ) {
-          containerRef.current.classList.remove(
-            styles.ballistic_comparisonActive
-          );
-
-          compareButtons.forEach((element) => {
-            element.querySelector('span').textContent = 'View';
-          });
-        }
-      } else {
-        compareButtons.forEach((element) => {
-          element.classList.add(styles.ballistic_compare_view_active);
-          element.querySelector('span').textContent = 'Close';
-        });
-      }
-    }
   };
 
   useEffect(() => {
@@ -710,14 +714,14 @@ const BallisticChart = () => {
                       className={`${styles.ballistic_compare_button_slider}`}
                     ></span>
                   </div>
-                  <button
+                  {/* <button
                     className={`${styles.ballistic_compare_view}`}
                     onClick={(e) =>
                       showComparisonDesktop(index, e.currentTarget)
                     }
                   >
                     <span>View</span>
-                  </button>
+                  </button> */}
                 </div>
 
                 <div
@@ -761,7 +765,7 @@ const BallisticChart = () => {
                   Level A
                   <span
                     className={`${
-                      selectedLevels.length == 2
+                      selectedLevels[selectedLevels.length - 1].length == 2
                         ? styles.ballistic_popup_text_levels
                         : ''
                     }`}
