@@ -36,7 +36,7 @@ const NavigationPopup = ({
   const linksRight = [
     { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
-    { path: '/news', text: 'Press Release' },
+    { path: '/news', text: 'News' },
     { path: '/media', text: 'Videos & Trade Shows' },
     { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
     { path: '/design-and-engineering', text: 'Design & Engineering' },

@@ -24,7 +24,7 @@ const Footer = (isDarkMode) => {
     },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
-    { path: '/news', text: 'Press Release' },
+    { path: '/news', text: 'News' },
     { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
     { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
