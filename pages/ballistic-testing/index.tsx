@@ -5,15 +5,15 @@ import Banner from 'components/global/banner/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import PlayIcon from 'components/icons/Play';
 import { useIsMobile } from 'hooks/useIsMobile';
 import MediaList from 'pages/media/MediaList';
-const Gallery = dynamic(
-  () => import('components/global/carousel/CarouselCurved')
-);
+// const Gallery = dynamic(
+//   () => import('components/global/carousel/CarouselCurved')
+// );
 
 function Testing(props) {
   const convertMarkdown = useMarkdownToHtml();
@@ -90,10 +90,10 @@ function Testing(props) {
       id: 2,
       titleNav: 'Live Fire Testing',
     },
-    {
-      id: 3,
-      titleNav: 'Vehicle Dynamic Testing',
-    },
+    // {
+    //   id: 3,
+    //   titleNav: 'Vehicle Dynamic Testing',
+    // },
   ];
 
   const handleTabChange = (index, titleNav) => {
@@ -507,7 +507,7 @@ function Testing(props) {
           ) : null}
           <MediaList props={videos} itemType="video" />
         </section>
-        <section
+        {/* <section
           className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
           id="vehicle-dynamic-testing"
         >
@@ -637,7 +637,7 @@ function Testing(props) {
           <div className={`${styles.slug_gallery}`}>
             <Gallery props={props.pageData?.section4Gallery.data} squared />
           </div>
-        ) : null}
+        ) : null} */}
       </div>
       {isLightboxPopupOpen ? (
         <LightboxCustom

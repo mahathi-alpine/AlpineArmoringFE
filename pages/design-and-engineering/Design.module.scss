@@ -241,11 +241,18 @@
   // }
 
   &_section5 {
-    padding-top: rem(64);
-    padding-bottom: rem(64);
-    @include breakpoint(large) {
-      padding-top: rem(32);
-      padding-bottom: rem(32);
+    padding-top: rem(32);
+    padding-bottom: rem(32);
+    // @include breakpoint(large) {
+    //   padding-top: rem(32);
+    //   padding-bottom: rem(32);
+    // }
+  }
+
+  &_section6 {
+    &_text h2 {
+      font-size: 1.5rem;
+      padding: 1rem 0;
     }
   }
 }

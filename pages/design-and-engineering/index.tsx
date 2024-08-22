@@ -4,6 +4,10 @@ import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import dynamic from 'next/dynamic';
+const Gallery = dynamic(
+  () => import('components/global/carousel/CarouselCurved')
+);
 
 const Design = (props) => {
   const convertMarkdown = useMarkdownToHtml();
@@ -534,6 +538,138 @@ const Design = (props) => {
             ) : null}
           </div>
         </section>
+        <section className={`${styles.design_section5} container_small`}>
+          {props.pageData?.section6Title ? (
+            <h2 className={`${styles.design_title} block-reveal observe`}>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: props.pageData.section6Title,
+                }}
+              ></span>
+            </h2>
+          ) : null}
+
+          {props.pageData?.section6Heading ? (
+            <p
+              className={`${styles.design_heading} fade-in observe`}
+              dangerouslySetInnerHTML={{
+                __html: props.pageData.section6Heading,
+              }}
+            ></p>
+          ) : null}
+          <div className={`${styles.design_box}`}>
+            {props.pageData?.section6Text ? (
+              <div
+                className={`${styles.design_section6_text} fade-in observe`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section6Text),
+                }}
+              ></div>
+            ) : null}
+
+            {props.pageData?.section6Image.data ? (
+              <div className={`${styles.design_image} observe fade-in`}>
+                {props.pageData.section6Image.data.attributes.mime.startsWith(
+                  'image/'
+                ) ? (
+                  <Image
+                    src={`${
+                      props.pageData.section6Image.data.attributes.formats
+                        .medium?.url ||
+                      props.pageData.section6Image.data.attributes.url
+                    }`}
+                    alt={
+                      props.pageData.section6Image.data.attributes
+                        .alternativeText || 'Alpine Armoring'
+                    }
+                    width={620}
+                    height={430}
+                  />
+                ) : props.pageData.section6Image.data.attributes.mime.startsWith(
+                    'video/'
+                  ) ? (
+                  <div className={styles.videoResponsive}>
+                    <video
+                      preload="none"
+                      muted={true}
+                      autoPlay={true}
+                      playsInline={true}
+                      loop={true}
+                      className={styles.responsiveVideo}
+                    >
+                      <source
+                        src={`${props.pageData.section6Image.data.attributes?.url}`}
+                        type={props.pageData.section6Image.data.attributes.mime}
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+          <div className={`${styles.design_box}`}>
+            {props.pageData?.section6Text2 ? (
+              <div
+                className={`${styles.design_section6_text} fade-in observe`}
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section6Text2),
+                }}
+              ></div>
+            ) : null}
+            {props.pageData?.section6Image2.data ? (
+              <div className={`${styles.design_image} observe fade-in`}>
+                {props.pageData.section6Image2.data.attributes.mime.startsWith(
+                  'image/'
+                ) ? (
+                  <Image
+                    src={`${
+                      props.pageData.section6Image2.data.attributes.formats
+                        .medium?.url ||
+                      props.pageData.section6Image2.data.attributes.url
+                    }`}
+                    alt={
+                      props.pageData.section6Image2.data.attributes
+                        .alternativeText || 'Alpine Armoring'
+                    }
+                    width={620}
+                    height={430}
+                  />
+                ) : props.pageData.section6Image2.data.attributes.mime.startsWith(
+                    'video/'
+                  ) ? (
+                  <div className={styles.videoResponsive}>
+                    <video
+                      preload="none"
+                      muted={true}
+                      autoPlay={true}
+                      playsInline={true}
+                      loop={true}
+                      className={styles.responsiveVideo}
+                    >
+                      <source
+                        src={`${props.pageData.section6Image2.data.attributes?.url}`}
+                        type={
+                          props.pageData.section6Image2.data.attributes.mime
+                        }
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+        </section>
+        {props.pageData?.section6Gallery.data ? (
+          <div className={`${styles.slug_gallery}`}>
+            <Gallery
+              props={props.pageData?.section6Gallery.data}
+              white
+              squared
+            />
+          </div>
+        ) : null}
       </div>
     </>
   );
