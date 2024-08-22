@@ -143,6 +143,28 @@
     }
   }
 
+  &_section4 {
+    .design_box {
+      & > div {
+        &:nth-child(3) {
+          @include breakpoint(medium) {
+            grid-column: 1 / -1;
+
+            img {
+              margin: auto;
+            }
+          }
+          @include breakpoint(large) {
+            grid-column: unset;
+          }
+        }
+      }
+      @include breakpoint(large) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
   &_armor {
     overflow: hidden;
     padding-top: rem(32);

@@ -444,7 +444,35 @@ const Design = (props) => {
               ></div>
             ) : null}
 
-            <div className={`${styles.design_box}`}>
+            <div className={`${styles.design_box} container`}>
+              {props.pageData?.section5Image.data?.attributes ? (
+                <div className={`${styles.design_image} observe fade-in`}>
+                  <Image
+                    src={
+                      props.pageData.section5Image.data.attributes.formats
+                        ?.medium?.url ||
+                      props.pageData.section5Image.data.attributes.url
+                    }
+                    alt={
+                      props.pageData.section5Image.data.attributes
+                        .alternativeText || 'Alpine Armoring'
+                    }
+                    quality={100}
+                    width={
+                      props.pageData.section5Image.data.attributes.formats
+                        ?.medium?.width ||
+                      props.pageData.section5Image.data.attributes.width
+                    }
+                    height={
+                      props.pageData.section5Image.data.attributes.formats
+                        ?.medium?.height ||
+                      props.pageData.section5Image.data.attributes.height
+                    }
+                    className={`${styles.design_image} observe fade-in`}
+                  ></Image>
+                </div>
+              ) : null}
+
               {props.pageData?.section4Text ? (
                 <div
                   className={`${styles.design_text} observe fade-in`}
@@ -455,28 +483,31 @@ const Design = (props) => {
               ) : null}
 
               {props.pageData?.section4Image.data?.attributes ? (
-                <Image
-                  src={
-                    props.pageData.section4Image.data.attributes.formats?.medium
-                      ?.url || props.pageData.section4Image.data.attributes.url
-                  }
-                  alt={
-                    props.pageData.section4Image.data.attributes
-                      .alternativeText || 'Alpine Armoring'
-                  }
-                  quality={100}
-                  width={
-                    props.pageData.section4Image.data.attributes.formats?.medium
-                      ?.width ||
-                    props.pageData.section4Image.data.attributes.width
-                  }
-                  height={
-                    props.pageData.section4Image.data.attributes.formats?.medium
-                      ?.height ||
-                    props.pageData.section4Image.data.attributes.height
-                  }
-                  className={`${styles.design_image} observe fade-in`}
-                ></Image>
+                <div className={`${styles.design_image} observe fade-in`}>
+                  <Image
+                    src={
+                      props.pageData.section4Image.data.attributes.formats
+                        ?.medium?.url ||
+                      props.pageData.section4Image.data.attributes.url
+                    }
+                    alt={
+                      props.pageData.section4Image.data.attributes
+                        .alternativeText || 'Alpine Armoring'
+                    }
+                    quality={100}
+                    width={
+                      props.pageData.section4Image.data.attributes.formats
+                        ?.medium?.width ||
+                      props.pageData.section4Image.data.attributes.width
+                    }
+                    height={
+                      props.pageData.section4Image.data.attributes.formats
+                        ?.medium?.height ||
+                      props.pageData.section4Image.data.attributes.height
+                    }
+                    className={`${styles.design_image} observe fade-in`}
+                  ></Image>
+                </div>
               ) : null}
             </div>
           </section>
@@ -484,7 +515,7 @@ const Design = (props) => {
 
         <div className={`shape-after`}></div>
 
-        <section className={`${styles.design_section5} container_small`}>
+        {/* <section className={`${styles.design_section5} container_small`}>
           {props.pageData?.section5Title ? (
             <h2
               className={`${styles.design_title} observe fade-in`}
@@ -537,7 +568,7 @@ const Design = (props) => {
               ></div>
             ) : null}
           </div>
-        </section>
+        </section> */}
         <section className={`${styles.design_section5} container_small`}>
           {props.pageData?.section6Title ? (
             <h2 className={`${styles.design_title} block-reveal observe`}>
