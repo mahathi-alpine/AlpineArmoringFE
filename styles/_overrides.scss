@@ -38,10 +38,13 @@ button.yarl__thumbnails_thumbnail {
   }
 }
 div.yarl__container {
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 0.8);
 }
 .yarl__thumbnails_bottom div.yarl__container {
-  background-color: var(--yarl__container_background_color,var(--yarl__color_backdrop,#000));
+  background-color: var(
+    --yarl__container_background_color,
+    var(--yarl__color_backdrop, #000)
+  );
 }
 
 @include breakpoint(small) {

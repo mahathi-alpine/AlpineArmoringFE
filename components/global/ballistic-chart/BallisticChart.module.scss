@@ -603,7 +603,7 @@
         margin-top: -2px;
       }
     }
-    
+
     &:nth-child(6) {
       @include breakpoint(untilLarge) {
         margin-top: -6px;
@@ -614,22 +614,22 @@
       @include breakpoint(max) {
         margin-top: 1px;
       }
-      
-      .ballistic_row_item{
+
+      .ballistic_row_item {
         &:nth-child(2),
         &:nth-child(3),
         &:nth-child(4),
         &:nth-child(11),
-        &:nth-child(12){
+        &:nth-child(12) {
           .ballistic_row_item_text_small,
-          .ballistic_row_item_text{
+          .ballistic_row_item_text {
             line-height: 20px;
 
             @media (min-width: 1280px) and (max-width: 1920px) {
               line-height: clamp(0.875rem, 0.125rem + 0.9375vw, 1.25rem);
             }
           }
-          &:after{
+          &:after {
             position: absolute;
             content: '';
             background-image: url('/assets/ballistic/line-for-blackout-tokarev.png');
@@ -641,25 +641,25 @@
             margin: auto;
 
             @media (min-width: 1280px) and (max-width: 1920px) {
-              top: 1.042vW;
+              top: 1.042vw;
             }
           }
         }
 
-        &:nth-child(10){
-          .ballistic_row_item_text:nth-child(3){
+        &:nth-child(10) {
+          .ballistic_row_item_text:nth-child(3) {
             font-size: 14px;
             line-height: 14px;
             margin-top: 5px;
 
             @media (min-width: 1280px) and (max-width: 1920px) {
-              margin-top: 0.26vW;
+              margin-top: 0.26vw;
               line-height: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
               font-size: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
             }
           }
 
-          &:after{
+          &:after {
             position: absolute;
             content: '';
             background-image: url('/assets/ballistic/line-for-blackout-tokarev.png');
@@ -672,45 +672,44 @@
             max-width: 90px;
 
             @media (min-width: 1280px) and (max-width: 1920px) {
-              top: 1.6vW;
-              max-width: 4.688vW;
+              top: 1.6vw;
+              max-width: 4.688vw;
             }
             @include breakpoint(max) {
               top: 32px;
             }
           }
-
         }
 
-        &:nth-child(2):after{
+        &:nth-child(2):after {
           max-width: 140px;
 
           @media (min-width: 1280px) and (max-width: 1920px) {
-            max-width: 7.292vW;
+            max-width: 7.292vw;
           }
         }
 
-        &:nth-child(3):after{
+        &:nth-child(3):after {
           max-width: 110px;
 
           @media (min-width: 1280px) and (max-width: 1920px) {
-            max-width: 5.729vW;
+            max-width: 5.729vw;
           }
         }
 
-        &:nth-child(4):after{
+        &:nth-child(4):after {
           max-width: 85px;
 
           @media (min-width: 1280px) and (max-width: 1920px) {
-            max-width: 4.427vW;
+            max-width: 4.427vw;
           }
         }
 
-        &:nth-child(11):after{
+        &:nth-child(11):after {
           max-width: 50px;
 
           @media (min-width: 1280px) and (max-width: 1920px) {
-            max-width: 2.604vW;
+            max-width: 2.604vw;
           }
         }
       }
@@ -841,7 +840,7 @@
           max-width: 65px;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
-          margin-left: -0.313vW;
+          margin-left: -0.313vw;
         }
       }
       &:nth-child(6) {
@@ -1277,7 +1276,7 @@
         top: 1px;
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 8.854vw;
-          top: 0.625vW;
+          top: 0.625vw;
         }
         @include breakpoint(max) {
           top: 12px;
@@ -1288,7 +1287,7 @@
         top: 0;
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 6.771vw;
-          top: 0.417vW;
+          top: 0.417vw;
         }
         @include breakpoint(max) {
           width: 130px;
@@ -1377,7 +1376,7 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 7.552vw;
-          top: 0.313vW;
+          top: 0.313vw;
         }
         @include breakpoint(max) {
           width: 145px;
@@ -1403,7 +1402,7 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 6.406vw;
-          top: 0.208vW;
+          top: 0.208vw;
         }
         @include breakpoint(max) {
           width: 123px;
@@ -1420,7 +1419,7 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 10.573vw;
-          top: 0.156vW;
+          top: 0.156vw;
         }
         @include breakpoint(max) {
           top: 8px;
@@ -1433,7 +1432,7 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 7.552vw;
-          top: 0.208vW;
+          top: 0.208vw;
         }
         @include breakpoint(max) {
           width: 145px;
