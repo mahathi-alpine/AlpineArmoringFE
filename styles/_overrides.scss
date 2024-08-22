@@ -37,6 +37,13 @@ button.yarl__thumbnails_thumbnail {
     min-height: 50px;
   }
 }
+div.yarl__container {
+  background: rgba(0, 0, 0, .8);
+}
+.yarl__thumbnails_bottom div.yarl__container {
+  background-color: var(--yarl__container_background_color,var(--yarl__color_backdrop,#000));
+}
+
 @include breakpoint(small) {
   button.yarl__thumbnails_thumbnail {
     width: 100px;

@@ -94,7 +94,10 @@
       margin: auto;
       top: 5px;
       @media (min-width: 1280px) and (max-width: 1920px) {
-        top: 0.26vw;
+        top: 0.677vw;
+      }
+      @include breakpoint(max) {
+        top: 13px;
       }
     }
   }
@@ -168,13 +171,13 @@
         }
 
         @include breakpoint(large) {
-          left: 7.4vw;
-          top: -1.6vw;
+          left: 7.6vw;
+          top: -1.8vw;
         }
 
         @include breakpoint(max) {
-          left: 142px;
-          top: -30px;
+          left: 146px;
+          top: -34px;
         }
 
         img {
@@ -237,11 +240,9 @@
 
     @include breakpoint(large) {
       margin-top: -2.344vw;
-      margin-bottom: 0.313vw;
     }
     @include breakpoint(max) {
       margin-top: -45px;
-      margin-bottom: 6px;
     }
 
     .ballistic_row_item {
@@ -315,14 +316,14 @@
           order: 1;
         }
         @include breakpoint(large) {
-          width: 4.427vw;
-          max-width: 85px;
-          top: -0.521vw;
-          left: -0.26vw;
+          width: 3.49vw;
+          max-width: 67px;
+          top: -0.4vw;
+          left: 0.15vw;
         }
         @include breakpoint(max) {
-          top: -10px;
-          left: -5px;
+          top: -7.6px;
+          left: 2.8px;
         }
       }
 
@@ -335,12 +336,12 @@
         @include breakpoint(large) {
           width: 1.667vw;
           max-width: 32px;
-          top: -0.729vw;
-          margin-left: 0.365vw;
+          top: -0.65vw;
+          margin-left: 1.1vw;
         }
         @include breakpoint(max) {
-          top: -14px;
-          margin-left: 7px;
+          top: -12.5px;
+          margin-left: 21px;
         }
       }
 
@@ -358,17 +359,17 @@
 
         @include breakpoint(large) {
           font-size: 0;
-          max-width: 80px;
-          width: 4.167vw;
+          max-width: 103px;
+          width: 5.365vw;
           top: -0.833vw;
-          margin-left: 1.094vw;
-          margin-right: 1.458vw;
+          margin-left: 0.6vw;
+          margin-right: 1vw;
         }
 
         @include breakpoint(max) {
           top: -16px;
-          margin-left: 21px;
-          margin-right: 28px;
+          margin-left: 11.5px;
+          margin-right: 19.2px;
         }
 
         &:after {
@@ -408,8 +409,8 @@
           left: -21px;
         }
         @include breakpoint(large) {
-          width: 1.823vw;
-          max-width: 35px;
+          width: 1.927vw;
+          max-width: 37px;
           top: -0.677vw;
         }
         @include breakpoint(max) {
@@ -424,16 +425,16 @@
           left: -2px;
         }
         @include breakpoint(large) {
-          width: 2.344vw;
-          max-width: 45px;
+          width: 1.823vw;
+          max-width: 35px;
           top: -0.26vw;
           margin-left: 1.406vw;
-          margin-right: 2.865vw;
+          margin-right: 3.385vw;
         }
         @include breakpoint(max) {
           top: -5px;
           margin-left: 27px;
-          margin-right: 57px;
+          margin-right: 65px;
         }
       }
 
@@ -596,15 +597,122 @@
         margin-top: -10px;
       }
       @include breakpoint(large) {
-        margin-top: -0.26vw;
+        margin-top: -0.104vw;
       }
       @include breakpoint(max) {
-        margin-top: -5px;
+        margin-top: -2px;
       }
     }
+    
     &:nth-child(6) {
       @include breakpoint(untilLarge) {
         margin-top: -6px;
+      }
+      @include breakpoint(large) {
+        margin-top: 0.052vw;
+      }
+      @include breakpoint(max) {
+        margin-top: 1px;
+      }
+      
+      .ballistic_row_item{
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4),
+        &:nth-child(11),
+        &:nth-child(12){
+          .ballistic_row_item_text_small,
+          .ballistic_row_item_text{
+            line-height: 20px;
+
+            @media (min-width: 1280px) and (max-width: 1920px) {
+              line-height: clamp(0.875rem, 0.125rem + 0.9375vw, 1.25rem);
+            }
+          }
+          &:after{
+            position: absolute;
+            content: '';
+            background-image: url('/assets/ballistic/line-for-blackout-tokarev.png');
+            background-size: contain;
+            left: 0;
+            right: 0;
+            top: 20px;
+            height: 2px;
+            margin: auto;
+
+            @media (min-width: 1280px) and (max-width: 1920px) {
+              top: 1.042vW;
+            }
+          }
+        }
+
+        &:nth-child(10){
+          .ballistic_row_item_text:nth-child(3){
+            font-size: 14px;
+            line-height: 14px;
+            margin-top: 5px;
+
+            @media (min-width: 1280px) and (max-width: 1920px) {
+              margin-top: 0.26vW;
+              line-height: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
+              font-size: clamp(0.625rem, 0.125rem + 0.625vw, 0.875rem);
+            }
+          }
+
+          &:after{
+            position: absolute;
+            content: '';
+            background-image: url('/assets/ballistic/line-for-blackout-tokarev.png');
+            background-size: contain;
+            left: 0;
+            right: 0;
+            top: 28px;
+            height: 2px;
+            margin: auto;
+            max-width: 90px;
+
+            @media (min-width: 1280px) and (max-width: 1920px) {
+              top: 1.6vW;
+              max-width: 4.688vW;
+            }
+            @include breakpoint(max) {
+              top: 32px;
+            }
+          }
+
+        }
+
+        &:nth-child(2):after{
+          max-width: 140px;
+
+          @media (min-width: 1280px) and (max-width: 1920px) {
+            max-width: 7.292vW;
+          }
+        }
+
+        &:nth-child(3):after{
+          max-width: 110px;
+
+          @media (min-width: 1280px) and (max-width: 1920px) {
+            max-width: 5.729vW;
+          }
+        }
+
+        &:nth-child(4):after{
+          max-width: 85px;
+
+          @media (min-width: 1280px) and (max-width: 1920px) {
+            max-width: 4.427vW;
+          }
+        }
+
+        &:nth-child(11):after{
+          max-width: 50px;
+
+          @media (min-width: 1280px) and (max-width: 1920px) {
+            max-width: 2.604vW;
+          }
+        }
       }
     }
     &:nth-child(7) {
@@ -623,10 +731,10 @@
         margin-top: -14px;
       }
       @include breakpoint(large) {
-        margin-top: -0.6vw;
+        margin-top: -0.521vw;
       }
       @include breakpoint(max) {
-        margin-top: -9px;
+        margin-top: -10px;
       }
     }
     &:nth-child(9) {
@@ -645,7 +753,7 @@
         margin-top: -10px;
       }
       @include breakpoint(large) {
-        margin-top: -0.4vw;
+        margin-top: -0.26vw;
       }
       @include breakpoint(max) {
         margin-top: -5px;
@@ -655,16 +763,22 @@
       @include breakpoint(untilLarge) {
         margin-top: -7px;
       }
+      @include breakpoint(large) {
+        margin-top: -0.104vw;
+      }
+      @include breakpoint(max) {
+        margin-top: -2px;
+      }
     }
     &:nth-child(12) {
       @include breakpoint(untilLarge) {
         margin-top: -8px;
       }
       @include breakpoint(large) {
-        margin-top: -0.26vw;
+        margin-top: -0.156vw;
       }
       @include breakpoint(max) {
-        margin-top: -5px;
+        margin-top: -3px;
       }
     }
     &:nth-child(13) {
@@ -672,10 +786,10 @@
         margin-top: -11px;
       }
       @include breakpoint(large) {
-        margin-top: -0.3vw;
+        margin-top: -0.26vw;
       }
       @include breakpoint(max) {
-        margin-top: -6px;
+        margin-top: -5px;
       }
     }
 
@@ -725,6 +839,9 @@
         @include breakpoint(large) {
           width: 3.385vw;
           max-width: 65px;
+        }
+        @media (min-width: 1280px) and (max-width: 1920px) {
+          margin-left: -0.313vW;
         }
       }
       &:nth-child(6) {
@@ -1052,15 +1169,18 @@
 
     .ballistic_bullets img {
       position: relative;
-      top: 5px;
       @include breakpoint(untilLarge) {
         margin-left: auto;
+        top: 5px;
       }
       @include breakpoint(large) {
         margin: auto;
       }
       @media (min-width: 1280px) and (max-width: 1920px) {
-        top: 0.26vw;
+        top: 0.677vw;
+      }
+      @include breakpoint(max) {
+        top: 13px;
       }
     }
 
@@ -1153,21 +1273,26 @@
 
     &:nth-child(6) {
       .ballistic_weaponImg img {
-        width: 158px;
+        width: 170px;
+        top: 1px;
         @media (min-width: 1280px) and (max-width: 1920px) {
-          width: 8.229vw;
+          width: 8.854vw;
+          top: 0.625vW;
+        }
+        @include breakpoint(max) {
+          top: 12px;
         }
       }
       .ballistic_bullets img {
-        width: 140px;
-        @include breakpoint(untilLarge) {
-          top: 0;
-        }
+        width: 130px;
+        top: 0;
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 6.771vw;
+          top: 0.417vW;
         }
         @include breakpoint(max) {
           width: 130px;
+          top: 8px;
         }
       }
     }
@@ -1252,9 +1377,11 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 7.552vw;
+          top: 0.313vW;
         }
         @include breakpoint(max) {
           width: 145px;
+          top: 6px;
         }
       }
     }
@@ -1276,9 +1403,11 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 6.406vw;
+          top: 0.208vW;
         }
         @include breakpoint(max) {
           width: 123px;
+          top: 4px;
         }
       }
     }
@@ -1291,6 +1420,10 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 10.573vw;
+          top: 0.156vW;
+        }
+        @include breakpoint(max) {
+          top: 8px;
         }
       }
       .ballistic_bullets img {
@@ -1300,9 +1433,11 @@
         }
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 7.552vw;
+          top: 0.208vW;
         }
         @include breakpoint(max) {
           width: 145px;
+          top: 4px;
         }
       }
     }
@@ -1316,7 +1451,8 @@
       }
       .ballistic_bullets img {
         width: 269px;
-        @include breakpoint(untilLarge) {
+        top: 5px;
+        @include breakpoint(large) {
           top: 0;
         }
         @media (min-width: 1280px) and (max-width: 1920px) {

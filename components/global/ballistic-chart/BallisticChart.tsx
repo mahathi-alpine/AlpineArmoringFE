@@ -29,7 +29,7 @@ const BallisticChart = () => {
       nij: 'HG1',
       cen: 'BR2',
       weight: ['124 grains', '15.55 grams'],
-      type: ['FMJ /RN'],
+      type: ['FMJ/RN'],
       typeFull: ['Full Metal Jacket / Round Nose'],
       velocity: ['1,305 ft/s (398 m/s)'],
     },
@@ -43,7 +43,7 @@ const BallisticChart = () => {
       nij: 'HG1',
       cen: 'BR3',
       weight: ['158 grains', '10.23 grams'],
-      type: ['FMJ /JSP'],
+      type: ['FMJ/JSP'],
       typeFull: ['Full Metal Jacket / Jacketed Soft Point'],
       velocity: ['1,430 ft/s (436 m/s)'],
     },
@@ -75,21 +75,21 @@ const BallisticChart = () => {
       velocity: ['1,650 ft/s (503 m/s)'],
     },
     {
-      name: ['300AAC Blackout'],
-      caliber: ['7.62 x 35mm'],
-      class: ['Carbine'],
+      name: ['300AAC Blackout', 'Tokarev'],
+      caliber: ['7.62 x 35mm', '7.62 x 25mm'],
+      class: ['Carbine', 'Handgun'],
       stanag: 'I',
       ul: '5',
       level: ['5'],
       nij: 'RF1',
       cen: 'BR4+',
-      weight: ['125 grains', '8.10 grams'],
-      type: ['FMJ'],
+      weight: ['84 grains', '5.50 grams', '125 grains', '9.10 grams'],
+      type: ['FMJ', 'LCSJ'],
       typeFull: ['Full Metal Jacket'],
-      velocity: ['2,185 ft/s (666 m/s)'],
+      velocity: ['2,185 ft/s (666 m/s)', '1,600 ft/s (488 m/s)'],
     },
     {
-      name: ['AK-47 or Kalashnikov'],
+      name: ['AK-47/Kalashnikov'],
       caliber: ['7.62 x 39mm'],
       class: ['Rifle'],
       stanag: 'I',
@@ -392,6 +392,7 @@ const BallisticChart = () => {
                   width="132"
                   height="47"
                   className="untilLarge-only"
+                  quality={100}
                   priority
                 ></Image>
                 <Image
@@ -400,6 +401,7 @@ const BallisticChart = () => {
                   width="80"
                   height="122"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -410,6 +412,7 @@ const BallisticChart = () => {
                   width="243"
                   height="64"
                   className="untilLarge-only"
+                  quality={100}
                   priority
                 ></Image>
                 <Image
@@ -418,6 +421,7 @@ const BallisticChart = () => {
                   width="230"
                   height="50"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -428,6 +432,7 @@ const BallisticChart = () => {
                   width="227"
                   height="64"
                   className="untilLarge-only"
+                  quality={100}
                   priority
                 ></Image>
                 <Image
@@ -436,6 +441,7 @@ const BallisticChart = () => {
                   width="353"
                   height="143"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -446,6 +452,7 @@ const BallisticChart = () => {
                   width="303"
                   height="92"
                   className="untilLarge-only"
+                  quality={100}
                   priority
                 ></Image>
                 <Image
@@ -454,6 +461,7 @@ const BallisticChart = () => {
                   width="379"
                   height="135"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -463,6 +471,7 @@ const BallisticChart = () => {
                   alt=""
                   width="140"
                   height="78"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -477,9 +486,10 @@ const BallisticChart = () => {
                 <Image
                   src="/assets/ballistic/stanag.png"
                   alt=""
-                  width="85"
-                  height="29"
+                  width="67"
+                  height="24"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -488,9 +498,10 @@ const BallisticChart = () => {
                 <Image
                   src="/assets/ballistic/chartNav_ul.png"
                   alt=""
-                  width="29"
-                  height="22"
+                  width="32"
+                  height="17"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -499,9 +510,10 @@ const BallisticChart = () => {
                 <Image
                   src="/assets/ballistic/alpine.png"
                   alt=""
-                  width="78"
-                  height="21"
+                  width="103"
+                  height="20"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -510,9 +522,10 @@ const BallisticChart = () => {
                 <Image
                   src="/assets/ballistic/nij.png"
                   alt=""
-                  width="33"
-                  height="22"
+                  width="37"
+                  height="20"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -521,9 +534,10 @@ const BallisticChart = () => {
                 <Image
                   src="/assets/ballistic/chartNav_cen.png"
                   alt=""
-                  width="45"
+                  width="35"
                   height="23"
                   className="large-only"
+                  quality={100}
                   priority
                 ></Image>
               </div>
@@ -546,6 +560,7 @@ const BallisticChart = () => {
                       width="264"
                       height="71"
                       priority
+                      quality={100}
                     ></Image>
                   </div>
                 </div>
@@ -732,6 +747,7 @@ const BallisticChart = () => {
                     alt=""
                     width="232"
                     height="56"
+                    quality={100}
                     priority
                   ></Image>
                 </div>
