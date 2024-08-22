@@ -319,11 +319,11 @@
           width: 3.49vw;
           max-width: 67px;
           top: -0.4vw;
-          left: 0.15vw;
+          left: 0.3vw;
         }
         @include breakpoint(max) {
           top: -7.6px;
-          left: 2.8px;
+          left: 7px;
         }
       }
 
@@ -427,14 +427,14 @@
         @include breakpoint(large) {
           width: 1.823vw;
           max-width: 35px;
+        }
+        @media (min-width: 1280px) and (max-width: 1920px) {
+          margin-left: 1.563vw;
           top: -0.26vw;
-          margin-left: 1.406vw;
-          margin-right: 3.385vw;
         }
         @include breakpoint(max) {
           top: -5px;
-          margin-left: 27px;
-          margin-right: 65px;
+          margin-left: 30px;
         }
       }
 
@@ -444,10 +444,13 @@
           left: 10px;
         }
         @include breakpoint(large) {
-          margin-left: -1.771vw;
+          margin-left: 0;
+        }
+        @media (min-width: 1280px) and (max-width: 1920px) {
+          left: 2.448vw;
         }
         @include breakpoint(max) {
-          margin-left: -34px;
+          left: 47px;
         }
       }
 
@@ -455,11 +458,23 @@
         @include breakpoint(untilLarge) {
           left: 2px;
         }
+        @media (min-width: 1280px) and (max-width: 1920px) {
+          left: 2.448vw;
+        }
+        @include breakpoint(max) {
+          left: 47px;
+        }
       }
 
       &:nth-child(12) {
         @include breakpoint(untilLarge) {
           width: 155px;
+        }
+        @media (min-width: 1280px) and (max-width: 1920px) {
+          left: 2.448vw;
+        }
+        @include breakpoint(max) {
+          left: 47px;
         }
       }
 
@@ -600,7 +615,7 @@
         margin-top: -0.104vw;
       }
       @include breakpoint(max) {
-        margin-top: -2px;
+        margin-top: -1px;
       }
     }
 
@@ -612,7 +627,7 @@
         margin-top: 0.052vw;
       }
       @include breakpoint(max) {
-        margin-top: 1px;
+        margin-top: -2px;
       }
 
       .ballistic_row_item {
@@ -722,7 +737,7 @@
         margin-top: -0.26vw;
       }
       @include breakpoint(max) {
-        margin-top: -5px;
+        margin-top: -8px;
       }
     }
     &:nth-child(8) {
@@ -777,7 +792,7 @@
         margin-top: -0.156vw;
       }
       @include breakpoint(max) {
-        margin-top: -3px;
+        margin-top: -px;
       }
     }
     &:nth-child(13) {
@@ -788,7 +803,7 @@
         margin-top: -0.26vw;
       }
       @include breakpoint(max) {
-        margin-top: -5px;
+        margin-top: -7px;
       }
     }
 
@@ -842,6 +857,9 @@
         @media (min-width: 1280px) and (max-width: 1920px) {
           margin-left: -0.313vw;
         }
+        @include breakpoint(max) {
+          margin-left: 0;
+        }
       }
       &:nth-child(6) {
         @include breakpoint(untilLarge) {
@@ -886,6 +904,10 @@
         @include breakpoint(large) {
           width: 7.083vw;
           max-width: 136px;
+          margin-left: 1.042vW;
+        }
+        @include breakpoint(max) {
+          margin-left: 20px;
         }
       }
       &:nth-child(11) {
@@ -1291,7 +1313,7 @@
         }
         @include breakpoint(max) {
           width: 130px;
-          top: 8px;
+          top: 11px;
         }
       }
     }
@@ -1380,7 +1402,7 @@
         }
         @include breakpoint(max) {
           width: 145px;
-          top: 6px;
+          top: 13px;
         }
       }
     }
@@ -1406,7 +1428,7 @@
         }
         @include breakpoint(max) {
           width: 123px;
-          top: 4px;
+          top: 13px;
         }
       }
     }
@@ -1436,7 +1458,7 @@
         }
         @include breakpoint(max) {
           width: 145px;
-          top: 4px;
+          top: 10px;
         }
       }
     }
@@ -1459,6 +1481,7 @@
         }
         @include breakpoint(max) {
           width: 270px;
+          top: 5px
         }
       }
     }
