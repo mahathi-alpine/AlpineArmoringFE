@@ -185,7 +185,7 @@
 
       @include breakpoint(large) {
         font-size: 20px;
-        margin-bottom: 34px;
+        margin-bottom: 19px;
       }
     }
     &_list {
@@ -408,6 +408,9 @@
 
         .ballistic_bottom_main_title {
           margin-bottom: 10px;
+          @include breakpoint(large) {
+            margin-bottom: 16px;
+          }
         }
 
         .ballistic_bottom_main_list_level {
@@ -454,6 +457,17 @@
           }
         }
       }
+    }
+  }
+
+  &_ammunition{
+    margin-top: 30px;
+    text-align: center;
+    font-family: 'Termina';
+    font-weight: 700;
+    @include breakpoint(large) {
+      font-size: 24px;
+      cursor: pointer;
     }
   }
 }

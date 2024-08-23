@@ -388,7 +388,8 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_header_item}`}>
                 <Image
                   src="/assets/ballistic/ballistic_logo_mobile.png"
-                  alt=""
+                  alt="AlpineLogo"
+                  title="Alpine Logo"
                   width="132"
                   height="47"
                   className="untilLarge-only"
@@ -397,7 +398,8 @@ const BallisticChart = () => {
                 ></Image>
                 <Image
                   src="/assets/ballistic/ballistic_logo.png"
-                  alt=""
+                  alt="AlpineLogo"
+                  title="Alpine Logo"
                   width="80"
                   height="122"
                   className="large-only"
@@ -408,7 +410,8 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_header_item}`}>
                 <Image
                   src="/assets/ballistic/heading_weapon_mobile.png"
-                  alt=""
+                  alt="Weapon"
+                  title="Weapon"
                   width="243"
                   height="64"
                   className="untilLarge-only"
@@ -417,7 +420,8 @@ const BallisticChart = () => {
                 ></Image>
                 <Image
                   src="/assets/ballistic/heading_weapon.png"
-                  alt=""
+                  alt="Weapon"
+                  title="Weapon"
                   width="230"
                   height="50"
                   className="large-only"
@@ -428,7 +432,8 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_header_item}`}>
                 <Image
                   src="/assets/ballistic/heading_levels_mobile.png"
-                  alt=""
+                  alt="Levels"
+                  title="Levels"
                   width="227"
                   height="64"
                   className="untilLarge-only"
@@ -437,7 +442,8 @@ const BallisticChart = () => {
                 ></Image>
                 <Image
                   src="/assets/ballistic/heading_levels.png"
-                  alt=""
+                  alt="Levels"
+                  title="Levels"
                   width="353"
                   height="143"
                   className="large-only"
@@ -448,7 +454,8 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_header_item}`}>
                 <Image
                   src="/assets/ballistic/heading_projectile_mobile.png"
-                  alt=""
+                  alt="Projectile"
+                  title="Projectile"
                   width="303"
                   height="92"
                   className="untilLarge-only"
@@ -457,7 +464,8 @@ const BallisticChart = () => {
                 ></Image>
                 <Image
                   src="/assets/ballistic/heading_projectile.png"
-                  alt=""
+                  alt="Projectile"
+                  title="Projectile"
                   width="379"
                   height="135"
                   className="large-only"
@@ -468,7 +476,8 @@ const BallisticChart = () => {
               <div className={`${styles.ballistic_header_item}`}>
                 <Image
                   src="/assets/ballistic/heading_best.png"
-                  alt=""
+                  alt="No one protects you better."
+                  title="No one protects you better."
                   width="140"
                   height="78"
                   quality={100}
@@ -485,7 +494,8 @@ const BallisticChart = () => {
                 Stanag
                 <Image
                   src="/assets/ballistic/stanag.png"
-                  alt=""
+                  alt="Stanag"
+                  title="Stanag"
                   width="67"
                   height="24"
                   className="large-only"
@@ -497,7 +507,8 @@ const BallisticChart = () => {
                 UL
                 <Image
                   src="/assets/ballistic/chartNav_ul.png"
-                  alt=""
+                  alt="UL"
+                  title="UL"
                   width="32"
                   height="17"
                   className="large-only"
@@ -509,7 +520,8 @@ const BallisticChart = () => {
                 Alpine
                 <Image
                   src="/assets/ballistic/alpine.png"
-                  alt=""
+                  alt="Alpine"
+                  title="Alpine"
                   width="103"
                   height="20"
                   className="large-only"
@@ -521,7 +533,8 @@ const BallisticChart = () => {
                 Nij
                 <Image
                   src="/assets/ballistic/nij.png"
-                  alt=""
+                  alt="NIJ"
+                  title="NIJ"
                   width="37"
                   height="20"
                   className="large-only"
@@ -533,7 +546,8 @@ const BallisticChart = () => {
                 Cen
                 <Image
                   src="/assets/ballistic/chartNav_cen.png"
-                  alt=""
+                  alt="CEN"
+                  title="CEN"
                   width="35"
                   height="23"
                   className="large-only"

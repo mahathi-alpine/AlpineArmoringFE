@@ -6,10 +6,9 @@ export default function NextJsImage({ slide }) {
           data={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
           type="application/pdf"
           style={{
-            // width: `${slide.width}px`,
-            // height: `${slide.height}px`,
+            height: `${slide.height}px`,
             width: 830,
-            height: `100vH`,
+            maxHeight: `100vH`,
             maxWidth: '100%',
           }}
         >
@@ -17,7 +16,8 @@ export default function NextJsImage({ slide }) {
             src={`https://drive.google.com/file/d/${slide.src}/preview?usp=sharing`}
             style={{
               width: 830,
-              height: `100vH`,
+              height: `${slide.height}px`,
+              maxHeight: `100vH`,
               maxWidth: '100%',
             }}
           />

@@ -13,21 +13,25 @@ const BallisticChartBottom = () => {
       name: 'NIJ',
       text: 'National Institute of Justice (0101.07/0123.00)',
       url: '19rObIeih67-cJvBEfGQncN0f91XCTquV',
+      height: 560,
     },
     {
       name: 'UL',
       text: 'Underwriters Laboratories – Standards & Engagements 752',
       url: '18cJkbVt1HTsXGJnz4TosYo9X0RUUYlU9',
+      height: 706,
     },
     {
       name: 'CEN',
       text: 'European Committee for Standardization – BR 1063',
       url: '18cv4OJWT7jMh5fCFNki6aB3XQ-whwBq0',
+      height: 495,
     },
     {
       name: 'DIN',
       text: 'German Institute for Standardization',
       url: '18dFPahm2n-93fu_Q0etg0GEbYVngvULn',
+      height: 495,
     },
     {
       name: 'STANAG',
@@ -35,16 +39,19 @@ const BallisticChartBottom = () => {
       smallText:
         'Protection Levels for Occupants of Logistic and Light Armored Vehicles',
       url: '18fZmfyArn0l1doYRinPLxqJyrqOMUKeO',
+      height: 523,
     },
     {
       name: 'VPAM',
       text: 'Association of Testing Centers for Attack-Resistant Materials and Constructions',
       url: '18i41IlKUMbTbXVFjbGZngPTmQOa3zPa1',
+      height: 283,
     },
     {
       name: 'OTHER',
       text: 'Internationally Recognized Ballistic Testing Standards (for reference)',
       url: '18gpmBavwGIfHaRLPzre0GbsWr_86NS8F',
+      height: 1059,
     },
   ];
 
@@ -169,6 +176,11 @@ const BallisticChartBottom = () => {
   const { openLightbox, renderLightbox } = useLightbox();
   const [selectedIndex, setSelectedIndex] = useState(null);
 
+  const ammunitionChart = {
+    url: '11XePOW4takkdN-2s0vymRRo42gaKsYf-',
+    height: 474,
+  };
+
   return (
     <div className={`${styles.ballistic_bottom}`}>
       <BallisticChartBottomHeading />
@@ -256,8 +268,18 @@ const BallisticChartBottom = () => {
       </div>
 
       {renderLightbox({
-        slides: [{ src: ballisticStandards[selectedIndex]?.url }],
+        slides: [
+          {
+            src: selectedIndex
+              ? ballisticStandards[selectedIndex]?.url
+              : ammunitionChart.url,
+            height: selectedIndex
+              ? ballisticStandards[selectedIndex]?.height
+              : ammunitionChart.height,
+          },
+        ],
         plugins: [Zoom],
+        className: 'pdfLightbox',
         render: {
           slide: pdfViewer,
           buttonPrev: () => null,
@@ -265,20 +287,15 @@ const BallisticChartBottom = () => {
         },
       })}
 
-      {/* {renderLightbox({
-        slides: slides.map((item) => ({
-          src: item.src,
-          width: item.width,
-          height: item.height,
-        })),
-        plugins: [Zoom],
-        render: {
-          slide: pdfViewer,
-          buttonPrev: () => null,
-          buttonNext: () => null,
-        },
-        index: selectedIndex,
-      })} */}
+      <div
+        className={`${styles.ballistic_bottom_ammunition}`}
+        onClick={() => {
+          setSelectedIndex(null);
+          openLightbox();
+        }}
+      >
+        Ammunition Chart
+      </div>
     </div>
   );
 };
