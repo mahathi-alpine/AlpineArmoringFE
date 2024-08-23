@@ -5,7 +5,6 @@ import { useState } from 'react';
 import useLightbox from '../lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
 import pdfViewer from '../lightbox/pdfViewer';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 const BallisticChartBottom = () => {
   const ballisticStandards = [
@@ -278,7 +277,6 @@ const BallisticChartBottom = () => {
               : ammunitionChart.height,
           },
         ],
-        plugins: [Zoom],
         className: 'pdfLightbox',
         render: {
           slide: pdfViewer,
