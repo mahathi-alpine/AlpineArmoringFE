@@ -904,7 +904,7 @@
         @include breakpoint(large) {
           width: 7.083vw;
           max-width: 136px;
-          margin-left: 1.042vW;
+          margin-left: 1.042vw;
         }
         @include breakpoint(max) {
           margin-left: 20px;
@@ -1481,7 +1481,7 @@
         }
         @include breakpoint(max) {
           width: 270px;
-          top: 5px
+          top: 5px;
         }
       }
     }
