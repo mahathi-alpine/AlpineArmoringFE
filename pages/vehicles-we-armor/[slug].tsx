@@ -239,8 +239,8 @@ function Vehicle(props) {
             />
             <p className={`${styles.slug_slider_small}`}>
               <small>
-                The actual custom-armoring conversion may vary per client’s
-                final specs
+                The actual custom-armoring conversion may vary per each
+                vehicle’s structural configuration and client’s final specs
               </small>
             </p>
           </div>

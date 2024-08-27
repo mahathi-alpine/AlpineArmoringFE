@@ -170,7 +170,7 @@
     }
 
     &_small {
-      text-align: right;
+      text-align: center;
       @include breakpoint(large) {
         max-width: 1280px;
         margin: auto;

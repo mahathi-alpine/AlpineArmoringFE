@@ -64,9 +64,17 @@
     &_primary {
       font-size: rem(32);
       font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
-      font-weight: var(--font-light);
+      font-weight: var(--font-thin);
       line-height: 1.1;
     }
+  }
+
+  &_description {
+    display: inline-block;
+    position: relative;
+    font-size: rem(24);
+    text-transform: none;
+    margin-top: 1rem;
   }
 
   &_featured {
@@ -172,12 +180,4 @@
       box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.1);
     }
   }
-}
-
-.sectionDivider {
-  border: 0;
-  height: 10px;
-  background: #ddd;
-  color: black;
-  margin: 2rem 0;
 }

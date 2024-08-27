@@ -17,6 +17,7 @@ export default function Custom404() {
       </Head>
       <div className="errorPage">
         <div className="container_small">
+          <h2 className="errorPage_h2">ALL DOWNLOADS</h2>
           <h2 className="errorPage_h2">COMING SOON!</h2>
 
           <Button href={`/`} className={`primary rounded`}>

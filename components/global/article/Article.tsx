@@ -34,6 +34,18 @@ const Article = ({
                 {subtitle}
               </h3>
             ) : null}
+            <br />
+            <p className={`${styles.article_description}`}>
+              Alpine Armoring is dedicated to providing high-quality armored
+              vehicles and services across the globe. We proudly serve 178
+              countries, ensuring that clients worldwide can benefit from our
+              expertise in vehicle armoring. Whether for personal protection,
+              business security, or government use, our vehicles are designed to
+              meet the highest standards of safety and performance. Explore the
+              extensive list of locations we serve and discover how Alpine
+              Armoring can deliver unparalleled security solutions wherever you
+              are.
+            </p>
           </div>
         ) : null}
 
@@ -74,6 +86,10 @@ const Article = ({
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
+                                  style={{
+                                    maxHeight: '26px',
+                                    minHeight: '26px',
+                                  }}
                                   src={`/assets/places/${item.attributes.excerpt
                                     .toLowerCase()
                                     .replace(/\s+/g, '-')}.png`}
@@ -159,7 +175,7 @@ const Article = ({
               <h3
                 className={`${styles.article_heading_secondary} block-reveal observe`}
               >
-                CITIES
+                MAJOR CITIES
               </h3>
               <div style={{ marginBottom: '4rem' }}>
                 {(limit ? cities.slice(0, limit) : cities).map(
