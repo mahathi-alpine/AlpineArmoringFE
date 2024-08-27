@@ -119,18 +119,42 @@ function Manufacturing(props) {
               <div
                 className={`${styles.manufacturing_section1_image} ${styles.manufacturing_image} observe fade-in`}
               >
-                <Image
-                  src={
-                    props.pageData.section1Image.data.attributes.formats?.medium
-                      ?.url || props.pageData.section1Image.data.attributes.url
-                  }
-                  alt={
-                    props.pageData.section1Image.data.attributes
-                      .alternativeText || 'Alpine Armoring'
-                  }
-                  width={600}
-                  height={475}
-                ></Image>
+                {props.pageData.section1Image.data.attributes.mime.startsWith(
+                  'image/'
+                ) ? (
+                  <Image
+                    src={`${
+                      props.pageData.section1Image.data.attributes.formats
+                        .medium?.url ||
+                      props.pageData.section1Image.data.attributes.url
+                    }`}
+                    alt={
+                      props.pageData.section1Image.data.attributes
+                        .alternativeText || 'Alpine Armoring'
+                    }
+                    width={600}
+                    height={475}
+                  />
+                ) : props.pageData.section1Image.data.attributes.mime.startsWith(
+                    'video/'
+                  ) ? (
+                  <div className={styles.videoResponsive}>
+                    <video
+                      preload="none"
+                      muted={true}
+                      autoPlay={true}
+                      playsInline={true}
+                      loop={true}
+                      className={styles.responsiveVideo}
+                    >
+                      <source
+                        src={`${props.pageData.section1Image.data.attributes?.url}`}
+                        type={props.pageData.section1Image.data.attributes.mime}
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ) : null}
               </div>
             ) : null}
           </div>
