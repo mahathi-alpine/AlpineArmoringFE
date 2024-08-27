@@ -19,8 +19,8 @@
   // }
 
   &_description {
-    margin-top: rem(32);
-    margin-bottom: rem(40);
+    // margin-top: rem(32);
+    // margin-bottom: rem(40);
 
     @include breakpoint(large) {
       font-size: rem(20);
@@ -28,7 +28,7 @@
       margin-bottom: rem(70);
     }
     @include breakpoint(huge) {
-      margin-top: rem(70);
+      margin-top: rem(20);
     }
 
     p {
