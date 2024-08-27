@@ -157,6 +157,23 @@
         text-shadow: 2px 2px 2px #c5b9a0;
       }
     }
+
+    &_pre-owned {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-weight: var(--font-medium);
+      text-transform: uppercase;
+      text-align: center;
+      transition: opacity 0.3s ease;
+
+      span {
+        color: black;
+        font-size: rem(40);
+        text-shadow: 2px 2px 2px #6f6044;
+      }
+    }
   }
 
   &_button {

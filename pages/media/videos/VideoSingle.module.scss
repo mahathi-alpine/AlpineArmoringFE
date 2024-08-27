@@ -56,6 +56,7 @@
     max-height: 190px;
     object-fit: cover;
     width: 100%;
+    aspect-ratio: 16/9;
     @include breakpoint(medium) {
       max-height: 280px;
     }
