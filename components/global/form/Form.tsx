@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Form.module.scss';
 import Button from 'components/global/button/Button';
 import Dropdown from 'components/global/form/Dropdown';
@@ -20,6 +20,18 @@ const Form = () => {
   const [message, setMessage] = useState('');
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (router.asPath.includes('rental-vehicles')) {
+      setInquiry('Rental Vehicles');
+    }
+  }, [router.asPath]);
+
+  useEffect(() => {
+    if (router.query.source === 'become-a-dealer') {
+      setInquiry('Become a Dealer');
+    }
+  }, [router.query.source]);
 
   const [isCompanyDropdownActive, setIsCompanyDropdownActive] = useState(false);
   const [isInquiryDropdownActive, setIsInquiryDropdownActive] = useState(false);
