@@ -1135,6 +1135,9 @@
         @include breakpoint(large) {
           font-size: clamp(0.625rem, -0.125rem + 0.9375vw, 1rem);
         }
+        @media (min-width: 1280px) and (max-width: 1920px) {
+          line-height: clamp(0.6875rem, 0.1875rem + 0.625vw, 0.9375rem);
+        }
 
         &:hover {
           & ~ .ballistic_tooltip {
@@ -1468,6 +1471,10 @@
         width: 264px;
         @media (min-width: 1280px) and (max-width: 1920px) {
           width: 13.75vw;
+          top: 0;
+        }
+        @include breakpoint(max) {
+          top: 9px;
         }
       }
       .ballistic_bullets img {

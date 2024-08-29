@@ -269,12 +269,14 @@ const BallisticChartBottom = () => {
       {renderLightbox({
         slides: [
           {
-            src: selectedIndex
-              ? ballisticStandards[selectedIndex]?.url
-              : ammunitionChart.url,
-            height: selectedIndex
-              ? ballisticStandards[selectedIndex]?.height
-              : ammunitionChart.height,
+            src:
+              selectedIndex !== null
+                ? ballisticStandards[selectedIndex]?.url
+                : ammunitionChart.url,
+            height:
+              selectedIndex !== null
+                ? ballisticStandards[selectedIndex]?.height
+                : ammunitionChart.height,
           },
         ],
         className: 'pdfLightbox',
