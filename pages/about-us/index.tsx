@@ -128,7 +128,7 @@ function About(props) {
                     {certificate1 ? (
                       <div
                         onClick={() => {
-                          setSelectedIndex(certificate1);
+                          setSelectedIndex('/assets/pdf1.pdf');
                           openLightbox();
                         }}
                         style={{ cursor: 'pointer', display: 'inline-block' }}
@@ -151,7 +151,7 @@ function About(props) {
                     {certificate2 ? (
                       <div
                         onClick={() => {
-                          setSelectedIndex(certificate2);
+                          setSelectedIndex('/assets/pdf2.pdf');
                           openLightbox();
                         }}
                         style={{ cursor: 'pointer', display: 'inline-block' }}
