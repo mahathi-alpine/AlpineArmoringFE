@@ -7,11 +7,19 @@ import dynamic from 'next/dynamic';
 import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
 const NavigationPopup = dynamic(
-  () => import('components/global/navigation/NavigationPopup')
+  () => import('components/global/navigation/NavigationPopup'),
+  {
+    ssr: false,
+  }
 );
-const Search = dynamic(() => import('components/global/search/Search'));
+const Search = dynamic(() => import('components/global/search/Search'), {
+  ssr: false,
+});
 const ScrollToTopButton = dynamic(
-  () => import('components/global/scroll-to-top-button/ScrollToTopButton')
+  () => import('components/global/scroll-to-top-button/ScrollToTopButton'),
+  {
+    ssr: false,
+  }
 );
 
 const termina = localFont({

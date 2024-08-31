@@ -11,7 +11,10 @@ import SearchIcon from 'components/icons/Search';
 import { useRouter } from 'next/router';
 
 const LanguageSwitcher = dynamic(
-  () => import('components/global/lang-switcher/LangSwitcher')
+  () => import('components/global/lang-switcher/LangSwitcher'),
+  {
+    ssr: false,
+  }
 );
 // import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 
