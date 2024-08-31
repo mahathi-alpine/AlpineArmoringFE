@@ -12,10 +12,8 @@ import {
 
 import useLightbox from '../lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
-import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
-import NextJsImage from '../lightbox/NextJsImage';
-import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
+import NextJsImage from '../lightbox/NextJsImageContent';
 
 // Define the props interface
 interface AutoplayProps {
@@ -215,16 +213,9 @@ const Autoplay: React.FC<AutoplayProps> = ({
             height: item.attributes?.height,
             formats: item.attributes?.formats,
             alt: item.attributes?.alternativeText,
+            caption: item.attributes.caption, // Add this line
           })),
-          plugins: [Thumbnails],
-          thumbnails: {
-            padding: 0,
-            gap: 4,
-            imageFit: 'cover',
-            borderColor: '#737373',
-            borderRadius: 8,
-          },
-          render: { slide: NextJsImage, thumbnail: NextJsImageThumbs },
+          render: { slide: NextJsImage },
           index: selectedIndex,
         })}
       </div>
