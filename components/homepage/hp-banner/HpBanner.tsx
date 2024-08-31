@@ -63,11 +63,6 @@ const HpBanner = ({ props }: HPBannerProps) => {
           window.innerWidth < 768))
     ) {
       const videoElement = videoRef.current;
-
-      if (parseInt(getSafariVersion()) < 16.8) {
-        alert('test');
-      }
-
       if (videoElement) {
         const webmSource = videoElement.querySelector(
           'source[type="video/webm"]'
