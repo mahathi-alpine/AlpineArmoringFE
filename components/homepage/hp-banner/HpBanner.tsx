@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from './HpBanner.module.scss';
-import dynamic from 'next/dynamic';
-const PauseIcon = dynamic(() => import('components/icons/Pause'));
-const PlayIcon = dynamic(() => import('components/icons/Play'));
+import PlayIcon from 'components/icons/Play';
+import PauseIcon from 'components/icons/Pause';
 import { HPBannerProps } from 'types';
 
 const HpBanner = ({ props }: HPBannerProps) => {
@@ -36,42 +35,20 @@ const HpBanner = ({ props }: HPBannerProps) => {
     const userAgent = navigator.userAgent;
     const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
     if (versionMatch) {
-      return versionMatch[1];
+      // return versionMatch[1];
+      return versionMatch;
     }
     return null;
   }
-
-  function getIOSVersion() {
-    const userAgent = window.navigator.userAgent;
-
-    if (/iP(hone|od|ad)/.test(userAgent)) {
-      const versionMatch = userAgent.match(/OS (\d+)_(\d+)_?(\d+)?/);
-
-      if (versionMatch) {
-        return [
-          parseInt(versionMatch[1], 10),
-          parseInt(versionMatch[2], 10),
-          parseInt(String(versionMatch[3] || 0), 10),
-        ];
-      }
-    }
-
-    return null;
-  }
-
-  console.log(getIOSVersion());
-  console.log('ste');
-  console.log(getIOSVersion().join('.'));
 
   useEffect(() => {
-    const safariVersion = getSafariVersion();
-    const iosVersion = getIOSVersion();
+    alert(getSafariVersion());
 
     if (
+      isSafari() &&
       props.video?.video_mp4?.data &&
-      ((isSafari() && parseInt(safariVersion) < 17) ||
-        (parseInt(safariVersion) >= 17 && window.innerWidth > 768) ||
-        (iosVersion && iosVersion.join('.') <= '16.7.2'))
+      (parseInt(getSafariVersion()[1]) < 17 ||
+        (parseInt(getSafariVersion()[1]) >= 17 && window.innerWidth > 768))
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
