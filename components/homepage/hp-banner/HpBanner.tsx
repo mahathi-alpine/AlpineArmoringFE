@@ -35,22 +35,39 @@ const HpBanner = ({ props }: HPBannerProps) => {
     const userAgent = navigator.userAgent;
     const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
     if (versionMatch) {
-      // return versionMatch[1];
-      return versionMatch;
+      return versionMatch[1];
     }
     return null;
   }
 
-  useEffect(() => {
-    alert(getSafariVersion());
+  function isChrome() {
+    const userAgent =
+      typeof window !== 'undefined' ? navigator.userAgent : null;
 
+    if (!userAgent) {
+      return false;
+    }
+
+    return Boolean(userAgent.match(/Chrome|CriOS/i));
+  }
+
+  useEffect(() => {
     if (
-      isSafari() &&
       props.video?.video_mp4?.data &&
-      (parseInt(getSafariVersion()[1]) < 17 ||
-        (parseInt(getSafariVersion()[1]) >= 17 && window.innerWidth > 768))
+      ((isSafari() &&
+        (parseInt(getSafariVersion()) < 17 ||
+          (parseInt(getSafariVersion()) >= 17 && window.innerWidth >= 768))) ||
+        (isChrome() &&
+          getSafariVersion() &&
+          parseInt(getSafariVersion()) < 16.8 &&
+          window.innerWidth < 768))
     ) {
       const videoElement = videoRef.current;
+
+      if (parseInt(getSafariVersion()) < 16.8) {
+        alert('test');
+      }
+
       if (videoElement) {
         const webmSource = videoElement.querySelector(
           'source[type="video/webm"]'
