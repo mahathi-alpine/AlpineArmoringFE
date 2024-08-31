@@ -41,12 +41,37 @@ const HpBanner = ({ props }: HPBannerProps) => {
     return null;
   }
 
+  function getIOSVersion() {
+    const userAgent = window.navigator.userAgent;
+
+    if (/iP(hone|od|ad)/.test(userAgent)) {
+      const versionMatch = userAgent.match(/OS (\d+)_(\d+)_?(\d+)?/);
+
+      if (versionMatch) {
+        return [
+          parseInt(versionMatch[1], 10),
+          parseInt(versionMatch[2], 10),
+          parseInt(String(versionMatch[3] || 0), 10),
+        ];
+      }
+    }
+
+    return null;
+  }
+
+  console.log(getIOSVersion());
+  console.log('ste');
+  console.log(getIOSVersion().join('.'));
+
   useEffect(() => {
+    const safariVersion = getSafariVersion();
+    const iosVersion = getIOSVersion();
+
     if (
-      isSafari() &&
       props.video?.video_mp4?.data &&
-      (parseInt(getSafariVersion()) < 17 ||
-        (parseInt(getSafariVersion()) >= 17 && window.innerWidth > 768))
+      ((isSafari() && parseInt(safariVersion) < 17) ||
+        (parseInt(safariVersion) >= 17 && window.innerWidth > 768) ||
+        (iosVersion && iosVersion.join('.') <= '16.7.2'))
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
