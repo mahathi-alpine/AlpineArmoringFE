@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 
 const syncAlgolia = async (req, res) => {
   try {

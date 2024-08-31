@@ -1,5 +1,5 @@
 import styles from './Vehicle.module.scss';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';

@@ -1,4 +1,4 @@
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 

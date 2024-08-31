@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import dynamic from 'next/dynamic';
 // import { getCookie } from 'cookies-next';
 

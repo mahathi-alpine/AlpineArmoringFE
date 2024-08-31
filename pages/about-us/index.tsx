@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';

@@ -3,7 +3,7 @@ import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 

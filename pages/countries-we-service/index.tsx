@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 // import Banner from 'components/global/banner/Banner';
 import ArticleList from 'components/global/article/Article';
 import styles from './Article.module.scss';

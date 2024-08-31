@@ -1,5 +1,5 @@
 import styles from './Design.module.scss';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';

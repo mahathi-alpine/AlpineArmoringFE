@@ -2,7 +2,7 @@ import React from 'react';
 import Banner from 'components/global/banner/Banner';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 
 function Inventory(props) {

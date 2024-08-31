@@ -1,5 +1,5 @@
 import styles from './Testing.module.scss';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';

@@ -1,5 +1,5 @@
 import styles from './InventoryVehicle.module.scss';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));

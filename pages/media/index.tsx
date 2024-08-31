@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import Banner from 'components/global/banner/Banner';
 import styles from './Media.module.scss';
 import VideoSingle from './videos/VideoSingle';

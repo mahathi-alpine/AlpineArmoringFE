@@ -1,5 +1,5 @@
 import React from 'react';
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '/components/listing/Listing.module.scss';

@@ -1,4 +1,4 @@
-import { getPageData } from 'lib/api';
+import { getPageData } from 'hooks/api';
 import styles from './ArticleSingle.module.scss';
 import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
