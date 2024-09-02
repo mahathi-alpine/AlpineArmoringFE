@@ -1,10 +1,12 @@
 import styles from './BallisticChartBottom.module.scss';
 import BallisticChartBottomHeading from './BallisticChartBottomHeading';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import useLightbox from '../lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
 import pdfViewer from '../lightbox/pdfViewer';
+
+import PdfViewer from 'components/global/lightbox/PdfViewer2';
 
 const BallisticChartBottom = () => {
   const ballisticStandards = [
@@ -180,6 +182,38 @@ const BallisticChartBottom = () => {
     height: 474,
   };
 
+  const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
+
+  const togglePDFPopup = () => {
+    setPDFPopupOpen(!isPDFPopupOpen);
+
+    if (!isPDFPopupOpen) {
+      document.body.style.marginRight =
+        window.innerWidth - document.body.offsetWidth + 'px';
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.style.marginRight = '0';
+      document.body.classList.remove('no-scroll');
+    }
+  };
+
+  const popupRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (
+        popupRef.current &&
+        popupRef.current.classList.contains('modal_active')
+      ) {
+        setPDFPopupOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className={`${styles.ballistic_bottom}`}>
       <BallisticChartBottomHeading />
@@ -296,6 +330,43 @@ const BallisticChartBottom = () => {
       >
         Ammunition Chart
       </div>
+
+      <div
+        className={`${styles.ballistic_bottom_ammunition}`}
+        onClick={togglePDFPopup}
+      >
+        TEST PDF POPUP
+      </div>
+
+      {isPDFPopupOpen && (
+        <div
+          ref={popupRef}
+          className={`modal modal_pdf ${isPDFPopupOpen ? 'modal_active' : ''}`}
+          onClick={togglePDFPopup}
+        >
+          <div className="modal_content" onClick={(e) => e.stopPropagation()}>
+            <PdfViewer pdfUrl="/assets/pdf1.pdf" />
+            <button className={`modal_close`} onClick={togglePDFPopup}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <g fill="currentColor">
+                  <path d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    fill="#fff"
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
