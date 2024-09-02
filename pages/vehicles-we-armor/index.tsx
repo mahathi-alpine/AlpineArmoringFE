@@ -54,7 +54,7 @@ function VehicleWeArmor(props) {
 
   const [loading, setLoading] = useState(false);
 
-  const pageLimit = 21;
+  const pageLimit = 22;
 
   const fetchMoreItems = async () => {
     if (!hasMore) return;
@@ -175,7 +175,7 @@ export async function getServerSideProps(context) {
     params: query,
     populate: 'featuredImage, category, make',
     page: 1,
-    pageSize: 21,
+    pageSize: 22,
     sort: 'category.order',
   });
 
