@@ -322,7 +322,7 @@ $shapeColor: var(--color-background);
     }
   }
 
-  .rpv-core__inner-pages{
+  .rpv-core__inner-pages {
     @include breakpoint(small) {
       padding: 0 20px;
     }
@@ -349,7 +349,7 @@ $shapeColor: var(--color-background);
     align-items: center;
     justify-content: center;
 
-    .modal_pdf &{
+    .modal_pdf & {
       right: rem(10);
       @include breakpoint(large) {
         right: rem(30);
