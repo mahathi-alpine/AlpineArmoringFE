@@ -43,7 +43,9 @@ module.exports = {
       },
     ],
   },
-  redirects: redirects,
+  redirects: () => {
+    return redirects();
+  },
   reactStrictMode: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
