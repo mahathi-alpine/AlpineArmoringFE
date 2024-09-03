@@ -275,10 +275,11 @@ $shapeColor: var(--color-background);
   right: 0;
   top: 0;
   bottom: 0;
-  backdrop-filter: blur(20px);
+  // backdrop-filter: blur(20px);
   opacity: 0;
   transition: opacity 400ms ease;
-  background: rgba(0, 0, 0, 0.48);
+  // background: rgba(0, 0, 0, 0.48);
+  background: rgba(15, 17, 17, .5);
 
   &_active {
     display: block;
@@ -321,11 +322,76 @@ $shapeColor: var(--color-background);
       font-size: rem(18);
     }
   }
+  &_content{
+    background: white;
+    margin: auto;
+    overflow: hidden;
+    padding-top: 43px;
+    height: 100%;
 
-  .rpv-core__inner-pages {
-    @include breakpoint(small) {
-      padding: 0 20px;
+    @include breakpoint(large) {
+      position: relative;
+      width: 95%;
+      max-height: 90vH;
+      height: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      overflow-y: scroll;
+      padding-top: 0;
+      padding: 20px 0;
+      border-radius: 8px;
+      border: 1px solid #d5d9d9;
+      box-shadow: 0 0 14px 0 rgba(15, 17, 17, .5);
     }
+
+    &::-webkit-scrollbar{
+      background-color:#fff;
+      width:16px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color:#fff;
+      border-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color:#babac0;
+      border-radius:16px;
+      border:4px solid #fff;  
+      cursor: pointer;
+    }
+
+  }
+
+  // .rpv-core__inner-pages {
+  //   @include breakpoint(small) {
+  //     padding: 0 20px;
+  //   }
+  // }
+  .rpv-core__inner-pages{    
+    @include breakpoint(untilDesktop) {
+      overflow: scroll;
+      padding-top: 18px;
+    }
+  }
+  .rpv-core__page-layer--single{
+    margin: auto;
+    position: relative;
+    &:before{
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      box-shadow: 0 0 14px 0 rgba(15, 17, 17, .5);
+    }
+  }
+
+  // .rpv-core__inner-page{
+  //   overflow: scroll;
+  // }
+
+  .rpv-core__text-layer{
+    display: none;
   }
 
   &_box {
@@ -333,6 +399,16 @@ $shapeColor: var(--color-background);
       display: flex;
       align-items: center;
       gap: 64px;
+    }
+  }
+
+  &_download{
+    position: absolute;
+    top: rem(18);
+    right: rem(60);
+    @include breakpoint(large) {
+      right: 45px;
+      top: 13px;
     }
   }
 
@@ -350,23 +426,13 @@ $shapeColor: var(--color-background);
     justify-content: center;
 
     .modal_pdf & {
+      top: rem(16);
       right: rem(10);
       @include breakpoint(large) {
-        right: rem(30);
+        right: 5px;
+        top: 10px;
       }
     }
-
-    // &:after {
-    //   top: 0;
-    //   bottom: 0;
-    //   left: 0;
-    //   right: 0;
-    //   content: 'X';
-    //   font-size: 18px;
-    //   color: #fff;
-    //   line-height: 18px;
-    //   text-align: center;
-    // }
   }
 }
 
