@@ -279,7 +279,7 @@ $shapeColor: var(--color-background);
   opacity: 0;
   transition: opacity 400ms ease;
   // background: rgba(0, 0, 0, 0.48);
-  background: rgba(15, 17, 17, .5);
+  background: rgba(15, 17, 17, 0.5);
 
   &_active {
     display: block;
@@ -322,7 +322,7 @@ $shapeColor: var(--color-background);
       font-size: rem(18);
     }
   }
-  &_content{
+  &_content {
     background: white;
     margin: auto;
     overflow: hidden;
@@ -332,7 +332,7 @@ $shapeColor: var(--color-background);
     @include breakpoint(large) {
       position: relative;
       width: 95%;
-      max-height: 90vH;
+      max-height: 90vh;
       height: auto;
       top: 50%;
       transform: translateY(-50%);
@@ -341,24 +341,23 @@ $shapeColor: var(--color-background);
       padding: 20px 0;
       border-radius: 8px;
       border: 1px solid #d5d9d9;
-      box-shadow: 0 0 14px 0 rgba(15, 17, 17, .5);
+      box-shadow: 0 0 14px 0 rgba(15, 17, 17, 0.5);
     }
 
-    &::-webkit-scrollbar{
-      background-color:#fff;
-      width:16px;
+    &::-webkit-scrollbar {
+      background-color: #fff;
+      width: 16px;
     }
     &::-webkit-scrollbar-track {
-      background-color:#fff;
+      background-color: #fff;
       border-radius: 8px;
     }
     &::-webkit-scrollbar-thumb {
-      background-color:#babac0;
-      border-radius:16px;
-      border:4px solid #fff;  
+      background-color: #babac0;
+      border-radius: 16px;
+      border: 4px solid #fff;
       cursor: pointer;
     }
-
   }
 
   // .rpv-core__inner-pages {
@@ -366,23 +365,23 @@ $shapeColor: var(--color-background);
   //     padding: 0 20px;
   //   }
   // }
-  .rpv-core__inner-pages{    
+  .rpv-core__inner-pages {
     @include breakpoint(untilDesktop) {
       overflow: scroll;
       padding-top: 18px;
     }
   }
-  .rpv-core__page-layer--single{
+  .rpv-core__page-layer--single {
     margin: auto;
     position: relative;
-    &:before{
+    &:before {
       position: absolute;
       content: '';
       left: 0;
       right: 0;
       top: 0;
       bottom: 0;
-      box-shadow: 0 0 14px 0 rgba(15, 17, 17, .5);
+      box-shadow: 0 0 14px 0 rgba(15, 17, 17, 0.5);
     }
   }
 
@@ -390,7 +389,7 @@ $shapeColor: var(--color-background);
   //   overflow: scroll;
   // }
 
-  .rpv-core__text-layer{
+  .rpv-core__text-layer {
     display: none;
   }
 
@@ -402,7 +401,7 @@ $shapeColor: var(--color-background);
     }
   }
 
-  &_download{
+  &_download {
     position: absolute;
     top: rem(18);
     right: rem(60);

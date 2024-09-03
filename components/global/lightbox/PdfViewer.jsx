@@ -10,12 +10,12 @@ const PdfViewer = ({ pdfUrl }) => {
   return (
     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
       {/* <div style={{ height: '100vh', width: '100%' }}> */}
-        <Viewer
-          fileUrl={pdfUrl}
-          defaultScale={1.2}
-          // defaultLayout={defaultLayoutPluginInstance}
-          // plugins={[defaultLayoutPluginInstance]}Instance]}
-        />
+      <Viewer
+        fileUrl={pdfUrl}
+        defaultScale={1.2}
+        // defaultLayout={defaultLayoutPluginInstance}
+        // plugins={[defaultLayoutPluginInstance]}Instance]}
+      />
       {/* </div> */}
     </Worker>
   );
