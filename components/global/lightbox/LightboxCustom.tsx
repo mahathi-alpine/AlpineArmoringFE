@@ -73,8 +73,8 @@ const LightboxCustom = ({
 
       {lightboxData.contentType === 'video' && (
         <iframe
-          width="1920"
-          height="800"
+          width="100%"
+          height="100%"
           src={`https://www.youtube.com/embed/${lightboxData.videoSrc}?autoplay=1&mute=1&loop=1&rel=0`}
         ></iframe>
       )}
