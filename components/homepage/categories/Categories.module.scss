@@ -34,6 +34,9 @@
       &:nth-last-child(1):nth-child(odd) {
         grid-column: unset;
       }
+      &:nth-last-child(1):nth-child(even) {
+        grid-column: 2 / 3;
+      }
     }
 
     &:before {

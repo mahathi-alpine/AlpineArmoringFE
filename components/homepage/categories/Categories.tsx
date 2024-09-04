@@ -54,11 +54,14 @@ const Categories = ({ props, allVehiclesImage }) => {
                     >
                       {data.slug === 'rental'
                         ? 'Ready to Rent'
-                        : 'Available Now / Ready-To-Ship'}
+                        : data.slug === 'special-of-the-month'
+                          ? 'Click Here'
+                          : 'Available Now / Ready-To-Ship'}
                     </Button>
                   )}
 
                   {data.slug !== 'armored-pre-owned' &&
+                    data.slug !== 'special-of-the-month' &&
                     data.slug !== 'armored-rental' && (
                       <Button
                         href={`/vehicles-we-armor/type/${data.slug}`}
