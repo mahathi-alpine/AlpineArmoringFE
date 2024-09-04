@@ -1499,8 +1499,12 @@
     // justify-content: center;
 
     @keyframes fadeOut {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
     }
 
     &_button {
@@ -1517,7 +1521,7 @@
         max-height: 24px;
       }
 
-      &:before{
+      &:before {
         position: absolute;
         content: '';
         left: 0;
@@ -1525,7 +1529,7 @@
         top: 0;
         bottom: 0;
         border-radius: 12px;
-        background: rgba(0, 122, 76, .5);
+        background: rgba(0, 122, 76, 0.5);
         border: 1px solid #007a4c;
         z-index: 1;
         animation: fadeOut 1s ease-out 1s forwards;
