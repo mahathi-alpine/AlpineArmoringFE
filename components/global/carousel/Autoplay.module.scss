@@ -140,7 +140,7 @@
       cursor: pointer; /* Change cursor to indicate interactivity */
 
       &:hover {
-        max-height: none; /* Allow full height on hover */
+        max-height: 220px; /* Allow full height on hover */
         background-color: #f5f5f5; /* Optional: Change background color on hover */
       }
 

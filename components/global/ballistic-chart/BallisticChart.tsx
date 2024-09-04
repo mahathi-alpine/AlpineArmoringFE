@@ -778,7 +778,9 @@ const BallisticChart = () => {
             ref={interactedPopupRef}
           >
             <div className={`${styles.ballistic_popup_text}`}>
-              To view the entire chart, scroll horizontally and vertically
+              To view the entire chart, scroll horizontally and vertically.
+              <br />
+              You can compare levels by toggling the button on the far right.
             </div>
           </div>
         )}

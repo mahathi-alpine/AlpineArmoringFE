@@ -14,22 +14,22 @@
   }
 
   &_item {
-    padding: rem(16);
     margin-bottom: rem(8);
     background: var(--color-grayLight);
     border-radius: 8px;
-    @include breakpoint(large) {
-      padding: rem(16) rem(32);
-    }
 
     &_heading {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: rem(16);
       font-size: rem(15);
       font-size: clamp(0.9375rem, 0.9072rem + 0.1294vw, 1.0625rem);
       font-weight: var(--font-regular);
       cursor: pointer;
+      @include breakpoint(large) {
+        padding: rem(16) rem(32);
+      }
 
       &_title {
         flex: 1;
@@ -37,15 +37,19 @@
     }
 
     &_content {
+      padding: 0 rem(16);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-in-out;
       font-size: rem(14);
       font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
+      @include breakpoint(large) {
+        padding: 0 rem(32);
+      }
 
       &_text {
         display: block;
-        padding-top: rem(16);
+        padding-bottom: rem(16);
         font-weight: var(--font-regular);
 
         a {

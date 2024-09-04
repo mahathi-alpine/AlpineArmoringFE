@@ -17,7 +17,7 @@
 
   &_input {
     position: relative;
-    padding: rem(14) rem(16);
+    padding: rem(14) rem(8) rem(14) rem(16);
     width: 100%;
     border-radius: 8px;
     background: var(--color-white);
@@ -167,12 +167,4 @@
       }
     }
   }
-}
-.disabled {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.disabled .form_select_selected {
-  cursor: not-allowed;
 }

@@ -1498,17 +1498,37 @@
     // display: flex;
     // justify-content: center;
 
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
     &_button {
       position: relative;
       display: inline-block;
       width: 48px;
       height: 24px;
+      cursor: pointer;
 
       @include breakpoint(large) {
         width: 2.5vw;
         height: 1.25vw;
         max-width: 48px;
         max-height: 24px;
+      }
+
+      &:before{
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 12px;
+        background: rgba(0, 122, 76, .5);
+        border: 1px solid #007a4c;
+        z-index: 1;
+        animation: fadeOut 1s ease-out 1s forwards;
       }
 
       &_slider {
@@ -1523,7 +1543,6 @@
         box-shadow:
           0px 6px 4px 0px #000 inset,
           0px 4.235px 6.841px 0px #000;
-        cursor: pointer;
         transition: background 0.2s ease-in-out;
 
         &:after {
@@ -1699,12 +1718,12 @@
     transform: translateY(-50%);
     max-width: 315px;
     margin: auto;
-    padding: 10px 24px 24px 24px;
+    padding: 16px;
     border-radius: 20px;
     border: 1px solid rgba(93, 99, 108, 0.94);
     background: #464646;
     box-shadow:
-      0px -8px 12px 0px #000 inset,
+      0px -4px 12px 0px #000 inset,
       0px 4px 8px 0px rgba(0, 0, 0, 0.5);
     z-index: 8;
 
@@ -1829,8 +1848,8 @@
 
     &_interact {
       font-size: 14px;
-      padding: 36px 24px;
-      width: 228px;
+      // padding: 36px 24px;
+      // width: 228px;
 
       .ballistic_popup_text {
         margin-bottom: 0;
