@@ -23,6 +23,7 @@ const Partners = (props) => {
               className={`${styles.partners_image}`}
               sizes={'(min-width: 1280px ) 25vw, 40vw'}
             ></Image>
+            <h3>{item.attributes.caption}</h3>
           </div>
         ))}
       </div>

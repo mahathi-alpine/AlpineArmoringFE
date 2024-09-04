@@ -694,21 +694,21 @@ const Form = () => {
         <small className={`${styles.form_input_error}`}>{errors.country}</small>
       </div>
 
-      {country === 'United States' && (
-        <div
-          className={`${styles.form_group} ${errors.state ? styles.error : ''}`}
-        >
-          <Dropdown
-            label="State*"
-            options={stateOptions}
-            selectedOption={state}
-            setSelectedOption={setState}
-            isActive={isStateDropdownActive}
-            setIsActive={setIsStateDropdownActive}
-          />
-          <small className={styles.form_input_error}>{errors.state}</small>
-        </div>
-      )}
+      <div
+        className={`${styles.form_group} ${errors.state ? styles.error : ''} ${
+          country !== 'United States' ? styles.disabled : ''
+        }`}
+      >
+        <Dropdown
+          label="State*"
+          options={stateOptions}
+          selectedOption={state}
+          setSelectedOption={setState}
+          isActive={country === 'United States' ? isStateDropdownActive : false}
+          setIsActive={setIsStateDropdownActive}
+        />
+        <small className={styles.form_input_error}>{errors.state}</small>
+      </div>
 
       <div
         className={`${styles.form_group} ${styles.form_group_full} ${

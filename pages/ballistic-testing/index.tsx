@@ -524,137 +524,24 @@ function Testing(props) {
           ) : null}
           <MediaList props={videos} itemType="video" />
         </section>
-        {/* <section
-          className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
-          id="vehicle-dynamic-testing"
-        >
-          {props.pageData?.section4Title ? (
-            <h2 className={`${styles.testing_title} block-reveal observe`}>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: props.pageData.section4Title,
-                }}
-              ></span>
-            </h2>
-          ) : null}
-
-          {props.pageData?.section4Heading ? (
-            <p
-              className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
+        {props.pageData?.section4Title ? (
+          <h3 className={styles.section4Title}>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: props.pageData.section4Title,
+              }}
+            ></span>
+          </h3>
+        ) : null}
+        {props.pageData?.section4Heading ? (
+          <h3 className={styles.section4Heading}>
+            <span
               dangerouslySetInnerHTML={{
                 __html: props.pageData.section4Heading,
               }}
-            ></p>
-          ) : null}
-          <div className={`${styles.testing_box}`}>
-            {props.pageData?.section4Text ? (
-              <div
-                className={`${styles.testing_section1_text1} ${styles.testing_text} fade-in observe`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section4Text),
-                }}
-              ></div>
-            ) : null}
-
-            {props.pageData?.section4Image.data ? (
-              <div className={`${styles.testing_image} observe fade-in`}>
-                {props.pageData.section4Image.data.attributes.mime.startsWith(
-                  'image/'
-                ) ? (
-                  <Image
-                    src={`${
-                      props.pageData.section4Image.data.attributes.formats
-                        .medium?.url ||
-                      props.pageData.section4Image.data.attributes.url
-                    }`}
-                    alt={
-                      props.pageData.section4Image.data.attributes
-                        .alternativeText || 'Alpine Armoring'
-                    }
-                    width={620}
-                    height={430}
-                  />
-                ) : props.pageData.section4Image.data.attributes.mime.startsWith(
-                    'video/'
-                  ) ? (
-                  <div className={styles.videoResponsive}>
-                    <video
-                      preload="none"
-                      muted={true}
-                      autoPlay={true}
-                      playsInline={true}
-                      loop={true}
-                      className={styles.responsiveVideo}
-                    >
-                      <source
-                        src={`${props.pageData.section4Image.data.attributes?.url}`}
-                        type={props.pageData.section4Image.data.attributes.mime}
-                      />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
-          <div className={`${styles.testing_box}`}>
-            {props.pageData?.section4Text2 ? (
-              <div
-                className={`${styles.testing_section1_text1} ${styles.testing_text} fade-in observe`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section4Text2),
-                }}
-              ></div>
-            ) : null}
-            {props.pageData?.section4Image2.data ? (
-              <div className={`${styles.testing_image} observe fade-in`}>
-                {props.pageData.section4Image2.data.attributes.mime.startsWith(
-                  'image/'
-                ) ? (
-                  <Image
-                    src={`${
-                      props.pageData.section4Image2.data.attributes.formats
-                        .medium?.url ||
-                      props.pageData.section4Image2.data.attributes.url
-                    }`}
-                    alt={
-                      props.pageData.section4Image2.data.attributes
-                        .alternativeText || 'Alpine Armoring'
-                    }
-                    width={620}
-                    height={430}
-                  />
-                ) : props.pageData.section4Image2.data.attributes.mime.startsWith(
-                    'video/'
-                  ) ? (
-                  <div className={styles.videoResponsive}>
-                    <video
-                      preload="none"
-                      muted={true}
-                      autoPlay={true}
-                      playsInline={true}
-                      loop={true}
-                      className={styles.responsiveVideo}
-                    >
-                      <source
-                        src={`${props.pageData.section4Image2.data.attributes?.url}`}
-                        type={
-                          props.pageData.section4Image2.data.attributes.mime
-                        }
-                      />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
-        </section>
-        {props.pageData?.section4Gallery.data ? (
-          <div className={`${styles.slug_gallery}`}>
-            <Gallery props={props.pageData?.section4Gallery.data} squared />
-          </div>
-        ) : null} */}
+            ></span>
+          </h3>
+        ) : null}
       </div>
       {isLightboxPopupOpen ? (
         <LightboxCustom

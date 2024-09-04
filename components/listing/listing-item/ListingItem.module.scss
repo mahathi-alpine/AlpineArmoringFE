@@ -136,7 +136,7 @@
       font-weight: var(--font-demi);
       text-shadow: 2px 2px 2px black;
       @include breakpoint(large) {
-        font-size: rem(36);
+        font-size: rem(32);
       }
     }
 
@@ -170,7 +170,7 @@
 
       span {
         color: black;
-        font-size: rem(40);
+        font-size: rem(32);
         text-shadow: 2px 2px 2px #6f6044;
       }
     }

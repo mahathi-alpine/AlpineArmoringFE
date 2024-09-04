@@ -52,7 +52,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                       href={`/available-now/type/${data.slug}`}
                       className="primary shiny"
                     >
-                      {data.slug === 'rental'
+                      {data.slug === 'armored-rental'
                         ? 'Ready to Rent'
                         : data.slug === 'special-of-the-month'
                           ? 'Click Here'
