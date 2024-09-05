@@ -40,7 +40,9 @@ function Ballistic(props) {
       ) : null}
 
       <BallisticChart />
-      <BallisticChartBottom />
+      <BallisticChartBottom
+        BallisticStandards={props.pageData.BallisticStandards}
+      />
     </>
   );
 }

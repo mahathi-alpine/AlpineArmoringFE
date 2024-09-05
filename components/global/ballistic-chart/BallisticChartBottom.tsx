@@ -7,47 +7,7 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 
-const BallisticChartBottom = () => {
-  const ballisticStandards = [
-    {
-      name: 'NIJ',
-      text: 'National Institute of Justice (0101.07/0123.00)',
-      pdf: '0-NIJ-National-Institute-of-Justice-0101-07-0123-00-.pdf',
-    },
-    {
-      name: 'UL',
-      text: 'Underwriters Laboratories – Standards & Engagements 752',
-      pdf: '2-Underwriters-Laboratories-UL-Standards-Engagements-752.pdf',
-    },
-    {
-      name: 'CEN',
-      text: 'European Committee for Standardization – BR 1063',
-      pdf: '3-European-Standard-CEN-1063.pdf',
-    },
-    {
-      name: 'DIN',
-      text: 'German Institute for Standardization',
-      pdf: '4-DIN-German-Institute-for-Standardization.pdf',
-    },
-    {
-      name: 'STANAG',
-      text: 'Standardization Agreement by NATO - 4569',
-      smallText:
-        'Protection Levels for Occupants of Logistic and Light Armored Vehicles',
-      pdf: '5-NATO-AEP-55STANAG-4569.pdf',
-    },
-    {
-      name: 'VPAM',
-      text: 'Association of Testing Centers for Attack-Resistant Materials and Constructions',
-      pdf: '6-VPAM-Plate-Materials.pdf',
-    },
-    {
-      name: 'OTHER',
-      text: 'Internationally Recognized Ballistic Testing Standards (for reference)',
-      pdf: '7-Other-common-Protection-Standards-table.pdf',
-    },
-  ];
-
+const BallisticChartBottom = (props) => {
   const projectileAcronyms = [
     {
       name: 'AP',
@@ -184,22 +144,20 @@ const BallisticChartBottom = () => {
             LINKS TO BALLISTIC STANDARDS
           </h2>
           <ul className={`${styles.ballistic_bottom_main_list}`}>
-            {ballisticStandards.map((item, index) => (
+            {props.BallisticStandards.map((item, index) => (
               <li
                 className={`${styles.ballistic_bottom_main_list_item}`}
                 key={index}
               >
                 <span
                   className={`${styles.ballistic_bottom_main_list_level}`}
-                  onClick={() =>
-                    togglePDFPopup(`/assets/ballistic/${item.pdf}`)
-                  }
+                  onClick={() => togglePDFPopup(`${item.pdf.url}`)}
                 >
-                  <strong>{item.name}</strong>
+                  <strong>{item.label}</strong>
                 </span>
                 <span className={`${styles.ballistic_bottom_main_list_pdf}`}>
-                  {item.text}
-                  {item.smallText && (
+                  {item.name}
+                  {item.text2 && (
                     <>
                       <br />
                       <small>

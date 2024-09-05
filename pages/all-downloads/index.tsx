@@ -1,33 +1,42 @@
-import { useEffect } from 'react';
-import Head from 'next/head';
-import Button from 'components/global/button/Button';
+import { getPageData } from 'hooks/api';
+import styles from './Downloads.module.scss';
+import Banner from 'components/global/banner/Banner';
 
-export default function Custom404() {
-  useEffect(() => {
-    document.body.classList.add('p0');
-    return () => {
-      document.body.classList.remove('p0');
-    };
-  }, []);
-
+function Downloads(props) {
   return (
     <>
-      <Head>
-        <title>Coming Soon - Alpine Armoring</title>
-      </Head>
-      <div className="errorPage">
-        <div className="container_small">
-          <h2 className="errorPage_h2">ALL DOWNLOADS</h2>
-          <h2 className="errorPage_h2">COMING SOON!</h2>
+      {props.pageData?.banner ? (
+        <Banner props={props.pageData.banner} shape="white" />
+      ) : null}
 
-          <Button href={`/`} className={`primary rounded`}>
-            Go to homepage
-          </Button>
-
-          <div className="errorPage_gradient"></div>
-        </div>
+      <div className={`${styles.downloads} container_small`}>
+        <h2 className={`c-title`}>Vehicles PDFs</h2>
+        <ul>
+          {props.pageData?.vehiclePDFs?.data.map((item, index) => (
+            <li key={index}>
+              <a href={`${item.attributes.url}`} target="_blank">
+                {item.attributes.alternativeText}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="shape-before shape-before-white"></div>
     </>
   );
 }
+
+export async function getStaticProps() {
+  let pageData = await getPageData({
+    route: 'all-download',
+    populate: 'deep',
+  });
+  pageData = pageData.data?.attributes || null;
+
+  const seoData = pageData?.seo || null;
+
+  return {
+    props: { pageData, seoData },
+  };
+}
+
+export default Downloads;
