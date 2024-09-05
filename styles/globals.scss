@@ -326,7 +326,6 @@ $shapeColor: var(--color-background);
     background: white;
     margin: auto;
     overflow: hidden;
-    padding-top: 43px;
     height: 100%;
 
     @include breakpoint(large) {
@@ -337,8 +336,7 @@ $shapeColor: var(--color-background);
       top: 50%;
       transform: translateY(-50%);
       overflow-y: scroll;
-      padding-top: 0;
-      padding: 20px 0;
+      padding-bottom: 20px;
       border-radius: 8px;
       border: 1px solid #d5d9d9;
       box-shadow: 0 0 14px 0 rgba(15, 17, 17, 0.5);
@@ -402,14 +400,19 @@ $shapeColor: var(--color-background);
     }
   }
 
+  &_nav{
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    z-index: 1;
+  }
+
   &_download {
-    position: absolute;
-    top: rem(18);
-    right: rem(60);
-    @include breakpoint(large) {
-      right: 45px;
-      top: 13px;
-    }
+    margin-right: 10px;
+    height: 28px;
 
     svg {
       max-width: 28px;
@@ -437,12 +440,13 @@ $shapeColor: var(--color-background);
     }
 
     .modal_pdf & {
-      top: rem(16);
-      right: rem(10);
-      @include breakpoint(large) {
-        right: 5px;
-        top: 10px;
-      }
+      position: static;
+      // top: rem(16);
+      // right: rem(10);
+      // @include breakpoint(large) {
+      //   right: 5px;
+      //   top: 10px;
+      // }
     }
   }
 }
