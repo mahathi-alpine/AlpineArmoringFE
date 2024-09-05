@@ -12,10 +12,12 @@
   }
 
   &_digit {
-    &_wrap{
-      transition: margin-top 1.2s cubic-bezier(0, 0.1, 0.58, 1), opacity 0.3s ease-in-out;
+    &_wrap {
+      transition:
+        margin-top 1.2s cubic-bezier(0, 0.1, 0.58, 1),
+        opacity 0.3s ease-in-out;
       opacity: 0;
-    }  
+    }
 
     font-weight: bold;
     color: #333;
