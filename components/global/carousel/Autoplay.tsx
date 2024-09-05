@@ -130,7 +130,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
                           src={
                             isMobile
                               ? item.attributes.formats?.thumbnail?.url
-                              : item.attributes.formats?.large?.url ||
+                              : item.attributes.formats?.medium?.url ||
                                 item.attributes.url
                           }
                           alt={

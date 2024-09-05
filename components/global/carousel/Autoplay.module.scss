@@ -219,6 +219,10 @@
     max-width: 30px;
     max-height: 31px;
     margin: auto -34px;
+
+    @include breakpoint(large) {
+      margin: auto -41px;
+    }
   }
 
   &_shape {

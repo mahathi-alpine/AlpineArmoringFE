@@ -89,20 +89,18 @@ function About(props) {
           </div>
         ) : null}
 
-        <div className={styles.counter_section}>
-          <div className={styles.counter_grid}>
-            <div className={styles.counter_box}>
-              <h3>Countries We Serviced</h3>
-              <Counter start={0} end={88} duration={2} />
-            </div>
-            <div className={styles.counter_box}>
-              <h3>Years In Business</h3>
-              <Counter start={0} end={31} duration={2} />
-            </div>
-            <div className={styles.counter_box}>
-              <h3>Makes & Models We Have Armored</h3>
-              <Counter start={0} end={276} duration={2} />
-            </div>
+        <div className={styles.counter_grid}>
+          <div className={styles.counter_box}>
+            <h3>Countries We Serviced</h3>
+            <Counter value={88} />
+          </div>
+          <div className={styles.counter_box}>
+            <h3>Years In Business</h3>
+            <Counter value={31} />
+          </div>
+          <div className={styles.counter_box}>
+            <h3>Makes & Models We Have Armored</h3>
+            <Counter value={276} />
           </div>
         </div>
 
