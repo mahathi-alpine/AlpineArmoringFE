@@ -144,7 +144,7 @@ const BallisticChartBottom = (props) => {
             LINKS TO BALLISTIC STANDARDS
           </h2>
           <ul className={`${styles.ballistic_bottom_main_list}`}>
-            {props.BallisticStandards.map((item, index) => (
+            {props?.BallisticStandards?.map((item, index) => (
               <li
                 className={`${styles.ballistic_bottom_main_list_item}`}
                 key={index}
