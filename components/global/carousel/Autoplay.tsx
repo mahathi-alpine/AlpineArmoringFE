@@ -124,14 +124,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
               >
                 {item.attributes?.url ? (
                   <>
-                    <div className={`${styles.carouselCurved_slide_img}`}>
-                      <h4
-                        className={`${styles.carouselCurved_slide_alternativeText}`}
-                      >
-                        {item.attributes.alternativeText ? (
-                          <span>{item.attributes.alternativeText}</span>
-                        ) : null}
-                      </h4>
+                    <div className={`${styles.carouselCurved_slide_inner}`}>
                       {item.attributes.mime.split('/')[0] === 'image' ? (
                         <Image
                           src={
@@ -143,7 +136,6 @@ const Autoplay: React.FC<AutoplayProps> = ({
                           alt={
                             item.attributes.alternativeText || 'Alpine Armoring'
                           }
-                          // priority={index === 0}
                           width={
                             isMobile
                               ? item.attributes.formats?.thumbnail?.width
@@ -156,15 +148,9 @@ const Autoplay: React.FC<AutoplayProps> = ({
                               : item.attributes.formats?.medium?.height ||
                                 item.attributes.height
                           }
-                          className={styles.carousel_slide_img}
+                          className={styles.carouselCurved_slide_img}
                         ></Image>
                       ) : null}
-
-                      <h4 className={`${styles.carouselCurved_slide_caption}`}>
-                        {item.attributes.caption ? (
-                          <span>{item.attributes.caption}</span>
-                        ) : null}
-                      </h4>
 
                       {item.attributes.mime.startsWith('video') ? (
                         <video autoPlay muted loop>
@@ -174,6 +160,20 @@ const Autoplay: React.FC<AutoplayProps> = ({
                           />
                         </video>
                       ) : null}
+
+                      <div className={`${styles.carouselCurved_slide_content}`}>
+                        <h4 className={`${styles.carouselCurved_slide_title}`}>
+                          {item.attributes.alternativeText ? (
+                            <span>{item.attributes.alternativeText}</span>
+                          ) : null}
+                        </h4>
+
+                        <p className={`${styles.carouselCurved_slide_text}`}>
+                          {item.attributes.caption ? (
+                            <span>{item.attributes.caption}</span>
+                          ) : null}
+                        </p>
+                      </div>
                     </div>
                   </>
                 ) : null}
@@ -193,7 +193,9 @@ const Autoplay: React.FC<AutoplayProps> = ({
           </div>
 
           {slides.length > 1 ? (
-            <div className="carousel_arrows_full">
+            <div
+              className={`${styles.carouselCurved_slide_arrows} carousel_arrows_full`}
+            >
               <PrevButton
                 onClick={onPrevButtonClick}
                 disabled={prevBtnDisabled}
