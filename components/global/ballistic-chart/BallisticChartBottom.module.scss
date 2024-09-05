@@ -200,6 +200,7 @@
       padding-top: 38px;
       background-repeat: no-repeat !important;
       background-size: 100% 100% !important;
+      cursor: pointer;
 
       @include breakpoint(large) {
         margin: unset;
@@ -250,7 +251,6 @@
           letter-spacing: 0.56px;
           text-decoration-line: underline;
           margin-right: 8px;
-          cursor: pointer;
 
           @include breakpoint(large) {
             width: 92px;

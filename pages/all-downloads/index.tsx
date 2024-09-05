@@ -10,16 +10,20 @@ function Downloads(props) {
       ) : null}
 
       <div className={`${styles.downloads} container_small`}>
-        <h2 className={`c-title`}>Vehicles PDFs</h2>
-        <ul>
-          {props.pageData?.vehiclePDFs?.data.map((item, index) => (
-            <li key={index}>
-              <a href={`${item.attributes.url}`} target="_blank">
-                {item.attributes.alternativeText}
-              </a>
-            </li>
-          ))}
-        </ul>
+        {props?.pageData?.vehiclePDFs ? (
+          <div className={`${styles.downloads_group} container_small`}>
+            <h2 className={`c-title`}>Vehicles PDFs</h2>
+            <ul>
+              {props.pageData?.vehiclePDFs?.data.map((item, index) => (
+                <li key={index}>
+                  <a href={`${item.attributes.url}`} target="_blank">
+                    {item.attributes.alternativeText}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     </>
   );
