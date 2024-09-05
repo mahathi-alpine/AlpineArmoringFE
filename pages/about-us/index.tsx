@@ -10,10 +10,9 @@ import Autoplay from 'components/global/carousel/Autoplay';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Counter from 'components/global/counter/Counter';
 
-import useLightbox from 'components/global/lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
-import pdfPopup from 'components/global/lightbox/pdfPopup';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+
+import PopupPDF from 'components/global/lightbox/PopupPDF';
 
 function About(props) {
   const boxes = props?.pageData?.boxes;
@@ -49,8 +48,13 @@ function About(props) {
     };
   }, []);
 
-  const { openLightbox, renderLightbox } = useLightbox();
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
+
+  const togglePDFPopup = (url) => {
+    setPDFPopupOpen((prevState) => !prevState);
+    setCurrentPdfUrl(url);
+  };
 
   return (
     <>
@@ -123,14 +127,12 @@ function About(props) {
                     dangerouslySetInnerHTML={{ __html: item.description }}
                   ></p>
                 ) : null}
+
                 {item.title === 'Our Certifications' && (
                   <div className={`${styles.about_downloads}`}>
                     {certificate1 ? (
                       <div
-                        onClick={() => {
-                          setSelectedIndex('/assets/pdf1.pdf');
-                          openLightbox();
-                        }}
+                        onClick={() => togglePDFPopup('/assets/pdf1.pdf')}
                         style={{ cursor: 'pointer', display: 'inline-block' }}
                       >
                         <span
@@ -150,10 +152,7 @@ function About(props) {
                     ) : null}
                     {certificate2 ? (
                       <div
-                        onClick={() => {
-                          setSelectedIndex('/assets/pdf2.pdf');
-                          openLightbox();
-                        }}
+                        onClick={() => togglePDFPopup('/assets/pdf2.pdf')}
                         style={{ cursor: 'pointer', display: 'inline-block' }}
                       >
                         <span
@@ -171,6 +170,12 @@ function About(props) {
                         <PDFIcon />
                       </div>
                     ) : null}
+
+                    <PopupPDF
+                      isOpen={isPDFPopupOpen}
+                      onClose={() => togglePDFPopup('')}
+                      pdfUrl={currentPdfUrl}
+                    />
                   </div>
                 )}
               </div>
@@ -213,15 +218,6 @@ function About(props) {
             />
           </div>
         ) : null}
-        {renderLightbox({
-          slides: [{ src: selectedIndex }],
-          plugins: [Zoom],
-          render: {
-            slide: pdfPopup,
-            buttonPrev: () => null,
-            buttonNext: () => null,
-          },
-        })}
       </div>
     </>
   );

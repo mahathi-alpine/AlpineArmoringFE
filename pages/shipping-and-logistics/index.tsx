@@ -10,10 +10,8 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
-import useLightbox from 'components/global/lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
-import pdfPopup from 'components/global/lightbox/pdfPopup';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import PopupPDF from 'components/global/lightbox/PopupPDF';
 
 function Shipping(props) {
   const banner = props?.pageData?.banner;
@@ -81,8 +79,13 @@ function Shipping(props) {
     };
   }, []);
 
-  const { openLightbox, renderLightbox } = useLightbox();
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
+
+  const togglePDFPopup = (url) => {
+    setPDFPopupOpen((prevState) => !prevState);
+    setCurrentPdfUrl(url);
+  };
 
   return (
     <>
@@ -183,10 +186,7 @@ function Shipping(props) {
             <div className={`${styles.shipping_license_downloads}`}>
               {licensePDF1 ? (
                 <div
-                  onClick={() => {
-                    setSelectedIndex(licensePDF1);
-                    openLightbox();
-                  }}
+                  onClick={() => togglePDFPopup(licensePDF1)}
                   style={{
                     cursor: 'pointer',
                     display: 'inline-flex',
@@ -203,10 +203,7 @@ function Shipping(props) {
 
               {licensePDF2 ? (
                 <div
-                  onClick={() => {
-                    setSelectedIndex(licensePDF2);
-                    openLightbox();
-                  }}
+                  onClick={() => togglePDFPopup(licensePDF2)}
                   style={{
                     cursor: 'pointer',
                     display: 'inline-flex',
@@ -227,15 +224,12 @@ function Shipping(props) {
             </div>
           </div>
         </div>
-        {renderLightbox({
-          slides: [{ src: selectedIndex }],
-          plugins: [Zoom],
-          render: {
-            slide: pdfPopup,
-            buttonPrev: () => null,
-            buttonNext: () => null,
-          },
-        })}
+
+        <PopupPDF
+          isOpen={isPDFPopupOpen}
+          onClose={() => togglePDFPopup('')}
+          pdfUrl={currentPdfUrl}
+        />
       </div>
     </>
   );

@@ -3,7 +3,7 @@
   --slide-spacing: 24px;
   position: relative;
   overflow: hidden;
-  margin-bottom: 180px;
+  margin-bottom: 40px;
 
   @include breakpoint(medium) {
     --slide-size: 50%;
@@ -73,7 +73,7 @@
     max-width: 500px;
 
     &:last-child {
-      margin-right: calc(var(--slide-spacing) * 1.1);
+      margin-right: calc(var(--slide-spacing) * 1.5);
     }
 
     @include breakpoint(large) {
@@ -187,6 +187,7 @@
 
     &_img {
       filter: brightness(60%);
+      background-color: transparent;
     }
 
     video {
