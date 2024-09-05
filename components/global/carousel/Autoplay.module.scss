@@ -74,6 +74,10 @@
 
     &:last-child {
       margin-right: calc(var(--slide-spacing) * 1.5);
+
+      @include breakpoint(large) {
+        margin-right: calc(var(--slide-spacing) * 1.8);
+      }
     }
 
     @include breakpoint(large) {
@@ -187,7 +191,7 @@
 
     &_img {
       filter: brightness(60%);
-      background-color: transparent;
+      width: 100%;
     }
 
     video {
@@ -214,7 +218,7 @@
     display: block;
     max-width: 30px;
     max-height: 31px;
-    margin: auto -46px;
+    margin: auto -34px;
   }
 
   &_shape {

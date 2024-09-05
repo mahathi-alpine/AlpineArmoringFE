@@ -10,8 +10,10 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
-import 'yet-another-react-lightbox/styles.css';
-import PopupPDF from 'components/global/lightbox/PopupPDF';
+import dynamic from 'next/dynamic';
+const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
+  ssr: false,
+});
 
 function Shipping(props) {
   const banner = props?.pageData?.banner;

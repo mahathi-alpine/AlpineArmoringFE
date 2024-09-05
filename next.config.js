@@ -50,6 +50,14 @@ module.exports = {
   experimental: {
     largePageDataBytes: 800 * 1000,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/pdf/:path*',
+        destination: 'https://d102sycao8uwt8.cloudfront.net/:path*',
+      },
+    ];
+  },
   productionBrowserSourceMaps: true,
   env: {
     GOOGLE_TRANSLATION_CONFIG: JSON.stringify({

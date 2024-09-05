@@ -12,7 +12,10 @@ import Counter from 'components/global/counter/Counter';
 
 import 'yet-another-react-lightbox/styles.css';
 
-import PopupPDF from 'components/global/lightbox/PopupPDF';
+import dynamic from 'next/dynamic';
+const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
+  ssr: false,
+});
 
 function About(props) {
   const boxes = props?.pageData?.boxes;

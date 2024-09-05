@@ -6,10 +6,12 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
 import { useEffect, useState } from 'react';
 
-import useLightbox from 'components/global/lightbox/useLightbox';
 import 'yet-another-react-lightbox/styles.css';
-import pdfPopup from 'components/global/lightbox/pdfPopup';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+
+import dynamic from 'next/dynamic';
+const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
+  ssr: false,
+});
 
 const Banner = (props) => {
   const data = props.props;
@@ -68,8 +70,13 @@ const Banner = (props) => {
   };
   const { width, height } = getImageDimensions();
 
-  const { openLightbox, renderLightbox } = useLightbox();
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
+
+  const togglePDFPopup = (url) => {
+    setPDFPopupOpen((prevState) => !prevState);
+    setCurrentPdfUrl(url);
+  };
 
   return (
     <div className={`${styles.banner}`}>
@@ -174,10 +181,7 @@ const Banner = (props) => {
 
         {data.pdf?.data ? (
           <div
-            onClick={() => {
-              setSelectedIndex(data.pdf.data.attributes.url);
-              openLightbox();
-            }}
+            onClick={() => togglePDFPopup(data.pdf.data.attributes.url)}
             className={`${styles.banner_pdf}`}
           >
             <span>
@@ -212,15 +216,12 @@ const Banner = (props) => {
       <div
         className={`${styles.banner_shape} shape-before shape-before-white`}
       ></div>
-      {renderLightbox({
-        slides: [{ src: selectedIndex }],
-        plugins: [Zoom],
-        render: {
-          slide: pdfPopup,
-          buttonPrev: () => null,
-          buttonNext: () => null,
-        },
-      })}
+
+      <PopupPDF
+        isOpen={isPDFPopupOpen}
+        onClose={() => togglePDFPopup('')}
+        pdfUrl={currentPdfUrl}
+      />
     </div>
   );
 };

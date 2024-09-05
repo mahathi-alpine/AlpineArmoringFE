@@ -1,8 +1,11 @@
 import styles from './BallisticChartBottom.module.scss';
 import BallisticChartBottomHeading from './BallisticChartBottomHeading';
 import { useState } from 'react';
-import 'yet-another-react-lightbox/styles.css';
-import PopupPDF from 'components/global/lightbox/PopupPDF';
+
+import dynamic from 'next/dynamic';
+const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
+  ssr: false,
+});
 
 const BallisticChartBottom = () => {
   const ballisticStandards = [

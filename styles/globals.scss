@@ -389,7 +389,8 @@ $shapeColor: var(--color-background);
   //   overflow: scroll;
   // }
 
-  .rpv-core__text-layer {
+  .rpv-core__text-layer,
+  .rpv-core__annotation-layer {
     display: none;
   }
 
@@ -409,6 +410,11 @@ $shapeColor: var(--color-background);
       right: 45px;
       top: 13px;
     }
+
+    svg{
+      max-width: 28px;
+      max-height: 28px;  
+    }
   }
 
   &_close {
@@ -423,6 +429,12 @@ $shapeColor: var(--color-background);
     display: flex;
     align-items: center;
     justify-content: center;
+
+    svg{
+      max-width: 24px;
+      max-height: 24px;
+      margin: 0 !important;
+    }
 
     .modal_pdf & {
       top: rem(16);

@@ -88,6 +88,10 @@ button.yarl__thumbnails_thumbnail {
   .yarl__portal {
     background-color: rgba(31, 31, 31, 0.92);
   }
+  div.yarl__container {
+    background-color: transparent;
+  }
+  
 }
 
 button.yarl__button {
@@ -122,7 +126,4 @@ button.yarl__navigation_prev {
 .yarl__slide_image,
 .yarl__slide_wrapper video {
   box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.35);
-}
-div.yarl__container {
-  background-color: transparent;
 }

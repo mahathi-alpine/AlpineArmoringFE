@@ -1,7 +1,6 @@
 import styles from './BallisticChartBottom.module.scss';
 import Image from 'next/image';
 import useLightbox from '../lightbox/useLightbox';
-import 'yet-another-react-lightbox/styles.css';
 import NextJsImage from '../lightbox/NextJsImage';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
