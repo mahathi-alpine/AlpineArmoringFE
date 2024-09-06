@@ -1,0 +1,67 @@
+.nextContainer {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 10px;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+}
+
+.imageContainer {
+  flex: 6;
+  position: relative;
+}
+
+.mainImage {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.infoContainer {
+  flex: 4;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.year {
+  color: black;
+  padding: 10px;
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: '__termina_88f7a9';
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.caption {
+  color: black;
+  padding: 10px;
+  text-align: left;
+  font-size: 1rem;
+  font-family: '__termina_88f7a9';
+  margin-bottom: 8px;
+}
+
+.thumbnailContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.thumbnail {
+  position: relative;
+  width: 122px;
+  height: 82px;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.thumbnailImage {
+  border-radius: 5px;
+}
