@@ -15,7 +15,7 @@
 .imageContainer {
   flex: 6;
   position: relative;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex: none;
     width: 100%;
     height: auto;
@@ -36,7 +36,7 @@
   flex-direction: column;
   margin-top: 1rem;
   overflow-y: auto;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex: none;
     width: 100%;
     margin-top: 0;
@@ -70,7 +70,7 @@
   grid-template-columns: repeat(3, 122px);
   grid-gap: 16px;
   margin-top: 10px;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
@@ -86,7 +86,7 @@
   overflow: hidden;
   cursor: pointer;
   border-radius: 5px;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     width: 100px;
     height: 70px;
   }
