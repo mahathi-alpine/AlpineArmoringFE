@@ -168,3 +168,11 @@
     }
   }
 }
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.disabled .form_select_selected {
+  cursor: not-allowed;
+}

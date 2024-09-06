@@ -55,7 +55,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                       {data.slug === 'armored-rental'
                         ? 'Ready to Rent'
                         : data.slug === 'special-of-the-month'
-                          ? 'Click Here'
+                          ? 'CHECK OUT OUR LIMITED OFFER DEALS!'
                           : 'Available Now / Ready-To-Ship'}
                     </Button>
                   )}

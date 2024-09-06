@@ -107,7 +107,11 @@ const Footer = (isDarkMode) => {
             </div>
 
             <div className={`${styles.footer_column_social}`}>
-              <h3 className={`${styles.footer_column_title}`}>FOLLOW US ON</h3>
+              <h3
+                className={`${styles.footer_column_title} ${styles.footer_column_title_media}`}
+              >
+                FOLLOW US ON
+              </h3>
               <ul className={`${styles.footer_socials}`}>
                 <li className={`${styles.footer_socials_item}`}>
                   <Link
