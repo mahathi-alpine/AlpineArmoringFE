@@ -3,13 +3,21 @@ import { useState } from 'react';
 import styles from './NextJsImageContent.module.scss';
 
 export default function NextJsImageContent({ slide }) {
-  const [selectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const thumbnails = [
-    slide.formats?.thumbnail?.url || slide.src,
-    slide.formats?.large?.url || slide.formats?.medium?.url || slide.src,
-    slide.formats?.xlarge?.url || slide.src,
-  ];
+  const thumbnails = slide.all
+    ? slide.all.map(
+        (img) => img.attributes.formats?.thumbnail?.url || img.attributes.url
+      )
+    : [
+        slide.formats?.thumbnail?.url || slide.src,
+        slide.formats?.large?.url || slide.formats?.medium?.url || slide.src,
+        slide.formats?.xlarge?.url || slide.src,
+      ];
+
+  const handleThumbnailClick = (index) => {
+    setSelectedIndex(index);
+  };
 
   return (
     <div className={styles.nextContainer}>
@@ -37,7 +45,7 @@ export default function NextJsImageContent({ slide }) {
                   : slide.formats?.xlarge?.height || slide.height
             }
             className={styles.mainImage}
-            priority={slide.index === slide.selectedIndex}
+            priority={slide.index === selectedIndex}
           />
         )}
       </div>
@@ -45,7 +53,7 @@ export default function NextJsImageContent({ slide }) {
       <div className={styles.infoContainer}>
         {slide.year && <div className={styles.year}>{slide.year}</div>}
         {slide.caption && <div className={styles.caption}>{slide.caption}</div>}
-        {/* <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnailContainer}>
           {thumbnails.map((thumb, index) => (
             <div
               key={index}
@@ -61,7 +69,7 @@ export default function NextJsImageContent({ slide }) {
               />
             </div>
           ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );

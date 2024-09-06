@@ -30,7 +30,7 @@ const Footer = (isDarkMode) => {
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/available-now/type/armored-pre-owned', text: 'Pre-owned' },
-    { path: '/countries-we-service', text: 'Places We Serve' },
+    { path: '/locations-we-serve', text: 'Locations We Serve' },
     { path: '/all-downloads', text: 'All Downloads' },
     { path: '/faqs', text: 'FAQ' },
     { path: '/contact', text: 'Contact Us' },

@@ -82,16 +82,18 @@ function About(props) {
           ></div>
         ) : null}
 
-        {props.pageData?.timeline1?.filter((item) => item.image?.data?.[0])
-          .length > 0 ? (
+        {props.pageData?.timeline1?.filter(
+          (item) => item.image?.data?.length > 0
+        ).length > 0 ? (
           <div className={`${styles.timeline_gallery} observe fade-in`}>
             <Autoplay
               slides={props.pageData?.timeline1
-                .filter((item) => item.image?.data?.[0])
+                .filter((item) => item.image?.data?.length > 0)
                 .map((item) => ({
                   image: item.image?.data[0],
                   year: item.year,
                   caption: item.Caption,
+                  allImages: item.image?.data,
                 }))}
               regular
               autoplay

@@ -20,6 +20,7 @@ interface AutoplayProps {
     image: any;
     year?: string;
     caption?: string;
+    allImages?: any;
   }>;
   white?: any;
   squared?: any;
@@ -215,6 +216,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
             formats: slide.image.attributes?.formats,
             year: slide.year,
             caption: slide.caption,
+            all: slide.allImages,
           })),
           render: { slide: NextJsImage },
           index: selectedIndex,

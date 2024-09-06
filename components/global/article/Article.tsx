@@ -71,7 +71,7 @@ const Article = ({
                           <li>
                             <Link
                               className={`${styles.article_link}`}
-                              href={`/countries-we-service/${item.attributes.slug}`}
+                              href={`/locations-we-serve/${item.attributes.slug}`}
                               onMouseOver={(e) =>
                                 (e.currentTarget.style.boxShadow =
                                   '0 4px 30px 0 #afafae')
@@ -133,7 +133,7 @@ const Article = ({
                           <li>
                             <Link
                               className={`${styles.article_link}`}
-                              href={`/countries-we-service/${item.attributes.slug}`}
+                              href={`/locations-we-serve/${item.attributes.slug}`}
                               onMouseOver={(e) =>
                                 (e.currentTarget.style.boxShadow =
                                   '0 4px 30px 0 #afafae')
@@ -190,7 +190,7 @@ const Article = ({
                           <li>
                             <Link
                               className={`${styles.article_link}`}
-                              href={`/countries-we-service/${item.attributes.slug}`}
+                              href={`/locations-we-serve/${item.attributes.slug}`}
                               onMouseOver={(e) =>
                                 (e.currentTarget.style.boxShadow =
                                   '0 4px 30px 0 #afafae')
