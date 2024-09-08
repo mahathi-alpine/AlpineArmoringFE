@@ -208,7 +208,7 @@
     border-bottom: 1px solid #333;
 
     @include breakpoint(large) {
-      padding: 0 90px 0 45px;
+      padding: 0 45px 0 45px;
       margin-bottom: 0;
       border-right: 1px solid #333;
       border-bottom: none;
@@ -219,6 +219,7 @@
       font-weight: 500;
       margin-bottom: 10px;
       letter-spacing: -0.7px;
+      text-align: center;
 
       @include breakpoint(large) {
         margin-bottom: 24px;

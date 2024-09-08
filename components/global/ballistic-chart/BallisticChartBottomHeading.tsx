@@ -4,7 +4,7 @@ import useLightbox from '../lightbox/useLightbox';
 import NextJsImage from '../lightbox/NextJsImage';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
-const BallisticChartBottomHeading = () => {
+const BallisticChartBottomHeading = (props) => {
   const { openLightbox, renderLightbox } = useLightbox();
 
   return (
@@ -38,9 +38,10 @@ const BallisticChartBottomHeading = () => {
       {renderLightbox({
         slides: [
           {
-            src: '/assets/ballistic/Alpine-bullet-poster.jpg',
-            width: 4500,
-            height: 3000,
+            src: props.bulletPoster?.url,
+            width: props.bulletPoster?.width,
+            height: props.bulletPoster?.height,
+            alt: props.bulletPoster?.alternativeText,
           },
         ],
         plugins: [Zoom],

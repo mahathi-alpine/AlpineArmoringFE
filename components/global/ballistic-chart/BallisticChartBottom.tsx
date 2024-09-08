@@ -134,11 +134,9 @@ const BallisticChartBottom = (props) => {
     setCurrentPdfUrl(url);
   };
 
-  console.log(props?.BallisticStandards);
-
   return (
     <div className={`${styles.ballistic_bottom}`}>
-      <BallisticChartBottomHeading />
+      <BallisticChartBottomHeading bulletPoster={props.bulletPoster} />
 
       <div className={`${styles.ballistic_bottom_main}`}>
         <div className={`${styles.ballistic_bottom_main_item}`}>
@@ -151,7 +149,7 @@ const BallisticChartBottom = (props) => {
                 className={`${styles.ballistic_bottom_main_list_item}`}
                 key={index}
                 onClick={() =>
-                  togglePDFPopup(`${item.pdf.data.attributes.url}`)
+                  togglePDFPopup(`${item?.pdf?.data?.attributes.url}`)
                 }
               >
                 <span className={`${styles.ballistic_bottom_main_list_level}`}>
