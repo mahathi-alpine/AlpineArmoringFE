@@ -1,7 +1,6 @@
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 
 const PdfViewer = ({ pdfUrl }) => {
-
   function getSafariVersion() {
     const userAgent = navigator.userAgent;
     const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
@@ -18,10 +17,7 @@ const PdfViewer = ({ pdfUrl }) => {
     <>
       {isSupportedBrowser ? (
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-          <Viewer
-            fileUrl={pdfUrl}
-            defaultScale={1.2}
-          />
+          <Viewer fileUrl={pdfUrl} defaultScale={1.2} />
         </Worker>
       ) : (
         <embed src={pdfUrl} width="100%" height="100%" />
