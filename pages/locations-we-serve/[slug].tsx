@@ -25,7 +25,7 @@ function ArticleSingle(props) {
     <div className={`${styles.articleSingle}`}>
       <div className={`${styles.articleSingle_inner} container_small`}>
         <Link
-          href="/countries-we-service"
+          href="/locations-we-serve"
           className={`${styles.articleSingle_back}`}
         >
           <ArrowIcon />

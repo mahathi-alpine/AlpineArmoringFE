@@ -221,7 +221,24 @@ const BallisticChartBottom = (props) => {
           togglePDFPopup('/assets/ballistic/Ammunition Chart for Refernece.pdf')
         }
       >
-        Ammunition Chart
+        <span className={`${styles.text} text-cta-regular`}>
+          Ammunition Chart
+        </span>
+        <div className={`${styles.icon}`}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <circle cx="10" cy="10" r="9.5" stroke="currentColor"></circle>
+            <path
+              stroke="currentColor"
+              d="M7.714 12.286 12 8m0 0H7m5 0v5"
+            ></path>
+          </svg>
+        </div>
       </div>
 
       <PopupPDF

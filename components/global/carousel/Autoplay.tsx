@@ -15,9 +15,13 @@ import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import NextJsImage from '../lightbox/NextJsImageContent';
 
-// Define the props interface
 interface AutoplayProps {
-  props: any;
+  slides: Array<{
+    image: any;
+    year?: string;
+    caption?: string;
+    allImages?: any;
+  }>;
   white?: any;
   squared?: any;
   regular?: any;
@@ -26,15 +30,13 @@ interface AutoplayProps {
 }
 
 const Autoplay: React.FC<AutoplayProps> = ({
-  props,
+  slides,
   white = undefined,
   squared = undefined,
   regular = undefined,
   singular = undefined,
   autoplay = false,
 }) => {
-  const slides = props;
-
   const options = {
     dragFree: true,
     loop: true,
@@ -116,62 +118,60 @@ const Autoplay: React.FC<AutoplayProps> = ({
       >
         <div className={`${styles.carouselCurved_viewport}`} ref={emblaMainRef}>
           <div className={`${styles.carouselCurved_container}`}>
-            {slides.map((item, index) => (
+            {slides.map((slide, index) => (
               <div
                 className={styles.carouselCurved_slide}
                 key={index}
                 onClick={() => handleLightboxOpen(index)}
               >
-                {item.attributes?.url ? (
+                {slide.image?.attributes?.url ? (
                   <>
                     <div className={`${styles.carouselCurved_slide_inner}`}>
-                      {item.attributes.mime.split('/')[0] === 'image' ? (
+                      {slide.image.attributes.mime.split('/')[0] === 'image' ? (
                         <Image
                           src={
                             isMobile
-                              ? item.attributes.formats?.thumbnail?.url
-                              : item.attributes.formats?.medium?.url ||
-                                item.attributes.url
+                              ? slide.image.attributes.formats?.thumbnail?.url
+                              : slide.image.attributes.formats?.medium?.url ||
+                                slide.image.attributes.url
                           }
                           alt={
-                            item.attributes.alternativeText || 'Alpine Armoring'
+                            slide.image.attributes.alternativeText ||
+                            'Alpine Armoring'
                           }
                           width={
                             isMobile
-                              ? item.attributes.formats?.thumbnail?.width
-                              : item.attributes.formats?.medium?.width ||
-                                item.attributes.width
+                              ? slide.image.attributes.formats?.thumbnail?.width
+                              : slide.image.attributes.formats?.medium?.width ||
+                                slide.image.attributes.width
                           }
                           height={
                             isMobile
-                              ? item.attributes.formats?.thumbnail?.height
-                              : item.attributes.formats?.medium?.height ||
-                                item.attributes.height
+                              ? slide.image.attributes.formats?.thumbnail
+                                  ?.height
+                              : slide.image.attributes.formats?.medium
+                                  ?.height || slide.image.attributes.height
                           }
                           className={styles.carouselCurved_slide_img}
                         ></Image>
                       ) : null}
 
-                      {item.attributes.mime.startsWith('video') ? (
+                      {slide.image.attributes.mime.startsWith('video') ? (
                         <video autoPlay muted loop>
                           <source
-                            src={`${item.attributes.url}`}
-                            type={item.attributes.mime}
+                            src={`${slide.image.attributes.url}`}
+                            type={slide.image.attributes.mime}
                           />
                         </video>
                       ) : null}
 
                       <div className={`${styles.carouselCurved_slide_content}`}>
                         <h4 className={`${styles.carouselCurved_slide_title}`}>
-                          {item.attributes.alternativeText ? (
-                            <span>{item.attributes.alternativeText}</span>
-                          ) : null}
+                          {slide.year ? <span>{slide.year}</span> : null}
                         </h4>
 
                         <p className={`${styles.carouselCurved_slide_text}`}>
-                          {item.attributes.caption ? (
-                            <span>{item.attributes.caption}</span>
-                          ) : null}
+                          {slide.caption ? <span>{slide.caption}</span> : null}
                         </p>
                       </div>
                     </div>
@@ -209,13 +209,14 @@ const Autoplay: React.FC<AutoplayProps> = ({
         </div>
 
         {renderLightbox({
-          slides: slides.map((item) => ({
-            src: item.attributes?.url,
-            width: item.attributes?.width,
-            height: item.attributes?.height,
-            formats: item.attributes?.formats,
-            alt: item.attributes?.alternativeText,
-            caption: item.attributes.caption, // Add this line
+          slides: slides.map((slide) => ({
+            src: slide.image.attributes?.url,
+            width: slide.image.attributes?.width,
+            height: slide.image.attributes?.height,
+            formats: slide.image.attributes?.formats,
+            year: slide.year,
+            caption: slide.caption,
+            all: slide.allImages,
           })),
           render: { slide: NextJsImage },
           index: selectedIndex,

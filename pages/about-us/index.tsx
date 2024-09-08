@@ -19,7 +19,6 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
 
 function About(props) {
   const boxes = props?.pageData?.boxes;
-  const timelineImages = props?.pageData?.timeline?.data || [];
   const certificate1 = props?.pageData?.certificate1?.data?.attributes?.url;
   const certificate2 = props?.pageData?.certificate2?.data?.attributes?.url;
   const convertMarkdown = useMarkdownToHtml();
@@ -83,9 +82,22 @@ function About(props) {
           ></div>
         ) : null}
 
-        {timelineImages.length > 0 ? (
+        {props.pageData?.timeline1?.filter(
+          (item) => item.image?.data?.length > 0
+        ).length > 0 ? (
           <div className={`${styles.timeline_gallery} observe fade-in`}>
-            <Autoplay props={timelineImages} regular autoplay />
+            <Autoplay
+              slides={props.pageData?.timeline1
+                .filter((item) => item.image?.data?.length > 0)
+                .map((item) => ({
+                  image: item.image?.data[0],
+                  year: item.year,
+                  caption: item.Caption,
+                  allImages: item.image?.data,
+                }))}
+              regular
+              autoplay
+            />
           </div>
         ) : null}
 
