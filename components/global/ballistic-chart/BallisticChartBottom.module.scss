@@ -488,11 +488,11 @@
 .ballistic_bottom_ammunition .text {
   position: relative;
   text-wrap: nowrap;
-  transition: color .25s linear;
+  transition: color 0.25s linear;
 }
 
 .ballistic_bottom_ammunition .text:before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -7px;
   left: 0;
@@ -501,7 +501,9 @@
   background: #000;
   transform-origin: left center;
   transform: scaleX(0);
-  transition: transform .3s, color .25s linear;
+  transition:
+    transform 0.3s,
+    color 0.25s linear;
 }
 
 .ballistic_bottom_ammunition .icon {
@@ -512,7 +514,7 @@
 
 .ballistic_bottom_ammunition .icon svg {
   transform: rotate(0deg);
-  transition: transform .3s cubic-bezier(.4,.64,.68,1);
+  transition: transform 0.3s cubic-bezier(0.4, 0.64, 0.68, 1);
 }
 
 .ballistic_bottom_ammunition:hover .icon svg {
@@ -523,5 +525,5 @@
 .ballistic_bottom_ammunition .icon svg path {
   stroke: #000;
   stroke-width: 1.5;
-  transition: stroke .25s linear;
+  transition: stroke 0.25s linear;
 }
