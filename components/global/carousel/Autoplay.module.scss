@@ -173,6 +173,7 @@
       line-height: 16px;
       background: var(--color-primary);
       padding: 1em;
+      margin: 0;
 
       @include breakpoint(large) {
         position: absolute;

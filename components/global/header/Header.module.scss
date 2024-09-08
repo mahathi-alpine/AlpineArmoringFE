@@ -134,16 +134,10 @@
           transform 0.3s ease-in-out;
       }
       &:before {
-        margin-top: -7px;
-        @include breakpoint(large) {
-          margin-top: -6px;
-        }
+        margin-top: -6px;
       }
       &:after {
-        margin-top: 7px;
-        @include breakpoint(large) {
-          margin-top: 6px;
-        }
+        margin-top: 6px;
       }
     }
 

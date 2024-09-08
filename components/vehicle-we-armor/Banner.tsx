@@ -79,7 +79,12 @@ const Banner = (props) => {
   };
 
   return (
-    <div className={`${styles.banner}`}>
+    <div
+      className={`
+      ${styles.banner}
+      ${!data.pdf?.data ? styles.banner_noPdf : ''}      
+    `}
+    >
       <div className={`${styles.banner_main}`}>
         <div className={`${styles.banner_title}`}>
           {data.title ? (

@@ -32,6 +32,7 @@
     right: 15px;
     width: 24px;
     height: 24px;
+    padding: 0;
     background: linear-gradient(
       180deg,
       #b8a157 26.42%,
@@ -43,6 +44,7 @@
     font-weight: 800;
     text-shadow: 0px 1px 2px #000;
     border: 2px solid #cbcdd2;
+    color: #fff;
   }
 
   &_heading {

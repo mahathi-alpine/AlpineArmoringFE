@@ -1,23 +1,35 @@
 import { Viewer, Worker } from '@react-pdf-viewer/core';
-// import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
-// import '@react-pdf-viewer/core/lib/styles/index.css';
-// import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 const PdfViewer = ({ pdfUrl }) => {
-  // const defaultLayoutPluginInstance = defaultLayoutPlugin;
-  // const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
+  function getSafariVersion() {
+    const userAgent = navigator.userAgent;
+    const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
+    if (versionMatch) {
+      return versionMatch[1];
+    }
+    return null;
+  }
+
+  const safariVersion = getSafariVersion();
+  const isSupportedBrowser = !safariVersion || safariVersion >= 16;
 
   return (
-    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-      {/* <div style={{ height: '100vh', width: '100%' }}> */}
-      <Viewer
-        fileUrl={pdfUrl}
-        defaultScale={1.2}
-        // defaultLayout={defaultLayoutPluginInstance}
-        // plugins={[defaultLayoutPluginInstance]}Instance]}
-      />
-      {/* </div> */}
-    </Worker>
+    <>
+      {isSupportedBrowser ? (
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+          <Viewer
+            fileUrl={pdfUrl}
+            defaultScale={1.2}
+          />
+        </Worker>
+      ) : (
+        <embed src={pdfUrl} width="100%" height="100%" />
+        // <object data={pdfUrl} type="application/pdf" width="100%" height="100%">
+        //   <a href={pdfUrl}>test.pdf</a>
+        // </object>
+      )}
+    </>
   );
 };
 

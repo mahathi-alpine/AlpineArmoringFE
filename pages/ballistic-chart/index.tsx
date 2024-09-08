@@ -40,9 +40,10 @@ function Ballistic(props) {
       ) : null}
 
       <BallisticChart />
+
       <BallisticChartBottom
-        BallisticStandards={props.pageData.BallisticStandards}
-        bulletPoster={props.pageData.bulletPoster.data.attributes}
+        BallisticStandards={props?.pageData?.BallisticStandards}
+        bulletPoster={props?.pageData?.bulletPoster?.data?.attributes}
       />
     </>
   );

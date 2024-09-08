@@ -9,13 +9,8 @@
     }
 
     @include breakpoint(large) {
+      margin-top: 0;
       padding: 0 rem(24) rem(120) rem(24);
-
-      &_inventory {
-        display: flex;
-        gap: 50px;
-        max-width: 2200px;
-      }
 
       &_filtered {
         flex: 1 0 320px;
@@ -28,6 +23,16 @@
       &_shown {
         flex: 3 1 auto;
         margin-left: 20px;
+      }
+    }
+
+    &_inventory {
+      margin-top: -30px;
+      @include breakpoint(large) {
+        display: flex;
+        gap: 50px;
+        margin-top: 0;
+        max-width: 2200px;
       }
     }
   }
@@ -73,8 +78,10 @@
 
   &_all_filters {
     position: relative;
+    margin-top: -30px;
     z-index: 5;
     @include breakpoint(large) {
+      margin-top: 0;
       margin-bottom: -100px;
       padding: 0;
       top: rem(-191);

@@ -5,33 +5,22 @@
   &_top {
     position: relative;
     text-align: center;
-    background-image: url('/assets/ballistic/ballistic_bottom_top_base.png');
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
     margin: auto;
 
-    @include breakpoint(untilLarge) {
+    @media (max-width: 1023px){
       margin-bottom: -10px;
       height: 270px;
       max-width: 307px;
       padding-top: 12px;
-
-      &:before {
-        position: absolute;
-        content: '';
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-image: url('/assets/ballistic/ballistic_bottom_top_base.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        z-index: -1;
-      }
+      background-image: url('/assets/ballistic/ballistic_bottom_top_base.png');
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
-    @include breakpoint(large) {
+    @media (min-width: 1024px){
       background-image: url('/assets/ballistic/ballistic_bottom_top_base_desktop.png');
+      background-repeat: no-repeat;
+      background-size: cover;
       max-width: 935px;
       height: 172px;
       display: flex;
@@ -46,7 +35,7 @@
       margin: auto;
       margin-bottom: -15px;
       width: 245px;
-      @include breakpoint(large) {
+      @media (min-width: 1024px){
         margin: unset;
         width: 364px;
         position: relative;
@@ -69,7 +58,7 @@
         letter-spacing: 0.68px;
         margin-bottom: 30px;
 
-        @include breakpoint(large) {
+        @media (min-width: 1024px){
           margin-bottom: 24px;
           font-size: 24px;
         }
@@ -130,7 +119,7 @@
         line-height: 37px;
         cursor: pointer;
 
-        @include breakpoint(large) {
+        @media (min-width: 1024px){
           width: 144px;
           line-height: 44px;
         }
@@ -200,7 +189,6 @@
       padding-top: 38px;
       background-repeat: no-repeat !important;
       background-size: 100% 100% !important;
-      cursor: pointer;
 
       @include breakpoint(large) {
         margin: unset;
@@ -220,6 +208,10 @@
           height: 420px;
           flex: 1;
           padding-top: 45px;
+
+          .ballistic_bottom_main_list_item{
+            cursor: pointer;
+          }
         }
 
         .ballistic_bottom_main_list {
@@ -476,7 +468,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   text-decoration: none;
   position: relative;
 }
@@ -510,6 +501,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: 10px;
 }
 
 .ballistic_bottom_ammunition .icon svg {

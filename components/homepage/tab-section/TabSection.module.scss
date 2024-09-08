@@ -130,9 +130,9 @@
       font-weight: var(--font-medium);
       white-space: pre-wrap;
 
-      @supports not (aspect-ratio: 16 / 9) {
-        white-space: unset;
-      }
+      // @supports not (aspect-ratio: 16 / 9) {
+      //   white-space: unset;
+      // }
 
       @include breakpoint(medium) {
         font-size: rem(16);
@@ -144,7 +144,6 @@
       }
 
       b {
-        display: inline-block;
         color: var(--color-white);
         font-weight: var(--font-medium);
       }

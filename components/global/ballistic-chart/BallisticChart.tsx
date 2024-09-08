@@ -232,15 +232,6 @@ const BallisticChart = () => {
         containerRef.current.classList.remove(
           styles.ballistic_comparisonActive
         );
-
-        // const compareButtons = document.querySelectorAll(
-        //   `.${styles.ballistic_compare_view}`
-        // );
-
-        // compareButtons.forEach((element) => {
-        //   element.querySelector('span').textContent = 'View';
-        //   element.classList.remove(styles.ballistic_compare_view_active);
-        // });
       }
 
       if (window.innerWidth < 1280) {
@@ -269,42 +260,6 @@ const BallisticChart = () => {
     }
   };
 
-  // const showComparisonDesktop = (index, button) => {
-  //   if (window.innerWidth >= 1280) {
-  //     containerRef.current.classList.add(styles.ballistic_comparisonActive);
-
-  //     const compareButtons = document.querySelectorAll(
-  //       `.${styles.ballistic_compare_view}`
-  //     );
-
-  //     if (button.classList.contains(styles.ballistic_compare_view_active)) {
-  //       tableRef.current.children[index].classList.remove(
-  //         styles.ballistic_row_active
-  //       );
-  //       button.classList.remove(styles.ballistic_compare_view_active);
-  //       button.querySelector('span').textContent = 'View';
-
-  //       if (
-  //         document.querySelectorAll(`.${styles.ballistic_row_active}`).length <
-  //         1
-  //       ) {
-  //         containerRef.current.classList.remove(
-  //           styles.ballistic_comparisonActive
-  //         );
-
-  //         compareButtons.forEach((element) => {
-  //           element.querySelector('span').textContent = 'View';
-  //         });
-  //       }
-  //     } else {
-  //       compareButtons.forEach((element) => {
-  //         element.classList.add(styles.ballistic_compare_view_active);
-  //         element.querySelector('span').textContent = 'Close';
-  //       });
-  //     }
-  //   }
-  // };
-
   const closePopup = () => {
     setShowPopup(false);
   };
@@ -318,30 +273,16 @@ const BallisticChart = () => {
   const closePopupComparison = () => {
     setShowPopup(false);
     setShowChosen(false);
-    // setSelectedRows([]);
-    // document.querySelector('tbody tr').classList.remove(styles.ballistic_row_active);
   };
 
   useEffect(() => {
     if (window.innerWidth < 1280) {
       const handleScroll = () => {
-        // const chartTopOffset = containerRef.current.getBoundingClientRect();
-        // const isChartAtTheTop = chartTopOffset.top <= 0;
-
         if (window.pageYOffset > 100) {
-          // tableRef.current.classList.add(styles.ballistic_table_active);
           document
             .querySelector(`.${styles.ballistic}`)
             .classList.add(styles.ballistic_active);
         }
-
-        // if (window.pageYOffset >= 300 && window.pageYOffset < 580) {
-        //   tableRef.current.classList.add(styles.ballistic_table_active);
-        // } else if (window.pageYOffset > 580) {
-        //   tableRef.current.classList.remove(styles.ballistic_table_active);
-        // } else {
-        //   tableRef.current.classList.remove(styles.ballistic_table_active);
-        // }
       };
 
       window.addEventListener('scroll', handleScroll);
@@ -769,69 +710,69 @@ const BallisticChart = () => {
             ))}
           </div>
         </div>
-
-        {hasInteracted && (
-          <div
-            className={`${styles.ballistic_popup} ${
-              styles.ballistic_popup_interact
-            } ${hasInteracted ? styles.ballistic_popup_active : ''}`}
-            ref={interactedPopupRef}
-          >
-            <div className={`${styles.ballistic_popup_text}`}>
-              To view the entire chart, scroll horizontally and vertically.
-              <br />
-              You can compare levels by toggling the button on the far right.
-            </div>
-          </div>
-        )}
-
-        {showPopup && (
-          <div
-            className={`${styles.ballistic_popup} ${
-              showPopup ? styles.ballistic_popup_active : ''
-            }`}
-          >
-            <div className={`${styles.ballistic_popup_text}`}>
-              {selectedLevels.length > 0 && !moreSelected && (
-                <div>
-                  Level A
-                  <span
-                    className={`${
-                      selectedLevels[selectedLevels.length - 1].length == 2
-                        ? styles.ballistic_popup_text_levels
-                        : ''
-                    }`}
-                  >
-                    {selectedLevels[selectedLevels.length - 1]}{' '}
-                  </span>
-                  successfully added to comparison list
-                </div>
-              )}
-              {selectedLevels.length == 1 && (
-                <div>Select one more level to see the comparison</div>
-              )}
-              {moreSelected && <div>You can compare only two levels</div>}
-            </div>
-
-            {selectedLevels.length == 2 && (
-              <button
-                className={`${styles.ballistic_popup_button}`}
-                onClick={showChosenItems}
-              >
-                See list
-              </button>
-            )}
-
-            <div
-              className={`${styles.ballistic_popup_close}`}
-              data-text="Close"
-              onClick={closePopup}
-            >
-              Close
-            </div>
-          </div>
-        )}
       </div>
+
+      {hasInteracted && (
+        <div
+          className={`${styles.ballistic_popup} ${
+            styles.ballistic_popup_interact
+          } ${hasInteracted ? styles.ballistic_popup_active : ''}`}
+          ref={interactedPopupRef}
+        >
+          <div className={`${styles.ballistic_popup_text}`}>
+            To view the entire chart, scroll horizontally and vertically.
+            <br />
+            You can compare levels by toggling the button on the far right.
+          </div>
+        </div>
+      )}
+
+      {showPopup && (
+        <div
+          className={`${styles.ballistic_popup} ${
+            showPopup ? styles.ballistic_popup_active : ''
+          }`}
+        >
+          <div className={`${styles.ballistic_popup_text}`}>
+            {selectedLevels.length > 0 && !moreSelected && (
+              <div>
+                Level A
+                <span
+                  className={`${
+                    selectedLevels[selectedLevels.length - 1].length == 2
+                      ? styles.ballistic_popup_text_levels
+                      : ''
+                  }`}
+                >
+                  {selectedLevels[selectedLevels.length - 1]}{' '}
+                </span>
+                successfully added to comparison list
+              </div>
+            )}
+            {selectedLevels.length == 1 && (
+              <div>Select one more level to see the comparison</div>
+            )}
+            {moreSelected && <div>You can compare only two levels</div>}
+          </div>
+
+          {selectedLevels.length == 2 && (
+            <button
+              className={`${styles.ballistic_popup_button}`}
+              onClick={showChosenItems}
+            >
+              See list
+            </button>
+          )}
+
+          <div
+            className={`${styles.ballistic_popup_close}`}
+            data-text="Close"
+            onClick={closePopup}
+          >
+            Close
+          </div>
+        </div>
+      )}
 
       {showChosen && (
         <BallisticChartChosen
