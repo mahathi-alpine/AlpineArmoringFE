@@ -640,7 +640,7 @@ const Form = () => {
         }`}
       >
         <Dropdown
-          label="I Prefer To Be Contacted Via"
+          label="I Prefer To Be Contacted Via:"
           options={['Mobile', 'Landline', 'Email', 'Text', 'Whatsapp']}
           selectedOption={preferredContact}
           setSelectedOption={setPreferredContact}
@@ -656,7 +656,7 @@ const Form = () => {
         className={`${styles.form_group} ${errors.hear ? styles.error : ''}`}
       >
         <Dropdown
-          label="How Did You Hear About Us"
+          label="How Did You Hear About Us?"
           options={[
             'Instagram',
             'Facebook',

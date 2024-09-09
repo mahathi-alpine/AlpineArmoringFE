@@ -87,7 +87,7 @@ const Footer = (isDarkMode) => {
                     className={`${styles.footer_column_list_item}`}
                   >
                     <PhoneIcon color="#2d2d27" />
-                    1.800.99.ARMOR
+                    1.800.99ARMOR
                   </Link>
                 </li>
                 <li>
