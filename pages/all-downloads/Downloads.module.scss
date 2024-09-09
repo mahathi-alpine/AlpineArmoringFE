@@ -3,27 +3,24 @@
     display: flex;
     flex-wrap: wrap;
 
-    &_column{
+    &_column {
       width: 50%;
     }
   }
 
-  &_group{
+  &_group {
     margin-bottom: 40px;
 
-    &_title{
+    &_title {
       margin-bottom: 16px;
       font-weight: var(--font-medium);
       font-size: 24px;
     }
   }
 
-
   li {
     font-weight: var(--font-medium);
     margin-bottom: 10px;
     font-size: 14px;
   }
-
-
 }
