@@ -56,6 +56,10 @@ button.yarl__thumbnails_thumbnail {
   button.yarl__thumbnails_thumbnail {
     width: 100px;
   }
+  .yarl__slide > div,
+  .yarl__slide img {
+    width: 100% !important;
+  }
 }
 @include breakpoint(untilLarge) {
   .yarl__container object {

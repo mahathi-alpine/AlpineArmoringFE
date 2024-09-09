@@ -33,6 +33,16 @@ const PopupPDF = ({ isOpen, onClose, pdfUrl }) => {
     }
   }, [isOpen, isMounted]);
 
+  function getSafariVersion(): string | null {
+    const userAgent = navigator.userAgent;
+    const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
+    return versionMatch ? versionMatch[1] : null;
+  }
+
+  const safariVersion = getSafariVersion();
+
+  const isSupportedBrowser = !safariVersion || parseFloat(safariVersion) >= 16;
+
   return (
     <>
       {isOpen && pdfUrl && (
@@ -93,7 +103,13 @@ const PopupPDF = ({ isOpen, onClose, pdfUrl }) => {
               </button>
             </div>
 
-            <PdfViewer pdfUrl={pdfUrl} />
+            {isSupportedBrowser ? (
+              <PdfViewer pdfUrl={pdfUrl} />
+            ) : (
+              <div style={{ overflow: 'scroll' }}>
+                <embed src={pdfUrl} width="100%" height="100%" />
+              </div>
+            )}
           </div>
         </div>
       )}
