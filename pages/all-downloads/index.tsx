@@ -14,7 +14,7 @@ function Downloads(props) {
           <div className={`${styles.downloads_column}`}>
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
-                Vehicles PDFs
+                OEM Brochures – 2024
               </h2>
               <ul>
                 {props.pageData?.OEMBrochures2024?.data.map((item, index) => (
@@ -33,7 +33,7 @@ function Downloads(props) {
           {props?.pageData?.PDFDocuments ? (
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
-                Vehicles PDFs
+                PDF Documents
               </h2>
               <ul>
                 {props.pageData?.PDFDocuments?.data.map((item, index) => (
