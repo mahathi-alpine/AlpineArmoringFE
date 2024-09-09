@@ -305,9 +305,9 @@
         color: var(--color-primary);
         font-weight: 600;
       }
-
-      &_background {
-        background-image: url('/assets/footer-american-flag.png');
+      
+      &_dark {
+        background-image: url('/assets/footer-american-flag-black.png');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -315,6 +315,15 @@
         display: inline-block;
         margin-left: -2.5%;
       }
+      &_light {
+        background-image: url('/assets/footer-american-flag.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding: 10px;
+        display: inline-block;
+        margin-left: -2.5%;
+      }      
     }
   }
 }
