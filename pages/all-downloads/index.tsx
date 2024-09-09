@@ -10,20 +10,60 @@ function Downloads(props) {
       ) : null}
 
       <div className={`${styles.downloads} container_small`}>
-        {props?.pageData?.vehiclePDFs ? (
-          <div className={`${styles.downloads_group} container_small`}>
-            <h2 className={`c-title`}>Vehicles PDFs</h2>
-            <ul>
-              {props.pageData?.vehiclePDFs?.data.map((item, index) => (
-                <li key={index}>
-                  <a href={`${item.attributes.url}`} target="_blank">
-                    {item.attributes.alternativeText}
-                  </a>
-                </li>
-              ))}
-            </ul>
+        {props?.pageData?.OEMBrochures2024 ? (
+          <div className={`${styles.downloads_column}`}>
+            <div className={`${styles.downloads_group}`}>
+              <h2 className={`${styles.downloads_group_title}`}>
+                Vehicles PDFs
+              </h2>
+              <ul>
+                {props.pageData?.OEMBrochures2024?.data.map((item, index) => (
+                  <li key={index}>
+                    <a href={`${item.attributes.url}`} target="_blank">
+                      {item.attributes.alternativeText}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ) : null}
+
+        <div className={`${styles.downloads_column}`}>
+          {props?.pageData?.PDFDocuments ? (
+            <div className={`${styles.downloads_group}`}>
+              <h2 className={`${styles.downloads_group_title}`}>
+                Vehicles PDFs
+              </h2>
+              <ul>
+                {props.pageData?.PDFDocuments?.data.map((item, index) => (
+                  <li key={index}>
+                    <a href={`${item.attributes.url}`} target="_blank">
+                      {item.attributes.alternativeText}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {props?.pageData?.ArmoredVehicles ? (
+            <div className={`${styles.downloads_group}`}>
+              <h2 className={`${styles.downloads_group_title}`}>
+                Armored Vehicles
+              </h2>
+              <ul>
+                {props.pageData?.ArmoredVehicles?.data.map((item, index) => (
+                  <li key={index}>
+                    <a href={`${item.attributes.url}`} target="_blank">
+                      {item.attributes.alternativeText}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
       </div>
     </>
   );
