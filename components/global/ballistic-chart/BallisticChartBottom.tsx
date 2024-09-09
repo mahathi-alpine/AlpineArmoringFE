@@ -217,9 +217,7 @@ const BallisticChartBottom = (props) => {
 
       <div
         className={`${styles.ballistic_bottom_ammunition}`}
-        onClick={() =>
-          togglePDFPopup('/assets/ballistic/Ammunition Chart for Refernece.pdf')
-        }
+        onClick={() => togglePDFPopup(props.ammunitionChartPDF)}
       >
         <span className={`${styles.text} text-cta-regular`}>
           Ammunition Chart

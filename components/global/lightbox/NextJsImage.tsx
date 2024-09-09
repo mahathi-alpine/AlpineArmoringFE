@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 export default function NextJsImage({ slide }) {
+  console.log(slide);
   return (
     <>
       {slide.src ? (

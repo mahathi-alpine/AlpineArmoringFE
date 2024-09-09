@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import PdfViewer from 'components/global/lightbox/PdfViewer';
+
+import dynamic from 'next/dynamic';
+const PdfViewer = dynamic(
+  () => import('components/global/lightbox/PdfViewer'),
+  {
+    ssr: false,
+  }
+);
 
 const PopupPDF = ({ isOpen, onClose, pdfUrl }) => {
   const popupRef = useRef(null);
