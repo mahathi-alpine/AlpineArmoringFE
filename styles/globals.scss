@@ -366,7 +366,6 @@ $shapeColor: var(--color-background);
     }
   }
 
-
   @include breakpoint(large) {
     .rpv-core__viewer {
       height: calc(100% - 52px) !important;
@@ -417,7 +416,7 @@ $shapeColor: var(--color-background);
     align-items: center;
     padding: 10px;
     z-index: 1;
-    
+
     @include breakpoint(large) {
       margin-right: -24px;
     }
