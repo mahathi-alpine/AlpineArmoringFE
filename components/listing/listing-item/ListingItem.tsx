@@ -23,6 +23,11 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
       className={`
         ${styles.inventory_item} 
         ${data.flag == 'sold' ? styles.inventory_item_sold : ''}
+        ${
+          currentPath.includes('available-now/type/armored-rental')
+            ? styles.inventory_item_rental
+            : ''
+        }
       `}
     >
       <div className={`${styles.inventory_item_image}`}>

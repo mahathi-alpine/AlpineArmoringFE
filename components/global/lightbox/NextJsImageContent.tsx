@@ -53,23 +53,25 @@ export default function NextJsImageContent({ slide }) {
       <div className={styles.infoContainer}>
         {slide.year && <div className={styles.year}>{slide.year}</div>}
         {slide.caption && <div className={styles.caption}>{slide.caption}</div>}
-        <div className={styles.thumbnailContainer}>
-          {thumbnails.map((thumb, index) => (
-            <div
-              key={index}
-              className={styles.thumbnail}
-              onClick={() => handleThumbnailClick(index)}
-            >
-              <Image
-                src={thumb}
-                alt={`Thumbnail ${index + 1}`}
-                layout="fill"
-                objectFit="cover"
-                className={styles.thumbnailImage}
-              />
-            </div>
-          ))}
-        </div>
+        {thumbnails.length > 1 && (
+          <div className={styles.thumbnailContainer}>
+            {thumbnails.map((thumb, index) => (
+              <div
+                key={index}
+                className={styles.thumbnail}
+                onClick={() => handleThumbnailClick(index)}
+              >
+                <Image
+                  src={thumb}
+                  alt={`Thumbnail ${index + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className={styles.thumbnailImage}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -55,6 +55,12 @@
     flex-basis: calc(100% / 3 - 16px);
     max-width: unset;
   }
+  
+  &_rental {
+    @include breakpoint(large) {  
+      flex-basis: calc(100% / 3 - 16px);
+    }
+  }
 
   &_sold {
     &:before {

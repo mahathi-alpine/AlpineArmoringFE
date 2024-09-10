@@ -115,9 +115,11 @@
       &_image {
         position: relative;
         display: flex;
+        margin-bottom: rem(30);
 
         @include breakpoint(medium) {
           width: calc(40% - 12px);
+          margin-bottom: 0;
           &:last-child {
             width: calc(60% - 12px);
             margin-left: 24px;

@@ -1,7 +1,7 @@
 .articleSingle {
   position: relative;
   overflow: hidden;
-  padding-top: rem(100);
+  padding-top: rem(40);
 
   @include breakpoint(large) {
     &_inner {
@@ -9,9 +9,9 @@
     }
   }
 
-  @include breakpoint(huge) {
-    padding-top: rem(160);
-  }
+  // @include breakpoint(huge) {
+  //   padding-top: rem(160);
+  // }
 
   &:before {
     position: absolute;
