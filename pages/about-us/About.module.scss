@@ -268,7 +268,9 @@
   background: #000;
   transform-origin: left center;
   transform: scaleX(0);
-  transition: transform 0.3s, color 0.25s linear;
+  transition:
+    transform 0.3s,
+    color 0.25s linear;
 }
 
 .certificate_container:hover .certificate_text:before {
@@ -302,4 +304,3 @@
   stroke-width: 1.5;
   transition: stroke 0.25s linear;
 }
-
