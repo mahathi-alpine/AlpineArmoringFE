@@ -68,7 +68,7 @@ body {
 
 .container,
 .container_small {
-  padding: 0 rem(16);
+  padding: 0 rem(16) rem(16) rem(16);
   @include breakpoint(medium) {
     padding: 0 rem(32);
   }

@@ -1,6 +1,6 @@
 .news {
   position: relative;
-  padding: rem(64) 0 rem(32) 0;
+  padding: rem(16) 0 rem(32) 0;
   overflow: hidden;
   @include breakpoint(medium) {
     padding: rem(90) 0;

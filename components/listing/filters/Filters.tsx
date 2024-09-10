@@ -301,7 +301,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
                         (baseUrl == '/vehicles-we-armor' &&
                           item.attributes.title == 'Armored Rental') ||
                         (baseUrl == '/vehicles-we-armor' &&
-                          item.attributes.title == 'Special of the month') ||
+                          item.attributes.title.toLowerCase() ==
+                            'special of the month'.toLowerCase()) ||
                         (baseUrl == '/vehicles-we-armor' &&
                           item.attributes.title == 'Armored Pre-owned')
                       ) {
