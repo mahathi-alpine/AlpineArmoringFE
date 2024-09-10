@@ -234,16 +234,10 @@
       }
     }
   }
-
-  // @media (max-width: 768px) {
-  //   .counter_grid {
-  //     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  //   }
-  // }
 }
 .certificate_container {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: left;
   text-decoration: none;
   position: relative;

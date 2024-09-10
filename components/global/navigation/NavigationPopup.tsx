@@ -44,7 +44,7 @@ const NavigationPopup = ({
     { path: '/shipping-and-logistics', text: 'Shipping & Logistics' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/faqs', text: 'FAQ' },
-    { path: '/', text: '' },
+    { path: '/contact', text: 'Contact' },
   ];
 
   const handleSearchClick = () => {

@@ -97,10 +97,11 @@
     }
 
     .navigationPopup_list_right & {
-      font-size: rem(16);
+      font-size: rem(14);
       font-weight: var(--font-regular);
 
       @include breakpoint(large) {
+        font-size: rem(16);
         &:last-child {
           display: none;
         }

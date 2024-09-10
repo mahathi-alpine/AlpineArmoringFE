@@ -153,10 +153,9 @@ function Vehicle(props) {
           id="overview"
           className={`${styles.slug_description} anchor container_small`}
         >
-          <h2 className={`c-title observe fade-in`}>Overview</h2>
+          <h2 className={`c-title`}>Overview</h2>
 
           <div
-            className={`observe fade-in`}
             dangerouslySetInnerHTML={{
               __html: convertMarkdown(data.description),
             }}
@@ -190,7 +189,6 @@ function Vehicle(props) {
               <div className={`${styles.slug_dimensions_wrap_image_box}`}>
                 <Image
                   src={dimensions1.formats?.large?.url || dimensions1.url}
-                  // src='/assets/dimensions1.png'
                   alt={dimensions1.alternativeText || 'Alpine Armoring'}
                   width={dimensions1.width}
                   height={dimensions1.height}

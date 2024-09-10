@@ -7,6 +7,16 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 const BallisticChartBottomHeading = (props) => {
   const { openLightbox, renderLightbox } = useLightbox();
 
+  type CustomSlide = {
+    src: string;
+    width?: number;
+    height?: number;
+    alt?: string;
+    unoptimized?: boolean;
+    index?: number;
+    selectedIndex?: number;
+  };
+
   return (
     <>
       <div className={`${styles.ballistic_bottom_top}`}>
@@ -42,8 +52,9 @@ const BallisticChartBottomHeading = (props) => {
             width: props.bulletPoster?.width,
             height: props.bulletPoster?.height,
             alt: props.bulletPoster?.alternativeText,
+            unoptimized: true,
           },
-        ],
+        ] as CustomSlide[],
         plugins: [Zoom],
         render: {
           slide: NextJsImage,

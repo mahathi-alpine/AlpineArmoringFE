@@ -68,7 +68,7 @@ body {
 
 .container,
 .container_small {
-  padding: 0 rem(16) rem(16) rem(16);
+  padding: 0 rem(16);
   @include breakpoint(medium) {
     padding: 0 rem(32);
   }
@@ -275,16 +275,18 @@ $shapeColor: var(--color-background);
   right: 0;
   top: 0;
   bottom: 0;
-  // backdrop-filter: blur(20px);
   opacity: 0;
   transition: opacity 400ms ease;
-  // background: rgba(0, 0, 0, 0.48);
   background: rgba(15, 17, 17, 0.5);
 
   &_active {
     display: block;
     z-index: 99;
     opacity: 1;
+
+    @include breakpoint(large) {
+      display: flex;
+    }
   }
 
   &_inner {
@@ -330,12 +332,12 @@ $shapeColor: var(--color-background);
 
     @include breakpoint(large) {
       position: relative;
-      width: 95%;
-      height: 90vh;
-      top: 50%;
-      transform: translateY(-50%);
+      max-width: 95%;
+      min-width: 734px;
+      max-height: 90vh;
+      height: auto;
       overflow-y: scroll;
-      padding-bottom: 20px;
+      padding: 0 15px 20px 20px;
       border-radius: 8px;
       border: 1px solid #d5d9d9;
       box-shadow: 0 0 14px 0 rgba(15, 17, 17, 0.5);
@@ -357,17 +359,13 @@ $shapeColor: var(--color-background);
     }
   }
 
-  // .rpv-core__inner-pages {
-  //   @include breakpoint(small) {
-  //     padding: 0 20px;
-  //   }
-  // }
   .rpv-core__inner-pages {
     @include breakpoint(untilDesktop) {
       overflow: scroll;
       padding-top: 18px;
     }
   }
+
 
   @include breakpoint(large) {
     .rpv-core__viewer {
@@ -376,12 +374,11 @@ $shapeColor: var(--color-background);
     .rpv-core__inner-pages > div {
       height: 100% !important;
     }
-    .rpv-core__inner-page-container {
-      height: 100%;
-    }
     .rpv-core__inner-page {
       height: 100% !important;
       display: flex;
+      position: static !important;
+      transform: none !important;
     }
   }
 
@@ -398,10 +395,6 @@ $shapeColor: var(--color-background);
       box-shadow: 0 0 14px 0 rgba(15, 17, 17, 0.5);
     }
   }
-
-  // .rpv-core__inner-page{
-  //   overflow: scroll;
-  // }
 
   .rpv-core__text-layer,
   .rpv-core__annotation-layer {
@@ -424,6 +417,10 @@ $shapeColor: var(--color-background);
     align-items: center;
     padding: 10px;
     z-index: 1;
+    
+    @include breakpoint(large) {
+      margin-right: -24px;
+    }
   }
 
   &_download {

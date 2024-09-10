@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 export default function NextJsImage({ slide }) {
-  console.log(slide);
   return (
     <>
       {slide.src ? (
@@ -42,6 +41,7 @@ export default function NextJsImage({ slide }) {
               objectFit: 'contain',
             }}
             priority={slide.index == slide.selectedIndex}
+            unoptimized={slide.unoptimized == true}
           ></Image>
         </div>
       ) : null}

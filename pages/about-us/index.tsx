@@ -84,7 +84,7 @@ function About(props) {
         {props.pageData?.timeline1?.filter(
           (item) => item.image?.data?.length > 0
         ).length > 0 ? (
-          <div className={`${styles.timeline_gallery} observe fade-in`}>
+          <div className={`${styles.timeline_gallery}`}>
             <Autoplay
               slides={props.pageData?.timeline1
                 .filter((item) => item.image?.data?.length > 0)
