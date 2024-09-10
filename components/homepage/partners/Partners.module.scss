@@ -34,9 +34,15 @@
 
     &:not(:nth-child(2n)) {
       margin-right: rem(8);
+
       @include breakpoint(large) {
         margin: unset;
       }
+    }
+
+    &:nth-last-child(1):nth-child(odd) {
+      flex: 0 0 100%;
+      margin-right: 0;
     }
 
     @include breakpoint(large) {
@@ -46,6 +52,10 @@
 
       &:not(:nth-child(5n)) {
         margin-right: rem(16);
+      }
+
+      &:nth-last-child(1):nth-child(odd) {
+        flex: 0 0 calc(100% / 5 - 13px);
       }
     }
 
@@ -61,6 +71,7 @@
       width: auto;
       object-fit: contain;
       filter: grayscale(100%);
+
       @include breakpoint(large) {
         height: 90px;
       }

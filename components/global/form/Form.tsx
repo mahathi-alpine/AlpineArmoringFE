@@ -573,7 +573,7 @@ const Form = () => {
       </div>
 
       <div
-        className={`${styles.form_group} ${errors.mobile ? styles.error : ''}`}
+        className={`${styles.form_group} ${errors.phone ? styles.error : ''}`}
       >
         <input
           type="tel"
