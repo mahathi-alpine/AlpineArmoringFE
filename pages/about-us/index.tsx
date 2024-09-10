@@ -3,7 +3,6 @@ import { getPageData } from 'hooks/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
-import PDFIcon from 'components/icons/PDF';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
 import Autoplay from 'components/global/carousel/Autoplay';
@@ -145,42 +144,68 @@ function About(props) {
                   <div className={`${styles.about_downloads}`}>
                     {certificate1 ? (
                       <div
-                        onClick={() => togglePDFPopup('/assets/pdf1.pdf')}
-                        style={{ cursor: 'pointer', display: 'inline-block' }}
+                        onClick={() => togglePDFPopup(certificate1)}
+                        className={`${styles.certificate_container}`}
                       >
-                        <span
-                          style={{
-                            marginTop: '40px',
-                            display: 'inline-block',
-                            marginRight: '10px',
-                          }}
-                        >
+                        <span className={`${styles.certificate_text}`}>
                           BESCHUSSAMT MÜNCHEN
-                          <span style={{ fontSize: '27px' }}>
+                          <span className={`${styles.view_certificates}`}>
                             VIEW CERTIFICATES
                           </span>
                         </span>
-                        <PDFIcon />
+                        <div className={`${styles.icon}`}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <circle
+                              cx="10"
+                              cy="10"
+                              r="9.5"
+                              stroke="currentColor"
+                            ></circle>
+                            <path
+                              stroke="currentColor"
+                              d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                            ></path>
+                          </svg>
+                        </div>
                       </div>
                     ) : null}
                     {certificate2 ? (
                       <div
-                        onClick={() => togglePDFPopup('/assets/pdf2.pdf')}
-                        style={{ cursor: 'pointer', display: 'inline-block' }}
+                        onClick={() => togglePDFPopup(certificate2)}
+                        className={`${styles.certificate_container}`}
                       >
-                        <span
-                          style={{
-                            marginTop: '40px',
-                            display: 'inline-block',
-                            marginRight: '10px',
-                          }}
-                        >
+                        <span className={`${styles.certificate_text}`}>
                           OTHER INDEPENDENT LABORATORIES
-                          <span style={{ fontSize: '27px' }}>
+                          <span className={`${styles.view_certificates}`}>
                             VIEW CERTIFICATES
                           </span>
                         </span>
-                        <PDFIcon />
+                        <div className={`${styles.icon}`}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <circle
+                              cx="10"
+                              cy="10"
+                              r="9.5"
+                              stroke="currentColor"
+                            ></circle>
+                            <path
+                              stroke="currentColor"
+                              d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                            ></path>
+                          </svg>
+                        </div>
                       </div>
                     ) : null}
 
