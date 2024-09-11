@@ -90,7 +90,7 @@
       margin-left: rem(-8);
       // margin-right: rem(-16);
       margin-right: rem(-8);
-      margin-bottom: rem(24);
+      // margin-bottom: rem(24);
       padding: rem(4);
       background: var(--color-primary);
       // border-top-left-radius: 99px;
@@ -107,7 +107,7 @@
       @include breakpoint(medium) {
         display: inline-flex;
         margin: auto;
-        margin-bottom: rem(24);
+        // margin-bottom: rem(24);
         padding: rem(6);
         border-radius: 99px;
       }

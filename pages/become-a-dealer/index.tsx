@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import Banner from 'components/global/banner/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import styles from './Dealer.module.scss';
 
 function Dealer(props) {
   const banner = props?.pageData?.banner;
@@ -39,6 +40,13 @@ function Dealer(props) {
   return (
     <>
       {banner ? <Banner props={banner} center shape="white" /> : null}
+
+      {props?.pageData?.banner?.title ? (
+        <h1
+          className={`${styles.title}`}
+          dangerouslySetInnerHTML={{ __html: props?.pageData?.banner.title }}
+        ></h1>
+      ) : null}
 
       {text ? (
         <div

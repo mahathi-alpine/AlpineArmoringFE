@@ -101,6 +101,13 @@ function Shipping(props) {
           anchor
         />
 
+        {banner?.title ? (
+          <h1
+            className={`${styles.title}`}
+            dangerouslySetInnerHTML={{ __html: banner.title }}
+          ></h1>
+        ) : null}
+
         {heading ? (
           <div
             className={`${styles.shipping_heading} observe fade-in container_small`}

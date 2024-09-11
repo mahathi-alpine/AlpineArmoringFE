@@ -45,6 +45,12 @@ function Contact(props) {
         {props.pageData?.banner ? (
           <Banner props={props.pageData.banner} center shape="white" />
         ) : null}
+        {props?.pageData?.banner?.title ? (
+          <h1
+            className={`${styles.title}`}
+            dangerouslySetInnerHTML={{ __html: props?.pageData?.banner.title }}
+          ></h1>
+        ) : null}
         <div className={`${styles.contact_main} container_small`}>
           <div className={`${styles.contact_main_left}`}>
             <Form />

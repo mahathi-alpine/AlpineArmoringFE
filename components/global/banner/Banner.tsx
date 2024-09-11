@@ -169,46 +169,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       {shape ? (
         <div
           className={`${styles.banner_shape} shape-before shape-before-${shape}`}
-        >
-          <div
-            className={`${styles.banner_content} ${styles.banner_content_bottom}`}
-          >
-            <div
-              className={`${styles.banner_text} ${styles.banner_text_bottom} observe fade-in-scale`}
-            >
-              {currentRoute === '/contact' ||
-              currentRoute === '/about-us' ||
-              currentRoute === '/ballistic-chart' ||
-              currentRoute === '/become-a-dealer' ||
-              currentRoute === '/news' ||
-              currentRoute === '/design-and-engineering' ||
-              currentRoute === '/faqs' ? (
-                <div>
-                  {bannerTitle ? (
-                    <h1
-                      className={`${styles.banner_title}`}
-                      dangerouslySetInnerHTML={{ __html: bannerTitle }}
-                    ></h1>
-                  ) : null}
-                </div>
-              ) : null}
-              {currentRoute === '/manufacturing' ||
-              currentRoute === '/media' ||
-              currentRoute === '/ballistic-testing' ||
-              currentRoute === '/shipping-and-logistics' ? (
-                <div>
-                  {bannerTitle ? (
-                    <h1
-                      className={`${styles.banner_title}`}
-                      dangerouslySetInnerHTML={{ __html: bannerTitle }}
-                      style={{ marginTop: '1.5rem' }}
-                    ></h1>
-                  ) : null}
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
+        ></div>
       ) : null}
     </div>
   );

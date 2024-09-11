@@ -397,3 +397,11 @@
   margin-top: 15px;
   font-weight: 600;
 }
+.btitle {
+  font-weight: var(--font-regular);
+  color: #fff;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: rem(22);
+  font-size: clamp(2rem, 1.3932rem + 2.289vw, 4.5rem);
+}

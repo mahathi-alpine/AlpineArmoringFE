@@ -39,6 +39,13 @@ function Blog(props) {
     <>
       {banner ? <Banner props={banner} center shape="white" /> : null}
 
+      {banner?.title ? (
+        <h1
+          className={`${styles.title}`}
+          dangerouslySetInnerHTML={{ __html: banner.title }}
+        ></h1>
+      ) : null}
+
       {posts ? (
         <div className={`${styles.news}`}>
           <BlogList

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import Banner from 'components/global/banner/Banner';
 import Accordion from 'components/global/accordion/Accordion';
+import styles from './Faq.module.scss';
 
 function FAQs(props) {
   const banner = props?.pageData?.banner;
@@ -37,6 +38,13 @@ function FAQs(props) {
   return (
     <>
       {banner ? <Banner props={banner} center shape="white" /> : null}
+
+      {banner?.title ? (
+        <h1
+          className={`${styles.title}`}
+          dangerouslySetInnerHTML={{ __html: banner.title }}
+        ></h1>
+      ) : null}
 
       {faqs ? <Accordion items={faqs} /> : null}
     </>

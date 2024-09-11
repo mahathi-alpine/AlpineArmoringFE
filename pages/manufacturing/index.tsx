@@ -79,6 +79,12 @@ function Manufacturing(props) {
           onTabChange={handleTabChange}
           anchor
         />
+        {props.pageData?.banner?.title ? (
+          <h1
+            className={`${styles.title}`}
+            dangerouslySetInnerHTML={{ __html: props.pageData?.banner.title }}
+          ></h1>
+        ) : null}
 
         <section
           className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}

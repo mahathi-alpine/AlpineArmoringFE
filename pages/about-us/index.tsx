@@ -64,12 +64,11 @@ function About(props) {
           <Banner props={props.pageData.banner} center shape="white" />
         ) : null}
 
-        {props.pageData?.bannerTitle ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(props.pageData.bannerTitle),
-            }}
-          ></div>
+        {props?.pageData?.banner?.title ? (
+          <h1
+            className={`${styles.title}`}
+            dangerouslySetInnerHTML={{ __html: props?.pageData?.banner.title }}
+          ></h1>
         ) : null}
 
         {props.pageData?.text ? (
