@@ -14,7 +14,6 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 
 function Vehicle(props) {
   const data = props?.data?.data?.[0]?.attributes ?? {};
-
   const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
     data?.beforeAfterSlider?.before?.data?.attributes;

@@ -14,6 +14,7 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
 });
 
 const Banner = (props) => {
+  console.log(props);
   const data = props.props;
 
   const protectionLevel = data.protectionLevel || 'A4, A6, A9, A11';
@@ -112,7 +113,8 @@ const Banner = (props) => {
             >
               Request a quote
             </Button>
-            {data.inventory?.length ? (
+            {data.inventory?.length &&
+            data.inventory[0]?.attributes.flag !== 'sold' ? (
               <Button
                 href={`/available-now/?vehicles_we_armor=${data.slug}`}
                 className={`${styles.banner_buttons_item} shiny`}

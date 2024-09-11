@@ -23,7 +23,10 @@
     overflow: hidden;
     text-align: center;
     padding-bottom: 56px;
-    // background: #0a0504;
+
+    @include breakpoint(medium) {
+      height: 300px;
+    }
 
     @include breakpoint(large) {
       height: 400px;

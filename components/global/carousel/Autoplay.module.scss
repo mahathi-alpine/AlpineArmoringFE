@@ -105,13 +105,20 @@
       cursor: pointer;
       color: white;
 
-      @include breakpoint(medium) {
+      @media (min-width: 500px) and (max-width: 1279px){
+        height: 100%;
+        display: flex;
+        flex-flow: column;
         border-radius: 8px;
       }
     }
 
     &_content {
       color: #fff;
+
+      @media (min-width: 500px) and (max-width: 1279px){
+        flex: 1;
+      }
 
       @include breakpoint(large) {
         position: absolute;
@@ -147,7 +154,7 @@
     &_title {
       position: absolute;
       left: 0;
-      top: 28%;
+      top: 37%;
       width: 100%;
       font-weight: var(--font-demi);
       font-size: rem(34);
@@ -163,7 +170,7 @@
       @include breakpoint(untilLarge) {
         button {
           transform: none;
-          top: 30%;
+          top: 39%;
         }
       }
     }
@@ -174,6 +181,13 @@
       background: var(--color-primary);
       padding: 1em;
       margin: 0;
+
+      @media (min-width: 500px) and (max-width: 1279px){
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
       @include breakpoint(large) {
         position: absolute;
@@ -221,7 +235,7 @@
     max-height: 31px;
     margin: auto -34px;
 
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       margin: auto -41px;
     }
   }
