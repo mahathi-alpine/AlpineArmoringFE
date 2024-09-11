@@ -336,6 +336,7 @@ const BallisticChart = () => {
                   className="untilLarge-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
                 <Image
                   src="/assets/ballistic/ballistic_logo.png"
@@ -346,6 +347,7 @@ const BallisticChart = () => {
                   className="large-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
               </div>
               <div className={`${styles.ballistic_header_item}`}>
@@ -358,6 +360,7 @@ const BallisticChart = () => {
                   className="untilLarge-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
                 <Image
                   src="/assets/ballistic/heading_weapon.png"
@@ -368,6 +371,7 @@ const BallisticChart = () => {
                   className="large-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
               </div>
               <div className={`${styles.ballistic_header_item}`}>
@@ -380,6 +384,7 @@ const BallisticChart = () => {
                   className="untilLarge-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
                 <Image
                   src="/assets/ballistic/heading_levels.png"
@@ -390,6 +395,7 @@ const BallisticChart = () => {
                   className="large-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
               </div>
               <div className={`${styles.ballistic_header_item}`}>
@@ -402,6 +408,7 @@ const BallisticChart = () => {
                   className="untilLarge-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
                 <Image
                   src="/assets/ballistic/heading_projectile.png"
@@ -412,6 +419,7 @@ const BallisticChart = () => {
                   className="large-only"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
               </div>
               <div className={`${styles.ballistic_header_item}`}>
@@ -423,6 +431,7 @@ const BallisticChart = () => {
                   height="78"
                   quality={100}
                   priority
+                  unoptimized
                 ></Image>
               </div>
             </div>

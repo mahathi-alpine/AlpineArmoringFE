@@ -75,7 +75,7 @@ function Media(props) {
 
   return (
     <>
-      {banner ? <Banner props={banner} center shape="white" /> : null}
+      {banner ? <Banner props={banner} shape="white" /> : null}
 
       {banner?.title ? (
         <h1

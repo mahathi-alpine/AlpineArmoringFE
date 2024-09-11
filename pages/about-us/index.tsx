@@ -61,14 +61,7 @@ function About(props) {
     <>
       <div className={`${styles.about}`}>
         {props.pageData?.banner ? (
-          <Banner props={props.pageData.banner} center shape="white" />
-        ) : null}
-
-        {props?.pageData?.banner?.title ? (
-          <h1
-            className={`${styles.title}`}
-            dangerouslySetInnerHTML={{ __html: props?.pageData?.banner.title }}
-          ></h1>
+          <Banner props={props.pageData.banner} shape="white" />
         ) : null}
 
         {props.pageData?.text ? (
@@ -140,80 +133,76 @@ function About(props) {
                 ) : null}
 
                 {item.title === 'Our Certifications' && (
-                  <div className={`${styles.about_downloads}`}>
-                    {certificate1 ? (
-                      <div
-                        onClick={() => togglePDFPopup(certificate1)}
-                        className={`${styles.certificate_container}`}
-                      >
-                        <span className={`${styles.certificate_text}`}>
-                          BESCHUSSAMT MÜNCHEN
-                          <span className={`${styles.view_certificates}`}>
-                            VIEW CERTIFICATES
+                  <>
+                    <div className={`${styles.about_downloads}`}>
+                      {certificate1 ? (
+                        <div
+                          onClick={() => togglePDFPopup(certificate1)}
+                          className={`${styles.certificate_container}`}
+                        >
+                          <span className={`${styles.certificate_text}`}>
+                            BESCHUSSAMT MÜNCHEN
+                            <span className={`${styles.view_certificates}`}>
+                              VIEW CERTIFICATES
+                              <div className={`${styles.icon}`}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="25"
+                                  height="25"
+                                  fill="none"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <circle
+                                    cx="10"
+                                    cy="10"
+                                    r="9.5"
+                                    stroke="currentColor"
+                                  ></circle>
+                                  <path
+                                    stroke="currentColor"
+                                    d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                                  ></path>
+                                </svg>
+                              </div>
+                            </span>
                           </span>
-                        </span>
-                        <div className={`${styles.icon}`}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="25"
-                            height="25"
-                            fill="none"
-                            viewBox="0 0 20 20"
-                          >
-                            <circle
-                              cx="10"
-                              cy="10"
-                              r="9.5"
-                              stroke="currentColor"
-                            ></circle>
-                            <path
-                              stroke="currentColor"
-                              d="M7.714 12.286 12 8m0 0H7m5 0v5"
-                            ></path>
-                          </svg>
                         </div>
-                      </div>
-                    ) : null}
-                    {certificate2 ? (
-                      <div
-                        onClick={() => togglePDFPopup(certificate2)}
-                        className={`${styles.certificate_container}`}
-                      >
-                        <span className={`${styles.certificate_text}`}>
-                          OTHER INDEPENDENT LABORATORIES
-                          <span className={`${styles.view_certificates}`}>
-                            VIEW CERTIFICATES
+                      ) : null}
+                      {certificate2 ? (
+                        <div
+                          onClick={() => togglePDFPopup(certificate2)}
+                          className={`${styles.certificate_container}`}
+                        >
+                          <span className={`${styles.certificate_text}`}>
+                            OTHER INDEPENDENT LABORATORIES
+                            <span className={`${styles.view_certificates}`}>
+                              VIEW CERTIFICATES
+                              <div className={`${styles.icon}`}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="25"
+                                  height="25"
+                                  fill="none"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <circle
+                                    cx="10"
+                                    cy="10"
+                                    r="9.5"
+                                    stroke="currentColor"
+                                  ></circle>
+                                  <path
+                                    stroke="currentColor"
+                                    d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                                  ></path>
+                                </svg>
+                              </div>
+                            </span>
                           </span>
-                        </span>
-                        <div className={`${styles.icon}`}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="25"
-                            height="25"
-                            fill="none"
-                            viewBox="0 0 20 20"
-                          >
-                            <circle
-                              cx="10"
-                              cy="10"
-                              r="9.5"
-                              stroke="currentColor"
-                            ></circle>
-                            <path
-                              stroke="currentColor"
-                              d="M7.714 12.286 12 8m0 0H7m5 0v5"
-                            ></path>
-                          </svg>
                         </div>
-                      </div>
-                    ) : null}
-
-                    <PopupPDF
-                      isOpen={isPDFPopupOpen}
-                      onClose={() => togglePDFPopup('')}
-                      pdfUrl={currentPdfUrl}
-                    />
-                  </div>
+                      ) : null}
+                    </div>
+                  </>
                 )}
               </div>
 
@@ -225,6 +214,12 @@ function About(props) {
             </div>
           ))}
         </div>
+
+        <PopupPDF
+          isOpen={isPDFPopupOpen}
+          onClose={() => togglePDFPopup('')}
+          pdfUrl={currentPdfUrl}
+        />
 
         {props.pageData?.quote ? (
           <div className={`${styles.about_quote}`}>

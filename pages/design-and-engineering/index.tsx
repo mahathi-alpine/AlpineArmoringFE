@@ -69,7 +69,7 @@ const Design = (props) => {
       <div className={`${styles.design}`}>
         {props.pageData?.banner ? (
           <>
-            <Banner props={props.pageData.banner} center shape="white" />
+            <Banner props={props.pageData.banner} shape="white" />
           </>
         ) : null}
 

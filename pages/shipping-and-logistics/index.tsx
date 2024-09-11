@@ -92,7 +92,7 @@ function Shipping(props) {
   return (
     <>
       <div className={`${styles.shipping}`}>
-        {banner ? <Banner props={banner} center shape="white" /> : null}
+        {banner ? <Banner props={banner} shape="white" /> : null}
 
         <TabSlider
           className={`${styles.shipping_tabs} desktop-only`}

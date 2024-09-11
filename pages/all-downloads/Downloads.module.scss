@@ -18,10 +18,15 @@
     }
   }
 
+  ul{
+    list-style-type: disc;
+    padding-left: 16px;
+    margin-left: 5px;
+  }
+
   li {
     font-weight: var(--font-medium);
     margin-bottom: 10px;
     font-size: 14px;
-    padding-left: 16px;
   }
 }

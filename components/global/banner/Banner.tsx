@@ -12,7 +12,6 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const bannerImage = props.media.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
-  const bannerDescription = props.description;
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoMP4 = props.mediaMP4?.data;
 
@@ -144,22 +143,16 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
     >
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
-        {/* Conditionally render the shape section based on the current route */}
+
         {currentRoute.startsWith('/available-now') ||
         currentRoute.startsWith('/vehicles-we-armor') ? (
           <div className={`${styles.banner_content}`}>
-            <div className={`${styles.banner_text} observe fade-in-scale`}>
+            <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
                 <h1
-                  className={`${styles.banner_title}`}
+                  className="observe fade-in"
                   dangerouslySetInnerHTML={{ __html: bannerTitle }}
                 ></h1>
-              ) : null}
-              {bannerDescription ? (
-                <h2
-                  className="observe fade-in"
-                  dangerouslySetInnerHTML={{ __html: bannerDescription }}
-                ></h2>
               ) : null}
             </div>
           </div>
@@ -168,8 +161,26 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
 
       {shape ? (
         <div
-          className={`${styles.banner_shape} shape-before shape-before-${shape}`}
-        ></div>
+          className={`${styles['banner_shape']} ${styles[`banner_shape_${shape}`]} shape-before shape-before-${shape}`}
+        />
+      ) : null}
+
+      {bannerTitle ? (
+        <h1
+          className={`
+            ${styles.banner_heading} 
+            ${
+              [
+                '/manufacturing',
+                '/ballistic-testing',
+                '/shipping-and-logistics',
+              ].includes(currentRoute)
+                ? styles.banner_heading_margin
+                : ''
+            }
+            observe fade-in-scale`}
+          dangerouslySetInnerHTML={{ __html: bannerTitle }}
+        ></h1>
       ) : null}
     </div>
   );

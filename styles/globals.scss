@@ -326,7 +326,7 @@ $shapeColor: var(--color-background);
   }
   &_content {
     background: white;
-    margin: auto;
+    margin: auto !important;
     overflow: hidden;
     height: 100%;
 

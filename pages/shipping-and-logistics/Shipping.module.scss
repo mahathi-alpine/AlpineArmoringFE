@@ -1,10 +1,15 @@
 .shipping {
   &_tabs {
-    position: relative;
-    color: var(--color-white);
-    top: rem(-80);
+    @include breakpoint(medium) {
+      position: relative;
+      color: var(--color-white);
+      top: rem(-135);
+    }
     @include breakpoint(large) {
-      top: rem(-127);
+      top: rem(-186);
+    }
+    @include breakpoint(huge) {
+      top: rem(-200);
     }
 
     & > div > div {

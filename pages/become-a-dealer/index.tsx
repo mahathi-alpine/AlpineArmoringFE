@@ -39,7 +39,7 @@ function Dealer(props) {
 
   return (
     <>
-      {banner ? <Banner props={banner} center shape="white" /> : null}
+      {banner ? <Banner props={banner} shape="white" /> : null}
 
       {props?.pageData?.banner?.title ? (
         <h1

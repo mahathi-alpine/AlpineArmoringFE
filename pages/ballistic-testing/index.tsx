@@ -138,7 +138,7 @@ function Testing(props) {
     <>
       <div className={`${styles.testing} background-dark`}>
         {props.pageData?.banner ? (
-          <Banner props={props.pageData?.banner} center shape="dark" />
+          <Banner props={props.pageData?.banner} shape="dark" />
         ) : null}
 
         <TabSlider

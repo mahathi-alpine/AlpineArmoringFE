@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
-// import Banner from 'components/global/banner/Banner';
 import ArticleList from 'components/global/article/Article';
 import styles from './Article.module.scss';
 
 function Article(props) {
-  // const banner = props?.pageData?.banner;
   const posts = props?.posts;
 
   // Animations
@@ -37,16 +35,9 @@ function Article(props) {
 
   return (
     <>
-      {/* {banner ? <Banner props={banner} center shape="white" /> : null} */}
-
       {posts ? (
         <div className={`${styles.article}`}>
-          <ArticleList
-            featured
-            props={posts}
-            subtitle="Locations We Serve"
-            // title="Landing Pages"
-          />
+          <ArticleList featured props={posts} subtitle="Locations We Serve" />
         </div>
       ) : null}
     </>

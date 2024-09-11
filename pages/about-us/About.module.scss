@@ -105,7 +105,7 @@
         }
         @include breakpoint(large) {
           // max-width: 80%;
-          font-size: rem(22);
+          font-size: rem(18);
         }
 
         p {
@@ -177,14 +177,12 @@
     svg {
       width: 30px;
       height: 30px;
-      @include breakpoint(medium) {
-        width: 45px;
-        height: 45px;
-      }
     }
 
     span {
-      display: block;
+      display: flex;
+      align-items: center;
+      margin-top: 2px;
     }
   }
 
@@ -272,8 +270,8 @@
 }
 
 .certificate_container .view_certificates {
-  font-size: 27px;
-  transition: color 0.25s linear;
+  font-size: 19px;
+  font-weight: 400;
 }
 
 .certificate_container .icon {
@@ -297,11 +295,4 @@
   stroke: #fff;
   stroke-width: 1.5;
   transition: stroke 0.25s linear;
-}
-.title {
-  font-weight: var(--font-regular);
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: rem(22);
-  font-size: clamp(2rem, 1.3932rem + 2.289vw, 4.5rem);
 }
