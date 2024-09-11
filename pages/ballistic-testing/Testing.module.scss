@@ -32,7 +32,7 @@
   }
 
   section {
-    font-weight: var(--font-thin);
+    font-weight: var(--font-light);
   }
 
   &_container_small {
@@ -46,7 +46,7 @@
     display: block;
     font-size: rem(14);
     font-size: clamp(0.875rem, 0.8143rem + 0.2589vw, 1.125rem);
-    font-weight: var(--font-thin);
+    font-weight: var(--font-light);
     line-height: 1.25;
     margin: rem(16) 0;
 

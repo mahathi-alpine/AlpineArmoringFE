@@ -213,7 +213,6 @@
     &_title {
       font-size: rem(19);
       font-size: clamp(1.1875rem, 0.9903rem + 0.8414vw, 2rem);
-      font-weight: var(--font-extralight);
       letter-spacing: -1px;
       @include breakpoint(medium) {
         margin-bottom: rem(16);
