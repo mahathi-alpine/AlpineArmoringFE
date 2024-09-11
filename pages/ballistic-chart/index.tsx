@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import Banner from 'components/global/banner/Banner';
 import BallisticChart from 'components/global/ballistic-chart/BallisticChart';
 import BallisticChartBottom from 'components/global/ballistic-chart/BallisticChartBottom';
-import styles from './Chart.module.scss';
 
 function Ballistic(props) {
   // Animations
@@ -38,13 +37,6 @@ function Ballistic(props) {
     <>
       {props.pageData?.banner ? (
         <Banner props={props.pageData.banner} shape="white" />
-      ) : null}
-
-      {props?.pageData?.banner?.title ? (
-        <h1
-          className={`${styles.title}`}
-          dangerouslySetInnerHTML={{ __html: props?.pageData?.banner.title }}
-        ></h1>
       ) : null}
 
       <BallisticChart />

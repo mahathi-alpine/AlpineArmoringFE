@@ -148,13 +148,6 @@ function Testing(props) {
           anchor
         />
 
-        {props.pageData?.banner?.title ? (
-          <h1
-            className={`${styles.btitle}`}
-            dangerouslySetInnerHTML={{ __html: props.pageData?.banner.title }}
-          ></h1>
-        ) : null}
-
         {title ? (
           <div
             className={`${styles.testing_title} observe fade-in container_small`}

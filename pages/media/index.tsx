@@ -77,13 +77,6 @@ function Media(props) {
     <>
       {banner ? <Banner props={banner} shape="white" /> : null}
 
-      {banner?.title ? (
-        <h1
-          className={`${styles.title}`}
-          dangerouslySetInnerHTML={{ __html: banner.title }}
-        ></h1>
-      ) : null}
-
       {videos?.length > 0 ? (
         <div className={`${styles.media_videos} container_small`} id="videos">
           <h2 className={`${styles.media_heading} observe fade-in-up`}>

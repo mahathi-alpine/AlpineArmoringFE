@@ -73,13 +73,6 @@ const Design = (props) => {
           </>
         ) : null}
 
-        {props.pageData?.banner?.title ? (
-          <h1
-            className={`${styles.title}`}
-            dangerouslySetInnerHTML={{ __html: props.pageData?.banner.title }}
-          ></h1>
-        ) : null}
-
         {/* <section className={`${styles.design_section1} container_small`}>
           {props.pageData?.section1Title ? (
             <h2

@@ -161,11 +161,15 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
 
       {shape ? (
         <div
-          className={`${styles['banner_shape']} ${styles[`banner_shape_${shape}`]} shape-before shape-before-${shape}`}
+          className={`${styles['banner_shape']} ${
+            styles[`banner_shape_${shape}`]
+          } shape-before shape-before-${shape}`}
         />
       ) : null}
 
-      {bannerTitle ? (
+      {bannerTitle &&
+      !currentRoute.startsWith('/available-now') &&
+      !currentRoute.startsWith('/vehicles-we-armor') ? (
         <h1
           className={`
             ${styles.banner_heading} 
