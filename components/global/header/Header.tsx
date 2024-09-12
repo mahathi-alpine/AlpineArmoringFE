@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import Logo from 'components/icons/Logo';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
@@ -9,14 +8,7 @@ import { useEffect, useState } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 import { useRouter } from 'next/router';
-
-const LanguageSwitcher = dynamic(
-  () => import('components/global/lang-switcher/LangSwitcher'),
-  {
-    ssr: false,
-  }
-);
-// import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
+import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 
 const Header = ({
   setNavOpen,
@@ -69,6 +61,12 @@ const Header = ({
 
   useEffect(() => {
     let lastVal = 74;
+
+    const y = window.scrollY;
+    if (y > lastVal) {
+      sethState('down');
+    }
+
     window.onscroll = function () {
       const y = window.scrollY;
       if (y > lastVal) {

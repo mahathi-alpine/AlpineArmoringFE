@@ -158,7 +158,7 @@
     text-align: center;
     z-index: 1;
     font-weight: var(--font-regular);
-    font-size: clamp(2rem, 1.3932rem + 2.289vw, 4.5rem);
+    font-size: clamp(1.625rem, 1.2609rem + 1.5534vw, 3.125rem);
 
     @include breakpoint(medium) {
       margin-bottom: 3rem;

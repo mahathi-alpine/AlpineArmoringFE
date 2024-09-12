@@ -13,13 +13,15 @@ const Blog = ({
   title = '',
   subtitle = '',
   featured = false,
+  customClass = '',
 }) => {
   return (
     <div
       className={`
       ${styles.news}
       ${plain ? styles.news_plain : ''}  
-      ${featured ? styles.news_featured : ''}       
+      ${featured ? styles.news_featured : ''}      
+      ${customClass ? styles[customClass] : ''}
     `}
     >
       <div className={`${styles.news_inner} container_small`}>

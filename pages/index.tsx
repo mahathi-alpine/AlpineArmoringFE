@@ -96,7 +96,7 @@ function Home({ homepageData, categories }) {
           button
           limit="3"
           subtitle="Latest News"
-          // title="Armoring World"
+          customClass="newsHomepage"
         />
       ) : null}
 

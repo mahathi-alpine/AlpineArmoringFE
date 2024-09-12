@@ -13,7 +13,7 @@
   height: 74px;
   user-select: none;
 
-  @include breakpoint('large') {
+  @include breakpoint(medium) {
     padding-top: rem(12);
     padding-bottom: rem(12);
   }

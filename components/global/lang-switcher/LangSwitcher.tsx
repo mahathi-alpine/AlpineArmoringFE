@@ -30,11 +30,11 @@ export const LanguageSwitcher = ({ className }: LanguageSwitcherProps = {}) => {
 
   return (
     <div className={`${className} ${styles.langSwitcher} notranslate`}>
-      {currentLanguageDiv && (
-        <div className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}>
-          <span className="">{currentLanguageDiv.name}</span>
-        </div>
-      )}
+      {/* {currentLanguageDiv && ( */}
+      <div className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}>
+        <span className="">{currentLanguageDiv?.name || 'EN'}</span>
+      </div>
+      {/* )} */}
 
       <ul className={`${styles.langSwitcher_wrap}`}>
         {otherLanguagesDiv.map((ld: LanguageDescriptor) => {
