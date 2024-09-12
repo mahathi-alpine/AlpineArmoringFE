@@ -61,11 +61,6 @@ button.yarl__thumbnails_thumbnail {
     width: 100% !important;
   }
 }
-@include breakpoint(medium) {
-  .yarl__slide {
-    overflow: scroll !important;
-  }
-}
 @include breakpoint(untilLarge) {
   .yarl__container object {
     padding-top: 80px;
