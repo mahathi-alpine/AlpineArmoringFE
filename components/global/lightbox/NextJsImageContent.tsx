@@ -15,6 +15,11 @@ export default function NextJsImageContent({ slide }) {
         slide.formats?.xlarge?.url || slide.src,
       ];
 
+  const mainImageSrc = slide.all
+    ? slide.all[selectedIndex].attributes.formats?.xlarge?.url ||
+      slide.all[selectedIndex].attributes.url
+    : slide.formats?.xlarge?.url || slide.src;
+
   const handleThumbnailClick = (index) => {
     setSelectedIndex(index);
   };
@@ -22,9 +27,9 @@ export default function NextJsImageContent({ slide }) {
   return (
     <div className={styles.nextContainer}>
       <div className={styles.imageContainer}>
-        {thumbnails[selectedIndex] && (
+        {mainImageSrc && (
           <Image
-            src={thumbnails[selectedIndex]}
+            src={mainImageSrc}
             alt={slide.alt || 'Alpine Armoring'}
             width={
               window.innerWidth < 500
@@ -58,7 +63,9 @@ export default function NextJsImageContent({ slide }) {
             {thumbnails.map((thumb, index) => (
               <div
                 key={index}
-                className={styles.thumbnail}
+                className={`${styles.thumbnail} ${
+                  index === selectedIndex ? styles.selectedThumbnail : ''
+                }`}
                 onClick={() => handleThumbnailClick(index)}
               >
                 <Image
