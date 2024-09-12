@@ -378,17 +378,17 @@ const Form = () => {
     setErrors({ ...errors, [field]: errorMessage });
   };
 
-  // Parses the JSON returned by a network request
-  const parseJSON = (resp) => (resp.json ? resp.json() : resp);
-  // Checks if a network request came back fine, and throws an error if not
-  const checkStatus = (resp) => {
-    if (resp.status >= 200 && resp.status < 300) {
-      return resp;
-    }
-    return parseJSON(resp).then((resp) => {
-      throw resp;
-    });
-  };
+  // const parseJSON = (resp) => (resp.json ? resp.json() : resp);
+
+  // const checkStatus = (resp) => {
+  //   if (resp.status >= 200 && resp.status < 300) {
+  //     return resp;
+  //   }
+  //   return parseJSON(resp).then((resp) => {
+  //     throw resp;
+  //   });
+  // };
+
   const headers = {
     'Content-Type': 'application/json',
   };
@@ -416,93 +416,70 @@ const Form = () => {
       submitBtn.classList.add('submiting');
       submitBtn.innerHTML = '';
 
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/emails`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          data: {
-            email: email,
-            name: fullname,
-            mobileNumber: mobile,
-            phoneNumber: phone,
-            company: company,
-            preferredContact: preferredContact,
-            inquiry: inquiry,
-            hear: hear,
-            country: country,
-            state: country === 'United States' ? state : '',
-            message: sanitizedMessage,
-            route: router.asPath,
-            date: Date.now(),
-          },
-        }),
-      })
-        // .then(response => response.json())
-        // .then(data => console.log(data))
-        .then(checkStatus)
-        .then(parseJSON)
-        .then(() => {
-          setTimeout(() => {
-            submitBtn.classList.remove('submiting');
-            submitBtn.innerHTML = 'Sent!';
-            submitBtn.classList.add('submitted');
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/emails`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              data: {
+                name: fullname,
+                email: email,
+                mobileNumber: mobile,
+                phoneNumber: phone,
+                company: company,
+                inquiry: inquiry,
+                preferredContact: preferredContact,
+                hear: hear,
+                country: country,
+                state: country === 'United States' ? state : '',
+                message: sanitizedMessage,
+                route: router.asPath,
+                date: Date.now(),
+              },
+            }),
+          }
+        );
 
-            setFullname('');
-            setEmail('');
-            setPhone('');
-            setMobile('');
-            setCompany('');
-            setInquiry('');
-            setHear('');
-            setCountry('');
-            setState('');
-            setPreferredContact('');
-            setMessage('');
-          }, 1500);
+        if (!response.ok) {
+          throw new Error('Failed to submit form');
+        }
 
-          setTimeout(() => {
-            submitBtn.innerHTML = 'Send message';
-            submitBtn.classList.remove('submitted');
-          }, 2500);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+        // Handle success
+        submitBtn.classList.remove('submiting');
+        submitBtn.innerHTML = 'Sent!';
+        submitBtn.classList.add('submitted');
+
+        // Reset form fields
+        setFullname('');
+        setEmail('');
+        setPhone('');
+        setMobile('');
+        setCompany('');
+        setInquiry('');
+        setHear('');
+        setCountry('');
+        setState('');
+        setPreferredContact('');
+        setMessage('');
+
+        // Show success message to user
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle error
+        submitBtn.classList.remove('submiting');
+        submitBtn.innerHTML = 'Error';
+        submitBtn.classList.add('error');
+
+        // Show error message to user
+      }
+
+      setTimeout(() => {
+        submitBtn.innerHTML = 'Send message';
+        submitBtn.classList.remove('submitted', 'error');
+      }, 2000);
     }
-
-    // const emailDetails = {
-    //   to: 'recipient@example.com',
-    //   from: 'sender@example.com',
-    //   subject: 'New contact form submission',
-    //   message: '...',
-    // };
-
-    // try {
-    //   await sendEmail(emailDetails);
-    //   console.log('Email sent successfully!');
-    // } catch (error) {
-    //   console.error('Error sending email:', error);
-    // }
-
-    // const res = await fetch('/api/sendgrid', {
-    //   body: JSON.stringify({
-    //     email: email,
-    //     fullname: fullname,
-    //     phone: phone,
-    //     company: company,
-    //     message: message,
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   method: 'POST',
-    // });
-
-    // const { error } = await res.json();
-    // if (error) {
-    //   console.log(error);
-    //   return;
-    // }
   };
 
   return (
