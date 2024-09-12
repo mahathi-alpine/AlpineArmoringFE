@@ -60,6 +60,8 @@ button.yarl__thumbnails_thumbnail {
   .yarl__slide img {
     width: 100% !important;
   }
+}
+@include breakpoint(medium) {
   .yarl__slide {
     overflow: scroll !important;
   }

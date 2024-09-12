@@ -16,9 +16,20 @@ export default function NextJsImageContent({ slide }) {
       ];
 
   const mainImageSrc = slide.all
-    ? slide.all[selectedIndex].attributes.formats?.xlarge?.url ||
-      slide.all[selectedIndex].attributes.url
-    : slide.formats?.xlarge?.url || slide.src;
+    ? window.innerWidth < 500
+      ? slide.all[selectedIndex].attributes.formats?.thumbnail?.url ||
+        slide.all[selectedIndex].attributes.url
+      : window.innerWidth >= 500 && window.innerWidth < 1280
+        ? slide.all[selectedIndex].attributes.formats?.large?.url ||
+          slide.all[selectedIndex].attributes.formats?.medium?.url ||
+          slide.all[selectedIndex].attributes.url
+        : slide.all[selectedIndex].attributes.formats?.xlarge?.url ||
+          slide.all[selectedIndex].attributes.url
+    : window.innerWidth < 500
+      ? slide.formats?.thumbnail?.url || slide.src
+      : window.innerWidth >= 500 && window.innerWidth < 1280
+        ? slide.formats?.large?.url || slide.formats?.medium?.url || slide.src
+        : slide.formats?.xlarge?.url || slide.src;
 
   const handleThumbnailClick = (index) => {
     setSelectedIndex(index);
