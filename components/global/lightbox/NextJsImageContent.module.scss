@@ -67,7 +67,7 @@
 
 .thumbnailContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(122px, max-content));
   grid-gap: 10px;
   margin-top: 10px;
   @media (max-width: 768px) {
