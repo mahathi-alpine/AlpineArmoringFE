@@ -45,15 +45,15 @@
 
     @include breakpoint(large) {
       height: 160px;
-      flex: 0 0 calc(100% / 5 - 13px);
+      flex: 0 0 calc(100% / 4 - 16px);
       margin-bottom: rem(16);
 
-      &:not(:nth-child(5n)) {
+      &:not(:nth-child(4n)) {
         margin-right: rem(16);
       }
 
       &:nth-last-child(1):nth-child(odd) {
-        flex: 0 0 calc(100% / 5 - 13px);
+        flex: 0 0 calc(100% / 4 - 16px);
       }
     }
 
