@@ -69,7 +69,7 @@
   }
 
   &_section1 {
-    margin: rem(80) auto rem(80) auto;
+    margin: rem(20) auto;
     @include breakpoint(large) {
       margin: rem(40) auto rem(40) auto;
     }
@@ -123,7 +123,7 @@
   }
 
   &_section3 {
-    padding-top: rem(32);
+    // padding-top: rem(32);
 
     &_heading {
       margin-bottom: rem(16);
