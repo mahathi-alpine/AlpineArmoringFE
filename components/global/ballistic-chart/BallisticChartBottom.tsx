@@ -230,7 +230,7 @@ const BallisticChartBottom = (props) => {
             fill="none"
             viewBox="0 0 20 20"
           >
-            <circle cx="10" cy="10" r="9.5" stroke="currentColor"></circle>
+            <circle cx="10" cy="10" r="8" stroke="currentColor"></circle>
             <path
               stroke="currentColor"
               d="M7.714 12.286 12 8m0 0H7m5 0v5"

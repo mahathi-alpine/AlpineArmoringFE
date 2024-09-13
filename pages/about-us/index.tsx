@@ -155,7 +155,7 @@ function About(props) {
                                   <circle
                                     cx="10"
                                     cy="10"
-                                    r="9.5"
+                                    r="8"
                                     stroke="currentColor"
                                   ></circle>
                                   <path
@@ -188,7 +188,7 @@ function About(props) {
                                   <circle
                                     cx="10"
                                     cy="10"
-                                    r="9.5"
+                                    r="8"
                                     stroke="currentColor"
                                   ></circle>
                                   <path
