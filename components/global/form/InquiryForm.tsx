@@ -56,15 +56,13 @@ const InquiryForm = (props) => {
                   props.plain
                     ? props?.featuredImage?.data.attributes.formats?.medium
                         .width
-                    : props?.featuredImage?.data.attributes.formats?.thumbnail
-                        .width
+                    : 500
                 }
                 height={
                   props.plain
                     ? props?.featuredImage?.data.attributes.formats?.medium
                         .height
-                    : props?.featuredImage?.data.attributes.formats?.thumbnail
-                        .height
+                    : 395
                 }
               />
             ) : null}
