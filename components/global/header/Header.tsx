@@ -14,7 +14,7 @@ const Header = ({
   setNavOpen,
   isNavOpen,
   isDarkMode,
-  isHomepage,
+  isHeaderGray,
   // isNotSticky,
   openSearchPopup,
   isSearchVisible,
@@ -89,7 +89,7 @@ const Header = ({
         ${styles[hState]}
         ${isDarkMode ? styles.header_transparent : ''}
         ${isNavOpen ? styles.header_navOpen : ''}
-        ${isHomepage ? styles.header_homepage : ''}      
+        ${isHeaderGray ? styles.header_gray : ''}      
         b-header
       `}
       // ${isNotSticky ? styles.header_notSticky : ''}

@@ -58,7 +58,8 @@ const Layout = ({ children }) => {
     '/ballistic-testing',
   ];
   const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
-  const pathsPadding0 = ['/news/'];
+  const pathsPadding0 = ['/news/', '/ballistic-testing'];
+  const pathsHeaderTransparent = ['/', '/ballistic-testing'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)
@@ -67,6 +68,9 @@ const Layout = ({ children }) => {
     router.pathname.startsWith(path)
   );
   const isHomepage = router.pathname === '/';
+  const isHeaderGray = pathsHeaderTransparent.some((path) =>
+    router.pathname.startsWith(path)
+  );
   const isPadding0 = pathsPadding0.some((path) =>
     router.pathname.startsWith(path)
   );
@@ -106,11 +110,11 @@ const Layout = ({ children }) => {
               }
             `}</style>
         )}
-        {isHomepage && (
+        {isHeaderGray && (
           <style>{`
               header{
-                background-color: rgba(23, 23, 23, 0.8);
-                backdrop-filter: blur(10px);
+                background-color: rgba(23, 23, 23, 0.8) !important;
+                backdrop-filter: blur(10px) !important;
               }
             `}</style>
         )}
@@ -121,7 +125,7 @@ const Layout = ({ children }) => {
           isDarkMode={isDarkMode || isSearchVisible}
           setNavOpen={setNavOpen}
           isNavOpen={isNavOpen}
-          isHomepage={isHomepage}
+          isHeaderGray={isHeaderGray}
           // isNotSticky={isNotSticky}
           openSearchPopup={openSearchPopup}
           isSearchVisible={isSearchVisible}

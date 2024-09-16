@@ -139,6 +139,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       ${styles.banner}
       ${small ? styles.banner_small : ''}
       ${center ? styles.banner_center : ''}
+      ${currentRoute.startsWith('/ballistic-testing') ? styles.banner_full : ''}
     `}
     >
       <div className={`${styles.banner_inner}`}>

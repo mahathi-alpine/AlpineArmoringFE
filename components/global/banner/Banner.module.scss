@@ -12,6 +12,15 @@
     --border: 32px;
   }
 
+  &_full{
+    --border: 0;
+    padding: 0;
+
+    .banner_inner{
+      height: 87vH;
+    }
+  }
+
   &_inner {
     position: relative;
     display: flex;
