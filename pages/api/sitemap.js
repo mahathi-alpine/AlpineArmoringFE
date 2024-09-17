@@ -1,9 +1,9 @@
 export default async function handler(req, res) {
-  const sitemapUrl =
-    'https://alpinetesting.cloudflex-ha.com/api/sitemap/index.xml';
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+  const sitemapPath = '/api/sitemap/index.xml';
 
   try {
-    const response = await fetch(sitemapUrl);
+    const response = await fetch(`${backendUrl}${sitemapPath}`);
     let sitemapContent = await response.text();
 
     // Remove the XSL stylesheet reference
