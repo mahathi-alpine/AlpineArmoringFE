@@ -1,11 +1,11 @@
-import React from 'react';
+import { getPageData } from 'hooks/api';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+// import Link from 'next/link';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
-import { getPageData } from 'hooks/api';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 
 function Inventory(props) {
   const router = useRouter();
@@ -61,17 +61,34 @@ function Inventory(props) {
     };
   }, []);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  // const findTitleBySlug = (filters, targetSlug) => {
+  //   if (!filters || !Array.isArray(filters.type)) {
+  //     return null;
+  //   }
+
+  //   const matchingItem = filters.type.find(item =>
+  //     item.attributes &&
+  //     item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
+  //   );
+
+  //   return matchingItem ? matchingItem.attributes.title : null;
+  // };
+
+  // const categoryTitle = findTitleBySlug(props?.filters, props?.query);
 
   return (
     <>
       <div className={`${styles.listing}`}>
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
+        {/* 
+        <div className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container untilLarge-only`}>
+          <Link href="/vehicles-we-armor">Vehicles We Can Armor</Link>
+          <span>&gt;</span>
+          {categoryTitle}
+        </div> */}
 
         {props.filters?.type ? (
-          <div className={`${styles.listing_all_filters} container`}>
+          <div className={`${styles.listing_all_filters} mt-0 container`}>
             <Filters props={props.filters} plain />
           </div>
         ) : null}

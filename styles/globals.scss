@@ -21,26 +21,15 @@ body {
 }
 
 .p0 {
-  padding: 0;
+  padding: 0 !important;
+}
+.m0{
+  margin: 0 !important;
 }
 .no-scroll {
   overflow: hidden;
   height: 100vh;
 }
-
-// .bg-white {
-//   position: relative;
-//   &:before {
-//     position: fixed;
-//     content: '';
-//     left: 0;
-//     right: 0;
-//     top: 0;
-//     bottom: 0;
-//     background: #fff;
-//     z-index: -1;
-//   }
-// }
 
 .large-only {
   @include breakpoint(untilDesktop) {
@@ -584,4 +573,46 @@ $shapeColor: var(--color-background);
   max-height: 350px;
   overflow: auto;
   font-size: 14px;
+}
+
+.b-breadcrumbs{
+  position: relative;
+  z-index: 1;
+  color: var(--color-primary);
+  text-transform: capitalize;
+  font-weight: var(--font-demi);
+  margin-bottom: rem(16);
+  font-size: clamp(0.6875rem, 0.6572rem + 0.1294vw, 0.8125rem);
+
+  span {
+    margin: 0 rem(8);
+    @include breakpoint(large) {
+      margin: 0 rem(12);
+    }
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  &-list{
+    margin-top: rem(-50);
+    margin-bottom: rem(40);
+    text-align: center;
+
+    @include breakpoint(large) {
+      text-align: left;
+      margin-top: -35px;
+      left: -8px;
+      margin-bottom: 20px;
+    }
+
+    span {
+      margin: 0 rem(4);
+    }
+  }
+
+  &-dark{
+    color: var(--color-secondary);
+  }
 }

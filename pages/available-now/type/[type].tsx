@@ -1,17 +1,33 @@
-import React from 'react';
-import Banner from 'components/global/banner/Banner';
-import Filters from 'components/listing/filters/Filters';
-import InventoryItem from 'components/listing/listing-item/ListingItem';
-import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'hooks/api';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import styles from '/components/listing/Listing.module.scss';
+import Banner from 'components/global/banner/Banner';
+import Link from 'next/link';
+import Filters from 'components/listing/filters/Filters';
+import InventoryItem from 'components/listing/listing-item/ListingItem';
 
 function Inventory(props) {
   let topBanner = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
   topBanner = topBanner?.attributes.inventoryBanner;
+
+  const findTitleBySlug = (filters, targetSlug) => {
+    if (!filters || !Array.isArray(filters.type)) {
+      return null;
+    }
+
+    const matchingItem = filters.type.find(
+      (item) =>
+        item.attributes &&
+        item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
+    );
+
+    return matchingItem ? matchingItem.attributes.title : null;
+  };
+
+  const categoryTitle = findTitleBySlug(props?.filters, props?.query);
 
   const router = useRouter();
   const currentPath = router.asPath;
@@ -60,8 +76,14 @@ function Inventory(props) {
       <div className={`${styles.listing} background-dark`}>
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
+        <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
+          <Link href="/available-now">Available now</Link>
+          <span>&gt;</span>
+          {categoryTitle}
+        </div>
+
         <div
-          className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
+          className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container m0`}
         >
           {/* Render Filters conditionally based on path and filter type */}
           {!currentPath.includes('armored-rental') && props.filters?.type ? (

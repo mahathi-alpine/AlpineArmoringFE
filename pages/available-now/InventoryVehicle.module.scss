@@ -47,25 +47,6 @@
         }
       }
     }
-
-    &_breadcrumbs {
-      color: var(--color-primary);
-      text-transform: uppercase;
-      font-weight: var(--font-demi);
-      margin-bottom: rem(16);
-      font-size: clamp(0.6875rem, 0.6572rem + 0.1294vw, 0.8125rem);
-
-      span {
-        margin: 0 rem(8);
-        @include breakpoint(large) {
-          margin: 0 rem(12);
-        }
-      }
-
-      a {
-        text-decoration: underline;
-      }
-    }
   }
 
   &_top {

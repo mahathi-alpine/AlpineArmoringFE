@@ -119,7 +119,7 @@ function InventoryVehicle(props) {
     <div className={`${styles.inventory} background-dark`}>
       <div className={`${styles.inventory_main}`}>
         <div className={`${styles.inventory_heading}`}>
-          <div className={`${styles.inventory_heading_breadcrumbs}`}>
+          <div className={`b-breadcrumbs`}>
             <Link href="/available-now">Available now</Link>
             <span>&gt;</span>
             <Link href={`/available-now/type/${categorySlug}`}>{category}</Link>
