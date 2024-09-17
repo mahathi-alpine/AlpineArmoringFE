@@ -55,6 +55,12 @@ const HpBanner = ({ props }: HPBannerProps) => {
     return Boolean(userAgent.match(/Chrome|CriOS/i));
   }
 
+  function getChromeVersion() {
+    const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+
+    return raw ? parseInt(raw[2], 10) : false;
+  }
+
   useEffect(() => {
     const isSafariCondition =
       isSafari &&
@@ -67,8 +73,10 @@ const HpBanner = ({ props }: HPBannerProps) => {
       'Is chrome: ' + isChrome().toString();
     document.getElementById('isIOS').innerHTML =
       'Is IOS: ' + isIOS().toString();
-    document.getElementById('isIOS').innerHTML =
+    document.getElementById('IOSVersion').innerHTML =
       'IOSVersion: ' + parseInt(getSafariVersion()).toString();
+    document.getElementById('chromeVersion').innerHTML =
+      'chromeVersion: ' + getChromeVersion().toString();
 
     if (
       (props.video?.video_mp4?.data && isSafariCondition) ||
@@ -146,16 +154,19 @@ const HpBanner = ({ props }: HPBannerProps) => {
               className={`${styles.hp_banner_title}`}
             ></h1>
           ) : null}
+          <div>
+            <p id="isChrome"></p>
+            <p id="chromeVersion"></p>
+            <p id="isIOS"></p>
+            <p id="IOSVersion"></p>
+          </div>
 
           {props.description ? (
             <>
-              <h2
+              {/* <h2
                 className={`${styles.hp_banner_description}`}
                 dangerouslySetInnerHTML={{ __html: props.description }}
-              ></h2>
-              <p id="isChrome"></p>
-              <p id="isIOS"></p>
-              <p id="IOSVersion"></p>
+              ></h2> */}
             </>
           ) : null}
         </div>

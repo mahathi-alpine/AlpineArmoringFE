@@ -78,13 +78,15 @@ function Contact(props) {
               </div>
             </div>
 
-            <div className={styles.contact_map}>
-              <Image
-                src="/assets/alpineLocations.png"
-                alt={'Alpine Armoring Location'}
-                fill
-              />
-            </div>
+            {props.pageData?.mapImage?.data && (
+              <div className={styles.contact_map}>
+                <Image
+                  src={props.pageData?.mapImage.data.attributes.url}
+                  alt={'Alpine Armoring Location'}
+                  fill
+                />
+              </div>
+            )}
           </div>
         </div>
 
