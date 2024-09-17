@@ -23,7 +23,7 @@ body {
 .p0 {
   padding: 0 !important;
 }
-.m0{
+.m0 {
   margin: 0 !important;
 }
 .no-scroll {
@@ -575,7 +575,7 @@ $shapeColor: var(--color-background);
   font-size: 14px;
 }
 
-.b-breadcrumbs{
+.b-breadcrumbs {
   position: relative;
   z-index: 1;
   color: var(--color-primary);
@@ -595,7 +595,7 @@ $shapeColor: var(--color-background);
     text-decoration: underline;
   }
 
-  &-list{
+  &-list {
     margin-top: rem(-50);
     margin-bottom: rem(40);
     text-align: center;
@@ -612,7 +612,7 @@ $shapeColor: var(--color-background);
     }
   }
 
-  &-dark{
+  &-dark {
     color: var(--color-secondary);
   }
 }
