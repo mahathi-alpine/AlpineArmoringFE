@@ -7,13 +7,17 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 const TopBanner = ({ props, shape, center, small }: BannerProps) => {
-  const router = useRouter(); // Initialize useRouter
-  const currentRoute = router.pathname; // Get the current route
+  const router = useRouter();
+  const currentRoute = router.pathname;
   const bannerImage = props.media.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoMP4 = props.mediaMP4?.data;
+
+  function isIOS() {
+    return /iPad|iPhone|iPod/i.test(navigator.userAgent);
+  }
 
   function isSafari() {
     const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
@@ -36,12 +40,28 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
     return null;
   }
 
+  function isChrome() {
+    const userAgent =
+      typeof window !== 'undefined' ? navigator.userAgent : null;
+
+    if (!userAgent) {
+      return false;
+    }
+
+    return Boolean(userAgent.match(/Chrome|CriOS/i));
+  }
+
   useEffect(() => {
-    if (
-      isSafari() &&
-      videoMP4 &&
+    const isSafariCondition =
+      isSafari &&
       (parseInt(getSafariVersion()) < 17 ||
-        (parseInt(getSafariVersion()) >= 17 && window.innerWidth > 768))
+        (parseInt(getSafariVersion()) >= 17 && window.innerWidth >= 768));
+
+    const isChromeOnIOSCondition = isChrome && isIOS();
+
+    if (
+      (props.video?.video_mp4?.data && isSafariCondition) ||
+      isChromeOnIOSCondition
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {

@@ -19,6 +19,10 @@ const HpBanner = ({ props }: HPBannerProps) => {
     }
   };
 
+  function isIOS() {
+    return /iPad|iPhone|iPod/i.test(navigator.userAgent);
+  }
+
   function isSafari() {
     const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
@@ -52,15 +56,16 @@ const HpBanner = ({ props }: HPBannerProps) => {
   }
 
   useEffect(() => {
+    const isSafariCondition =
+      isSafari &&
+      (parseInt(getSafariVersion()) < 17 ||
+        (parseInt(getSafariVersion()) >= 17 && window.innerWidth >= 768));
+
+    const isChromeOnIOSCondition = isChrome && isIOS();
+
     if (
-      props.video?.video_mp4?.data &&
-      ((isSafari() &&
-        (parseInt(getSafariVersion()) < 17 ||
-          (parseInt(getSafariVersion()) >= 17 && window.innerWidth >= 768))) ||
-        (isChrome() &&
-          getSafariVersion() &&
-          parseInt(getSafariVersion()) < 16.8 &&
-          window.innerWidth < 768))
+      (props.video?.video_mp4?.data && isSafariCondition) ||
+      isChromeOnIOSCondition
     ) {
       const videoElement = videoRef.current;
       if (videoElement) {
