@@ -5,15 +5,10 @@ import Banner from 'components/global/banner/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
-// import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import PlayIcon from 'components/icons/Play';
-import { useIsMobile } from 'hooks/useIsMobile';
 import MediaList from 'pages/media/MediaList';
-// const Gallery = dynamic(
-//   () => import('components/global/carousel/CarouselCurved')
-// );
 
 function Testing(props) {
   const convertMarkdown = useMarkdownToHtml();
@@ -22,7 +17,6 @@ function Testing(props) {
   const videos = props?.pageData?.section3Video?.data;
   const certificate1 = props?.pageData?.certificate1?.data?.attributes?.url;
   const certificate2 = props?.pageData?.certificate2?.data?.attributes?.url;
-  const isMobile = useIsMobile();
 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -259,8 +253,8 @@ function Testing(props) {
                           props.pageData.section1Gallery12.data.attributes.url
                         }
                         alt={props.pageData?.titleGallery1}
-                        width={isMobile ? 380 : 300}
-                        height={isMobile ? 200 : 200}
+                        width="384"
+                        height="266"
                         style={{ width: '100%', height: 'auto' }}
                       />
                       <div
@@ -307,8 +301,8 @@ function Testing(props) {
                           props.pageData.section1Gallery22.data.attributes.url
                         }
                         alt={props.pageData?.titleGallery2}
-                        width={isMobile ? 380 : 300}
-                        height={isMobile ? 200 : 200}
+                        width="384"
+                        height="266"
                         style={{ width: '100%', height: 'auto' }}
                       />
                       <div
