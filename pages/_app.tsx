@@ -23,7 +23,6 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
-      console.log('test');
       LogRocket.init(process.env.NEXT_PUBLIC_LOGROCKET_APP_ID);
     }
   }, []);

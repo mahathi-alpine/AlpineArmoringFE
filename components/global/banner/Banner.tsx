@@ -69,7 +69,10 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
           'source[type="video/webm"]'
         );
         if (webmSource) {
-          webmSource.setAttribute('src', videoMP4.attributes.url);
+          webmSource.setAttribute(
+            'src',
+            props.video?.video_mp4?.data.attributes.url
+          );
           webmSource.setAttribute('type', 'video/mp4');
           videoElement.load();
         }
