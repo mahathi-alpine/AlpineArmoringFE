@@ -59,20 +59,14 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
 
     const isChromeOnIOSCondition = isChrome && isIOS();
 
-    if (
-      (props.video?.video_mp4?.data && isSafariCondition) ||
-      isChromeOnIOSCondition
-    ) {
+    if (videoMP4?.attributes && (isSafariCondition || isChromeOnIOSCondition)) {
       const videoElement = videoRef.current;
       if (videoElement) {
         const webmSource = videoElement.querySelector(
           'source[type="video/webm"]'
         );
         if (webmSource) {
-          webmSource.setAttribute(
-            'src',
-            props.video?.video_mp4?.data.attributes.url
-          );
+          webmSource.setAttribute('src', videoMP4.attributes.url);
           webmSource.setAttribute('type', 'video/mp4');
           videoElement.load();
         }
@@ -130,7 +124,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         sizes="100vw"
       />
     );
-  } else if ((bannerImage && bannerMimeType?.startsWith('video')) || videoMP4) {
+  } else if (bannerMimeType?.startsWith('video') || videoMP4) {
     mediaElement = (
       <video
         ref={videoRef}
@@ -140,16 +134,16 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         preload="auto"
         className={`${styles.banner_media}`}
       >
-        {bannerImage ? (
+        {bannerMimeType == 'video/webm' ? (
           <source
             src={`${bannerImage.url}`}
             type={`${bannerImage.mime}`}
           ></source>
         ) : null}
-        {videoMP4 && !bannerImage ? (
+        {videoMP4?.attributes && bannerMimeType !== 'video/webm' ? (
           <source
-            src={`${videoMP4.attributes.url}`}
-            type={`${videoMP4.attributes.mime}`}
+            src={`${videoMP4?.attributes.url}`}
+            type={`${videoMP4?.attributes.mime}`}
           ></source>
         ) : null}
       </video>
