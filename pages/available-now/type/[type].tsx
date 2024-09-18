@@ -83,7 +83,7 @@ function Inventory(props) {
         </div>
 
         <div
-          className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container m0`}
+          className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container mt0`}
         >
           {/* Render Filters conditionally based on path and filter type */}
           {!currentPath.includes('armored-rental') && props.filters?.type ? (

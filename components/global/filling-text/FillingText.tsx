@@ -59,7 +59,7 @@ const FillingText = ({ data, dark = false, className = '', small = false }) => {
   return (
     <div
       className={`
-        ${styles.fillingText} notranslate container
+        ${styles.fillingText} container
         ${styles[className]}
         ${dark ? styles.fillingText_dark : ''}
         ${small ? styles.fillingText_small : ''}
