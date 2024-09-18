@@ -47,6 +47,7 @@ function InventoryVehicle(props) {
     Trans: 'trans',
     // Power: 'power',
     Year: 'year',
+    Miles: 'miles',
     Drivetrain: 'driveTrain',
     'Color (Exterior)': 'color_ext',
     'Color (Interior)': 'color_int',
