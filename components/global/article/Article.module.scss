@@ -145,6 +145,12 @@
     margin: 0.75rem 0;
   }
 
+  &_images {
+    border: 1px solid #eee;
+    max-height: 26px;
+    min-height: 26px;
+  }
+
   &_country {
     color: #00205b;
     font-size: 1.25rem;

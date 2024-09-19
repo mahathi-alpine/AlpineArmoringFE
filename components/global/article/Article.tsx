@@ -86,10 +86,7 @@ const Article = ({
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
-                                  style={{
-                                    maxHeight: '26px',
-                                    minHeight: '26px',
-                                  }}
+                                  className={`${styles.article_images}`}
                                   src={
                                     item.attributes.flag.data?.attributes
                                       .formats?.thumbnail?.url ||
@@ -150,6 +147,7 @@ const Article = ({
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
+                                  className={`${styles.article_images}`}
                                   src={
                                     item.attributes.flag.data?.attributes
                                       .formats?.thumbnail?.url ||
