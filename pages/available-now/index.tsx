@@ -20,11 +20,8 @@ function Inventory(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const filteredVehicles = props.vehicles.data.filter(
-      (vehicle) => vehicle.attributes.hide !== true
-    );
-    setVehiclesData(filteredVehicles);
-  }, [q, vehicles_we_armor, props.vehicles.data]);
+    setVehiclesData(props.vehicles.data);
+  }, [q, vehicles_we_armor]);
 
   const fetchMoreItems = () => {
     if (itemsToRender < vehiclesData?.length) {
@@ -42,6 +39,7 @@ function Inventory(props) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
+            // observer.unobserve(entry.target);
 
             if (entry.target.classList.contains('bottomObserver')) {
               fetchMoreItems();
@@ -134,6 +132,11 @@ export async function getServerSideProps(context) {
       pageSize: 100,
     });
 
+    const filteredVehicles = {
+      ...vehicles,
+      data: vehicles.data.filter((vehicle) => vehicle.attributes.hide !== true),
+    };
+
     // Fetching Types for the Filters
     const type = await getPageData({
       route: 'categories',
@@ -146,7 +149,7 @@ export async function getServerSideProps(context) {
     const seoData = pageData?.seo ?? null;
 
     return {
-      props: { pageData, vehicles, filters, seoData },
+      props: { pageData, vehicles: filteredVehicles, filters, seoData },
     };
   } catch (error) {
     console.error('Error fetching data:', error);

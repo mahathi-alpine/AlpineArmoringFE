@@ -31,16 +31,13 @@ function Inventory(props) {
 
   const router = useRouter();
   const currentPath = router.asPath;
-  const [vehiclesData, setVehiclesData] = useState([]);
+  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const filteredVehicles = props.vehicles.data.filter(
-      (vehicle) => vehicle.attributes.hide !== true
-    );
-    setVehiclesData(filteredVehicles);
-  }, [props.vehicles.data, router.query]);
+    setVehiclesData(props.vehicles.data);
+  }, [router.query]);
 
   const fetchMoreItems = () => {
     if (itemsToRender < vehiclesData?.length) {
@@ -95,14 +92,14 @@ function Inventory(props) {
 
           {vehiclesData && vehiclesData.length > 0 ? (
             <div className={`${styles.listing_list}`}>
-              {vehiclesData
-                .slice(0, itemsToRender)
-                .map(
-                  (item, index) =>
-                    item.attributes.ownPage !== false && (
-                      <InventoryItem key={item.id} props={item} index={index} />
-                    )
-                )}
+              {vehiclesData.reduce((acc, item, index) => {
+                if (item.attributes.ownPage !== false) {
+                  acc[index] = (
+                    <InventoryItem key={item.id} props={item} index={index} />
+                  );
+                }
+                return acc;
+              }, [])}
             </div>
           ) : (
             <div className={`${styles.listing_list_error}`}>
@@ -145,6 +142,11 @@ export async function getServerSideProps(context) {
     pageSize: 100,
   });
 
+  const filteredVehicles = {
+    ...vehicles,
+    data: vehicles.data.filter((vehicle) => vehicle.attributes.hide !== true),
+  };
+
   // Fetching Types for the Filters
   const type = await getPageData({
     route: 'categories',
@@ -160,7 +162,12 @@ export async function getServerSideProps(context) {
   seoData = seoData?.attributes?.seo ?? null;
 
   return {
-    props: { vehicles, filters, query: context.query.type, seoData },
+    props: {
+      vehicles: filteredVehicles,
+      filters,
+      query: context.query.type,
+      seoData,
+    },
   };
 }
 
