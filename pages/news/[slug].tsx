@@ -3,6 +3,9 @@ import styles from './NewsSingle.module.scss';
 import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
+import PlayIcon from 'components/icons/Play2';
+import { useState } from 'react';
+import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function BlogSingle(props) {
@@ -19,6 +22,27 @@ function BlogSingle(props) {
   const content = data?.content;
 
   const convertMarkdown = useMarkdownToHtml();
+
+  // Lightbox
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [contentType, setContentType] = useState('');
+  const [videoSrc, setVideoSrc] = useState('');
+  const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
+
+  const handleLightboxOpen = (title, location, contentType, url = null) => {
+    setSelectedTitle(title);
+    setContentType(contentType);
+    if (contentType === 'video') {
+      setVideoSrc(url);
+    }
+    setLightboxPopupOpen(true);
+  };
+
+  const lightboxData = {
+    title: selectedTitle,
+    contentType: contentType,
+    videoSrc: videoSrc,
+  };
 
   // if (!data) {
   //   return null;
@@ -73,7 +97,27 @@ function BlogSingle(props) {
             dangerouslySetInnerHTML={{ __html: convertMarkdown(content) }}
           ></div>
         ) : null}
+
+        {data?.videos.map((item, index) => (
+          <div
+            className={`${styles.blogSingle_video}`}
+            key={index}
+            onClick={() =>
+              handleLightboxOpen(item.text, '', 'video', item.videoLink)
+            }
+          >
+            <span>{item.text}</span>
+            <PlayIcon />
+          </div>
+        ))}
       </div>
+      {isLightboxPopupOpen ? (
+        <LightboxCustom
+          isLightboxPopupOpen={isLightboxPopupOpen}
+          lightboxData={lightboxData}
+          setLightboxPopupOpen={setLightboxPopupOpen}
+        />
+      ) : null}
     </div>
   );
 }

@@ -150,4 +150,19 @@
       margin: auto;
     }
   }
+
+  &_video {
+    cursor: pointer;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    @include breakpoint(large) {
+      max-width: 80%;
+      margin: 20px auto;
+    }
+
+    span {
+      margin-right: 1rem;
+    }
+  }
 }
