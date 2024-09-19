@@ -6,6 +6,7 @@ import XIcon from 'components/icons/X';
 import InstagramIcon from 'components/icons/Instagram';
 import YoutubeIcon from 'components/icons/Youtube';
 import LinkedinIcon from 'components/icons/Linkedin';
+import ThreadsIcon from 'components/icons/Threads';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
 import MailIcon from 'components/icons/Mail';
@@ -160,6 +161,16 @@ const Footer = (isDarkMode) => {
                     target="_blank"
                   >
                     <LinkedinIcon />
+                  </Link>
+                </li>
+                <li
+                  className={`${styles.footer_socials_item} ${styles.footer_socials_item_threads}`}
+                >
+                  <Link
+                    href="https://www.threads.net/@alpinearmoring/"
+                    target="_blank"
+                  >
+                    <ThreadsIcon />
                   </Link>
                 </li>
               </ul>

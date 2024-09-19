@@ -213,13 +213,18 @@
             fill 0.3s ease,
             stroke 0.3s ease;
         }
-        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x):hover {
+        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_threads):not(.footer_socials_item_x):hover {
           svg path {
             fill: var(--color-primary);
           }
         }
         &_tiktok:hover {
           svg rect {
+            fill: var(--color-primary);
+          }
+        }
+        &_threads:hover {
+          svg circle {
             fill: var(--color-primary);
           }
         }
