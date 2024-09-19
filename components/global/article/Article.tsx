@@ -90,9 +90,11 @@ const Article = ({
                                     maxHeight: '26px',
                                     minHeight: '26px',
                                   }}
-                                  src={`/assets/places/${item.attributes.excerpt
-                                    .toLowerCase()
-                                    .replace(/\s+/g, '-')}.png`}
+                                  src={
+                                    item.attributes.flag.data?.attributes
+                                      .formats?.thumbnail?.url ||
+                                    item.attributes.flag.data?.attributes.url
+                                  }
                                   alt={item.attributes.excerpt}
                                   width={45}
                                   height={26}
@@ -148,9 +150,11 @@ const Article = ({
                               </div>
                               <div className={`${styles.article_flag}`}>
                                 <Image
-                                  src={`/assets/places/${item.attributes.excerpt
-                                    .toLowerCase()
-                                    .replace(/\s+/g, '-')}.png`}
+                                  src={
+                                    item.attributes.flag.data?.attributes
+                                      .formats?.thumbnail?.url ||
+                                    item.attributes.flag.data?.attributes.url
+                                  }
                                   alt={item.attributes.excerpt}
                                   width={45}
                                   height={26}
