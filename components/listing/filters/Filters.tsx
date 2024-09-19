@@ -311,7 +311,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                       return (
                         <Link
                           href={newUrl}
-                          scroll={false}
+                          // scroll={false}
                           className={`
                             ${styles.checkbox_link} 
                             ${
@@ -361,7 +361,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                   {filter == 'type' && (
                     <Link
                       href={baseUrl}
-                      scroll={false}
+                      // scroll={false}
                       className={`${styles.checkbox_link} ${
                         'available-now' === currentSlug
                           ? styles.selected_filter

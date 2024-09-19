@@ -1,16 +1,17 @@
 .form {
   @include breakpoint(medium) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     max-width: 700px;
     margin: 0 auto;
   }
 
   &_group {
     @include breakpoint(medium) {
+      width: 49%;
       &_full {
-        grid-column: 1 / -1;
+        width: 100%;
       }
     }
   }

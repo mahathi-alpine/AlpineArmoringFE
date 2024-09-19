@@ -121,7 +121,8 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         height={height}
         className={`${styles.banner_media}`}
         priority
-        sizes="100vw"
+        // sizes="100vw"
+        quality={100}
       />
     );
   } else if (bannerMimeType?.startsWith('video') || videoMP4) {

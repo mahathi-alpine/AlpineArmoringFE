@@ -31,13 +31,16 @@ function Inventory(props) {
 
   const router = useRouter();
   const currentPath = router.asPath;
-  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
+  const [vehiclesData, setVehiclesData] = useState([]);
   const [itemsToRender, setItemsToRender] = useState(6);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setVehiclesData(props.vehicles.data);
-  }, [router.query]);
+    const filteredVehicles = props.vehicles.data.filter(
+      (vehicle) => vehicle.attributes.hide !== true
+    );
+    setVehiclesData(filteredVehicles);
+  }, [props.vehicles.data, router.query]);
 
   const fetchMoreItems = () => {
     if (itemsToRender < vehiclesData?.length) {
@@ -92,14 +95,14 @@ function Inventory(props) {
 
           {vehiclesData && vehiclesData.length > 0 ? (
             <div className={`${styles.listing_list}`}>
-              {vehiclesData.reduce((acc, item, index) => {
-                if (item.attributes.ownPage !== false) {
-                  acc[index] = (
-                    <InventoryItem key={item.id} props={item} index={index} />
-                  );
-                }
-                return acc;
-              }, [])}
+              {vehiclesData
+                .slice(0, itemsToRender)
+                .map(
+                  (item, index) =>
+                    item.attributes.ownPage !== false && (
+                      <InventoryItem key={item.id} props={item} index={index} />
+                    )
+                )}
             </div>
           ) : (
             <div className={`${styles.listing_list_error}`}>
@@ -138,7 +141,7 @@ export async function getServerSideProps(context) {
     sort: 'order',
     populate: 'featuredImage',
     fields:
-      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage',
+      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide',
     pageSize: 100,
   });
 

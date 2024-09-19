@@ -20,8 +20,11 @@ function Inventory(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setVehiclesData(props.vehicles.data);
-  }, [q, vehicles_we_armor]);
+    const filteredVehicles = props.vehicles.data.filter(
+      (vehicle) => vehicle.attributes.hide !== true
+    );
+    setVehiclesData(filteredVehicles);
+  }, [q, vehicles_we_armor, props.vehicles.data]);
 
   const fetchMoreItems = () => {
     if (itemsToRender < vehiclesData?.length) {
@@ -39,7 +42,6 @@ function Inventory(props) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.toggle('in-view', entry.isIntersecting);
-            // observer.unobserve(entry.target);
 
             if (entry.target.classList.contains('bottomObserver')) {
               fetchMoreItems();
@@ -128,7 +130,7 @@ export async function getServerSideProps(context) {
       sort: 'order',
       populate: 'featuredImage,categories',
       fields:
-        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label',
+        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
       pageSize: 100,
     });
 
