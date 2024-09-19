@@ -22,7 +22,7 @@ const syncAlgolia = async (req, res) => {
       category = 'vehicles-we-armor';
     } else if (req.url === '/api/algolia-sync?type=news') {
       route = 'blogs';
-      category = 'blogs';
+      category = 'news';
     } else {
       res.status(200).json({ message: 'No action taken' });
       return;

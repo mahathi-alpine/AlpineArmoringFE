@@ -20,7 +20,10 @@ import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs
 
 import { Panel } from 'components/Panel';
 
-const client = algoliasearch('BWXO30HFNW', 'd152ea74492bb9a3eea96657ac73f8b8');
+const client = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+);
 
 type HitProps = {
   hit: AlgoliaHit<{

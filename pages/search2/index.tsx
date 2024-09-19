@@ -3,9 +3,10 @@ import algoliasearch from 'algoliasearch';
 import { useState } from 'react';
 // import styles from './Search.module.css';
 
-const ALGOLIA_APP_ID = 'BWXO30HFNW';
-const ALGOLIA_SEARCH_API_KEY = 'd152ea74492bb9a3eea96657ac73f8b8';
-const ALGOLIA_INDEX_NAME = 'dev_alpine';
+const ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID;
+const ALGOLIA_SEARCH_API_KEY =
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY;
+const ALGOLIA_INDEX_NAME = process.env.ALGOLIA_INDEX_NAME;
 
 const algoliaClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY);
 
