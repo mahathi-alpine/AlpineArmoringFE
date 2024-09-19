@@ -100,7 +100,7 @@ function Manufacturing(props) {
             <p
               className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
-                __html: props.pageData.section1Heading,
+                __html: convertMarkdown(props.pageData.section1Heading),
               }}
             ></p>
           ) : null}

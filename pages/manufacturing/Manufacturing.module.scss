@@ -145,6 +145,11 @@
     @include breakpoint(large) {
       font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
     }
+
+    a {
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+    }
   }
 
   &_section1 {

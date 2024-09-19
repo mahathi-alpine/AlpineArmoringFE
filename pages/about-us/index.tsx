@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getPageData } from 'hooks/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
-import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import FillingText from 'components/global/filling-text/FillingText';
 import Autoplay from 'components/global/carousel/Autoplay';
@@ -128,7 +127,9 @@ function About(props) {
                 {item.description ? (
                   <p
                     className={`${styles.about_box_item_text}`}
-                    dangerouslySetInnerHTML={{ __html: item.description }}
+                    dangerouslySetInnerHTML={{
+                      __html: convertMarkdown(item.description),
+                    }}
                   ></p>
                 ) : null}
 
@@ -224,30 +225,6 @@ function About(props) {
         {props.pageData?.quote ? (
           <div className={`${styles.about_quote}`}>
             <FillingText data={props.pageData?.quote} dark />
-          </div>
-        ) : null}
-
-        {props.pageData?.bottomImage.data ? (
-          <div className={`${styles.about_bottom_img} container_small`}>
-            <Image
-              src={`${
-                props.pageData?.bottomImage.data?.attributes.formats?.large
-                  ?.url || props.pageData?.bottomImage.data?.attributes.url
-              }`}
-              alt={
-                props.pageData?.bottomImage.data?.attributes.alternativeText ||
-                'Alpine Armoring'
-              }
-              width={
-                props.pageData?.bottomImage.data?.attributes.formats?.large
-                  ?.width || props.pageData?.bottomImage.data?.attributes.width
-              }
-              height={
-                props.pageData?.bottomImage.data?.attributes.formats?.large
-                  ?.height ||
-                props.pageData?.bottomImage.data?.attributes.height
-              }
-            />
           </div>
         ) : null}
       </div>

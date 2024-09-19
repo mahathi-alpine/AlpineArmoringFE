@@ -193,21 +193,7 @@ function Vehicle(props) {
                   height={dimensions1.height}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-
-                {data?.dimensionsWidth ? (
-                  <div className={`${styles.slug_dimensions_width}`}>
-                    {data.dimensionsWidth} in. (
-                    {Math.round(data.dimensionsWidth * 2.54)} cm)
-                  </div>
-                ) : null}
               </div>
-
-              {data?.dimensionsHeight ? (
-                <div className={`${styles.slug_dimensions_height}`}>
-                  {data.dimensionsHeight} in.{' '}
-                  <span>({Math.round(data.dimensionsHeight * 2.54)} cm)</span>
-                </div>
-              ) : null}
             </div>
 
             <div
@@ -358,7 +344,7 @@ export async function getStaticPaths() {
       fallback: true,
     };
   } catch (error) {
-    console.error('Error fetching slugs:', error);
+    // console.error('Error fetching slugs:', error);
     return {
       paths: [],
       fallback: false,

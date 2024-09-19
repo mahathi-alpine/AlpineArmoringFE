@@ -62,49 +62,6 @@
       }
     }
 
-    &_height {
-      position: relative;
-      display: flex;
-      // width: 100%;
-      align-items: center;
-      flex-flow: column;
-      justify-content: center;
-      padding-bottom: 10vw;
-      margin-right: -10px;
-      margin-left: -3px;
-
-      // position: absolute;
-      // right: -6.5vw;
-      // font-size: 3vw;
-      // top: calc(50% - 8.8vw);
-      font-weight: var(--font-medium);
-
-      @include breakpoint(medium) {
-        padding-bottom: 4vw;
-        // font-size: 1vw;
-        // top: calc(50% - 3.2vw);
-      }
-
-      span {
-        display: block;
-      }
-    }
-
-    &_width {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 1.3vw;
-      padding-right: 7vw;
-      text-align: center;
-      font-weight: var(--font-medium);
-      @include breakpoint(medium) {
-        padding-right: 2.5vw;
-        bottom: 0.5vw;
-        // font-size: 1vw;
-      }
-    }
-
     &_wrap {
       @include breakpoint(medium) {
         display: flex;

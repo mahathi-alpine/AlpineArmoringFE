@@ -105,7 +105,11 @@ function Shipping(props) {
           <div
             className={`${styles.shipping_heading} observe fade-in container_small`}
           >
-            <p dangerouslySetInnerHTML={{ __html: heading }}></p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: convertMarkdown(heading),
+              }}
+            ></p>
           </div>
         ) : null}
 
@@ -124,7 +128,9 @@ function Shipping(props) {
                 {item.title ? (
                   <h2
                     className={`${styles.shipping_box_item_title}`}
-                    dangerouslySetInnerHTML={{ __html: item.title }}
+                    dangerouslySetInnerHTML={{
+                      __html: convertMarkdown(item.title),
+                    }}
                   ></h2>
                 ) : null}
 

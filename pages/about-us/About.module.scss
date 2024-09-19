@@ -142,19 +142,6 @@
     }
   }
 
-  // &_quote {
-  //   @include breakpoint(large) {
-  //     margin: rem(64) 0;
-  //   }
-  //   @include breakpoint(huge) {
-  //     margin: rem(100) 0;
-  //   }
-  // }
-
-  &_bottom_img {
-    display: flex;
-    justify-content: center;
-  }
   &_downloads {
     justify-content: space-between;
     font-size: rem(14);

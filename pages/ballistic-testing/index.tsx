@@ -176,18 +176,11 @@ function Testing(props) {
             <p
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
-                __html: props.pageData.section1Heading,
+                __html: convertMarkdown(props.pageData.section1Heading),
               }}
             ></p>
           ) : null}
-          {props.pageData?.section1Text ? (
-            <div
-              className={`${styles.testing_section1_text1} ${styles.testing_text} fade-in observe`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section1Text),
-              }}
-            ></div>
-          ) : null}
+
           <div className={styles.galleryContainer}>
             <div className={styles.gallerySection}>
               {props?.pageData?.titleGallery1 && (
@@ -377,7 +370,7 @@ function Testing(props) {
             <p
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
-                __html: props.pageData.section2Heading,
+                __html: convertMarkdown(props.pageData.section2Heading),
               }}
             ></p>
           ) : null}
@@ -391,9 +384,12 @@ function Testing(props) {
                 <h4 className={`${styles.testing_armor_title}`}>
                   {item.title}
                 </h4>
-                <p className={`${styles.testing_armor_description}`}>
-                  {item.description}
-                </p>
+                <p
+                  className={`${styles.testing_armor_description}`}
+                  dangerouslySetInnerHTML={{
+                    __html: convertMarkdown(item.description),
+                  }}
+                ></p>
                 <div
                   className={`${styles.testing_armor_read}`}
                   onClick={() => handleReadMore(item)}
@@ -444,9 +440,12 @@ function Testing(props) {
                 <div className={`modal_inner`}>
                   <h3 className={`modal_title`}>{selectedItem.title}</h3>
                   <div className={`modal_box`}>
-                    <p className={`modal_description`}>
-                      {selectedItem.description}
-                    </p>
+                    <p
+                      className={`modal_description`}
+                      dangerouslySetInnerHTML={{
+                        __html: convertMarkdown(selectedItem.description),
+                      }}
+                    ></p>
                     {selectedItem?.image?.data && (
                       <div className={`modal_images`}>
                         {selectedItem.image.data.map((imgData, imgIndex) => (
@@ -513,7 +512,7 @@ function Testing(props) {
             <p
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
               dangerouslySetInnerHTML={{
-                __html: props.pageData.section3Heading,
+                __html: convertMarkdown(props.pageData.section3Heading),
               }}
             ></p>
           ) : null}
@@ -523,7 +522,7 @@ function Testing(props) {
           <h3 className={styles.section4Title}>
             <span
               dangerouslySetInnerHTML={{
-                __html: props.pageData.section4Title,
+                __html: convertMarkdown(props.pageData.section4Title),
               }}
             ></span>
           </h3>
@@ -532,7 +531,7 @@ function Testing(props) {
           <h3 className={styles.section4Heading}>
             <span
               dangerouslySetInnerHTML={{
-                __html: props.pageData.section4Heading,
+                __html: convertMarkdown(props.pageData.section4Heading),
               }}
             ></span>
           </h3>
