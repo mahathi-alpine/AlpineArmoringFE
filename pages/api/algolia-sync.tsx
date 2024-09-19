@@ -3,7 +3,6 @@ import { getPageData } from 'hooks/api';
 
 const syncAlgolia = async (req, res) => {
   try {
-    // if (req.method === 'POST') {
     const algoliaClient = algoliasearch(
       process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
       process.env.ALGOLIA_ADMIN_KEY
@@ -21,6 +20,9 @@ const syncAlgolia = async (req, res) => {
     } else if (req.url === '/api/algolia-sync?type=vehicles-we-armor') {
       route = 'vehicles-we-armors';
       category = 'vehicles-we-armor';
+    } else if (req.url === '/api/algolia-sync?type=news') {
+      route = 'blogs';
+      category = 'blogs';
     } else {
       res.status(200).json({ message: 'No action taken' });
       return;
@@ -30,7 +32,6 @@ const syncAlgolia = async (req, res) => {
       route: route,
       pageSize: pageSize,
     });
-    // const postCount = postsData.data.length;
 
     const algoliaPosts = postsData.data.map((post) => ({
       objectID: category + '-' + post.id,
@@ -41,26 +42,7 @@ const syncAlgolia = async (req, res) => {
 
     await index.saveObjects(algoliaPosts);
 
-    // for (let page = 0; page < Math.ceil(postCount / pageSize); page++) {
-    //   const posts = postsData.data.slice(
-    //     page * pageSize,
-    //     (page + 1) * pageSize
-    //   );
-    //   const algoliaPosts = posts.map((post) => ({
-    //     objectID: post.id,
-    //     title: post.attributes.title,
-    //     slug: post.attributes.slug,
-    //     category: category,
-    //   }));
-
-    //   await index.saveObjects(algoliaPosts);
-    // }
     res.json(`Content successfully synchronized with Algolia search`);
-
-    // }
-    // else {
-    //   res.status(405).json({ error: 'Method Not Allowed' });
-    // }
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
@@ -69,11 +51,3 @@ const syncAlgolia = async (req, res) => {
 };
 
 export default syncAlgolia;
-
-// fetch('/api/algolia-sync', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ key: 'value' })
-// });
