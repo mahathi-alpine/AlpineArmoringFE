@@ -5,6 +5,8 @@ import PDFIcon from 'components/icons/PDF';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
 import { useEffect, useState } from 'react';
+import LightboxCustom from 'components/global/lightbox/LightboxCustom';
+import PlayIcon from 'components/icons/Play2';
 
 import 'yet-another-react-lightbox/styles.css';
 
@@ -81,6 +83,27 @@ const Banner = (props) => {
   const togglePDFPopup = (url) => {
     setPDFPopupOpen((prevState) => !prevState);
     setCurrentPdfUrl(url);
+  };
+
+  // Lightbox
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [contentType, setContentType] = useState('');
+  const [videoSrc, setVideoSrc] = useState('');
+  const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
+
+  const handleLightboxOpen = (title, location, contentType, url = null) => {
+    setSelectedTitle(title);
+    setContentType(contentType);
+    if (contentType === 'video') {
+      setVideoSrc(url);
+    }
+    setLightboxPopupOpen(true);
+  };
+
+  const lightboxData = {
+    title: selectedTitle,
+    contentType: contentType,
+    videoSrc: videoSrc,
   };
 
   return (
@@ -189,19 +212,37 @@ const Banner = (props) => {
           </div>
         ) : null}
 
-        {data.pdf?.data ? (
-          <div
-            onClick={() => togglePDFPopup(data.pdf.data.attributes.url)}
-            className={`${styles.banner_pdf}`}
-          >
-            <span>
-              <span>OEM</span>
-              <br />
-              Specs
-            </span>
-            <PDFIcon />
-          </div>
-        ) : null}
+        <div className={`${styles.banner_container}`}>
+          {data?.videoURL ? (
+            <div
+              onClick={() =>
+                handleLightboxOpen(data.title, '', 'video', data.videoURL)
+              }
+              className={`${styles.banner_pdf}`}
+            >
+              <span>
+                <span>Watch</span>
+                <br />
+                Video
+              </span>
+              <PlayIcon />
+            </div>
+          ) : null}
+
+          {data.pdf?.data ? (
+            <div
+              onClick={() => togglePDFPopup(data.pdf.data.attributes.url)}
+              className={`${styles.banner_pdf}`}
+            >
+              <span>
+                <span>OEM</span>
+                <br />
+                Specs
+              </span>
+              <PDFIcon />
+            </div>
+          ) : null}
+        </div>
 
         <div className={`${styles.banner_protection}`}>
           <p>Offered At Protection Levels</p>
@@ -232,6 +273,14 @@ const Banner = (props) => {
         onClose={() => togglePDFPopup('')}
         pdfUrl={currentPdfUrl}
       />
+
+      {isLightboxPopupOpen ? (
+        <LightboxCustom
+          isLightboxPopupOpen={isLightboxPopupOpen}
+          lightboxData={lightboxData}
+          setLightboxPopupOpen={setLightboxPopupOpen}
+        />
+      ) : null}
     </div>
   );
 };

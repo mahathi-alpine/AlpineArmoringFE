@@ -270,16 +270,36 @@
     margin-bottom: -36px;
   }
 
-  &_pdf {
+  &_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     bottom: 15px;
     left: 0;
     right: 0;
     margin: auto;
+    gap: rem(30);
+
+    @include breakpoint(medium) {
+      bottom: rem(50);
+      left: auto;
+      right: rem(10);
+    }
+
+    @include breakpoint(large) {
+      bottom: 18px;
+      right: 20px;
+      color: var(--color-white);
+      font-weight: var(--font-regular);
+      z-index: 4;
+    }
+  }
+
+  &_pdf {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     font-weight: var(--font-medium);
-    align-items: center;
     font-size: rem(15);
     z-index: 2;
     cursor: pointer;
@@ -300,6 +320,7 @@
 
     span {
       line-height: 1.05;
+      text-align: center;
       span {
         font-size: rem(19);
       }

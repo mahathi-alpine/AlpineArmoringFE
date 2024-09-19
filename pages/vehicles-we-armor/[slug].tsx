@@ -78,6 +78,7 @@ function Vehicle(props) {
     pdf: data?.pdf,
     protectionLevel: data?.protectionLevel,
     navItems: navItems,
+    videoURL: data?.videoURL,
   };
 
   const formData = {
