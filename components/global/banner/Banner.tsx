@@ -147,6 +147,12 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
             type={`${videoMP4?.attributes.mime}`}
           ></source>
         ) : null}
+        {!videoMP4?.attributes && bannerMimeType !== 'video/webm' ? (
+          <source
+            src={`${bannerImage?.url}`}
+            type={`${bannerImage?.mime}`}
+          ></source>
+        ) : null}
       </video>
     );
   }
