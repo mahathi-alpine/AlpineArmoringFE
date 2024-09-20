@@ -32,4 +32,4 @@ yarn-error.log*
 
 .vscode/
 
-/tsconfig.tsbuildinfo
+tsconfig.tsbuildinfo
