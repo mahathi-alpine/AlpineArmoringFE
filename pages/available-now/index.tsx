@@ -119,7 +119,7 @@ export async function getServerSideProps(context) {
       query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
     }
     if (q) {
-      query += `filters[slug][$contains]=${q.toLowerCase()}`;
+      query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
     }
 
     const vehicles = await getPageData({
@@ -134,7 +134,17 @@ export async function getServerSideProps(context) {
 
     const filteredVehicles = {
       ...vehicles,
-      data: vehicles.data.filter((vehicle) => vehicle.attributes.hide !== true),
+      data: vehicles.data.filter((vehicle) => {
+        if (vehicle.attributes.hide === true) return false;
+        if (!q) return true;
+
+        const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
+        const slug = vehicle.attributes.slug
+          .toLowerCase()
+          .replace(/[-\s]/g, '');
+
+        return slug.includes(searchTerms);
+      }),
     };
 
     // Fetching Types for the Filters

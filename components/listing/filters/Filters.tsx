@@ -38,14 +38,13 @@ const Filters = ({ props, plain }: FiltersProps) => {
       newQuery.q = query;
     }
 
-    // Update the URL with the new query parameters
     router.push(
       {
         pathname: router.pathname,
         query: newQuery,
       },
-      undefined,
-      { scroll: false }
+      undefined
+      // { scroll: false }
     );
   };
 
