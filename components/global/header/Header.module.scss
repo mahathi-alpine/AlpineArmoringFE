@@ -10,7 +10,7 @@
   transition:
     transform 0.4s ease-in-out,
     background 0.2s ease-in-out;
-  height: 74px;
+  // height: var(--header-height);
   user-select: none;
 
   @include breakpoint(medium) {
@@ -23,6 +23,12 @@
     @include breakpoint('large') {
       position: absolute;
       transform: none !important;
+    }
+  }
+
+  .header_contact {
+    @include breakpoint('medium') {
+      padding: 12px 25px;
     }
   }
 

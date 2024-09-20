@@ -4,12 +4,11 @@
   left: 0;
   bottom: 0;
   right: 0;
-  padding-top: rem(74);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column;
-  padding: rem(24);
+  padding: var(--header-height) rem(24) rem(24) rem(24);
   color: var(--color-white);
   background: rgba(23, 23, 23, 0.9);
   z-index: 7;
@@ -17,7 +16,6 @@
 
   input {
     width: 100%;
-    // max-width: 400px;
     margin-bottom: rem(24);
     padding: 0 0 rem(8) rem(8);
     font-size: rem(16);
