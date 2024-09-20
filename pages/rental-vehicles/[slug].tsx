@@ -141,13 +141,16 @@ function InventoryVehicle(props) {
               ) : null}
 
               {data?.armor_level ? (
-                <div className={`${styles.inventory_armor}`}>
+                <Link
+                  href="/ballistic-chart"
+                  className={`${styles.inventory_armor}`}
+                >
                   <div className={`${styles.inventory_armor_box}`}>
                     Armor
                     <span>Level</span>
                   </div>
                   <strong>{data?.armor_level}</strong>
-                </div>
+                </Link>
               ) : null}
             </div>
 
