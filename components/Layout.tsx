@@ -60,7 +60,6 @@ const Layout = ({ children }) => {
   ];
   const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
   const pathsPadding0 = ['/news/', '/ballistic-testing'];
-  const pathsHeaderTransparent = ['/', '/ballistic-testing'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)
@@ -69,9 +68,12 @@ const Layout = ({ children }) => {
     router.pathname.startsWith(path)
   );
   const isHomepage = router.pathname === '/';
-  const isHeaderGray = pathsHeaderTransparent.some((path) =>
-    router.pathname.startsWith(path)
+
+  const pathsHeaderTransparent = ['/ballistic-testing'];
+  const isHeaderGray = pathsHeaderTransparent.some(
+    (path) => router.pathname.startsWith(path) || isHomepage
   );
+
   const isPadding0 = pathsPadding0.some((path) =>
     router.pathname.startsWith(path)
   );
