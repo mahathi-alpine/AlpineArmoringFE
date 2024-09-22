@@ -34,6 +34,7 @@
     "react-instantsearch-router-nextjs": "^7.5.5",
     "resize-observer": "^1.0.4",
     "sass": "^1.69.5",
+    "xml2js": "^0.6.2",
     "yet-another-react-lightbox": "^3.15.6"
   },
   "engines": {
