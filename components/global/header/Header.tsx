@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import Logo from 'components/icons/Logo';
+// import Logo from 'components/icons/Logo';
+import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
@@ -100,7 +101,15 @@ const Header = ({
           onClick={() => setNavOpen(false)}
         >
           <Link href={'/'} aria-label="Alpine Armoring Logo">
-            <Logo />
+            <Image
+              src="/assets/Alpine-Armoring-Armored-Vehicles.png"
+              alt="armored vehicles"
+              width={125}
+              height={42}
+              quality={100}
+              priority
+            />
+            {/* <Logo /> */}
           </Link>
         </div>
 
