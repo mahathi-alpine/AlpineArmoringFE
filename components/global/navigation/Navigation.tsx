@@ -9,31 +9,78 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
 
   const links = [
     { path: '/available-now', text: 'Available Now' },
-    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
+    {
+      text: 'Vehicles We Armor',
+      submenu: [
+        {
+          text: 'SUVs',
+          path: '/vehicles-we-armor/type/armored-suvs',
+        },
+        {
+          text: 'Sedans',
+          path: '/vehicles-we-armor/type/armored-sedans',
+        },
+        {
+          text: 'Pickup Trucks',
+          path: '/vehicles-we-armor/type/armored-pickup-trucks',
+        },
+        {
+          text: 'Law Enforcement',
+          path: '/vehicles-we-armor/type/armored-law-enforcement',
+        },
+        {
+          text: 'Cash-In-Transit (CIT)',
+          path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
+        },
+        {
+          text: 'Specialty Vehicles',
+          path: '/vehicles-we-armor/type/armored-specialty-vehicles',
+        },
+      ],
+    },
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
   ];
 
   return (
     <nav
-      className={`${styles.navigation} ${
-        isNavOpen ? styles.navigation_navOpen : ''
-      }`}
+      className={`${styles.navigation} ${isNavOpen ? styles.navigation_navOpen : ''}`}
     >
-      <ul className={`${styles.navigation_list}`}>
+      <ul className={styles.navigation_list}>
         {links.map((link, index) => (
           <li
             key={index}
-            className={`
-            ${styles.navigation_item} 
-            ${
+            className={`${styles.navigation_item} ${
               router.pathname.startsWith(link.path)
                 ? `${styles.navigation_item_active}`
                 : ''
             }`}
           >
-            <Link className={`${styles.navigationPopup_link}`} href={link.path}>
-              {link.text}
-            </Link>
+            {link.path ? (
+              <Link className={styles.navigationPopup_link} href={link.path}>
+                {link.text}
+              </Link>
+            ) : (
+              <span
+                className={`${styles.navigationPopup_link} ${styles.navigationPopup_link_disabled}`}
+              >
+                {link.text}
+              </span>
+            )}
+
+            {link.submenu && (
+              <ul className={styles.navigation_submenu}>
+                {link.submenu.map((submenuItem, subIndex) => (
+                  <li key={subIndex}>
+                    <Link
+                      className={styles.navigation_submenu_link}
+                      href={submenuItem.path}
+                    >
+                      {submenuItem.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>

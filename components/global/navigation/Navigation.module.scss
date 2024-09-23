@@ -26,7 +26,7 @@
     font-size: clamp(0.8125rem, 0.6875rem + 0.1563vw, 0.875rem);
     text-transform: uppercase;
 
-    &:after {
+    &:after:not(.navigationPopup_link_disabled) {
       position: absolute;
       content: '';
       left: 0;
@@ -43,6 +43,43 @@
     &:hover {
       &:after {
         transform: scaleX(1);
+      }
+    }
+
+    &:hover{
+      & > .navigation_submenu{
+        visibility: visible;
+        opacity: 1;
+      }      
+    }
+  }
+
+
+  &_submenu{
+    position: absolute;
+    top: 19px;
+    left: 0;
+    right: 0;
+    padding: 6px 10px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background: var(--color-background);
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    transition: visibility 0.2s ease, opacity 0.2s ease;
+
+    &_link{
+      display: inline-block;
+      font-size: 12px;
+      padding: 6px 0;
+      color: var(--color-secondary);
+      letter-spacing: -0.7px;
+      transition: color 0.2s ease;
+
+      &:hover{
+        color: var(--color-primary);
       }
     }
   }
