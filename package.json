@@ -7,7 +7,9 @@
     "lint": "next lint",
     "lint:ts": "tsc --noEmit",
     "prettier": "prettier --write .",
-    "prepare": "husky install .husky"
+    "prepare": "husky install .husky",
+    "generate-sitemap": "node generateSitemap.js",
+    "prebuild": "npm run generate-sitemap"
   },
   "husky": {
     "hooks": {
