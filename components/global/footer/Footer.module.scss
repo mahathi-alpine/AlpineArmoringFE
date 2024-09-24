@@ -8,6 +8,9 @@
   @include breakpoint(small) {
     z-index: 3;
   }
+  @include breakpoint(large) {
+    padding-bottom: rem(40);
+  }
 
   &_dark {
     background: #101010 url(/assets/noise4.png);
@@ -250,6 +253,7 @@
       align-items: center;
       justify-content: space-between;
       padding-bottom: rem(16);
+      padding-top: rem(8);
     }
 
     &_nav {
@@ -300,7 +304,7 @@
       }
     }
 
-    @media (max-width: 1280px) {
+    @include breakpoint(untilLarge) {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -313,13 +317,13 @@
         margin-bottom: 1rem;
       }
 
-      // Ensure the last element doesn't have extra spacing
       p:last-child {
         margin-bottom: 0;
       }
     }
 
     &_copy {
+
       span {
         display: inline;
         @media (max-width: 500px) {
@@ -331,33 +335,31 @@
         color: var(--color-primary);
         font-weight: 600;
       }
+    }
+
+    &_flag{
+      padding: 10px;
+      display: inline-block;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+
+      @include breakpoint(large) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 330px;
+        bottom: 44px;
+      }
 
       &_dark {
         background-image: url('/assets/footer-american-flag-black.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        padding: 10px;
-        display: inline-block;
-        margin-left: -2.5%;
-
-        @media (max-width: 1280px) {
-          margin-left: 0;
-        }
       }
       &_light {
         background-image: url('/assets/footer-american-flag.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        padding: 10px;
-        display: inline-block;
-        margin-left: -2.5%;
-
-        @media (max-width: 1280px) {
-          margin-left: 0;
-        }
       }
+
     }
   }
 }

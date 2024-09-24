@@ -83,7 +83,6 @@
   }
 
   &_item {
-    font-weight: 500;
     position: relative;
     font-size: rem(20);
     text-transform: uppercase;
@@ -120,6 +119,7 @@
     padding: rem(8);
     @include breakpoint(large) {
       padding: rem(16);
+      cursor: pointer;
     }
 
     .navigationPopup_list_right & {
@@ -240,6 +240,43 @@
 
       &_lang {
         font-weight: 500;
+      }
+    }
+  }
+
+  &_submenu{
+    position: relative;
+
+    @include breakpoint(large) {
+      .navigationPopup_link{
+        font-size: 23px;
+        padding: rem(8);
+        transition: transform 0.2s ease;
+
+        &:hover{          
+          transform: translateX(12px);
+        }
+      }
+    }
+
+    &_back{
+      position: absolute;
+      top: -35px;
+      left: 12px;
+      transform: rotate(180deg);
+      cursor: pointer;
+
+      @include breakpoint(large) {
+        left: -35px;
+      }
+
+      svg{
+        width: 26px;
+        height: 26px;
+
+        path{
+          stroke: white;          
+        }
       }
     }
   }

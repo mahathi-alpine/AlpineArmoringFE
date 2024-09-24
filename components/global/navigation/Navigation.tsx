@@ -68,7 +68,7 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
             )}
 
             {link.submenu && (
-              <ul className={styles.navigation_submenu}>
+              <ul className={`${styles.navigation_submenu} navigation_submenu`}>
                 {link.submenu.map((submenuItem, subIndex) => (
                   <li key={subIndex}>
                     <Link

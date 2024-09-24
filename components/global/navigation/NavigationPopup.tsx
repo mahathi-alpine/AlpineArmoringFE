@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { NavigationProps } from 'types';
 import styles from './NavigationPopup.module.scss';
 import dynamic from 'next/dynamic';
 
+import ArrowIcon from 'components/icons/Arrow';
 import FacebookIcon from 'components/icons/Facebook';
 import TiktokIcon from 'components/icons/Tiktok';
 import XIcon from 'components/icons/X';
 import InstagramIcon from 'components/icons/Instagram';
 import YoutubeIcon from 'components/icons/Youtube';
 import LinkedinIcon from 'components/icons/Linkedin';
-// import ThreadsIcon from 'components/icons/Threads';
 import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
@@ -26,10 +26,41 @@ const NavigationPopup = ({
   openSearchPopup,
 }: NavigationProps) => {
   const router = useRouter();
+  const [activeSubmenu, setActiveSubmenu] = useState<
+    { text: string; path: string }[] | null
+  >(null);
 
   const links = [
     { path: '/available-now', text: 'Available Now' },
-    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
+    {
+      text: 'Vehicles We Armor',
+      submenu: [
+        {
+          text: 'SUVs',
+          path: '/vehicles-we-armor/type/armored-suvs',
+        },
+        {
+          text: 'Sedans',
+          path: '/vehicles-we-armor/type/armored-sedans',
+        },
+        {
+          text: 'Pickup Trucks',
+          path: '/vehicles-we-armor/type/armored-pickup-trucks',
+        },
+        {
+          text: 'Law Enforcement',
+          path: '/vehicles-we-armor/type/armored-law-enforcement',
+        },
+        {
+          text: 'Cash-In-Transit (CIT)',
+          path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
+        },
+        {
+          text: 'Specialty Vehicles',
+          path: '/vehicles-we-armor/type/armored-specialty-vehicles',
+        },
+      ],
+    },
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
   ];
 
@@ -47,8 +78,34 @@ const NavigationPopup = ({
     { path: '/contact', text: 'Contact' },
   ];
 
+  const showSubmenu = (
+    submenu: { text: string; path: string }[] | undefined
+  ) => {
+    if (submenu) {
+      setActiveSubmenu(submenu);
+    } else {
+      setActiveSubmenu(null);
+    }
+  };
+
+  const closeNavAndSubmenu = () => {
+    setNavOpen(false);
+    setActiveSubmenu(null);
+  };
+
+  useEffect(() => {
+    if (!isNavOpen) {
+      setActiveSubmenu(null);
+    }
+  }, [isNavOpen]);
+
+  const handleBackClick = () => {
+    setActiveSubmenu(null);
+  };
+
   const handleSearchClick = () => {
     openSearchPopup(true);
+    closeNavAndSubmenu();
     setTimeout(() => {
       const input = document.querySelector('.search-box') as HTMLInputElement;
       if (input) {
@@ -66,55 +123,98 @@ const NavigationPopup = ({
     >
       <div className={`${styles.navigationPopup_inner} container`}>
         <div className={`${styles.navigationPopup_nav}`}>
-          <ul
-            className={`${styles.navigationPopup_list_left} ${styles.navigationPopup_list}`}
-          >
-            {links.map((link, index) => (
-              <li
-                key={index}
-                className={`
-                  ${styles.navigationPopup_item} 
-                  ${
-                    router.asPath === link.path
-                      ? `${styles.navigationPopup_item_active}`
-                      : ''
-                  }`}
-                onClick={() => setNavOpen(false)}
+          {!activeSubmenu && (
+            <>
+              <ul
+                className={`${styles.navigationPopup_list_left} ${styles.navigationPopup_list}`}
               >
-                <Link
-                  className={`${styles.navigationPopup_link}`}
-                  href={link.path}
-                >
-                  {link.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
+                {links.map((link, index) => (
+                  <li
+                    key={index}
+                    className={`
+                      ${styles.navigationPopup_item} 
+                      ${
+                        router.asPath === link.path
+                          ? `${styles.navigationPopup_item_active}`
+                          : ''
+                      }`}
+                    onClick={() =>
+                      link.path ? setNavOpen(false) : showSubmenu(link.submenu)
+                    }
+                  >
+                    {link.path ? (
+                      <Link
+                        className={`${styles.navigationPopup_link}`}
+                        href={link.path}
+                      >
+                        {link.text}
+                      </Link>
+                    ) : (
+                      <span className={`${styles.navigationPopup_link}`}>
+                        {link.text}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
 
-          <ul
-            className={`${styles.navigationPopup_list_right} ${styles.navigationPopup_list}`}
-          >
-            {linksRight.map((link, index) => (
-              <li
-                key={index}
-                className={`
-                  ${styles.navigationPopup_item} 
-                  ${
-                    router.asPath === link.path
-                      ? `${styles.navigationPopup_item_active}`
-                      : ''
-                  }`}
-                onClick={() => setNavOpen(false)}
+              <ul
+                className={`${styles.navigationPopup_list_right} ${styles.navigationPopup_list}`}
               >
-                <Link
-                  className={`${styles.navigationPopup_link}`}
-                  href={link.path}
+                {linksRight.map((link, index) => (
+                  <li
+                    key={index}
+                    className={`
+                      ${styles.navigationPopup_item} 
+                      ${
+                        router.asPath === link.path
+                          ? `${styles.navigationPopup_item_active}`
+                          : ''
+                      }`}
+                    onClick={closeNavAndSubmenu}
+                  >
+                    <Link
+                      className={`${styles.navigationPopup_link}`}
+                      href={link.path}
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {activeSubmenu && (
+            <ul className={`${styles.navigationPopup_submenu}`}>
+              <div
+                className={`${styles.navigationPopup_submenu_back}`}
+                onClick={handleBackClick}
+              >
+                <ArrowIcon />
+              </div>
+              {activeSubmenu.map((item, index) => (
+                <li
+                  key={index}
+                  className={`
+                    ${styles.navigationPopup_item} 
+                    ${
+                      router.asPath === item.path
+                        ? `${styles.navigationPopup_item_active}`
+                        : ''
+                    }`}
                 >
-                  {link.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
+                  <Link
+                    href={item.path}
+                    className={`${styles.navigationPopup_link}`}
+                    onClick={closeNavAndSubmenu}
+                  >
+                    {item.text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className={`${styles.navigationPopup_info}`}>
@@ -190,21 +290,12 @@ const NavigationPopup = ({
                 <LinkedinIcon color="white" />
               </Link>
             </li>
-            {/* <li className={`${styles.navigationPopup_socials_item}`}>
-              <Link
-                href="https://www.threads.net/@alpinearmoring"
-                target="_blank"
-              >
-                <ThreadsIcon color="white" />
-              </Link>
-            </li> */}
           </ul>
         </div>
 
         <div className={`${styles.navigationPopup_bottom} mobile-only`}>
           <div
             onClick={() => {
-              // setNavOpen(false);
               handleSearchClick();
             }}
             className={`${styles.navigationPopup_bottom_search}`}

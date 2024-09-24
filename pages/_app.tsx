@@ -113,7 +113,7 @@ export default function App({ Component, pageProps }) {
 
       <Seo props={seoData} />
       <Layout>
-        {isLoading ? <Loader type="4" /> : null}
+        {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
       </Layout>
     </>

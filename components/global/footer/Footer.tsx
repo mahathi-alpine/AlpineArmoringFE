@@ -204,12 +204,13 @@ const Footer = (isDarkMode) => {
           <p className={`${styles.footer_bottom_copy}`}>
             ©1997-2024. Alpine Armoring Inc. <span>All Rights Reserved</span>
           </p>
+
           <p
-            className={`${styles.footer_bottom_copy} ${
+            className={`${styles.footer_bottom_flag} ${
               currentRoute === '/manufacturing' ||
               currentRoute === '/ballistic-testing'
-                ? styles.footer_bottom_copy_dark
-                : styles.footer_bottom_copy_light
+                ? styles.footer_bottom_flag_dark
+                : styles.footer_bottom_flag_light
             }`}
           >
             The Home of{' '}

@@ -104,6 +104,13 @@ const Layout = ({ children }) => {
                 background: #101010 url(/assets/noise4.png) !important;
                 background-size: 30px !important;
               }
+              .navigation_submenu{
+                background-color: rgba(23, 23, 23, 0.8) !important;
+                backdrop-filter: blur(10px) !important;
+              }
+              .navigation_submenu a{
+                color: white;
+              }
             `}</style>
         )}
         {(isPadding0 || isHomepage) && (
@@ -115,9 +122,13 @@ const Layout = ({ children }) => {
         )}
         {isHeaderGray && (
           <style>{`
-              header{
+              header,
+              .navigation_submenu{
                 background-color: rgba(23, 23, 23, 0.8) !important;
                 backdrop-filter: blur(10px) !important;
+              }
+              .navigation_submenu a{
+                color: white;
               }
             `}</style>
         )}
