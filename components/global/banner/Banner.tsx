@@ -96,10 +96,10 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         <Image
           src={bannerImage.url}
           alt={bannerImage?.alternativeText || 'Alpine Armoring'}
-          sizes="(max-width: 767px) 1vw, 100vw"
-          fill
-          className={`${styles.banner_media} ${styles.banner_media_desktop}`}
+          sizes={bannerImageMobile ? '(max-width: 767px) 1vw, 100vw' : '100vw'}
+          className={`${styles.banner_media} ${bannerImageMobile ? styles.banner_media_desktop : ''}`}
           priority
+          fill
           quality={100}
         />
         {bannerImageMobile && (
