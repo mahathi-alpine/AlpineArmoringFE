@@ -14,6 +14,7 @@ type FiltersProps = {
 const Filters = ({ props, plain }: FiltersProps) => {
   const router = useRouter();
   const [query, setQuery] = useState('');
+  console.log(props);
 
   useEffect(() => {
     if (router.isReady) {
@@ -51,7 +52,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [activeFilterTitles, setActiveFilterTitles] = useState({
     make: 'Select',
-    type: 'Select',
+    type: 'All',
   });
 
   const [filtersOpen, setFiltersOpen] = useState(false);

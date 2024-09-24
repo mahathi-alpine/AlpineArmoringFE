@@ -111,6 +111,12 @@ const Layout = ({ children }) => {
               .navigation_submenu a{
                 color: white;
               }
+              .header_logo_gold{
+                display: block !important;
+              }
+              .header_logo_black{
+                display: none;
+              }
             `}</style>
         )}
         {(isPadding0 || isHomepage) && (
@@ -129,6 +135,12 @@ const Layout = ({ children }) => {
               }
               .navigation_submenu a{
                 color: white;
+              }
+              .header_logo_gold{
+                display: block !important;
+              }
+              .header_logo_black{
+                display: none;
               }
             `}</style>
         )}
