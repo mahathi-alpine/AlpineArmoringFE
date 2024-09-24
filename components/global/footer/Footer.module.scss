@@ -323,7 +323,6 @@
     }
 
     &_copy {
-
       span {
         display: inline;
         @media (max-width: 500px) {
@@ -337,7 +336,7 @@
       }
     }
 
-    &_flag{
+    &_flag {
       padding: 10px;
       display: inline-block;
       background-size: cover !important;
@@ -359,7 +358,6 @@
       &_light {
         background-image: url('/assets/footer-american-flag.png');
       }
-
     }
   }
 }

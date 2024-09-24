@@ -244,22 +244,22 @@
     }
   }
 
-  &_submenu{
+  &_submenu {
     position: relative;
 
     @include breakpoint(large) {
-      .navigationPopup_link{
+      .navigationPopup_link {
         font-size: 23px;
         padding: rem(8);
         transition: transform 0.2s ease;
 
-        &:hover{          
+        &:hover {
           transform: translateX(12px);
         }
       }
     }
 
-    &_back{
+    &_back {
       position: absolute;
       top: -35px;
       left: 12px;
@@ -270,12 +270,12 @@
         left: -35px;
       }
 
-      svg{
+      svg {
         width: 26px;
         height: 26px;
 
-        path{
-          stroke: white;          
+        path {
+          stroke: white;
         }
       }
     }
