@@ -1,7 +1,6 @@
 import styles from './Banner.module.scss';
 import { BannerProps } from 'types';
-import React, { useRef, useEffect, useState } from 'react';
-import { useIsMobile } from 'hooks/useIsMobile';
+import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import Image from 'next/image';
@@ -90,46 +89,31 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
     }
   }, []);
 
-  const [hasMounted, setHasMounted] = useState(false);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  const getImageDimensions = () => {
-    let width = bannerImage.formats?.thumbnail?.width || bannerImage.width;
-    let height = bannerImage.formats?.thumbnail?.height || bannerImage.height;
-    if (hasMounted && isMobile == false) {
-      width = bannerImage.formats?.xlarge?.width || bannerImage.width;
-      height = bannerImage.formats?.xlarge?.height || bannerImage.height;
-    }
-    return {
-      width,
-      height,
-    };
-  };
-
   let mediaElement;
   if (bannerImage && bannerMimeType?.split('/')[0] === 'image') {
-    const { width, height } = getImageDimensions();
-
     mediaElement = (
-      <Image
-        src={
-          isMobile
-            ? bannerImageMobile?.url ||
-              bannerImage?.formats?.medium?.url ||
-              bannerImage.url
-            : bannerImage?.formats?.xlarge?.url || bannerImage.url
-        }
-        alt={bannerImage?.alternativeText || 'Alpine Armoring'}
-        width={width}
-        height={height}
-        className={`${styles.banner_media}`}
-        priority
-        quality={100}
-      />
+      <>
+        <Image
+          src={bannerImage.url}
+          alt={bannerImage?.alternativeText || 'Alpine Armoring'}
+          sizes="(max-width: 767px) 1vw, 100vw"
+          fill
+          className={`${styles.banner_media} ${styles.banner_media_desktop}`}
+          priority
+          quality={100}
+        />
+        {bannerImageMobile && (
+          <Image
+            src={bannerImageMobile.url}
+            alt={bannerImageMobile?.alternativeText || 'Alpine Armoring'}
+            sizes="(max-width: 767px) 100vw, 1vw"
+            fill
+            className={`${styles.banner_media} ${styles.banner_media_mobile}`}
+            priority
+            quality={100}
+          />
+        )}
+      </>
     );
   } else if (bannerMimeType?.startsWith('video') || videoMP4) {
     mediaElement = (
