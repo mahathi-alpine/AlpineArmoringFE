@@ -204,23 +204,35 @@
     }
   }
 
+  &_info {
+    display: flex;
+    position: absolute;
+    gap: rem(16);
+  }
+
   &_armor {
     display: flex;
     align-items: flex-end;
-    position: absolute;
+    position: relative;
     left: rem(8);
-    bottom: rem(32);
+    bottom: rem(64);
     font-size: rem(12);
     font-weight: var(--font-large);
     line-height: 1;
+    cursor: pointer;
 
     @include breakpoint(medium) {
-      bottom: rem(120);
+      bottom: rem(144);
     }
 
     @include breakpoint(large) {
       font-size: rem(13);
-      bottom: rem(8);
+      bottom: rem(40);
+    }
+    
+    svg {
+      height: 32px;
+      margin-left: 4px;
     }
 
     strong {

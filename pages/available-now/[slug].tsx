@@ -1,6 +1,6 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'hooks/api';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
@@ -9,6 +9,8 @@ import Link from 'next/link';
 // import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
+import LightboxCustom from 'components/global/lightbox/LightboxCustom';
+import PlayIcon from 'components/icons/Play2';
 const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
 import VideoScale, {
   animateVideo,
@@ -116,6 +118,27 @@ function InventoryVehicle(props) {
     setupObserver();
   }, []);
 
+  // Lightbox
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [contentType, setContentType] = useState('');
+  const [videoSrc, setVideoSrc] = useState('');
+  const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
+
+  const handleLightboxOpen = (title, location, contentType, url = null) => {
+    setSelectedTitle(title);
+    setContentType(contentType);
+    if (contentType === 'video') {
+      setVideoSrc(url);
+    }
+    setLightboxPopupOpen(true);
+  };
+
+  const lightboxData = {
+    title: selectedTitle,
+    contentType: contentType,
+    videoSrc: videoSrc,
+  };
+
   return (
     <div className={`${styles.inventory} background-dark`}>
       <div className={`${styles.inventory_main}`}>
@@ -149,17 +172,40 @@ function InventoryVehicle(props) {
                 <Carousel slides={topGallery} options={sliderTopOptions} />
               ) : null}
 
-              {data?.armor_level ? (
-                <Link
-                  href="/ballistic-chart"
-                  className={`${styles.inventory_armor}`}
-                >
-                  <div className={`${styles.inventory_armor_box}`}>
-                    Armor
-                    <span>Level</span>
-                  </div>
-                  <strong>{data?.armor_level}</strong>
-                </Link>
+              {data?.armor_level || data?.videoURL ? (
+                <div className={`${styles.inventory_info}`}>
+                  {data?.armor_level ? (
+                    <Link
+                      href="/ballistic-chart"
+                      className={`${styles.inventory_armor}`}
+                    >
+                      <div className={`${styles.inventory_armor_box}`}>
+                        Armor
+                        <span>Level</span>
+                      </div>
+                      <strong>{data?.armor_level}</strong>
+                    </Link>
+                  ) : null}
+                  {data?.videoURL ? (
+                    <div
+                      onClick={() =>
+                        handleLightboxOpen(
+                          data.title,
+                          '',
+                          'video',
+                          data.videoURL
+                        )
+                      }
+                      className={`${styles.inventory_armor}`}
+                    >
+                      <div className={`${styles.inventory_armor_box}`}>
+                        Watch
+                        <span>Video</span>
+                      </div>
+                      <PlayIcon />
+                    </div>
+                  ) : null}
+                </div>
               ) : null}
             </div>
 
@@ -300,6 +346,14 @@ function InventoryVehicle(props) {
       ) : null}
 
       {formData ? <InquiryForm {...formData} className={`formCTA`} /> : null}
+
+      {isLightboxPopupOpen ? (
+        <LightboxCustom
+          isLightboxPopupOpen={isLightboxPopupOpen}
+          lightboxData={lightboxData}
+          setLightboxPopupOpen={setLightboxPopupOpen}
+        />
+      ) : null}
     </div>
   );
 }

@@ -163,6 +163,10 @@
 
     span {
       margin-right: 1rem;
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+      text-decoration: underline;
+      font-size: clamp(0.9375rem, 0.892rem + 0.1942vw, 1.125rem);
     }
   }
 }
