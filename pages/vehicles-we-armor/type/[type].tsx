@@ -212,7 +212,8 @@ export async function getServerSideProps(context) {
       route: 'categories',
       sort: 'order',
       fields: 'fields[0]=title&fields[1]=slug',
-      populate: 'allBanner.media, allBanner.mediaMP4, seo',
+      populate:
+        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo',
     }).then((res) => res.data),
     getPageData({
       route: 'makes',

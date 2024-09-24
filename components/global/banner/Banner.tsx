@@ -10,6 +10,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
   const router = useRouter();
   const currentRoute = router.pathname;
   const bannerImage = props.media.data?.attributes;
+  const bannerImageMobile = props.imageMobile?.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -115,13 +116,18 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
 
     mediaElement = (
       <Image
-        src={`${bannerImage?.formats?.xlarge?.url || bannerImage.url}`}
+        src={
+          isMobile
+            ? bannerImageMobile?.url ||
+              bannerImage?.formats?.medium?.url ||
+              bannerImage.url
+            : bannerImage?.formats?.xlarge?.url || bannerImage.url
+        }
         alt={bannerImage?.alternativeText || 'Alpine Armoring'}
         width={width}
         height={height}
         className={`${styles.banner_media}`}
         priority
-        // sizes="100vw"
         quality={100}
       />
     );
