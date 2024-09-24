@@ -65,14 +65,14 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
-    &_desktop{
+    &_desktop {
       display: none;
       @include breakpoint(medium) {
         display: block;
       }
     }
 
-    &_mobile{
+    &_mobile {
       @include breakpoint(medium) {
         display: none;
       }
