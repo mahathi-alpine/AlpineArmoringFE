@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
 import Loader from 'components/global/loader/Loader';
 import { install } from 'resize-observer';
-import LogRocket from 'logrocket';
+// import LogRocket from 'logrocket';
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -21,11 +21,11 @@ export default function App({ Component, pageProps }) {
     if (!window.ResizeObserver) install();
   }
 
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      LogRocket.init(process.env.NEXT_PUBLIC_LOGROCKET_APP_ID);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (process.env.NODE_ENV === 'production') {
+  //     LogRocket.init(process.env.NEXT_PUBLIC_LOGROCKET_APP_ID);
+  //   }
+  // }, []);
 
   useEffect(() => {
     const paths = [
