@@ -6,7 +6,7 @@ import Seo from '../components/Seo';
 import Loader from 'components/global/loader/Loader';
 import { install } from 'resize-observer';
 // import LogRocket from 'logrocket';
-import { getCookie } from 'cookies-next';
+// import { getCookie } from 'cookies-next';
 
 // function getCookie(name) {
 //   const value = `; ${document.cookie}`;
@@ -67,25 +67,25 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
-  useEffect(() => {
-    document.documentElement.lang = 'en-us';
+  // useEffect(() => {
+  //   document.documentElement.lang = 'en-us';
 
-    const cookieValue = getCookie('googtrans');
-    console.log(cookieValue);
-    if (cookieValue) {
-      const script = document.createElement('script');
-      script.src =
-        '//translate.google.com/translate_a/element.js?cb=TranslateInit';
-      script.async = true;
-      script.onload = () => {
-        window.TranslateInit = function () {
-          new window.google.translate.TranslateElement();
-        };
-        // window.TranslateInit();
-      };
-      document.body.appendChild(script);
-    }
-  }, []);
+  //   const cookieValue = getCookie('googtrans');
+  //   console.log(cookieValue);
+  //   if (cookieValue) {
+  //     const script = document.createElement('script');
+  //     script.src =
+  //       '//translate.google.com/translate_a/element.js?cb=TranslateInit';
+  //     script.async = true;
+  //     script.onload = () => {
+  //       window.TranslateInit = function () {
+  //         new window.google.translate.TranslateElement();
+  //       };
+  //       // window.TranslateInit();
+  //     };
+  //     document.body.appendChild(script);
+  //   }
+  // }, []);
 
   return (
     <>
