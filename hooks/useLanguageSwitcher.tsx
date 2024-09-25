@@ -61,7 +61,7 @@ export const useLanguageSwitcher = () => {
       path: '/',
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
-      // domain: '.alpineco.com'
+      domain: 'alpineco.com',
     });
 
     setCookie(COOKIE_NAME, '/auto/' + lang, {
@@ -69,6 +69,7 @@ export const useLanguageSwitcher = () => {
       path: '/',
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
+      domain: 'alpineco.com',
     });
 
     // if (getCookie(COOKIE_NAME) == '/auto/en') {
