@@ -59,6 +59,12 @@
   // }
   &.down:not(.header_navOpen) {
     background: var(--color-dark);
+    .header_logo_gold{
+      display: block;
+    }
+    .header_logo_black{
+      display: none;
+    }
   }
   &.up:not(.header_navOpen) {
     background: var(--color-dark);

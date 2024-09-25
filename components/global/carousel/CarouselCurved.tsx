@@ -123,7 +123,7 @@ const CarouselCurved = ({
                         <span
                           className={`${styles.carouselCurved_slide_index}`}
                         >
-                          {index + 1}.
+                          {index + 1}
                         </span>
                       ) : null}
 
