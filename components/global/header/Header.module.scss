@@ -57,17 +57,15 @@
   // &.down {
   //   transform: translateY(-100px);
   // }
-  &.down:not(.header_navOpen) {
-    background: var(--color-dark);
-    .header_logo_gold{
-      display: block;
-    }
-    .header_logo_black{
-      display: none;
-    }
-  }
+  &.down:not(.header_navOpen),
   &.up:not(.header_navOpen) {
     background: var(--color-dark);
+    .header_logo_gold {
+      display: block;
+    }
+    .header_logo_black {
+      display: none;
+    }
   }
 
   &_transparent,
