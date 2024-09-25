@@ -14,7 +14,6 @@ type FiltersProps = {
 const Filters = ({ props, plain }: FiltersProps) => {
   const router = useRouter();
   const [query, setQuery] = useState('');
-  console.log(props);
 
   useEffect(() => {
     if (router.isReady) {

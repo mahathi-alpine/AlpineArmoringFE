@@ -2,9 +2,26 @@ import { connectStateResults } from 'react-instantsearch-dom';
 import Link from 'next/link';
 
 function SearchHits({ searchState, searchResults }) {
-  // checking if the query length is >= 3
-  // (since 3 is the minimum Algolia query length)
-  const validQuery = searchState.query?.length >= 3;
+  const validQuery = searchState.query?.length >= 1;
+
+  function formatString(input) {
+    const words = input.split('-');
+
+    let formatted = '';
+    for (let i = 0; i < words.length; i++) {
+      if (i > 0 && i < words.length - 1) {
+        formatted += words[i] + ' ';
+      } else if (i === 0 || i === words.length - 1) {
+        formatted += capitalizeWord(words[i]) + ' ';
+      }
+    }
+
+    return formatted.trim();
+  }
+
+  function capitalizeWord(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
 
   return searchState.query && validQuery ? (
     <div className={'search-hits'}>
@@ -15,7 +32,10 @@ function SearchHits({ searchState, searchResults }) {
             <Link
               href={`${hit.category ? `/${hit.category}` : ''}/${hit.slug}`}
             >
-              {hit.title}
+              <span className="search_categories">
+                {formatString(hit.category)}:
+              </span>
+              <span>{hit.title.replace(/Armored /g, () => ' ')}</span>
             </Link>
           </div>
         ))}

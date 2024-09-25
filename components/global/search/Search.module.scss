@@ -8,11 +8,12 @@
   align-items: center;
   justify-content: center;
   flex-flow: column;
-  padding: var(--header-height) rem(24) rem(24) rem(24);
+  padding: var(--header-height) rem(12) rem(12) rem(12);
   color: var(--color-white);
   background: rgba(23, 23, 23, 0.9);
   z-index: 7;
   backdrop-filter: blur(20px);
+  letter-spacing: -0.5px;
 
   input {
     width: 100%;
@@ -37,5 +38,8 @@
   a {
     margin-bottom: 10px;
     display: block;
+    @include breakpoint(small) {
+      display: flex;
+    }
   }
 }

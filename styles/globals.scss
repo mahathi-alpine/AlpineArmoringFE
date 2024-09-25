@@ -621,3 +621,10 @@ $shapeColor: var(--color-background);
     color: var(--color-secondary);
   }
 }
+
+.search_categories{
+  color: var(--color-primary);
+  font-weight: var(--font-demi);
+  min-width: 120px;
+  margin-right: 6px;
+}
