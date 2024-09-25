@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCookie, setCookie, deleteCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 export const COOKIE_NAME = 'googtrans';
 
@@ -57,7 +57,7 @@ export const useLanguageSwitcher = () => {
   }, []);
 
   const switchLanguage = (lang: string) => () => {
-    deleteCookie(COOKIE_NAME);
+    // deleteCookie(COOKIE_NAME);
     setCookie(COOKIE_NAME, '/auto/' + lang);
     // if (getCookie(COOKIE_NAME) == '/auto/en') {
     // }
