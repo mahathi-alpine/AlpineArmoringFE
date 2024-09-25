@@ -132,11 +132,11 @@
       transition-duration: 0.2s;
     }
 
-    @for $i from 1 through 15 {
-      &:nth-of-type(#{$i}) {
-        transition-delay: $i * 0.01s;
-      }
-    }
+    // @for $i from 1 through 15 {
+    //   &:nth-of-type(#{$i}) {
+    //     transition-delay: $i * 0.01s;
+    //   }
+    // }
 
     .navigationPopup_list_right & {
       font-size: rem(14);

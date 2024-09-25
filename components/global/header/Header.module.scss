@@ -70,6 +70,12 @@
     backdrop-filter: none;
   }
 
+  &_navOpen {
+    @include breakpoint('medium') {
+      margin-right: 17px;
+    }
+  }
+
   &_wrapper {
     display: flex;
     justify-content: space-between;

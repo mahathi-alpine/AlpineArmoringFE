@@ -55,6 +55,7 @@ export const useLanguageSwitcher = () => {
     }
     setCurrentLanguage(languageValue);
   }, []);
+  console.log(getCookie(COOKIE_NAME));
 
   const switchLanguage = (lang: string) => () => {
     setCookie(COOKIE_NAME, '/auto/' + lang);
