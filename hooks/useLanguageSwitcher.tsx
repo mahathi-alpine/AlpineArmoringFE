@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCookie, setCookie, deleteCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 export const COOKIE_NAME = 'googtrans';
 
@@ -57,27 +57,20 @@ export const useLanguageSwitcher = () => {
   }, []);
 
   const switchLanguage = (lang: string) => () => {
-    setTimeout(() => {
-      deleteCookie(COOKIE_NAME, {
-        maxAge: 3600,
-        path: '/',
-        sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
-        domain: 'alpineco.com',
-      });
-    }, 1000);
-    setTimeout(() => {
-      setCookie(COOKIE_NAME, '/auto/' + lang, {
-        maxAge: 3600,
-        path: '/',
-        sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
-        domain: 'alpineco.com',
-      });
-    }, 2000);
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
+    // deleteCookie(COOKIE_NAME, {
+    //   maxAge: 3600,
+    //   path: '/',
+    //   sameSite: 'strict',
+    //   secure: process.env.NODE_ENV === 'production',
+    //   domain: 'alpineco.com',
+    // });
+    setCookie(COOKIE_NAME, '/auto/' + lang, {
+      maxAge: 3600,
+      path: '/',
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    });
+    window.location.reload();
 
     // if (getCookie(COOKIE_NAME) == '/auto/en') {
     //   deleteCookie(COOKIE_NAME);
