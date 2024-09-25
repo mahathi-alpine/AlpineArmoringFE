@@ -57,10 +57,6 @@
       transition:
         opacity 0.4s ease-out,
         transform 0.4s ease-out;
-
-      @include breakpoint(large) {
-        transition-duration: 0.5s;
-      }
     }
   }
 

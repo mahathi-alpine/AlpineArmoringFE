@@ -70,6 +70,7 @@ export default function App({ Component, pageProps }) {
     document.documentElement.lang = 'en-us';
 
     const cookieValue = getCookie('googtrans');
+    console.log(cookieValue);
     if (cookieValue) {
       const script = document.createElement('script');
       script.src =
