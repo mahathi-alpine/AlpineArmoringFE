@@ -6,12 +6,13 @@ import Seo from '../components/Seo';
 import Loader from 'components/global/loader/Loader';
 import { install } from 'resize-observer';
 // import LogRocket from 'logrocket';
+import { getCookie } from 'cookies-next';
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
+// function getCookie(name) {
+//   const value = `; ${document.cookie}`;
+//   const parts = value.split(`; ${name}=`);
+//   if (parts.length === 2) return parts.pop().split(';').shift();
+// }
 
 export default function App({ Component, pageProps }) {
   const seoData = pageProps.seoData;
