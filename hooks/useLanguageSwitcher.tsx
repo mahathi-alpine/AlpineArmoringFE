@@ -55,13 +55,12 @@ export const useLanguageSwitcher = () => {
     }
     setCurrentLanguage(languageValue);
   }, []);
-  console.log(getCookie(COOKIE_NAME));
 
   const switchLanguage = (lang: string) => () => {
+    deleteCookie(COOKIE_NAME);
     setCookie(COOKIE_NAME, '/auto/' + lang);
-    if (getCookie(COOKIE_NAME) == '/auto/en') {
-      deleteCookie(COOKIE_NAME);
-    }
+    // if (getCookie(COOKIE_NAME) == '/auto/en') {
+    // }
     window.location.reload();
   };
 
