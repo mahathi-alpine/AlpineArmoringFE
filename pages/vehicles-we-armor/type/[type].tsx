@@ -1,5 +1,5 @@
 import { getPageData } from 'hooks/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
@@ -20,15 +20,15 @@ function Inventory(props) {
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [router.query]);
+  }, [router.query, props.vehicles.data]);
 
-  const fetchMoreItems = () => {
+  const fetchMoreItems = useCallback(() => {
     if (itemsToRender < vehiclesData?.length) {
       setLoading(true);
       setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
       setLoading(false);
     }
-  };
+  }, [itemsToRender, vehiclesData]);
 
   // // Filtering vehicles based on the make parameter
   const filteredByMake = props.vehicles?.data?.filter(
@@ -71,7 +71,7 @@ function Inventory(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-  }, [itemsToRender]);
+  }, [itemsToRender, fetchMoreItems]);
 
   // const findTitleBySlug = (filters, targetSlug) => {
   //   if (!filters || !Array.isArray(filters.type)) {

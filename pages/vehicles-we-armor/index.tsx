@@ -5,11 +5,10 @@ import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'hooks/api';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 function VehicleWeArmor(props) {
   const router = useRouter();
-  // const { q } = router.query;
   const topBanner = props.pageData?.banner;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
@@ -18,15 +17,15 @@ function VehicleWeArmor(props) {
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [router.query]);
+  }, [router.query, props.vehicles.data]);
 
-  const fetchMoreItems = () => {
+  const fetchMoreItems = useCallback(() => {
     if (itemsToRender < vehiclesData?.length) {
       setLoading(true);
       setItemsToRender((prevItemsToRender) => prevItemsToRender + 12);
       setLoading(false);
     }
-  };
+  }, [itemsToRender, vehiclesData]);
 
   // const categoryOrderMap = new Map(
   //   props.filters.type?.map((category) => [
@@ -116,8 +115,7 @@ function VehicleWeArmor(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-    // }, [currentPage, hasMore, props.vehicles.data]);
-  }, [itemsToRender, vehiclesData]);
+  }, [itemsToRender, vehiclesData, fetchMoreItems]);
 
   return (
     <>
@@ -228,7 +226,7 @@ export async function getServerSideProps(context) {
       props: { pageData, vehicles: filteredVehicles, filters, seoData },
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    // console.error('Error fetching data:', error);
     return {
       notFound: true,
     };

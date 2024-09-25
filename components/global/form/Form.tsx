@@ -466,7 +466,7 @@ const Form = () => {
 
         // Show success message to user
       } catch (error) {
-        console.error('Error:', error);
+        // console.error('Error:', error);
         // Handle error
         submitBtn.classList.remove('submiting');
         submitBtn.innerHTML = 'Error';

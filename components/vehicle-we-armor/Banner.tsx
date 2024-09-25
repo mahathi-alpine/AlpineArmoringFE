@@ -19,7 +19,9 @@ const Banner = (props) => {
   const data = props.props;
 
   const hasNullFlag = (inventory) =>
-    inventory.some((item) => item.attributes.flag === null);
+    inventory.some(
+      (item) => item.attributes.hide === null || item.attributes.hide === false
+    );
 
   const showComponent = hasNullFlag(data.inventory);
 

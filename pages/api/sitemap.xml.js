@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     res.setHeader('Content-Type', 'application/xml');
     res.status(200).send(sitemapContent);
   } catch (error) {
-    console.error('Error serving sitemap:', error);
+    // console.error('Error serving sitemap:', error);
     res.status(500).send('Error serving sitemap');
   }
 }

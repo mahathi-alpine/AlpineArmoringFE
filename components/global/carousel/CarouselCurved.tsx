@@ -3,6 +3,7 @@ import ZoomIcon from 'components/icons/Zoom';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
+import { useRouter } from 'next/router';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import {
@@ -33,6 +34,8 @@ const CarouselCurved = ({
     thumbs: false,
     variableWidth: true,
   };
+
+  const router = useRouter();
 
   const isMobile = useIsMobile();
 
@@ -114,6 +117,14 @@ const CarouselCurved = ({
                             type={item.attributes.mime}
                           />
                         </video>
+                      ) : null}
+
+                      {router.pathname.startsWith('/vehicles-we-armor') ? (
+                        <span
+                          className={`${styles.carouselCurved_slide_index}`}
+                        >
+                          {index + 1}.
+                        </span>
                       ) : null}
 
                       {item.attributes.caption ? (

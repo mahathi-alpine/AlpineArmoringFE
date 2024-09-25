@@ -301,22 +301,21 @@ const BallisticChart = () => {
             setHasInteracted(true);
           }
         } else {
-          interactedPopupRef.current.classList.add(
+          interactedPopupRef.current?.classList.add(
             `${styles.ballistic_popup_interact_disable}`
           );
         }
       };
 
-      containerRef.current.addEventListener('touchstart', handleInteraction);
+      const currentContainer = containerRef.current;
 
-      return () => {
-        if (containerRef.current) {
-          containerRef.current.removeEventListener(
-            'touchstart',
-            handleInteraction
-          );
-        }
-      };
+      if (currentContainer) {
+        currentContainer.addEventListener('touchstart', handleInteraction);
+
+        return () => {
+          currentContainer.removeEventListener('touchstart', handleInteraction);
+        };
+      }
     }
   }, [hasInteracted]);
 

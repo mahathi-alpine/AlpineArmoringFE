@@ -1,8 +1,7 @@
 import styles from './LightboxCustom.module.scss';
 import Image from 'next/image';
-// import useEmblaCarousel from 'embla-carousel-react';
 import EmblaCarousel from 'embla-carousel';
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 
 const LightboxCustom = ({
   isLightboxPopupOpen,
@@ -10,7 +9,8 @@ const LightboxCustom = ({
   setLightboxPopupOpen,
 }) => {
   const [emblaApi, setEmblaApi] = useState(null);
-  const sliderOptions = { loop: true };
+
+  const sliderOptions = useMemo(() => ({ loop: true }), []);
 
   const emblaRef = useRef(null);
 
@@ -19,7 +19,11 @@ const LightboxCustom = ({
       const embla = EmblaCarousel(emblaRef.current, sliderOptions);
       setEmblaApi(embla);
     }
-  }, []);
+
+    return () => {
+      if (emblaApi) emblaApi.destroy();
+    };
+  }, [sliderOptions, emblaApi]);
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
@@ -46,17 +50,17 @@ const LightboxCustom = ({
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0  0  24  24"
+          viewBox="0 0 24 24"
           width="24"
           height="24"
           aria-hidden="true"
           focusable="false"
         >
           <g fill="currentColor">
-            <path d="M0  0h24v24H0z" fill="none"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
             <path
               fill="white"
-              d="M19  6.41L17.59  5  12  10.59  6.41  5  5  6.41  10.59  12  5  17.59  6.41  19  12  13.41  17.59  19  19  17.59  13.41  12z"
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
             ></path>
           </g>
         </svg>
@@ -100,9 +104,7 @@ const LightboxCustom = ({
           </div>
 
           <button
-            onClick={() => {
-              onPrevButtonClick();
-            }}
+            onClick={onPrevButtonClick}
             className={`${styles.lightbox_slider_arrow}`}
           >
             <svg viewBox="0 0 532 532">
@@ -114,9 +116,7 @@ const LightboxCustom = ({
           </button>
 
           <button
-            onClick={() => {
-              onNextButtonClick();
-            }}
+            onClick={onNextButtonClick}
             className={`${styles.lightbox_slider_arrow} ${styles.lightbox_slider_arrow_next}`}
           >
             <svg viewBox="0 0 532 532">

@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
-// import Logo from 'components/icons/Logo';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
-import { useEffect, useState } from 'react';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 import { useRouter } from 'next/router';
@@ -16,25 +14,26 @@ const Header = ({
   isNavOpen,
   isDarkMode,
   isHeaderGray,
-  // isNotSticky,
   openSearchPopup,
   isSearchVisible,
 }: HeaderProps) => {
-  const [hState, sethState] = React.useState('-top');
-
+  const [hState, sethState] = useState('-top');
   const router = useRouter();
-
   const [isSearchOpen, setSearchOpen] = useState(false);
-  const handleSearchClick = () => {
-    setSearchOpen(!isSearchOpen);
-    openSearchPopup(!isSearchOpen);
+
+  const handleSearchClick = useCallback(() => {
+    setSearchOpen((prevState) => {
+      const newState = !prevState;
+      openSearchPopup(newState);
+      return newState;
+    });
     setTimeout(() => {
       const input = document.querySelector('.search-box') as HTMLInputElement;
       if (input) {
         input.focus();
       }
     }, 100);
-  };
+  }, [openSearchPopup]);
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -47,7 +46,7 @@ const Header = ({
     return () => {
       router.events.off('routeChangeStart', handleRouteChange);
     };
-  }, [router]);
+  }, [router, openSearchPopup]);
 
   useEffect(() => {
     if (isNavOpen || isSearchOpen) {
@@ -68,7 +67,7 @@ const Header = ({
       sethState('down');
     }
 
-    window.onscroll = function () {
+    const handleScroll = () => {
       const y = window.scrollY;
       if (y > lastVal) {
         sethState('down');
@@ -80,6 +79,12 @@ const Header = ({
         sethState('top');
       }
       lastVal = y;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -93,7 +98,6 @@ const Header = ({
         ${isHeaderGray ? styles.header_gray : ''}      
         b-header
       `}
-      // ${isNotSticky ? styles.header_notSticky : ''}
     >
       <div className={`${styles.header_wrapper} container`}>
         <div
@@ -119,7 +123,6 @@ const Header = ({
               priority
               className={`${styles.header_logo_black} header_logo_black`}
             />
-            {/* <Logo /> */}
           </Link>
         </div>
 

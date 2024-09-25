@@ -2,7 +2,6 @@ import styles from './Banner.module.scss';
 import { BannerProps } from 'types';
 import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
 import Image from 'next/image';
 
 const TopBanner = ({ props, shape, center, small }: BannerProps) => {
@@ -21,43 +20,33 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
 
   function isSafari() {
     const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
-
     const isNotChrome =
       navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
-
     const isNotFirefox =
       navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
-
     return isSafari && isNotChrome && isNotFirefox;
   }
 
   function getSafariVersion() {
     const userAgent = navigator.userAgent;
     const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
-    if (versionMatch) {
-      return versionMatch[1];
-    }
-    return null;
+    return versionMatch ? versionMatch[1] : null;
   }
 
   function isChrome() {
     const userAgent =
       typeof window !== 'undefined' ? navigator.userAgent : null;
-
-    if (!userAgent) {
-      return false;
-    }
-
-    return Boolean(userAgent.match(/Chrome|CriOS/i));
+    return userAgent ? Boolean(userAgent.match(/Chrome|CriOS/i)) : false;
   }
 
   useEffect(() => {
     const isSafariCondition =
-      isSafari &&
-      (parseInt(getSafariVersion()) < 17 ||
-        (parseInt(getSafariVersion()) >= 17 && window.innerWidth >= 768));
+      isSafari() &&
+      (parseInt(getSafariVersion() || '0') < 17 ||
+        (parseInt(getSafariVersion() || '0') >= 17 &&
+          window.innerWidth >= 768));
 
-    const isChromeOnIOSCondition = isChrome && isIOS();
+    const isChromeOnIOSCondition = isChrome() && isIOS();
 
     if (videoMP4?.attributes && (isSafariCondition || isChromeOnIOSCondition)) {
       const videoElement = videoRef.current;
@@ -72,13 +61,13 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         }
       }
     }
-  }, []);
+  }, [videoMP4?.attributes]);
 
   useEffect(() => {
     const videoElement = videoRef.current;
     if (videoElement) {
       const handleEnded = () => {
-        videoRef.current.play();
+        videoElement.play();
       };
 
       videoElement.addEventListener('ended', handleEnded);
@@ -126,22 +115,16 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
         className={`${styles.banner_media}`}
       >
         {bannerMimeType == 'video/webm' ? (
-          <source
-            src={`${bannerImage.url}`}
-            type={`${bannerImage.mime}`}
-          ></source>
+          <source src={`${bannerImage.url}`} type={`${bannerImage.mime}`} />
         ) : null}
         {videoMP4?.attributes && bannerMimeType !== 'video/webm' ? (
           <source
             src={`${videoMP4?.attributes.url}`}
             type={`${videoMP4?.attributes.mime}`}
-          ></source>
+          />
         ) : null}
         {!videoMP4?.attributes && bannerMimeType !== 'video/webm' ? (
-          <source
-            src={`${bannerImage?.url}`}
-            type={`${bannerImage?.mime}`}
-          ></source>
+          <source src={`${bannerImage?.url}`} type={`${bannerImage?.mime}`} />
         ) : null}
       </video>
     );
@@ -176,9 +159,7 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
 
       {shape ? (
         <div
-          className={`${styles['banner_shape']} ${
-            styles[`banner_shape_${shape}`]
-          } shape-before shape-before-${shape}`}
+          className={`${styles['banner_shape']} ${styles[`banner_shape_${shape}`]} shape-before shape-before-${shape}`}
         />
       ) : null}
 

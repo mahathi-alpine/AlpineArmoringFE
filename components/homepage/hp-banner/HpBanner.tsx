@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import styles from './HpBanner.module.scss';
 import PlayIcon from 'components/icons/Play';
 import PauseIcon from 'components/icons/Pause';
@@ -7,7 +7,8 @@ import { HPBannerProps } from 'types';
 const HpBanner = ({ props }: HPBannerProps) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const togglePlayPause = () => {
+
+  const togglePlayPause = useCallback(() => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current.play();
@@ -17,51 +18,41 @@ const HpBanner = ({ props }: HPBannerProps) => {
         setIsPlaying(false);
       }
     }
-  };
+  }, []);
 
-  function isIOS() {
+  const isIOS = useCallback(() => {
     return /iPad|iPhone|iPod/i.test(navigator.userAgent);
-  }
+  }, []);
 
-  function isSafari() {
+  const isSafari = useCallback(() => {
     const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
-
     const isNotChrome =
       navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
-
     const isNotFirefox =
       navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
-
     return isSafari && isNotChrome && isNotFirefox;
-  }
+  }, []);
 
-  function getSafariVersion() {
+  const getSafariVersion = useCallback(() => {
     const userAgent = navigator.userAgent;
     const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
-    if (versionMatch) {
-      return versionMatch[1];
-    }
-    return null;
-  }
+    return versionMatch ? versionMatch[1] : null;
+  }, []);
 
-  function isChrome() {
+  const isChrome = useCallback(() => {
     const userAgent =
       typeof window !== 'undefined' ? navigator.userAgent : null;
-
-    if (!userAgent) {
-      return false;
-    }
-
-    return Boolean(userAgent.match(/Chrome|CriOS/i));
-  }
+    return userAgent ? Boolean(userAgent.match(/Chrome|CriOS/i)) : false;
+  }, []);
 
   useEffect(() => {
     const isSafariCondition =
-      isSafari &&
-      (parseInt(getSafariVersion()) < 17 ||
-        (parseInt(getSafariVersion()) >= 17 && window.innerWidth >= 768));
+      isSafari() &&
+      (parseInt(getSafariVersion() || '0') < 17 ||
+        (parseInt(getSafariVersion() || '0') >= 17 &&
+          window.innerWidth >= 768));
 
-    const isChromeOnIOSCondition = isChrome && isIOS();
+    const isChromeOnIOSCondition = isChrome() && isIOS();
 
     if (
       (props.video?.video_mp4?.data && isSafariCondition) ||
@@ -71,18 +62,24 @@ const HpBanner = ({ props }: HPBannerProps) => {
       if (videoElement) {
         const webmSource = videoElement.querySelector(
           'source[type="video/webm"]'
-        );
-        if (webmSource) {
+        ) as HTMLSourceElement | null;
+        if (webmSource && props.video?.video_mp4?.data) {
           webmSource.setAttribute(
             'src',
-            props.video?.video_mp4?.data.attributes.url
+            props.video.video_mp4.data.attributes.url
           );
           webmSource.setAttribute('type', 'video/mp4');
           videoElement.load();
         }
       }
     }
-  }, []);
+  }, [
+    props.video?.video_mp4?.data,
+    isChrome,
+    isIOS,
+    isSafari,
+    getSafariVersion,
+  ]);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -97,7 +94,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
         videoElement.removeEventListener('ended', handleEnded);
       };
     }
-  }, []);
+  }, [togglePlayPause]);
 
   return (
     <div className={`${styles.hp_banner}`}>

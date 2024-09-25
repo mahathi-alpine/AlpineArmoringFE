@@ -52,7 +52,7 @@ function Downloads(props) {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Error downloading file:', error);
+      // console.error('Error downloading file:', error);
     }
   };
 

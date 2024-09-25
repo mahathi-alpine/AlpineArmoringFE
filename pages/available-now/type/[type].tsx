@@ -1,6 +1,6 @@
 import { getPageData } from 'hooks/api';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import styles from '/components/listing/Listing.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
@@ -37,15 +37,15 @@ function Inventory(props) {
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
-  }, [router.query]);
+  }, [router.query, props.vehicles.data]);
 
-  const fetchMoreItems = () => {
+  const fetchMoreItems = useCallback(() => {
     if (itemsToRender < vehiclesData?.length) {
       setLoading(true);
       setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
       setLoading(false);
     }
-  };
+  }, [itemsToRender, vehiclesData]);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -69,7 +69,7 @@ function Inventory(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-  }, [itemsToRender]);
+  }, [itemsToRender, fetchMoreItems]);
 
   return (
     <>
@@ -124,13 +124,9 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
-  // Fetching Vehicles
   const category = context.query.type;
   let query = `filters[categories][slug][$eq]=${category}`;
   const q = context.query.q;
-  // if (q) {
-  //   query += `&filters[slug][$contains]=${q.toLowerCase()}`;
-  // }
   if (q) {
     query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
   }
