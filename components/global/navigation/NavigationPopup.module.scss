@@ -12,13 +12,13 @@
   user-select: none;
   z-index: 6;
   visibility: hidden;
-  opacity: 0.2;
-  transform: scale(1.2);
-  transform-origin: center;
+  opacity: 0;
+  // transform: scale(1.2);
+  // transform-origin: center;
+  will-change: opacity, visibility;
   transition:
-    transform 0.3s ease-in,
-    opacity 0.1s ease-in,
-    visibility 0.1s ease-in;
+    opacity 0.3s ease-out,
+    visibility 0.3s ease-out;
 
   @include breakpoint(large) {
     padding-top: 0;
@@ -27,12 +27,42 @@
 
   &_open {
     visibility: visible;
-    opacity: 0.95;
-    transform: scale(1);
-    transition:
-      transform 0.3s ease-out,
-      opacity 0.3s ease-out,
-      visibility 0.3s ease-out;
+    opacity: 0.95;  
+
+    .navigationPopup_list_left .navigationPopup_item{
+      @for $i from 1 through 3 {
+        &:nth-of-type(#{$i}) {
+          transition-delay: $i * 0.03s;
+
+          @include breakpoint(large) {
+            transition-delay: $i * 0.15s;
+          }
+        }
+      }
+    }
+    .navigationPopup_list_right .navigationPopup_item{
+      @for $i from 1 through 15 {
+        &:nth-of-type(#{$i}) {
+          transition-delay: ($i * 0.03s) + 0.09s;
+          @include breakpoint(large) {
+            transition-delay: ($i * 0.05s);
+          }
+        }
+      }
+    }
+    
+    .navigationPopup_item{
+      transform: translate(0%, 0px) !important;
+      opacity: 1;
+      transition:
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out;
+      
+      @include breakpoint(large) {
+        transition-duration: 0.5s;
+      }
+    }
+                      
   }
 
   &_inner {
@@ -75,9 +105,13 @@
       }
     }
     @include breakpoint(large) {
-      &:hover .navigationPopup_item:not(:hover) {
+      &:hover .navigationPopup_item:not(:hover) .navigationPopup_link{
         opacity: 0.3;
         transform: translateX(10px);
+      }
+
+      &_right{
+        overflow: hidden;
       }
     }
   }
@@ -87,24 +121,35 @@
     font-size: rem(20);
     text-transform: uppercase;
     font-weight: var(--font-medium);
+    transform: translateX(-100%);
+    opacity: 0;
+    will-change: opacity, transform;
     transition:
-      opacity 0.2s ease,
-      transform 0.2s ease;
+      opacity 0.2s ease-in,
+      transform 0.2s ease-in;
 
     @include breakpoint(large) {
       font-size: clamp(2.1875rem, 0.5625rem + 2.0313vw, 3rem);
+      transition-duration: .2s;
+    }
+
+    @for $i from 1 through 15 {
+      &:nth-of-type(#{$i}) {
+        transition-delay: $i * 0.01s;
+      }
     }
 
     .navigationPopup_list_right & {
       font-size: rem(14);
       font-weight: var(--font-regular);
 
-      @include breakpoint(large) {
+      @include breakpoint(large) {        
+        transform: translateX(100%);
         font-size: rem(16);
         &:last-child {
           display: none;
         }
-      }
+      }      
     }
 
     &_active {
@@ -117,6 +162,8 @@
     display: inline-block;
     position: relative;
     padding: rem(8);
+    transition: opacity .2s ease, transform .2s ease;
+    
     @include breakpoint(large) {
       padding: rem(16);
       cursor: pointer;
