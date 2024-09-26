@@ -278,20 +278,18 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 15px;
+    bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
     gap: rem(30);
 
     @include breakpoint(medium) {
-      bottom: rem(50);
       left: auto;
       right: rem(10);
     }
 
     @include breakpoint(large) {
-      bottom: 18px;
       right: 20px;
       color: var(--color-white);
       font-weight: var(--font-regular);
@@ -372,5 +370,63 @@
         }
       }
     }
+  }
+}
+.certificate_container {
+  align-items: center;
+  justify-content: left;
+  text-decoration: none;
+  position: relative;
+  padding-top: 2rem;
+}
+
+.certificate_container .certificate_text {
+  position: relative;
+  display: inline-block;
+  transition: color 0.25s linear;
+  text-wrap: nowrap;
+}
+
+.certificate_container .certificate_text:before {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #fff;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition:
+    transform 0.3s,
+    color 0.25s linear;
+}
+
+.certificate_container:hover .certificate_text:before {
+  transform: scaleX(1);
+}
+
+.certificate_container .icon {
+  display: flex;
+  gap: 10px;
+}
+
+.certificate_container .icon svg {
+  transform: rotate(0deg);
+  transition: transform 0.3s cubic-bezier(0.4, 0.64, 0.68, 1);
+}
+
+.certificate_container:hover .icon svg {
+  transform: rotate(45deg);
+}
+
+.certificate_container .icon svg circle,
+.certificate_container .icon svg path {
+  stroke: #000;
+  stroke-width: 1;
+  transition: stroke 0.25s linear;
+
+  @include breakpoint(large) {
+    stroke: #fff;
   }
 }

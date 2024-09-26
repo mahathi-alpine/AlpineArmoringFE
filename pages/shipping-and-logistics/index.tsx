@@ -4,7 +4,6 @@ import styles from './Shipping.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import TabSlider from 'components/global/tab-slider/TabSlider';
-import PDFIcon from 'components/icons/PDF';
 
 import Gallery from 'components/global/carousel/CarouselCurved';
 
@@ -195,38 +194,73 @@ function Shipping(props) {
               {licensePDF1 ? (
                 <div
                   onClick={() => togglePDFPopup(licensePDF1)}
-                  style={{
-                    cursor: 'pointer',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                  }}
+                  className={`${styles.certificate_container}`}
                 >
-                  <span style={{ marginRight: '10px' }}>
-                    <span style={{ fontSize: '18px' }}>Download</span>
+                  <span className={`${styles.certificate_text}`}>
+                    <span className={`${styles.view_certificates}`}>
+                      Download
+                    </span>
                     Form BIS-711
                   </span>
-                  <PDFIcon />
+                  <div className={`${styles.icon}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <circle
+                        cx="10"
+                        cy="10"
+                        r="8"
+                        stroke="currentColor"
+                      ></circle>
+                      <path
+                        stroke="currentColor"
+                        d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                      ></path>
+                    </svg>
+                  </div>
                 </div>
               ) : null}
 
               {licensePDF2 ? (
                 <div
                   onClick={() => togglePDFPopup(licensePDF2)}
-                  style={{
-                    cursor: 'pointer',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                  }}
+                  className={`${styles.certificate_container}`}
                 >
-                  <span style={{ marginRight: '10px' }}>
-                    <span style={{ fontSize: '15px' }}>
+                  <span className={`${styles.certificate_text}`}>
+                    <span
+                      className={`${styles.view_certificates}`}
+                      style={{ fontSize: '15px' }}
+                    >
                       Instructions
                       <br />
                       to complete
                     </span>
                     Form BIS-711
                   </span>
-                  <PDFIcon />
+                  <div className={`${styles.icon}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <circle
+                        cx="10"
+                        cy="10"
+                        r="8"
+                        stroke="currentColor"
+                      ></circle>
+                      <path
+                        stroke="currentColor"
+                        d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                      ></path>
+                    </svg>
+                  </div>
                 </div>
               ) : null}
             </div>

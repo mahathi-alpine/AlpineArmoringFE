@@ -1,7 +1,6 @@
 import styles from './Banner.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
-import PDFIcon from 'components/icons/PDF';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
 import { useEffect, useState } from 'react';
@@ -220,7 +219,7 @@ const Banner = (props) => {
               onClick={() =>
                 handleLightboxOpen(data.title, '', 'video', data.videoURL)
               }
-              className={`${styles.banner_pdf}`}
+              className={`${styles.banner_pdf} ${styles.certificate_container}`}
             >
               <span>
                 <span>Watch</span>
@@ -234,14 +233,28 @@ const Banner = (props) => {
           {data.pdf?.data ? (
             <div
               onClick={() => togglePDFPopup(data.pdf.data.attributes.url)}
-              className={`${styles.banner_pdf}`}
+              className={`${styles.banner_pdf} ${styles.certificate_container}`}
             >
-              <span>
-                <span>OEM</span>
+              <span className={`${styles.certificate_text}`}>
+                <span className={`${styles.view_certificates}`}>OEM</span>
                 <br />
                 Specs
               </span>
-              <PDFIcon />
+              <div className={`${styles.icon}`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <circle cx="10" cy="10" r="8" stroke="currentColor"></circle>
+                  <path
+                    stroke="currentColor"
+                    d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                  ></path>
+                </svg>
+              </div>
             </div>
           ) : null}
         </div>
