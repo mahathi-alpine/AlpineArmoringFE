@@ -15,7 +15,7 @@ export interface LanguageConfig {
 
 export type UseLanguageSwitcherResult = {
   currentLanguage: string;
-  switchLanguage: (lang: string) => void;
+  switchLanguage: (lang: string) => () => void;
   languageConfig: LanguageConfig;
 };
 
@@ -39,30 +39,34 @@ export const useLanguageSwitcher = (): UseLanguageSwitcherResult => {
   );
 
   useEffect(() => {
-    const cookieValue = getCookie(COOKIE_NAME) as string | undefined;
-    if (cookieValue) {
-      const lang = cookieValue.split('/').pop();
-      if (lang && languageConfig.languages.some((l) => l.name === lang)) {
-        setCurrentLanguage(lang);
+    const existingLanguageCookieValue = getCookie(COOKIE_NAME);
+
+    let languageValue = languageConfig.defaultLanguage;
+    if (existingLanguageCookieValue) {
+      const sp = decodeURIComponent(
+        existingLanguageCookieValue as string
+      ).split('/');
+      if (sp.length > 2) {
+        languageValue = sp[2];
       }
     }
+    setCurrentLanguage(languageValue);
   }, []);
 
-  const switchLanguage = (lang: string) => {
-    if (lang === languageConfig.defaultLanguage) {
-      deleteCookie(COOKIE_NAME, {
-        path: '/',
-        domain: 'alpineco.com',
-      });
-    } else {
-      setCookie(COOKIE_NAME, `/auto/${lang}`, {
-        maxAge: 365 * 24 * 60 * 60, // 1 year
-        path: '/',
-        sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
-        domain: 'alpineco.com',
-      });
-    }
+  const switchLanguage = (lang: string) => () => {
+    deleteCookie(COOKIE_NAME, {
+      path: '/',
+      domain: 'alpineco.com',
+    });
+
+    setCookie(COOKIE_NAME, '/auto/' + lang, {
+      maxAge: 3600,
+      path: '/',
+      sameSite: 'strict',
+      // secure: process.env.NODE_ENV === 'production',
+      domain: 'alpineco.com',
+    });
+
     setCurrentLanguage(lang);
     window.location.reload();
   };

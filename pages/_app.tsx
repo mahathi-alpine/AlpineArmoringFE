@@ -52,7 +52,6 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     document.documentElement.lang = currentLanguage || 'en-us';
-    console.log(currentLanguage);
 
     if (currentLanguage && currentLanguage !== 'en') {
       const script = document.createElement('script');
