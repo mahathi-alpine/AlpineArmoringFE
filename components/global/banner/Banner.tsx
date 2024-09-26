@@ -4,13 +4,14 @@ import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-const TopBanner = ({ props, shape, center, small }: BannerProps) => {
+const TopBanner = ({ props, shape, small }: BannerProps) => {
   const router = useRouter();
   const currentRoute = router.pathname;
   const bannerImage = props.media.data?.attributes;
   const bannerImageMobile = props.imageMobile?.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
   const bannerTitle = props.title;
+  const bannerSubitle = props.subtitle;
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoMP4 = props.mediaMP4?.data;
 
@@ -135,7 +136,6 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
       className={`
       ${styles.banner}
       ${small ? styles.banner_small : ''}
-      ${center ? styles.banner_center : ''}
       ${currentRoute.startsWith('/ballistic-testing') ? styles.banner_full : ''}
     `}
     >
@@ -147,10 +147,10 @@ const TopBanner = ({ props, shape, center, small }: BannerProps) => {
           <div className={`${styles.banner_content}`}>
             <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
-                <h1
-                  className="observe fade-in"
-                  dangerouslySetInnerHTML={{ __html: bannerTitle }}
-                ></h1>
+                <h1 dangerouslySetInnerHTML={{ __html: bannerTitle }}></h1>
+              ) : null}
+              {bannerSubitle ? (
+                <h2 dangerouslySetInnerHTML={{ __html: bannerSubitle }}></h2>
               ) : null}
             </div>
           </div>

@@ -14,7 +14,6 @@ export interface BannerProps {
   props: any;
   shape?: string;
   small?: boolean;
-  center?: boolean;
 }
 
 export interface IconProps {

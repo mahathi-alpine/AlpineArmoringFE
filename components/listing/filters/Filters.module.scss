@@ -9,7 +9,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      height: 80px;
+      height: 70px;
       position: relative;
       z-index: 3;
       .checkbox_span {
@@ -221,7 +221,7 @@
       font-size: rem(15);
 
       .filters_plain & {
-        padding: 0 rem(32);
+        padding: 0 rem(24);
         margin-bottom: 0;
         background: unset;
         border: none;
@@ -335,13 +335,13 @@
 
       .filters_plain & {
         position: relative;
-        min-width: 180px;
+        // min-width: 180px;
         padding: 0 rem(24);
         justify-content: center;
         cursor: pointer;
 
         &:nth-child(3) {
-          min-width: 214px;
+          min-width: 204px;
         }
 
         &:after {
@@ -410,7 +410,7 @@
           font-weight: var(--font-medium);
         }
         @include breakpoint(huge) {
-          font-size: rem(15);
+          font-size: rem(14);
         }
       }
     }
@@ -433,7 +433,7 @@
       .filters_plain & {
         @include breakpoint(large) {
           position: absolute;
-          top: 50px;
+          top: 45px;
           left: 0;
           right: 1px;
           background: var(--color-white);
@@ -524,7 +524,7 @@
     font-size: rem(15);
     align-items: flex-end;
     .filters_plain & {
-      font-size: rem(14);
+      font-size: rem(13);
     }
   }
 
