@@ -3,7 +3,10 @@
   font-weight: var(--font-medium);
   font-size: rem(14);
   text-transform: uppercase;
-  // display: none;
+
+  @include breakpoint('medium') {
+    padding: 12px 0;
+  }
 
   &_flag {
     position: relative;
@@ -85,7 +88,7 @@
     }
 
     @include breakpoint('medium') {
-      top: 21px;
+      top: 35px;
       bottom: auto;
 
       .langSwitcher_flag {

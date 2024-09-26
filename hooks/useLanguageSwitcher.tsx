@@ -57,15 +57,15 @@ export const useLanguageSwitcher = (): UseLanguageSwitcherResult => {
   const switchLanguage = (lang: string) => () => {
     deleteCookie(COOKIE_NAME, {
       path: '/',
-      domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN || undefined,
+      domain: 'alpineco.com',
     });
 
     setCookie(COOKIE_NAME, '/auto/' + lang, {
       maxAge: 3600,
       path: '/',
       sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-      domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN || undefined,
+      // secure: process.env.NODE_ENV === 'production',
+      domain: 'alpineco.com',
     });
 
     setCurrentLanguage(lang);
