@@ -130,7 +130,8 @@
       display: block;
       font-size: 0;
     }
-    h1, h2 {
+    h1,
+    h2 {
       white-space: pre-wrap;
       font-weight: var(--font-medium);
       margin: 0;
@@ -153,11 +154,11 @@
       }
     }
 
-    h1{
+    h1 {
       font-size: clamp(0.875rem, 0.784rem + 0.3883vw, 1.25rem);
     }
 
-    h2{
+    h2 {
       font-size: clamp(0.75rem, 0.659rem + 0.3883vw, 1.125rem);
       color: var(--color-primary);
       font-weight: var(--font-demi);
