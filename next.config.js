@@ -50,28 +50,5 @@ module.exports = {
   experimental: {
     largePageDataBytes: 800 * 1000,
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/pdf/:path*',
-  //       destination: 'https://d102sycao8uwt8.cloudfront.net/:path*',
-  //     },
-  //   ];
-  // },
   productionBrowserSourceMaps: true,
-  env: {
-    GOOGLE_TRANSLATION_CONFIG: JSON.stringify({
-      languages: [
-        { title: 'En', name: 'en' },
-        { title: 'Es', name: 'es' },
-        { title: 'Fr', name: 'fr' },
-        { title: 'Ru', name: 'ru' },
-        { title: 'CN', name: 'zh-CN' },
-        { title: 'JA', name: 'ja' },
-        { title: 'AR', name: 'ar' },
-        { title: 'De', name: 'de' },
-      ],
-      defaultLanguage: 'en',
-    }),
-  },
 };

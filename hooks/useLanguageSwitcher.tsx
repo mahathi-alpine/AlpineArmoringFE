@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie, setCookie, deleteCookie } from 'cookies-next';
 
 export const COOKIE_NAME = 'googtrans';
 
 export interface LanguageDescriptor {
   name: string;
   title: string;
-  flag: string;
 }
 
 export interface LanguageConfig {
@@ -17,70 +16,66 @@ export interface LanguageConfig {
 export type UseLanguageSwitcherResult = {
   currentLanguage: string;
   switchLanguage: (lang: string) => () => void;
-  languageConfig: LanguageConfig | undefined;
+  languageConfig: LanguageConfig;
 };
 
-export const getLanguageConfig = (): LanguageConfig | undefined => {
-  let cfg: LanguageConfig | undefined;
-
-  if (process.env.GOOGLE_TRANSLATION_CONFIG) {
-    try {
-      cfg = JSON.parse(process.env.GOOGLE_TRANSLATION_CONFIG ?? '{}');
-    } catch (e) {
-      // console.log(e);
-    }
-  }
-
-  return cfg;
+// This should match the structure in next.config.js
+const languageConfig: LanguageConfig = {
+  languages: [
+    { title: 'En', name: 'en' },
+    { title: 'Es', name: 'es' },
+    { title: 'Fr', name: 'fr' },
+    { title: 'Ru', name: 'ru' },
+    { title: 'CN', name: 'zh-CN' },
+    { title: 'JA', name: 'ja' },
+    { title: 'AR', name: 'ar' },
+    { title: 'De', name: 'de' },
+  ],
+  defaultLanguage: 'en',
 };
 
-export const useLanguageSwitcher = () => {
-  const [currentLanguage, setCurrentLanguage] = useState<string>('');
+export const useLanguageSwitcher = (): UseLanguageSwitcherResult => {
+  const [currentLanguage, setCurrentLanguage] = useState<string>(
+    languageConfig.defaultLanguage
+  );
 
   useEffect(() => {
-    const cfg = getLanguageConfig();
-    const existingLanguageCookieValue = decodeURIComponent(
-      getCookie(COOKIE_NAME)
-    );
+    const existingLanguageCookieValue = getCookie(COOKIE_NAME);
 
-    let languageValue = '';
+    let languageValue = languageConfig.defaultLanguage;
     if (existingLanguageCookieValue) {
-      const sp = existingLanguageCookieValue.split('/');
+      const sp = decodeURIComponent(
+        existingLanguageCookieValue as string
+      ).split('/');
       if (sp.length > 2) {
         languageValue = sp[2];
       }
-    }
-    if (cfg && !languageValue) {
-      languageValue = cfg.defaultLanguage;
     }
     setCurrentLanguage(languageValue);
   }, []);
 
   const switchLanguage = (lang: string) => () => {
-    // deleteCookie(COOKIE_NAME, {
-    //   maxAge: 3600,
-    //   path: '/',
-    //   sameSite: 'strict',
-    //   secure: process.env.NODE_ENV === 'production',
-    //   domain: 'alpineco.com',
-    // });
+    deleteCookie(COOKIE_NAME, {
+      path: '/',
+      domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN || undefined,
+    });
+
     setCookie(COOKIE_NAME, '/auto/' + lang, {
       maxAge: 3600,
       path: '/',
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
+      domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN || undefined,
     });
-    window.location.reload();
 
-    // if (getCookie(COOKIE_NAME) == '/auto/en') {
-    //   deleteCookie(COOKIE_NAME);
-    // }
+    setCurrentLanguage(lang);
+    window.location.reload();
   };
 
   return {
     currentLanguage,
     switchLanguage,
-    languageConfig: getLanguageConfig(),
+    languageConfig,
   };
 };
 
