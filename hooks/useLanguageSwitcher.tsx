@@ -19,6 +19,7 @@ export type UseLanguageSwitcherResult = {
   languageConfig: LanguageConfig;
 };
 
+// This should match the structure in next.config.js
 const languageConfig: LanguageConfig = {
   languages: [
     { title: 'En', name: 'en' },

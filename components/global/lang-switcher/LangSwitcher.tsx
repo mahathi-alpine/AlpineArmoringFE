@@ -19,7 +19,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   const handleLanguageSwitch = useCallback(
     (lang: string) => (e: React.MouseEvent) => {
       e.preventDefault();
-      switchLanguage(lang);
+      switchLanguage(lang)();
     },
     [switchLanguage]
   );
