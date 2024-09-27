@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
+import Logo from 'components/icons/Logo';
 import Navigation from 'components/global/navigation/Navigation';
 import styles from './Header.module.scss';
 import { HeaderProps } from 'types';
@@ -112,9 +113,10 @@ const Header = ({
               height={42}
               quality={100}
               priority
+              unoptimized
               className={`${styles.header_logo_gold} header_logo_gold`}
             />
-            <Image
+            {/* <Image
               src="/assets/Alpine-Armoring-Armored-Vehicles-black.png"
               alt="armored vehicles"
               width={125}
@@ -122,7 +124,8 @@ const Header = ({
               quality={100}
               priority
               className={`${styles.header_logo_black} header_logo_black`}
-            />
+            /> */}
+            <Logo className={`${styles.header_logo_black} header_logo_black`} />
           </Link>
         </div>
 
