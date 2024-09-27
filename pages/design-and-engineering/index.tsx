@@ -1,6 +1,6 @@
 import styles from './Design.module.scss';
 import { getPageData } from 'hooks/api';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 const Gallery = dynamic(
   () => import('components/global/carousel/CarouselCurved')
 );
+const Popup = dynamic(() => import('components/global/lightbox/PopupSimple'));
 
 const Design = (props) => {
   const convertMarkdown = useMarkdownToHtml();
@@ -15,28 +16,29 @@ const Design = (props) => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const popupRef = useRef<HTMLDivElement>(null);
-
   const handleReadMore = (item) => {
     setSelectedItem(item);
     setShowPopup(true);
   };
 
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (
-        popupRef.current &&
-        popupRef.current.classList.contains('modal_active')
-      ) {
-        setShowPopup(false);
-      }
-    };
+  // useEffect(() => {
+  //   const isModalActive = false;
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  //   const handleClickOutside = () => {
+  //     if (!popupRef.current || popupRef.current.contains(event.target)) {
+  //       return;
+  //     }
+
+  //     if (isModalActive) {
+  //       setShowPopup(false);
+  //     }
+  //   };
+
+  //   window.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     window.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, []);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -345,60 +347,12 @@ const Design = (props) => {
                 </div>
               ))}
 
-              {showPopup && (
-                <div
-                  ref={popupRef}
-                  className={`modal ${showPopup ? 'modal_active' : ''}`}
-                >
-                  <div className={`modal_inner`}>
-                    <h3 className={`modal_title`}>{selectedItem.title}</h3>
-                    <div className={`modal_box`}>
-                      <p
-                        className={`modal_description`}
-                        dangerouslySetInnerHTML={{
-                          __html: convertMarkdown(selectedItem.description),
-                        }}
-                      ></p>
-                      {selectedItem?.image?.data ? (
-                        <Image
-                          src={
-                            selectedItem.image.data[0].attributes?.formats
-                              ?.medium?.url ||
-                            selectedItem.image.data[0].attributes?.url
-                          }
-                          alt={
-                            selectedItem.image.data.attributes
-                              ?.alternativeText || 'Alpine Armoring'
-                          }
-                          width={400}
-                          height={400}
-                        ></Image>
-                      ) : null}
-                    </div>
-                    <button
-                      className={`modal_close`}
-                      onClick={() => setShowPopup(false)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        height="24"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <g fill="currentColor">
-                          <path d="M0 0h24v24H0z" fill="none"></path>
-                          <path
-                            fill="#fff"
-                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                          ></path>
-                        </g>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              )}
+              <Popup
+                showPopup={showPopup}
+                setShowPopup={setShowPopup}
+                selectedItem={selectedItem}
+                convertMarkdown={convertMarkdown}
+              />
             </div>
           </section>
 

@@ -275,6 +275,7 @@ $shapeColor: var(--color-background);
 
     @include breakpoint(large) {
       display: flex;
+      align-items: center;
     }
   }
 
@@ -310,7 +311,6 @@ $shapeColor: var(--color-background);
     font-weight: var(--font-medium);
     @include breakpoint(large) {
       width: 70%;
-      font-size: rem(18);
     }
 
     a {

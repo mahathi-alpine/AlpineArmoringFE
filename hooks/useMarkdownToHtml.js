@@ -1,20 +1,34 @@
 const replaceBold = (text) =>
   text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
 const replaceHeadings = (text) =>
   text.replace(
     /^(#{1,6})\s+(.*)$/gm,
     (_, level, content) => `<h${level.length}>${content}</h${level.length}>`
   );
+
 const replaceLinks = (text) =>
-  text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+  text.replace(/\[(.*?)\]\((.*?)\)/g, (match, linkText, url) => {
+    const isExternal =
+      !url.startsWith('/') && !url.includes('https://www.alpineco.com/');
+    const attributes = isExternal
+      ? ' target="_blank" rel="noopener noreferrer"'
+      : '';
+    return `<a href="${url}"${attributes}>${linkText}</a>`;
+  });
+
 const replaceItalic = (text) =>
   wrapTextOutsideTags(text, /(_)(\w+)(_)/g, '$1<em>$2</em>$3');
+
 const replaceUnderline = (text) =>
   wrapTextOutsideTags(text, /(\+)(\w+)(\+)/g, '$1<u>$2</u>$3');
+
 const replaceBlockquotes = (text) =>
   text.replace(/^>(.*)$/gm, '<blockquote>$1</blockquote>');
+
 const replaceLineBreaks = (text) =>
   text.replace(/ \n/g, '<br>').replace(/\n/g, '</p><p>');
+
 const replaceBulletLists = (text) =>
   text.replace(/^- (.*)$/gm, '<ul><li>$1</li></ul>');
 
