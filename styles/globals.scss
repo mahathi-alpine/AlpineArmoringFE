@@ -578,6 +578,21 @@ $shapeColor: var(--color-background);
   max-height: 350px;
   overflow: auto;
   font-size: 14px;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #babac0;
+    border-radius: 16px;
+    border: 2px solid #fff;
+    cursor: pointer;
+  }
 }
 
 .b-breadcrumbs {
@@ -625,6 +640,8 @@ $shapeColor: var(--color-background);
 .search_categories {
   color: var(--color-primary);
   font-weight: var(--font-demi);
-  min-width: 120px;
-  margin-right: 6px;
+
+  @include breakpoint(large) {
+    margin-right: 6px;
+  }
 }

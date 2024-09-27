@@ -30,9 +30,32 @@
     -webkit-appearance: unset;
   }
 
-  & > div {
+  &_inner{
+    position: relative;
     width: 100%;
     max-width: 600px;
+
+    &:after{
+      position: absolute;
+      content: 'X';
+      font-weight: 600;
+      cursor: pointer;
+      pointer-events: none;
+
+      right: 2px;
+      top: 4px;
+      width: 11px;
+      height: 14px;
+      font-size: 13px;
+
+      @include breakpoint(large) {
+        font-size: 20px;
+        right: 0px;
+        top: 4px;
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 
   a {
@@ -40,6 +63,8 @@
     display: block;
     @include breakpoint(small) {
       display: flex;
+      flex-flow: column;
     }
   }
+
 }
