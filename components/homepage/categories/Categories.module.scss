@@ -21,12 +21,12 @@
     width: 100%;
     padding-bottom: 41px;
 
-    @media (min-width: 800px) {
-      padding-bottom: 51px;
-      &:nth-last-child(1):nth-child(odd) {
-        grid-column: auto / span 2;
-      }
-    }
+    // @media (min-width: 800px) {
+    //   padding-bottom: 51px;
+    //   &:nth-last-child(1):nth-child(odd) {
+    //     grid-column: auto / span 2;
+    //   }
+    // }
     @include breakpoint(large) {
       max-width: 753px;
     }
