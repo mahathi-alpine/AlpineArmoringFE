@@ -30,12 +30,12 @@
     -webkit-appearance: unset;
   }
 
-  &_inner{
+  &_inner {
     position: relative;
     width: 100%;
     max-width: 600px;
 
-    &:after{
+    &:after {
       position: absolute;
       content: 'X';
       font-weight: 600;
@@ -66,5 +66,4 @@
       flex-flow: column;
     }
   }
-
 }
