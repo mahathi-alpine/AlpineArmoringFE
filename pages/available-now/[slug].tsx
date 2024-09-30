@@ -316,7 +316,7 @@ function InventoryVehicle(props) {
 
       {mainText ? (
         <div
-          className={`${styles.inventory_description} container_small observe fade-in-up`}
+          className={`${styles.inventory_description} container_small`}
           dangerouslySetInnerHTML={{ __html: convertMarkdown(mainText) }}
         ></div>
       ) : null}

@@ -108,49 +108,6 @@
     }
   }
 
-  // &_sticker {
-  //   position: absolute;
-  //   bottom: 0;
-  //   left: 0;
-  //   right: 0;
-  //   display: flex !important;
-  //   align-items: center;
-  //   justify-content: center;
-  //   margin-top: rem(32);
-  //   font-weight: var(--font-medium);
-  //   color: var(--color-primary);
-
-  //   @include breakpoint(large) {
-  //     margin-top: 0;
-  //     right: 0;
-  //     left: auto;
-  //     z-index: 3;
-  //     bottom: 8px;
-  //   }
-
-  //   @include breakpoint(huge) {
-  //     right: rem(13);
-  //   }
-
-  //   svg {
-  //     width: 57px;
-  //     height: 57px;
-  //   }
-
-  //   &_part2 {
-  //     display: block;
-  //     letter-spacing: 0.5px;
-  //     font-size: 17px;
-  //     line-height: 1;
-  //   }
-
-  //   &_part3 {
-  //     font-size: 24px;
-  //     letter-spacing: 2.4px;
-  //     line-height: 1;
-  //   }
-  // }
-
   &_details {
     position: relative;
     padding: 0 rem(16);
@@ -375,6 +332,20 @@
       margin-bottom: rem(16);
       &:last-child {
         margin-bottom: 0;
+      }
+    }
+
+    ul{
+      list-style-type: disc !important;
+      margin: 0 !important;
+      margin-left: 20px !important;
+
+      @include breakpoint(large) {
+        margin-left: 40px !important;
+      }
+
+      li{
+        padding: 0 !important;
       }
     }
 

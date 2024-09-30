@@ -375,7 +375,7 @@ function Testing(props) {
             ></p>
           ) : null}
 
-          <div className={`${styles.testing_armor} container`}>
+          <div className={`${styles.testing_armor}`}>
             {props.pageData?.section2Armor.map((item, index) => (
               <div
                 className={`${styles.testing_armor_item}  observe fade-in-up`}
@@ -494,6 +494,7 @@ function Testing(props) {
             )}
           </div>
         </section>
+
         <section
           className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
           id="live-fire-testing"
@@ -518,24 +519,28 @@ function Testing(props) {
           ) : null}
           <MediaList props={videos} itemType="video" />
         </section>
-        {props.pageData?.section4Title ? (
-          <h3 className={styles.section4Title}>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section4Title),
-              }}
-            ></span>
-          </h3>
-        ) : null}
-        {props.pageData?.section4Heading ? (
-          <h3 className={styles.section4Heading}>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section4Heading),
-              }}
-            ></span>
-          </h3>
-        ) : null}
+
+        <section className={`container_small`}>
+          {props.pageData?.section4Title ? (
+            <h3 className={styles.section4Title}>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section4Title),
+                }}
+              ></span>
+            </h3>
+          ) : null}
+
+          {props.pageData?.section4Heading ? (
+            <h3 className={styles.section4Heading}>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: convertMarkdown(props.pageData.section4Heading),
+                }}
+              ></span>
+            </h3>
+          ) : null}
+        </section>
       </div>
       {isLightboxPopupOpen ? (
         <LightboxCustom

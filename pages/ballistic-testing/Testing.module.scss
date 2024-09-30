@@ -113,7 +113,7 @@
     &_item {
       display: flex;
       flex-flow: column;
-      padding: rem(32) rem(24) rem(16) rem(24);
+      padding: rem(32) rem(16) rem(16) rem(16);
       margin-bottom: rem(16);
       border-radius: 24px;
       @include breakpoint(medium) {
@@ -170,13 +170,10 @@
       gap: 10px;
       margin-top: 10px;
       padding: 10px 0;
-      // @include breakpoint(huge) {
-      //   max-width: 240px;
-      // }
+      
       img {
         border-radius: 15px;
         width: 100%;
-        max-width: 250px;
         height: auto;
         transition:
           transform 0.3s,
