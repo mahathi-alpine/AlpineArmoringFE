@@ -30,7 +30,7 @@ function SearchHits({ searchState, searchResults }) {
         searchResults.hits.map((hit) => (
           <div key={hit.objectID}>
             <Link
-              href={`${hit.category ? `/${hit.category}` : ''}/${hit.slug}`}
+              href={`${hit.category && hit.category !== 'page' ? `/${hit.category}` : ''}/${hit.slug}`}
             >
               <span className="search_categories">
                 {formatString(hit.category)}:
