@@ -54,7 +54,7 @@ export default function SearchPage({ serverState, url }: SearchPageProps) {
 
       <InstantSearch
         searchClient={client}
-        indexName="dev_alpine"
+        indexName="main_alpine"
         routing={{
           router: createInstantSearchRouterNext({
             serverUrl: url,

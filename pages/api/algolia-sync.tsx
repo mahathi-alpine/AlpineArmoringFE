@@ -8,7 +8,7 @@ const syncAlgolia = async (req, res) => {
       process.env.ALGOLIA_ADMIN_KEY
     );
 
-    const index = algoliaClient.initIndex('dev_alpine');
+    const index = algoliaClient.initIndex('main_alpine');
 
     const pageSize = 100;
     let route = '';
