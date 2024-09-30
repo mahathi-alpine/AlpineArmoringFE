@@ -49,22 +49,20 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
         {links.map((link, index) => (
           <li
             key={index}
-            className={`${styles.navigation_item} ${
-              router.pathname.startsWith(link.path)
-                ? `${styles.navigation_item_active}`
-                : ''
-            }`}
+            className={`
+              ${styles.navigation_item} 
+              ${
+                router.pathname.startsWith(link.path)
+                  ? `${styles.navigation_item_active}`
+                  : ''
+              }
+              ${!link.path ? `${styles.navigation_link_disabled}` : ''}
+            `}
           >
             {link.path ? (
-              <Link className={styles.navigationPopup_link} href={link.path}>
-                {link.text}
-              </Link>
+              <Link href={link.path}>{link.text}</Link>
             ) : (
-              <span
-                className={`${styles.navigationPopup_link} ${styles.navigationPopup_link_disabled}`}
-              >
-                {link.text}
-              </span>
+              <span>{link.text}</span>
             )}
 
             {link.submenu && (
