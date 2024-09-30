@@ -32,7 +32,6 @@ interface AutoplayProps {
 const Autoplay: React.FC<AutoplayProps> = ({
   slides,
   white = undefined,
-  squared = undefined,
   regular = undefined,
   singular = undefined,
   autoplay = false,
@@ -99,10 +98,6 @@ const Autoplay: React.FC<AutoplayProps> = ({
     <div
       className={`
         ${styles.carouselCurved_wrapper}      
-        ${white ? styles.carouselCurved_wrapper_white : ''}
-        ${regular ? styles.carouselCurved_wrapper_regular : ''}
-        ${squared ? styles.carouselCurved_wrapper_squared : ''}
-        ${singular ? styles.carouselCurved_wrapper_singular : ''}
       `}
     >
       {!regular && !singular ? (

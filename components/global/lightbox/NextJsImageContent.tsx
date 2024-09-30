@@ -19,11 +19,10 @@ export default function NextJsImageContent({ slide }) {
     ? window.innerWidth < 500
       ? slide.all[selectedIndex].attributes.formats?.thumbnail?.url ||
         slide.all[selectedIndex].attributes.url
-      : window.innerWidth >= 500 && window.innerWidth < 1280
-        ? slide.all[selectedIndex].attributes.formats?.large?.url ||
-          slide.all[selectedIndex].attributes.formats?.medium?.url ||
+      : window.innerWidth >= 500 && window.innerWidth <= 750
+        ? slide.all[selectedIndex].attributes.formats?.medium?.url ||
           slide.all[selectedIndex].attributes.url
-        : slide.all[selectedIndex].attributes.formats?.xlarge?.url ||
+        : slide.all[selectedIndex].attributes.formats?.large?.url ||
           slide.all[selectedIndex].attributes.url
     : window.innerWidth < 500
       ? slide.formats?.thumbnail?.url || slide.src
@@ -60,7 +59,6 @@ export default function NextJsImageContent({ slide }) {
                     slide.height
                   : slide.formats?.xlarge?.height || slide.height
             }
-            className={styles.mainImage}
             priority={slide.index === selectedIndex}
           />
         )}
@@ -82,8 +80,9 @@ export default function NextJsImageContent({ slide }) {
                 <Image
                   src={thumb}
                   alt={`Thumbnail ${index + 1}`}
-                  layout="fill"
-                  objectFit="cover"
+                  sizes="(max-width: 767px) 15vw, 10vw"
+                  width={120}
+                  height={80}
                   className={styles.thumbnailImage}
                 />
               </div>

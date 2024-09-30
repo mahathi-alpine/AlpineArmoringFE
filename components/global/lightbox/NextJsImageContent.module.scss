@@ -1,105 +1,83 @@
 .nextContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: white;
   border-radius: 10px;
-  width: 80%;
-  height: auto;
-  margin: auto;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    width: 100%;
+  padding: 10px;
+  font-family: '__termina_41481e';
+  max-height: calc(100vH - 36px);
+  overflow-y: scroll;
+
+  @include breakpoint(medium) {
+    width: 80%;
+  }
+  @include breakpoint(large) {
+    flex-direction: row;
+    overflow: hidden;
   }
 }
 
 .imageContainer {
-  flex: 6;
   position: relative;
-  @media (max-width: 768px) {
-    flex: none;
-    width: 100%;
-    height: auto;
+  margin-bottom: 10px;
+
+  @include breakpoint(large) {
+    margin-bottom: 0;
+    padding-right: 10px;
   }
-}
 
-.mainImage {
-  height: -webkit-fill-available;
-  width: -webkit-fill-available;
-  object-fit: contain;
-  border-radius: 10px;
-  padding: 1rem;
-}
-
-.infoContainer {
-  flex: 4;
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-  overflow-y: auto;
-  @media (max-width: 768px) {
-    flex: none;
-    width: 100%;
-    margin-top: 0;
-    padding: 10px;
+  img{
+    border-radius: 8px;
   }
 }
 
 .year {
   color: black;
   text-align: center;
-  font-size: 2.5rem;
-  font-family: '__termina_41481e';
+  font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 8px;
-  @media (max-width: 400px) {
-    font-size: 1.5rem;
+  margin-bottom: 10px;
+
+  @include breakpoint(large) {
+    font-size:3rem;
   }
 }
 
 .caption {
   color: black;
   text-align: left;
-  font-size: 1rem;
-  font-family: '__termina_41481e';
-  margin-bottom: 8px;
-  margin-right: 5px;
+  font-size: rem(14);
+  margin-bottom: 16px;
 }
 
 .thumbnailContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(122px, max-content));
-  grid-gap: 10px;
-  margin-top: 10px;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+  gap: 8px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
 }
 
 .thumbnail {
   position: relative;
-  width: 122px;
-  height: 82px;
+  border-radius: 6px;
   overflow: hidden;
-  cursor: pointer;
-  border-radius: 5px;
+  width: 100%;
   transition:
     border 0.3s,
     box-shadow 0.3s;
-  @media (max-width: 768px) {
-    width: 100px;
-    height: 70px;
+  @include breakpoint(large) {
+    cursor: pointer;
   }
-}
 
-.thumbnailImage {
-  border-radius: 5px;
-}
+  img{
+    width: 100%;
+    max-width: 120px;
+    margin: auto;
+  }
 
-.selectedThumbnail {
-  border: 2px solid #0070f3;
-  box-shadow: 0 0 5px rgba(0, 112, 255, 0.5);
+  &.selectedThumbnail {
+    border: 2px solid var(--color-green);
+    box-shadow: 0 0 5px rgba(0, 112, 255, 0.5);
+  }
+  
 }
