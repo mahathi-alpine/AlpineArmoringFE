@@ -34,7 +34,7 @@
   }
 }
 
-.infoContainer{
+.infoContainer {
   @include breakpoint(large) {
     width: 40%;
   }
