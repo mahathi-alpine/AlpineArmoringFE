@@ -201,7 +201,7 @@
         &:hover {
           transform: translateY(-3px);
         }
-        &:not(.navigationPopup_socials_item_tiktok):not(
+        &:not(.navigationPopup_socials_item_tiktok):not(.navigationPopup_socials_item_threads):not(
             .navigationPopup_socials_item_x
           ):hover {
           svg path {
@@ -217,6 +217,11 @@
           svg path:first-child {
             fill: var(--color-primary);
             stroke: var(--color-primary);
+          }
+        }
+        &_threads:hover{
+          circle{
+            fill: var(--color-primary);
           }
         }
       }

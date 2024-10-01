@@ -15,6 +15,7 @@ import LinkedinIcon from 'components/icons/Linkedin';
 import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
+import ThreadsIcon from 'components/icons/Threads';
 const LanguageSwitcher = dynamic(
   () => import('components/global/lang-switcher/LangSwitcher')
 );
@@ -272,6 +273,16 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
                 target="_blank"
               >
                 <LinkedinIcon color="white" />
+              </Link>
+            </li>
+            <li
+              className={`${styles.navigationPopup_socials_item} ${styles.navigationPopup_socials_item_threads}`}
+            >
+              <Link
+                href="https://www.threads.net/@alpinearmoring/"
+                target="_blank"
+              >
+                <ThreadsIcon color="white" />
               </Link>
             </li>
           </ul>
