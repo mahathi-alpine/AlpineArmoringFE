@@ -15,16 +15,11 @@ import LinkedinIcon from 'components/icons/Linkedin';
 import MailIcon from 'components/icons/Mail';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
-import SearchIcon from 'components/icons/Search';
 const LanguageSwitcher = dynamic(
   () => import('components/global/lang-switcher/LangSwitcher')
 );
 
-const NavigationPopup = ({
-  isNavOpen,
-  setNavOpen,
-  openSearchPopup,
-}: NavigationProps) => {
+const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();
   const [activeSubmenu, setActiveSubmenu] = useState<
     { text: string; path: string }[] | null
@@ -101,17 +96,6 @@ const NavigationPopup = ({
 
   const handleBackClick = () => {
     setActiveSubmenu(null);
-  };
-
-  const handleSearchClick = () => {
-    openSearchPopup(true);
-    closeNavAndSubmenu();
-    setTimeout(() => {
-      const input = document.querySelector('.search-box') as HTMLInputElement;
-      if (input) {
-        input.focus();
-      }
-    }, 100);
   };
 
   return (
@@ -294,15 +278,6 @@ const NavigationPopup = ({
         </div>
 
         <div className={`${styles.navigationPopup_bottom} mobile-only`}>
-          <div
-            onClick={() => {
-              handleSearchClick();
-            }}
-            className={`${styles.navigationPopup_bottom_search}`}
-          >
-            <SearchIcon />
-          </div>
-
           <LanguageSwitcher />
         </div>
       </div>

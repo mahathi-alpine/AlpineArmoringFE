@@ -1,5 +1,5 @@
 .header {
-  padding: rem(12) 0;
+  padding: rem(13) 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +9,6 @@
   transition:
     transform 0.4s ease-in-out,
     background 0.2s ease-in-out;
-  // height: var(--header-height);
   user-select: none;
 
   @include breakpoint(medium) {
@@ -74,7 +73,8 @@
     backdrop-filter: none;
   }
 
-  &_navOpen {
+  &_navOpen,
+  &_searchOpen {
     @include breakpoint('medium') {
       margin-right: 17px;
     }
@@ -211,24 +211,22 @@
   }
 
   &_search {
-    @include breakpoint(medium) {
-      cursor: pointer;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: transform 0.2s ease-in-out;
+
+    svg {
       width: 26px;
       height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      transition: transform 0.2s ease-in-out;
+    }
 
-      svg {
-        width: 26px;
-        height: 26px;
-      }
-
-      &:hover {
-        transform: scale(1.1);
-      }
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }

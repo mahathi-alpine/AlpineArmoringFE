@@ -20,25 +20,13 @@ const Header = ({
 }: HeaderProps) => {
   const [hState, sethState] = useState('-top');
   const router = useRouter();
-  const [isSearchOpen, setSearchOpen] = useState(false);
 
   const handleSearchClick = useCallback(() => {
-    setSearchOpen((prevState) => {
-      const newState = !prevState;
-      openSearchPopup(newState);
-      return newState;
-    });
-    setTimeout(() => {
-      const input = document.querySelector('.search-box') as HTMLInputElement;
-      if (input) {
-        input.focus();
-      }
-    }, 100);
-  }, [openSearchPopup]);
+    openSearchPopup(!isSearchVisible);
+  }, [openSearchPopup, isSearchVisible]);
 
   useEffect(() => {
     const handleRouteChange = () => {
-      setSearchOpen(false);
       openSearchPopup(false);
     };
 
@@ -50,7 +38,7 @@ const Header = ({
   }, [router, openSearchPopup]);
 
   useEffect(() => {
-    if (isNavOpen || isSearchOpen) {
+    if (isNavOpen || isSearchVisible) {
       document.body.style.marginRight =
         window.innerWidth - document.body.offsetWidth + 'px';
       document.body.classList.add('no-scroll');
@@ -58,10 +46,10 @@ const Header = ({
       document.body.style.marginRight = '0';
       document.body.classList.remove('no-scroll');
     }
-  }, [isNavOpen, isSearchOpen]);
+  }, [isNavOpen, isSearchVisible]);
 
   useEffect(() => {
-    let lastVal = 66;
+    let lastVal = 68;
 
     const y = window.scrollY;
     if (y > lastVal) {
@@ -96,7 +84,8 @@ const Header = ({
         ${styles[hState]}
         ${isDarkMode ? styles.header_transparent : ''}
         ${isNavOpen ? styles.header_navOpen : ''}
-        ${isHeaderGray ? styles.header_gray : ''}      
+        ${isHeaderGray ? styles.header_gray : ''}     
+        ${isSearchVisible ? styles.header_searchOpen : ''} 
         b-header
       `}
     >
@@ -116,15 +105,6 @@ const Header = ({
               unoptimized
               className={`${styles.header_logo_gold} header_logo_gold`}
             />
-            {/* <Image
-              src="/assets/Alpine-Armoring-Armored-Vehicles-black.png"
-              alt="armored vehicles"
-              width={125}
-              height={42}
-              quality={100}
-              priority
-              className={`${styles.header_logo_black} header_logo_black`}
-            /> */}
             <Logo className={`${styles.header_logo_black} header_logo_black`} />
           </Link>
         </div>
@@ -140,11 +120,8 @@ const Header = ({
           </Button>
 
           <div
-            onClick={() => {
-              setNavOpen(false);
-              handleSearchClick();
-            }}
-            className={`${styles.header_search} desktop-only`}
+            onClick={handleSearchClick}
+            className={`${styles.header_search} header_search`}
           >
             {isSearchVisible ? 'X' : <SearchIcon />}
           </div>

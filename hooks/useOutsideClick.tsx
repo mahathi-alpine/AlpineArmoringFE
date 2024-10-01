@@ -1,10 +1,15 @@
 import { useEffect } from 'react';
 
-export const useOutsideClick = (ref, callback) => {
+export const useOutsideClick = (ref, callback, excludeSelectors = []) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        callback();
+        const isExcluded = excludeSelectors.some((selector) =>
+          event.target.closest(selector)
+        );
+        if (!isExcluded) {
+          callback();
+        }
       }
     };
 
@@ -12,5 +17,5 @@ export const useOutsideClick = (ref, callback) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref, callback]);
+  }, [ref, callback, excludeSelectors]);
 };

@@ -18,7 +18,7 @@ export default function Search({ openSearchPopup }) {
     openSearchPopup(false);
     document.body.style.marginRight = '0';
     document.body.classList.remove('no-scroll');
-  });
+  }, ['.header_search']);
 
   return (
     <div className={`${styles.search}`}>

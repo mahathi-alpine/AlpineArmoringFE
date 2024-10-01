@@ -87,6 +87,15 @@ const Layout = ({ children }) => {
 
   const openSearchPopup = (visible) => {
     setSearchVisibility(visible);
+    if (visible) {
+      setNavOpen(false);
+    }
+    setTimeout(() => {
+      const input = document.querySelector('.search-box') as HTMLInputElement;
+      if (input) {
+        input.focus();
+      }
+    }, 100);
   };
 
   useEffect(() => {
