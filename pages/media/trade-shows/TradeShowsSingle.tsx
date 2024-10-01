@@ -1,4 +1,3 @@
-// import Link from 'next/link';
 import { FC } from 'react';
 import Image from 'next/image';
 import styles from './TradeShows.module.scss';
@@ -12,7 +11,9 @@ type TradeShowsSingleProps = {
     location: string,
     url: string,
     contentType: string,
-    gallery: any
+    gallery: any,
+    date: string,
+    year: any
   ) => void;
 };
 
@@ -32,10 +33,12 @@ const TradeShowsSingle: FC<TradeShowsSingleProps> = ({
   const handleClick = () => {
     onLightboxOpen(
       data?.title,
-      data?.description,
-      'gallery',
+      data?.location,
+      'content',
       null,
-      data.gallery.data
+      data?.gallery?.data,
+      data?.description,
+      data?.date
     );
   };
 

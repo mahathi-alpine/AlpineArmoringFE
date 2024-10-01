@@ -94,6 +94,8 @@ function MediaList({ props, itemType }) {
   // Lightbox
   const [selectedTitle, setSelectedTitle] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
   const [contentType, setContentType] = useState('');
   const [videoSrc, setVideoSrc] = useState('');
   const [imageSrcs, setGallery] = useState('');
@@ -104,16 +106,20 @@ function MediaList({ props, itemType }) {
     location,
     contentType,
     url = null,
-    gallery = null
+    gallery = null,
+    date = null,
+    year = null
   ) => {
     setSelectedTitle(title);
     setSelectedLocation(location);
     setContentType(contentType);
     if (contentType === 'video') {
       setVideoSrc(url);
-    } else if (contentType === 'gallery') {
+    } else if (contentType === 'content') {
       setGallery(gallery);
     }
+    setSelectedDate(date);
+    setSelectedYear(year);
     setLightboxPopupOpen(true);
   };
 
@@ -123,6 +129,8 @@ function MediaList({ props, itemType }) {
     contentType: contentType,
     videoSrc: videoSrc,
     gallery: imageSrcs,
+    date: selectedDate,
+    year: selectedYear,
   };
 
   return (

@@ -5,11 +5,12 @@
   border-radius: 10px;
   padding: 10px;
   font-family: '__termina_41481e';
-  max-height: calc(100vh - 36px);
+  max-height: calc(97vh - 36px);
   overflow-y: scroll;
 
   @include breakpoint(medium) {
     width: 80%;
+    margin: auto;
   }
   @include breakpoint(large) {
     flex-direction: row;
@@ -24,11 +25,18 @@
   @include breakpoint(large) {
     margin-bottom: 0;
     padding-right: 10px;
+    width: 60%;
   }
 
   img {
     border-radius: 8px;
     width: auto;
+  }
+}
+
+.infoContainer{
+  @include breakpoint(large) {
+    width: 40%;
   }
 }
 

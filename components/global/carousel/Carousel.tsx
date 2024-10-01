@@ -177,7 +177,10 @@ const EmblaCarousel = (props) => {
                     item.attributes?.formats.thumbnail.url ||
                     item.attributes?.url
                   }
+                  width={270}
+                  height={200}
                   key={index}
+                  className={styles.carousel_thumbs_slide}
                 />
               ))}
             </div>

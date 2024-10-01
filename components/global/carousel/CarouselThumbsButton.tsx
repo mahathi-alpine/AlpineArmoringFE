@@ -7,18 +7,22 @@ type PropType = {
   imgSrc: string;
   index: number;
   alt: string;
+  className?: string;
+  width?: number;
+  height?: number;
+  sizes?: string;
   onClick: () => void;
 };
 
 export const Thumb: React.FC<PropType> = (props) => {
-  const { selected, imgSrc, onClick, alt } = props;
+  const { selected, imgSrc, onClick, alt, className, width, height, sizes } =
+    props;
+
+  const combinedClassName =
+    `${styles.carousel_thumbs_slide} ${selected ? styles.carousel_thumbs_slide_selected : ''} ${className ? className : ''}`.trim();
 
   return (
-    <div
-      className={styles.carousel_thumbs_slide.concat(
-        selected ? ' ' + styles.carousel_thumbs_slide_selected : ''
-      )}
-    >
+    <div className={combinedClassName}>
       <button
         onClick={onClick}
         className={styles.carousel_thumbs_slide_button}
@@ -27,8 +31,9 @@ export const Thumb: React.FC<PropType> = (props) => {
         <Image
           src={imgSrc}
           alt={alt || 'Alpine Armoring'}
-          width={270}
-          height={200}
+          width={width}
+          height={height}
+          sizes={sizes}
           className={styles.carousel_thumbs_slide_img}
         />
       </button>
