@@ -61,7 +61,12 @@ const LightboxCustom = ({
 
     if (isLightboxPopupOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      lightboxWrapRef.current.addEventListener('mousedown', handleClickInside);
+      if (lightboxWrapRef.current) {
+        lightboxWrapRef.current.addEventListener(
+          'mousedown',
+          handleClickInside
+        );
+      }
     }
 
     return () => {
