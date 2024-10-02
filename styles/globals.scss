@@ -645,3 +645,9 @@ $shapeColor: var(--color-background);
     margin-right: 6px;
   }
 }
+
+.b-globe{
+  & *{
+    max-width: 100% !important;
+  }
+}
