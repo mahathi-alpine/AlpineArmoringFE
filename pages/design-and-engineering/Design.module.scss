@@ -62,6 +62,10 @@
       margin-top: rem(64);
       gap: 64px;
     }
+    a {
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+    }
   }
 
   &_image {

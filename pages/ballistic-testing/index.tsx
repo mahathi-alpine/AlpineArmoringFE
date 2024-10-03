@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PlayIcon from 'components/icons/Play';
 import MediaList from 'pages/media/MediaList';
+import { useOutsideClick } from 'hooks/useOutsideClick';
 
 function Testing(props) {
   const convertMarkdown = useMarkdownToHtml();
@@ -21,28 +22,33 @@ function Testing(props) {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const popupRef = useRef<HTMLDivElement>(null);
+  // const popupRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef(null);
 
   const handleReadMore = (item) => {
     setSelectedItem(item);
     setShowPopup(true);
   };
 
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (
-        popupRef.current &&
-        popupRef.current.classList.contains('modal_active')
-      ) {
-        setShowPopup(false);
-      }
-    };
+  useOutsideClick(popupRef, () => {
+    setShowPopup(false);
+  });
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = () => {
+  //     if (
+  //       popupRef.current &&
+  //       popupRef.current.classList.contains('modal_active')
+  //     ) {
+  //       setShowPopup(false);
+  //     }
+  //   };
+
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, []);
 
   // Animations
   useEffect(() => {
@@ -433,11 +439,8 @@ function Testing(props) {
             ))}
 
             {showPopup && (
-              <div
-                ref={popupRef}
-                className={`modal ${showPopup ? 'modal_active' : ''}`}
-              >
-                <div className={`modal_inner`}>
+              <div className={`modal ${showPopup ? 'modal_active' : ''}`}>
+                <div className={`modal_inner`} ref={popupRef}>
                   <h3 className={`modal_title`}>{selectedItem.title}</h3>
                   <div className={`modal_box`}>
                     <p
