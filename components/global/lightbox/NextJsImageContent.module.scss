@@ -32,6 +32,10 @@
     border-radius: 8px;
     width: auto;
   }
+
+  video{
+    max-width: 100%;
+  }
 }
 
 .infoContainer {
@@ -67,13 +71,15 @@
 }
 
 .thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   border-radius: 6px;
   overflow: hidden;
   width: 100%;
-  transition:
-    border 0.3s,
-    box-shadow 0.3s;
+  outline: 2px solid var(--color-grayLight);
+  transition: outline 0.3s ease-in-out;
   @include breakpoint(large) {
     cursor: pointer;
   }
@@ -84,8 +90,8 @@
     margin: auto;
   }
 
-  &.selectedThumbnail {
-    border: 2px solid var(--color-green);
-    box-shadow: 0 0 5px rgba(0, 112, 255, 0.5);
+  &.selectedThumbnail,
+  &:hover {
+    outline-color: var(--color-green);
   }
 }

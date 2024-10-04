@@ -10,8 +10,6 @@ const LightboxCustom = ({
   lightboxData,
   setLightboxPopupOpen,
 }) => {
-  console.log(lightboxData);
-
   const options = {
     dragFree: false,
     loop: true,

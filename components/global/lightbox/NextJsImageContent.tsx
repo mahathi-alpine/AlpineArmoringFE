@@ -7,7 +7,11 @@ export default function NextJsImageContent({ slide }) {
 
   const thumbnails = slide.all
     ? slide.all.map(
-        (img) => img.attributes.formats?.thumbnail?.url || img.attributes.url
+        (img) =>
+          img.attributes.formats?.thumbnail?.url ||
+          (img.attributes.mime === 'video/mp4'
+            ? img.attributes.mime
+            : img.attributes.url)
       )
     : [
         slide.formats?.thumbnail?.url || slide.src,
@@ -16,14 +20,16 @@ export default function NextJsImageContent({ slide }) {
       ];
 
   const mainImageSrc = slide.all
-    ? window.innerWidth < 500
-      ? slide.all[selectedIndex].attributes.formats?.thumbnail?.url ||
-        slide.all[selectedIndex].attributes.url
-      : window.innerWidth >= 500 && window.innerWidth <= 750
-        ? slide.all[selectedIndex].attributes.formats?.medium?.url ||
+    ? slide.all[selectedIndex]?.attributes.mime === 'video/mp4'
+      ? slide.all[selectedIndex].attributes.mime
+      : window.innerWidth < 500
+        ? slide.all[selectedIndex].attributes.formats?.thumbnail?.url ||
           slide.all[selectedIndex].attributes.url
-        : slide.all[selectedIndex].attributes.formats?.large?.url ||
-          slide.all[selectedIndex].attributes.url
+        : window.innerWidth >= 500 && window.innerWidth <= 750
+          ? slide.all[selectedIndex].attributes.formats?.medium?.url ||
+            slide.all[selectedIndex].attributes.url
+          : slide.all[selectedIndex].attributes.formats?.large?.url ||
+            slide.all[selectedIndex].attributes.url
     : window.innerWidth < 500
       ? slide.formats?.thumbnail?.url || slide.src
       : window.innerWidth >= 500 && window.innerWidth < 1280
@@ -37,7 +43,7 @@ export default function NextJsImageContent({ slide }) {
   return (
     <div className={styles.nextContainer}>
       <div className={styles.imageContainer}>
-        {mainImageSrc && (
+        {mainImageSrc && mainImageSrc !== 'video/mp4' ? (
           <Image
             src={mainImageSrc}
             alt={slide.alt || 'Alpine Armoring'}
@@ -61,6 +67,13 @@ export default function NextJsImageContent({ slide }) {
             }
             priority={slide.index === selectedIndex}
           />
+        ) : (
+          <video muted autoPlay playsInline loop preload="auto" controls>
+            <source
+              src={`${slide.all[selectedIndex].attributes.url}`}
+              type={`${slide.all[selectedIndex].attributes.mime}`}
+            />
+          </video>
         )}
       </div>
 
@@ -77,14 +90,41 @@ export default function NextJsImageContent({ slide }) {
                 }`}
                 onClick={() => handleThumbnailClick(index)}
               >
-                <Image
-                  src={thumb}
-                  alt={`Thumbnail ${index + 1}`}
-                  sizes="(max-width: 767px) 15vw, 10vw"
-                  width={120}
-                  height={80}
-                  className={styles.thumbnailImage}
-                />
+                {thumb !== 'video/mp4' ? (
+                  <Image
+                    src={thumb}
+                    alt={`Thumbnail ${index + 1}`}
+                    sizes="(max-width: 767px) 15vw, 10vw"
+                    width={120}
+                    height={80}
+                    className={styles.thumbnailImage}
+                  />
+                ) : (
+                  <svg
+                    height="36"
+                    width="36"
+                    viewBox="0 0 459 459"
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke="#ffffff"
+                    fill="#FF0000"
+                  >
+                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      {' '}
+                      <g>
+                        {' '}
+                        <g>
+                          <path d="M229.5,0C102.751,0,0,102.751,0,229.5S102.751,459,229.5,459S459,356.249,459,229.5S356.249,0,229.5,0z M310.292,239.651 l-111.764,76.084c-3.761,2.56-8.63,2.831-12.652,0.704c-4.022-2.128-6.538-6.305-6.538-10.855V153.416 c0-4.55,2.516-8.727,6.538-10.855c4.022-2.127,8.891-1.857,12.652,0.704l111.764,76.084c3.359,2.287,5.37,6.087,5.37,10.151 C315.662,233.564,313.652,237.364,310.292,239.651z"></path>
+                        </g>{' '}
+                      </g>{' '}
+                    </g>
+                  </svg>
+                )}
               </div>
             ))}
           </div>
