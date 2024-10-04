@@ -22,6 +22,7 @@
     "cookies-next": "^4.1.0",
     "embla-carousel-autoplay": "^8.1.5",
     "embla-carousel-class-names": "^8.0.0-rc19",
+    "embla-carousel-fade": "^8.0.0-rc18",
     "embla-carousel-react": "^8.0.0-rc18",
     "eslint-config-next": "^14.0.3",
     "eslint-config-prettier": "^9.1.0",

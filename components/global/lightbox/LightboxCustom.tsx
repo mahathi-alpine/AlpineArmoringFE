@@ -1,20 +1,24 @@
 import styles from './LightboxCustom.module.scss';
 import Image from 'next/image';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import useEmblaCarousel from 'embla-carousel-react';
+import Fade from 'embla-carousel-fade';
 
 const LightboxCustom = ({
   isLightboxPopupOpen,
   lightboxData,
   setLightboxPopupOpen,
 }) => {
+  console.log(lightboxData);
+
   const options = {
     dragFree: false,
     loop: true,
     thumbs: true,
   };
-  const [sliderContentRef, emblaMainApi] = useEmblaCarousel(options);
+  const [sliderContentRef, emblaMainApi] = useEmblaCarousel(options, [Fade()]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: 'keepSnaps',
@@ -25,6 +29,7 @@ const LightboxCustom = ({
     (index: number) => {
       if (!emblaMainApi || !emblaThumbsApi) return;
       emblaMainApi.scrollTo(index);
+      setSelectedIndex(index);
     },
     [emblaMainApi, emblaThumbsApi]
   );
@@ -171,7 +176,8 @@ const LightboxCustom = ({
                     className={styles.lightbox_content_slider_slide}
                     key={index}
                   >
-                    {item.attributes?.url ? (
+                    {item.attributes?.url &&
+                    item.attributes.mime !== 'video/mp4' ? (
                       <Image
                         src={
                           window.innerWidth < 750
@@ -199,7 +205,21 @@ const LightboxCustom = ({
                         }
                         priority={index === 0}
                       />
-                    ) : null}
+                    ) : (
+                      <video
+                        muted
+                        autoPlay
+                        playsInline
+                        loop
+                        preload="auto"
+                        controls
+                      >
+                        <source
+                          src={`${item?.attributes.url}`}
+                          type={`${item?.attributes.mime}`}
+                        />
+                      </video>
+                    )}
                   </div>
                 ))}
               </div>
@@ -252,7 +272,11 @@ const LightboxCustom = ({
                 <div className={styles.lightbox_content_thumbs_container}>
                   {lightboxData.gallery.map((item, index) => (
                     <div
-                      className={styles.lightbox_content_thumbs_slide}
+                      className={`${styles.lightbox_content_thumbs_slide} ${
+                        index === selectedIndex
+                          ? styles.lightbox_content_thumbs_slide_active
+                          : ''
+                      }`}
                       key={index}
                     >
                       <button
@@ -260,20 +284,47 @@ const LightboxCustom = ({
                         className={styles.lightbox_content_thumbs_slide_button}
                         type="button"
                       >
-                        <Image
-                          src={
-                            item.attributes?.formats.thumbnail.url ||
-                            item.attributes?.url
-                          }
-                          alt={
-                            item.attributes?.alternativeText ||
-                            'Alpine Armoring'
-                          }
-                          width={120}
-                          height={80}
-                          sizes="(max-width: 767px) 15vw, 10vw"
-                          className={styles.lightbox_content_thumbs_slide_img}
-                        />
+                        {item.attributes?.formats ? (
+                          <Image
+                            src={
+                              item.attributes?.formats?.thumbnail.url ||
+                              item.attributes?.url
+                            }
+                            alt={
+                              item.attributes?.alternativeText ||
+                              'Alpine Armoring'
+                            }
+                            width={120}
+                            height={80}
+                            sizes="(max-width: 767px) 15vw, 10vw"
+                            className={styles.lightbox_content_thumbs_slide_img}
+                          />
+                        ) : (
+                          <svg
+                            height="36"
+                            width="36"
+                            viewBox="0 0 459 459"
+                            xmlns="http://www.w3.org/2000/svg"
+                            stroke="#ffffff"
+                            fill="#FF0000"
+                          >
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                            <g
+                              id="SVGRepo_tracerCarrier"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            ></g>
+                            <g id="SVGRepo_iconCarrier">
+                              {' '}
+                              <g>
+                                {' '}
+                                <g>
+                                  <path d="M229.5,0C102.751,0,0,102.751,0,229.5S102.751,459,229.5,459S459,356.249,459,229.5S356.249,0,229.5,0z M310.292,239.651 l-111.764,76.084c-3.761,2.56-8.63,2.831-12.652,0.704c-4.022-2.128-6.538-6.305-6.538-10.855V153.416 c0-4.55,2.516-8.727,6.538-10.855c4.022-2.127,8.891-1.857,12.652,0.704l111.764,76.084c3.359,2.287,5.37,6.087,5.37,10.151 C315.662,233.564,313.652,237.364,310.292,239.651z"></path>
+                                </g>{' '}
+                              </g>{' '}
+                            </g>
+                          </svg>
+                        )}
                       </button>
                     </div>
                   ))}

@@ -30,8 +30,17 @@
     cursor: pointer;
     transition: background 0.2s ease;
 
+    @include breakpoint(large) {
+      &:hover{
+        svg{
+          transform: scale(1.2);
+        }
+      }
+    }
+
     svg {
       width: 20px;
+      transition: transform .2s ease;
     }
   }
 
@@ -182,6 +191,10 @@
           border-radius: 8px;
           margin: auto;
         }
+
+        video{
+          max-width: 100%;
+        }
       }
     }
 
@@ -220,9 +233,16 @@
         border-radius: 6px;
         overflow: hidden;
         width: 100%;
+        text-align: center;
+        background: var(--color-dark);
+        outline: 2px solid transparent;
         transition:
-          border 0.3s,
-          box-shadow 0.3s;
+        outline 0.3s ease-in-out;
+
+        &:hover,
+        &_active{
+          outline-color: var(--color-green);
+        }
 
         button {
           width: 100%;

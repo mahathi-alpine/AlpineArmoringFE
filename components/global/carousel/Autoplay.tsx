@@ -41,6 +41,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
     loop: true,
     thumbs: false,
     variableWidth: true,
+    duration: 80,
   };
 
   const isMobile = useIsMobile();
@@ -61,8 +62,22 @@ const Autoplay: React.FC<AutoplayProps> = ({
   const [isAutoplay, setIsAutoplay] = useState(autoplay);
   const autoplayInterval = useRef<NodeJS.Timeout | null>(null);
 
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
-    if (isAutoplay && emblaMainApi) {
+    const handleVisibilityChange = () => {
+      setIsVisible(!document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isAutoplay && emblaMainApi && isVisible) {
       autoplayInterval.current = setInterval(() => {
         if (emblaMainApi.canScrollNext()) {
           emblaMainApi.scrollNext();
@@ -76,7 +91,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
     return () => {
       if (autoplayInterval.current) clearInterval(autoplayInterval.current);
     };
-  }, [isAutoplay, emblaMainApi]);
+  }, [isAutoplay, emblaMainApi, isVisible]);
 
   const handleLightboxOpen = (index: number) => {
     setSelectedIndex(index);
