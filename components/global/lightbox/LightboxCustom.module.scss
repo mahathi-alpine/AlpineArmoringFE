@@ -31,8 +31,8 @@
     transition: background 0.2s ease;
 
     @include breakpoint(large) {
-      &:hover{
-        svg{
+      &:hover {
+        svg {
           transform: scale(1.2);
         }
       }
@@ -40,7 +40,7 @@
 
     svg {
       width: 20px;
-      transition: transform .2s ease;
+      transition: transform 0.2s ease;
     }
   }
 
@@ -192,7 +192,7 @@
           margin: auto;
         }
 
-        video{
+        video {
           max-width: 100%;
         }
       }
@@ -236,11 +236,10 @@
         text-align: center;
         background: var(--color-dark);
         outline: 2px solid transparent;
-        transition:
-        outline 0.3s ease-in-out;
+        transition: outline 0.3s ease-in-out;
 
         &:hover,
-        &_active{
+        &_active {
           outline-color: var(--color-green);
         }
 
