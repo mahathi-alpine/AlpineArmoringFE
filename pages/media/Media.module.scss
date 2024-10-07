@@ -54,7 +54,7 @@
     }
 
     @include breakpoint(large) {
-      width: 80%;
+      // width: 80%;
       max-width: 1320px;
       padding-top: rem(40);
     }
@@ -88,7 +88,7 @@
     }
 
     @include breakpoint(large) {
-      width: 80%;
+      // width: 80%;
       max-width: 1320px;
       padding-top: rem(140);
     }
@@ -97,8 +97,11 @@
       @include breakpoint(medium) {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        column-gap: 32px;
+        column-gap: 16px;
         row-gap: 64px;
+      }
+      @include breakpoint(large) {
+        column-gap: 32px;
       }
     }
   }

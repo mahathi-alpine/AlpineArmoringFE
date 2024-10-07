@@ -40,11 +40,11 @@ const VideoSingle: FC<VideoSingleProps> = ({
       {props?.attributes?.URLExternal ? (
         <Image
           // src={`https://i.ytimg.com/vi/${item.attributes.URLExternal}/sd3.jpg`}
-          src={`https://i.ytimg.com/vi/${props.attributes.URLExternal}/hqdefault.jpg`}
+          src={`https://i.ytimg.com/vi/${props.attributes.URLExternal}/sddefault.jpg`}
           alt={props.attributes.title}
-          width={500}
+          width={630}
           height={400}
-          sizes="(min-width: 768px ) 40vw, 100vw"
+          sizes="(min-width: 768px ) 100vw, 80vw"
         ></Image>
       ) : null}
 

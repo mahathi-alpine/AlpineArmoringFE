@@ -4,6 +4,7 @@ import styles from './Carousel.module.scss';
 import ZoomIcon from 'components/icons/Zoom';
 
 import useEmblaCarousel from 'embla-carousel-react';
+import Fade from 'embla-carousel-fade';
 import { Thumb } from './CarouselThumbsButton';
 import {
   PrevButton,
@@ -21,7 +22,7 @@ const EmblaCarousel = (props) => {
   // const [open, setOpen] = useState(false);
   const { openLightbox, renderLightbox } = useLightbox();
 
-  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options, [Fade()]);
 
   const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
   useEffect(() => {
@@ -185,19 +186,6 @@ const EmblaCarousel = (props) => {
               ))}
             </div>
           </div>
-
-          {/* <div
-            className={`${styles.carousel_arrows} ${styles.carousel_thumbs_arrows}`}
-          >
-            <PrevButton
-              onClick={onPrevButtonClick}
-              disabled={prevBtnDisabled}
-            />
-            <NextButton
-              onClick={onNextButtonClick}
-              disabled={nextBtnDisabled}
-            />
-          </div> */}
         </div>
       ) : null}
     </div>
