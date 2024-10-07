@@ -79,7 +79,7 @@ function Inventory(props) {
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
           <Link href="/available-now">Available now</Link>
           <span>&gt;</span>
-          {categoryTitle}
+          <span>{categoryTitle}</span>
         </div>
 
         <div

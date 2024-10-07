@@ -155,21 +155,36 @@ function InventoryVehicle(props) {
             ) : null}
           </div>
 
-          <div className={`${styles.inventory_heading_description}`}>
-            <InfoIcon />
-            <p>
-              {data?.shortDescription
-                ? data?.shortDescription
-                : `This ${data?.title} is in stock and available to ship immediately`}
-            </p>
-          </div>
+          {data?.flag !== 'sold' ? (
+            <div className={`${styles.inventory_heading_description}`}>
+              <InfoIcon />
+              <p>
+                {data?.shortDescription
+                  ? data?.shortDescription
+                  : `This ${data?.title} is in stock and available to ship immediately`}
+              </p>
+            </div>
+          ) : null}
         </div>
 
         <div className={`${styles.inventory_top}`}>
           <div className={`${styles.inventory_top_gallery}`}>
-            <div className={`${styles.inventory_top_gallery_wrap}`}>
+            <div
+              className={`
+              ${styles.inventory_top_gallery_wrap}              
+              ${data?.flag == 'sold' ? styles.inventory_top_gallery_wrap_sold : ''} 
+            `}
+            >
               {topGallery ? (
                 <Carousel slides={topGallery} options={sliderTopOptions} />
+              ) : null}
+
+              {data?.flag == 'sold' ? (
+                <div
+                  className={`${styles.inventory_top_gallery_wrap_sold_label}`}
+                >
+                  <span>Sold</span>
+                </div>
               ) : null}
 
               {data?.armor_level || data?.videoURL ? (

@@ -2,6 +2,7 @@ import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Banner from 'components/global/banner/Banner';
+import Link from 'next/link';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
@@ -73,34 +74,45 @@ function Inventory(props) {
     };
   }, [itemsToRender, fetchMoreItems]);
 
-  // const findTitleBySlug = (filters, targetSlug) => {
-  //   if (!filters || !Array.isArray(filters.type)) {
-  //     return null;
-  //   }
+  const findTitleBySlug = (filters, targetSlug) => {
+    if (!filters || !Array.isArray(filters.type)) {
+      return null;
+    }
 
-  //   const matchingItem = filters.type.find(item =>
-  //     item.attributes &&
-  //     item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
-  //   );
+    const matchingItem = filters.type.find(
+      (item) =>
+        item.attributes &&
+        item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
+    );
 
-  //   return matchingItem ? matchingItem.attributes.title : null;
-  // };
+    return matchingItem ? matchingItem.attributes.title : null;
+  };
 
-  // const categoryTitle = findTitleBySlug(props?.filters, props?.query);
+  const categoryTitle = findTitleBySlug(props?.filters, props?.query);
+  const make = router.query.make;
+  const categoryTitleWithMake = (
+    <>
+      {categoryTitle}
+      {make && <span>&gt;</span>}
+      {make && <span>{make}</span>}
+    </>
+  );
 
   return (
     <>
       <div className={`${styles.listing}`}>
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
-        {/* 
-        <div className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container untilLarge-only`}>
-          <Link href="/vehicles-we-armor">Vehicles We Can Armor</Link>
+
+        <div
+          className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container untilLarge-only`}
+        >
+          <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
           <span>&gt;</span>
-          {categoryTitle}
-        </div> */}
+          {categoryTitleWithMake}
+        </div>
 
         {props.filters?.type ? (
-          <div className={`${styles.listing_all_filters} mt-0 container`}>
+          <div className={`${styles.listing_all_filters} mt0 container`}>
             <Filters props={props.filters} plain />
           </div>
         ) : null}

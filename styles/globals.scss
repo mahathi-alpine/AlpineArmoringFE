@@ -606,6 +606,8 @@ $shapeColor: var(--color-background);
 
   span {
     margin: 0 rem(8);
+    text-transform: capitalize;
+    display: inline-block;
     @include breakpoint(large) {
       margin: 0 rem(12);
     }
