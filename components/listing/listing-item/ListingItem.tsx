@@ -83,20 +83,20 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         <ul className={`${styles.inventory_item_info}`}>
           {data.VIN ? (
             <li className={`${styles.inventory_item_info_item}`}>
-              <span>VIN:</span>
-              {data.VIN}
+              <strong>VIN:</strong>
+              <span>{data.VIN}</span>
             </li>
           ) : null}
           {data.vehicleID ? (
             <li className={`${styles.inventory_item_info_item}`}>
-              <span>Vehicle ID:</span>
-              {data.vehicleID}
+              <strong>Vehicle ID:</strong>
+              <span>{data.vehicleID}</span>
             </li>
           ) : null}
           {data.engine ? (
             <li className={`${styles.inventory_item_info_item}`}>
-              <span>Engine:</span>
-              {data.engine}
+              <strong>Engine:</strong>
+              <span>{data.engine}</span>
             </li>
           ) : null}
         </ul>

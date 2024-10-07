@@ -220,11 +220,12 @@
   &_level {
     display: inline-block;
     margin-bottom: rem(30);
-    padding: rem(10) rem(24);
+    padding: rem(10) rem(14);
     text-transform: uppercase;
     background: var(--color-dark);
     font-weight: var(--font-medium);
     font-size: rem(13);
+    letter-spacing: -0.5px;
     color: var(--color-white);
     border-radius: 8px;
     transition:
@@ -261,9 +262,14 @@
         }
       }
 
-      span {
+      strong {
         text-transform: uppercase;
         font-weight: var(--font-demi);
+        margin-right: 4px;
+      }
+
+      span{
+        text-align: right;
       }
     }
   }
