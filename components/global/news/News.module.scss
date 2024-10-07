@@ -131,15 +131,17 @@
     &_image {
       display: block;
       position: relative;
-      aspect-ratio: 2 / 1;
+      aspect-ratio: 16 / 9;
       border-radius: 12px;
-      overflow: hidden;
+      overflow: hidden;  
+
       @include breakpoint(medium) {
         width: 50%;
-        aspect-ratio: 2.3 / 1;
       }
+
       img {
         object-fit: cover;
+        
         @include breakpoint(medium) {
           transition: transform 0.3s ease-in-out;
         }

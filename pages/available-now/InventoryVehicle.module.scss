@@ -142,8 +142,11 @@
         padding: rem(12) 0;
         font-weight: var(--font-medium);
 
-        @include breakpoint(large) {
-          &:first-child {
+        &:first-child {
+          span{
+            text-transform: uppercase;
+          }
+          @include breakpoint(large) {
             padding-top: 0;
           }
         }
