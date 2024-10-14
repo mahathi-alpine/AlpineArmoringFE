@@ -36,7 +36,7 @@ export default function NextJsImage({ slide }) {
             }
             style={{
               height: 'auto',
-              width: 'auto',
+              // width: 'auto',
               margin: '0 auto',
               objectFit: 'contain',
             }}

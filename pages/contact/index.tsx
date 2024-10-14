@@ -7,7 +7,22 @@ import Accordion from 'components/global/accordion/Accordion';
 import Image from 'next/image';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
+import useLightbox from 'components/global/lightbox/useLightbox';
+import NextJsImage from 'components/global/lightbox/NextJsImage';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+
 function Contact(props) {
+  const { openLightbox, renderLightbox } = useLightbox();
+  type CustomSlide = {
+    src: string;
+    width?: number;
+    height?: number;
+    alt?: string;
+    unoptimized?: boolean;
+    index?: number;
+    selectedIndex?: number;
+  };
+
   const faqs = props?.pageData?.fa_qs;
 
   const convertMarkdown = useMarkdownToHtml();
@@ -79,13 +94,36 @@ function Contact(props) {
             </div>
 
             {props.pageData?.mapImage?.data && (
-              <div className={styles.contact_map}>
-                <Image
-                  src={props.pageData?.mapImage.data.attributes.url}
-                  alt={'Alpine Armoring Location'}
-                  fill
-                />
-              </div>
+              <>
+                <div className={styles.contact_map}>
+                  <Image
+                    src={props.pageData?.mapImage.data.attributes.url}
+                    alt={'Alpine Armoring Location'}
+                    fill
+                    onClick={() => {
+                      openLightbox();
+                    }}
+                  />
+                </div>
+
+                {renderLightbox({
+                  slides: [
+                    {
+                      src: props.pageData?.mapImage.data.attributes.url,
+                      width: 874,
+                      height: 295,
+                      alt: 'Alpine Armoring Location',
+                      unoptimized: true,
+                    },
+                  ] as CustomSlide[],
+                  plugins: [Zoom],
+                  render: {
+                    slide: NextJsImage,
+                    buttonPrev: () => null,
+                    buttonNext: () => null,
+                  },
+                })}
+              </>
             )}
           </div>
         </div>

@@ -208,7 +208,7 @@ export async function getServerSideProps(context) {
 
   const filteredVehicles = {
     ...vehicles,
-    data: vehicles.data.filter((vehicle) => {
+    data: vehicles.data?.filter((vehicle) => {
       if (!q) return true;
 
       const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
