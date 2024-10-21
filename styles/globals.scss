@@ -649,7 +649,41 @@ $shapeColor: var(--color-background);
 }
 
 .b-globe {
+  margin-bottom: rem(24);
+  @include breakpoint(large) {
+    margin-bottom: rem(100);
+  }
+
   & * {
     max-width: 100% !important;
+  }
+
+  &_popup{
+    position: fixed;
+    top: 80px;
+    left: 8px;
+    right: 8px;
+    max-width: 400px !important;
+    background: white;
+    padding: 10px 20px 10px 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    h3{
+      font-weight: var(--font-medium);
+      margin-bottom: 4px;
+    }
+
+    p{
+      font-size: 14px;
+    }
+
+    button{
+      position: absolute;
+      right: 4px;
+      top: 3px;
+      font-weight: var(--font-medium);
+      cursor: pointer;
+    }
   }
 }

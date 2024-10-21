@@ -23,7 +23,6 @@
     position: relative;
     height: 100%;
     background: #030303;
-    // overflow: hidden;
 
     &:after {
       position: absolute;
@@ -47,6 +46,11 @@
     right: 0;
     padding: rem(32) rem(16) rem(72) rem(16);
     z-index: 3;
+
+    @include breakpoint(medium) {
+      padding: rem(32) rem(32) rem(72) rem(32);
+    }
+
     @include breakpoint(large) {
       display: flex;
       justify-content: space-between;
@@ -55,6 +59,7 @@
       max-width: 2010px;
       margin: auto;
     }
+
     @include breakpoint(huge) {
       padding: rem(90) rem(48) rem(128) rem(48);
     }
