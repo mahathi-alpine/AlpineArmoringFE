@@ -658,7 +658,7 @@ $shapeColor: var(--color-background);
     max-width: 100% !important;
   }
 
-  &_popup{
+  &_popup {
     position: fixed;
     top: 80px;
     left: 8px;
@@ -667,18 +667,18 @@ $shapeColor: var(--color-background);
     background: white;
     padding: 10px 20px 10px 10px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-    h3{
+    h3 {
       font-weight: var(--font-medium);
       margin-bottom: 4px;
     }
 
-    p{
+    p {
       font-size: 14px;
     }
 
-    button{
+    button {
       position: absolute;
       right: 4px;
       top: 3px;
