@@ -26,6 +26,8 @@ interface Location {
   lat: number;
   lng: number;
   description?: string;
+  color?: string;
+  position?: 'top' | 'right' | 'bottom';
 }
 
 function About(props) {
@@ -123,7 +125,8 @@ function About(props) {
       name: 'Canada',
       lat: 56.1304,
       lng: -106.3468,
-      description: 'Our headquarters in the heart of Canada.',
+      description: 'Alpine North American Partner',
+      color: '#b70303',
     },
     {
       name: 'Chile',
@@ -141,7 +144,8 @@ function About(props) {
       name: 'Colombia',
       lat: 4.5709,
       lng: -74.2973,
-      description: 'Our headquarters in the heart of Colombia.',
+      description: 'Alpine South American Partner',
+      color: '#b70303',
     },
     {
       name: 'Congo [DRC]',
@@ -160,6 +164,7 @@ function About(props) {
       lat: 7.54,
       lng: -5.5471,
       description: "Our headquarters in the heart of Cote d'Ivoire.",
+      position: 'top',
     },
     {
       name: 'Cyprus',
@@ -232,6 +237,7 @@ function About(props) {
       lat: 18.9712,
       lng: -72.2852,
       description: 'Our headquarters in the heart of Haiti.',
+      position: 'top',
     },
     {
       name: 'Hong Kong',
@@ -274,6 +280,7 @@ function About(props) {
       lat: 30.5852,
       lng: 36.2384,
       description: 'Our headquarters in the heart of Jordan.',
+      position: 'bottom',
     },
     {
       name: 'Kazakhstan',
@@ -316,6 +323,7 @@ function About(props) {
       lat: 6.4281,
       lng: -9.4295,
       description: 'Our headquarters in the heart of Liberia.',
+      position: 'bottom',
     },
     {
       name: 'Malaysia',
@@ -400,6 +408,7 @@ function About(props) {
       lat: 18.0753,
       lng: -63.06,
       description: 'Our headquarters in the heart of Saint Martin.',
+      position: 'bottom',
     },
     {
       name: 'Saudi Arabia',
@@ -495,7 +504,8 @@ function About(props) {
       name: 'United Arab Emirates',
       lat: 23.4241,
       lng: 53.8478,
-      description: 'Our headquarters in the heart of United Arab Emirates.',
+      description: 'Alpine International Partner',
+      color: '#b70303',
     },
     {
       name: 'United Kingdom',
@@ -507,7 +517,9 @@ function About(props) {
       name: 'United States',
       lat: 37.0902,
       lng: -95.7129,
-      description: 'Our headquarters in the heart of United States.',
+      description:
+        'Headquarters in Virginia, with regional offices in California, Nevada, and Texas',
+      color: '#b70303',
     },
     {
       name: 'Uzbekistan',

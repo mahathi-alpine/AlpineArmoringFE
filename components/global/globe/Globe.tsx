@@ -6,6 +6,8 @@ interface Location {
   lat: number;
   lng: number;
   description?: string;
+  color?: string;
+  position?: 'top' | 'right' | 'bottom';
 }
 
 interface GlobeComponentProps {
@@ -97,13 +99,17 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
         labelLat={(d: Location) => d.lat}
         labelLng={(d: Location) => d.lng}
         labelText={(d: Location) => d.name}
-        labelAltitude={0.01}
+        labelAltitude={0}
         labelSize={0.8}
         labelDotRadius={0.5}
         onLabelClick={handleLabelClick}
         labelLabel={(d: Location) => d.name}
-        labelDotOrientation={() => 'right'}
-        labelColor={() => 'rgba(255, 165, 0, 0.75)'}
+        labelDotOrientation={(d: Location) =>
+          (d.position || 'right') as 'top' | 'right' | 'bottom'
+        }
+        labelColor={(d: Location) =>
+          d.color ? d.color : 'rgba(255, 165, 0, 0.75)'
+        }
         labelResolution={2}
       />
       {selectedLocation && (
