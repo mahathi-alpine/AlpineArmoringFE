@@ -123,13 +123,6 @@ function About(props) {
       description: 'Our headquarters in the heart of Cambodia.',
     },
     {
-      name: 'Canada',
-      lat: 56.1304,
-      lng: -106.3468,
-      description: 'Alpine North American Partner',
-      color: '#b70303',
-    },
-    {
       name: 'Chile',
       lat: -35.6751,
       lng: -71.543,
@@ -517,14 +510,6 @@ function About(props) {
       description: 'Our headquarters in the heart of United Kingdom.',
     },
     {
-      name: 'United States',
-      lat: 37.0902,
-      lng: -95.7129,
-      description:
-        'Headquarters in Virginia, with regional offices in California, Nevada, and Texas',
-      color: '#b70303',
-    },
-    {
       name: 'Uzbekistan',
       lat: 41.3775,
       lng: 64.5853,
@@ -547,30 +532,35 @@ function About(props) {
       lat: 38.888691,
       lng: -77.417488,
       description: 'Alpine Armoring Headquarters',
+      color: '#b70303',
     },
     {
       name: 'Nevada',
       lat: 36.16909,
       lng: -115.140579,
       description: 'Alpine Armoring Regional Office',
+      color: '#b70303',
     },
     {
       name: 'California',
       lat: 32.715759,
       lng: -117.163818,
       description: 'Alpine Armoring Regional Office',
+      color: '#b70303',
     },
     {
       name: 'Texas',
       lat: 32.777981,
       lng: -96.796211,
       description: 'Alpine Armoring Regional Office',
+      color: '#b70303',
     },
     {
       name: 'Ontario',
       lat: 51.253777,
       lng: -85.323212,
       description: 'Alpine Armoring Regional Office',
+      color: '#b70303',
     },
   ];
 
