@@ -92,7 +92,7 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
       <Globe
         ref={globeEl}
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-        // bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+        bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
         backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
         backgroundColor="rgba(0,0,0,0)"
         labelsData={locations}
@@ -104,12 +104,11 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
         labelDotRadius={0.5}
         onLabelClick={handleLabelClick}
         labelLabel={(d: Location) => d.name}
+        animateIn={false}
         labelDotOrientation={(d: Location) =>
           (d.position || 'right') as 'top' | 'right' | 'bottom'
         }
-        labelColor={(d: Location) =>
-          d.color ? d.color : 'rgba(255, 165, 0, 0.75)'
-        }
+        labelColor={(d: Location) => (d.color ? d.color : '#FFD700')}
         labelResolution={2}
       />
       {selectedLocation && (

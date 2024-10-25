@@ -72,6 +72,7 @@ function About(props) {
       lat: 25.0343,
       lng: -77.3963,
       description: 'Our headquarters in the heart of Bahamas.',
+      position: 'top',
     },
     {
       name: 'Barbados',
@@ -274,6 +275,7 @@ function About(props) {
       lat: 18.1096,
       lng: -77.2975,
       description: 'Our headquarters in the heart of Jamaica.',
+      position: 'bottom',
     },
     {
       name: 'Jordan',
@@ -493,6 +495,7 @@ function About(props) {
       lat: 21.694,
       lng: -71.7979,
       description: 'Our headquarters in the heart of Turks and Caicos Islands.',
+      position: 'top',
     },
     {
       name: 'Uganda',
@@ -538,6 +541,36 @@ function About(props) {
       lat: 14.0583,
       lng: 108.2772,
       description: 'Our headquarters in the heart of Vietnam.',
+    },
+    {
+      name: 'Virginia',
+      lat: 38.888691,
+      lng: -77.417488,
+      description: 'Alpine Armoring Headquarters',
+    },
+    {
+      name: 'Nevada',
+      lat: 36.16909,
+      lng: -115.140579,
+      description: 'Alpine Armoring Regional Office',
+    },
+    {
+      name: 'California',
+      lat: 32.715759,
+      lng: -117.163818,
+      description: 'Alpine Armoring Regional Office',
+    },
+    {
+      name: 'Texas',
+      lat: 32.777981,
+      lng: -96.796211,
+      description: 'Alpine Armoring Regional Office',
+    },
+    {
+      name: 'Ontario',
+      lat: 51.253777,
+      lng: -85.323212,
+      description: 'Alpine Armoring Regional Office',
     },
   ];
 
