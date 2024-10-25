@@ -556,9 +556,9 @@ function About(props) {
       color: '#b70303',
     },
     {
-      name: 'Ontario',
-      lat: 51.253777,
-      lng: -85.323212,
+      name: 'Canada',
+      lat: 43.653225,
+      lng: -79.383186,
       description: 'Alpine Armoring Regional Office',
       color: '#b70303',
     },
