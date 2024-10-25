@@ -111,10 +111,10 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
         labelColor={(d: Location) => (d.color ? d.color : '#FFD700')}
         labelResolution={2}
       />
-      {selectedLocation && (
+      {selectedLocation?.description && (
         <div className={`b-globe_popup`}>
           <h3>{selectedLocation.name}</h3>
-          <p>{selectedLocation.description || 'No description available.'}</p>
+          <p>{selectedLocation.description}</p>
           <button onClick={() => setSelectedLocation(null)}>X</button>
         </div>
       )}
