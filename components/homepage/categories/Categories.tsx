@@ -8,6 +8,11 @@ const Categories = ({ props, allVehiclesImage }) => {
     <div className={`${styles.categories} container`}>
       {props.map((item) => {
         const data = item.attributes;
+
+        if (data.title == 'Vans & Busses') {
+          return;
+        }
+
         return (
           <div
             className={`${styles.categories_item} observe fade-in-up`}

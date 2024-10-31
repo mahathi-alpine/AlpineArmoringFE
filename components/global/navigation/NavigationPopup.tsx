@@ -44,6 +44,10 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
           path: '/vehicles-we-armor/type/armored-pickup-trucks',
         },
         {
+          text: 'Vans & Busses',
+          path: '/vehicles-we-armor/type/vans-and-busses',
+        },
+        {
           text: 'Law Enforcement',
           path: '/vehicles-we-armor/type/armored-law-enforcement',
         },

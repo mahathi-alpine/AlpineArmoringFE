@@ -303,7 +303,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           item.attributes.title.toLowerCase() ==
                             'special of the month'.toLowerCase()) ||
                         (baseUrl == '/vehicles-we-armor' &&
-                          item.attributes.title == 'Armored Pre-Owned')
+                          item.attributes.title == 'Armored Pre-Owned') ||
+                        (baseUrl == '/available-now' &&
+                          item.attributes.title == 'Vans & Busses')
                       ) {
                         return;
                       }
