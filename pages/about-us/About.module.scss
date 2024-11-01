@@ -1,5 +1,4 @@
 .about {
-
   &_text {
     margin: rem(8) auto rem(24) auto;
     font-size: rem(15);
@@ -219,7 +218,7 @@
     }
   }
 
-  &_quote{  
+  &_quote {
     @include breakpoint(untilLarge) {
       margin-top: -30px;
       margin-bottom: -32px;
