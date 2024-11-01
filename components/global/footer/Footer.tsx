@@ -14,9 +14,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const Footer = (isDarkMode) => {
-  const router = useRouter(); // Initialize useRouter
-  const currentRoute = router.pathname; // Get the current route
+const Footer = (props) => {
+  const router = useRouter();
+  const currentRoute = router.pathname;
   const links = [
     { path: '/', text: 'Home' },
     {
@@ -41,7 +41,8 @@ const Footer = (isDarkMode) => {
     <footer
       className={`
         ${styles.footer} 
-        ${isDarkMode.isDarkMode ? styles.footer_dark : ''}        
+        ${props.isDarkMode ? styles.footer_dark : ''}    
+        ${props.isFooterPadding0 ? styles.footer_topPadding0 : ''}      
       `}
     >
       <div className={`${styles.footer_inner} container`}>

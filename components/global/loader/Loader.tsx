@@ -5,7 +5,7 @@ const Default = () => {
     <div className="loaderAbsolute">
       <div className="loaderAbsolute_inner">
         <Image
-          src="/assets/Alpine-loading-icon-clean.gif"
+          src="/assets/Alpine-loading.gif"
           alt="Alpine loading gif"
           width={120}
           height={120}

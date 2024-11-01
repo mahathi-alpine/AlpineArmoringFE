@@ -9,7 +9,7 @@ const Categories = ({ props, allVehiclesImage }) => {
       {props.map((item) => {
         const data = item.attributes;
 
-        if (data.title == 'Vans & Busses') {
+        if (data.title == 'Vans & Buses') {
           return;
         }
 

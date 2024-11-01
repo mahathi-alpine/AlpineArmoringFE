@@ -1,5 +1,4 @@
 .about {
-  // padding-bottom: rem(64);
 
   &_text {
     margin: rem(8) auto rem(24) auto;
@@ -219,7 +218,15 @@
       }
     }
   }
+
+  &_quote{  
+    @include breakpoint(untilLarge) {
+      margin-top: -30px;
+      margin-bottom: -32px;
+    }
+  }
 }
+
 .certificate_container {
   display: flex;
   align-items: flex-start;

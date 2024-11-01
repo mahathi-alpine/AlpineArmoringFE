@@ -60,11 +60,15 @@ const Layout = ({ children }) => {
   ];
   const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
   const pathsPadding0 = ['/news/', '/ballistic-testing'];
+  const footerPadding0 = ['/available-now'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)
   );
   const isDarkFooter = pathsDarkFooter.some((path) =>
+    router.pathname.startsWith(path)
+  );
+  const isFooterPadding0 = footerPadding0.some((path) =>
     router.pathname.startsWith(path)
   );
   const isHomepage = router.pathname === '/';
@@ -202,7 +206,7 @@ const Layout = ({ children }) => {
 
         <ScrollToTopButton />
 
-        <Footer isDarkMode={isDarkFooter} />
+        <Footer isDarkMode={isDarkFooter} isFooterPadding0={isFooterPadding0} />
       </div>
     </>
   );

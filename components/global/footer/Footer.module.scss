@@ -12,6 +12,10 @@
     padding-bottom: rem(40);
   }
 
+  &_topPadding0{
+    padding-top: 0;
+  }
+
   &_dark {
     background: #101010 url(/assets/noise4.png);
     background-size: 30px !important;
@@ -373,15 +377,20 @@
       }
 
       .footer_image {
-        flex: 1;
-        position: relative;
-        height: 200px;
-
-        img {
-          object-fit: contain;
-        }
         @include breakpoint(small) {
           display: none;
+        }
+        @include breakpoint(medium) {
+          flex: 1;
+          position: relative;
+          height: 120px;
+  
+          img {
+            object-fit: contain;
+          }
+        }
+        @include breakpoint(large) {
+          height: 200px;
         }
       }
     }

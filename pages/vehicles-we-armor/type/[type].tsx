@@ -127,66 +127,22 @@ function Inventory(props) {
           ) : (
             <div className={`${styles.listing_empty}`}>No Vehicles Found</div>
           )}
-
-          {/* {filteredByQ?.length < 1 ? (
-            <div className={`${styles.listing_empty}`}>
-              <h2>No Vehicles Found</h2>
-            </div>
-          ) : null}
-
-          {filteredByQ?.length > 0 && !isLoading ? (
-            <div className={`${styles.listing_list}`}>
-              {filteredByQ.map((item, index) => (
-                <InventoryItem key={item.id} props={item} index={index} />
-              ))}
-            </div>
-          ) : null} */}
         </div>
       </div>
 
-      <div
-        className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-        style={{ opacity: loading ? 1 : 0 }}
-      >
-        Loading...
-      </div>
+      {loading ? (
+        <div
+          className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
+          style={{ opacity: loading ? 1 : 0 }}
+        >
+          Loading...
+        </div>
+      ) : null}
 
       <div className={`observe bottomObserver`}></div>
     </>
   );
 }
-
-// export async function getStaticPaths() {
-//   try {
-//     const slugsResponse = await getPageData({
-//       route: 'categories',
-//       fields: 'fields[0]=slug',
-//       populate: '/',
-//     });
-
-//     if (!Array.isArray(slugsResponse.data)) {
-//       throw new Error('Invalid data format');
-//     }
-
-//     const paths = slugsResponse.data.reduce((acc, item) => {
-//       if (item.attributes && item.attributes.slug) {
-//         acc.push({ params: { type: item.attributes.slug } });
-//       }
-//       return acc;
-//     }, []);
-
-//     return {
-//       paths,
-//       fallback: true,
-//     };
-//   } catch (error) {
-//     console.error('Error fetching slugs:', error);
-//     return {
-//       paths: [],
-//       fallback: false,
-//     };
-//   }
-// }
 
 export async function getServerSideProps(context) {
   // Fetching Vehicles

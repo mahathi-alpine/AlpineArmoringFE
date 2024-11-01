@@ -147,12 +147,14 @@ function VehicleWeArmor(props) {
         </div>
       </div>
 
-      <div
-        className={`${styles.listing_loading}`}
-        style={{ opacity: loading ? 1 : 0 }}
-      >
-        Loading...
-      </div>
+      {loading ? (
+        <div
+          className={`${styles.listing_loading}`}
+          style={{ opacity: loading ? 1 : 0 }}
+        >
+          Loading...
+        </div>
+      ) : null}
 
       <div className={`observe bottomObserver`}></div>
     </>

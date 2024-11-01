@@ -25,8 +25,8 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
           path: '/vehicles-we-armor/type/armored-pickup-trucks',
         },
         {
-          text: 'Vans & Busses',
-          path: '/vehicles-we-armor/type/vans-and-busses',
+          text: 'Vans & Buses',
+          path: '/vehicles-we-armor/type/vans-and-buses',
         },
         {
           text: 'Law Enforcement',
