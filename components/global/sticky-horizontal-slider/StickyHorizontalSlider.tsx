@@ -137,7 +137,7 @@ const StickyHorizontalSlider = ({
           src: item.attributes?.image.data?.attributes.url,
           width: item.attributes?.image.data?.attributes.width,
           height: item.attributes?.image.data?.attributes.height,
-          title: item.attributes?.image.data?.attributes.title,
+          title: item.attributes?.title,
           formats: item.attributes?.image.data?.attributes.formats,
           alt: item.attributes?.image.data?.attributes.alternativeText,
         })),
