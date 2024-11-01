@@ -6,6 +6,7 @@ import Seo from '../components/Seo';
 import Loader from 'components/global/loader/Loader';
 import { install } from 'resize-observer';
 import useLanguageSwitcher from 'hooks/useLanguageSwitcher';
+import CookieConsent from 'components/global/cookie-consent/CookieConsent';
 
 export default function App({ Component, pageProps }) {
   const seoData = pageProps.seoData;
@@ -73,6 +74,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
+        <CookieConsent />
       </Layout>
     </>
   );
