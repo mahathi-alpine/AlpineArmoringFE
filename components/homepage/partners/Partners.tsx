@@ -4,8 +4,8 @@ import Image from 'next/image';
 const Partners = (props) => {
   return (
     <div className={`${styles.partners} container`}>
-      <h2 className={`c-title block-reveal observe`}>
-        <span>Industry Partners</span>
+      <h2 className={`${styles.partners_heading} block-reveal observe`}>
+        Industry Partners
       </h2>
       <div className={`${styles.partners_wrap}`}>
         {props.props.map((item) => (

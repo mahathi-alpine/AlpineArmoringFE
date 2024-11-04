@@ -12,6 +12,19 @@
     flex-wrap: wrap;
   }
 
+  &_heading{
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    text-transform: uppercase;
+
+    @include breakpoint(medium) {
+      margin-bottom: 3rem;
+      font-size: 2rem;
+    }
+  }
+
   span {
     font-weight: var(--font-regular);
   }
