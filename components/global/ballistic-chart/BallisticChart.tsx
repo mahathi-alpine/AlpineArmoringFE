@@ -1,7 +1,10 @@
-import styles from './BallisticChart.module.scss';
-import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
-import BallisticChartChosen from './BallisticChartChosen';
+import styles from './BallisticChart.module.scss';
+import HeaderItem from './BallisticChartHeaderItem';
+import NavigationItem from './BallisticChartNavigationItem';
+import TableRow from './BallisticChartTableRow';
+import dynamic from 'next/dynamic';
+const BallisticChartChosen = dynamic(() => import('./BallisticChartChosen'));
 
 const BallisticChart = () => {
   const items = [
@@ -199,6 +202,7 @@ const BallisticChart = () => {
     },
   ];
 
+  // State
   const [selectedRows, setSelectedRows] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showChosen, setShowChosen] = useState(false);
@@ -206,75 +210,83 @@ const BallisticChart = () => {
   const [moreSelected, setMoreSelected] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
 
+  // Refs
   const containerRef = useRef(null);
   const tableRef = useRef(null);
   const interactedPopupRef = useRef(null);
 
-  const setRowActive = (index) => {
+  // Handlers
+  const handleRowSelection = (index) => {
     const currentSelectedRows = [...selectedRows];
     const currentSelectedLevels = [...selectedLevels];
-
     const row = tableRef.current.children[index];
-
     const isActive = row.classList.contains(styles.ballistic_row_active);
+    const isMobile = window.innerWidth < 1280;
 
     if (window.innerWidth >= 1280) {
       containerRef.current.classList.add(styles.ballistic_comparisonActive);
     }
 
     if (isActive) {
-      row.classList.remove(styles.ballistic_row_active);
-      setShowPopup(false);
-
-      if (
-        document.querySelectorAll(`.${styles.ballistic_row_active}`).length < 1
-      ) {
-        containerRef.current.classList.remove(
-          styles.ballistic_comparisonActive
-        );
-      }
-
-      if (window.innerWidth < 1280) {
-        const rowIndex = currentSelectedRows.indexOf(index);
-        currentSelectedRows.splice(rowIndex, 1);
-        currentSelectedLevels.splice(rowIndex, 1);
-        setMoreSelected(false);
-      }
+      handleDeselection(row, currentSelectedRows, currentSelectedLevels, index);
     } else if (currentSelectedRows.length < 2) {
-      row.classList.add(styles.ballistic_row_active);
-      if (window.innerWidth < 1280) {
-        currentSelectedRows.push(index);
-        currentSelectedLevels.push(items[index].level);
-        setShowPopup(true);
-      }
-    } else {
-      if (window.innerWidth < 1280) {
-        setShowPopup(true);
-        setMoreSelected(true);
-      }
+      handleNewSelection(
+        row,
+        currentSelectedRows,
+        currentSelectedLevels,
+        index,
+        isMobile
+      );
+    } else if (isMobile) {
+      setShowPopup(true);
+      setMoreSelected(true);
     }
 
-    if (window.innerWidth < 1280) {
+    if (isMobile) {
       setSelectedRows(currentSelectedRows);
       setSelectedLevels(currentSelectedLevels);
     }
   };
 
-  const closePopup = () => {
+  const handleDeselection = (
+    row,
+    currentSelectedRows,
+    currentSelectedLevels,
+    index
+  ) => {
+    row.classList.remove(styles.ballistic_row_active);
     setShowPopup(false);
-  };
 
-  const showChosenItems = () => {
-    if (selectedRows.length === 2) {
-      setShowChosen(true);
+    if (
+      document.querySelectorAll(`.${styles.ballistic_row_active}`).length < 1
+    ) {
+      containerRef.current.classList.remove(styles.ballistic_comparisonActive);
+    }
+
+    if (window.innerWidth < 1280) {
+      const rowIndex = currentSelectedRows.indexOf(index);
+      currentSelectedRows.splice(rowIndex, 1);
+      currentSelectedLevels.splice(rowIndex, 1);
+      setMoreSelected(false);
     }
   };
 
-  const closePopupComparison = () => {
-    setShowPopup(false);
-    setShowChosen(false);
+  const handleNewSelection = (
+    row,
+    currentSelectedRows,
+    currentSelectedLevels,
+    index,
+    isMobile
+  ) => {
+    row.classList.add(styles.ballistic_row_active);
+    if (isMobile) {
+      currentSelectedRows.push(index);
+      currentSelectedLevels.push(items[index].level);
+      setShowPopup(true);
+    }
   };
 
+  // Effects
   useEffect(() => {
     if (window.innerWidth < 1280) {
       const handleScroll = () => {
@@ -286,448 +298,155 @@ const BallisticChart = () => {
       };
 
       window.addEventListener('scroll', handleScroll);
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
+      return () => window.removeEventListener('scroll', handleScroll);
     }
   }, []);
 
   useEffect(() => {
     if (window.innerWidth < 1280) {
       const handleInteraction = () => {
-        if (!hasInteracted) {
-          if (window.pageYOffset > 100) {
-            setHasInteracted(true);
-          }
+        if (!hasInteracted && window.pageYOffset > 100) {
+          setHasInteracted(true);
         } else {
           interactedPopupRef.current?.classList.add(
-            `${styles.ballistic_popup_interact_disable}`
+            styles.ballistic_popup_interact_disable
           );
         }
       };
 
-      const currentContainer = containerRef.current;
-
-      if (currentContainer) {
-        currentContainer.addEventListener('touchstart', handleInteraction);
-
-        return () => {
-          currentContainer.removeEventListener('touchstart', handleInteraction);
-        };
-      }
+      containerRef.current?.addEventListener('touchstart', handleInteraction);
+      return () =>
+        containerRef.current?.removeEventListener(
+          'touchstart',
+          handleInteraction
+        );
     }
   }, [hasInteracted]);
 
+  // Render helpers
+  const renderHeaderItems = () => (
+    <div className={styles.ballistic_header_inner}>
+      <HeaderItem
+        src="ballistic_logo"
+        alt="AlpineLogo"
+        mobileWidth={132}
+        mobileHeight={47}
+        desktopWidth={80}
+        desktopHeight={122}
+        styles={styles}
+      />
+      <HeaderItem
+        src="heading_weapon"
+        alt="Weapon"
+        mobileWidth={243}
+        mobileHeight={64}
+        desktopWidth={230}
+        desktopHeight={50}
+        styles={styles}
+      />
+      <HeaderItem
+        src="heading_levels"
+        alt="Levels"
+        mobileWidth={227}
+        mobileHeight={64}
+        desktopWidth={353}
+        desktopHeight={143}
+        styles={styles}
+      />
+      <HeaderItem
+        src="heading_projectile"
+        alt="Projectile"
+        mobileWidth={303}
+        mobileHeight={92}
+        desktopWidth={379}
+        desktopHeight={135}
+        styles={styles}
+      />
+      <HeaderItem
+        src="heading_best"
+        alt="No one protects you better."
+        desktopWidth={140}
+        desktopHeight={78}
+        styles={styles}
+      />
+    </div>
+  );
+
+  const renderNavigation = () => (
+    <div className={styles.ballistic_navigation}>
+      <NavigationItem label="" />
+      <NavigationItem label="Name" />
+      <NavigationItem label="Caliber" />
+      <NavigationItem label="Class" />
+      <NavigationItem
+        label="Stanag"
+        imageSrc="stanag.png"
+        imageWidth={67}
+        imageHeight={24}
+      />
+      <NavigationItem
+        label="UL"
+        imageSrc="chartNav_ul.png"
+        imageWidth={32}
+        imageHeight={17}
+      />
+      <NavigationItem
+        label="Alpine"
+        imageSrc="alpine.png"
+        imageWidth={103}
+        imageHeight={20}
+      />
+      <NavigationItem
+        label="Nij"
+        imageSrc="nij.png"
+        imageWidth={37}
+        imageHeight={20}
+      />
+      <NavigationItem
+        label="Cen"
+        imageSrc="chartNav_cen.png"
+        imageWidth={35}
+        imageHeight={23}
+      />
+      <NavigationItem label="Weight±" />
+      <NavigationItem label="Type" />
+      <NavigationItem label="Velocity±" />
+      <NavigationItem label="Compare" />
+      <NavigationItem label="" />
+    </div>
+  );
+
   return (
     <>
-      <div className={`${styles.ballistic}`}>
-        <div className={`${styles.ballistic_wrapper}`} ref={containerRef}>
-          <div className={`${styles.ballistic_header}`}>
-            <div className={`${styles.ballistic_header_inner}`}>
-              <div className={`${styles.ballistic_header_item}`}>
-                <Image
-                  src="/assets/ballistic/ballistic_logo_mobile.png"
-                  alt="AlpineLogo"
-                  title="Alpine Logo"
-                  width="132"
-                  height="47"
-                  className="untilLarge-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-                <Image
-                  src="/assets/ballistic/ballistic_logo.png"
-                  alt="AlpineLogo"
-                  title="Alpine Logo"
-                  width="80"
-                  height="122"
-                  className="large-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_header_item}`}>
-                <Image
-                  src="/assets/ballistic/heading_weapon_mobile.png"
-                  alt="Weapon"
-                  title="Weapon"
-                  width="243"
-                  height="64"
-                  className="untilLarge-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-                <Image
-                  src="/assets/ballistic/heading_weapon.png"
-                  alt="Weapon"
-                  title="Weapon"
-                  width="230"
-                  height="50"
-                  className="large-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_header_item}`}>
-                <Image
-                  src="/assets/ballistic/heading_levels_mobile.png"
-                  alt="Levels"
-                  title="Levels"
-                  width="227"
-                  height="64"
-                  className="untilLarge-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-                <Image
-                  src="/assets/ballistic/heading_levels.png"
-                  alt="Levels"
-                  title="Levels"
-                  width="353"
-                  height="143"
-                  className="large-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_header_item}`}>
-                <Image
-                  src="/assets/ballistic/heading_projectile_mobile.png"
-                  alt="Projectile"
-                  title="Projectile"
-                  width="303"
-                  height="92"
-                  className="untilLarge-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-                <Image
-                  src="/assets/ballistic/heading_projectile.png"
-                  alt="Projectile"
-                  title="Projectile"
-                  width="379"
-                  height="135"
-                  className="large-only"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_header_item}`}>
-                <Image
-                  src="/assets/ballistic/heading_best.png"
-                  alt="No one protects you better."
-                  title="No one protects you better."
-                  width="140"
-                  height="78"
-                  quality={100}
-                  priority
-                  unoptimized
-                ></Image>
-              </div>
-            </div>
-            <div className={`${styles.ballistic_navigation}`}>
-              <div className={`${styles.ballistic_row_item}`}></div>
-              <div className={`${styles.ballistic_row_item}`}>Name</div>
-              <div className={`${styles.ballistic_row_item}`}>Caliber</div>
-              <div className={`${styles.ballistic_row_item}`}>Class</div>
-              <div className={`${styles.ballistic_row_item}`}>
-                Stanag
-                <Image
-                  src="/assets/ballistic/stanag.png"
-                  alt="Stanag"
-                  title="Stanag"
-                  width="67"
-                  height="24"
-                  className="large-only"
-                  quality={100}
-                  priority
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_row_item}`}>
-                UL
-                <Image
-                  src="/assets/ballistic/chartNav_ul.png"
-                  alt="UL"
-                  title="UL"
-                  width="32"
-                  height="17"
-                  className="large-only"
-                  quality={100}
-                  priority
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_row_item}`}>
-                Alpine
-                <Image
-                  src="/assets/ballistic/alpine.png"
-                  alt="Alpine"
-                  title="Alpine"
-                  width="103"
-                  height="20"
-                  className="large-only"
-                  quality={100}
-                  priority
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_row_item}`}>
-                Nij
-                <Image
-                  src="/assets/ballistic/nij.png"
-                  alt="NIJ"
-                  title="NIJ"
-                  width="37"
-                  height="20"
-                  className="large-only"
-                  quality={100}
-                  priority
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_row_item}`}>
-                Cen
-                <Image
-                  src="/assets/ballistic/chartNav_cen.png"
-                  alt="CEN"
-                  title="CEN"
-                  width="35"
-                  height="23"
-                  className="large-only"
-                  quality={100}
-                  priority
-                ></Image>
-              </div>
-              <div className={`${styles.ballistic_row_item}`}>Weight±</div>
-              <div className={`${styles.ballistic_row_item}`}>Type</div>
-              <div className={`${styles.ballistic_row_item}`}>Velocity±</div>
-              <div className={`${styles.ballistic_row_item}`}>Compare</div>
-              <div className={`${styles.ballistic_row_item}`}></div>
-            </div>
+      <div className={styles.ballistic}>
+        <div className={styles.ballistic_wrapper} ref={containerRef}>
+          <div className={styles.ballistic_header}>
+            {renderHeaderItems()}
+            {renderNavigation()}
           </div>
-
-          <div className={`${styles.ballistic_table}`} ref={tableRef}>
+          <div className={styles.ballistic_table} ref={tableRef}>
             {items.map((item, index) => (
-              <div className={`${styles.ballistic_row}`} key={index}>
-                <div className={`${styles.ballistic_row_item}`}>
-                  <div key={index} className={`${styles.ballistic_weaponImg}`}>
-                    <Image
-                      src={`/assets/ballistic/weapon_A${item.level[0]}.png`}
-                      alt=""
-                      width="264"
-                      height="71"
-                      priority
-                      quality={100}
-                    ></Image>
-                  </div>
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  {item.name.map((listItem, spanIndex) => (
-                    <span
-                      key={spanIndex}
-                      data-text={listItem}
-                      className={`${styles.ballistic_row_item_text} ${
-                        item.name.length > 1
-                          ? styles.ballistic_row_item_text_small
-                          : ''
-                      }`}
-                    >
-                      {listItem}
-                    </span>
-                  ))}
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  {item.caliber.map((listItem, spanIndex) => (
-                    <span
-                      key={spanIndex}
-                      data-text={listItem}
-                      className={`${styles.ballistic_row_item_text} ${
-                        item.caliber.length > 1
-                          ? styles.ballistic_row_item_text_small
-                          : ''
-                      }`}
-                    >
-                      {listItem}
-                    </span>
-                  ))}
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  {item.class.map((listItem, spanIndex) => (
-                    <span
-                      key={spanIndex}
-                      data-text={listItem}
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      {listItem}
-                    </span>
-                  ))}
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  <span
-                    data-text={item.stanag}
-                    className={`${styles.ballistic_row_item_text}`}
-                  >
-                    {item.stanag}
-                  </span>
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  <span
-                    data-text={item.ul}
-                    className={`${styles.ballistic_row_item_text}`}
-                  >
-                    {item.ul}
-                  </span>
-                </div>
-
-                <div
-                  className={`
-                    ${styles.ballistic_row_item} 
-                    ${styles.ballistic_row_item_level}
-                    ${
-                      item.level.length > 1
-                        ? styles.ballistic_row_item_level_small
-                        : ''
-                    }
-                `}
-                >
-                  <span className={`${styles.ballistic_row_item_text}`}>A</span>
-                  {item.level.map((listItem, spanIndex) => (
-                    <span
-                      key={spanIndex}
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      {listItem}
-                    </span>
-                  ))}
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  <span
-                    data-text={item.nij}
-                    className={`${styles.ballistic_row_item_text}`}
-                  >
-                    {item.nij}
-                  </span>
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  <span
-                    data-text={item.cen}
-                    className={`${styles.ballistic_row_item_text}`}
-                  >
-                    {item.cen}
-                  </span>
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  {item.weight.map((listItem, spanIndex) => (
-                    <span
-                      key={spanIndex}
-                      data-text={listItem}
-                      className={`${styles.ballistic_row_item_text} ${
-                        item.weight.length > 1
-                          ? styles.ballistic_row_item_text_small
-                          : ''
-                      }`}
-                    >
-                      {listItem}
-                    </span>
-                  ))}
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  {item.type.map((listItem, spanIndex) => (
-                    <span
-                      key={spanIndex}
-                      data-text={listItem}
-                      className={`${styles.ballistic_row_item_text} ${
-                        item.type.length > 1
-                          ? styles.ballistic_row_item_text_small
-                          : ''
-                      }`}
-                    >
-                      {listItem}
-                    </span>
-                  ))}
-                  {item.typeFull ? (
-                    <div className={`${styles.ballistic_tooltip}`}>
-                      {item.typeFull.map((listItem, spanIndex) => (
-                        <span key={spanIndex}>{listItem}</span>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className={`${styles.ballistic_row_item}`}>
-                  {item.velocity.map((listItem, spanIndex) => (
-                    <span
-                      key={spanIndex}
-                      data-text={listItem}
-                      className={`${styles.ballistic_row_item_text}`}
-                    >
-                      {listItem}
-                    </span>
-                  ))}
-                </div>
-
-                <div
-                  className={`${styles.ballistic_row_item} ${styles.ballistic_compare}`}
-                >
-                  <div
-                    className={`${styles.ballistic_compare_button}`}
-                    onClick={() => setRowActive(index)}
-                  >
-                    <span
-                      className={`${styles.ballistic_compare_button_slider}`}
-                    ></span>
-                  </div>
-                  {/* <button
-                    className={`${styles.ballistic_compare_view}`}
-                    onClick={(e) =>
-                      showComparisonDesktop(index, e.currentTarget)
-                    }
-                  >
-                    <span>View</span>
-                  </button> */}
-                </div>
-
-                <div
-                  className={`${styles.ballistic_row_item} ${styles.ballistic_bullets}`}
-                >
-                  <Image
-                    src={`/assets/ballistic/bullet${index + 1}.png`}
-                    alt=""
-                    width="232"
-                    height="56"
-                    quality={100}
-                    priority
-                  ></Image>
-                </div>
-              </div>
+              <TableRow
+                key={index}
+                item={item}
+                index={index}
+                onRowSelect={handleRowSelection}
+                styles={styles}
+              />
             ))}
           </div>
         </div>
       </div>
 
+      {/* Interaction Popup */}
       {hasInteracted && (
         <div
-          className={`${styles.ballistic_popup} ${
-            styles.ballistic_popup_interact
-          } ${hasInteracted ? styles.ballistic_popup_active : ''}`}
+          className={`${styles.ballistic_popup} ${styles.ballistic_popup_interact} ${
+            hasInteracted ? styles.ballistic_popup_active : ''
+          }`}
           ref={interactedPopupRef}
         >
-          <div className={`${styles.ballistic_popup_text}`}>
+          <div className={styles.ballistic_popup_text}>
             To view the entire chart, scroll horizontally and vertically.
             <br />
             You can compare levels by toggling the button on the far right.
@@ -735,57 +454,60 @@ const BallisticChart = () => {
         </div>
       )}
 
+      {/* Selection Popup */}
       {showPopup && (
         <div
-          className={`${styles.ballistic_popup} ${
-            showPopup ? styles.ballistic_popup_active : ''
-          }`}
+          className={`${styles.ballistic_popup} ${showPopup ? styles.ballistic_popup_active : ''}`}
         >
-          <div className={`${styles.ballistic_popup_text}`}>
+          <div className={styles.ballistic_popup_text}>
             {selectedLevels.length > 0 && !moreSelected && (
               <div>
                 Level A
                 <span
-                  className={`${
-                    selectedLevels[selectedLevels.length - 1].length == 2
+                  className={
+                    selectedLevels[selectedLevels.length - 1].length === 2
                       ? styles.ballistic_popup_text_levels
                       : ''
-                  }`}
+                  }
                 >
                   {selectedLevels[selectedLevels.length - 1]}{' '}
                 </span>
                 successfully added to comparison list
               </div>
             )}
-            {selectedLevels.length == 1 && (
+            {selectedLevels.length === 1 && (
               <div>Select one more level to see the comparison</div>
             )}
             {moreSelected && <div>You can compare only two levels</div>}
           </div>
 
-          {selectedLevels.length == 2 && (
+          {selectedLevels.length === 2 && (
             <button
-              className={`${styles.ballistic_popup_button}`}
-              onClick={showChosenItems}
+              className={styles.ballistic_popup_button}
+              onClick={() => setShowChosen(true)}
             >
               See list
             </button>
           )}
 
           <div
-            className={`${styles.ballistic_popup_close}`}
+            className={styles.ballistic_popup_close}
             data-text="Close"
-            onClick={closePopup}
+            onClick={() => setShowPopup(false)}
           >
             Close
           </div>
         </div>
       )}
 
+      {/* Comparison View */}
       {showChosen && (
         <BallisticChartChosen
           items={selectedRows.map((index) => items[index])}
-          onClose={closePopupComparison}
+          onClose={() => {
+            setShowPopup(false);
+            setShowChosen(false);
+          }}
         />
       )}
     </>
