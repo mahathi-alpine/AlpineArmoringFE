@@ -34,7 +34,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         {data.featuredImage.data ? (
           <Image
             src={`${
-              data.featuredImage.data.attributes.formats.medium.url ||
+              data.featuredImage.data.attributes.formats.medium?.url ||
               data.featuredImage.data.attributes.url
             }`}
             alt={
