@@ -209,6 +209,7 @@ const BallisticChart = () => {
   const [selectedLevels, setSelectedLevels] = useState([]);
   const [moreSelected, setMoreSelected] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isContainerInView, setIsContainerInView] = useState(false);
 
   // Refs
   const containerRef = useRef(null);
@@ -323,6 +324,36 @@ const BallisticChart = () => {
     }
   }, [hasInteracted]);
 
+  useEffect(() => {
+    if (window.innerWidth >= 1280) {
+      const options = {
+        root: null,
+        rootMargin: '0px 0px -97%',
+        threshold: 0,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsContainerInView(true);
+          } else {
+            setIsContainerInView(false);
+          }
+        });
+      }, options);
+
+      if (containerRef.current) {
+        observer.observe(containerRef.current);
+      }
+
+      return () => {
+        if (containerRef.current) {
+          observer.unobserve(containerRef.current);
+        }
+      };
+    }
+  }, []);
+
   // Render helpers
   const renderHeaderItems = () => (
     <div className={styles.ballistic_header_inner}>
@@ -419,7 +450,10 @@ const BallisticChart = () => {
   return (
     <>
       <div className={styles.ballistic}>
-        <div className={styles.ballistic_wrapper} ref={containerRef}>
+        <div
+          className={`${styles.ballistic_wrapper} ${isContainerInView ? styles.ballistic_wrapper_view : ''}`}
+          ref={containerRef}
+        >
           <div className={styles.ballistic_header}>
             {renderHeaderItems()}
             {renderNavigation()}
