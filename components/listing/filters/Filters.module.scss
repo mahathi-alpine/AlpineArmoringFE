@@ -205,7 +205,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: rem(12) rem(20);
     margin-bottom: rem(24);
     border-radius: 99px;
     background: rgba(241, 243, 244, 0.24);
@@ -230,6 +229,8 @@
         order: 3;
         input {
           max-width: 140px;
+          height: 100%;
+          padding: 0;
           padding-right: rem(16);
           color: var(--color-dark);
           &::placeholder {
@@ -249,18 +250,12 @@
       }
     }
 
-    &_icon {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-    }
-
     input {
       flex: 1;
+      padding: rem(16) rem(20);
       background: transparent;
       border: 0;
       font-size: rem(14);
-      padding: 0;
       border-radius: 0;
       outline: none;
       color: var(--color-white);
@@ -274,6 +269,15 @@
         color: var(--color-grayDark);
       }
     }
+
+    &_icon {
+      position: relative;
+      right: 20px;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
   }
 
   &_top {

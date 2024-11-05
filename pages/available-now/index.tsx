@@ -8,85 +8,179 @@ import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 
-function Inventory(props) {
-  const topBanner = props.pageData?.banner;
+const ITEMS_PER_PAGE = 20;
+const ITEMS_TO_DISPLAY = 6;
 
+function Inventory(props) {
+  const { pageData, vehicles, filters, searchQuery } = props;
+  const topBanner = pageData?.banner;
   const router = useRouter();
   const { q, vehicles_we_armor } = router.query;
 
-  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
-  const [itemsToRender, setItemsToRender] = useState(6);
+  const [allFetchedVehicles, setAllFetchedVehicles] = useState(vehicles.data);
+  const [displayedVehicles, setDisplayedVehicles] = useState(
+    searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
+  );
+  const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    setVehiclesData(props.vehicles.data);
-  }, [q, vehicles_we_armor, props.vehicles.data]);
+  const totalItems = vehicles.meta.pagination.total;
 
-  const fetchMoreItems = useCallback(() => {
-    if (itemsToRender < vehiclesData?.length) {
+  const fetchMoreFromStrapi = async () => {
+    try {
       setLoading(true);
-      setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
+      const nextPage = currentPage + 1;
+
+      const query = vehicles_we_armor
+        ? `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`
+        : '';
+
+      const newVehicles = await getPageData({
+        route: 'inventories',
+        params:
+          query +
+          `&pagination[page]=${nextPage}&pagination[pageSize]=${ITEMS_PER_PAGE}`,
+        sort: 'order',
+        populate: 'featuredImage,categories',
+        fields:
+          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+      });
+
+      const updatedVehicles = [...allFetchedVehicles, ...newVehicles.data];
+      setAllFetchedVehicles(updatedVehicles);
+      setCurrentPage(nextPage);
+
+      const newHasMore = updatedVehicles.length < totalItems;
+      setHasMore(newHasMore);
+
+      if (!newHasMore) {
+        const visibleVehicles = updatedVehicles.filter(
+          (vehicle) => !vehicle.attributes.hide
+        );
+        const remainingToDisplay =
+          visibleVehicles.length - displayedVehicles.length;
+        if (remainingToDisplay > 0) {
+          setVisibleCount(visibleVehicles.length);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching more vehicles:', error);
+    } finally {
       setLoading(false);
     }
-  }, [itemsToRender, vehiclesData]);
+  };
 
+  const handleIntersection = useCallback(async () => {
+    if (loading) return;
+
+    const visibleVehicles = allFetchedVehicles.filter(
+      (vehicle) => !vehicle.attributes.hide
+    );
+    const nextBatchStart = displayedVehicles.length;
+    const remainingItems = visibleVehicles.length - nextBatchStart;
+
+    if (remainingItems > 0) {
+      if (remainingItems <= ITEMS_TO_DISPLAY) {
+        setVisibleCount((prevCount) => prevCount + remainingItems);
+      } else {
+        setVisibleCount((prevCount) => prevCount + ITEMS_TO_DISPLAY);
+      }
+
+      if (hasMore && allFetchedVehicles.length < totalItems) {
+        await fetchMoreFromStrapi();
+      }
+    }
+  }, [
+    loading,
+    allFetchedVehicles,
+    displayedVehicles.length,
+    hasMore,
+    totalItems,
+  ]);
+
+  // Reset state when search query or filter changes
   useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
+    if (searchQuery) {
+      setDisplayedVehicles(vehicles.data);
+    } else {
+      setAllFetchedVehicles(vehicles.data);
+      setDisplayedVehicles(vehicles.data.slice(0, ITEMS_TO_DISPLAY));
+      setVisibleCount(ITEMS_TO_DISPLAY);
+      setCurrentPage(1);
+      setHasMore(true);
+    }
+  }, [q, vehicles_we_armor, vehicles.data, searchQuery]);
+
+  // Update displayed vehicles when not in search mode
+  useEffect(() => {
+    if (!searchQuery) {
+      const visibleVehicles = allFetchedVehicles.filter(
+        (vehicle) => !vehicle.attributes.hide
+      );
+      const nextBatch = visibleVehicles.slice(0, visibleCount);
+      setDisplayedVehicles(nextBatch);
+    }
+  }, [allFetchedVehicles, visibleCount, searchQuery]);
+
+  // Set up intersection observer
+  useEffect(() => {
+    if (searchQuery) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-            // observer.unobserve(entry.target);
-
-            if (entry.target.classList.contains('bottomObserver')) {
-              fetchMoreItems();
-            }
+          if (
+            entry.isIntersecting &&
+            entry.target.classList.contains('bottomObserver')
+          ) {
+            handleIntersection();
           }
         });
       },
       {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
+        rootMargin: '0px 0px 70%',
+        threshold: 0,
       }
     );
 
-    targets.forEach((item) => observer.observe(item));
+    const target = document.querySelector('.bottomObserver');
+    if (target) observer.observe(target);
 
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, [itemsToRender, vehiclesData, fetchMoreItems]);
+    return () => observer.disconnect();
+  }, [handleIntersection, searchQuery]);
+
+  if (!displayedVehicles) return null;
 
   return (
     <>
       <div className={`${styles.listing} background-dark`}>
-        {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
+        {topBanner && <Banner props={topBanner} shape="dark" />}
 
         <div
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
           <div className={`${styles.listing_wrap_filtered}`}>
-            {props.filters.type ? <Filters props={props.filters} /> : null}
+            {filters.type && <Filters props={filters} />}
           </div>
 
           <div className={`${styles.listing_wrap_shown}`}>
-            {vehiclesData?.length < 1 ? (
+            {!displayedVehicles.length ? (
               <div className={`${styles.listing_list_error}`}>
                 <h2>No Vehicles Found</h2>
               </div>
-            ) : null}
-
-            {vehiclesData ? (
+            ) : (
               <div className={`${styles.listing_list}`}>
-                {vehiclesData.slice(0, itemsToRender).map((item, index) => (
-                  <InventoryItem key={index} props={item} index={index} />
+                {displayedVehicles.map((item, index) => (
+                  <InventoryItem
+                    key={item.id || index}
+                    props={item}
+                    index={index}
+                  />
                 ))}
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       </div>
@@ -97,10 +191,9 @@ function Inventory(props) {
       >
         Loading...
       </div>
+      <div className={`observe bottomObserver`} />
 
-      <div className={`observe bottomObserver`}></div>
-
-      <div className="shape-before shape-before-white"></div>
+      <div className="shape-before shape-before-white" />
     </>
   );
 }
@@ -114,11 +207,16 @@ export async function getServerSideProps(context) {
 
     const { vehicles_we_armor, q } = context.query;
     let query = '';
+    let pageSize = 20;
+    let searchQuery = null;
+
     if (vehicles_we_armor) {
       query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
     }
     if (q) {
       query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
+      pageSize = 100;
+      searchQuery = true;
     }
 
     const vehicles = await getPageData({
@@ -128,7 +226,7 @@ export async function getServerSideProps(context) {
       populate: 'featuredImage,categories',
       fields:
         'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-      pageSize: 100,
+      pageSize: pageSize,
     });
 
     const filteredVehicles = {
@@ -146,7 +244,6 @@ export async function getServerSideProps(context) {
       }),
     };
 
-    // Fetching Types for the Filters
     const type = await getPageData({
       route: 'categories',
       custom:
@@ -154,14 +251,18 @@ export async function getServerSideProps(context) {
     }).then((response) => response.data);
 
     const filters = type ? { type } : {};
-
     const seoData = pageData?.seo ?? null;
 
     return {
-      props: { pageData, vehicles: filteredVehicles, filters, seoData },
+      props: {
+        pageData,
+        vehicles: filteredVehicles,
+        filters,
+        seoData,
+        searchQuery,
+      },
     };
   } catch (error) {
-    // console.error('Error fetching data:', error);
     return {
       notFound: true,
     };
