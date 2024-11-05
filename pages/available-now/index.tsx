@@ -8,7 +8,7 @@ import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
 
 function Inventory(props) {
@@ -207,7 +207,7 @@ export async function getServerSideProps(context) {
 
     const { vehicles_we_armor, q } = context.query;
     let query = '';
-    let pageSize = 20;
+    let pageSize = 16;
     let searchQuery = null;
 
     if (vehicles_we_armor) {
