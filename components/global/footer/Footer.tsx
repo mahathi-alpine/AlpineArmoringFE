@@ -214,10 +214,12 @@ const Footer = (props) => {
                 : styles.footer_bottom_flag_light
             }`}
           >
-            The Home of{' '}
-            <Link href="/" className={`${styles.footer_bottom_copy_middle}`}>
-              ArmoredVehicles.com
-            </Link>
+            <span>
+              The Home of{' '}
+              <Link href="/" className={`${styles.footer_bottom_copy_middle}`}>
+                ArmoredVehicles.com
+              </Link>
+            </span>
           </p>
         </div>
       </div>
