@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
-// import Script from 'next/script';
+import Script from 'next/script';
 
 import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
@@ -166,11 +166,11 @@ const Layout = ({ children }) => {
       </Head>
 
       {/* Google Tag Manager */}
-      {/* <Script
+      <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-HQE6WWZ9E4"
         strategy="afterInteractive"
-      /> */}
-      {/* <Script
+      />
+      <Script
         id="ga-setup"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
@@ -181,7 +181,7 @@ const Layout = ({ children }) => {
             gtag('config', 'G-HQE6WWZ9E4', { page_path: window.location.pathname });
           `,
         }}
-      /> */}
+      />
 
       <div className={termina.className}>
         <Header

@@ -27,30 +27,30 @@ const CookieConsent = () => {
       setConsent(parsedConsent);
 
       // If previously accepted, prepare analytics
-      if (parsedConsent === 'accepted') {
-        initializeAnalytics();
-      }
+      // if (parsedConsent === 'accepted') {
+      //   initializeAnalytics();
+      // }
     } else {
       // Show popup if no previous consent
       setIsVisible(true);
     }
   }, []);
 
-  const initializeAnalytics = () => {
-    // Ensure dataLayer and gtag are initialized
-    window.dataLayer = window.dataLayer || [];
-    window.gtag =
-      window.gtag ||
-      function (...args: any[]) {
-        window.dataLayer.push(...args);
-      };
+  // const initializeAnalytics = () => {
+  //   // Ensure dataLayer and gtag are initialized
+  //   window.dataLayer = window.dataLayer || [];
+  //   window.gtag =
+  //     window.gtag ||
+  //     function (...args: any[]) {
+  //       window.dataLayer.push(...args);
+  //     };
 
-    // Reinitialize GA
-    window.gtag('js', new Date());
-    window.gtag('config', 'G-HQE6WWZ9E4', {
-      page_path: window.location.pathname,
-    });
-  };
+  //   // Reinitialize GA
+  //   window.gtag('js', new Date());
+  //   window.gtag('config', 'G-HQE6WWZ9E4', {
+  //     page_path: window.location.pathname,
+  //   });
+  // };
 
   const handleConsent = (decision: ConsentType) => {
     // Store consent with comprehensive options
@@ -66,12 +66,12 @@ const CookieConsent = () => {
     setIsVisible(false);
 
     // Handle analytics based on consent
-    if (decision === 'accepted') {
-      initializeAnalytics();
-    } else {
-      // Disable GA
-      window['ga-disable-G-HQE6WWZ9E4'] = true;
-    }
+    // if (decision === 'accepted') {
+    //   initializeAnalytics();
+    // } else {
+    //   // Disable GA
+    //   window['ga-disable-G-HQE6WWZ9E4'] = true;
+    // }
   };
 
   // Determine if consent popup should be shown
