@@ -425,10 +425,10 @@ function About(props) {
       lng: 32.2903,
     },
     {
-      name: 'United Arab Emirates',
+      name: 'UAE',
       lat: 23.4241,
       lng: 53.8478,
-      description: 'UAE',
+      description: 'Alpine Armoring International Partner',
       color: '#CACACA',
     },
     {
