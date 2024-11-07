@@ -649,10 +649,10 @@ $shapeColor: var(--color-background);
 }
 
 .b-globe {
-  margin-bottom: rem(24);
-  @include breakpoint(large) {
-    margin-bottom: rem(100);
-  }
+  // margin-bottom: rem(24);
+  // @include breakpoint(large) {
+  //   margin-bottom: rem(100);
+  // }
 
   & * {
     max-width: 100% !important;

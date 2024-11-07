@@ -24,6 +24,12 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
   useEffect(() => {
     if (!globeEl.current || !containerRef.current) return;
 
+    let altitude = 1.5;
+    if (window.innerWidth <= 768) {
+      altitude = 2;
+    }
+    globeEl.current.pointOfView({ altitude: altitude });
+
     const controls = globeEl.current.controls();
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0.5;
@@ -110,6 +116,7 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
         }
         labelColor={(d: Location) => (d.color ? d.color : '#FFD700')}
         labelResolution={2}
+        height={window.innerWidth <= 768 ? 600 : 800}
       />
       {selectedLocation?.description && (
         <div className={`b-globe_popup`}>

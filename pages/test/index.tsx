@@ -123,7 +123,7 @@ function About(props) {
       lat: 4.5709,
       lng: -74.2973,
       description: 'Alpine South American Partner',
-      color: '#b70303',
+      color: '#CACACA',
     },
     {
       name: 'Congo [DRC]',
@@ -339,6 +339,8 @@ function About(props) {
       name: 'Qatar',
       lat: 25.3548,
       lng: 51.1839,
+      description: 'Alpine Armoring International Office',
+      color: '#CACACA',
     },
     {
       name: 'Saint Martin',
@@ -426,8 +428,8 @@ function About(props) {
       name: 'United Arab Emirates',
       lat: 23.4241,
       lng: 53.8478,
-      description: 'Alpine International Partner',
-      color: '#b70303',
+      description: 'UAE',
+      color: '#CACACA',
     },
     {
       name: 'United Kingdom',
@@ -440,11 +442,6 @@ function About(props) {
       lng: 64.5853,
     },
     {
-      name: 'Venezuela',
-      lat: 6.4238,
-      lng: -66.5897,
-    },
-    {
       name: 'Vietnam',
       lat: 14.0583,
       lng: 108.2772,
@@ -454,35 +451,40 @@ function About(props) {
       lat: 38.888691,
       lng: -77.417488,
       description: 'Alpine Armoring Headquarters',
-      color: '#b70303',
+      color: '#CACACA',
     },
     {
       name: 'Nevada',
       lat: 36.16909,
       lng: -115.140579,
       description: 'Alpine Armoring Regional Office',
-      color: '#b70303',
+      color: '#CACACA',
     },
     {
       name: 'California',
       lat: 32.715759,
       lng: -117.163818,
       description: 'Alpine Armoring Regional Office',
-      color: '#b70303',
+      color: '#CACACA',
     },
     {
       name: 'Texas',
       lat: 32.777981,
       lng: -96.796211,
       description: 'Alpine Armoring Regional Office',
-      color: '#b70303',
+      color: '#CACACA',
     },
     {
-      name: 'Canada',
+      name: 'Ontario',
       lat: 43.653225,
       lng: -79.383186,
       description: 'Alpine Armoring Regional Office',
-      color: '#b70303',
+      color: '#CACACA',
+    },
+    {
+      name: 'South Africa',
+      lat: -33.9823115016787,
+      lng: 18.50769670326755,
     },
   ];
 
@@ -536,12 +538,6 @@ function About(props) {
             }}
           ></div>
         ) : null}
-
-        <div style={{ width: '100%', minHeight: '800px' }}>
-          <ClientOnly className={`b-globe`}>
-            <GlobeComponent locations={companyLocations} />
-          </ClientOnly>
-        </div>
 
         {props.pageData?.timeline1?.filter(
           (item) => item.image?.data?.length > 0
@@ -698,6 +694,12 @@ function About(props) {
             <FillingText data={props.pageData?.quote} dark />
           </div>
         ) : null}
+
+        <div style={{ width: '100%', maxHeight: '80vH' }}>
+          <ClientOnly className={`b-globe`}>
+            <GlobeComponent locations={companyLocations} />
+          </ClientOnly>
+        </div>
       </div>
     </>
   );

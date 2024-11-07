@@ -214,7 +214,7 @@ const Footer = (props) => {
                 : styles.footer_bottom_flag_light
             }`}
           >
-            <span>
+            <span className={`${styles.footer_bottom_flag_wrap}`}>
               The Home of{' '}
               <Link href="/" className={`${styles.footer_bottom_copy_middle}`}>
                 ArmoredVehicles.com
