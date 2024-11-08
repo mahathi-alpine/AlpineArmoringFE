@@ -14,8 +14,17 @@
   cursor: pointer;
 
   @include breakpoint(large) {
-    bottom: rem(16);
+    bottom: rem(7);
     right: rem(16);
+  }
+  @media (min-width: 1380px) {
+    bottom: rem(40);
+  }
+
+  &:hover{
+    path{
+      transform: scale(1.2);
+    }
   }
 
   &_visible {
@@ -24,5 +33,10 @@
 
   svg {
     transform: rotate(-90deg);
+
+    path{
+      transition: transform 0.2s ease-in-out;
+      transform-origin: center;
+    }
   }
 }

@@ -8,9 +8,6 @@
   @include breakpoint(small) {
     z-index: 3;
   }
-  // @include breakpoint(large) {
-  //   padding-bottom: rem(40);
-  // }
   @media (min-width: 1380px) {
     padding-bottom: 0;
   }
@@ -338,10 +335,10 @@
         }
       }
 
-      &_middle {
-        color: var(--color-primary);
-        font-weight: 600;
-      }
+      // &_middle {
+      //   color: var(--color-primary);
+      //   font-weight: 600;
+      // }
     }
 
     &_flag {
@@ -350,6 +347,10 @@
       background-size: cover !important;
       background-repeat: no-repeat !important;
       background-position: center !important;
+      background-image: url('/assets/footer-american-flag.gif');
+      color: white;
+      font-weight: var(--font-medium);
+      letter-spacing: -0.5px;
 
       @include breakpoint(large) {
         position: absolute;
@@ -363,44 +364,47 @@
         bottom: 20px;
       }
 
-      &_dark {
-        background-image: url('/assets/footer-american-flag-black.png');
-
-        &:before,
-        &:after,
-        span:after,
-        span:before {
-          display: none;
-        }
+      &:before,
+      &:after {
+        position: absolute;
+        content: '';
+        left: 0;
+        width: 60px;
+        top: 0;
+        bottom: 0;
+        background: var(--color-background);
+        background: linear-gradient(
+          90deg,
+          rgba(225, 225, 225, 1) 0%,
+          rgba(225, 225, 225, 0) 100%
+        );
       }
-      &_light {
-        background-image: url('/assets/footer-american-flag.gif');
-        font-weight: var(--font-demi);
 
-        &:before,
-        &:after {
-          position: absolute;
-          content: '';
-          left: 0;
-          width: 60px;
-          top: 0;
-          bottom: 0;
-          background: var(--color-background);
-          background: linear-gradient(
-            90deg,
-            rgba(225, 225, 225, 1) 0%,
-            rgba(225, 225, 225, 0) 100%
-          );
+      &:after {
+        right: 0;
+        left: auto;
+        background: linear-gradient(
+          -90deg,
+          rgba(225, 225, 225, 1) 0%,
+          rgba(225, 225, 225, 0) 100%
+        );
+      }
+
+      &_dark{
+        &:before{
+          background: linear-gradient(90deg, #101010 0%, rgba(16, 16, 16, 0) 100%);
+        }
+        &:after{
+          background: linear-gradient(-90deg, #101010 0%, rgba(16, 16, 16, 0) 100%);
         }
 
-        &:after {
-          right: 0;
-          left: auto;
-          background: linear-gradient(
-            -90deg,
-            rgba(225, 225, 225, 1) 0%,
-            rgba(225, 225, 225, 0) 100%
-          );
+        .footer_bottom_flag_wrap{
+          &:before{
+            background: linear-gradient(180deg, #101010 0%, rgba(16, 16, 16, 0) 100%);
+          }
+          &:after{
+            background: linear-gradient(0, #101010 0%, rgba(16, 16, 16, 0) 100%);
+          }
         }
       }
 
