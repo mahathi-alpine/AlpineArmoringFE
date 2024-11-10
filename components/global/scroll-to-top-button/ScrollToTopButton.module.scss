@@ -21,8 +21,8 @@
     bottom: rem(40);
   }
 
-  &:hover{
-    path{
+  &:hover {
+    path {
       transform: scale(1.2);
     }
   }
@@ -34,7 +34,7 @@
   svg {
     transform: rotate(-90deg);
 
-    path{
+    path {
       transition: transform 0.2s ease-in-out;
       transform-origin: center;
     }

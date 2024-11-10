@@ -650,7 +650,7 @@ $shapeColor: var(--color-background);
 
 .b-globe {
   touch-action: pan-y pinch-zoom;
-  
+
   canvas {
     touch-action: none;
   }
@@ -659,13 +659,13 @@ $shapeColor: var(--color-background);
     max-width: 100% !important;
   }
 
-  &-container{
+  &-container {
     position: relative;
     width: 100%;
     touch-action: none;
   }
 
-  &-outer{
+  &-outer {
     position: relative;
     width: 100%;
     display: flex;
@@ -674,7 +674,7 @@ $shapeColor: var(--color-background);
     overflow: hidden;
   }
 
-  &-legend{
+  &-legend {
     padding: 1rem;
     color: white;
     background-color: var(--color-secondary);
@@ -683,7 +683,7 @@ $shapeColor: var(--color-background);
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background-color: rgba(43, 43, 43, .5);
+      background-color: rgba(43, 43, 43, 0.5);
       border-radius: 8px;
       z-index: 1;
     }
@@ -702,7 +702,7 @@ $shapeColor: var(--color-background);
       padding: 0;
       margin: 0;
     }
-    
+
     &__item {
       display: flex;
       align-items: center;
@@ -723,7 +723,6 @@ $shapeColor: var(--color-background);
       margin-right: 0.5rem;
       display: inline-block;
     }
-
   }
 
   // &_popup {
