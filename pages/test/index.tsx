@@ -122,8 +122,6 @@ function About(props) {
       name: 'Colombia',
       lat: 4.5709,
       lng: -74.2973,
-      description: 'Alpine South American Partner',
-      color: '#CACACA',
     },
     {
       name: 'Congo [DRC]',
@@ -340,7 +338,7 @@ function About(props) {
       lat: 25.3548,
       lng: 51.1839,
       description: 'Alpine Armoring International Office',
-      color: '#CACACA',
+      color: '#bebbbe',
     },
     {
       name: 'Saint Martin',
@@ -429,7 +427,7 @@ function About(props) {
       lat: 23.4241,
       lng: 53.8478,
       description: 'Alpine Armoring International Partner',
-      color: '#CACACA',
+      color: '#bebbbe',
     },
     {
       name: 'United Kingdom',
@@ -451,35 +449,35 @@ function About(props) {
       lat: 38.888691,
       lng: -77.417488,
       description: 'Alpine Armoring Headquarters',
-      color: '#CACACA',
+      color: '#fff',
     },
     {
       name: 'Nevada',
       lat: 36.16909,
       lng: -115.140579,
       description: 'Alpine Armoring Regional Office',
-      color: '#CACACA',
+      color: '#1AA3E8',
     },
     {
       name: 'California',
       lat: 32.715759,
       lng: -117.163818,
       description: 'Alpine Armoring Regional Office',
-      color: '#CACACA',
+      color: '#1AA3E8',
     },
     {
       name: 'Texas',
       lat: 32.777981,
       lng: -96.796211,
       description: 'Alpine Armoring Regional Office',
-      color: '#CACACA',
+      color: '#fff',
     },
     {
       name: 'Ontario',
       lat: 43.653225,
       lng: -79.383186,
       description: 'Alpine Armoring Regional Office',
-      color: '#CACACA',
+      color: '#fff',
     },
     {
       name: 'South Africa',
@@ -695,8 +693,8 @@ function About(props) {
           </div>
         ) : null}
 
-        <div style={{ width: '100%', maxHeight: '80vH' }}>
-          <ClientOnly className={`b-globe`}>
+        <div className="b-globe-outer">
+          <ClientOnly>
             <GlobeComponent locations={companyLocations} />
           </ClientOnly>
         </div>

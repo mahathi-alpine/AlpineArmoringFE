@@ -649,45 +649,113 @@ $shapeColor: var(--color-background);
 }
 
 .b-globe {
-  // margin-bottom: rem(24);
-  // @include breakpoint(large) {
-  //   margin-bottom: rem(100);
-  // }
+  touch-action: pan-y pinch-zoom;
+  
+  canvas {
+    touch-action: none;
+  }
 
   & * {
     max-width: 100% !important;
   }
 
-  &_popup {
-    position: fixed;
-    top: 80px;
-    left: 8px;
-    right: 8px;
-    max-width: 400px !important;
-    background: white;
-    padding: 10px 20px 10px 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  &-container{
+    position: relative;
+    width: 100%;
+    touch-action: none;
+  }
+
+  &-outer{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  &-legend{
+    padding: 1rem;
+    color: white;
+    background-color: var(--color-secondary);
 
     @include breakpoint(large) {
-      right: auto;
-    }
-
-    h3 {
-      font-weight: var(--font-medium);
-      margin-bottom: 4px;
-    }
-
-    p {
-      font-size: 14px;
-    }
-
-    button {
       position: absolute;
-      right: 4px;
-      top: 3px;
-      font-weight: var(--font-medium);
-      cursor: pointer;
+      top: 1rem;
+      right: 1rem;
+      background-color: rgba(43, 43, 43, .5);
+      border-radius: 8px;
+      z-index: 1;
     }
+
+    &__title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+
+      @include breakpoint(small) {
+        font-size: 15px;
+      }
+    }
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    &__item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      @include breakpoint(small) {
+        font-size: 14px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &__color-box {
+      width: 16px;
+      height: 16px;
+      margin-right: 0.5rem;
+      display: inline-block;
+    }
+
   }
+
+  // &_popup {
+  //   position: fixed;
+  //   top: 80px;
+  //   left: 8px;
+  //   right: 8px;
+  //   max-width: 400px !important;
+  //   background: white;
+  //   padding: 10px 20px 10px 10px;
+  //   border-radius: 8px;
+  //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  //   @include breakpoint(large) {
+  //     right: auto;
+  //   }
+
+  //   h3 {
+  //     font-weight: var(--font-medium);
+  //     margin-bottom: 4px;
+  //   }
+
+  //   p {
+  //     font-size: 14px;
+  //   }
+
+  //   button {
+  //     position: absolute;
+  //     right: 4px;
+  //     top: 3px;
+  //     font-weight: var(--font-medium);
+  //     cursor: pointer;
+  //   }
+  // }
 }
