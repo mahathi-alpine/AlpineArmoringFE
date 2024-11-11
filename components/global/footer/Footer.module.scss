@@ -180,19 +180,23 @@
       @media (max-width: 1300px) {
         margin-left: 0;
       }
+
+      svg{
+        width: 30px;
+      }
     }
 
     .footer_dark & {
       &_item {
-        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x) {
+        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x):not(.footer_socials_item_threads) {
           svg path {
-            fill: var(--color-gray3);
+            fill: #fff;
           }
         }
         &_tiktok {
           svg {
             rect {
-              fill: var(--color-gray3);
+              fill: #fff;
             }
             path {
               fill: var(--color-dark);
@@ -202,12 +206,20 @@
         &_x {
           svg path {
             &:first-child {
-              fill: var(--color-gray3);
-              stroke: var(--color-gray3);
+              fill: #fff;
+              stroke: #fff;
             }
             &:last-child {
               fill: var(--color-dark);
             }
+          }
+        }
+        &_threads{
+          circle{
+            fill: #fff;
+          }
+          path{
+            fill: var(--color-dark);
           }
         }
       }
