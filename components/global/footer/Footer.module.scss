@@ -181,14 +181,16 @@
         margin-left: 0;
       }
 
-      svg{
+      svg {
         width: 30px;
       }
     }
 
     .footer_dark & {
       &_item {
-        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x):not(.footer_socials_item_threads) {
+        &:not(.footer_socials_item_tiktok):not(.footer_socials_item_x):not(
+            .footer_socials_item_threads
+          ) {
           svg path {
             fill: #fff;
           }
@@ -214,11 +216,11 @@
             }
           }
         }
-        &_threads{
-          circle{
+        &_threads {
+          circle {
             fill: #fff;
           }
-          path{
+          path {
             fill: var(--color-dark);
           }
         }
