@@ -519,7 +519,7 @@ const Design = (props) => {
           <div className={`${styles.design_box}`}>
             {props.pageData?.section6Text2 ? (
               <div
-                className={`${styles.design_section6_text} fade-in observe`}
+                className={`${styles.design_section6_text} ${styles.design_text} fade-in observe`}
                 dangerouslySetInnerHTML={{
                   __html: convertMarkdown(props.pageData.section6Text2),
                 }}
