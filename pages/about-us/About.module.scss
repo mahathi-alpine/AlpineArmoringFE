@@ -221,7 +221,9 @@
   &_quote {
     @include breakpoint(untilLarge) {
       margin-top: -30px;
-      // margin-bottom: -32px;
+    }
+    @include breakpoint(large) {
+      padding: 40px 0;
     }
   }
 }

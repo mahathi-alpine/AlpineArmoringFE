@@ -688,14 +688,14 @@ $shapeColor: var(--color-background);
       z-index: 1;
     }
 
-    &__title {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+    // &__title {
+    //   font-weight: 600;
+    //   margin-bottom: 0.5rem;
 
-      @include breakpoint(small) {
-        font-size: 15px;
-      }
-    }
+    //   @include breakpoint(small) {
+    //     font-size: 15px;
+    //   }
+    // }
 
     &__list {
       list-style: none;
@@ -707,8 +707,9 @@ $shapeColor: var(--color-background);
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
+      font-size: 12px;
 
-      @include breakpoint(small) {
+      @include breakpoint(large) {
         font-size: 14px;
       }
 
@@ -718,8 +719,8 @@ $shapeColor: var(--color-background);
     }
 
     &__color-box {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       margin-right: 0.5rem;
       display: inline-block;
     }

@@ -17,13 +17,12 @@ interface GlobeComponentProps {
 const LOCATION_COLORS = {
   PRODUCTION: '#FFFFFF', // White for Production & Distribution
   DISTRIBUTION: '#1AA3E8', // Blue for Distribution
-  SATELLITE: '#bebbbe', // Gray for Satellite Offices
+  SATELLITE: '#A020F0', // Gray for Satellite Offices
   CLIENT: '#FFD700', // Yellow for Clients & Dealers (default)
 };
 
 const Legend = () => (
   <div className="b-globe-legend">
-    <h3 className="b-globe-legend__title">Location Types</h3>
     <ul className="b-globe-legend__list">
       <li className="b-globe-legend__item">
         <span
@@ -127,7 +126,6 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
 
   return (
     <>
-      <Legend />
       <div
         ref={containerRef}
         className="b-globe-container"
@@ -156,6 +154,8 @@ const GlobeComponent: React.FC<GlobeComponentProps> = ({ locations }) => {
           labelResolution={2}
         />
       </div>
+
+      <Legend />
     </>
   );
 };

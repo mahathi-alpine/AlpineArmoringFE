@@ -338,7 +338,7 @@ function About(props) {
       lat: 25.3548,
       lng: 51.1839,
       description: 'Alpine Armoring International Office',
-      color: '#bebbbe',
+      color: '#A020F0',
     },
     {
       name: 'Saint Martin',
@@ -427,7 +427,7 @@ function About(props) {
       lat: 23.4241,
       lng: 53.8478,
       description: 'Alpine Armoring International Partner',
-      color: '#bebbbe',
+      color: '#A020F0',
     },
     {
       name: 'United Kingdom',
