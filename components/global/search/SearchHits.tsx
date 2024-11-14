@@ -29,14 +29,21 @@ function SearchHits({ searchState, searchResults }) {
       {searchResults?.hits.length > 0 &&
         searchResults.hits.map((hit) => (
           <div key={hit.objectID}>
-            <Link
-              href={`${hit.category && ['available-now', 'vehicles-we-armor', 'news'].includes(hit.category) ? `/${hit.category}` : ''}/${hit.slug}`}
-            >
-              <span className="search_categories">
-                {formatString(hit.category)}:
-              </span>
-              <span>{hit.title.replace(/Armored /g, () => ' ')}</span>
-            </Link>
+            {hit.category === 'url' ? (
+              <a href={hit.slug} target="_blank" rel="noopener noreferrer">
+                <span className="search_categories">PDF:</span>
+                <span>{hit.title}</span>
+              </a>
+            ) : (
+              <Link
+                href={`${hit.category && ['available-now', 'vehicles-we-armor', 'news'].includes(hit.category) ? `/${hit.category}` : ''}/${hit.slug}`}
+              >
+                <span className="search_categories">
+                  {formatString(hit.category)}:
+                </span>
+                <span>{hit.title.replace(/Armored /g, () => ' ')}</span>
+              </Link>
+            )}
           </div>
         ))}
     </div>
