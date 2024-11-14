@@ -73,6 +73,8 @@ export async function getServerSideProps(context) {
     populate: 'deep',
   });
 
+  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+
   if (!data || !data.data || data.data.length === 0) {
     return {
       notFound: true,
@@ -80,7 +82,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { data },
+    props: { data, seoData },
   };
 }
 

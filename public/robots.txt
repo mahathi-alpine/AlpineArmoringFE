@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /stock/
+Disallow: /inventory/
+
+Sitemap: https://www.alpineco.com/sitemap.xml

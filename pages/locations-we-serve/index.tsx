@@ -4,6 +4,7 @@ import ArticleList from 'components/global/article/Article';
 import styles from './Article.module.scss';
 
 function Article(props) {
+  console.log(props);
   const posts = props?.posts;
 
   // Animations
@@ -46,7 +47,7 @@ function Article(props) {
 
 export async function getStaticProps() {
   let pageData = await getPageData({
-    route: 'landing-page',
+    route: 'landing',
     populate: 'deep',
   });
   pageData = pageData?.data?.attributes || null;
