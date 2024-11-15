@@ -68,9 +68,8 @@ const Layout = ({ children }) => {
   const isDarkFooter = pathsDarkFooter.some((path) =>
     router.pathname.startsWith(path)
   );
-  const isFooterPadding0 = footerPadding0.some((path) =>
-    router.pathname.startsWith(path)
-  );
+  const isFooterPadding0 = footerPadding0.includes(router.pathname);
+
   const isHomepage = router.pathname === '/';
 
   const pathsHeaderTransparent = ['/ballistic-testing'];

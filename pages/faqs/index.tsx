@@ -1,11 +1,32 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
+import Head from 'next/head';
 import Banner from 'components/global/banner/Banner';
 import Accordion from 'components/global/accordion/Accordion';
 
 function FAQs(props) {
   const banner = props?.pageData?.banner;
   const faqs = props?.faqs;
+
+  // Generate FAQ structured data
+  const getFAQStructuredData = () => {
+    if (!faqs) return null;
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.attributes.title,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.attributes.text,
+        },
+      })),
+    };
+
+    return JSON.stringify(structuredData);
+  };
 
   // Animations
   useEffect(() => {
@@ -36,6 +57,16 @@ function FAQs(props) {
 
   return (
     <>
+      <Head>
+        {faqs && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
+            key="faq-jsonld"
+          />
+        )}
+      </Head>
+
       {banner ? <Banner props={banner} shape="white" /> : null}
 
       {faqs ? <Accordion items={faqs} /> : null}
