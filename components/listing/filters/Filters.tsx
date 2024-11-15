@@ -278,10 +278,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 `}
                 onClick={() => activateFilterItem(filter)}
               >
-                <h4 className={`${styles.filters_item_title}`}>
+                <span className={`${styles.filters_item_title}`}>
                   {filter}
                   <ChevronIcon className={`${styles.filters_item_chevron}`} />
-                </h4>
+                </span>
                 <span className={`${styles.filters_item_choice}`}>
                   {filter == 'make'
                     ? activeFilterTitles.make

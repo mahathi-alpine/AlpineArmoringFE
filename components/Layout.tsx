@@ -68,7 +68,12 @@ const Layout = ({ children }) => {
   const isDarkFooter = pathsDarkFooter.some((path) =>
     router.pathname.startsWith(path)
   );
-  const isFooterPadding0 = footerPadding0.includes(router.pathname);
+  const isFooterPadding0 = footerPadding0.some(
+    (path) =>
+      router.pathname === path ||
+      (router.pathname.startsWith('/available-now/type/') &&
+        router.pathname.split('/').length === 4)
+  );
 
   const isHomepage = router.pathname === '/';
 

@@ -3,7 +3,6 @@ import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import Banner from 'components/vehicle-we-armor/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
-// import dynamic from 'next/dynamic';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Image from 'next/image';

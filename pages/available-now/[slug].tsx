@@ -12,7 +12,7 @@ import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import PlayIcon from 'components/icons/Play2';
-const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
+import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';

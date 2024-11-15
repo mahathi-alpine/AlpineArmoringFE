@@ -7,11 +7,16 @@ import Link from 'next/link';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+
 function Inventory(props) {
-  let topBanner = props.filters.type?.find(
+  const currentCategory = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
-  topBanner = topBanner?.attributes.inventoryBanner;
+  const topBanner = currentCategory?.attributes.inventoryBanner;
+  const bottomText = currentCategory?.attributes.bottomText;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   const findTitleBySlug = (filters, targetSlug) => {
     if (!filters || !Array.isArray(filters.type)) {
@@ -109,6 +114,17 @@ function Inventory(props) {
         </div>
       </div>
 
+      {bottomText ? (
+        <div className={`container_small`}>
+          <p
+            className={`${styles.listing_bottomText}`}
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(bottomText),
+            }}
+          ></p>
+        </div>
+      ) : null}
+
       <div
         className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
         style={{ opacity: loading ? 1 : 0 }}
@@ -157,7 +173,7 @@ export async function getServerSideProps(context) {
   // Fetching Types for the Filters
   const type = await getPageData({
     route: 'categories',
-    custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats`,
+    custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&fields[2]=bottomText&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats`,
   }).then((response) => response.data);
 
   const filters = type ? { type } : {};
