@@ -45,7 +45,7 @@ function Ballistic(props) {
         BallisticStandards={props?.pageData?.BallisticStandards}
         bulletPoster={props?.pageData?.bulletPoster?.data?.attributes}
         ammunitionChartPDF={
-          props?.pageData?.ammunitionChartPDF.data?.attributes.url
+          props?.pageData?.ammunitionChartPDF.data?.attributes
         }
       />
     </>

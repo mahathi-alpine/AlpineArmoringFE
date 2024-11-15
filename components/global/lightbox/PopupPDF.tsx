@@ -50,6 +50,21 @@ const PopupPDF = ({ isOpen, onClose, pdfUrl }) => {
 
   const isSupportedBrowser = !safariVersion || parseFloat(safariVersion) >= 16;
 
+  const handleDownload = async (url, filename) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      // console.error('Error downloading file:', error);
+    }
+  };
+
   return (
     <>
       {isOpen && pdfUrl && (
@@ -60,10 +75,8 @@ const PopupPDF = ({ isOpen, onClose, pdfUrl }) => {
         >
           <div className="modal_content" onClick={(e) => e.stopPropagation()}>
             <div className="modal_nav">
-              <a
-                href={`${pdfUrl}`}
-                download={`${pdfUrl.split('/').pop()}`}
-                target="_blank"
+              <button
+                onClick={() => handleDownload(pdfUrl.url, pdfUrl.name)}
                 className={`modal_download`}
               >
                 <svg
@@ -88,7 +101,7 @@ const PopupPDF = ({ isOpen, onClose, pdfUrl }) => {
                     />
                   </g>
                 </svg>
-              </a>
+              </button>
 
               <button className={`modal_close`} onClick={onClose}>
                 <svg
@@ -111,10 +124,10 @@ const PopupPDF = ({ isOpen, onClose, pdfUrl }) => {
             </div>
 
             {isSupportedBrowser ? (
-              <PdfViewer pdfUrl={pdfUrl} />
+              <PdfViewer pdfUrl={pdfUrl.url} />
             ) : (
               <div style={{ overflow: 'scroll' }}>
-                <embed src={pdfUrl} width="100%" height="100%" />
+                <embed src={pdfUrl.url} width="100%" height="100%" />
               </div>
             )}
           </div>

@@ -148,9 +148,7 @@ const BallisticChartBottom = (props) => {
               <li
                 className={`${styles.ballistic_bottom_main_list_item}`}
                 key={index}
-                onClick={() =>
-                  togglePDFPopup(`${item?.pdf?.data?.attributes.url}`)
-                }
+                onClick={() => togglePDFPopup(item?.pdf?.data?.attributes)}
               >
                 <span className={`${styles.ballistic_bottom_main_list_level}`}>
                   <strong>{item.label}</strong>

@@ -32,8 +32,8 @@ interface Location {
 
 function About(props) {
   const boxes = props?.pageData?.boxes;
-  const certificate1 = props?.pageData?.certificate1?.data?.attributes?.url;
-  const certificate2 = props?.pageData?.certificate2?.data?.attributes?.url;
+  const certificate1 = props?.pageData?.certificate1?.data?.attributes;
+  const certificate2 = props?.pageData?.certificate2?.data?.attributes;
   const convertMarkdown = useMarkdownToHtml();
 
   const companyLocations: Location[] = [

@@ -4,7 +4,6 @@ import ArticleList from 'components/global/article/Article';
 import styles from './Article.module.scss';
 
 function Article(props) {
-  console.log(props);
   const posts = props?.posts;
 
   // Animations

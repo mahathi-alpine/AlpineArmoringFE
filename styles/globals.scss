@@ -419,6 +419,7 @@ $shapeColor: var(--color-background);
   &_download {
     margin-right: 10px;
     height: 28px;
+    cursor: pointer;
 
     svg {
       max-width: 28px;

@@ -20,8 +20,8 @@ function Shipping(props) {
   const boxes = props?.pageData?.boxes;
   const license = props?.pageData?.licenseText;
   const licenseImage = props?.pageData?.licenseImage;
-  const licensePDF1 = props?.pageData?.licensePDF1?.data?.attributes?.url;
-  const licensePDF2 = props?.pageData?.licensePDF2?.data?.attributes?.url;
+  const licensePDF1 = props?.pageData?.licensePDF1?.data?.attributes;
+  const licensePDF2 = props?.pageData?.licensePDF2?.data?.attributes;
 
   const convertMarkdown = useMarkdownToHtml();
 

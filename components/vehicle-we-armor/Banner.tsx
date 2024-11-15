@@ -232,7 +232,7 @@ const Banner = (props) => {
 
           {data.pdf?.data ? (
             <div
-              onClick={() => togglePDFPopup(data.pdf.data.attributes.url)}
+              onClick={() => togglePDFPopup(data.pdf.data.attributes)}
               className={`${styles.banner_pdf} ${styles.certificate_container}`}
             >
               <span className={`${styles.certificate_text}`}>
