@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = '/';
 
-    const response = NextResponse.redirect(url);
+    const response = NextResponse.redirect(url, { status: 301 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
