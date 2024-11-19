@@ -75,11 +75,11 @@ const FillingText = ({ data, dark = false, className = '', small = false }) => {
         ) : null}
 
         {text ? (
-          <h2
+          <p
             className={`${styles.fillingText_text} observe`}
             dangerouslySetInnerHTML={{ __html: text }}
             ref={fillingTextRef}
-          ></h2>
+          ></p>
         ) : null}
       </div>
     </div>
