@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /stock/
 Disallow: /inventory/
+Disallow: /*?vehicles_we_armor=*
 
 Sitemap: https://www.alpineco.com/sitemap.xml
