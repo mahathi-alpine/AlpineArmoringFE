@@ -28,11 +28,11 @@ const Article = ({
         {subtitle || title ? (
           <div className={`${styles.article_heading}`}>
             {subtitle ? (
-              <h3
+              <h1
                 className={`${styles.article_heading_primary} block-reveal observe`}
               >
                 {subtitle}
-              </h3>
+              </h1>
             ) : null}
             <br />
             <p className={`${styles.article_description}`}>
@@ -53,11 +53,11 @@ const Article = ({
           {/* Render countries */}
           {countries.length > 0 && (
             <>
-              <h3
+              <h2
                 className={`${styles.article_heading_secondary} block-reveal observe`}
               >
                 COUNTRIES
-              </h3>
+              </h2>
               <div style={{ marginBottom: '4rem' }}>
                 {(limit ? countries.slice(0, limit) : countries).map(
                   (item, index) => (
@@ -98,7 +98,7 @@ const Article = ({
                                 />
                               </div>
                               <div className={`${styles.article_country}`}>
-                                <h2>{item.attributes.excerpt}</h2>
+                                <h3>{item.attributes.excerpt}</h3>
                               </div>
                             </Link>
                           </li>
@@ -114,11 +114,11 @@ const Article = ({
           {/* Render states */}
           {states.length > 0 && (
             <>
-              <h3
+              <h2
                 className={`${styles.article_heading_secondary} block-reveal observe`}
               >
                 STATES
-              </h3>
+              </h2>
               <div style={{ marginBottom: '4rem' }}>
                 {(limit ? states.slice(0, limit) : states).map(
                   (item, index) => (
@@ -159,7 +159,7 @@ const Article = ({
                                 />
                               </div>
                               <div className={`${styles.article_country}`}>
-                                <h2>{item.attributes.excerpt}</h2>
+                                <h3>{item.attributes.excerpt}</h3>
                               </div>
                             </Link>
                           </li>
@@ -174,11 +174,11 @@ const Article = ({
           {/* Render cities */}
           {cities.length > 0 && (
             <>
-              <h3
+              <h2
                 className={`${styles.article_heading_secondary} block-reveal observe`}
               >
                 MAJOR CITIES
-              </h3>
+              </h2>
               <div style={{ marginBottom: '4rem' }}>
                 {(limit ? cities.slice(0, limit) : cities).map(
                   (item, index) => (
@@ -203,7 +203,7 @@ const Article = ({
                               }
                             >
                               <div className={`${styles.article_country}`}>
-                                <h2>{item.attributes.excerpt}</h2>
+                                <h3>{item.attributes.excerpt}</h3>
                               </div>
                             </Link>
                           </li>
