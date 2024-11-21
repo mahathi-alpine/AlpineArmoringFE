@@ -3,6 +3,7 @@ import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 import styles from '/components/listing/Listing.module.scss';
 
 import Banner from 'components/global/banner/Banner';
@@ -152,10 +153,40 @@ function Inventory(props) {
     return () => observer.disconnect();
   }, [handleIntersection, searchQuery]);
 
+  const getBreadcrumbStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.alpineco.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Available now',
+          item: `https://www.alpineco.com/available-now`,
+        },
+      ],
+    };
+    return JSON.stringify(structuredData);
+  };
+
   if (!displayedVehicles) return null;
 
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
+          key="breadcrumb-jsonld"
+        />
+      </Head>
+
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
           <Link href="/">Home</Link>

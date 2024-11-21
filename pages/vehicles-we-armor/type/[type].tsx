@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
+import Head from 'next/head';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
@@ -79,21 +80,24 @@ function Inventory(props) {
     };
   }, [itemsToRender, fetchMoreItems]);
 
-  const findTitleBySlug = (filters, targetSlug) => {
-    if (!filters || !Array.isArray(filters.type)) {
-      return null;
-    }
+  // const findTitleBySlug = (filters, targetSlug) => {
+  //   if (!filters || !Array.isArray(filters.type)) {
+  //     return null;
+  //   }
 
-    const matchingItem = filters.type.find(
-      (item) =>
-        item.attributes &&
-        item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
-    );
+  //   const matchingItem = filters.type.find(
+  //     (item) =>
+  //       item.attributes &&
+  //       item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
+  //   );
 
-    return matchingItem ? matchingItem.attributes.title : null;
-  };
+  //   return matchingItem ? matchingItem.attributes.title : null;
+  // };
 
-  const categoryTitle = findTitleBySlug(props?.filters, props?.query);
+  // const categoryTitle = findTitleBySlug(props?.filters, props?.query);
+  const categoryTitle = currentCategory.attributes.title;
+  const categorySlug = currentCategory.attributes.slug;
+
   const make = router.query.make;
   const categoryTitleWithMake = (
     <>
@@ -103,8 +107,43 @@ function Inventory(props) {
     </>
   );
 
+  const getBreadcrumbStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.alpineco.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Vehicles we armor',
+          item: `https://www.alpineco.com/vehicles-we-armor`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: categoryTitle,
+          item: `https://www.alpineco.com/vehicles-we-armor/type/${categorySlug}`,
+        },
+      ],
+    };
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
+          key="breadcrumb-jsonld"
+        />
+      </Head>
       <div className={`${styles.listing}`}>
         <div
           className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}

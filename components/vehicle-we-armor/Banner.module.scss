@@ -1,15 +1,15 @@
 .banner {
   position: relative;
-  padding-top: rem(32);
+  padding-top: rem(8);
   @include breakpoint(small) {
     display: flex;
     flex-flow: column;
-    // min-height: 80vh;
   }
   @include breakpoint(large) {
     max-width: 2200px;
     margin: auto;
     padding: rem(32);
+    padding-top: rem(8);
   }
 
   &_nav {
@@ -35,7 +35,7 @@
     @include breakpoint(medium) {
       max-width: 800px;
       margin: auto;
-      padding-top: rem(24);
+      // padding-top: rem(24);
       display: flex;
       flex-flow: column;
       align-items: center;
@@ -50,7 +50,7 @@
       margin: unset;
       background: var(--color-background);
       border-bottom-right-radius: 32px;
-      padding: rem(24) rem(40) rem(24) rem(24);
+      padding: rem(8) rem(40) rem(24) rem(24);
       text-align: left;
     }
   }
@@ -267,7 +267,7 @@
   }
 
   &_noPdf {
-    margin-bottom: -36px;
+    margin-bottom: -70px;
     @include breakpoint(large) {
       margin-bottom: 0;
     }

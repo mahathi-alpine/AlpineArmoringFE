@@ -44,7 +44,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
         query: newQuery,
       },
       undefined
-      // { scroll: false }
     );
   };
 
@@ -121,6 +120,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     }
 
     const newQuery = { ...router.query };
+    // Remove vehicles_we_armor parameter
     delete newQuery['vehicles_we_armor'];
 
     if (newQuery[paramKey] === item) {
@@ -192,6 +192,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
       };
     }
   }, [openFiltersClicked]);
+
+  // Function to construct URL without vehicles_we_armor parameter
+  const constructFilterUrl = (baseUrl, slug, currentQuery) => {
+    const queryParams = new URLSearchParams(currentQuery);
+    queryParams.delete('vehicles_we_armor');
+    const queryString = queryParams.toString();
+    return `${baseUrl}/type/${slug}${queryString ? `?${queryString}` : ''}`;
+  };
 
   return (
     <div
@@ -291,11 +299,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 <div className={`${styles.filters_item_wrap}`}>
                   {props[filter].map((item) => {
                     if (filter == 'type') {
-                      const newUrl = `${baseUrl}/type/${item.attributes.slug}${
-                        router.asPath.includes('?')
-                          ? '?' + router.asPath.split('?')[1]
-                          : ''
-                      }`;
                       if (
                         (baseUrl == '/vehicles-we-armor' &&
                           item.attributes.title == 'Armored Rental') ||
@@ -309,10 +312,16 @@ const Filters = ({ props, plain }: FiltersProps) => {
                       ) {
                         return;
                       }
+
+                      const newUrl = constructFilterUrl(
+                        baseUrl,
+                        item.attributes.slug,
+                        router.asPath.split('?')[1] || ''
+                      );
+
                       return (
                         <Link
                           href={newUrl}
-                          // scroll={false}
                           className={`
                             ${styles.checkbox_link} 
                             ${
@@ -362,7 +371,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
                   {filter == 'type' && (
                     <Link
                       href={baseUrl}
-                      // scroll={false}
                       className={`${styles.checkbox_link} ${
                         'available-now' === currentSlug
                           ? styles.selected_filter

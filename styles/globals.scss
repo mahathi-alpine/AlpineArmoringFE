@@ -179,7 +179,8 @@ $shapeColor: var(--color-background);
   }
 
   &_rightTop {
-    top: $shapeSize;
+    // top: $shapeSize;
+    top: 8px;
     right: -$shapeSize;
     bottom: auto;
     left: auto;

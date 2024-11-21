@@ -1,6 +1,8 @@
 import styles from './Vehicle.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
 import Banner from 'components/vehicle-we-armor/Banner';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
@@ -139,184 +141,238 @@ function Vehicle(props) {
     setupObserver();
   }, []);
 
+  const getBreadcrumbStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.alpineco.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Vehicles we armor',
+          item: `https://www.alpineco.com/vehicles-we-armor`,
+        },
+        // {
+        //   '@type': 'ListItem',
+        //   position: 3,
+        //   name: category,
+        //   item: `https://www.alpineco.com/vehicles-we-armor/type/${categorySlug}`,
+        // },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: data?.title,
+          item: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
+        },
+      ],
+    };
+    return JSON.stringify(structuredData);
+  };
+
   if (!props.data) {
     return null;
   }
 
   return (
-    <div className={`${styles.slug}`}>
-      <Banner props={banner} />
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
+          key="breadcrumb-jsonld"
+        />
+      </Head>
 
-      {data?.description ? (
+      <div className={`${styles.slug_wrapper}`}>
         <div
-          id="overview"
-          className={`${styles.slug_description} anchor container_small`}
+          className={`${styles.slug_breadcrumbs} b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
-          <h2 className={`c-title`}>Overview</h2>
+          <Link href="/">Home</Link>
+          <span>/</span>
+          <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
+          <span>/</span>
+          {data?.slug}
+        </div>
 
+        <Banner props={banner} />
+
+        {data?.description ? (
           <div
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(data.description),
-            }}
-          ></div>
-        </div>
-      ) : null}
-
-      {gallery ? (
-        <div
-          className={`${styles.slug_gallery} observe fade-in anchor`}
-          id="gallery"
-        >
-          <Gallery props={gallery} white regular />
-        </div>
-      ) : null}
-
-      {dimensions1 && dimensions2 ? (
-        <div
-          className={`${styles.slug_dimensions} container anchor`}
-          id="dimensions"
-        >
-          <h2
-            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+            id="overview"
+            className={`${styles.slug_description} anchor container_small`}
           >
-            Dimensions
-          </h2>
-          <div className={`${styles.slug_dimensions_wrap}`}>
+            <h2 className={`c-title`}>Overview</h2>
+
             <div
-              className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
+              dangerouslySetInnerHTML={{
+                __html: convertMarkdown(data.description),
+              }}
+            ></div>
+          </div>
+        ) : null}
+
+        {gallery ? (
+          <div
+            className={`${styles.slug_gallery} observe fade-in anchor`}
+            id="gallery"
+          >
+            <Gallery props={gallery} white regular />
+          </div>
+        ) : null}
+
+        {dimensions1 && dimensions2 ? (
+          <div
+            className={`${styles.slug_dimensions} container anchor`}
+            id="dimensions"
+          >
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              <div className={`${styles.slug_dimensions_wrap_image_box}`}>
+              Dimensions
+            </h2>
+            <div className={`${styles.slug_dimensions_wrap}`}>
+              <div
+                className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
+              >
+                <div className={`${styles.slug_dimensions_wrap_image_box}`}>
+                  <Image
+                    src={dimensions1.formats?.large?.url || dimensions1.url}
+                    alt={dimensions1.alternativeText || 'Alpine Armoring'}
+                    width={dimensions1.width}
+                    height={dimensions1.height}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </div>
+
+              <div
+                className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
+              >
                 <Image
-                  src={dimensions1.formats?.large?.url || dimensions1.url}
-                  alt={dimensions1.alternativeText || 'Alpine Armoring'}
-                  width={dimensions1.width}
-                  height={dimensions1.height}
+                  src={dimensions2.formats?.large?.url || dimensions2.url}
+                  alt={dimensions2.alternativeText || 'Alpine Armoring'}
+                  width={dimensions2.width}
+                  height={dimensions2.height}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
+          </div>
+        ) : null}
 
-            <div
-              className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
-            >
-              <Image
-                src={dimensions2.formats?.large?.url || dimensions2.url}
-                alt={dimensions2.alternativeText || 'Alpine Armoring'}
-                width={dimensions2.width}
-                height={dimensions2.height}
-                sizes="(max-width: 768px) 100vw, 50vw"
+        {beforeAfterSlider_Before && beforeAfterSlider_After ? (
+          <div className={`${styles.slug_slider_wrap} observe fade-in anchor`}>
+            <div className={`shape-before`}></div>
+
+            <div className={`${styles.slug_slider} background-dark`}>
+              <ComparisonSlider
+                beforeImage={beforeAfterSlider_Before}
+                afterImage={beforeAfterSlider_After}
               />
+              <p className={`${styles.slug_slider_small}`}>
+                <small>
+                  The actual custom-armoring conversion may vary per each
+                  vehicle’s structural configuration and client’s final specs
+                </small>
+              </p>
             </div>
+
+            <div className={`shape-after`}></div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
 
-      {beforeAfterSlider_Before && beforeAfterSlider_After ? (
-        <div className={`${styles.slug_slider_wrap} observe fade-in anchor`}>
-          <div className={`shape-before`}></div>
-
-          <div className={`${styles.slug_slider} background-dark`}>
-            <ComparisonSlider
-              beforeImage={beforeAfterSlider_Before}
-              afterImage={beforeAfterSlider_After}
-            />
-            <p className={`${styles.slug_slider_small}`}>
-              <small>
-                The actual custom-armoring conversion may vary per each
-                vehicle’s structural configuration and client’s final specs
-              </small>
-            </p>
+        {data?.armoringFeatures?.data.length > 0 ? (
+          <div
+            id="armoring-features"
+            className={`${styles.slug_specs} container anchor`}
+          >
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+            >
+              Armoring Features
+            </h2>
+            <StickyHorizontalSlider slides={data.armoringFeatures.data} />
+            <div className={`divider_fade`}></div>
           </div>
+        ) : null}
 
-          <div className={`shape-after`}></div>
-        </div>
-      ) : null}
-
-      {data?.armoringFeatures?.data.length > 0 ? (
-        <div
-          id="armoring-features"
-          className={`${styles.slug_specs} container anchor`}
-        >
-          <h2
-            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+        {data?.conversionAccessories?.data.length > 0 ? (
+          <div
+            id="conversion-accessories"
+            className={`${styles.slug_specs} container anchor`}
           >
-            Armoring Features
-          </h2>
-          <StickyHorizontalSlider slides={data.armoringFeatures.data} />
-          <div className={`divider_fade`}></div>
-        </div>
-      ) : null}
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+            >
+              Conversion Accessories
+            </h2>
+            <StickyHorizontalSlider slides={data.conversionAccessories.data} />
+            <div className={`divider_fade`}></div>
+          </div>
+        ) : null}
 
-      {data?.conversionAccessories?.data.length > 0 ? (
-        <div
-          id="conversion-accessories"
-          className={`${styles.slug_specs} container anchor`}
-        >
-          <h2
-            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+        {data?.communications?.data.length > 0 ? (
+          <div
+            id="communications-&-electronics"
+            className={`${styles.slug_specs} container anchor`}
           >
-            Conversion Accessories
-          </h2>
-          <StickyHorizontalSlider slides={data.conversionAccessories.data} />
-          <div className={`divider_fade`}></div>
-        </div>
-      ) : null}
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+            >
+              Communications & Electronics
+            </h2>
+            <StickyHorizontalSlider slides={data.communications.data} />
+            <div className={`divider_fade`}></div>
+          </div>
+        ) : null}
 
-      {data?.communications?.data.length > 0 ? (
-        <div
-          id="communications-&-electronics"
-          className={`${styles.slug_specs} container anchor`}
-        >
-          <h2
-            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+        {data?.otherOptions?.data.length > 0 ? (
+          <div
+            id="other-options"
+            className={`${styles.slug_specs} container anchor`}
           >
-            Communications & Electronics
-          </h2>
-          <StickyHorizontalSlider slides={data.communications.data} />
-          <div className={`divider_fade`}></div>
-        </div>
-      ) : null}
+            <h2
+              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+            >
+              Other Optional Equipment
+            </h2>
+            <StickyHorizontalSlider slides={data.otherOptions.data} />
+            <div className={`divider_fade`}></div>
+          </div>
+        ) : null}
 
-      {data?.otherOptions?.data.length > 0 ? (
-        <div
-          id="other-options"
-          className={`${styles.slug_specs} container anchor`}
-        >
-          <h2
-            className={`${styles.slug_dimensions_title} observe fade-in c-title`}
-          >
-            Other Optional Equipment
-          </h2>
-          <StickyHorizontalSlider slides={data.otherOptions.data} />
-          <div className={`divider_fade`}></div>
-        </div>
-      ) : null}
+        {videoWebm || videoMP4 ? (
+          <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
+        ) : null}
 
-      {videoWebm || videoMP4 ? (
-        <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
-      ) : null}
+        {data?.videoYoutube ? (
+          <div className={`${styles.slug_yt}`}>
+            <iframe
+              width="860"
+              height="500"
+              src={`https://www.youtube.com/embed/${data.videoYoutube}?controls=0&showinfo=0&modestbranding=1`}
+              // &autoplay=1&mute=1
+              title={data.title}
+              frameBorder="0"
+              allow="autoplay;"
+              allowFullScreen
+            ></iframe>
+          </div>
+        ) : null}
 
-      {data?.videoYoutube ? (
-        <div className={`${styles.slug_yt}`}>
-          <iframe
-            width="860"
-            height="500"
-            src={`https://www.youtube.com/embed/${data.videoYoutube}?controls=0&showinfo=0&modestbranding=1`}
-            // &autoplay=1&mute=1
-            title={data.title}
-            frameBorder="0"
-            allow="autoplay;"
-            allowFullScreen
-          ></iframe>
-        </div>
-      ) : null}
-
-      {formData ? (
-        <div className={`background-dark`}>
-          <InquiryForm {...formData} plain />
-        </div>
-      ) : null}
-    </div>
+        {formData ? (
+          <div className={`background-dark`}>
+            <InquiryForm {...formData} plain />
+          </div>
+        ) : null}
+      </div>
+    </>
   );
 }
 

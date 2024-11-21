@@ -198,14 +198,6 @@ const Banner = (props) => {
               }
               width={width}
               height={height}
-              // width={
-              //   data.featuredImage.data.attributes.formats?.large?.width ||
-              //   data.featuredImage.data.attributes.width
-              // }
-              // height={
-              //   data.featuredImage.data.attributes.formats?.large?.height ||
-              //   data.featuredImage.data.attributes.height
-              // }
               sizes="(max-width: 768px) 50vw, 100vw"
               priority
               className={`observe fade-in`}

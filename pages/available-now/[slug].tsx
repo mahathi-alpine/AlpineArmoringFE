@@ -148,18 +148,24 @@ function InventoryVehicle(props) {
         {
           '@type': 'ListItem',
           position: 1,
+          name: 'Home',
+          item: 'https://www.alpineco.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
           name: 'Available now',
           item: `https://www.alpineco.com/available-now`,
         },
         {
           '@type': 'ListItem',
-          position: 2,
+          position: 3,
           name: category,
           item: `https://www.alpineco.com/available-now/type/${categorySlug}`,
         },
         {
           '@type': 'ListItem',
-          position: 3,
+          position: 4,
           name: data?.title,
           item: `https://www.alpineco.com/available-now/${data?.slug}`,
         },
