@@ -4,6 +4,7 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'hooks/api';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback } from 'react';
 
@@ -120,6 +121,14 @@ function VehicleWeArmor(props) {
   return (
     <>
       <div className={`${styles.listing}`}>
+        <div
+          className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
+        >
+          <Link href="/">Home</Link>
+          <span>/</span>
+          Vehicles We Armor
+        </div>
+
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
 
         <div className={`${styles.listing_all_filters} container`}>

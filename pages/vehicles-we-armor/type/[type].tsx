@@ -6,14 +6,19 @@ import Link from 'next/link';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Inventory(props) {
-  let topBanner = props.filters?.type?.find(
+  const currentCategory = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
-  topBanner = topBanner?.attributes.allBanner;
+  const topBanner = currentCategory?.attributes.allBanner;
+  const bottomText = currentCategory?.attributes.bottomText;
+  const heading = currentCategory?.attributes.heading;
 
   const router = useRouter();
+
+  const convertMarkdown = useMarkdownToHtml();
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
@@ -101,18 +106,26 @@ function Inventory(props) {
   return (
     <>
       <div className={`${styles.listing}`}>
-        {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
-
         <div
-          className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container untilLarge-only`}
+          className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
+          <Link href="/">Home</Link>
+          <span>/</span>
           <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
-          <span>&gt;</span>
+          <span>/</span>
           {categoryTitleWithMake}
         </div>
 
+        {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
+
+        {heading ? (
+          <p className={`${styles.listing_heading} center container`}>
+            {heading}
+          </p>
+        ) : null}
+
         {props.filters?.type ? (
-          <div className={`${styles.listing_all_filters} mt0 container`}>
+          <div className={`${styles.listing_all_filters} container`}>
             <Filters props={props.filters} plain />
           </div>
         ) : null}
@@ -129,6 +142,17 @@ function Inventory(props) {
           )}
         </div>
       </div>
+
+      {bottomText ? (
+        <div className={`container_small`}>
+          <p
+            className={`${styles.listing_bottomText} darkColor`}
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(bottomText),
+            }}
+          ></p>
+        </div>
+      ) : null}
 
       {loading ? (
         <div
@@ -179,7 +203,8 @@ export async function getServerSideProps(context) {
     getPageData({
       route: 'categories',
       sort: 'order',
-      fields: 'fields[0]=title&fields[1]=slug',
+      fields:
+        'fields[0]=title&fields[1]=slug&fields[2]=bottomText&fields[3]=heading',
       populate:
         'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo',
     }).then((res) => res.data),

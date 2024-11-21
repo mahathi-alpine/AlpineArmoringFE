@@ -2,6 +2,7 @@ import React from 'react';
 import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import styles from '/components/listing/Listing.module.scss';
 
 import Banner from 'components/global/banner/Banner';
@@ -156,6 +157,12 @@ function Inventory(props) {
   return (
     <>
       <div className={`${styles.listing} background-dark`}>
+        <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
+          <Link href="/">Home</Link>
+          <span>/</span>
+          Available now
+        </div>
+
         {topBanner && <Banner props={topBanner} shape="dark" />}
 
         <div

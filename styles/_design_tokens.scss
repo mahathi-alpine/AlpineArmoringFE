@@ -175,3 +175,8 @@ small {
     font-size: rem(36);
   }
 }
+
+.darkColor,
+p.darkColor{
+  color: var(--color-dark);
+}
