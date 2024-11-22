@@ -605,6 +605,7 @@ $shapeColor: var(--color-background);
   font-weight: var(--font-medium);
   margin-bottom: rem(16);
   font-size: clamp(0.6875rem, 0.6572rem + 0.1294vw, 0.8125rem);
+  line-height: 1.5;
 
   span {
     margin: 0 rem(8);

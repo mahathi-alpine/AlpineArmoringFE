@@ -118,9 +118,9 @@ function Inventory(props) {
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
           <Link href="/">Home</Link>
-          <span>/</span>
+          <span>&gt;</span>
           <Link href="/available-now">Available now</Link>
-          <span>/</span>
+          <span>&gt;</span>
           <span>{categoryTitle}</span>
         </div>
 

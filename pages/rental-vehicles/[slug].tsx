@@ -20,8 +20,8 @@ function InventoryVehicle(props) {
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
-  const category = data?.categories?.data[0]?.attributes?.title;
-  const categorySlug = data?.categories?.data[0]?.attributes?.slug;
+  // const category = data?.categories?.data[0]?.attributes?.title;
+  // const categorySlug = data?.categories?.data[0]?.attributes?.slug;
 
   const videoWebm = data?.video?.data?.attributes;
   const videoMP4 = data?.videoMP4?.data?.attributes;
@@ -113,10 +113,16 @@ function InventoryVehicle(props) {
     <div className={`${styles.inventory} background-dark`}>
       <div className={`${styles.inventory_main}`}>
         <div className={`${styles.inventory_heading}`}>
-          <div className={`${styles.inventory_heading_breadcrumbs}`}>
-            <Link href="/available-now">Rental Vehicles</Link>
+          <div className={`b-breadcrumbs`}>
+            <Link href="/">Home</Link>
             <span>&gt;</span>
-            <Link href={`/available-now/type/${categorySlug}`}>{category}</Link>
+            <Link href="/available-now">Available now</Link>
+            <span>&gt;</span>
+            <Link href={`/available-now/type/rental-vehicles`}>
+              Rental Vehicles
+            </Link>
+            <span>&gt;</span>
+            {data?.title}
           </div>
 
           <div className={`${styles.inventory_heading_title}`}>

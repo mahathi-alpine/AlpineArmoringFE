@@ -29,7 +29,7 @@ function Home({ homepageData, categories }) {
   const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
   const ballistingTestings = data?.ballistingTestingsMedia;
   const news = data?.blogs?.data;
-  const partners = data?.industryPartners?.data;
+  const partners = data?.industryPartners;
 
   // Animations
   useEffect(() => {

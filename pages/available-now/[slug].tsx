@@ -157,15 +157,15 @@ function InventoryVehicle(props) {
           name: 'Available now',
           item: `https://www.alpineco.com/available-now`,
         },
+        // {
+        //   '@type': 'ListItem',
+        //   position: 3,
+        //   name: category,
+        //   item: `https://www.alpineco.com/available-now/type/${categorySlug}`,
+        // },
         {
           '@type': 'ListItem',
           position: 3,
-          name: category,
-          item: `https://www.alpineco.com/available-now/type/${categorySlug}`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 4,
           name: data?.title,
           item: `https://www.alpineco.com/available-now/${data?.slug}`,
         },
@@ -188,11 +188,15 @@ function InventoryVehicle(props) {
         <div className={`${styles.inventory_main}`}>
           <div className={`${styles.inventory_heading}`}>
             <div className={`b-breadcrumbs`}>
+              <Link href="/">Home</Link>
+              <span>&gt;</span>
               <Link href="/available-now">Available now</Link>
               <span>&gt;</span>
               <Link href={`/available-now/type/${categorySlug}`}>
                 {category}
               </Link>
+              <span>&gt;</span>
+              {data?.title}
             </div>
 
             <div className={`${styles.inventory_heading_title}`}>
