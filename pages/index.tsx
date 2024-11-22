@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import dynamic from 'next/dynamic';
-// import { getCookie } from 'cookies-next';
+import Head from 'next/head';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -13,10 +13,37 @@ const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
 );
 
-// function Home({ homepageData, categories, languageCookie }) {
 function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
+  const getOrganizationStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      image:
+        'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fmedium_About_us_hompage_thumbnail_1_ea1c33f592.JPG&w=640&q=75',
+      url: 'https://www.alpineco.com',
+      sameAs: ['https://www.armoredvehicles.com'],
+      logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
+      name: 'Alpine Armoring',
+      description:
+        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
+      email: 'sales@alpineco.com',
+      telephone: '+1 703 471 0002',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '4170 Lafayette Center Drive #100',
+        addressLocality: 'Chantilly',
+        addressCountry: 'US',
+        addressRegion: 'Virginia',
+        postalCode: '20151',
+      },
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
+  // Your existing const declarations...
   const topBanner = {
     title: data?.topBannerTitle,
     description: data?.topBannerDescription,
@@ -60,10 +87,15 @@ function Home({ homepageData, categories }) {
 
   return (
     <>
-      {topBanner ? (
-        // <HpBanner props={topBanner} languageCookie={languageCookie} />
-        <HpBanner props={topBanner} />
-      ) : null}
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getOrganizationStructuredData() }}
+          key="organization-jsonld"
+        />
+      </Head>
+
+      {topBanner ? <HpBanner props={topBanner} /> : null}
 
       <div className="background-dark">
         {quote ? <FillingText className="padding" data={quote} /> : null}
@@ -105,7 +137,6 @@ function Home({ homepageData, categories }) {
   );
 }
 
-// export async function getServerSideProps({ req, res }) {
 export async function getStaticProps() {
   const homepageData = await getPageData({
     route: 'homepage',
@@ -122,13 +153,8 @@ export async function getStaticProps() {
 
   const seoData = homepageData.data?.attributes.seo || null;
 
-  // let languageCookie = getCookie('googtrans', { req, res });
-  // languageCookie = languageCookie ? languageCookie.split('/').pop() : 'en';
-
   return {
-    // props: { homepageData, categories, languageCookie },
     props: { homepageData, categories, seoData },
-    // revalidate: 86400,
   };
 }
 
