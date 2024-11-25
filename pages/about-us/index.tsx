@@ -15,6 +15,11 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 
+import ClientOnly from 'components/ClientOnly';
+const GlobeComponent = dynamic(() => import('components/global/globe/Globe'), {
+  ssr: false,
+});
+
 function About(props) {
   const boxes = props?.pageData?.boxes;
   const certificate1 = props?.pageData?.certificate1?.data?.attributes;
@@ -227,6 +232,12 @@ function About(props) {
             <FillingText data={props.pageData?.quote} dark />
           </div>
         ) : null}
+
+        <div className="b-globe-outer">
+          <ClientOnly>
+            <GlobeComponent />
+          </ClientOnly>
+        </div>
       </div>
     </>
   );
