@@ -35,9 +35,9 @@ function Downloads(props) {
   const sortItems = useMemo(() => {
     return (items) =>
       items.sort((a, b) => {
-        const textA = a.attributes.alternativeText.toLowerCase();
-        const textB = b.attributes.alternativeText.toLowerCase();
-        return textA.localeCompare(textB);
+        const textA = a.attributes.alternativeText?.toLowerCase();
+        const textB = b.attributes.alternativeText?.toLowerCase();
+        return textA?.localeCompare(textB);
       });
   }, []);
 

@@ -22,7 +22,7 @@ const BallisticChartBottomHeading = (props) => {
       <div className={`${styles.ballistic_bottom_top}`}>
         <Image
           src="/assets/ballistic/ballistic_logo_big.png"
-          alt=""
+          alt="Alpine Armoring"
           width="384"
           height="229"
           className={`${styles.ballistic_bottom_top_logo}`}
