@@ -22,7 +22,6 @@ function Testing(props) {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // const popupRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef(null);
 
   const handleReadMore = (item) => {
@@ -33,22 +32,6 @@ function Testing(props) {
   useOutsideClick(popupRef, () => {
     setShowPopup(false);
   });
-
-  // useEffect(() => {
-  //   const handleClickOutside = () => {
-  //     if (
-  //       popupRef.current &&
-  //       popupRef.current.classList.contains('modal_active')
-  //     ) {
-  //       setShowPopup(false);
-  //     }
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
 
   // Animations
   useEffect(() => {
@@ -90,10 +73,6 @@ function Testing(props) {
       id: 2,
       titleNav: 'Live Fire Testing',
     },
-    // {
-    //   id: 3,
-    //   titleNav: 'Vehicle Dynamic Testing',
-    // },
   ];
 
   const handleTabChange = (index, titleNav) => {
@@ -545,6 +524,34 @@ function Testing(props) {
           ) : null}
         </section>
       </div>
+
+      <Link
+        className={`${styles.testing_flip_wrapper} container_small`}
+        href={'/ballistic-chart'}
+      >
+        See Ballistic Postcard
+        <div className={`${styles.testing_flip}`}>
+          <div className={`${styles.testing_flip_inner}`}>
+            <div className={`${styles.testing_flip_front}`}>
+              <Image
+                src="/assets/Ballistic Chart-test-2.jpg"
+                alt="armored vehicles"
+                fill
+                objectPosition="right"
+              />
+            </div>
+            <div className={`${styles.testing_flip_back}`}>
+              <Image
+                src="/assets/Ballistic Chart-test-1.jpg"
+                alt="armored vehicles"
+                fill
+                objectPosition="right"
+              />
+            </div>
+          </div>
+        </div>
+      </Link>
+
       {isLightboxPopupOpen ? (
         <LightboxCustom
           isLightboxPopupOpen={isLightboxPopupOpen}
