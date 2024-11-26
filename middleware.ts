@@ -2,14 +2,18 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  const blockedParams = ['vehicles_we_armor', 'brand', 'name', 'id', 'names'];
+
+  const hasBlockedParam = blockedParams.some((param) =>
+    request.nextUrl.searchParams.has(param)
+  );
+
   if (
     request.nextUrl.pathname.startsWith('/stock') ||
-    request.nextUrl.pathname.startsWith('/inventory')
+    request.nextUrl.pathname.startsWith('/inventory') ||
+    hasBlockedParam
   ) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/';
-
-    const response = NextResponse.redirect(url, { status: 301 });
+    const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
@@ -17,5 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/stock/:path*', '/inventory/:path*'],
+  matcher: ['/stock/:path*', '/inventory/:path*', '/:path*'],
 };

@@ -7,7 +7,7 @@ const TableRow = ({ item, index, onRowSelect, styles }) => (
       <div className={styles.ballistic_weaponImg}>
         <Image
           src={`/assets/ballistic/weapon_A${item.level[0]}.png`}
-          alt=""
+          alt={`Wweapon A${item.level[0]}`}
           width={264}
           height={71}
           priority
@@ -57,7 +57,7 @@ const TableRow = ({ item, index, onRowSelect, styles }) => (
     <div className={`${styles.ballistic_row_item} ${styles.ballistic_bullets}`}>
       <Image
         src={`/assets/ballistic/bullet${index + 1}.png`}
-        alt=""
+        alt={`Bullet Level ${index + 1}`}
         width={232}
         height={56}
         quality={100}

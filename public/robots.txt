@@ -2,5 +2,9 @@ User-agent: *
 Disallow: /stock/
 Disallow: /inventory/
 Disallow: /*?vehicles_we_armor=*
+Disallow: /*?brand=*
+Disallow: /*?name=*
+Disallow: /*?id=*
+Disallow: /*?names=*
 
 Sitemap: https://www.alpineco.com/sitemap.xml

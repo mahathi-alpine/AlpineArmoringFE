@@ -96,7 +96,8 @@ const StickyHorizontalSlider = ({
                         data.image.data.attributes.alternativeText ||
                         'Alpine Armoring'
                       }
-                      fill
+                      width={550}
+                      height={365}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className={styles.stickyHorizontalSlider_item_image}
                     />
