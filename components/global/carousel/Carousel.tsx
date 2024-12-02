@@ -115,7 +115,7 @@ const EmblaCarousel = (props) => {
                 <div className={`${styles.carousel_slide_img_wrap}`}>
                   <Image
                     src={
-                      item.attributes.formats?.large.url || item.attributes.url
+                      item.attributes.formats?.large?.url || item.attributes.url
                     }
                     alt={item.attributes.alternativeText || 'Alpine Armoring'}
                     // quality={100}

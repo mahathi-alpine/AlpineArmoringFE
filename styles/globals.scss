@@ -265,14 +265,16 @@ $shapeColor: var(--color-background);
   right: 0;
   top: 0;
   bottom: 0;
-  opacity: 0;
-  transition: opacity 400ms ease;
   background: rgba(15, 17, 17, 0.5);
 
   &_active {
     display: block;
     z-index: 99;
-    opacity: 1;
+
+    &.modal_simple{
+      display: flex;
+      align-items: center;
+    }
 
     @include breakpoint(large) {
       display: flex;
@@ -292,10 +294,15 @@ $shapeColor: var(--color-background);
     color: var(--color-secondary);
     padding: rem(24);
     padding-top: rem(64);
+
     @include breakpoint(large) {
       width: 88%;
       padding: rem(64);
       max-width: 1000px;
+    }
+
+    .modal_simple &{
+      padding: 0;
     }
   }
 
@@ -319,6 +326,7 @@ $shapeColor: var(--color-background);
       font-weight: var(--font-medium);
     }
   }
+
   &_content {
     background: white;
     margin: auto !important;
@@ -351,6 +359,61 @@ $shapeColor: var(--color-background);
       border-radius: 16px;
       border: 4px solid #fff;
       cursor: pointer;
+    }
+  }
+
+  &_images{ 
+    .modal_simple &{
+      width: 100%;
+
+      img{
+        width: 100%;
+      }
+    }
+
+    &_flip{
+      height: 260px;
+
+      @include breakpoint(large) {
+        height: 80vH;
+      }
+
+      &.flipActive{
+        img{
+          transform: rotateY(180deg);
+        }
+
+        .modal_images_back{
+          transform: rotateY(0deg);
+        }
+      }
+
+      img{
+        position: absolute;
+        transition: transform 500ms;
+        backface-visibility: hidden;
+      }
+    }
+
+    &_back{
+      transform: rotateY(-180deg);
+    }
+  }
+
+  &_flipArrow{
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: black;
+    border-radius: 100%;
+    padding: 7px;
+    cursor: pointer;
+
+    path{
+      stroke: white;
     }
   }
 

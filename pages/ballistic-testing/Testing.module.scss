@@ -18,54 +18,109 @@
   }
 
   &_flip {
-    background-color: transparent;
-    width: 70px;
-    height: 70px;
-    perspective: 1000px;
-    margin-left: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    overflow: hidden;
+    cursor: pointer;
 
-    &_wrapper {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 50px;
+    @include breakpoint(large) {
+      margin-top: 100px;
+    }
+
+    &:hover{
+      .testing_flip_title{
+        transform: translateY(-50%);
+        
+        svg{
+          opacity: 1;
+        }
+      }
+    }
+
+    &_title{
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%) translateX(15px);
+      z-index: 1;
       color: white;
-      cursor: pointer;
+      font-size: 18px;
+      font-weight: var(--font-medium);
+      transition: transform .2s ease-in-out;
 
       @include breakpoint(large) {
-        justify-content: right;
-        margin-bottom: -136px;
-        margin-top: 100px;
-        z-index: 4;
+        font-size: 22px;
       }
 
-      &:hover .testing_flip_inner {
-        transform: rotateY(180deg);
+      svg{
+        margin-left: 8px;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        top: 1px;
+        transform: rotate(-24deg);
+        opacity: 0;
+        transition: opacity .2s ease-in-out;
+
+        path{
+          stroke: white;
+        }
       }
     }
 
-    &_inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    img{
+      filter: brightness(0.5);
     }
 
-    &_front,
-    &_back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-    }
+    // &_wrapper {
+    //   position: relative;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   // width: 500px;
+    //   // height: 500px;
+    //   margin-top: 50px;
+    //   color: white;
+    //   cursor: pointer;
 
-    &_back {
-      transform: rotateY(180deg);
-    }
+    //   @include breakpoint(large) {
+    //     // justify-content: right;
+    //     // margin-bottom: -136px;
+    //     margin-top: 100px;
+    //     // z-index: 4;
+    //   }
+
+    //   // &:hover .testing_flip_inner {
+    //   //   transform: rotateY(180deg);
+    //   // }
+    // }
+
+    // &_inner {
+    //   position: relative;
+    //   width: 100%;
+    //   height: 100%;
+    //   text-align: center;
+    //   transition: transform 0.6s;
+    //   transform-style: preserve-3d;
+    //   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    // }
+
+    // &_front,
+    // &_back {
+    //   position: absolute;
+    //   width: 100%;
+    //   height: 100%;
+    //   backface-visibility: hidden;
+    // }
+
+    // &_back {
+    //   transform: rotateY(180deg);
+    // }
   }
 
   &_title {

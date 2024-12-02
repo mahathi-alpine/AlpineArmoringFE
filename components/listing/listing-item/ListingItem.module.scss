@@ -26,7 +26,8 @@
     align-self: stretch;
     transition:
       background 0.3s ease-in-out,
-      box-shadow 0.3s ease-in-out;
+      box-shadow 0.3s ease-in-out,
+      color 0.3s ease-in-out;
 
     &:hover:not(.inventory_item_sold) {
       background: var(--color-primary);
@@ -239,6 +240,8 @@
     span {
       color: var(--color-primary);
       font-weight: var(--font-demi);
+      transition:
+        background 0.3s ease;
     }
   }
 

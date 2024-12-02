@@ -10,6 +10,7 @@ import Link from 'next/link';
 import PlayIcon from 'components/icons/Play';
 import MediaList from 'pages/media/MediaList';
 import { useOutsideClick } from 'hooks/useOutsideClick';
+import ArrowIcon from 'components/icons/Arrow';
 
 function Testing(props) {
   const convertMarkdown = useMarkdownToHtml();
@@ -19,10 +20,32 @@ function Testing(props) {
   const certificate1 = props?.pageData?.certificate1?.data?.attributes?.url;
   const certificate2 = props?.pageData?.certificate2?.data?.attributes?.url;
 
+  const flipImage1 = props?.pageData?.flipImage1?.data?.attributes?.url;
+  const flipImage2 = props?.pageData?.flipImage2?.data?.attributes?.url;
+
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const popupRef = useRef(null);
+
+  const ballisticFlip = {
+    image: {
+      data: [
+        {
+          attributes: {
+            url: flipImage1,
+            url2: flipImage2,
+          },
+        },
+      ],
+    },
+  };
+
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleFlip = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    setIsFlipped(!isFlipped);
+  };
 
   const handleReadMore = (item) => {
     setSelectedItem(item);
@@ -418,18 +441,28 @@ function Testing(props) {
             ))}
 
             {showPopup && (
-              <div className={`modal ${showPopup ? 'modal_active' : ''}`}>
+              <div
+                className={`modal ${showPopup ? 'modal_active' : ''} ${!selectedItem?.description ? 'modal_simple' : ''}`}
+              >
                 <div className={`modal_inner`} ref={popupRef}>
-                  <h3 className={`modal_title`}>{selectedItem.title}</h3>
+                  {selectedItem?.title ? (
+                    <h3 className={`modal_title`}>{selectedItem.title}</h3>
+                  ) : null}
+
                   <div className={`modal_box`}>
-                    <p
-                      className={`modal_description`}
-                      dangerouslySetInnerHTML={{
-                        __html: convertMarkdown(selectedItem.description),
-                      }}
-                    ></p>
+                    {selectedItem?.description ? (
+                      <p
+                        className={`modal_description`}
+                        dangerouslySetInnerHTML={{
+                          __html: convertMarkdown(selectedItem.description),
+                        }}
+                      ></p>
+                    ) : null}
+
                     {selectedItem?.image?.data && (
-                      <div className={`modal_images`}>
+                      <div
+                        className={`modal_images ${selectedItem.image.data[0].attributes.url2 ? 'modal_images_flip' : ''} ${isFlipped ? 'flipActive' : ''}`}
+                      >
                         {selectedItem.image.data.map((imgData, imgIndex) => (
                           <Image
                             key={imgIndex}
@@ -441,15 +474,35 @@ function Testing(props) {
                               imgData.attributes.alternativeText ||
                               'Alpine Armoring'
                             }
-                            width={400}
-                            height={400}
+                            width={1000}
+                            height={770}
                             quality={100}
-                            style={{ borderRadius: '15px', padding: '10px' }}
+                            style={{ borderRadius: '16px', padding: '10px' }}
+                            className={`modal_images_front`}
                           />
                         ))}
+
+                        {selectedItem.image.data[0].attributes.url2 ? (
+                          <Image
+                            src={selectedItem.image.data[0].attributes.url2}
+                            alt={'Alpine Armoring'}
+                            width={1000}
+                            height={770}
+                            quality={100}
+                            style={{ borderRadius: '16px', padding: '10px' }}
+                            className={`modal_images_back`}
+                          />
+                        ) : null}
                       </div>
                     )}
                   </div>
+
+                  {selectedItem.image.data[0].attributes.url2 ? (
+                    <div onClick={handleFlip}>
+                      <ArrowIcon className={`modal_flipArrow`} />
+                    </div>
+                  ) : null}
+
                   <button
                     className={`modal_close`}
                     onClick={() => setShowPopup(false)}
@@ -525,32 +578,25 @@ function Testing(props) {
         </section>
       </div>
 
-      <Link
-        className={`${styles.testing_flip_wrapper} container_small`}
-        href={'/ballistic-chart'}
-      >
-        See Ballistic Postcard
-        <div className={`${styles.testing_flip}`}>
-          <div className={`${styles.testing_flip_inner}`}>
-            <div className={`${styles.testing_flip_front}`}>
-              <Image
-                src="/assets/Ballistic Chart-test-2.jpg"
-                alt="armored vehicles"
-                fill
-                objectPosition="right"
-              />
-            </div>
-            <div className={`${styles.testing_flip_back}`}>
-              <Image
-                src="/assets/Ballistic Chart-test-1.jpg"
-                alt="armored vehicles"
-                fill
-                objectPosition="right"
-              />
-            </div>
-          </div>
+      {ballisticFlip.image.data[0].attributes.url ? (
+        <div
+          className={`${styles.testing_flip} container_small`}
+          onClick={() => handleReadMore(ballisticFlip)}
+        >
+          <h3 className={`${styles.testing_flip_title}`}>
+            See Ballistic Postcard
+            <ArrowIcon />
+          </h3>
+
+          <Image
+            src={ballisticFlip.image.data[0].attributes.url}
+            alt="armored vehicles"
+            width={500}
+            height={500}
+            sizes="(max-width: 767px) 50vw, 50vw"
+          />
         </div>
-      </Link>
+      ) : null}
 
       {isLightboxPopupOpen ? (
         <LightboxCustom
