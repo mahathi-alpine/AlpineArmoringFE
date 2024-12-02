@@ -30,17 +30,17 @@
       margin-top: 100px;
     }
 
-    &:hover{
-      .testing_flip_title{
+    &:hover {
+      .testing_flip_title {
         transform: translateY(-50%);
-        
-        svg{
+
+        svg {
           opacity: 1;
         }
       }
     }
 
-    &_title{
+    &_title {
       position: absolute;
       left: 0;
       right: 0;
@@ -51,13 +51,13 @@
       color: white;
       font-size: 18px;
       font-weight: var(--font-medium);
-      transition: transform .2s ease-in-out;
+      transition: transform 0.2s ease-in-out;
 
       @include breakpoint(large) {
         font-size: 22px;
       }
 
-      svg{
+      svg {
         margin-left: 8px;
         width: 20px;
         height: 20px;
@@ -65,15 +65,15 @@
         top: 1px;
         transform: rotate(-24deg);
         opacity: 0;
-        transition: opacity .2s ease-in-out;
+        transition: opacity 0.2s ease-in-out;
 
-        path{
+        path {
           stroke: white;
         }
       }
     }
 
-    img{
+    img {
       filter: brightness(0.5);
     }
 
