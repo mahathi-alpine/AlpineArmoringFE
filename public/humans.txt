@@ -1,0 +1,40 @@
+About us: https://www.alpineco.com/about-us
+Protecting customers since: 1993
+
+Alpine Armoring is an internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in the Washington, D.C. metropolitan area. For more than 30 years, we have pioneered the engineering, designing, and custom-manufacturing of a variety of non-military armored vehicles incorporating the latest technology in retrofitting certified transparent and opaque material in developing the optimal armored vehicles for our clients. We are proud to report that not a single incident of armor penetration has occurred in any of the thousands of vehicles manufactured and supplied by Alpine Armoring to our customers worldwide.
+
+/* TEAM */ 
+_________________________________________________________________________
+Design team:
+Alvaro Vargas
+Michael Bushnell
+____________________________________________________________________________
+Content team:
+Fred Khoroushi
+Dan Diana
+____________________________________________________________________________
+Development team:
+Stefan Petkovic
+____________________________________________________________________________
+QA team:
+Mateja Bezjak
+____________________________________________________________________________
+SEO team:
+Zeljko Rankovic
+____________________________________________________________________________
+Marketing/Branding:
+Cameron Khoroushi 
+____________________________________________________________________________
+Site management:
+Mahathi Vantedhu 
+____________________________________________________________________________
+Project management:
+Laila Asbergs 
+
+/* THANKS */
+Garret Lacina
+Amber Jacks
+
+/* SITE */ 
+Last updated: November 2024 
+Language: English
