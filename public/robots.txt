@@ -1,10 +1,33 @@
 User-agent: *
 Disallow: /stock/
 Disallow: /inventory/
+Disallow: /media/documents/
 Disallow: /*?vehicles_we_armor=*
 Disallow: /*?brand=*
 Disallow: /*?name=*
 Disallow: /*?id=*
 Disallow: /*?names=*
+Disallow: /vehicles-we-armor/type/vans-and-buses?make=chrysler
+Disallow: /vehicles-we-armor/type/vans-and-buses?make=genesis
+Disallow: /vehicles-we-armor/type/vans-and-buses?make=mastiff
+Disallow: /vehicles-we-armor/type/armored-sedans?make=lincoln
+Disallow: /vehicles-we-armor/type/armored-specialty-vehicles?make=jeep
+Disallow: /vehicles-we-armor/type/armored-specialty-vehicles?make=bentley
+Disallow: /vehicles-we-armor/type/armored-cash-in-transit-cit?make=gmc
+Disallow: /vehicles-we-armor/150-CIT-International-Navistar-4300-
+Disallow: /vehicles-we-armor/131-SUV-Chevrolet-Suburban-
+Disallow: /vehicles-we-armor/140-Sedan-Mercedes-Benz-S-Class-Right-Hand-Drive
+Disallow: /vehicles-we-armor/267-Pickup Truck-Ford-F-150
+Disallow: /vehicles-we-armor/267-Pickup Truck-Ford-F-150-
+Disallow: /vehicles-we-armor/42-Sedan-Mercedes-Benz-S500
+Disallow: /vehicles-we-armor/54-Sedan-Toyota-Camry
+Disallow: /vehicles-we-armor/179-Police Car-Ford-Taurus-
+Disallow: /vehicles-we-armor/345-SUV-Toyota-Sequoia-Hybrid
+Disallow: /vehicles-we-armor/345-SUV-Toyota-Sequoia-Hybrid-
+Disallow: /vehicles-we-armor/136-SWAT-Pit-Bull-XL®
+Disallow: /vehicles-we-armor/179-Police Pursuit Vehicles
+Disallow: /armored/BMW/X5.php
+Disallow: /armored/Audi/q7.php
+Disallow: /armored/Lexus/LX570.php
 
 Sitemap: https://www.alpineco.com/sitemap.xml
