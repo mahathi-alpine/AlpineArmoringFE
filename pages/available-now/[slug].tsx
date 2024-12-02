@@ -6,6 +6,9 @@ import dynamic from 'next/dynamic';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
 const PDFIcon = dynamic(() => import('components/icons/PDF2'));
+const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
+  ssr: false,
+});
 import Link from 'next/link';
 // import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Button from 'components/global/button/Button';
@@ -172,6 +175,14 @@ function InventoryVehicle(props) {
       ],
     };
     return JSON.stringify(structuredData);
+  };
+
+  const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
+
+  const togglePDFPopup = (url) => {
+    setPDFPopupOpen((prevState) => !prevState);
+    setCurrentPdfUrl(url);
   };
 
   return (
@@ -362,13 +373,16 @@ function InventoryVehicle(props) {
 
                   {data?.OEMArmoringSpecs?.data ? (
                     <Button
-                      href={data.OEMArmoringSpecs.data.attributes?.url.replace(
-                        /\.ai$/,
-                        '.pdf'
-                      )}
+                      // href={data.OEMArmoringSpecs.data.attributes?.url.replace(
+                      //   /\.ai$/,
+                      //   '.pdf'
+                      // )}
+                      onClick={() =>
+                        togglePDFPopup(data.OEMArmoringSpecs.data.attributes)
+                      }
                       iconComponent={DownloadIcon}
                       className={`${styles.inventory_pdfs_button} icon rounded`}
-                      target
+                      button
                     >
                       Armoring Specs
                     </Button>
@@ -378,6 +392,12 @@ function InventoryVehicle(props) {
             </div>
           </div>
         </div>
+
+        <PopupPDF
+          isOpen={isPDFPopupOpen}
+          onClose={() => togglePDFPopup('')}
+          pdfUrl={currentPdfUrl}
+        />
 
         {mainText ? (
           <div

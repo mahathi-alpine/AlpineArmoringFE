@@ -36,6 +36,7 @@ const Button = ({
           </>
         ) : null}
         <span className={`c-button_text`}>{children}</span>
+        {IconComponent ? <IconComponent /> : null}
       </button>
     );
   }
