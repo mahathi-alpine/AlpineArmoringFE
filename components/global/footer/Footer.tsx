@@ -214,6 +214,11 @@ const Footer = (props) => {
                 : styles.footer_bottom_flag_light
             }`}
           >
+            <Image
+              src="/assets/footer-american-flag1.gif"
+              alt="armored vehicles"
+              fill
+            />
             <span className={`${styles.footer_bottom_flag_wrap}`}>
               The Home of{' '}
               <Link href="/" className={`${styles.footer_bottom_copy_middle}`}>
