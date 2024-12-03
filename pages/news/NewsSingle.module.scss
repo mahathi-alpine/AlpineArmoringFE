@@ -90,12 +90,8 @@
   &_thumbnail {
     position: relative;
     border-radius: 8px;
-    // object-fit: cover;
-    // width: auto;
-    // height: auto;
-    // margin: auto;
     width: 100%;
-    margin-bottom: rem(12);
+    margin-bottom: rem(8);
   }
 
   &_info {
@@ -104,20 +100,54 @@
     justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: rem(16);
+
     @include breakpoint(medium) {
       margin-bottom: rem(48);
+      flex-flow: row;
     }
-  }
 
-  &_date {
-    margin-right: 8px;
-    margin-bottom: 8px;
-    font-size: rem(12);
-    text-transform: uppercase;
-    font-weight: var(--font-medium);
-    @include breakpoint(medium) {
-      font-size: rem(14);
-      margin: 0;
+    &_wrap{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 16px;
+
+      @include breakpoint(medium) {
+        width: auto;
+        margin-bottom: 0;
+      }
+    }
+
+    &_box{
+      display: flex;
+      flex-flow: column;
+
+      @include breakpoint(medium) {
+        margin-right: 50px;
+      }
+    
+      &_heading{
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        min-height: 18px;
+  
+        a{
+          height: 18px;
+        }
+  
+        svg{
+          margin-left: 4px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      &_name{
+        font-weight: var(--font-medium);
+        font-size: 13px;
+      }
     }
   }
 

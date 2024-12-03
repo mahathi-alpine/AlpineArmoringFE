@@ -11,4 +11,27 @@
       display: none;
     }
   }
+
+  &_authorHeading{
+    margin-top: 20px;
+    text-align: center;
+
+    @include breakpoint(large) {
+      margin-top: 60px;
+      margin-bottom: 30px;
+    }
+
+    &_title{
+      font-size: 20px;
+      margin-bottom: 10px;
+
+      @include breakpoint(large) {
+        font-size: 26px;
+      }
+
+      span{
+        font-weight: var(--font-medium);
+      }
+    }
+  }
 }

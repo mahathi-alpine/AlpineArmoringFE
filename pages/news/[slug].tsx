@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
 import PlayIcon from 'components/icons/Play2';
+import LinkedinIcon from 'components/icons/Linkedin';
 import { useState } from 'react';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
@@ -80,7 +81,38 @@ function BlogSingle(props) {
         ) : null}
 
         <div className={`${styles.blogSingle_info}`}>
-          <div className={`${styles.blogSingle_date}`}>{formattedDate}</div>
+          <div className={`${styles.blogSingle_info_wrap}`}>
+            {data.authors.data ? (
+              <div className={`${styles.blogSingle_info_box}`}>
+                <span className={`${styles.blogSingle_info_box_heading}`}>
+                  Author
+                  {data.authors.data.attributes.linkedinURL ? (
+                    <Link
+                      href={data.authors.data.attributes.linkedinURL}
+                      target="_blank"
+                    >
+                      <LinkedinIcon />
+                    </Link>
+                  ) : null}
+                </span>
+                <Link
+                  className={`${styles.blogSingle_info_box_name}`}
+                  href={`/author/${data.authors.data.attributes.slug}`}
+                >
+                  {data.authors.data.attributes.Name}
+                </Link>
+              </div>
+            ) : null}
+
+            <div className={`${styles.blogSingle_info_box}`}>
+              <span className={`${styles.blogSingle_info_box_heading}`}>
+                Last Updated
+              </span>
+              <span className={`${styles.blogSingle_info_box_name}`}>
+                {formattedDate}
+              </span>
+            </div>
+          </div>
 
           <div className={`${styles.blogSingle_tags}`}>
             {categories?.map((item, index) => (
