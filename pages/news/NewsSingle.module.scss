@@ -106,7 +106,7 @@
       flex-flow: row;
     }
 
-    &_wrap{
+    &_wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -119,32 +119,32 @@
       }
     }
 
-    &_box{
+    &_box {
       display: flex;
       flex-flow: column;
 
       @include breakpoint(medium) {
         margin-right: 50px;
       }
-    
-      &_heading{
+
+      &_heading {
         display: flex;
         align-items: center;
         font-size: 12px;
         min-height: 18px;
-  
-        a{
+
+        a {
           height: 18px;
         }
-  
-        svg{
+
+        svg {
           margin-left: 4px;
           width: 18px;
           height: 18px;
         }
       }
 
-      &_name{
+      &_name {
         font-weight: var(--font-medium);
         font-size: 13px;
       }
