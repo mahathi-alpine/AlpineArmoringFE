@@ -8,8 +8,8 @@
   @include breakpoint(small) {
     z-index: 3;
   }
-  @media (min-width: 1280px) and (max-width: 1379px){
-    padding-bottom: rem(50);    
+  @media (min-width: 1280px) and (max-width: 1379px) {
+    padding-bottom: rem(50);
   }
   @media (min-width: 1380px) {
     padding-bottom: 0;
