@@ -366,14 +366,17 @@ $shapeColor: var(--color-background);
 
       img {
         width: 100%;
+        object-fit: contain;
       }
     }
 
     &_flip {
-      height: 260px;
+      position: relative;
+      padding-bottom: 77%;
 
-      @include breakpoint(large) {
+      @include breakpoint(medium) {
         height: 80vh;
+        padding-bottom: 0;
       }
 
       &.flipActive {
@@ -388,6 +391,10 @@ $shapeColor: var(--color-background);
 
       img {
         position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         transition: transform 500ms;
         backface-visibility: hidden;
       }

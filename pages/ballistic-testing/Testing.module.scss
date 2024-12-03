@@ -6,10 +6,7 @@
       top: rem(-135);
     }
     @include breakpoint(large) {
-      top: rem(-186);
-    }
-    @include breakpoint(huge) {
-      top: rem(-200);
+      top: rem(-190);
     }
 
     & > div > div {

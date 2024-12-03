@@ -215,7 +215,7 @@ const Footer = (props) => {
             }`}
           >
             <Image
-              src="/assets/footer-american-flag1.gif"
+              src="/assets/footer-american-flag.gif"
               alt="armored vehicles"
               fill
             />
