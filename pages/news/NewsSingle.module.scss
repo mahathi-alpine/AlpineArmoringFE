@@ -124,8 +124,8 @@
         font-size: 13px;
       }
 
-      &_date{
-        .blogSingle_info_box_heading{
+      &_date {
+        .blogSingle_info_box_heading {
           @include breakpoint(small) {
             margin-left: auto;
           }
