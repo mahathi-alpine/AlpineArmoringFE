@@ -29,7 +29,7 @@
     color: white;
     overflow: hidden;
     text-align: center;
-    padding-bottom: 56px;
+    padding-bottom: 35px;
 
     @include breakpoint(medium) {
       height: 300px;
@@ -188,7 +188,7 @@
 
   &_heading {
     position: relative;
-    margin-top: -40px;
+    margin-top: -20px;
     margin-bottom: 2rem;
     text-align: center;
     z-index: 1;
@@ -197,6 +197,9 @@
 
     @include breakpoint(medium) {
       margin-bottom: 3rem;
+    }
+    @include breakpoint(large) {
+      margin-top: -40px;
     }
 
     &_margin {

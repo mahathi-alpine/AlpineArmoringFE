@@ -99,8 +99,7 @@ body {
   --background: #101010 url('/assets/noise4.png');
   position: relative;
   overflow-x: clip;
-  // height: 51px;
-  height: 80px;
+  height: 50px;
   @supports (-webkit-touch-callout: none) {
     overflow-x: hidden;
   }
@@ -116,7 +115,6 @@ body {
   &:after {
     content: '';
     position: absolute;
-    // bottom: -3px;
     background-size: 100px;
     height: 100%;
     left: -50px;
@@ -140,7 +138,7 @@ body {
 }
 
 .shape-before {
-  margin-top: -50px;
+  margin-top: -30px;
   z-index: 1;
   @include breakpoint(large) {
     margin-top: -99px;

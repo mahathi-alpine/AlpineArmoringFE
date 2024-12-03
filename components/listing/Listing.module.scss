@@ -1,6 +1,6 @@
 .listing {
   &_heading {
-    margin-top: -40px;
+    margin-top: -20px;
     margin-bottom: 55px;
     position: relative;
     z-index: 1;
@@ -45,7 +45,7 @@
     }
 
     &_inventory {
-      margin-top: -30px;
+      margin-top: -20px;
       @include breakpoint(large) {
         display: flex;
         gap: 50px;

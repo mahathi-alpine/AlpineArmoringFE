@@ -126,7 +126,7 @@ function BlogSingle(props) {
 
           <div className={`${styles.blogSingle_info}`}>
             <div className={`${styles.blogSingle_info_wrap}`}>
-              {data.authors.data ? (
+              {data?.authors?.data ? (
                 <div className={`${styles.blogSingle_info_box}`}>
                   <span className={`${styles.blogSingle_info_box_heading}`}>
                     Author
