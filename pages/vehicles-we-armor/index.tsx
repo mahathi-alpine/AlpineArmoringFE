@@ -156,7 +156,7 @@ function VehicleWeArmor(props) {
           className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
           <Link href="/">Home</Link>
-          <span>/</span>
+          <span>&gt;</span>
           Vehicles We Armor
         </div>
 

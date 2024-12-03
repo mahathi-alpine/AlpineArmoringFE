@@ -207,7 +207,7 @@ function InventoryVehicle(props) {
                 {category}
               </Link>
               <span>&gt;</span>
-              {data?.title}
+              <span className={`b-breadcrumbs_current`}>{data?.title}</span>
             </div>
 
             <div className={`${styles.inventory_heading_title}`}>

@@ -1,8 +1,8 @@
 import { getPageData } from 'hooks/api';
 import styles from './NewsSingle.module.scss';
 import Link from 'next/link';
-import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
+import Head from 'next/head';
 import PlayIcon from 'components/icons/Play2';
 import LinkedinIcon from 'components/icons/Linkedin';
 import { useState } from 'react';
@@ -45,73 +45,52 @@ function BlogSingle(props) {
     videoSrc: videoSrc,
   };
 
-  // if (!data) {
-  //   return null;
-  // }
+  const getBreadcrumbStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.alpineco.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'News',
+          item: `https://www.alpineco.com/news`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: data?.title,
+          item: `https://www.alpineco.com/news/${data?.slug}`,
+        },
+      ],
+    };
+    return JSON.stringify(structuredData);
+  };
 
   return (
-    <div className={`${styles.blogSingle}`}>
-      <div className={`${styles.blogSingle_inner} container_small`}>
-        <Link href="/news" className={`${styles.blogSingle_back}`}>
-          <ArrowIcon />
-          All News
-        </Link>
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
+          key="breadcrumb-jsonld"
+        />
+      </Head>
 
-        <h1 className={`${styles.blogSingle_title}`}>{data?.title}</h1>
-
-        {data?.thumbnail.data?.attributes.url ? (
-          <Image
-            src={
-              data.thumbnail.data.attributes.formats?.large?.url ||
-              data.thumbnail.data.attributes.url
-            }
-            alt={
-              data.thumbnail.data.attributes.alternativeText ||
-              'Alpine Armoring'
-            }
-            width={1280}
-            height={700}
-            // sizes={
-            // index === 0
-            //     ? '(min-width: 1280px ) 75vw, 100vw'
-            //     : '(min-width: 1280px ) 40vw, 100vw'
-            // }
-            className={`${styles.blogSingle_thumbnail}`}
-          ></Image>
-        ) : null}
-
-        <div className={`${styles.blogSingle_info}`}>
-          <div className={`${styles.blogSingle_info_wrap}`}>
-            {data.authors.data ? (
-              <div className={`${styles.blogSingle_info_box}`}>
-                <span className={`${styles.blogSingle_info_box_heading}`}>
-                  Author
-                  {data.authors.data.attributes.linkedinURL ? (
-                    <Link
-                      href={data.authors.data.attributes.linkedinURL}
-                      target="_blank"
-                    >
-                      <LinkedinIcon />
-                    </Link>
-                  ) : null}
-                </span>
-                <Link
-                  className={`${styles.blogSingle_info_box_name}`}
-                  href={`/author/${data.authors.data.attributes.slug}`}
-                >
-                  {data.authors.data.attributes.Name}
-                </Link>
-              </div>
-            ) : null}
-
-            <div className={`${styles.blogSingle_info_box}`}>
-              <span className={`${styles.blogSingle_info_box_heading}`}>
-                Last Updated
-              </span>
-              <span className={`${styles.blogSingle_info_box_name}`}>
-                {formattedDate}
-              </span>
-            </div>
+      <div className={`${styles.blogSingle}`}>
+        <div className={`${styles.blogSingle_inner} container_small`}>
+          <div className={`b-breadcrumbs`}>
+            <Link href="/">Home</Link>
+            <span>&gt;</span>
+            <Link href="/news">News</Link>
+            <span>&gt;</span>
+            <span className={`b-breadcrumbs_current`}>{data?.title}</span>
           </div>
 
           <div className={`${styles.blogSingle_tags}`}>
@@ -121,36 +100,96 @@ function BlogSingle(props) {
               </div>
             ))}
           </div>
-        </div>
 
-        {content ? (
-          <div
-            className={`${styles.blogSingle_content} static`}
-            dangerouslySetInnerHTML={{ __html: convertMarkdown(content) }}
-          ></div>
-        ) : null}
+          <h1 className={`${styles.blogSingle_title}`}>{data?.title}</h1>
 
-        {data?.videos.map((item, index) => (
-          <div
-            className={`${styles.blogSingle_video}`}
-            key={index}
-            onClick={() =>
-              handleLightboxOpen(item.text, '', 'video', item.videoLink)
-            }
-          >
-            <span>{item.text}</span>
-            <PlayIcon />
+          {data?.thumbnail.data?.attributes.url ? (
+            <Image
+              src={
+                data.thumbnail.data.attributes.formats?.large?.url ||
+                data.thumbnail.data.attributes.url
+              }
+              alt={
+                data.thumbnail.data.attributes.alternativeText ||
+                'Alpine Armoring'
+              }
+              width={1280}
+              height={700}
+              // sizes={
+              // index === 0
+              //     ? '(min-width: 1280px ) 75vw, 100vw'
+              //     : '(min-width: 1280px ) 40vw, 100vw'
+              // }
+              className={`${styles.blogSingle_thumbnail}`}
+            ></Image>
+          ) : null}
+
+          <div className={`${styles.blogSingle_info}`}>
+            <div className={`${styles.blogSingle_info_wrap}`}>
+              {data.authors.data ? (
+                <div className={`${styles.blogSingle_info_box}`}>
+                  <span className={`${styles.blogSingle_info_box_heading}`}>
+                    Author
+                    {data.authors.data.attributes.linkedinURL ? (
+                      <Link
+                        href={data.authors.data.attributes.linkedinURL}
+                        target="_blank"
+                      >
+                        <LinkedinIcon />
+                      </Link>
+                    ) : null}
+                  </span>
+                  <Link
+                    className={`${styles.blogSingle_info_box_name}`}
+                    href={`/author/${data.authors.data.attributes.slug}`}
+                  >
+                    {data.authors.data.attributes.Name}
+                  </Link>
+                </div>
+              ) : null}
+
+              <div
+                className={`${styles.blogSingle_info_box} ${styles.blogSingle_info_box_date}`}
+              >
+                <span className={`${styles.blogSingle_info_box_heading}`}>
+                  Last Updated
+                </span>
+                <span className={`${styles.blogSingle_info_box_name}`}>
+                  {formattedDate}
+                </span>
+              </div>
+            </div>
           </div>
-        ))}
+
+          {content ? (
+            <div
+              className={`${styles.blogSingle_content} static`}
+              dangerouslySetInnerHTML={{ __html: convertMarkdown(content) }}
+            ></div>
+          ) : null}
+
+          {data?.videos.map((item, index) => (
+            <div
+              className={`${styles.blogSingle_video}`}
+              key={index}
+              onClick={() =>
+                handleLightboxOpen(item.text, '', 'video', item.videoLink)
+              }
+            >
+              <span>{item.text}</span>
+              <PlayIcon />
+            </div>
+          ))}
+        </div>
+        {isLightboxPopupOpen ? (
+          <LightboxCustom
+            isLightboxPopupOpen={isLightboxPopupOpen}
+            lightboxData={lightboxData}
+            setLightboxPopupOpen={setLightboxPopupOpen}
+          />
+        ) : null}
       </div>
-      {isLightboxPopupOpen ? (
-        <LightboxCustom
-          isLightboxPopupOpen={isLightboxPopupOpen}
-          lightboxData={lightboxData}
-          setLightboxPopupOpen={setLightboxPopupOpen}
-        />
-      ) : null}
-    </div>
+    </>
   );
 }
 

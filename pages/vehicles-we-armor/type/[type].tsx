@@ -149,10 +149,12 @@ function Inventory(props) {
           className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
           <Link href="/">Home</Link>
-          <span>/</span>
+          <span>&gt;</span>
           <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
-          <span>/</span>
-          {categoryTitleWithMake}
+          <span>&gt;</span>
+          <span className={`b-breadcrumbs_current`}>
+            {categoryTitleWithMake}
+          </span>
         </div>
 
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}

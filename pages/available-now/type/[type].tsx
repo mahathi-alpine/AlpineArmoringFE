@@ -121,7 +121,7 @@ function Inventory(props) {
           <span>&gt;</span>
           <Link href="/available-now">Available now</Link>
           <span>&gt;</span>
-          <span>{categoryTitle}</span>
+          <span className={`b-breadcrumbs_current`}>{categoryTitle}</span>
         </div>
 
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}

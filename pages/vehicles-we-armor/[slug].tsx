@@ -194,10 +194,10 @@ function Vehicle(props) {
           className={`${styles.slug_breadcrumbs} b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
           <Link href="/">Home</Link>
-          <span>/</span>
+          <span>&gt;</span>
           <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
-          <span>/</span>
-          {data?.slug}
+          <span>&gt;</span>
+          <span className={`b-breadcrumbs_current`}>{data?.slug}</span>
         </div>
 
         <Banner props={banner} />
