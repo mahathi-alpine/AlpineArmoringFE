@@ -135,6 +135,8 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     );
   }
 
+  console.log(props);
+
   return (
     <div
       className={`
@@ -151,7 +153,21 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
           <div className={`${styles.banner_content}`}>
             <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
-                <h1 dangerouslySetInnerHTML={{ __html: bannerTitle }}></h1>
+                <h1
+                  dangerouslySetInnerHTML={{
+                    __html: router.query.make
+                      ? `${bannerTitle} | ${router.query.make
+                          .toString()
+                          .replace('-', ' ')
+                          .split(' ')
+                          .map(
+                            (word) =>
+                              word.charAt(0).toUpperCase() + word.slice(1)
+                          )
+                          .join(' ')}`
+                      : bannerTitle,
+                  }}
+                ></h1>
               ) : null}
               {bannerSubitle ? (
                 <h2 dangerouslySetInnerHTML={{ __html: bannerSubitle }}></h2>
