@@ -210,14 +210,16 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
-  // Fetching Vehicles
   const category = context.query.type;
+  const queryMake = context.query.make;
+
   let query = `filters[category][slug][$eq]=${category}`;
   const q = context.query.q;
   if (q) {
     query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
   }
 
+  // Fetching Vehicles
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
     // params: `filters[category][slug][$eq]=${params.type}`,
@@ -266,6 +268,14 @@ export async function getServerSideProps(context) {
     (item) => item.attributes.slug === context.query.type
   );
   seoData = seoData?.attributes.seo || null;
+
+  const makeMetaTitle = queryMake
+    ? `- ${queryMake
+        .split('-')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')}`
+    : '';
+  seoData.metaTitle = `${seoData.metaTitle} ${makeMetaTitle} | Alpine Armoring`;
 
   return {
     props: {

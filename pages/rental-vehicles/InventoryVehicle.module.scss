@@ -3,12 +3,11 @@
     padding: rem(24) rem(16) 0 rem(16);
 
     @include breakpoint(medium) {
-      padding-top: rem(32);
-      margin-bottom: rem(24);
+      margin-bottom: rem(16);
     }
 
     @include breakpoint(large) {
-      padding: rem(32) rem(32) 0 rem(32);
+      padding: rem(16) rem(32) 0 rem(32);
     }
 
     &_title {

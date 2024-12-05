@@ -116,6 +116,8 @@ const Layout = ({ children }) => {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
+        <link rel="author" type="text/plain" href="/humans.txt" />
+
         <meta
           name="google-site-verification"
           content="bCcF8Vxq5RVDB8JW0bfGQynjo9U6f5oQEwQVbobmyjE"

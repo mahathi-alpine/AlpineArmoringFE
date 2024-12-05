@@ -138,7 +138,9 @@ function InventoryVehicle(props) {
 
           <div className={`${styles.inventory_heading_title}`}>
             {data?.title ? (
-              <h1 dangerouslySetInnerHTML={{ __html: data.title }}></h1>
+              <h1
+                dangerouslySetInnerHTML={{ __html: `Rental ${data.title}` }}
+              ></h1>
             ) : null}
           </div>
 
@@ -340,6 +342,8 @@ export async function getStaticProps({ params }) {
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+
+  seoData.metaTitle = `Rental ${seoData.metaTitle}`;
 
   if (!data || !data.data || data.data.length === 0) {
     return {
