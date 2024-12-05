@@ -100,7 +100,7 @@
 
   .year {
     font-size: 1.2rem;
-    font-weight: 500; 
+    font-weight: 500;
     @include breakpoint(large) {
       font-size: 1.5rem;
     }
