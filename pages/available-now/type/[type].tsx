@@ -33,8 +33,8 @@ function Inventory(props) {
   //   return matchingItem ? matchingItem.attributes.title : null;
   // };
 
-  const categoryTitle = currentCategory.attributes.title;
-  const categorySlug = currentCategory.attributes.slug;
+  const categoryTitle = currentCategory?.attributes.title;
+  const categorySlug = currentCategory?.attributes.slug;
 
   const router = useRouter();
   const currentPath = router.asPath;
@@ -223,7 +223,9 @@ export async function getServerSideProps(context) {
 
   seoData = seoData?.attributes?.seo ?? null;
 
-  seoData.metaTitle = `${seoData.metaTitle} for sale | Alpine Armoring`;
+  if (seoData) {
+    seoData.metaTitle = `${seoData.metaTitle} for sale | Alpine Armoring`;
+  }
 
   return {
     props: {
