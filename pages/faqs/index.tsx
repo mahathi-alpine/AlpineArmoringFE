@@ -8,7 +8,7 @@ function FAQs(props) {
   const banner = props?.pageData?.banner;
   const faqs = props?.faqs;
 
-  // Generate FAQ structured data
+  // FAQ structured data
   const getFAQStructuredData = () => {
     if (!faqs) return null;
 
