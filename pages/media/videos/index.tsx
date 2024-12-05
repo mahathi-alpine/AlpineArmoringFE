@@ -5,6 +5,7 @@ import MediaList from '../MediaList';
 
 function Videos(props) {
   const banner = props?.pageData?.banner;
+  const title = props?.pageData?.titleH1;
   const videos = props?.videos;
 
   // Animations
@@ -37,6 +38,8 @@ function Videos(props) {
   return (
     <>
       {banner ? <Banner props={banner} shape="white" /> : null}
+
+      {title ? <h1 className="c-title mt2">{title}</h1> : null}
 
       <MediaList props={videos} itemType="video" />
     </>

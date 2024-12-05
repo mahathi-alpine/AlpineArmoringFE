@@ -2,8 +2,6 @@
   padding-top: rem(16);
   border-top: 1px solid var(--color-gray);
   max-width: 500px;
-  margin: auto;
-  margin-bottom: rem(32);
   background-color: white;
   padding: 10px;
   border-radius: 8px;
@@ -11,7 +9,6 @@
   @include breakpoint(medium) {
     display: flex;
     flex-flow: column;
-    // width: calc(100% / 3 - 22px);
     margin: unset;
     margin-bottom: 0;
     cursor: pointer;
@@ -33,7 +30,7 @@
   }
 
   p {
-    margin-bottom: rem(8);
+    // margin-bottom: rem(8);
     font-size: rem(13);
     font-size: clamp(0.8125rem, 0.7973rem + 0.0647vw, 0.875rem);
   }
@@ -83,13 +80,13 @@
 
   &_left {
     flex: 1;
-    padding: 10px;
-    border-right: 1px solid #ccc; /* Vertical line separator */
+    padding: 10px 5px;
+    border-right: 1px solid #ccc;
   }
 
   &_right {
     flex: 1;
-    padding: 10px;
+    padding: 10px 5px;
 
     h4 {
       margin-top: 0;
@@ -102,12 +99,15 @@
   }
 
   .year {
-    font-size: 1.5rem; /* Larger font size for year */
-    font-weight: 400; /* Bold font weight for year */
+    font-size: 1.2rem;
+    font-weight: 500; 
+    @include breakpoint(large) {
+      font-size: 1.5rem;
+    }
   }
 
   .buttonContainer {
     display: flex;
-    justify-content: center; /* Center align items horizontally */
+    justify-content: center;
   }
 }

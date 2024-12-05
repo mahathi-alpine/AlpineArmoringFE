@@ -5,8 +5,8 @@ import MediaList from '../MediaList';
 
 const TradeShows = (props) => {
   const banner = props?.pageData?.banner;
+  const title = props?.pageData?.titleH1;
   const tradeShows = props?.tradeShows;
-  // return null;
 
   // Animations
   useEffect(() => {
@@ -38,6 +38,8 @@ const TradeShows = (props) => {
   return (
     <>
       {banner ? <Banner props={banner} shape="white" /> : null}
+
+      {title ? <h1 className="c-title mt2">{title}</h1> : null}
 
       <MediaList props={tradeShows} itemType="tradeShow" />
     </>

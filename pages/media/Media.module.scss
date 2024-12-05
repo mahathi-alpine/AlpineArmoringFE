@@ -3,8 +3,6 @@
     margin-bottom: rem(32);
     text-transform: uppercase;
     font-size: rem(32);
-    // font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
-    // font-weight: var(--font-light);
     font-size: clamp(1.375rem, 1.1626rem + 0.9061vw, 2.25rem);
     font-weight: var(--font-medium);
     line-height: 1.1;
@@ -47,7 +45,7 @@
   }
 
   &_videos {
-    // padding-top: rem(80);
+    padding-top: rem(20);
 
     @include breakpoint(medium) {
       padding-top: 0;

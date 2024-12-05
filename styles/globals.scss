@@ -26,6 +26,12 @@ body {
 .mt0 {
   margin-top: 0 !important;
 }
+.mt2 {
+  margin-top: 2rem;
+  @include breakpoint(large) {
+    margin-top: 4rem;
+  }
+}
 .no-scroll {
   overflow: hidden;
   height: 100vh;
