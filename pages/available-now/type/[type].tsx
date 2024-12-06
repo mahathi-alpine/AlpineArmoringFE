@@ -224,7 +224,7 @@ export async function getServerSideProps(context) {
   seoData = seoData?.attributes?.seo ?? null;
 
   if (seoData) {
-    seoData.metaTitle = `${seoData.metaTitle} for sale | Alpine Armoring`;
+    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== 'armored-rental' ? ' for sale' : ''} | Alpine Armoring`;
   }
 
   return {

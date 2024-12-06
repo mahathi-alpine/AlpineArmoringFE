@@ -4,6 +4,7 @@
   padding-bottom: rem(32);
   z-index: 3;
   background: var(--color-background);
+  font-size: rem(15);
 
   @include breakpoint(small) {
     z-index: 3;
@@ -77,23 +78,13 @@
 
     &_social {
       padding-bottom: rem(40);
-      @media (min-width: 1360px) {
-        display: flex;
-        align-items: center;
-      }
     }
 
     &_title {
-      margin-bottom: rem(32);
+      margin-bottom: rem(20);
       font-size: rem(20);
       font-weight: var(--font-medium);
       text-transform: uppercase;
-
-      @media (min-width: 1360px) {
-        &_media {
-          margin-bottom: 0;
-        }
-      }
     }
     &_list {
       &_item {
@@ -179,11 +170,6 @@
     max-width: 315px;
 
     &_item {
-      margin-left: rem(32);
-      @media (max-width: 1359px) {
-        margin-left: 0;
-      }
-
       svg {
         width: 30px;
       }

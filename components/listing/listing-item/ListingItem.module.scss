@@ -86,7 +86,7 @@
   }
 
   &_content {
-    padding: rem(24) rem(8) rem(16) rem(8);
+    padding: rem(16) rem(8) rem(16) rem(8);
     @include breakpoint(medium) {
       padding: rem(24) rem(8) rem(16) rem(8);
     }
@@ -220,12 +220,12 @@
 
   &_level {
     display: inline-block;
-    margin-bottom: rem(30);
+    margin-bottom: rem(18);
     padding: rem(10) rem(14);
     text-transform: uppercase;
     background: var(--color-dark);
     font-weight: var(--font-medium);
-    font-size: rem(13);
+    font-size: rem(12);
     letter-spacing: -0.5px;
     color: var(--color-white);
     border-radius: 8px;
@@ -247,7 +247,7 @@
   &_info {
     display: flex;
     flex-flow: column;
-    font-size: rem(13);
+    font-size: rem(12);
     letter-spacing: -0.5px;
     @include breakpoint(medium) {
       font-size: rem(14);

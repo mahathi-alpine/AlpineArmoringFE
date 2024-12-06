@@ -135,8 +135,6 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     );
   }
 
-  console.log(props);
-
   return (
     <div
       className={`
@@ -156,7 +154,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
                 <h1
                   dangerouslySetInnerHTML={{
                     __html: router.query.make
-                      ? `${bannerTitle} | ${router.query.make
+                      ? `${bannerTitle} ${router.query.make
                           .toString()
                           .replace('-', ' ')
                           .split(' ')

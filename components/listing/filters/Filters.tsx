@@ -214,7 +214,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
           <FiltersIcon />
         </div>
 
-        {Object.keys(router.query).length > 0 && (
+        {Object.keys(router.query).length > 1 && (
           <div
             className={`${styles.filters_clear} bold`}
             onClick={handleClearFilters}

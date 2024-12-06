@@ -132,11 +132,14 @@
     }
     h1,
     h2 {
-      white-space: pre-wrap;
       font-weight: var(--font-medium);
       margin: 0;
       font-weight: var(--font-regular);
       font-size: 14px;
+
+      @include breakpoint(medium) {
+        white-space: pre-wrap;
+      }
 
       strong,
       b {
