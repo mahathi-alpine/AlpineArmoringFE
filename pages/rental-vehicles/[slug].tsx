@@ -382,7 +382,14 @@ export async function getStaticProps({ params }) {
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
 
-  seoData.metaTitle = `Rental ${seoData.metaTitle}`;
+  if (seoData && seoData.metaDescription) {
+    seoData.metaTitle = `Rental ${seoData.metaTitle}`;
+
+    seoData.metaDescription = seoData.metaDescription.replace(
+      /\b(armored)\b/,
+      'rental armored'
+    );
+  }
 
   if (!data || !data.data || data.data.length === 0) {
     return {

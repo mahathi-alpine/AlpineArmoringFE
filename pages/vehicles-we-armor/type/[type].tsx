@@ -275,7 +275,49 @@ export async function getServerSideProps(context) {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ')}`
     : '';
+
   seoData.metaTitle = `${seoData.metaTitle} ${makeMetaTitle} | Alpine Armoring`;
+
+  // Modify meta description if queryMake exists
+  if (queryMake && seoData.metaDescription) {
+    // Extract the type and convert to a more flexible matching pattern
+    const vehicleTypeRaw = context.query.type
+      .split('-')
+      .slice(1) // Remove the 'armored' part
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('\\s*');
+
+    // Format the make
+    const formattedMake = queryMake
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    // Create regexes to match with and without 'armored'
+    const vehicleTypeRegexWithArmored = new RegExp(
+      `(Armored\\s*${vehicleTypeRaw})\\b`,
+      'i'
+    );
+    const vehicleTypeRegexWithoutArmored = new RegExp(
+      `(${vehicleTypeRaw})\\b`,
+      'i'
+    );
+
+    // Try to replace, inserting the make before the vehicle type
+    let updatedDescription = seoData.metaDescription.replace(
+      vehicleTypeRegexWithArmored,
+      (match) => `${formattedMake} ${match}`
+    );
+
+    if (updatedDescription === seoData.metaDescription) {
+      updatedDescription = updatedDescription.replace(
+        vehicleTypeRegexWithoutArmored,
+        (match) => `${formattedMake} ${match}`
+      );
+    }
+
+    seoData.metaDescription = updatedDescription;
+  }
 
   return {
     props: {

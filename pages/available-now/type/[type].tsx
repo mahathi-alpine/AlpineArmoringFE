@@ -224,7 +224,44 @@ export async function getServerSideProps(context) {
   seoData = seoData?.attributes?.seo ?? null;
 
   if (seoData) {
+    // Modify meta title
     seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== 'armored-rental' ? ' for sale' : ''} | Alpine Armoring`;
+
+    // Modify meta description only when not armored-rental
+    if (context.query.type && context.query.type !== 'armored-rental') {
+      const vehicleTypeRaw = context.query.type
+        .split('-')
+        .slice(1) // Remove the 'armored' part
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
+        .join('\\s*');
+
+      // Create regexes to match with and without 'armored'
+      const vehicleTypeRegexWithArmored = new RegExp(
+        `(Armored\\s*${vehicleTypeRaw})\\b`,
+        'i'
+      );
+      const vehicleTypeRegexWithoutArmored = new RegExp(
+        `(${vehicleTypeRaw})\\b`,
+        'i'
+      );
+
+      // Replace with 'for sale', first with 'armored' version, then without
+      let updatedDescription = seoData.metaDescription.replace(
+        vehicleTypeRegexWithArmored,
+        (match) => `${match} for sale`
+      );
+
+      if (updatedDescription === seoData.metaDescription) {
+        updatedDescription = updatedDescription.replace(
+          vehicleTypeRegexWithoutArmored,
+          (match) => `${match} for sale`
+        );
+      }
+
+      seoData.metaDescription = updatedDescription;
+    }
   }
 
   return {
