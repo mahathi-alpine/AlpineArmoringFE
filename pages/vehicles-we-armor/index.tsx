@@ -267,7 +267,7 @@ export async function getServerSideProps(context) {
     const seoData = pageData?.seo || null;
 
     const makeMetaTitle = queryMake
-      ? ` | ${queryMake
+      ? `| ${queryMake
           .split('-')
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' ')}`

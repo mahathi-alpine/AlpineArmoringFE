@@ -159,7 +159,7 @@ function Contact(props) {
           </div>
         </div>
 
-        {faqs?.data ? (
+        {faqs?.data.length > 0 ? (
           <Accordion
             items={faqs.data}
             title="Frequently asked questions"

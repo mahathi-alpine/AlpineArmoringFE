@@ -276,7 +276,7 @@ export async function getServerSideProps(context) {
         .join(' ')}`
     : '';
 
-  seoData.metaTitle = `${seoData.metaTitle} ${makeMetaTitle} | Alpine Armoring`;
+  seoData.metaTitle = `${seoData.metaTitle}${makeMetaTitle} | Alpine Armoring`;
 
   // Modify meta description if queryMake exists
   if (queryMake && seoData.metaDescription) {

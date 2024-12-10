@@ -63,7 +63,7 @@ function Downloads(props) {
       ) : null}
 
       <div className={`${styles.downloads} container_small`}>
-        {props?.pageData?.OEMBrochures2024 ? (
+        {props?.pageData?.OEMBrochures2024?.data?.length ? (
           <div className={`${styles.downloads_column}`}>
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
@@ -92,7 +92,7 @@ function Downloads(props) {
         ) : null}
 
         <div className={`${styles.downloads_column}`}>
-          {props?.pageData?.PDFDocuments ? (
+          {props?.pageData?.PDFDocuments?.data?.length ? (
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
                 PDF Documents
@@ -118,7 +118,7 @@ function Downloads(props) {
             </div>
           ) : null}
 
-          {props?.pageData?.ArmoredVehicles ? (
+          {props?.pageData?.ArmoredVehicles?.data?.length ? (
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
                 Armored Vehicles
@@ -140,6 +140,33 @@ function Downloads(props) {
                     </li>
                   )
                 )}
+              </ul>
+            </div>
+          ) : null}
+
+          {props?.pageData?.stockVideos?.data?.length ? (
+            <div className={`${styles.downloads_group}`}>
+              <h2 className={`${styles.downloads_group_title}`}>
+                Stock Videos
+              </h2>
+              <ul>
+                {props.pageData.stockVideos.data.map((item, index) => (
+                  <li key={index}>
+                    <button
+                      onClick={() =>
+                        handleDownload(
+                          item.attributes.url,
+                          item.attributes.name
+                        )
+                      }
+                    >
+                      {item.attributes.alternativeText}
+                    </button>
+                  </li>
+                  // <li key={index}>
+                  //   <a href={`${item.attributes.url}`} target="_blank">{item.attributes.alternativeText}</a>
+                  // </li>
+                ))}
               </ul>
             </div>
           ) : null}
