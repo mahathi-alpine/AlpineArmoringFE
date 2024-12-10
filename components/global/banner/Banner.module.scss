@@ -137,7 +137,7 @@
       font-size: 14px;
 
       @include breakpoint(medium) {
-        &:not(.banner_text_withMake){
+        &:not(.banner_text_withMake) {
           white-space: pre-wrap;
         }
       }
