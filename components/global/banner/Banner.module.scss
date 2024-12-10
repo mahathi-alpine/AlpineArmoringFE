@@ -132,13 +132,14 @@
     }
     h1,
     h2 {
-      font-weight: var(--font-medium);
       margin: 0;
       font-weight: var(--font-regular);
       font-size: 14px;
 
       @include breakpoint(medium) {
-        white-space: pre-wrap;
+        &:not(.banner_text_withMake){
+          white-space: pre-wrap;
+        }
       }
 
       strong,

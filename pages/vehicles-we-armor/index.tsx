@@ -202,6 +202,8 @@ function VehicleWeArmor(props) {
 }
 
 export async function getServerSideProps(context) {
+  const queryMake = context.query.make;
+
   try {
     let pageData = await getPageData({
       route: 'list-vehicles-we-armor',
@@ -263,6 +265,14 @@ export async function getServerSideProps(context) {
     }
 
     const seoData = pageData?.seo || null;
+
+    const makeMetaTitle = queryMake
+      ? ` | ${queryMake
+          .split('-')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')}`
+      : '';
+    seoData.metaTitle = `${seoData.metaTitle} ${makeMetaTitle} | Alpine Armoring`;
 
     return {
       props: { pageData, vehicles: filteredVehicles, filters, seoData },

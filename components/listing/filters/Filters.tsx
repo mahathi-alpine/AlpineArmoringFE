@@ -201,6 +201,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
     return `${baseUrl}/type/${slug}${queryString ? `?${queryString}` : ''}`;
   };
 
+  const hasValidMakeQuery =
+    router.query.make && (!router.query.type || router.query.type);
+
   return (
     <div
       className={`${styles.filters}
@@ -214,7 +217,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
           <FiltersIcon />
         </div>
 
-        {Object.keys(router.query).length > 1 && (
+        {Object.keys(router.query).length > 0 && hasValidMakeQuery && (
           <div
             className={`${styles.filters_clear} bold`}
             onClick={handleClearFilters}

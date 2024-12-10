@@ -152,9 +152,26 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
             <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
                 <h1
+                  className={`${router.query.make ? styles.banner_text_withMake : ''}`}
                   dangerouslySetInnerHTML={{
-                    __html: router.query.make
-                      ? `${bannerTitle} ${router.query.make
+                    __html:
+                      router.query.type && router.query.make
+                        ? `${bannerTitle} 
+                        <b>
+                        ${router.query.make
+                          ?.toString()
+                          .replace('-', ' ')
+                          .split(' ')
+                          .map(
+                            (word) =>
+                              word.charAt(0).toUpperCase() + word.slice(1)
+                          )
+                          .join(' ')}
+                        </b>`
+                        : router.query.make
+                          ? `Armored
+                        <b>
+                        ${router.query.make
                           .toString()
                           .replace('-', ' ')
                           .split(' ')
@@ -162,8 +179,10 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
                             (word) =>
                               word.charAt(0).toUpperCase() + word.slice(1)
                           )
-                          .join(' ')}`
-                      : bannerTitle,
+                          .join(' ')}
+                        </b>
+                        for preorder`
+                          : bannerTitle,
                   }}
                 ></h1>
               ) : null}
