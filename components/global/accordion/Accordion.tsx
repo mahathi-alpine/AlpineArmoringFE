@@ -22,7 +22,7 @@ const Accordion = ({ items, title = '', button = false }) => {
             onClick={() => handleTitleClick(index)}
           >
             <div className={`${styles.accordion_item_heading_title}`}>
-              {item.attributes?.title}
+              {item.attributes?.title || item?.title}
             </div>
 
             <div
@@ -32,7 +32,7 @@ const Accordion = ({ items, title = '', button = false }) => {
             ></div>
           </div>
 
-          {item.attributes?.text ? (
+          {item.attributes?.text || item?.text ? (
             <div
               style={{
                 maxHeight: activeIndex === index ? '300px' : '0',
@@ -42,7 +42,7 @@ const Accordion = ({ items, title = '', button = false }) => {
               <div
                 className={`${styles.accordion_item_content_text}`}
                 dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(item.attributes?.text),
+                  __html: convertMarkdown(item.attributes?.text || item?.text),
                 }}
               ></div>
             </div>

@@ -20,6 +20,7 @@ import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import Accordion from 'components/global/accordion/Accordion';
 
 function InventoryVehicle(props) {
   const data =
@@ -31,6 +32,8 @@ function InventoryVehicle(props) {
 
   const videoWebm = data?.video?.data?.attributes;
   const videoMP4 = data?.videoMP4?.data?.attributes;
+
+  const faqs = data?.faqs;
 
   const convertMarkdown = useMarkdownToHtml();
 
@@ -428,6 +431,12 @@ function InventoryVehicle(props) {
 
         {videoWebm || videoMP4 ? (
           <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
+        ) : null}
+
+        {faqs?.length > 0 ? (
+          <div className={`mt2`}>
+            <Accordion items={faqs} title="Frequently asked questions" button />
+          </div>
         ) : null}
 
         {formData ? <InquiryForm {...formData} className={`formCTA`} /> : null}
