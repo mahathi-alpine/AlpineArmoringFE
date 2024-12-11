@@ -256,6 +256,7 @@ export async function getServerSideProps(context) {
       sort: 'title',
       pageSize: 100,
       fields: 'fields[0]=title&fields[1]=slug',
+      populate: 'vehicles_we_armors.category',
     }).then((res) => res.data),
   ]);
 

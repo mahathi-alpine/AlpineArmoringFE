@@ -3,7 +3,7 @@ import Link from 'next/link';
 import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import SearchIcon from 'components/icons/Search';
 
 type FiltersProps = {
@@ -37,6 +37,21 @@ const Filters = ({ props, plain }: FiltersProps) => {
       return aHasInventory === bHasInventory ? 0 : aHasInventory ? -1 : 1;
     });
   };
+
+  // Filter makes based on current type
+  const filterMakesByType = useMemo(() => {
+    const currentTypeSlug = router.query.type as string;
+
+    if (!currentTypeSlug || !props.make) return props.make;
+
+    return props.make.filter((make) => {
+      return make.attributes.vehicles_we_armors?.data.some((vehicleArmor) =>
+        vehicleArmor.attributes.category?.data.some(
+          (item) => item.attributes?.slug === currentTypeSlug
+        )
+      );
+    });
+  }, [router.query.type, props.make]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -374,7 +389,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           </Link>
                         );
                       })
-                    : props[filter].map((item) => (
+                    : filterMakesByType.map((item) => (
                         <div
                           className={`${styles.checkbox_link} ${
                             item.attributes.slug === currentFilterMake
