@@ -126,6 +126,15 @@ const Filters = ({ props, plain }: FiltersProps) => {
     ['type', 'make'].forEach((paramKey) => {
       const { [paramKey]: item } = router.query;
 
+      if (paramKey === 'make' && !item) {
+        // Reset make filter title when make query is removed
+        setActiveFilterTitles((prevTitles) => ({
+          ...prevTitles,
+          make: 'Select',
+        }));
+        return;
+      }
+
       if (props[paramKey]) {
         const selectedItem = props[paramKey].find(
           (i) => i.attributes.slug === item

@@ -177,9 +177,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
                           ${formatMake(router.query.make.toString())}</strong>`
                         : router.query.make
                           ? `Armored
-                        <strong>
-                        ${formatMake(router.query.make.toString())}
-                        </strong>
+                          ${formatMake(router.query.make.toString())}
                         for preorder`
                           : bannerTitle,
                   }}

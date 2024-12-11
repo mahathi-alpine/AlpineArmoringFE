@@ -15,7 +15,7 @@ function Inventory(props) {
   );
   const topBanner = currentCategory?.attributes.allBanner;
   const bottomText = currentCategory?.attributes.bottomText;
-  const heading = currentCategory?.attributes.heading;
+  // const heading = currentCategory?.attributes.heading;
 
   const router = useRouter();
 
@@ -101,7 +101,14 @@ function Inventory(props) {
   const make = router.query.make;
   const categoryTitleWithMake = (
     <>
-      {categoryTitle}
+      {!make && <span>{categoryTitle}</span>}
+      {make && (
+        <span>
+          <Link href={`/vehicles-we-armor/type/${categorySlug}`}>
+            {categoryTitle}
+          </Link>
+        </span>
+      )}
       {make && <span>&gt;</span>}
       {make && <span>{make}</span>}
     </>
@@ -132,6 +139,18 @@ function Inventory(props) {
         },
       ],
     };
+
+    // Conditionally add make ListItem if router.query.make exists
+    if (router.query.make) {
+      const make = router.query.make;
+      structuredData.itemListElement.push({
+        '@type': 'ListItem',
+        position: 4,
+        name: make,
+        item: `https://www.alpineco.com/vehicles-we-armor/type/${categorySlug}?make=${make}`,
+      });
+    }
+
     return JSON.stringify(structuredData);
   };
 
@@ -159,11 +178,34 @@ function Inventory(props) {
 
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
 
-        {heading ? (
+        {/* {heading ? (
           <p className={`${styles.listing_heading} center container`}>
             {heading}
           </p>
-        ) : null}
+        ) : null} */}
+        <p className={`${styles.listing_heading} center container`}>
+          Explore different models of{' '}
+          <strong>
+            {typeof make === 'string'
+              ? make === 'bmw'
+                ? 'BMW'
+                : make === 'cuda'
+                  ? 'CUDA'
+                  : make === 'gmc'
+                    ? 'GMC'
+                    : make === 'mastiff'
+                      ? 'MASTIFF'
+                      : make === 'pointer'
+                        ? 'POINTER'
+                        : make.charAt(0).toUpperCase() +
+                          make.slice(1).replace('-', ' ')
+              : ''}
+          </strong>
+          {typeof categoryTitle === 'string'
+            ? ' ' + categoryTitle.replace('Armored', '').trim()
+            : ''}{' '}
+          We Armor
+        </p>
 
         {props.filters?.type ? (
           <div className={`${styles.listing_all_filters} container`}>
