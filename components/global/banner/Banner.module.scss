@@ -131,7 +131,7 @@
       font-size: 0;
     }
 
-    &_withMake{  
+    &_withMake {
       @media (max-width: 768px), (min-width: 1280px) and (max-width: 1600px) {
         display: flex;
         flex-wrap: wrap;
@@ -140,16 +140,15 @@
       }
 
       @media (min-width: 768px) and (max-width: 1279px), (min-width: 1600px) {
-        strong{
+        strong {
           position: relative;
-          &:before{
+          &:before {
             position: relative;
             content: '|';
             margin-left: 8px;
           }
-        } 
+        }
       }
-
     }
 
     h1,
