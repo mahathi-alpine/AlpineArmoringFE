@@ -234,7 +234,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Dimensions
+              Dimensions for {data?.title}
             </h2>
             <div className={`${styles.slug_dimensions_wrap}`}>
               <div
@@ -295,7 +295,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Armoring Features
+              Armoring Features for {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.armoringFeatures.data} />
             <div className={`divider_fade`}></div>
@@ -310,7 +310,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Conversion Accessories
+              Conversion Accessories for {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.conversionAccessories.data} />
             <div className={`divider_fade`}></div>
@@ -325,7 +325,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Communications & Electronics
+              Communications & Electronics for {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.communications.data} />
             <div className={`divider_fade`}></div>
@@ -340,7 +340,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Other Optional Equipment
+              Other Optional Equipment for {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.otherOptions.data} />
             <div className={`divider_fade`}></div>

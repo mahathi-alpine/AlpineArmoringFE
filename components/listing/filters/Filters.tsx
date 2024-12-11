@@ -7,13 +7,36 @@ import { useState, useEffect, useRef } from 'react';
 import SearchIcon from 'components/icons/Search';
 
 type FiltersProps = {
-  props: any;
+  props: {
+    type?: any[];
+    make?: any[];
+  };
   plain?: boolean;
 };
 
 const Filters = ({ props, plain }: FiltersProps) => {
   const router = useRouter();
   const [query, setQuery] = useState('');
+
+  const [activeFilterItem, setActiveFilterItem] = useState('default');
+  const [activeFilterTitles, setActiveFilterTitles] = useState({
+    make: 'Select',
+    type: 'All',
+  });
+
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [openFiltersClicked, setOpenFiltersClicked] = useState(false);
+
+  // Sorting function for filter items
+  const sortFilterItems = (items: any[]) => {
+    return items.sort((a, b) => {
+      const aHasInventory = a.attributes.inventory_vehicles?.data.length > 0;
+      const bHasInventory = b.attributes.inventory_vehicles?.data.length > 0;
+
+      // Items with inventory come first, then items without inventory
+      return aHasInventory === bHasInventory ? 0 : aHasInventory ? -1 : 1;
+    });
+  };
 
   useEffect(() => {
     if (router.isReady) {
@@ -30,11 +53,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     const newQuery = { ...router.query };
 
-    // If the query is empty, remove 'q' from the new query object
     if (!query || query.trim().length === 0) {
       delete newQuery.q;
     } else {
-      // If the query is not empty, add or update 'q' in the new query object
       newQuery.q = query;
     }
 
@@ -46,15 +67,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
       undefined
     );
   };
-
-  const [activeFilterItem, setActiveFilterItem] = useState('default');
-  const [activeFilterTitles, setActiveFilterTitles] = useState({
-    make: 'Select',
-    type: 'All',
-  });
-
-  const [filtersOpen, setFiltersOpen] = useState(false);
-  const [openFiltersClicked, setOpenFiltersClicked] = useState(false);
 
   const activateFilterItem = (slug) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
@@ -120,7 +132,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     }
 
     const newQuery = { ...router.query };
-    // Remove vehicles_we_armor parameter
     delete newQuery['vehicles_we_armor'];
 
     if (newQuery[paramKey] === item) {
@@ -151,7 +162,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     );
   };
 
-  // Close filters dropdown on click outside
   const filtersRef = useRef(null);
   const filtersMainRef = useRef(null);
 
@@ -193,7 +203,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     }
   }, [openFiltersClicked]);
 
-  // Function to construct URL without vehicles_we_armor parameter
   const constructFilterUrl = (baseUrl, slug, currentQuery) => {
     const queryParams = new URLSearchParams(currentQuery);
     queryParams.delete('vehicles_we_armor');
@@ -300,58 +309,72 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 </span>
 
                 <div className={`${styles.filters_item_wrap}`}>
-                  {props[filter].map((item) => {
-                    if (filter == 'type') {
-                      if (
-                        (baseUrl == '/vehicles-we-armor' &&
-                          item.attributes.title == 'Armored Rental') ||
-                        (baseUrl == '/vehicles-we-armor' &&
-                          item.attributes.title.toLowerCase() ==
-                            'special of the month'.toLowerCase()) ||
-                        (baseUrl == '/vehicles-we-armor' &&
-                          item.attributes.title == 'Armored Pre-Owned') ||
-                        (baseUrl == '/available-now' &&
-                          item.attributes.title == 'Vans & Buses')
-                      ) {
-                        return;
-                      }
+                  {filter == 'type' && (
+                    <Link
+                      href={baseUrl}
+                      className={`${styles.checkbox_link} ${
+                        'available-now' === currentSlug
+                          ? styles.selected_filter
+                          : ''
+                      }`}
+                      onClick={openFilters}
+                      key="all"
+                    >
+                      <span className={`${styles.checkbox_span}`}>All</span>
+                    </Link>
+                  )}
 
-                      const newUrl = constructFilterUrl(
-                        baseUrl,
-                        item.attributes.slug,
-                        router.asPath.split('?')[1] || ''
-                      );
+                  {filter === 'type'
+                    ? sortFilterItems(props[filter]).map((item) => {
+                        // Existing exclusion logic
+                        if (
+                          (baseUrl == '/vehicles-we-armor' &&
+                            (item.attributes.title == 'Armored Rental' ||
+                              item.attributes.title.toLowerCase() ==
+                                'special of the month'.toLowerCase() ||
+                              item.attributes.title == 'Armored Pre-Owned')) ||
+                          (baseUrl == '/available-now' &&
+                            item.attributes.title == 'Vans & Buses')
+                        ) {
+                          return null;
+                        }
 
-                      return (
-                        <Link
-                          href={newUrl}
-                          className={`
-                            ${styles.checkbox_link} 
-                            ${
-                              item.attributes.inventory_vehicles?.data.length <
-                              1
-                                ? styles.checkbox_link_disabled
-                                : ''
-                            }
-                            ${
-                              item.attributes.slug ===
-                              currentSlug.split('/').pop().split('?')[0]
-                                ? styles.selected_filter
-                                : ''
-                            }
-                          `}
-                          onClick={openFilters}
-                          key={item.id}
-                        >
-                          <span className={`${styles.checkbox_span}`}>
-                            {baseUrl == '/vehicles-we-armor'
-                              ? item.attributes.title.replace('Armored', '')
-                              : item.attributes.title}
-                          </span>
-                        </Link>
-                      );
-                    } else {
-                      return (
+                        const newUrl = constructFilterUrl(
+                          baseUrl,
+                          item.attributes.slug,
+                          router.asPath.split('?')[1] || ''
+                        );
+
+                        return (
+                          <Link
+                            href={newUrl}
+                            className={`
+                              ${styles.checkbox_link} 
+                              ${
+                                item.attributes.inventory_vehicles?.data
+                                  .length < 1
+                                  ? styles.checkbox_link_disabled
+                                  : ''
+                              }
+                              ${
+                                item.attributes.slug ===
+                                currentSlug.split('/').pop().split('?')[0]
+                                  ? styles.selected_filter
+                                  : ''
+                              }
+                            `}
+                            onClick={openFilters}
+                            key={item.id}
+                          >
+                            <span className={`${styles.checkbox_span}`}>
+                              {baseUrl == '/vehicles-we-armor'
+                                ? item.attributes.title.replace('Armored', '')
+                                : item.attributes.title}
+                            </span>
+                          </Link>
+                        );
+                      })
+                    : props[filter].map((item) => (
                         <div
                           className={`${styles.checkbox_link} ${
                             item.attributes.slug === currentFilterMake
@@ -367,24 +390,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                             {item.attributes.title}
                           </span>
                         </div>
-                      );
-                    }
-                  })}
-
-                  {filter == 'type' && (
-                    <Link
-                      href={baseUrl}
-                      className={`${styles.checkbox_link} ${
-                        'available-now' === currentSlug
-                          ? styles.selected_filter
-                          : ''
-                      }`}
-                      onClick={openFilters}
-                      key="all"
-                    >
-                      <span className={`${styles.checkbox_span}`}>All</span>
-                    </Link>
-                  )}
+                      ))}
                 </div>
               </div>
             );

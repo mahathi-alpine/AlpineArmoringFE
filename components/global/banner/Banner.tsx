@@ -15,6 +15,25 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoMP4 = props.mediaMP4?.data;
 
+  // Special uppercase cases
+  const specialUppercaseCases = ['bmw', 'cuda', 'gmc', 'mastiff', 'pointer'];
+
+  function formatMake(make: string) {
+    return make
+      .toString()
+      .replace('-', ' ')
+      .split(' ')
+      .map((word) => {
+        // Check if the word is in special uppercase cases (case-insensitive)
+        if (specialUppercaseCases.includes(word.toLowerCase())) {
+          return word.toUpperCase();
+        }
+        // Otherwise, do standard capitalization
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(' ');
+  }
+
   function isIOS() {
     return /iPad|iPhone|iPod/i.test(navigator.userAgent);
   }
@@ -89,7 +108,6 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
           sizes={bannerImageMobile ? '(max-width: 767px) 1vw, 100vw' : '100vw'}
           className={`${styles.banner_media} ${bannerImageMobile ? styles.banner_media_desktop : ''}`}
           priority
-          // fill
           width={2200}
           height={500}
           quality={100}
@@ -99,7 +117,6 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
             src={bannerImageMobile.url}
             alt={bannerImageMobile?.alternativeText || 'Alpine Armoring'}
             sizes="(max-width: 767px) 100vw, 1vw"
-            // fill
             width={375}
             height={250}
             className={`${styles.banner_media} ${styles.banner_media_mobile}`}
@@ -156,31 +173,13 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
                   dangerouslySetInnerHTML={{
                     __html:
                       router.query.type && router.query.make
-                        ? `${bannerTitle} 
-                        <b>
-                        ${router.query.make
-                          ?.toString()
-                          .replace('-', ' ')
-                          .split(' ')
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(' ')}
-                        </b>`
+                        ? `${bannerTitle}<strong>
+                          ${formatMake(router.query.make.toString())}</strong>`
                         : router.query.make
                           ? `Armored
-                        <b>
-                        ${router.query.make
-                          .toString()
-                          .replace('-', ' ')
-                          .split(' ')
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(' ')}
-                        </b>
+                        <strong>
+                        ${formatMake(router.query.make.toString())}
+                        </strong>
                         for preorder`
                           : bannerTitle,
                   }}
