@@ -435,7 +435,7 @@ const Form = () => {
                 country: country,
                 state: country === 'United States' ? state : '',
                 message: sanitizedMessage,
-                route: router.asPath,
+                route: window.location.origin + router.asPath,
                 date: Date.now(),
               },
             }),
