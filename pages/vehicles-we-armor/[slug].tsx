@@ -207,7 +207,7 @@ function Vehicle(props) {
             id="overview"
             className={`${styles.slug_description} anchor container_small`}
           >
-            <h2 className={`c-title`}>Overview</h2>
+            <h2 className={`c-title`}>Overview of {data?.title}</h2>
 
             <div
               dangerouslySetInnerHTML={{
