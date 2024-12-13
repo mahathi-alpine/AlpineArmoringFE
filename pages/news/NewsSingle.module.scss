@@ -81,7 +81,7 @@
       flex-flow: row;
     }
 
-    &_noAuthor{
+    &_noAuthor {
       flex-flow: row;
     }
 
@@ -97,7 +97,7 @@
         margin-bottom: 0;
       }
 
-      .blogSingle_info_noAuthor &{
+      .blogSingle_info_noAuthor & {
         margin-bottom: 0;
         width: auto;
       }
@@ -110,7 +110,7 @@
       @include breakpoint(medium) {
         margin-right: 50px;
 
-        .blogSingle_info_noAuthor &{
+        .blogSingle_info_noAuthor & {
           margin-right: 0;
         }
       }
@@ -142,7 +142,7 @@
           @include breakpoint(small) {
             margin-left: auto;
           }
-          .blogSingle_info_noAuthor &{
+          .blogSingle_info_noAuthor & {
             margin-left: unset;
           }
         }

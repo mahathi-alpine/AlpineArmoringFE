@@ -6,12 +6,11 @@
     @include breakpoint(small) {
       margin-top: 12px;
 
-      .socialShare_noAuthor &{
+      .socialShare_noAuthor & {
         margin-top: 0;
       }
     }
   }
-
 
   &_icon {
     display: flex;
