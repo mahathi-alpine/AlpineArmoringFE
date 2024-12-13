@@ -5,9 +5,10 @@ import Image from 'next/image';
 import Head from 'next/head';
 import PlayIcon from 'components/icons/Play2';
 import LinkedinIcon from 'components/icons/Linkedin';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import SocialShare from 'components/global/social-share/SocialShare';
 
 function BlogSingle(props) {
   const data =
@@ -23,6 +24,13 @@ function BlogSingle(props) {
   const content = data?.content;
 
   const convertMarkdown = useMarkdownToHtml();
+
+  const [pageUrl, setPageUrl] = useState('');
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setPageUrl(window.location.href);
+    }
+  }, []);
 
   // Lightbox
   const [selectedTitle, setSelectedTitle] = useState('');
@@ -159,6 +167,10 @@ function BlogSingle(props) {
                 </span>
               </div>
             </div>
+
+            {pageUrl && data?.title && (
+              <SocialShare title={data.title} url={pageUrl} />
+            )}
           </div>
 
           {content ? (

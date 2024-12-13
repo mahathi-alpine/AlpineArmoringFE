@@ -225,7 +225,7 @@ export async function getServerSideProps(context) {
 
   if (seoData) {
     // Modify meta title
-    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== 'armored-rental' ? ' for sale' : ''} | Alpine Armoring`;
+    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== 'armored-rental' ? ' for Sale' : ''} | Alpine Armoring`;
 
     // Modify meta description only when not armored-rental
     if (context.query.type && context.query.type !== 'armored-rental') {
