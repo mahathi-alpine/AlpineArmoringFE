@@ -214,6 +214,7 @@ const Footer = (props) => {
               src="/assets/footer-american-flag.gif"
               alt="armored vehicles"
               fill
+              unoptimized
             />
             <span className={`${styles.footer_bottom_flag_wrap}`}>
               The Home of{' '}
