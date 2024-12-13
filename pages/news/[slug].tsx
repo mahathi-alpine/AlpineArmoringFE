@@ -123,16 +123,13 @@ function BlogSingle(props) {
               }
               width={1280}
               height={700}
-              // sizes={
-              // index === 0
-              //     ? '(min-width: 1280px ) 75vw, 100vw'
-              //     : '(min-width: 1280px ) 40vw, 100vw'
-              // }
               className={`${styles.blogSingle_thumbnail}`}
             ></Image>
           ) : null}
 
-          <div className={`${styles.blogSingle_info}`}>
+          <div
+            className={`${styles.blogSingle_info} ${!data?.authors?.data ? styles.blogSingle_info_noAuthor : ''}`}
+          >
             <div className={`${styles.blogSingle_info_wrap}`}>
               {data?.authors?.data ? (
                 <div className={`${styles.blogSingle_info_box}`}>
@@ -169,7 +166,11 @@ function BlogSingle(props) {
             </div>
 
             {pageUrl && data?.title && (
-              <SocialShare title={data.title} url={pageUrl} />
+              <SocialShare
+                authors={data?.authors?.data}
+                title={data.title}
+                url={pageUrl}
+              />
             )}
           </div>
 

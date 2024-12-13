@@ -5,10 +5,16 @@
     gap: 15px;
     @include breakpoint(small) {
       margin-top: 12px;
+
+      .socialShare_noAuthor &{
+        margin-top: 0;
+      }
     }
   }
 
+
   &_icon {
+    display: flex;
     position: relative;
     background: none;
     border: none;
