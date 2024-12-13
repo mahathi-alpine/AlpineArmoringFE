@@ -14,11 +14,12 @@
 
   &_authorHeading {
     margin-top: 20px;
+    margin-bottom: 30px;
     text-align: center;
 
     @include breakpoint(large) {
       margin-top: 60px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
     &_title {
@@ -32,6 +33,11 @@
       span {
         font-weight: var(--font-medium);
       }
+    }
+
+    &_description{
+      margin-top: 10px;
+      font-size: 14px;
     }
   }
 }

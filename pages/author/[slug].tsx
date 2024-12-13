@@ -4,8 +4,10 @@ import BlogList from 'components/global/news/News';
 import styles from '../news/News.module.scss';
 import Link from 'next/link';
 import LinkedinIcon from 'components/icons/Linkedin';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function BlogSingle(props) {
+  const convertMarkdown = useMarkdownToHtml();
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const posts = data?.blogs?.data;
@@ -39,7 +41,7 @@ function BlogSingle(props) {
 
   return (
     <>
-      <div className={`${styles.news_authorHeading}`}>
+      <div className={`${styles.news_authorHeading} container_small`}>
         <h1 className={`${styles.news_authorHeading_title}`}>
           Author: <span>{data.Name}</span>
         </h1>
@@ -47,6 +49,14 @@ function BlogSingle(props) {
           <Link href={data.linkedinURL} target="_blank">
             <LinkedinIcon />
           </Link>
+        ) : null}
+        {data.description ? (
+          <p
+            className={`${styles.news_authorHeading_description} static`}
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(data.description),
+            }}
+          ></p>
         ) : null}
       </div>
 
