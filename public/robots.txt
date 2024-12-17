@@ -7,6 +7,7 @@ Disallow: /*?brand=*
 Disallow: /*?name=*
 Disallow: /*?id=*
 Disallow: /*?names=*
+Disallow: /*?make=chrysler
 Disallow: /vehicles-we-armor/150-CIT-International-Navistar-4300-
 Disallow: /vehicles-we-armor/131-SUV-Chevrolet-Suburban-
 Disallow: /vehicles-we-armor/140-Sedan-Mercedes-Benz-S-Class-Right-Hand-Drive
@@ -186,5 +187,6 @@ Disallow: /vehicles-we-armor/type/vans-and-buses?make=rolls-royce
 Disallow: /vehicles-we-armor/type/vans-and-buses?make=tesla
 Disallow: /vehicles-we-armor/type/vans-and-buses?make=typhoon
 Disallow: /vehicles-we-armor/type/vans-and-buses?make=volkswagen
+Disallow: /contact?source=become-a-dealer
 
 Sitemap: https://www.alpineco.com/sitemap.xml

@@ -183,6 +183,7 @@ export function middleware(request: NextRequest) {
     '/vehicles-we-armor/type/vans-and-buses?make=tesla',
     '/vehicles-we-armor/type/vans-and-buses?make=typhoon',
     '/vehicles-we-armor/type/vans-and-buses?make=volkswagen',
+    '/contact?source=become-a-dealer',
   ];
 
   const hasBlockedParam = blockedParams.some((param) =>
@@ -208,12 +209,17 @@ export function middleware(request: NextRequest) {
   const isBlockedDocument =
     request.nextUrl.pathname.includes('media/documents/');
 
+  // Check if the URL has ?make=chrysler
+  const hasChryslerMake =
+    request.nextUrl.searchParams.get('make') === 'chrysler';
+
   if (
     request.nextUrl.pathname.startsWith('/stock') ||
     request.nextUrl.pathname.startsWith('/inventory') ||
     hasBlockedParam ||
     isBlockedUrl ||
-    isBlockedDocument
+    isBlockedDocument ||
+    hasChryslerMake
   ) {
     const url = request.nextUrl.clone();
     url.pathname = '/';

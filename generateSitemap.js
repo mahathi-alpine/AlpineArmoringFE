@@ -79,18 +79,6 @@ async function generateSitemap() {
           changefreq: ['monthly'],
         },
         {
-          loc: [`${baseURL}vehicles-we-armor?make=chrysler`],
-          lastmod: [new Date().toISOString()],
-          priority: ['0.5'],
-          changefreq: ['monthly'],
-        },
-        {
-          loc: [`${baseURL}vehicles-we-armor?make=condor`],
-          lastmod: [new Date().toISOString()],
-          priority: ['0.5'],
-          changefreq: ['monthly'],
-        },
-        {
           loc: [`${baseURL}vehicles-we-armor?make=cuda`],
           lastmod: [new Date().toISOString()],
           priority: ['0.5'],
@@ -139,6 +127,12 @@ async function generateSitemap() {
           changefreq: ['monthly'],
         },
         {
+          loc: [`${baseURL}vehicles-we-armor?make=ineos`],
+          lastmod: [new Date().toISOString()],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
           loc: [`${baseURL}vehicles-we-armor?make=international`],
           lastmod: [new Date().toISOString()],
           priority: ['0.5'],
@@ -181,12 +175,6 @@ async function generateSitemap() {
           changefreq: ['monthly'],
         },
         {
-          loc: [`${baseURL}vehicles-we-armor?make=nissan`],
-          lastmod: [new Date().toISOString()],
-          priority: ['0.5'],
-          changefreq: ['monthly'],
-        },
-        {
           loc: [`${baseURL}vehicles-we-armor?make=omicron`],
           lastmod: [new Date().toISOString()],
           priority: ['0.5'],
@@ -211,12 +199,6 @@ async function generateSitemap() {
           changefreq: ['monthly'],
         },
         {
-          loc: [`${baseURL}vehicles-we-armor?make=rivian`],
-          lastmod: [new Date().toISOString()],
-          priority: ['0.5'],
-          changefreq: ['monthly'],
-        },
-        {
           loc: [`${baseURL}vehicles-we-armor?make=rolls-royce`],
           lastmod: [new Date().toISOString()],
           priority: ['0.5'],
@@ -230,6 +212,12 @@ async function generateSitemap() {
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=toyota`],
+          lastmod: [new Date().toISOString()],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor?make=typhoon`],
           lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
