@@ -4,49 +4,77 @@ import { useRouter } from 'next/router';
 
 const Seo = ({ props }) => {
   const router = useRouter();
-  // console.log(router)
-  // return null;
+  const baseUrl = 'https://www.alpineco.com';
 
-  let baseImgUrl = 'https://www.alpineco.com/media/img/about-us/main.png';
-  const metaImgHash = `${props?.metaImage?.data?.attributes.hash}`;
-  const metaImgUrl = `${baseImgUrl}${metaImgHash}.jpg`;
-  let twitter;
+  // Default values
+  const metaTitle = props?.metaTitle || 'Alpine Armoring';
+  const metaDescription = props?.metaDescription || 'Alpine Armoring';
+  const metaImgUrl =
+    props?.metaImage?.data?.attributes.formats?.large?.url ||
+    props?.metaImage?.data?.attributes.url ||
+    '';
 
-  props?.metaSocial?.map((social) => {
-    if (social.socialNetwork === 'Twitter') {
-      const twitterImgHash = social?.image?.data?.attributes.hash;
-      const twitterImgUrl = `${baseImgUrl}${twitterImgHash}.jpg`;
-      twitter = {
-        title: social.title,
-        image: twitterImgUrl,
-        description: social.description,
-      };
-    }
-  });
+  // Faceook social meta
+  const facebookMeta =
+    props?.metaSocial?.find((social) => social.socialNetwork === 'Facebook') ||
+    {};
+  const facebookMetaImg =
+    facebookMeta?.image?.data.attributes.formats?.large?.url ||
+    facebookMeta?.image?.data.attributes.url ||
+    metaImgUrl;
+
+  // Twitter social meta
+  const twitterMeta =
+    props?.metaSocial?.find((social) => social.socialNetwork === 'Twitter') ||
+    {};
+  const twitterMetaImg =
+    twitterMeta?.image?.data.attributes.formats?.large?.url ||
+    twitterMeta?.image?.data.attributes.url ||
+    metaImgUrl;
+
+  // Construct full URLs
+  const canonicalUrl = props?.canonicalURL || `${baseUrl}${router.asPath}`;
+  const ogUrl = `${baseUrl}${router.asPath}`;
+
   return (
     <Head>
-      <title>{props?.metaTitle || 'Alpine Armoring'}</title>
-      <meta
-        name="description"
-        content={props?.metaDescription || 'Alpine Armoring'}
-      />
+      <title>{metaTitle}</title>
+      <meta name="description" content={metaDescription} />
+
+      {/* Open Graph / Facebook */}
       <meta
         property="og:title"
-        content={props?.metaTitle || 'Alpine Armoring'}
+        content={facebookMeta?.title || metaTitle}
         key="title"
       />
-      <meta property="og:description" content={props?.metaDescription} />
-      <meta property="og:image" content={metaImgUrl} />
-      <meta name="keywords" content={props?.keywords} />
-      <meta name="twitter:title" content={twitter?.title} />
-      <meta name="twitter:description" content={twitter?.description} />
-      <meta name="twitter:image" content={twitter?.image} />
-      <meta name="twitter:card" content="summary_large_image" />
-      <link
-        rel="canonical"
-        href={props?.canonicalURL || `https://www.alpineco.com${router.asPath}`}
+      <meta
+        property="og:description"
+        content={facebookMeta?.description || metaDescription}
       />
+      {facebookMetaImg && (
+        <meta property="og:image" content={facebookMetaImg} />
+      )}
+      <meta property="og:url" content={ogUrl} />
+      <meta property="og:type" content="website" />
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={twitterMeta?.title || metaTitle} />
+      <meta
+        name="twitter:description"
+        content={twitterMeta?.description || metaDescription}
+      />
+      {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
+
+      {/* Canonical URL */}
+      <link rel="canonical" href={canonicalUrl} />
+
+      {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
+
+      {/* Additional Recommended Meta Tags */}
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta charSet="utf-8" />
     </Head>
   );
 };

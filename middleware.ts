@@ -224,9 +224,9 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = '/';
     url.search = '';
-    const response = NextResponse.redirect(url, { status: 301 });
+    // const response = NextResponse.redirect(url, { status: 301 });
 
-    // const response = NextResponse.next();
+    const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
