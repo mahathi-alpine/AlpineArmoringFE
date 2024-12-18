@@ -21,7 +21,7 @@
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     padding: 12px 10px;
-    
+
     @include breakpoint(medium) {
       border: 1px solid #e5e7eb;
     }
@@ -70,7 +70,7 @@
 
     @include breakpoint(small) {
       width: 100%;
-      &:first-child{
+      &:first-child {
         margin-bottom: 4px;
       }
     }
