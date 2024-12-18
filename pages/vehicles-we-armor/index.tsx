@@ -267,12 +267,16 @@ export async function getServerSideProps(context) {
     const seoData = pageData?.seo || null;
 
     const makeMetaTitle = queryMake
-      ? `| ${queryMake
+      ? `- ${queryMake
           .split('-')
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' ')}`
       : '';
     seoData.metaTitle = `${seoData.metaTitle} ${makeMetaTitle} | Alpine Armoring`;
+
+    seoData.metaDescription = queryMake
+      ? `Make your armored ${makeMetaTitle.replace('-', '').trim()} secure and stylish with Alpine Armoring's top-tier solutions, from SUVs to luxury cars, customized for ultimate protection.`
+      : seoData.metaDescription;
 
     return {
       props: { pageData, vehicles: filteredVehicles, filters, seoData },

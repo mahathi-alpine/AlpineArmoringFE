@@ -133,6 +133,18 @@ async function generateSitemap() {
           changefreq: ['monthly'],
         },
         {
+          loc: [`${baseURL}vehicles-we-armor?make=lamborghini`],
+          lastmod: [new Date().toISOString()],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor?make=maybach`],
+          lastmod: [new Date().toISOString()],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
           loc: [`${baseURL}vehicles-we-armor?make=international`],
           lastmod: [new Date().toISOString()],
           priority: ['0.5'],
