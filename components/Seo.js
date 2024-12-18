@@ -19,8 +19,8 @@ const Seo = ({ props }) => {
     props?.metaSocial?.find((social) => social.socialNetwork === 'Facebook') ||
     {};
   const facebookMetaImg =
-    facebookMeta?.image?.data.attributes.formats?.large?.url ||
-    facebookMeta?.image?.data.attributes.url ||
+    facebookMeta?.image?.data?.attributes.formats?.large?.url ||
+    facebookMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
   // Twitter social meta
@@ -28,8 +28,8 @@ const Seo = ({ props }) => {
     props?.metaSocial?.find((social) => social.socialNetwork === 'Twitter') ||
     {};
   const twitterMetaImg =
-    twitterMeta?.image?.data.attributes.formats?.large?.url ||
-    twitterMeta?.image?.data.attributes.url ||
+    twitterMeta?.image?.data?.attributes.formats?.large?.url ||
+    twitterMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
   // Construct full URLs
