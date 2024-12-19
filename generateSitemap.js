@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-// const fetch = require('node-fetch');
 const { parseString, Builder } = require('xml2js');
 
 async function generateSitemap() {
@@ -38,199 +37,166 @@ async function generateSitemap() {
       const customUrls = [
         {
           loc: [`${baseURL}vehicles-we-armor?make=audi`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=bentley`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=bmw`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=boxer`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=bulldog`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=cadillac`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=chevrolet`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=cuda`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=cyclone`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=ford`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=genesis`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=gmc`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=honda`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=hummer`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=infiniti`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=ineos`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=lamborghini`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=maybach`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=international`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=jeep`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=land-rover`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=lexus`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=lincoln`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=mastiff`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=mercedes-benz`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=omicron`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=pit-bull`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=pointer`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=range-rover`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=rolls-royce`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=tesla`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=toyota`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
         {
           loc: [`${baseURL}vehicles-we-armor?make=typhoon`],
-          lastmod: [new Date().toISOString()],
           priority: ['0.5'],
           changefreq: ['monthly'],
         },

@@ -260,7 +260,7 @@ function InventoryVehicle(props) {
                 <InfoIcon />
                 <p>
                   {data?.shortDescription
-                    ? data?.shortDescription
+                    ? data.shortDescription
                     : `This ${data?.title} is in stock and available to ship immediately`}
                 </p>
               </div>
