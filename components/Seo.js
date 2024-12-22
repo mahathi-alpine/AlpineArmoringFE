@@ -12,6 +12,8 @@ const Seo = ({ props }) => {
   const metaImgUrl =
     props?.metaImage?.data?.attributes.formats?.large?.url ||
     props?.metaImage?.data?.attributes.url ||
+    props?.thumbnail?.formats?.large?.url ||
+    props?.thumbnail?.url ||
     '';
 
   // Faceook social meta

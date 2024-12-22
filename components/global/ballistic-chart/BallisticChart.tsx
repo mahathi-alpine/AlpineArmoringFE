@@ -210,6 +210,7 @@ const BallisticChart = () => {
   const [moreSelected, setMoreSelected] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isContainerInView, setIsContainerInView] = useState(false);
+  const [isComparisonActive, setIsComparisonActive] = useState(false);
 
   // Refs
   const containerRef = useRef(null);
@@ -225,7 +226,7 @@ const BallisticChart = () => {
     const isMobile = window.innerWidth < 1280;
 
     if (window.innerWidth >= 1280) {
-      containerRef.current.classList.add(styles.ballistic_comparisonActive);
+      setIsComparisonActive(true);
     }
 
     if (isActive) {
@@ -261,7 +262,7 @@ const BallisticChart = () => {
     if (
       document.querySelectorAll(`.${styles.ballistic_row_active}`).length < 1
     ) {
-      containerRef.current.classList.remove(styles.ballistic_comparisonActive);
+      setIsComparisonActive(false);
     }
 
     if (window.innerWidth < 1280) {
@@ -451,7 +452,7 @@ const BallisticChart = () => {
     <>
       <div className={styles.ballistic}>
         <div
-          className={`${styles.ballistic_wrapper} ${isContainerInView ? styles.ballistic_wrapper_view : ''}`}
+          className={`${styles.ballistic_wrapper} ${isComparisonActive ? styles.ballistic_comparisonActive : ''} ${isContainerInView ? styles.ballistic_wrapper_view : ''}`}
           ref={containerRef}
         >
           <div className={styles.ballistic_header}>
