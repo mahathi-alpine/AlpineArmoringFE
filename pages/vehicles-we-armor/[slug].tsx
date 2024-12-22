@@ -415,8 +415,10 @@ export async function getStaticProps({ params }) {
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-  seoData.thumbnail =
-    data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
+  if (seoData) {
+    seoData.thumbnail =
+      data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
+  }
 
   if (!data || !data.data || data.data.length === 0) {
     return {
@@ -428,26 +430,5 @@ export async function getStaticProps({ params }) {
     props: { data, seoData },
   };
 }
-
-// export async function getServerSideProps(context) {
-//   const { slug } = context.query;
-
-//   const data = await getPageData({
-//     route: 'vehicles-we-armors',
-//     params: `filters[slug][$eq]=${slug}`,
-//   });
-
-//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-
-//   if (!data || !data.data || data.data.length === 0) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: { data, seoData },
-//   };
-// }
 
 export default Vehicle;

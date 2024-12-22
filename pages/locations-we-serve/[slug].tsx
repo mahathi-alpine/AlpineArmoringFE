@@ -74,8 +74,10 @@ export async function getServerSideProps(context) {
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-  seoData.thumbnail =
-    data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
+  if (seoData) {
+    seoData.thumbnail =
+      data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
+  }
 
   if (!data || !data.data || data.data.length === 0) {
     return {

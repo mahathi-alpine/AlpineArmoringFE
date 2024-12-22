@@ -324,7 +324,7 @@ export async function getServerSideProps(context) {
   }
 
   // Modify meta description if queryMake exists
-  if (queryMake && seoData.metaDescription) {
+  if (queryMake && seoData?.metaDescription) {
     // Format the make
     const formattedMake = queryMake
       .split('-')

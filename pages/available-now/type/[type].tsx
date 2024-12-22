@@ -198,7 +198,7 @@ export async function getServerSideProps(context) {
 
   const filteredVehicles = {
     ...vehicles,
-    data: vehicles.data.filter((vehicle) => {
+    data: vehicles.data?.filter((vehicle) => {
       if (vehicle.attributes.hide === true) return false;
       if (!q) return true;
 
