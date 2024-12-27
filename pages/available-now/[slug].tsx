@@ -521,8 +521,8 @@ export async function getStaticPaths() {
     }
 
     const paths = slugsResponse.data.reduce((acc, item) => {
-      if (item.attributes && item.attributes.slug) {
-        acc.push({ params: { slug: item.attributes.slug } });
+      if (item?.attributes && item.attributes.slug) {
+        acc.push({ params: { slug: item?.attributes.slug } });
       }
       return acc;
     }, []);

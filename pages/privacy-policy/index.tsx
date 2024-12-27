@@ -1,5 +1,4 @@
 import { getPageData } from 'hooks/api';
-import { useEffect } from 'react';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Privacy(props) {
@@ -7,40 +6,15 @@ function Privacy(props) {
 
   const convertMarkdown = useMarkdownToHtml();
 
-  // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <>
       {text ? (
-        <div
-          className={`static container_small`}
-          dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
-        ></div>
+        <div className={`static container_small`}>
+          <div
+            className={`mt2`}
+            dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
+          ></div>
+        </div>
       ) : null}
     </>
   );

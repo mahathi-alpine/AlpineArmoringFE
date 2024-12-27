@@ -8,6 +8,7 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import Accordion from 'components/global/accordion/Accordion';
 
 function Inventory(props) {
   const currentCategory = props.filters.type?.find(
@@ -15,6 +16,7 @@ function Inventory(props) {
   );
   const topBanner = currentCategory?.attributes.allBanner;
   const bottomText = currentCategory?.attributes.bottomText;
+  const faqs = currentCategory?.attributes.faqs_vehicles_we_armor;
   // const heading = currentCategory?.attributes.heading;
 
   const router = useRouter();
@@ -154,6 +156,35 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
+  // FAQ structured data
+  const getFAQStructuredData = () => {
+    if (!faqs || !Array.isArray(faqs)) {
+      console.error('FAQs is not an array:', faqs);
+      return null;
+    }
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq, index) => {
+        const title =
+          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
+        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+
+        return {
+          '@type': 'Question',
+          name: title,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: text,
+          },
+        };
+      }),
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
       <Head>
@@ -162,6 +193,13 @@ function Inventory(props) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
+        {faqs?.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
+            key="faq-jsonld"
+          />
+        )}
       </Head>
       <div className={`${styles.listing}`}>
         <div
@@ -237,6 +275,12 @@ function Inventory(props) {
         </div>
       ) : null}
 
+      {faqs?.length > 0 ? (
+        <div className={`mt2`}>
+          <Accordion items={faqs} title="Frequently asked questions" />
+        </div>
+      ) : null}
+
       {loading ? (
         <div
           className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
@@ -291,7 +335,7 @@ export async function getServerSideProps(context) {
       fields:
         'fields[0]=title&fields[1]=slug&fields[2]=bottomText&fields[3]=heading',
       populate:
-        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo',
+        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo, faqs_vehicles_we_armor',
     }).then((res) => res.data),
     getPageData({
       route: 'makes',

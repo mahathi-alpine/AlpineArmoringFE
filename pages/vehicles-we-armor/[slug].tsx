@@ -141,6 +141,58 @@ function Vehicle(props) {
     setupObserver();
   }, []);
 
+  const getProductStructuredData = () => {
+    if (data?.slug !== 'armored-audi-q7111') return null;
+
+    return {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: data?.title?.replace('\n', ' '),
+      image: data?.featuredImage?.data?.attributes?.url,
+      description: data?.descriptionBanner,
+      url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
+      brand: {
+        '@type': 'Brand',
+        name: 'Audi',
+      },
+      sku: 'ARM-AUDI-Q7',
+      offers: {
+        '@type': 'Offer',
+        url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
+        priceCurrency: 'USD',
+        price: '0',
+        availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
+        seller: {
+          '@type': 'Organization',
+          name: 'Alpine Armoring',
+        },
+      },
+      additionalProperty: [
+        {
+          '@type': 'PropertyValue',
+          name: 'Armoring Level',
+          value: data?.protectionLevel,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Engine Type',
+          value: '3.0L TFSI V6',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Transmission',
+          value: '8-speed Tiptronic',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Seating Capacity',
+          value: '5',
+        },
+      ],
+    };
+  };
+
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -187,6 +239,15 @@ function Vehicle(props) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
+        {getProductStructuredData() && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(getProductStructuredData()),
+            }}
+            key="product-jsonld"
+          />
+        )}
       </Head>
 
       <div className={`${styles.slug_wrapper}`}>
