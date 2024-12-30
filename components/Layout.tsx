@@ -189,6 +189,24 @@ const Layout = ({ children }) => {
         }}
       />
 
+      {/* Google Ads Tag */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-1066421391"
+        strategy="afterInteractive"
+      />
+      <Script
+        id="gads-setup"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-1066421391');
+          `,
+        }}
+      />
+
       <div className={termina.className}>
         <Header
           isDarkMode={isDarkMode || isSearchVisible}
