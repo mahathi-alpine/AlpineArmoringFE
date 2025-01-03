@@ -56,6 +56,7 @@ const Footer = (props) => {
               </h3>
             </div>
             {(currentRoute === '/about-us' ||
+              currentRoute === '/available-now' ||
               currentRoute.includes('/countries-we-service')) && (
               <div className={styles.footer_image}>
                 <Image

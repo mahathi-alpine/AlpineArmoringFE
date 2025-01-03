@@ -50,7 +50,7 @@
 
   &_inner {
     @include breakpoint(small) {
-      padding: 0 rem(16);
+      padding: 0 rem(8);
     }
     @include breakpoint(large) {
       display: flex;

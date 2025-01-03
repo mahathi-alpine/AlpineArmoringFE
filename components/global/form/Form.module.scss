@@ -24,7 +24,7 @@
     background: var(--color-white);
     font-weight: var(--font-medium);
     border: 1px solid transparent;
-    font-size: rem(14);
+    font-size: rem(13);
 
     @supports (-webkit-touch-callout: none) {
       @include breakpoint(small) {
