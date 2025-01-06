@@ -83,7 +83,7 @@
       padding-bottom: rem(20);
     }
 
-    &_wrap{
+    &_wrap {
       @include breakpoint(medium) {
         display: flex;
         column-gap: 16px;
