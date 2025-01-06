@@ -14,7 +14,68 @@ import InquiryForm from 'components/global/form/InquiryForm';
 import { animateVideo } from 'components/global/video-scale/VideoScale';
 
 function Vehicle(props) {
+  const convertMarkdown = useMarkdownToHtml();
+
+  useEffect(() => {
+    const setupObserver = () => {
+      const observerAnimationTargets = document.querySelectorAll('.observe');
+      if (observerAnimationTargets.length < 1) {
+        setTimeout(setupObserver, 100);
+        return;
+      }
+
+      const observerAnimation = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.toggle('in-view', entry.isIntersecting);
+              observerAnimation.unobserve(entry.target);
+
+              // VideoScale
+              if (entry.target.classList.contains('videoScaleContainer')) {
+                window.addEventListener(
+                  'scroll',
+                  () => animateVideo(entry.target),
+                  { passive: true }
+                );
+              }
+            } else {
+              if (entry.target.classList.contains('videoScaleContainer')) {
+                window.removeEventListener('scroll', () =>
+                  animateVideo(entry.target)
+                );
+              }
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.2,
+        }
+      );
+
+      observerAnimationTargets.forEach((item) =>
+        observerAnimation.observe(item)
+      );
+
+      return () => {
+        observerAnimationTargets.forEach((item) =>
+          observerAnimation.unobserve(item)
+        );
+        observerAnimation.disconnect();
+      };
+    };
+
+    setupObserver();
+  }, []);
+
+  if (!props.data?.data?.[0]) {
+    return <div>Loading...</div>;
+  }
+
   const data = props?.data?.data?.[0]?.attributes ?? {};
+
   const inventory = data?.stock?.data;
   const beforeAfterSlider_Before =
     data?.beforeAfterSlider?.before?.data?.attributes;
@@ -28,8 +89,6 @@ function Vehicle(props) {
 
   const videoWebm = data?.videoUpload?.data?.attributes;
   const videoMP4 = data?.videoMP4?.data?.attributes;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   let navItems = [
     {
@@ -86,60 +145,6 @@ function Vehicle(props) {
     title: data?.title,
     featuredImage: data?.featuredImage,
   };
-
-  useEffect(() => {
-    const setupObserver = () => {
-      const observerAnimationTargets = document.querySelectorAll('.observe');
-      if (observerAnimationTargets.length < 1) {
-        setTimeout(setupObserver, 100);
-        return;
-      }
-
-      const observerAnimation = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.toggle('in-view', entry.isIntersecting);
-              observerAnimation.unobserve(entry.target);
-
-              // VideoScale
-              if (entry.target.classList.contains('videoScaleContainer')) {
-                window.addEventListener(
-                  'scroll',
-                  () => animateVideo(entry.target),
-                  { passive: true }
-                );
-              }
-            } else {
-              if (entry.target.classList.contains('videoScaleContainer')) {
-                window.removeEventListener('scroll', () =>
-                  animateVideo(entry.target)
-                );
-              }
-            }
-          });
-        },
-        {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.2,
-        }
-      );
-
-      observerAnimationTargets.forEach((item) =>
-        observerAnimation.observe(item)
-      );
-
-      return () => {
-        observerAnimationTargets.forEach((item) =>
-          observerAnimation.unobserve(item)
-        );
-        observerAnimation.disconnect();
-      };
-    };
-
-    setupObserver();
-  }, []);
 
   const getProductStructuredData = () => {
     if (data?.slug !== 'armored-audi-q7111') return null;
@@ -228,6 +233,7 @@ function Vehicle(props) {
   };
 
   if (!props.data) {
+    console.error('Missing or malformed data structure');
     return null;
   }
 
@@ -458,7 +464,7 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: true,
+      fallback: 'blocking',
     };
   } catch (error) {
     // console.error('Error fetching slugs:', error);
@@ -486,9 +492,11 @@ export async function getStaticProps({ params }) {
       notFound: true,
     };
   }
+  console.log('Fetched data:', JSON.stringify(data, null, 2));
 
   return {
     props: { data, seoData },
+    revalidate: 120,
   };
 }
 

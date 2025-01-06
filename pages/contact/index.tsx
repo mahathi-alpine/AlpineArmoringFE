@@ -162,7 +162,7 @@ function Contact(props) {
         {faqs?.data.length > 0 ? (
           <Accordion
             items={faqs.data}
-            title="Frequently asked questions"
+            title="Frequently Asked Questions"
             button
           />
         ) : null}

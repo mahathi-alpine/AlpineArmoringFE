@@ -141,6 +141,7 @@
 
       img {
         object-fit: cover;
+        width: 100%;
 
         @include breakpoint(medium) {
           transition: transform 0.3s ease-in-out;

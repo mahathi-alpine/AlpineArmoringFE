@@ -277,7 +277,7 @@ function Inventory(props) {
 
       {faqs?.length > 0 ? (
         <div className={`mt2`}>
-          <Accordion items={faqs} title="Frequently asked questions" />
+          <Accordion items={faqs} title="Frequently Asked Questions" />
         </div>
       ) : null}
 

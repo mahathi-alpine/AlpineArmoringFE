@@ -23,64 +23,7 @@ import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import Accordion from 'components/global/accordion/Accordion';
 
 function InventoryVehicle(props) {
-  const data =
-    props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  const topGallery = data?.gallery?.data;
-  const mainText = data?.description;
-  const category = data?.categories?.data[0]?.attributes?.title;
-  const categorySlug = data?.categories?.data[0]?.attributes?.slug;
-
-  const videoWebm = data?.video?.data?.attributes;
-  const videoMP4 = data?.videoMP4?.data?.attributes;
-
-  const faqs = data?.faqs;
-
   const convertMarkdown = useMarkdownToHtml();
-
-  // const [thumbsAxis, setThumbsAxis] = useState<'x' | 'y'>('x');
-  // useEffect(() => {
-  //   window.innerWidth >= 1600 ? setThumbsAxis('y') : setThumbsAxis('x');
-  // }, []);
-  const sliderTopOptions = {
-    dragFree: false,
-    loop: true,
-    // axis: thumbsAxis,
-    thumbs: true,
-  };
-
-  const vehicleDetailsMain = {
-    Level: 'armor_level',
-    VIN: 'VIN',
-    'Vehicle ID': 'vehicleID',
-    'Engine & Power': 'engine',
-    Trans: 'trans',
-    // Power: 'power',
-    Year: 'year',
-    Miles: 'miles',
-    Drivetrain: 'driveTrain',
-    'Color (Exterior)': 'color_ext',
-    'Color (Interior)': 'color_int',
-    Trim: 'trim',
-    Wheels: 'wheels',
-    Height: 'height',
-    Length: 'length',
-    Width: 'width',
-    Wheelbase: 'wheelbase',
-    'Weight (Armored)': 'weight',
-  };
-
-  const formData = {
-    title: data?.title,
-    vehicleID: data?.vehicleID,
-    featuredImage: data?.featuredImage,
-  };
-
-  const scroll = () => {
-    const element = document.getElementById('request-a-quote');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   useEffect(() => {
     const setupObserver = () => {
@@ -146,6 +89,72 @@ function InventoryVehicle(props) {
     videoSrc: videoSrc,
   };
 
+  // Popup
+  const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
+
+  const togglePDFPopup = (url) => {
+    setPDFPopupOpen((prevState) => !prevState);
+    setCurrentPdfUrl(url);
+  };
+
+  if (!props.data?.data?.[0]) {
+    return <div>Loading...</div>;
+  }
+
+  const data =
+    props && props.data && props.data.data[0] && props.data.data[0].attributes;
+
+  const topGallery = data?.gallery?.data;
+  const mainText = data?.description;
+  const category = data?.categories?.data[0]?.attributes?.title;
+  const categorySlug = data?.categories?.data[0]?.attributes?.slug;
+
+  const videoWebm = data?.video?.data?.attributes;
+  const videoMP4 = data?.videoMP4?.data?.attributes;
+
+  const faqs = data?.faqs;
+
+  const sliderTopOptions = {
+    dragFree: false,
+    loop: true,
+    thumbs: true,
+  };
+
+  const vehicleDetailsMain = {
+    Level: 'armor_level',
+    VIN: 'VIN',
+    'Vehicle ID': 'vehicleID',
+    'Engine & Power': 'engine',
+    Trans: 'trans',
+    // Power: 'power',
+    Year: 'year',
+    Miles: 'miles',
+    Drivetrain: 'driveTrain',
+    'Color (Exterior)': 'color_ext',
+    'Color (Interior)': 'color_int',
+    Trim: 'trim',
+    Wheels: 'wheels',
+    Height: 'height',
+    Length: 'length',
+    Width: 'width',
+    Wheelbase: 'wheelbase',
+    'Weight (Armored)': 'weight',
+  };
+
+  const formData = {
+    title: data?.title,
+    vehicleID: data?.vehicleID,
+    featuredImage: data?.featuredImage,
+  };
+
+  const scroll = () => {
+    const element = document.getElementById('request-a-quote');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -180,14 +189,6 @@ function InventoryVehicle(props) {
     return JSON.stringify(structuredData);
   };
 
-  const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
-  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
-
-  const togglePDFPopup = (url) => {
-    setPDFPopupOpen((prevState) => !prevState);
-    setCurrentPdfUrl(url);
-  };
-
   // FAQ structured data
   const getFAQStructuredData = () => {
     if (!faqs || !Array.isArray(faqs)) {
@@ -216,6 +217,11 @@ function InventoryVehicle(props) {
 
     return JSON.stringify(structuredData);
   };
+
+  if (!data) {
+    console.error('Missing or malformed data structure');
+    return null;
+  }
 
   return (
     <>
@@ -471,7 +477,7 @@ function InventoryVehicle(props) {
 
         {faqs?.length > 0 ? (
           <div className={`mt2`}>
-            <Accordion items={faqs} title="Frequently asked questions" />
+            <Accordion items={faqs} title="Frequently Asked Questions" />
           </div>
         ) : null}
 
@@ -535,7 +541,7 @@ export async function getStaticPaths() {
     // console.error('Error fetching slugs:', error);
     return {
       paths: [],
-      fallback: false,
+      fallback: 'blocking',
     };
   }
 }
@@ -561,6 +567,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { data, seoData },
+    revalidate: 120,
   };
 }
 

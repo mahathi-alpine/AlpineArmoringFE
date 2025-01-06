@@ -88,13 +88,13 @@
   &_image {
     position: relative;
     padding: 0 rem(8);
+
     img {
-      // max-height: 180px;
       max-height: 200px;
-      // width: auto;
       margin: auto;
       object-fit: cover;
       transition: filter 0.3s ease;
+      width: 100%;
     }
   }
 

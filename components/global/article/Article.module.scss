@@ -72,9 +72,12 @@
   &_description {
     display: inline-block;
     position: relative;
-    font-size: rem(24);
     text-transform: none;
     margin-top: 1rem;
+    font-size: rem(18);
+    @include breakpoint(large) {
+      font-size: rem(24);
+    }
   }
 
   &_featured {
