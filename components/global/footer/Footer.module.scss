@@ -4,7 +4,7 @@
   padding-bottom: rem(32);
   z-index: 3;
   background: var(--color-background);
-  font-size: rem(15);
+  font-size: rem(14);
 
   @include breakpoint(small) {
     z-index: 3;
@@ -55,12 +55,19 @@
   }
 
   &_middle {
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
       display: flex;
+      gap: 32px;
       padding-bottom: 40px;
-      &_info {
-        flex: 1;
+    }
+
+    &_info {
+      @include breakpoint(medium) {
         display: flex;
+        flex: 1;
+        justify-content: space-between;
+      }
+      @include breakpoint(large) {
         flex-flow: column;
         & > :nth-child(2) {
           margin-top: rem(24);
@@ -71,9 +78,19 @@
 
   &_column {
     padding-bottom: rem(40);
-    @include breakpoint(medium) {
-      flex: 1;
+
+    @include breakpoint(large) {
       padding-bottom: rem(20);
+    }
+
+    &_wrap{
+      @include breakpoint(medium) {
+        display: flex;
+        column-gap: 16px;
+      }
+      @include breakpoint(large) {
+        max-width: 1210px;
+      }
     }
 
     &_social {
@@ -125,6 +142,7 @@
     @include breakpoint(medium) {
       flex-flow: unset;
       flex-wrap: wrap;
+      column-gap: 8px;
     }
 
     &_item {
@@ -135,12 +153,13 @@
       }
 
       @include breakpoint(medium) {
-        width: 50%;
+        width: calc(50% - 4px);
       }
     }
 
     &_link {
       position: relative;
+      letter-spacing: -0.5px;
       @include breakpoint(large) {
         &:after {
           position: absolute;
@@ -168,6 +187,10 @@
     display: flex;
     justify-content: space-between;
     max-width: 315px;
+
+    @include breakpoint(medium) {
+      gap: 15px;
+    }
 
     &_item {
       svg {
@@ -337,11 +360,6 @@
           display: block;
         }
       }
-
-      // &_middle {
-      //   color: var(--color-primary);
-      //   font-weight: 600;
-      // }
     }
 
     &_flag {

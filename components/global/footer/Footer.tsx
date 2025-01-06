@@ -18,23 +18,40 @@ const Footer = (props) => {
   const router = useRouter();
   const currentRoute = router.pathname;
   const links = [
-    { path: '/', text: 'Home' },
-    {
-      path: '/available-now/',
-      text: 'Available Now',
-    },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
-    { path: '/vehicles-we-armor', text: 'Vehicles We Armor' },
-    { path: '/news', text: 'All News' },
-    { path: '/available-now/type/armored-rental', text: 'Rentals & Lease' },
-    { path: '/about-us', text: 'About Us' },
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
+    { path: '/news', text: 'News On The Armored Vehicles' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
-    { path: '/available-now/type/armored-pre-owned', text: 'Pre-owned' },
-    { path: '/locations-we-serve', text: 'Locations We Serve' },
+    { path: '/faqs', text: 'Frequently Asked Questions' },
+    { path: '/about-us', text: 'About Us' },
+    { path: '/contact', text: 'Contact Alpine Armoring' },
     { path: '/all-downloads', text: 'All Downloads' },
-    { path: '/faqs', text: 'FAQ' },
-    { path: '/contact', text: 'Contact Us' },
+    { path: '/locations-we-serve', text: 'Locations We Serve' },
+  ];
+  const links2 = [
+    { path: '/vehicles-we-armor/type/armored-suvs', text: 'Armoring SUVs' },
+    { path: '/vehicles-we-armor/type/armored-sedans', text: 'Armoring Sedans' },
+    {
+      path: '/vehicles-we-armor/type/armored-pickup-trucks',
+      text: 'Armoring Pickup Trucks',
+    },
+    {
+      path: '/vehicles-we-armor/type/vans-and-buses',
+      text: 'Armoring Vans & Buses',
+    },
+    {
+      path: '/vehicles-we-armor/type/armored-law-enforcement',
+      text: 'Armoring Law Enforcement Vehicles',
+    },
+    {
+      path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
+      text: 'Armoring Cash In Transit Vehicles',
+    },
+    { path: '/available-now', text: 'Armored Cars For Sale' },
+    {
+      path: '/available-now/type/armored-pre-owned',
+      text: 'Pre-owned Armored Vehicles for Shipping',
+    },
   ];
 
   return (
@@ -175,20 +192,44 @@ const Footer = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.footer_column}`}>
-            <h3 className={`${styles.footer_column_title}`}>QUICK LINKS</h3>
-            <ul className={`${styles.footer_column_list} ${styles.footer_nav}`}>
-              {links.map((link, index) => (
-                <li className={`${styles.footer_nav_item}`} key={index}>
-                  <Link
-                    href={link.path}
-                    className={`${styles.footer_nav_link}`}
-                  >
-                    {link.text}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className={`${styles.footer_column_wrap}`}>
+            <div className={`${styles.footer_column}`}>
+              <h3 className={`${styles.footer_column_title}`}>QUICK LINKS</h3>
+              <ul
+                className={`${styles.footer_column_list} ${styles.footer_nav}`}
+              >
+                {links.map((link, index) => (
+                  <li className={`${styles.footer_nav_item}`} key={index}>
+                    <Link
+                      href={link.path}
+                      className={`${styles.footer_nav_link}`}
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className={`${styles.footer_column}`}>
+              <h3 className={`${styles.footer_column_title}`}>
+                Most Popular Services
+              </h3>
+              <ul
+                className={`${styles.footer_column_list} ${styles.footer_nav}`}
+              >
+                {links2.map((link, index) => (
+                  <li className={`${styles.footer_nav_item}`} key={index}>
+                    <Link
+                      href={link.path}
+                      className={`${styles.footer_nav_link}`}
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 

@@ -28,6 +28,11 @@
       font-size: clamp(0.9375rem, 0.9072rem + 0.1294vw, 1.0625rem);
       font-weight: var(--font-regular);
       cursor: pointer;
+
+      @include breakpoint(small) {
+        font-size: 14px;
+      }
+      
       @include breakpoint(large) {
         padding: rem(16) rem(32);
       }
