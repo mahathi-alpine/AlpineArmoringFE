@@ -96,6 +96,8 @@
     border-radius: 12px;
     max-height: 400px;
     object-fit: cover;
+    width: 100%;
+    max-width: 700px;
 
     @include breakpoint(large) {
       margin-bottom: rem(8);
