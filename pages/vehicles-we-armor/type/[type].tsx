@@ -308,7 +308,6 @@ export async function getServerSideProps(context) {
   // Fetching Vehicles
   const vehicles = await getPageData({
     route: 'vehicles-we-armors',
-    // params: `filters[category][slug][$eq]=${params.type}`,
     params: query,
     sort: 'order',
     pageSize: 100,
@@ -423,6 +422,13 @@ export async function getServerSideProps(context) {
 
     seoData.metaDescription = updatedDescription;
   }
+
+  if (!vehicles || !vehicles.data || vehicles.data.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+  console.log('Fetched data:', JSON.stringify(vehicles, null, 2));
 
   return {
     props: {

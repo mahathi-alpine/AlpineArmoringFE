@@ -470,7 +470,7 @@ export async function getStaticPaths() {
     // console.error('Error fetching slugs:', error);
     return {
       paths: [],
-      fallback: false,
+      fallback: 'blocking',
     };
   }
 }

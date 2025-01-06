@@ -535,7 +535,7 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: true,
+      fallback: 'blocking',
     };
   } catch (error) {
     // console.error('Error fetching slugs:', error);
@@ -564,6 +564,7 @@ export async function getStaticProps({ params }) {
       notFound: true,
     };
   }
+  console.log('Fetched data:', JSON.stringify(data, null, 2));
 
   return {
     props: { data, seoData },
