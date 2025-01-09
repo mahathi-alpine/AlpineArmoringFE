@@ -38,7 +38,7 @@ body {
 }
 
 .large-only {
-  @include breakpoint(untilDesktop) {
+  @include breakpoint(untilLarge) {
     display: none !important;
   }
 }
@@ -429,7 +429,7 @@ $shapeColor: var(--color-background);
   }
 
   .rpv-core__inner-pages {
-    @include breakpoint(untilDesktop) {
+    @include breakpoint(untilLarge) {
       overflow: scroll;
       padding-top: 18px;
     }

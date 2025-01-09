@@ -86,10 +86,11 @@
     &_wrap {
       @include breakpoint(medium) {
         display: flex;
-        column-gap: 16px;
+        justify-content: space-between;
+        column-gap: 32px;
       }
-      @include breakpoint(large) {
-        max-width: 1105px;
+      @include breakpoint(huge) {
+        column-gap: 130px;
       }
     }
 
@@ -139,10 +140,14 @@
     display: flex;
     flex-flow: column;
     list-style: none;
+
     @include breakpoint(medium) {
-      flex-flow: unset;
-      flex-wrap: wrap;
-      column-gap: 8px;
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 16px;
+    }
+    @include breakpoint(huge) {
+      column-gap: 32px;
     }
 
     &_item {
@@ -153,7 +158,7 @@
       }
 
       @include breakpoint(medium) {
-        width: calc(50% - 4px);
+        width: fit-content;
       }
     }
 

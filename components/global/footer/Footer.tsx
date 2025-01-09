@@ -24,9 +24,9 @@ const Footer = (props) => {
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/faqs', text: 'Frequently Asked Questions' },
     { path: '/about-us', text: 'About Us' },
-    { path: '/contact', text: 'Contact Alpine Armoring' },
     { path: '/all-downloads', text: 'All Downloads' },
     { path: '/locations-we-serve', text: 'Locations We Serve' },
+    { path: '/contact', text: 'Contact Alpine Armoring' },
   ];
   const links2 = [
     { path: '/vehicles-we-armor/type/armored-suvs', text: 'Armoring SUVs' },

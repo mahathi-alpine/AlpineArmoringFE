@@ -25,7 +25,7 @@
   color: #fff;
   text-align: center;
 
-  @include breakpoint(untilDesktop) {
+  @include breakpoint(untilLarge) {
     margin-bottom: 30px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -50,7 +50,7 @@
   &_table {
     display: flex;
     flex-direction: column;
-    @include breakpoint(untilDesktop) {
+    @include breakpoint(untilLarge) {
     }
   }
 
@@ -108,7 +108,7 @@
       justify-content: space-between;
     }
 
-    @include breakpoint(untilDesktop) {
+    @include breakpoint(untilLarge) {
       background: url('/assets/ballistic/base_header_mobile.png');
       position: sticky;
       top: 0px;
@@ -130,12 +130,12 @@
     &_item {
       position: relative;
 
-      @include breakpoint(untilDesktop) {
+      @include breakpoint(untilLarge) {
         order: 2;
       }
 
       &:first-child {
-        @include breakpoint(untilDesktop) {
+        @include breakpoint(untilLarge) {
           order: 0;
           left: 150px;
           top: 25px;
@@ -156,7 +156,7 @@
       }
 
       &:nth-child(2) {
-        @include breakpoint(untilDesktop) {
+        @include breakpoint(untilLarge) {
           left: -37px;
         }
 
@@ -177,7 +177,7 @@
       }
 
       &:nth-child(3) {
-        @include breakpoint(untilDesktop) {
+        @include breakpoint(untilLarge) {
           order: 1;
           left: 10px;
         }
@@ -201,7 +201,7 @@
       }
 
       &:nth-child(4) {
-        @include breakpoint(untilDesktop) {
+        @include breakpoint(untilLarge) {
           left: -50px;
         }
 
