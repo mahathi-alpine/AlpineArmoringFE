@@ -20,7 +20,7 @@ const Footer = (props) => {
   const links = [
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/ballistic-testing', text: 'Ballistic Testing' },
-    { path: '/news', text: 'News On The Armored Vehicles' },
+    { path: '/news', text: 'News On Armored Vehicles' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/faqs', text: 'Frequently Asked Questions' },
     { path: '/about-us', text: 'About Us' },
@@ -47,10 +47,10 @@ const Footer = (props) => {
       path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
       text: 'Armoring Cash In Transit Vehicles',
     },
-    { path: '/available-now', text: 'Armored Cars For Sale' },
+    { path: '/available-now', text: 'Armored Vehicles for Sale' },
     {
       path: '/available-now/type/armored-pre-owned',
-      text: 'Pre-owned Armored Vehicles for Shipping',
+      text: 'Pre-owned Armored Cars for Sale',
     },
   ];
 

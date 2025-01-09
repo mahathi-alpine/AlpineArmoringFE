@@ -14,13 +14,21 @@ function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const categories = data?.categories?.data;
-  const blogDate = data?.date ? data?.date : data?.publishedAt;
+  const blogDate = data?.date ? data?.date : data?.updatedAt;
   const date = new Date(blogDate);
-  const formattedDate = date.toLocaleString('en-GB', {
-    // day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
+  // const formattedDate = date.toLocaleString('en-GB', {
+  //   day: 'numeric',
+  //   month: 'long',
+  //   year: 'numeric',
+  // });
+  const formattedDate = date
+    .toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    })
+    .replace(/\//g, '/');
+
   const content = data?.content;
 
   const convertMarkdown = useMarkdownToHtml();
