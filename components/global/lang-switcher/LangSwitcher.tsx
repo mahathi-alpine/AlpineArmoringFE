@@ -4,17 +4,37 @@ import styles from './LangSwitcher.module.scss';
 export const LanguageSwitcher = (className) => {
   const router = useRouter();
 
-  const languages = [
-    { code: 'en', label: 'EN' },
-    { code: 'es', label: 'ES' },
-  ];
+  const languages = router.locales.map((locale) => ({
+    code: locale,
+    label: locale.toUpperCase(),
+  }));
 
   const currentLanguage =
     languages.find((lang) => lang.code === router.locale) || languages[0];
 
   const switchLanguage = (langCode) => {
-    const { pathname, asPath, query } = router;
-    router.push({ pathname, query }, asPath, { locale: langCode });
+    const { pathname, query } = router;
+
+    // Only handle slug transformation if we have a slug in the URL
+    if (query.slug) {
+      const currentSlug = query.slug as string;
+      // Remove any existing language suffix
+      const baseSlug = currentSlug.replace(/-[a-z]{2}$/, '');
+      // Construct new slug based on selected language
+      const newSlug = langCode === 'en' ? baseSlug : `${baseSlug}-${langCode}`;
+
+      router.push(
+        {
+          pathname,
+          query: { ...query, slug: newSlug },
+        },
+        undefined,
+        { locale: langCode }
+      );
+    } else {
+      // If no slug (e.g., homepage), just change the locale
+      router.push(pathname, pathname, { locale: langCode });
+    }
   };
 
   return (

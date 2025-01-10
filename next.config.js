@@ -7,6 +7,21 @@ module.exports = {
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',
+    localeDetection: false,
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/api/:path*',
+          destination: '/api/:path*',
+        },
+        {
+          source: '/assets/:path*',
+          destination: '/assets/:path*',
+        },
+      ],
+    };
   },
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
@@ -47,6 +62,7 @@ module.exports = {
       },
     ],
   },
+  trailingSlash: false,
   redirects: () => {
     return redirects();
   },
