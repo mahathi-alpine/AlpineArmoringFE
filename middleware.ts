@@ -1,6 +1,67 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+// Redirect cache configuration
+let redirectsCache: RedirectRule[] | null = null;
+let lastFetch: number | null = null;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+interface RedirectRule {
+  from: string;
+  to: string;
+  isPermanent: boolean;
+}
+
+// Fetch redirects from Strapi
+async function fetchRedirects(): Promise<RedirectRule[]> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337/api';
+  const limit = 100;
+  let page = 0;
+  const allRedirects: RedirectRule[] = [];
+
+  let hasMorePages = true;
+
+  while (hasMorePages) {
+    const response = await fetch(
+      `${apiUrl}/redirects?pagination[start]=${page * limit}&pagination[limit]=${limit}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch redirects: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const redirects = data?.data?.map((redirect: any) => ({
+      from: redirect.attributes.from,
+      to: redirect.attributes.to,
+      isPermanent: redirect.attributes.type === 'permanent',
+    }));
+
+    allRedirects.push(...redirects);
+
+    hasMorePages = allRedirects.length < data.meta.pagination.total;
+    page++;
+  }
+
+  return allRedirects;
+}
+
+// Get redirects with caching
+async function getRedirects(): Promise<RedirectRule[]> {
+  if (redirectsCache && lastFetch && Date.now() - lastFetch < CACHE_DURATION) {
+    return redirectsCache;
+  }
+
+  try {
+    redirectsCache = await fetchRedirects();
+    lastFetch = Date.now();
+    return redirectsCache;
+  } catch (error) {
+    console.error('Error fetching redirects:', error);
+    return redirectsCache || [];
+  }
+}
+
 const blockedPatterns = [
   {
     pattern: '/vehicles-we-armor/type/armored-suvs',
@@ -339,7 +400,7 @@ const isBlockedUrl = (url: string) => {
   });
 };
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const blockedParams = [
     'vehicles_we_armor',
     'brand',
@@ -372,6 +433,22 @@ export function middleware(request: NextRequest) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
+
+  // Check for redirects
+  const redirects = await getRedirects();
+  const pathname = request.nextUrl.pathname;
+
+  // Find matching redirect
+  const redirect = redirects.find((r) => {
+    const fromPath = r.from.endsWith('/') ? r.from.slice(0, -1) : r.from;
+    return pathname === fromPath || pathname === fromPath + '/';
+  });
+
+  if (redirect) {
+    const statusCode = redirect.isPermanent ? 308 : 307;
+    return NextResponse.redirect(new URL(redirect.to, request.url), statusCode);
+  }
+
   return NextResponse.next();
 }
 
@@ -380,5 +457,6 @@ export const config = {
     '/(stock|inventory|vehicles-we-armor|available-now|armored)/:path*',
     '/media/documents/:path*',
     '/contact',
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };

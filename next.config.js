@@ -1,4 +1,4 @@
-const redirects = require('./redirects');
+// const redirects = require('./redirects');
 
 module.exports = {
   // eslint: {
@@ -63,9 +63,6 @@ module.exports = {
     ],
   },
   trailingSlash: false,
-  redirects: () => {
-    return redirects();
-  },
   reactStrictMode: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
