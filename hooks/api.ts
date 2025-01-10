@@ -62,9 +62,9 @@ export async function getPageData({
     ? `/${route}?${custom}${localeQuery}`
     : `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}${localeQuery}`;
 
-  console.log(`Fetching ${route} with params:`, params, 'locale:', locale);
+  // console.log(`Fetching ${route} with params:`, params, 'locale:', locale);
   const pagesData = await fetchAPI(`/api${query}`);
-  console.log('API response:', pagesData);
+  // console.log('API response:', pagesData);
 
   if (pagesData == null || pagesData.length === 0) {
     return null;

@@ -45,8 +45,6 @@ const redirects = async () => {
 
       allRedirects.push(...redirects);
 
-      // console.log(redirects);
-
       if (allRedirects.length >= data.meta.pagination.total) {
         break;
       }
