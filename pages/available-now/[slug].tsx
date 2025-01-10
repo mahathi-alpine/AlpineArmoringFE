@@ -10,7 +10,6 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 import Link from 'next/link';
-// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
@@ -418,10 +417,6 @@ function InventoryVehicle(props) {
 
                   {data?.OEMArmoringSpecs?.data ? (
                     <Button
-                      // href={data.OEMArmoringSpecs.data.attributes?.url.replace(
-                      //   /\.ai$/,
-                      //   '.pdf'
-                      // )}
                       onClick={() =>
                         togglePDFPopup(data.OEMArmoringSpecs.data.attributes)
                       }
@@ -451,26 +446,6 @@ function InventoryVehicle(props) {
           ></div>
         ) : null}
 
-        {/* {data?.specifications?.data.length > 0 ? (
-          <div id="armoring-specs" className={`${styles.inventory_specs} anchor`}>
-            <StickyHorizontalSlider
-              slides={data.specifications.data}
-              title="Armoring Specifications"
-              inventory
-            />
-          </div>
-        ) : null} */}
-
-        {/* {data?.accessories?.data.length > 0 ? (
-          <div id="options-included" className={`anchor`}>
-            <StickyHorizontalSlider
-              slides={data.accessories.data}
-              title="Options Included"
-              inventory
-            />
-          </div>
-        ) : null} */}
-
         {videoWebm || videoMP4 ? (
           <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
         ) : null}
@@ -495,101 +470,49 @@ function InventoryVehicle(props) {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const data = await getPageData({
-//     route: 'inventories',
-//     params: `filters[slug][$eq]=${context.params.slug}`,
-//   });
-
-//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-
-//   if (!data || !data.data || data.data.length === 0) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: { data, seoData },
-//   };
-// }
-
-export async function getStaticPaths({ locales }) {
+export async function getServerSideProps({ params, locale }) {
   try {
-    const slugsResponse = await getPageData({
+    // Remove the localization suffix to get the base slug
+    const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+
+    // Create the localized slug based on the current locale
+    const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
+
+    const data = await getPageData({
       route: 'inventories',
-      fields: 'fields[0]=slug',
-      populate: '/',
+      params: `filters[slug][$eq]=${localizedSlug}`,
+      locale,
     });
 
-    if (!Array.isArray(slugsResponse.data)) {
-      throw new Error('Invalid data format');
+    // Handle SEO data
+    const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+
+    if (seoData) {
+      seoData.thumbnail =
+        data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
     }
 
-    const paths = slugsResponse.data.reduce((acc, item) => {
-      if (item?.attributes && item.attributes.slug) {
-        // Remove any existing language suffix to get the base slug
-        const baseSlug = item.attributes.slug.replace(/-[a-z]{2}$/, '');
+    // Return 404 if no data found
+    if (!data || !data.data || data.data.length === 0) {
+      return {
+        notFound: true,
+      };
+    }
 
-        locales.forEach((locale) => {
-          // For default locale (en), use base slug
-          // For other locales, add the language suffix
-          const localizedSlug =
-            locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
-
-          acc.push({
-            params: { slug: localizedSlug },
-            locale,
-          });
-        });
-      }
-      return acc;
-    }, []);
-
+    // Return the props
     return {
-      paths,
-      fallback: 'blocking',
+      props: {
+        data,
+        seoData,
+        locale,
+      },
     };
   } catch (error) {
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
-  }
-}
-
-export async function getStaticProps({ params, locale }) {
-  const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
-
-  const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
-
-  const data = await getPageData({
-    route: 'inventories',
-    params: `filters[slug][$eq]=${localizedSlug}`,
-    locale,
-  });
-
-  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-
-  if (seoData) {
-    seoData.thumbnail =
-      data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
-  }
-
-  if (!data || !data.data || data.data.length === 0) {
+    console.error('Error fetching inventory data:', error);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: {
-      data,
-      seoData,
-      locale,
-    },
-    revalidate: 120,
-  };
 }
 
 export default InventoryVehicle;
