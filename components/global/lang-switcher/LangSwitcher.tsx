@@ -1,68 +1,41 @@
-import { NextPageContext } from 'next';
-import useLanguageSwitcher, {
-  LanguageDescriptor,
-} from 'hooks/useLanguageSwitcher';
+import { useRouter } from 'next/router';
 import styles from './LangSwitcher.module.scss';
-import React, { useCallback, useMemo } from 'react';
 
-export type LanguageSwitcherProps = {
-  context?: NextPageContext;
-  className?: string;
-};
+export const LanguageSwitcher = (className) => {
+  const router = useRouter();
 
-export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
-  className = '',
-}) => {
-  const { currentLanguage, switchLanguage, languageConfig } =
-    useLanguageSwitcher();
+  const languages = [
+    { code: 'en', label: 'EN' },
+    { code: 'es', label: 'ES' },
+  ];
 
-  const handleLanguageSwitch = useCallback(
-    (lang: string) => (e: React.MouseEvent) => {
-      e.preventDefault();
-      switchLanguage(lang)();
-    },
-    [switchLanguage]
-  );
+  const currentLanguage =
+    languages.find((lang) => lang.code === router.locale) || languages[0];
 
-  const { currentLanguageDiv, otherLanguagesDiv, languageClass } =
-    useMemo(() => {
-      const current = languageConfig.languages.find(
-        (ld: LanguageDescriptor) => ld.name === currentLanguage
-      );
-      const others = languageConfig.languages.filter(
-        (ld: LanguageDescriptor) => ld.name !== currentLanguage
-      );
-      const langClass = `langSwitcher_flag_${current?.title || 'default'}`;
-
-      return {
-        currentLanguageDiv: current,
-        otherLanguagesDiv: others,
-        languageClass: langClass,
-      };
-    }, [languageConfig, currentLanguage]);
+  const switchLanguage = (langCode) => {
+    const { pathname, asPath, query } = router;
+    router.push({ pathname, query }, asPath, { locale: langCode });
+  };
 
   return (
-    <div className={`${className} ${styles.langSwitcher} notranslate`}>
-      <div className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}>
-        <span>{currentLanguageDiv?.title || 'EN'}</span>
-      </div>
+    <div className={`${className} ${styles.langSwitcher}`}>
+      <button
+        className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${currentLanguage.label}`]}`}
+      >
+        <span>{currentLanguage.label}</span>
+      </button>
 
       <ul className={styles.langSwitcher_wrap}>
-        {otherLanguagesDiv.map((ld: LanguageDescriptor) => {
-          const languageClass = `langSwitcher_flag_${ld.title}`;
-
-          return (
-            <li key={`l_s_${ld.name}`}>
-              <a
-                href="#"
-                onClick={handleLanguageSwitch(ld.name)}
-                className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}
-              >
-                <span className={styles.langSwitcher_name}>{ld.title}</span>
-              </a>
-            </li>
-          );
-        })}
+        {languages.map((lang) => (
+          <li key={lang.code}>
+            <button
+              onClick={() => switchLanguage(lang.code)}
+              className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${lang.label}`]}`}
+            >
+              <span className={styles.langSwitcher_name}>{lang.label}</span>
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

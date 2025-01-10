@@ -4,6 +4,10 @@ module.exports = {
   // eslint: {
   //   ignoreDuringBuilds: true,
   // },
+  i18n: {
+    locales: ['en', 'es'],
+    defaultLocale: 'en',
+  },
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
   },
