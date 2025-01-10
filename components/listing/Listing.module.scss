@@ -149,4 +149,14 @@
       }
     }
   }
+
+  &_rentalsCTA{
+    position: relative;
+    text-align: center;
+    top: -15px;
+    z-index: 1;
+    @include breakpoint(large) {
+      top: -55px
+    }
+  }
 }

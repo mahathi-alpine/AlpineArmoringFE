@@ -73,7 +73,6 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
     { path: '/design-and-engineering', text: 'Design & Engineering' },
     { path: '/manufacturing', text: 'Manufacturing' },
     { path: '/shipping-and-logistics', text: 'Shipping & Logistics' },
-    { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/faqs', text: 'FAQ' },
     { path: '/contact', text: 'Contact' },
   ];

@@ -10,7 +10,6 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 import Link from 'next/link';
-// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
@@ -24,8 +23,6 @@ function InventoryVehicle(props) {
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
-  // const category = data?.categories?.data[0]?.attributes?.title;
-  // const categorySlug = data?.categories?.data[0]?.attributes?.slug;
 
   const videoWebm = data?.video?.data?.attributes;
   const videoMP4 = data?.videoMP4?.data?.attributes;
@@ -39,22 +36,13 @@ function InventoryVehicle(props) {
   };
 
   const vehicleDetailsMain = {
-    VIN: 'VIN',
-    'Vehicle ID': 'vehicleID',
-    Engine: 'engine',
+    Level: 'armor_level',
+    'Vehicle ID': 'rentalsVehicleID',
+    'Engine & Power': 'engine',
     Trans: 'trans',
-    Power: 'power',
-    Year: 'year',
     Drivetrain: 'driveTrain',
     'Color (Exterior)': 'color_ext',
     'Color (Interior)': 'color_int',
-    Trim: 'trim',
-    Wheels: 'wheels',
-    Height: 'height',
-    Length: 'length',
-    Width: 'width',
-    Wheelbase: 'wheelbase',
-    'Weight (Armored)': 'weight',
   };
 
   const formData = {

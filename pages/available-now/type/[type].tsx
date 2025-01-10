@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
+import Button from 'components/global/button/Button';
 
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
@@ -126,6 +127,19 @@ function Inventory(props) {
 
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
+        {currentPath.includes('armored-rental') ? (
+          <div className={`${styles.listing_rentalsCTA}`}>
+            <Button
+              href="https://www.armoredautos.com/armored-rentals"
+              target
+              className={`primary rounded`}
+              attention
+            >
+              Visit our rentals website
+            </Button>
+          </div>
+        ) : null}
+
         <div
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
@@ -192,7 +206,7 @@ export async function getServerSideProps(context) {
     sort: 'order',
     populate: 'featuredImage',
     fields:
-      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide',
+      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans',
     pageSize: 100,
   });
 

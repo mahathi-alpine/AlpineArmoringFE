@@ -7,7 +7,7 @@ import LinkIcon from 'components/icons/Link';
 import EmailIcon from 'components/icons/Mail';
 import WhatsappIcon from 'components/icons/Whatsapp';
 
-const SocialShare = ({ title, url, authors }) => {
+const SocialShare = ({ title, url }) => {
   const [copyStatus, setCopyStatus] = useState('Copy Link');
 
   const shareFacebook = () => {
@@ -48,9 +48,7 @@ const SocialShare = ({ title, url, authors }) => {
   };
 
   return (
-    <div
-      className={`${styles.socialShare} ${!authors ? styles.socialShare_noAuthor : ''}`}
-    >
+    <div className={`${styles.socialShare}`}>
       <div className={styles.socialShare_icons}>
         <button
           onClick={copyLink}

@@ -10,12 +10,30 @@ import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 import SocialShare from 'components/global/social-share/SocialShare';
 
+const calculateReadTime = (content) => {
+  if (!content) return '1 min';
+
+  // Remove HTML tags and special characters
+  const plainText = content.replace(/<[^>]*>/g, '').replace(/[^\w\s]/g, '');
+
+  // Count words (split by whitespace)
+  const words = plainText.trim().split(/\s+/).length;
+
+  // Calculate read time (words / 400)
+  let minutes = Math.ceil(words / 400);
+
+  // Cap at 30 minutes
+  minutes = Math.min(minutes, 30);
+
+  // Return formatted string
+  return `${minutes} min`;
+};
+
 function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const categories = data?.categories?.data;
-  const blogDate = data?.date ? data?.date : data?.updatedAt;
-  const date = new Date(blogDate);
+  const date = new Date(data?.updatedAt);
   // const formattedDate = date.toLocaleString('en-GB', {
   //   day: 'numeric',
   //   month: 'long',
@@ -135,9 +153,7 @@ function BlogSingle(props) {
             ></Image>
           ) : null}
 
-          <div
-            className={`${styles.blogSingle_info} ${!data?.authors?.data ? styles.blogSingle_info_noAuthor : ''}`}
-          >
+          <div className={`${styles.blogSingle_info}`}>
             <div className={`${styles.blogSingle_info_wrap}`}>
               {data?.authors?.data ? (
                 <div className={`${styles.blogSingle_info_box}`}>
@@ -171,14 +187,19 @@ function BlogSingle(props) {
                   {formattedDate}
                 </span>
               </div>
+
+              <div className={`${styles.blogSingle_info_box}`}>
+                <span className={`${styles.blogSingle_info_box_heading}`}>
+                  Read Time
+                </span>
+                <span className={`${styles.blogSingle_info_box_name}`}>
+                  {calculateReadTime(content)}
+                </span>
+              </div>
             </div>
 
             {pageUrl && data?.title && (
-              <SocialShare
-                authors={data?.authors?.data}
-                title={data.title}
-                url={pageUrl}
-              />
+              <SocialShare title={data.title} url={pageUrl} />
             )}
           </div>
 

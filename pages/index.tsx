@@ -23,7 +23,6 @@ function Home({ homepageData, categories }) {
       image:
         'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fmedium_About_us_hompage_thumbnail_1_ea1c33f592.JPG&w=640&q=75',
       url: 'https://www.alpineco.com',
-      sameAs: ['https://www.armoredvehicles.com'],
       logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
       name: 'Alpine Armoring',
       description:

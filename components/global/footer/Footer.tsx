@@ -23,7 +23,7 @@ const Footer = (props) => {
     { path: '/news', text: 'News On Armored Vehicles' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
     { path: '/faqs', text: 'Frequently Asked Questions' },
-    { path: '/about-us', text: 'About Us' },
+    { path: '/about-us', text: 'About Alpine Armoring' },
     { path: '/all-downloads', text: 'All Downloads' },
     { path: '/locations-we-serve', text: 'Locations We Serve' },
     { path: '/contact', text: 'Contact Alpine Armoring' },
@@ -44,14 +44,14 @@ const Footer = (props) => {
       text: 'Armoring Law Enforcement Vehicles',
     },
     {
+      path: '/available-now/type/armored-pre-owned',
+      text: 'Pre-owned Armored Cars for Sale',
+    },
+    {
       path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
       text: 'Armoring Cash In Transit Vehicles',
     },
     { path: '/available-now', text: 'Armored Vehicles for Sale' },
-    {
-      path: '/available-now/type/armored-pre-owned',
-      text: 'Pre-owned Armored Cars for Sale',
-    },
   ];
 
   return (

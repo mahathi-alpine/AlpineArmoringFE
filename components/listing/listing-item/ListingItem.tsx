@@ -81,24 +81,28 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         </h3>
 
         <ul className={`${styles.inventory_item_info}`}>
-          {data.VIN ? (
-            <li className={`${styles.inventory_item_info_item}`}>
-              <strong>VIN:</strong>
-              <span>{data.VIN}</span>
-            </li>
-          ) : null}
-          {data.vehicleID ? (
-            <li className={`${styles.inventory_item_info_item}`}>
-              <strong>Vehicle ID:</strong>
-              <span>{data.vehicleID}</span>
-            </li>
-          ) : null}
-          {data.engine ? (
-            <li className={`${styles.inventory_item_info_item}`}>
-              <strong>Engine:</strong>
-              <span>{data.engine}</span>
-            </li>
-          ) : null}
+          {(() => {
+            const fieldsToDisplay = currentPath.includes('armored-rental')
+              ? [
+                  { key: 'rentalsVehicleID', label: 'Vehicle ID' },
+                  { key: 'engine', label: 'Engine' },
+                  { key: 'trans', label: 'Trans' },
+                ]
+              : [
+                  { key: 'VIN', label: 'VIN' },
+                  { key: 'vehicleID', label: 'Vehicle ID' },
+                  { key: 'engine', label: 'Engine' },
+                ];
+
+            return fieldsToDisplay.map(({ key, label }) =>
+              data[key] ? (
+                <li key={key} className={`${styles.inventory_item_info_item}`}>
+                  <strong>{label}:</strong>
+                  <span>{data[key]}</span>
+                </li>
+              ) : null
+            );
+          })()}
         </ul>
       </div>
     </Link>
