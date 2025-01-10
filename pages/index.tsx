@@ -14,6 +14,7 @@ const VideosPopup = dynamic(
 );
 
 function Home({ homepageData, categories }) {
+  console.log('test');
   const data = homepageData.data?.attributes;
 
   const getOrganizationStructuredData = () => {
