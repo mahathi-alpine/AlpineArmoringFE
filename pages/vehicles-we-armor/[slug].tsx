@@ -492,7 +492,7 @@ export async function getStaticProps({ params }) {
       notFound: true,
     };
   }
-  console.log('Fetched data:', JSON.stringify(data, null, 2));
+  // console.log('Fetched data:', JSON.stringify(data, null, 2));
 
   return {
     props: { data, seoData },

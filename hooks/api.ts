@@ -59,9 +59,9 @@ export async function getPageData({
     ? `/${route}?${custom}`
     : `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}`;
 
-  console.log(`Fetching ${route} with params:`, params);
+  // console.log(`Fetching ${route} with params:`, params);
   const pagesData = await fetchAPI(`/api${query}`);
-  console.log('API response:', pagesData);
+  // console.log('API response:', pagesData);
 
   if (pagesData == null || pagesData.length === 0) {
     return null;

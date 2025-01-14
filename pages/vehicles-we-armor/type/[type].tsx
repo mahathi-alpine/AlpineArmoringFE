@@ -428,7 +428,7 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-  console.log('Fetched data:', JSON.stringify(vehicles, null, 2));
+  // console.log('Fetched data:', JSON.stringify(vehicles, null, 2));
 
   return {
     props: {
