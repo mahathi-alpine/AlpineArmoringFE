@@ -5,13 +5,11 @@ import { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
 import Loader from 'components/global/loader/Loader';
 import { install } from 'resize-observer';
-import useLanguageSwitcher from 'hooks/useLanguageSwitcher';
 import CookieConsent from 'components/global/cookie-consent/CookieConsent';
 
 export default function App({ Component, pageProps }) {
   const seoData = pageProps.seoData;
   const [isLoading, setIsLoading] = useState(false);
-  const { currentLanguage } = useLanguageSwitcher();
 
   if (typeof window !== 'undefined') {
     if (!window.ResizeObserver) install();
@@ -50,23 +48,6 @@ export default function App({ Component, pageProps }) {
       Router.events.off('routeChangeError', handleChangeEnd);
     };
   }, []);
-
-  useEffect(() => {
-    document.documentElement.lang = currentLanguage || 'en-us';
-
-    if (currentLanguage && currentLanguage !== 'en') {
-      const script = document.createElement('script');
-      script.src =
-        '//translate.google.com/translate_a/element.js?cb=TranslateInit';
-      script.async = true;
-      script.onload = () => {
-        window.TranslateInit = function () {
-          new window.google.translate.TranslateElement();
-        };
-      };
-      document.body.appendChild(script);
-    }
-  }, [currentLanguage]);
 
   return (
     <>

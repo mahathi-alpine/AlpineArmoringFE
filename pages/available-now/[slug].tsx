@@ -495,26 +495,52 @@ function InventoryVehicle(props) {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const data = await getPageData({
-//     route: 'inventories',
-//     params: `filters[slug][$eq]=${context.params.slug}`,
-//   });
+// export async function getServerSideProps({ params, locale }) {
+//   try {
+//     // Remove the localization suffix to get the base slug
+//     const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
 
-//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+//     // Create the localized slug based on the current locale
+//     const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
 
-//   if (!data || !data.data || data.data.length === 0) {
+//     const data = await getPageData({
+//       route: 'inventories',
+//       params: `filters[slug][$eq]=${localizedSlug}`,
+//       locale,
+//     });
+
+//     // Handle SEO data
+//     const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+
+//     if (seoData) {
+//       seoData.thumbnail =
+//         data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
+//     }
+
+//     // Return 404 if no data found
+//     if (!data || !data.data || data.data.length === 0) {
+//       return {
+//         notFound: true,
+//       };
+//     }
+
+//     // Return the props
+//     return {
+//       props: {
+//         data,
+//         seoData,
+//         locale,
+//       },
+//     };
+//   } catch (error) {
+//     console.error('Error fetching inventory data:', error);
 //     return {
 //       notFound: true,
 //     };
 //   }
-
-//   return {
-//     props: { data, seoData },
-//   };
 // }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   try {
     const slugsResponse = await getPageData({
       route: 'inventories',
@@ -528,7 +554,20 @@ export async function getStaticPaths() {
 
     const paths = slugsResponse.data.reduce((acc, item) => {
       if (item?.attributes && item.attributes.slug) {
-        acc.push({ params: { slug: item?.attributes.slug } });
+        // Remove any existing language suffix to get the base slug
+        const baseSlug = item.attributes.slug.replace(/-[a-z]{2}$/, '');
+
+        locales.forEach((locale) => {
+          // For default locale (en), use base slug
+          // For other locales, add the language suffix
+          const localizedSlug =
+            locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
+
+          acc.push({
+            params: { slug: localizedSlug },
+            locale,
+          });
+        });
       }
       return acc;
     }, []);
@@ -538,7 +577,6 @@ export async function getStaticPaths() {
       fallback: 'blocking',
     };
   } catch (error) {
-    // console.error('Error fetching slugs:', error);
     return {
       paths: [],
       fallback: 'blocking',
@@ -546,10 +584,15 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
+  const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+
+  const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
+
   const data = await getPageData({
     route: 'inventories',
-    params: `filters[slug][$eq]=${params.slug}`,
+    params: `filters[slug][$eq]=${localizedSlug}`,
+    locale,
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
@@ -564,10 +607,13 @@ export async function getStaticProps({ params }) {
       notFound: true,
     };
   }
-  console.log('Fetched data:', JSON.stringify(data, null, 2));
 
   return {
-    props: { data, seoData },
+    props: {
+      data,
+      seoData,
+      locale,
+    },
     revalidate: 120,
   };
 }

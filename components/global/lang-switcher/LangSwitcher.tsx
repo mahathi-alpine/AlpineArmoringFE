@@ -1,68 +1,61 @@
-import { NextPageContext } from 'next';
-import useLanguageSwitcher, {
-  LanguageDescriptor,
-} from 'hooks/useLanguageSwitcher';
+import { useRouter } from 'next/router';
 import styles from './LangSwitcher.module.scss';
-import React, { useCallback, useMemo } from 'react';
 
-export type LanguageSwitcherProps = {
-  context?: NextPageContext;
-  className?: string;
-};
+export const LanguageSwitcher = (className) => {
+  const router = useRouter();
 
-export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
-  className = '',
-}) => {
-  const { currentLanguage, switchLanguage, languageConfig } =
-    useLanguageSwitcher();
+  const languages = router.locales.map((locale) => ({
+    code: locale,
+    label: locale.toUpperCase(),
+  }));
 
-  const handleLanguageSwitch = useCallback(
-    (lang: string) => (e: React.MouseEvent) => {
-      e.preventDefault();
-      switchLanguage(lang)();
-    },
-    [switchLanguage]
-  );
+  const currentLanguage =
+    languages.find((lang) => lang.code === router.locale) || languages[0];
 
-  const { currentLanguageDiv, otherLanguagesDiv, languageClass } =
-    useMemo(() => {
-      const current = languageConfig.languages.find(
-        (ld: LanguageDescriptor) => ld.name === currentLanguage
+  const switchLanguage = (langCode) => {
+    const { pathname, query } = router;
+
+    // Only handle slug transformation if we have a slug in the URL
+    if (query.slug) {
+      const currentSlug = query.slug as string;
+      // Remove any existing language suffix
+      const baseSlug = currentSlug.replace(/-[a-z]{2}$/, '');
+      // Construct new slug based on selected language
+      const newSlug = langCode === 'en' ? baseSlug : `${baseSlug}-${langCode}`;
+
+      router.push(
+        {
+          pathname,
+          query: { ...query, slug: newSlug },
+        },
+        undefined,
+        { locale: langCode }
       );
-      const others = languageConfig.languages.filter(
-        (ld: LanguageDescriptor) => ld.name !== currentLanguage
-      );
-      const langClass = `langSwitcher_flag_${current?.title || 'default'}`;
-
-      return {
-        currentLanguageDiv: current,
-        otherLanguagesDiv: others,
-        languageClass: langClass,
-      };
-    }, [languageConfig, currentLanguage]);
+    } else {
+      // If no slug (e.g., homepage), just change the locale
+      router.push(pathname, pathname, { locale: langCode });
+    }
+  };
 
   return (
-    <div className={`${className} ${styles.langSwitcher} notranslate`}>
-      <div className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}>
-        <span>{currentLanguageDiv?.title || 'EN'}</span>
-      </div>
+    <div className={`${className} ${styles.langSwitcher}`}>
+      <button
+        className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${currentLanguage.label}`]}`}
+      >
+        <span>{currentLanguage.label}</span>
+      </button>
 
       <ul className={styles.langSwitcher_wrap}>
-        {otherLanguagesDiv.map((ld: LanguageDescriptor) => {
-          const languageClass = `langSwitcher_flag_${ld.title}`;
-
-          return (
-            <li key={`l_s_${ld.name}`}>
-              <a
-                href="#"
-                onClick={handleLanguageSwitch(ld.name)}
-                className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}
-              >
-                <span className={styles.langSwitcher_name}>{ld.title}</span>
-              </a>
-            </li>
-          );
-        })}
+        {languages.map((lang) => (
+          <li key={lang.code}>
+            <button
+              onClick={() => switchLanguage(lang.code)}
+              className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${lang.label}`]}`}
+            >
+              <span className={styles.langSwitcher_name}>{lang.label}</span>
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

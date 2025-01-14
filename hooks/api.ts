@@ -33,6 +33,7 @@ interface PageDataProps {
   page?: number;
   pageSize?: number;
   custom?: string;
+  locale?: string;
 }
 
 export async function getPageData({
@@ -46,6 +47,7 @@ export async function getPageData({
   page,
   pageSize,
   custom,
+  locale = 'en',
 }: PageDataProps) {
   const sortQuery = sort ? `&sort=${sort}:${sortType}` : '';
   const paramsQuery = params ? params : '';
@@ -54,14 +56,15 @@ export async function getPageData({
   const limitQuery = limit ? '&' + limit : '';
   const pageQuery = page ? '&pagination[page]=' + page : '';
   const pageSizeQuery = pageSize ? '&pagination[pageSize]=' + pageSize : '';
+  const localeQuery = `&locale=${locale}`;
 
   const query = custom
-    ? `/${route}?${custom}`
-    : `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}`;
+    ? `/${route}?${custom}${localeQuery}`
+    : `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}${localeQuery}`;
 
-  console.log(`Fetching ${route} with params:`, params);
+  // console.log(`Fetching ${route} with params:`, params, 'locale:', locale);
   const pagesData = await fetchAPI(`/api${query}`);
-  console.log('API response:', pagesData);
+  // console.log('API response:', pagesData);
 
   if (pagesData == null || pagesData.length === 0) {
     return null;
