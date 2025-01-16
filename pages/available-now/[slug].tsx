@@ -218,6 +218,31 @@ function InventoryVehicle(props) {
     return JSON.stringify(structuredData);
   };
 
+  const getVideoStructuredData = () => {
+    const videoData = videoMP4 || videoWebm;
+
+    if (!videoData) {
+      return null;
+    }
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: data?.title?.replace(/\s+/g, ' ').trim() || 'Vehicle Video',
+      description: props.seoData.metaDescription || 'Vehicle showcase video',
+      thumbnailUrl: data?.featuredImage?.data?.attributes?.url || '',
+      uploadDate: videoData.createdAt,
+      contentUrl: videoData.url,
+      embedUrl: videoData.url,
+      duration: 'PT0M30S', // Default duration
+      encodingFormat: videoData.mime,
+      width: videoData.width || '',
+      height: videoData.height || '',
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   if (!data) {
     console.error('Missing or malformed data structure');
     return null;
@@ -236,6 +261,13 @@ function InventoryVehicle(props) {
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
             key="faq-jsonld"
+          />
+        )}
+        {(videoWebm || videoMP4) && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getVideoStructuredData() }}
+            key="video-jsonld"
           />
         )}
       </Head>

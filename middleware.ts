@@ -48,6 +48,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
+  // Redirect /stock URLs to /available-now
+  if (pathname.startsWith('/stock')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/available-now';
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
   // Check for blocked conditions
   const hasBlockedParam = blockedParams.some((param) =>
     searchParams.has(param)

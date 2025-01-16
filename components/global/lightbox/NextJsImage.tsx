@@ -8,7 +8,7 @@ export default function NextJsImage({ slide }) {
           <Image
             src={
               window.innerWidth < 500
-                ? slide.formats?.thumbnail?.url || slide.src
+                ? slide.formats?.medium?.url || slide.src
                 : window.innerWidth >= 500 && window.innerWidth < 1280
                   ? slide.formats?.large?.url ||
                     slide.formats?.medium?.url ||
@@ -18,7 +18,7 @@ export default function NextJsImage({ slide }) {
             alt={slide.alt || 'Alpine Armoring'}
             width={
               window.innerWidth < 500
-                ? slide.formats?.thumbnail?.width || slide.width
+                ? slide.formats?.medium?.width || slide.width
                 : window.innerWidth >= 500 && window.innerWidth < 1280
                   ? slide.formats?.large?.width ||
                     slide.formats?.medium?.width ||
@@ -27,7 +27,7 @@ export default function NextJsImage({ slide }) {
             }
             height={
               window.innerWidth < 500
-                ? slide.formats?.thumbnail?.height || slide.height
+                ? slide.formats?.medium?.height || slide.height
                 : window.innerWidth >= 500 && window.innerWidth < 1280
                   ? slide.formats?.large?.height ||
                     slide.formats?.medium?.height ||

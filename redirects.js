@@ -2,6 +2,7 @@ const { parse } = require('url');
 
 async function fetchAllRedirectPages() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337/api';
+  // const apiUrl = 'http://localhost:1337/api';
   let allRedirects = [];
   let currentPage = 1;
   let hasMorePages = true;
