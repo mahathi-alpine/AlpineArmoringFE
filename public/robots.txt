@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /stock/
 Disallow: /inventory/
+Disallow: /vehicles-we-armor/inventory/
 Disallow: /media/documents/
 Disallow: /*?vehicles_we_armor=*
 Disallow: /*?brand=*

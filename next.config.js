@@ -1,9 +1,12 @@
-const redirects = require('./redirects');
+const fetchRedirects = require('./redirects');
 
 module.exports = {
   // eslint: {
   //   ignoreDuringBuilds: true,
   // },
+  async redirects() {
+    return await fetchRedirects();
+  },
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
   },
@@ -42,9 +45,6 @@ module.exports = {
         pathname: '**',
       },
     ],
-  },
-  redirects: () => {
-    return redirects();
   },
   reactStrictMode: true,
   experimental: {
