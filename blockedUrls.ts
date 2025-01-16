@@ -202,7 +202,7 @@ export const blockedPatterns: BlockedPattern[] = [
     },
   },
   {
-    pattern: '/vehicles-we-armor/type/vans-and-buses',
+    pattern: '/vehicles-we-armor/type/armored-vans-and-buses',
     queryParams: {
       make: [
         'audi',

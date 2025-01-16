@@ -376,7 +376,7 @@ export async function getServerSideProps(context) {
 
     // Special case handling
     const specialReplacements = {
-      'vans-and-buses': /Vans\s*(?:&|and)\s*Buses/i,
+      'armored-vans-and-buses': /Vans\s*(?:&|and)\s*Buses/i,
       'armored-cash-in-transit-cit': /cash[-\s]in[-\s]transit/i,
     };
 
