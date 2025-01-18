@@ -5,8 +5,8 @@ const { parse } = require('url');
 // const CACHE_DURATION = 60 * 60; // 1 hour
 
 async function fetchAllRedirectPages() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337/api';
-  // const apiUrl = 'http://localhost:1337/api';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:1337';
+  // const apiUrl = 'http://127.0.0.1:1337';
   let allRedirects = [];
   let currentPage = 1;
   let hasMorePages = true;
