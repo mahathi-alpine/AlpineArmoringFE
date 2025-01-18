@@ -527,16 +527,18 @@ function InventoryVehicle(props) {
   );
 }
 
-export async function getServerSideProps({ params, locale }) {
+// export async function getServerSideProps({ params, locale }) {
+export async function getServerSideProps({ params }) {
   try {
-    const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+    // const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
 
-    const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
+    // const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
 
     const data = await getPageData({
       route: 'inventories',
-      params: `filters[slug][$eq]=${localizedSlug}`,
-      locale,
+      // params: `filters[slug][$eq]=${localizedSlug}`,
+      params: `filters[slug][$eq]=${params.slug}`,
+      // locale,
     });
 
     const seoData = data?.data?.[0]?.attributes?.seo ?? null;
@@ -555,7 +557,7 @@ export async function getServerSideProps({ params, locale }) {
       props: {
         data,
         seoData,
-        locale,
+        // locale,
       },
     };
   } catch (error) {
