@@ -7,6 +7,11 @@ module.exports = {
   async redirects() {
     return await fetchRedirects();
   },
+  i18n: {
+    locales: ['en', 'es'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
   },

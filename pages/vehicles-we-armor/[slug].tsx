@@ -443,61 +443,100 @@ function Vehicle(props) {
   );
 }
 
-export async function getStaticPaths() {
+export async function getServerSideProps({ params, locale }) {
   try {
-    const slugsResponse = await getPageData({
+    const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+
+    const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
+
+    const data = await getPageData({
       route: 'vehicles-we-armors',
-      fields: 'fields[0]=slug',
-      populate: '/',
+      params: `filters[slug][$eq]=${localizedSlug}`,
+      locale,
     });
 
-    if (!Array.isArray(slugsResponse.data)) {
-      throw new Error('Invalid data format');
+    const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+    if (seoData) {
+      seoData.thumbnail =
+        data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
     }
 
-    const paths = slugsResponse.data.reduce((acc, item) => {
-      if (item?.attributes && item.attributes.slug) {
-        acc.push({ params: { slug: item?.attributes.slug } });
-      }
-      return acc;
-    }, []);
+    if (!data || !data.data || data.data.length === 0) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
-      paths,
-      fallback: 'blocking',
+      props: {
+        data,
+        seoData,
+        locale,
+      },
     };
   } catch (error) {
-    // console.error('Error fetching slugs:', error);
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
-  }
-}
-
-export async function getStaticProps({ params }) {
-  const data = await getPageData({
-    route: 'vehicles-we-armors',
-    params: `filters[slug][$eq]=${params.slug}`,
-  });
-
-  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-  if (seoData) {
-    seoData.thumbnail =
-      data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
-  }
-
-  if (!data || !data.data || data.data.length === 0) {
+    console.error('Error fetching inventory data:', error);
     return {
       notFound: true,
     };
   }
-  // console.log('Fetched data:', JSON.stringify(data, null, 2));
-
-  return {
-    props: { data, seoData },
-    revalidate: 120,
-  };
 }
+
+// export async function getStaticPaths() {
+//   try {
+//     const slugsResponse = await getPageData({
+//       route: 'vehicles-we-armors',
+//       fields: 'fields[0]=slug',
+//       populate: '/',
+//     });
+
+//     if (!Array.isArray(slugsResponse.data)) {
+//       throw new Error('Invalid data format');
+//     }
+
+//     const paths = slugsResponse.data.reduce((acc, item) => {
+//       if (item?.attributes && item.attributes.slug) {
+//         acc.push({ params: { slug: item?.attributes.slug } });
+//       }
+//       return acc;
+//     }, []);
+
+//     return {
+//       paths,
+//       fallback: 'blocking',
+//     };
+//   } catch (error) {
+//     // console.error('Error fetching slugs:', error);
+//     return {
+//       paths: [],
+//       fallback: 'blocking',
+//     };
+//   }
+// }
+
+// export async function getStaticProps({ params }) {
+//   const data = await getPageData({
+//     route: 'vehicles-we-armors',
+//     params: `filters[slug][$eq]=${params.slug}`,
+//   });
+
+//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+//   if (seoData) {
+//     seoData.thumbnail =
+//       data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
+//   }
+
+//   if (!data || !data.data || data.data.length === 0) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+//   // console.log('Fetched data:', JSON.stringify(data, null, 2));
+
+//   return {
+//     props: { data, seoData },
+//     revalidate: 120,
+//   };
+// }
 
 export default Vehicle;

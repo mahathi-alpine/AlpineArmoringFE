@@ -86,11 +86,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/stock/:path*',
-    '/inventory/:path*',
-    '/:path*',
-    '/vehicles-we-armor/:path*',
+    '/(stock|inventory|vehicles-we-armor|available-now|armored)/:path*',
     '/media/documents/:path*',
-    '/armored/:path*',
+    '/contact',
   ],
 };
