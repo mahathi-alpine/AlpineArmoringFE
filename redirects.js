@@ -6,10 +6,11 @@ const { parse } = require('url');
 
 async function fetchAllRedirectPages() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:1337';
-  // const apiUrl = 'http://127.0.0.1:1337';
   let allRedirects = [];
   let currentPage = 1;
   let hasMorePages = true;
+
+  // console.log('Starting to fetch redirects from API:', apiUrl);
 
   while (hasMorePages) {
     const response = await fetch(
@@ -48,11 +49,11 @@ async function fetchRedirects() {
 
       const parsedFrom = parse(from, true);
 
-      // Basic configuration
       const redirectConfig = {
-        source: parsedFrom.pathname || from,
+        source: `/:locale${parsedFrom.pathname || from}`,
         destination: to,
         permanent: true,
+        locale: false,
       };
 
       // If there are query parameters, add exact matching
