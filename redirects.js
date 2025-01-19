@@ -1,4 +1,7 @@
 const { parse } = require('url');
+const cache = require('./cache');
+
+const CACHE_KEY = 'redirects_data';
 
 // const { setCookie, getCookie } = require('cookies-next');
 // const CACHE_KEY = 'redirects_data';
@@ -36,6 +39,10 @@ async function fetchAllRedirectPages() {
 async function fetchRedirects() {
   try {
     // Check cache first
+    const cachedData = cache.get(CACHE_KEY);
+    if (cachedData) {
+      return cachedData;
+    }
     // const cachedData = getCookie(CACHE_KEY, context);
     // if (cachedData) {
     //   return JSON.parse(cachedData);
@@ -46,7 +53,6 @@ async function fetchRedirects() {
 
     const transformedRedirects = redirectsData.map((redirect) => {
       const { from, to } = redirect.attributes;
-
       const parsedFrom = parse(from, true);
 
       const redirectConfig = {
@@ -72,6 +78,7 @@ async function fetchRedirects() {
     });
 
     // Store in cache
+    cache.set(CACHE_KEY, transformedRedirects);
     // setCookie(CACHE_KEY, JSON.stringify(transformedRedirects), {
     //   ...context,
     //   maxAge: CACHE_DURATION,
@@ -83,6 +90,11 @@ async function fetchRedirects() {
     console.error('Error fetching redirects:', error);
 
     // Try to return cached data as fallback if available
+    const cachedData = cache.get(CACHE_KEY);
+    if (cachedData) {
+      console.log('Returning cached data due to fetch error');
+      return cachedData;
+    }
     // const cachedData = getCookie(CACHE_KEY, context);
     // if (cachedData) {
     //   console.log('Returning cached data due to fetch error');

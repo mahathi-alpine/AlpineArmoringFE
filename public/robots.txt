@@ -5,9 +5,9 @@ Disallow: /vehicles-we-armor/inventory/
 Disallow: /media/documents/
 Disallow: /*?vehicles_we_armor=*
 Disallow: /*?brand=*
-Disallow: /*?name=*
-Disallow: /*?id=*
-Disallow: /*?names=*
+Disallow: /contact?name=*
+Disallow: /contact?id=*
+Disallow: /contact?names=*
 Disallow: /*?make=chrysler
 Disallow: /vehicles-we-armor/150-CIT-International-Navistar-4300-
 Disallow: /vehicles-we-armor/131-SUV-Chevrolet-Suburban-

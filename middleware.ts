@@ -10,9 +10,6 @@ const redirectMap = new Map([
   ],
 ]);
 
-// Parameters that should be blocked
-const blockedParams = ['vehicles_we_armor', 'brand', 'name', 'id', 'names'];
-
 const isUrlBlocked = (
   pathname: string,
   searchParams: URLSearchParams
@@ -45,28 +42,35 @@ export function middleware(request: NextRequest) {
   if (redirectTo) {
     const url = request.nextUrl.clone();
     url.pathname = redirectTo;
-    return NextResponse.redirect(url, { status: 301 });
-  }
-
-  // Redirect /stock URLs to /available-now
-  if (pathname.startsWith('/stock')) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/available-now';
-    return NextResponse.redirect(url, { status: 301 });
+    const response = NextResponse.redirect(url, { status: 301 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
   }
 
   // Check for blocked conditions
-  const hasBlockedParam = blockedParams.some((param) =>
+  // const blockedParams = ['brand', 'name', 'id', 'names'];
+  // const hasBlockedParam = blockedParams.some((param) =>
+  //   searchParams.has(param)
+  // );
+  const vehiclesWeArmorParam = searchParams.has('vehicles_we_armor');
+  const isBlockedDocument = pathname.includes('media/documents/');
+  const contactPageParams = ['name', 'id', 'names'].some((param) =>
     searchParams.has(param)
   );
-  const isBlockedDocument = pathname.includes('media/documents/');
+  const isBrandBlockedPath =
+    pathname.startsWith('/available-now/type/') ||
+    pathname.startsWith('/vehicles-we-armor/inventory');
+  const shouldBlockBrand = isBrandBlockedPath && searchParams.has('brand');
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
   if (
+    // hasBlockedParam ||
     pathname.startsWith('/stock') ||
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
-    hasBlockedParam ||
+    shouldBlockBrand ||
+    (pathname.startsWith('/available-now/type/') && vehiclesWeArmorParam) ||
+    (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
     isBlockedDocument ||
     hasChryslerMake
@@ -81,12 +85,21 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
+  // Redirect /stock URLs to /available-now
+  if (pathname.startsWith('/stock')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/available-now';
+    const response = NextResponse.redirect(url, { status: 301 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    '/(stock|inventory|vehicles-we-armor|available-now|armored)/:path*',
+    '/(stock|inventory|vehicles-we-armor|available-now|armored|blog)/:path*',
     '/media/documents/:path*',
     '/contact',
   ],
