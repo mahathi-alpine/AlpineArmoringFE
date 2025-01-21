@@ -358,7 +358,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                                 'special of the month'.toLowerCase() ||
                               item.attributes.title == 'Armored Pre-Owned')) ||
                           (baseUrl == '/available-now' &&
-                            item.attributes.title == 'Vans & Buses')
+                            item.attributes.title == 'Armored Vans & Buses')
                         ) {
                           return null;
                         }

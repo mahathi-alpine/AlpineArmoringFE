@@ -1,27 +1,16 @@
-// const redirects = require('./redirects');
+const fetchRedirects = require('./redirects');
 
 module.exports = {
   // eslint: {
   //   ignoreDuringBuilds: true,
   // },
+  async redirects() {
+    return await fetchRedirects();
+  },
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',
     localeDetection: false,
-  },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/api/:path*',
-          destination: '/api/:path*',
-        },
-        {
-          source: '/assets/:path*',
-          destination: '/assets/:path*',
-        },
-      ],
-    };
   },
   sassOptions: {
     prependData: `@import './styles/_mixins.scss';`,
@@ -62,7 +51,6 @@ module.exports = {
       },
     ],
   },
-  trailingSlash: false,
   reactStrictMode: true,
   experimental: {
     largePageDataBytes: 800 * 1000,

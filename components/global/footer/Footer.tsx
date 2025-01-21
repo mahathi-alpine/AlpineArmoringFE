@@ -36,7 +36,7 @@ const Footer = (props) => {
       text: 'Armoring Pickup Trucks',
     },
     {
-      path: '/vehicles-we-armor/type/vans-and-buses',
+      path: '/vehicles-we-armor/type/armored-vans-and-buses',
       text: 'Armoring Vans & Buses',
     },
     {
