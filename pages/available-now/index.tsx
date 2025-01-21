@@ -9,6 +9,7 @@ import styles from '/components/listing/Listing.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
@@ -16,6 +17,9 @@ const ITEMS_TO_DISPLAY = 6;
 function Inventory(props) {
   const { pageData, vehicles, filters, searchQuery } = props;
   const topBanner = pageData?.banner;
+  const bottomText = pageData?.bottomText;
+
+  const convertMarkdown = useMarkdownToHtml();
   const router = useRouter();
   const { q, vehicles_we_armor } = router.query;
 
@@ -222,6 +226,17 @@ function Inventory(props) {
           </div>
         </div>
       </div>
+
+      {bottomText ? (
+        <div className={`container_small`}>
+          <p
+            className={`${styles.listing_bottomText}`}
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(bottomText),
+            }}
+          ></p>
+        </div>
+      ) : null}
 
       <div
         className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
