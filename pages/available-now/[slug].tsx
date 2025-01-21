@@ -630,28 +630,7 @@ export async function getServerSideProps({ params }) {
 //       data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
 //   }
 
-//     if (seoData) {
-//       seoData.thumbnail =
-//         data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
-//     }
-
-//     // Return 404 if no data found
-//     if (!data || !data.data || data.data.length === 0) {
-//       return {
-//         notFound: true,
-//       };
-//     }
-
-//     // Return the props
-//     return {
-//       props: {
-//         data,
-//         seoData,
-//         locale,
-//       },
-//     };
-//   } catch (error) {
-//     console.error('Error fetching inventory data:', error);
+//   if (!data || !data.data || data.data.length === 0) {
 //     return {
 //       notFound: true,
 //     };
