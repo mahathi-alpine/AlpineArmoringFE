@@ -8,6 +8,62 @@ const redirectMap = new Map([
     "/blog/1/alpine-armoring's-featured-vehicle:-pit-bu",
     '/news/alpine-armorings-featured-vehicle-pit-bull',
   ],
+  [
+    '/vehicles-we-armor/213-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-',
+    '/vehicles-we-armor/armored-omicron-ambulance',
+  ],
+  [
+    '/vehicles-we-armor/213-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)',
+    '/vehicles-we-armor?q=ambulance',
+  ],
+  [
+    '/vehicles-we-armor/213-Special%32Purpose%32Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)',
+    '/contact',
+  ],
+  [
+    '/contact/?names=Armored%20InfinitiQX80%20(VIN%20-XXXX)',
+    '/vehicles-we-armor/armored-omicron-ambulance',
+  ],
+  [
+    '/stock/196-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-1695',
+    '/available-now/type/armored-law-enforcement',
+  ],
+  [
+    '/vehicles-we-armor/264-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Ford-Explorer-PPV-',
+    '/vehicles-we-armor?make=ford',
+  ],
+  [
+    '/vehicles-we-armor/348-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-',
+    '/vehicles-we-armor/armored-omicron-ambulance',
+  ],
+  [
+    '/vehicles-we-armor/inventory?type=Police+Pursuit+Vehicles+(PPV)',
+    '/vehicles-we-armor/type/armored-law-enforcement',
+  ],
+  [
+    '/stock/inventory/Police Pursuit Vehicles (PPV)',
+    '/available-now/type/armored-law-enforcement',
+  ],
+  [
+    '/stock/227-Police Pursuit Vehicles (PPV)-Ford-Explorer-Interceptor-PPV-4571?ip=1',
+    '/available-now/type/armored-law-enforcement',
+  ],
+  [
+    '/vehicles-we-armor/259-Police Pursuit Vehicles (PPV)-Armored-Ford-Explorer-PPV-',
+    '/vehicles-we-armor?make=ford',
+  ],
+  [
+    '/vehicles-we-armor/264-Police Pursuit Vehicles (PPV)-Armored-Ford-Explorer-PPV-',
+    '/vehicles-we-armor?make=ford',
+  ],
+  [
+    '/vehicles-we-armor/348-Police Pursuit Vehicles (PPV)-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-',
+    '/vehicles-we-armor/armored-omicron-ambulance',
+  ],
+  [
+    '/stock/196-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-1695',
+    '/vehicles-we-armor/armored-omicron-ambulance',
+  ],
 ]);
 
 const isUrlBlocked = (
@@ -53,7 +109,6 @@ export function middleware(request: NextRequest) {
   //   searchParams.has(param)
   // );
   const vehiclesWeArmorParam = searchParams.has('vehicles_we_armor');
-  const isBlockedDocument = pathname.includes('media/documents/');
   const contactPageParams = ['name', 'id', 'names'].some((param) =>
     searchParams.has(param)
   );
@@ -72,7 +127,6 @@ export function middleware(request: NextRequest) {
     (pathname.startsWith('/available-now/type/') && vehiclesWeArmorParam) ||
     (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
-    isBlockedDocument ||
     hasChryslerMake
   ) {
     // const url = request.nextUrl.clone();
@@ -94,13 +148,21 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
+  // Redirect /media URLs to /all-downloads
+  if (pathname.startsWith('/media')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/all-downloads';
+    const response = NextResponse.redirect(url, { status: 301 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    '/(stock|inventory|vehicles-we-armor|available-now|armored|blog)/:path*',
-    '/media/documents/:path*',
+    '/(stock|inventory|vehicles-we-armor|available-now|armored|blog|media)/:path*',
     '/contact',
   ],
 };
