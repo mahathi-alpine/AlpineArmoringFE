@@ -40,7 +40,7 @@ export default function NextJsImage({ slide }) {
               margin: '0 auto',
               objectFit: 'contain',
             }}
-            priority={slide.index == slide.selectedIndex}
+            // priority={slide.index == slide.selectedIndex}
             unoptimized={slide.unoptimized == true}
           ></Image>
         </div>
