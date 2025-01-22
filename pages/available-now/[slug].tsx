@@ -173,6 +173,7 @@ function InventoryVehicle(props) {
         '@type': 'Offer',
         url: `https://www.alpineco.com/available-now/${data?.slug}`,
         priceCurrency: 'USD',
+        price: '0',
         availability: 'https://schema.org/InStock',
         // itemCondition: 'https://schema.org/NewCondition',
         seller: {
