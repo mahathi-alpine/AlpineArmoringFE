@@ -167,6 +167,7 @@ function Vehicle(props) {
         url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
         priceCurrency: 'USD',
         // availability: 'https://schema.org/InStock',
+        price: '0',
         itemCondition: 'https://schema.org/NewCondition',
         seller: {
           '@type': 'Organization',
