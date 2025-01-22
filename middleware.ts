@@ -14,56 +14,40 @@ const redirectMap = new Map([
   ],
   [
     '/vehicles-we-armor/213-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)',
-    '/vehicles-we-armor?q=ambulance',
-  ],
-  [
-    '/vehicles-we-armor/213-Special%32Purpose%32Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)',
-    '/contact',
-  ],
-  [
-    '/contact/?names=Armored%20InfinitiQX80%20(VIN%20-XXXX)',
     '/vehicles-we-armor/armored-omicron-ambulance',
   ],
   [
-    '/stock/196-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-1695',
-    '/available-now/type/armored-law-enforcement',
-  ],
-  [
-    '/vehicles-we-armor/264-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Ford-Explorer-PPV-',
-    '/vehicles-we-armor?make=ford',
+    '/vehicles-we-armor/213-Special%32Purpose%32Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)',
+    '/vehicles-we-armor/armored-omicron-ambulance',
   ],
   [
     '/vehicles-we-armor/348-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-',
     '/vehicles-we-armor/armored-omicron-ambulance',
   ],
   [
-    '/vehicles-we-armor/inventory?type=Police+Pursuit+Vehicles+(PPV)',
-    '/vehicles-we-armor/type/armored-law-enforcement',
-  ],
-  [
-    '/stock/inventory/Police Pursuit Vehicles (PPV)',
-    '/available-now/type/armored-law-enforcement',
-  ],
-  [
-    '/stock/227-Police Pursuit Vehicles (PPV)-Ford-Explorer-Interceptor-PPV-4571?ip=1',
-    '/available-now/type/armored-law-enforcement',
-  ],
-  [
-    '/vehicles-we-armor/259-Police Pursuit Vehicles (PPV)-Armored-Ford-Explorer-PPV-',
-    '/vehicles-we-armor?make=ford',
-  ],
-  [
-    '/vehicles-we-armor/264-Police Pursuit Vehicles (PPV)-Armored-Ford-Explorer-PPV-',
-    '/vehicles-we-armor?make=ford',
-  ],
-  [
-    '/vehicles-we-armor/348-Police Pursuit Vehicles (PPV)-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-',
-    '/vehicles-we-armor/armored-omicron-ambulance',
-  ],
-  [
     '/stock/196-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-1695',
-    '/vehicles-we-armor/armored-omicron-ambulance',
+    '/available-now/type/armored-law-enforcement',
   ],
+  [
+    '/stock/inventory/Police%20Pursuit%20Vehicles%20(PPV)',
+    '/available-now/type/armored-law-enforcement',
+  ],
+  [
+    '/stock/227-Police%20Pursuit%20Vehicles%20(PPV)-Ford-Explorer-Interceptor-PPV-4571',
+    '/available-now/type/armored-law-enforcement',
+  ],
+  // [
+  //   '/vehicles-we-armor/264-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Ford-Explorer-PPV-',
+  //   '/vehicles-we-armor?make=ford',
+  // ],
+  // [
+  //   '/vehicles-we-armor/259-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Ford-Explorer-PPV-',
+  //   '/vehicles-we-armor?make=ford',
+  // ],
+  // [
+  //   '/vehicles-we-armor/inventory?type=Police+Pursuit+Vehicles+(PPV)',
+  //   '/vehicles-we-armor/type/armored-law-enforcement',
+  // ],
 ]);
 
 const isUrlBlocked = (
@@ -104,10 +88,6 @@ export function middleware(request: NextRequest) {
   }
 
   // Check for blocked conditions
-  // const blockedParams = ['brand', 'name', 'id', 'names'];
-  // const hasBlockedParam = blockedParams.some((param) =>
-  //   searchParams.has(param)
-  // );
   const vehiclesWeArmorParam = searchParams.has('vehicles_we_armor');
   const contactPageParams = ['name', 'id', 'names'].some((param) =>
     searchParams.has(param)
@@ -119,7 +99,6 @@ export function middleware(request: NextRequest) {
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
   if (
-    // hasBlockedParam ||
     pathname.startsWith('/stock') ||
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
