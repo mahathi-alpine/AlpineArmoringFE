@@ -155,6 +155,122 @@ function InventoryVehicle(props) {
     }
   };
 
+  const getProductStructuredData = () => {
+    return {
+      '@context': 'https://schema.org/',
+      '@type': ['Product', 'Vehicle'],
+      name: data?.title?.replace('\n', ' '),
+      image: data?.featuredImage?.data?.attributes?.url,
+      description:
+        props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
+      url: `https://www.alpineco.com/available-now/${data?.slug}`,
+      brand: {
+        '@type': 'Brand',
+        name: 'Alpine Armoring® Armored Vehicles',
+      },
+      sku: `Alpine-${data?.slug}`,
+      offers: {
+        '@type': 'Offer',
+        url: `https://www.alpineco.com/available-now/${data?.slug}`,
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        // itemCondition: 'https://schema.org/NewCondition',
+        seller: {
+          '@type': 'Organization',
+          name: 'Alpine Armoring',
+        },
+        description: 'Price available upon request. Contact us for details.',
+      },
+      additionalProperty: [
+        {
+          '@type': 'PropertyValue',
+          name: 'Armoring Level',
+          value: data?.armor_level,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'VIN',
+          value: data?.VIN,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Vehicle ID',
+          value: data?.vehicleID,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Engine & Power',
+          value: data?.engine,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Trans',
+          value: data?.trans,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Year',
+          value: data?.year,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Miles',
+          value: data?.miles,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Drivetrain',
+          value: data?.driveTrain,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Color (Exterior)',
+          value: data?.color_ext,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Color (Interior)',
+          value: data?.color_int,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Trim',
+          value: data?.trim,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Wheels',
+          value: data?.wheels,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Height',
+          value: `${data?.height} in.`,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Length',
+          value: `${data?.length} in.`,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Width',
+          value: `${data?.width} in.`,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Wheelbase',
+          value: `${data?.wheelbase} in.`,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Weight (Armored)',
+          value: `${data?.weight} lbs`,
+        },
+      ],
+    };
+  };
+
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -268,6 +384,15 @@ function InventoryVehicle(props) {
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: getVideoStructuredData() }}
             key="video-jsonld"
+          />
+        )}
+        {getProductStructuredData() && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(getProductStructuredData()),
+            }}
+            key="product-jsonld"
           />
         )}
       </Head>
