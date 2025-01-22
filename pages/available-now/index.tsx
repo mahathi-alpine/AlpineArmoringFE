@@ -10,6 +10,7 @@ import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import Accordion from 'components/global/accordion/Accordion';
 
 const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
@@ -18,6 +19,7 @@ function Inventory(props) {
   const { pageData, vehicles, filters, searchQuery } = props;
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
+  const faqs = pageData?.faqs;
 
   const convertMarkdown = useMarkdownToHtml();
   const router = useRouter();
@@ -225,18 +227,24 @@ function Inventory(props) {
             )}
           </div>
         </div>
-      </div>
 
-      {bottomText ? (
-        <div className={`container_small`}>
-          <p
-            className={`${styles.listing_bottomText}`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(bottomText),
-            }}
-          ></p>
-        </div>
-      ) : null}
+        {bottomText ? (
+          <div className={`container_small`}>
+            <p
+              className={`${styles.listing_bottomText}`}
+              dangerouslySetInnerHTML={{
+                __html: convertMarkdown(bottomText),
+              }}
+            ></p>
+          </div>
+        ) : null}
+
+        {faqs?.length > 0 ? (
+          <div className={`mt2`}>
+            <Accordion items={faqs} title="Frequently Asked Questions" />
+          </div>
+        ) : null}
+      </div>
 
       <div
         className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
@@ -244,9 +252,10 @@ function Inventory(props) {
       >
         Loading...
       </div>
-      <div className={`observe bottomObserver`} />
 
-      <div className="shape-before shape-before-white" />
+      <div className={`observe bottomObserver`}></div>
+
+      <div className="shape-before shape-before-white"></div>
     </>
   );
 }

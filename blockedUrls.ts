@@ -305,4 +305,16 @@ export const blockedPatterns: BlockedPattern[] = [
     pattern: '/available-now/type/armored-cash-in-transit-cit',
     exact: true,
   },
+  {
+    pattern: '/vehicles-we-armor/type/armored-pre-owned',
+    exact: true,
+  },
+  {
+    pattern: '/vehicles-we-armor/type/armored-rental',
+    exact: true,
+  },
+  {
+    pattern: '/vehicles-we-armor/type/special-of-the-month',
+    exact: true,
+  },
 ];

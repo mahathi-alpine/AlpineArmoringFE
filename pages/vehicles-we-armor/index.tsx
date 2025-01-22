@@ -8,10 +8,16 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback } from 'react';
+import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import Accordion from 'components/global/accordion/Accordion';
 
 function VehicleWeArmor(props) {
   const router = useRouter();
   const topBanner = props.pageData?.banner;
+  const bottomText = props.pageData?.bottomText;
+  const faqs = props.pageData?.faqs;
+
+  const convertMarkdown = useMarkdownToHtml();
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(12);
@@ -186,6 +192,23 @@ function VehicleWeArmor(props) {
           ) : null}
         </div>
       </div>
+
+      {bottomText ? (
+        <div className={`container_small`}>
+          <p
+            className={`${styles.listing_bottomText} darkColor`}
+            dangerouslySetInnerHTML={{
+              __html: convertMarkdown(bottomText),
+            }}
+          ></p>
+        </div>
+      ) : null}
+
+      {faqs?.length > 0 ? (
+        <div className={`mt2`}>
+          <Accordion items={faqs} title="Frequently Asked Questions" />
+        </div>
+      ) : null}
 
       {loading ? (
         <div

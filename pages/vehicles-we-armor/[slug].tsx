@@ -12,6 +12,7 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 import VideoScale from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
 import { animateVideo } from 'components/global/video-scale/VideoScale';
+import Accordion from 'components/global/accordion/Accordion';
 
 function Vehicle(props) {
   const convertMarkdown = useMarkdownToHtml();
@@ -89,6 +90,8 @@ function Vehicle(props) {
 
   const videoWebm = data?.videoUpload?.data?.attributes;
   const videoMP4 = data?.videoMP4?.data?.attributes;
+
+  const faqs = data?.faqs;
 
   let navItems = [
     {
@@ -430,6 +433,12 @@ function Vehicle(props) {
               allow="autoplay;"
               allowFullScreen
             ></iframe>
+          </div>
+        ) : null}
+
+        {faqs?.length > 0 ? (
+          <div className={`m2`}>
+            <Accordion items={faqs} title="Frequently Asked Questions" />
           </div>
         ) : null}
 

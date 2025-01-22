@@ -26,6 +26,14 @@ body {
 .mt0 {
   margin-top: 0 !important;
 }
+.m2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  @include breakpoint(large) {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+}
 .mt2 {
   margin-top: 2rem;
   @include breakpoint(large) {
