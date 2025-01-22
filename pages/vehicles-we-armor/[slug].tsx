@@ -163,12 +163,14 @@ function Vehicle(props) {
       },
       sku: `Alpine-${data?.slug}`,
       offers: {
-        '@type': 'Offer',
+        '@type': 'AggregateOffer',
         url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
         priceCurrency: 'USD',
-        // availability: 'https://schema.org/InStock',
-        price: '0',
-        itemCondition: 'https://schema.org/NewCondition',
+        lowPrice: '50000',
+        highPrice: '200000',
+        offerCount: '1',
+        availability: 'https://schema.org/InStock',
+        // itemCondition: 'https://schema.org/NewCondition',
         seller: {
           '@type': 'Organization',
           name: 'Alpine Armoring',

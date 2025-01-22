@@ -170,10 +170,12 @@ function InventoryVehicle(props) {
       },
       sku: `Alpine-${data?.slug}`,
       offers: {
-        '@type': 'Offer',
+        '@type': 'AggregateOffer',
         url: `https://www.alpineco.com/available-now/${data?.slug}`,
         priceCurrency: 'USD',
-        price: '0',
+        lowPrice: '50000',
+        highPrice: '200000',
+        offerCount: '1',
         availability: 'https://schema.org/InStock',
         // itemCondition: 'https://schema.org/NewCondition',
         seller: {
