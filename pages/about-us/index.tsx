@@ -243,17 +243,18 @@ function About(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
   let pageData = await getPageData({
     route: 'about',
     populate: 'deep',
+    locale,
   });
   pageData = pageData.data?.attributes || null;
 
   const seoData = pageData?.seo || null;
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 
