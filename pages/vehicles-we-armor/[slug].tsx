@@ -12,6 +12,7 @@ import Gallery from 'components/global/carousel/CarouselCurved';
 import VideoScale from 'components/global/video-scale/VideoScale';
 import InquiryForm from 'components/global/form/InquiryForm';
 import { animateVideo } from 'components/global/video-scale/VideoScale';
+import Accordion from 'components/global/accordion/Accordion';
 
 function Vehicle(props) {
   const convertMarkdown = useMarkdownToHtml();
@@ -90,6 +91,8 @@ function Vehicle(props) {
   const videoWebm = data?.videoUpload?.data?.attributes;
   const videoMP4 = data?.videoMP4?.data?.attributes;
 
+  const faqs = data?.faqs;
+
   let navItems = [
     {
       titleNav: 'Overview',
@@ -145,54 +148,40 @@ function Vehicle(props) {
     title: data?.title,
     featuredImage: data?.featuredImage,
   };
-
   const getProductStructuredData = () => {
-    if (data?.slug !== 'armored-audi-q7111') return null;
-
     return {
       '@context': 'https://schema.org/',
-      '@type': 'Product',
+      '@type': ['Product', 'Vehicle'],
       name: data?.title?.replace('\n', ' '),
       image: data?.featuredImage?.data?.attributes?.url,
-      description: data?.descriptionBanner,
+      description:
+        props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
       url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
       brand: {
         '@type': 'Brand',
-        name: 'Audi',
+        name: 'Alpine Armoring® Armored Vehicles',
       },
-      sku: 'ARM-AUDI-Q7',
+      sku: `Alpine-${data?.slug}`,
       offers: {
-        '@type': 'Offer',
+        '@type': 'AggregateOffer',
         url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
         priceCurrency: 'USD',
-        price: '0',
+        lowPrice: '50000',
+        highPrice: '200000',
+        offerCount: '1',
         availability: 'https://schema.org/InStock',
-        itemCondition: 'https://schema.org/NewCondition',
+        // itemCondition: 'https://schema.org/NewCondition',
         seller: {
           '@type': 'Organization',
           name: 'Alpine Armoring',
         },
+        description: 'Price available upon request. Contact us for details.',
       },
       additionalProperty: [
         {
           '@type': 'PropertyValue',
-          name: 'Armoring Level',
-          value: data?.protectionLevel,
-        },
-        {
-          '@type': 'PropertyValue',
-          name: 'Engine Type',
-          value: '3.0L TFSI V6',
-        },
-        {
-          '@type': 'PropertyValue',
-          name: 'Transmission',
-          value: '8-speed Tiptronic',
-        },
-        {
-          '@type': 'PropertyValue',
-          name: 'Seating Capacity',
-          value: '5',
+          name: 'Offered At Protection Levels',
+          value: data.protectionLevel || 'A4, A6, A9, A11',
         },
       ],
     };
@@ -433,6 +422,12 @@ function Vehicle(props) {
           </div>
         ) : null}
 
+        {faqs?.length > 0 ? (
+          <div className={`m2`}>
+            <Accordion items={faqs} title="Frequently Asked Questions" />
+          </div>
+        ) : null}
+
         {formData ? (
           <div className={`background-dark`}>
             <InquiryForm {...formData} plain />
@@ -449,7 +444,6 @@ export async function getServerSideProps({ params, locale }) {
       route: 'vehicles-we-armors',
       params: `filters[slug][$eq]=${params.slug}`,
       locale,
-      // populate: '*'
     });
 
     // If no data found, try fetching without language suffix
@@ -459,7 +453,6 @@ export async function getServerSideProps({ params, locale }) {
         route: 'vehicles-we-armors',
         params: `filters[slug][$eq]=${baseSlug}`,
         locale,
-        // populate: '*'
       });
     }
 

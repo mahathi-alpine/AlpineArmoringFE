@@ -155,12 +155,7 @@ export async function getStaticProps({ locale = 'en' }) {
   const seoData = homepageData.data?.attributes.seo || null;
 
   return {
-    props: {
-      homepageData,
-      categories,
-      seoData,
-      locale,
-    },
+    props: { homepageData, categories, seoData, locale },
   };
 }
 

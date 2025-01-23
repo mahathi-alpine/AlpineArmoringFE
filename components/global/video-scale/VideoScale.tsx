@@ -10,16 +10,17 @@ export function animateVideo(entry) {
   video.style.transform = `scale(${scale})`;
 
   // Text transformation
-  let textTrans = bottom - window.innerHeight;
-  const headerLeft = entry.querySelector('.videoScale_header_left');
-  const headerRight = entry.querySelector('.videoScale_header_right');
+  // let textTrans = bottom - window.innerHeight;
+  // const headerLeft = entry.querySelector('.videoScale_header_left');
+  // const headerRight = entry.querySelector('.videoScale_header_right');
 
-  textTrans = textTrans < 0 ? 0 : textTrans;
-  headerLeft.style.transform = `translateX(${-textTrans}px)`;
-  headerRight.style.transform = `translateX(${textTrans}px)`;
+  // textTrans = textTrans < 0 ? 0 : textTrans;
+  // headerLeft.style.transform = `translateX(${-textTrans}px)`;
+  // headerRight.style.transform = `translateX(${textTrans}px)`;
 }
 
-const VideoScale = ({ videoWebm, videoMP4, text1 = '', text2 = '' }) => {
+// const VideoScale = ({ videoWebm, videoMP4, text1 = '', text2 = '' }) => {
+const VideoScale = ({ videoWebm, videoMP4 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // function isSafari() {
@@ -89,10 +90,10 @@ const VideoScale = ({ videoWebm, videoMP4, text1 = '', text2 = '' }) => {
           ) : null}
         </video>
 
-        <div className={`${styles.videoScale_overlay}`}>
+        {/* <div className={`${styles.videoScale_overlay}`}>
           <h2 className="videoScale_header_left">{text1}</h2>
           <h2 className="videoScale_header_right">{text2}</h2>
-        </div>
+        </div> */}
       </div>
     </section>
   );

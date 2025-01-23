@@ -330,64 +330,114 @@ function InventoryVehicle(props) {
   );
 }
 
-export async function getStaticPaths() {
+// export async function getServerSideProps({ params, locale }) {
+export async function getServerSideProps({ params }) {
   try {
-    const slugsResponse = await getPageData({
+    // const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+
+    // const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
+
+    const data = await getPageData({
       route: 'inventories',
-      fields: 'fields[0]=slug',
-      populate: '/',
+      // params: `filters[slug][$eq]=${localizedSlug}`,
+      params: `filters[slug][$eq]=${params.slug}`,
+      // locale,
     });
 
-    if (!Array.isArray(slugsResponse.data)) {
-      throw new Error('Invalid data format');
+    const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+    if (seoData) {
+      seoData.thumbnail =
+        data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
     }
 
-    const paths = slugsResponse.data.reduce((acc, item) => {
-      if (item.attributes && item.attributes.slug) {
-        acc.push({ params: { slug: item.attributes.slug } });
-      }
-      return acc;
-    }, []);
+    if (seoData && seoData.metaDescription) {
+      seoData.metaTitle = `Rental ${seoData.metaTitle}`;
+
+      seoData.metaDescription = seoData.metaDescription.replace(
+        /\b(armored)\b/,
+        'rental armored'
+      );
+    }
+
+    if (!data || !data.data || data.data.length === 0) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
-      paths,
-      fallback: true,
+      props: {
+        data,
+        seoData,
+        // locale,
+      },
     };
   } catch (error) {
-    // console.error('Error fetching slugs:', error);
-    return {
-      paths: [],
-      fallback: false,
-    };
-  }
-}
-
-export async function getStaticProps({ params }) {
-  const data = await getPageData({
-    route: 'inventories',
-    params: `filters[slug][$eq]=${params.slug}`,
-  });
-
-  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-
-  if (seoData && seoData.metaDescription) {
-    seoData.metaTitle = `Rental ${seoData.metaTitle}`;
-
-    seoData.metaDescription = seoData.metaDescription.replace(
-      /\b(armored)\b/,
-      'rental armored'
-    );
-  }
-
-  if (!data || !data.data || data.data.length === 0) {
+    console.error('Error fetching inventory data:', error);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: { data, seoData },
-  };
 }
+
+// export async function getStaticPaths() {
+//   try {
+//     const slugsResponse = await getPageData({
+//       route: 'inventories',
+//       fields: 'fields[0]=slug',
+//       populate: '/',
+//     });
+
+//     if (!Array.isArray(slugsResponse.data)) {
+//       throw new Error('Invalid data format');
+//     }
+
+//     const paths = slugsResponse.data.reduce((acc, item) => {
+//       if (item.attributes && item.attributes.slug) {
+//         acc.push({ params: { slug: item.attributes.slug } });
+//       }
+//       return acc;
+//     }, []);
+
+//     return {
+//       paths,
+//       fallback: true,
+//     };
+//   } catch (error) {
+//     // console.error('Error fetching slugs:', error);
+//     return {
+//       paths: [],
+//       fallback: false,
+//     };
+//   }
+// }
+
+// export async function getStaticProps({ params }) {
+//   const data = await getPageData({
+//     route: 'inventories',
+//     params: `filters[slug][$eq]=${params.slug}`,
+//   });
+
+//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+
+//   if (seoData && seoData.metaDescription) {
+//     seoData.metaTitle = `Rental ${seoData.metaTitle}`;
+
+//     seoData.metaDescription = seoData.metaDescription.replace(
+//       /\b(armored)\b/,
+//       'rental armored'
+//     );
+//   }
+
+//   if (!data || !data.data || data.data.length === 0) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+
+//   return {
+//     props: { data, seoData },
+//   };
+// }
 
 export default InventoryVehicle;

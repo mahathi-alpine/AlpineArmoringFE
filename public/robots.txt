@@ -208,5 +208,8 @@ Disallow: /vehicles-we-armor/type/armored-vans-and-buses?make=typhoon
 Disallow: /vehicles-we-armor/type/armored-vans-and-buses?make=volkswagen
 Disallow: /contact?source=become-a-dealer
 Disallow: /available-now/type/armored-cash-in-transit-cit
+Disallow: /vehicles-we-armor/type/armored-pre-owned
+Disallow: /vehicles-we-armor/type/armored-rental 
+Disallow: /vehicles-we-armor/type/special-of-the-month
 
 Sitemap: https://www.alpineco.com/sitemap.xml

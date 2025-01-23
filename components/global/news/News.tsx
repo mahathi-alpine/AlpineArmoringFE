@@ -75,7 +75,7 @@ const Blog = ({
                 >
                   {item.attributes.thumbnail.data?.attributes.url ? (
                     <Link
-                      href={`/news/${item.attributes.slug}`}
+                      href={`${item.attributes.evergreen ? '/blog' : '/news'}/${item.attributes.slug}`}
                       className={`${styles.news_item_image}`}
                     >
                       <Image
