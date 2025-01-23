@@ -55,7 +55,7 @@ function Blog(props) {
 
 export async function getStaticProps() {
   let pageData = await getPageData({
-    route: 'news-page',
+    route: 'blog-page',
     populate: 'deep',
   });
   pageData = pageData?.data?.attributes || null;
@@ -68,7 +68,7 @@ export async function getStaticProps() {
     // sort: 'order',
     pageSize: 200,
   });
-  posts = posts?.data?.filter((post) => !post.attributes.evergreen) || null;
+  posts = posts?.data?.filter((post) => post.attributes.evergreen) || null;
 
   const seoData = pageData?.seo || null;
 

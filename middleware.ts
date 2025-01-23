@@ -128,7 +128,11 @@ export function middleware(request: NextRequest) {
   }
 
   // Redirect /media URLs to /all-downloads
-  if (pathname.startsWith('/media')) {
+  if (
+    pathname.startsWith('/media/ballistic-chart/') ||
+    pathname.startsWith('/media/documents/') ||
+    pathname.startsWith('/news/clients/')
+  ) {
     const url = request.nextUrl.clone();
     url.pathname = '/all-downloads';
     const response = NextResponse.redirect(url, { status: 301 });

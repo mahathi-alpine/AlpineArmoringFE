@@ -1,0 +1,43 @@
+.news {
+  padding-top: rem(16);
+  @include breakpoint(medium) {
+    padding-top: rem(24);
+  }
+
+  & > div {
+    padding-top: 0;
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+
+  &_authorHeading {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+
+    @include breakpoint(large) {
+      margin-top: 60px;
+      margin-bottom: 40px;
+    }
+
+    &_title {
+      font-size: 20px;
+      margin-bottom: 10px;
+
+      @include breakpoint(large) {
+        font-size: 26px;
+      }
+
+      span {
+        font-weight: var(--font-medium);
+      }
+    }
+
+    &_description {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  }
+}
