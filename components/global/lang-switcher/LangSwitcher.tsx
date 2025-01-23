@@ -3,6 +3,7 @@ import styles from './LangSwitcher.module.scss';
 
 export const LanguageSwitcher = (className) => {
   const router = useRouter();
+  const { pathname, query } = router;
 
   const languages = router.locales.map((locale) => ({
     code: locale,
@@ -12,29 +13,61 @@ export const LanguageSwitcher = (className) => {
   const currentLanguage =
     languages.find((lang) => lang.code === router.locale) || languages[0];
 
-  const switchLanguage = (langCode) => {
-    const { pathname, query } = router;
+  interface SlugMappings {
+    [key: string]: string;
+  }
 
-    // Only handle slug transformation if we have a slug in the URL
-    if (query.slug) {
-      const currentSlug = query.slug as string;
-      // Remove any existing language suffix
-      const baseSlug = currentSlug.replace(/-[a-z]{2}$/, '');
-      // Construct new slug based on selected language
-      const newSlug = langCode === 'en' ? baseSlug : `${baseSlug}-${langCode}`;
+  async function getLocalizedSlugs(): Promise<SlugMappings> {
+    const pathname = router.pathname;
+    let apiUrl;
 
-      router.push(
-        {
-          pathname,
-          query: { ...query, slug: newSlug },
-        },
-        undefined,
-        { locale: langCode }
-      );
-    } else {
-      // If no slug (e.g., homepage), just change the locale
-      router.push(pathname, pathname, { locale: langCode });
+    if (pathname.includes('vehicles-we-armor')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/vehicles-we-armors?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('news')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blog?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('available-now')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/inventories?pagination[limit]=-1&populate=localizations`;
     }
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    const slugMappings = {};
+    if (data?.data) {
+      data.data.forEach((item) => {
+        if (item?.attributes) {
+          const enSlug = item.attributes.slug;
+          const esSlug =
+            item.attributes.localizations?.data?.[0]?.attributes?.slug;
+
+          if (enSlug && esSlug) {
+            slugMappings[enSlug] = esSlug;
+            slugMappings[esSlug] = enSlug;
+          }
+        }
+      });
+    }
+
+    return slugMappings;
+  }
+
+  const switchLanguage = async (langCode) => {
+    if (!query.slug) {
+      router.push(pathname, pathname, { locale: langCode });
+      return;
+    }
+
+    const slugMappings: SlugMappings = await getLocalizedSlugs();
+    const localizedSlug = slugMappings[query.slug as string] || query.slug;
+
+    router.push(
+      {
+        pathname,
+        query: { ...query, slug: localizedSlug },
+      },
+      undefined,
+      { locale: langCode }
+    );
   };
 
   return (

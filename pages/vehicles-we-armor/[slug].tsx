@@ -443,19 +443,29 @@ function Vehicle(props) {
   );
 }
 
-// export async function getServerSideProps({ params, locale }) {
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, locale }) {
   try {
-    // const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
-
-    // const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
-
-    const data = await getPageData({
+    let data = await getPageData({
       route: 'vehicles-we-armors',
-      // params: `filters[slug][$eq]=${localizedSlug}`,
       params: `filters[slug][$eq]=${params.slug}`,
-      // locale,
+      locale,
+      // populate: '*'
     });
+
+    // If no data found, try fetching without language suffix
+    if (!data?.data?.length) {
+      const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+      data = await getPageData({
+        route: 'vehicles-we-armors',
+        params: `filters[slug][$eq]=${baseSlug}`,
+        locale,
+        // populate: '*'
+      });
+    }
+
+    if (!data?.data?.length) {
+      return { notFound: true };
+    }
 
     const seoData = data?.data?.[0]?.attributes?.seo ?? null;
     if (seoData) {
@@ -463,17 +473,11 @@ export async function getServerSideProps({ params }) {
         data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
     }
 
-    if (!data || !data.data || data.data.length === 0) {
-      return {
-        notFound: true,
-      };
-    }
-
     return {
       props: {
         data,
         seoData,
-        // locale,
+        locale,
       },
     };
   } catch (error) {
