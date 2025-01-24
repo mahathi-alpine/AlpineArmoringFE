@@ -221,6 +221,35 @@ function Vehicle(props) {
     return JSON.stringify(structuredData);
   };
 
+  // FAQ structured data
+  const getFAQStructuredData = () => {
+    if (!faqs || !Array.isArray(faqs)) {
+      console.error('FAQs is not an array:', faqs);
+      return null;
+    }
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq, index) => {
+        const title =
+          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
+        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+
+        return {
+          '@type': 'Question',
+          name: title,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: text,
+          },
+        };
+      }),
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   if (!props.data) {
     console.error('Missing or malformed data structure');
     return null;
@@ -234,6 +263,13 @@ function Vehicle(props) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
+        {faqs?.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
+            key="faq-jsonld"
+          />
+        )}
         {getProductStructuredData() && (
           <script
             type="application/ld+json"
