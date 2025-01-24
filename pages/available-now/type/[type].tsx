@@ -13,6 +13,7 @@ import Accordion from 'components/global/accordion/Accordion';
 import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
 
 function Inventory(props) {
+  console.log(props.query);
   const currentCategory = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
