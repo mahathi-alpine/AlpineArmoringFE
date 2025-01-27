@@ -53,6 +53,7 @@ module.exports = {
       },
     ],
   },
+  swcMinify: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
   },

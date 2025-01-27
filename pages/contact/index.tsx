@@ -1,7 +1,9 @@
 import styles from './Contact.module.scss';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
+import getLocale from 'hooks/getLocale';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
@@ -23,6 +25,10 @@ function Contact(props) {
     index?: number;
     selectedIndex?: number;
   };
+
+  const router = useRouter();
+  const { locale } = router;
+  const lang = getLocale(locale);
 
   const faqs = props?.pageData?.fa_qs;
 
@@ -100,7 +106,7 @@ function Contact(props) {
             <div className={`${styles.contact_main_right_boxes}`}>
               <div className={`${styles.contact_main_right_column}`}>
                 <h3 className={`${styles.contact_main_right_title}`}>
-                  Sales Inquiries
+                  {lang.salesInquiries}
                 </h3>
                 {props.pageData?.salesInfo ? (
                   <div
@@ -112,7 +118,11 @@ function Contact(props) {
               </div>
               <div className={`${styles.contact_main_right_column}`}>
                 <h3 className={`${styles.contact_main_right_title}`}>
-                  Parts, Service &<br /> Warranty
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: lang.partsServiceWarranty,
+                    }}
+                  />
                 </h3>
                 {props.pageData?.partsInfo ? (
                   <div

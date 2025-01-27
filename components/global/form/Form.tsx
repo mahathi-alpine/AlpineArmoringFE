@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import getLocale from 'hooks/getLocale';
 import styles from './Form.module.scss';
 import Button from 'components/global/button/Button';
 import Dropdown from 'components/global/form/Dropdown';
 import { useRouter } from 'next/router';
-
-// import { sendEmail } from 'hooks/aws-ses';
 
 const Form = () => {
   const [fullname, setFullname] = useState('');
@@ -20,16 +19,18 @@ const Form = () => {
   const [message, setMessage] = useState('');
 
   const router = useRouter();
+  const { locale } = router;
+  const lang = getLocale(locale);
 
   useEffect(() => {
     if (router.asPath.includes('rental-vehicles')) {
-      setInquiry('Rental Vehicles');
+      setInquiry(lang.formInquiryRental);
     }
   }, [router.asPath]);
 
   useEffect(() => {
     if (router.query.source === 'become-a-dealer') {
-      setInquiry('Become a Dealer');
+      setInquiry(lang.formInquiryDealer);
     }
   }, [router.query.source]);
 
@@ -317,9 +318,9 @@ const Form = () => {
   const validateFullname = (value) => {
     const fullNamePattern = /^[A-Z ]{3,}$/i;
     if (!value) {
-      return 'Name is required';
+      return lang.formErrorsNameRequired;
     } else if (!fullNamePattern.test(value)) {
-      return 'Please provide a valid name';
+      return lang.formErrorsNameValid;
     } else {
       return '';
     }
@@ -328,9 +329,9 @@ const Form = () => {
   const validateEmail = (value) => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     if (!value) {
-      return 'Email is required.';
+      return lang.formErrorsEmailRequired;
     } else if (!emailPattern.test(value)) {
-      return 'Invalid email address';
+      return lang.formErrorsEmailValid;
     } else {
       return '';
     }
@@ -339,7 +340,7 @@ const Form = () => {
   const validatePhone = (value) => {
     const phonePattern = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/;
     if (value && !phonePattern.test(value)) {
-      return 'Please enter a valid phone number';
+      return lang.formErrorsPhoneValid;
     } else {
       return '';
     }
@@ -348,9 +349,9 @@ const Form = () => {
   const validateMobile = (value) => {
     const mobilePattern = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/;
     if (!value) {
-      return 'Mobile Number is required';
+      return lang.formErrorsMobileRequired;
     } else if (!mobilePattern.test(value)) {
-      return 'Please enter a valid mobile number';
+      return lang.formErrorsMobileValid;
     } else {
       return '';
     }
@@ -358,7 +359,7 @@ const Form = () => {
 
   const validateCountry = (value) => {
     if (!value) {
-      return 'Country is required';
+      return lang.formErrorsCountryRequired;
     } else {
       return '';
     }
@@ -366,7 +367,7 @@ const Form = () => {
 
   const validateState = (value) => {
     if (country === 'United States' && !value) {
-      return 'State is required';
+      return lang.formErrorsStateRequired;
     } else {
       return '';
     }
@@ -378,24 +379,11 @@ const Form = () => {
     setErrors({ ...errors, [field]: errorMessage });
   };
 
-  // const parseJSON = (resp) => (resp.json ? resp.json() : resp);
-
-  // const checkStatus = (resp) => {
-  //   if (resp.status >= 200 && resp.status < 300) {
-  //     return resp;
-  //   }
-  //   return parseJSON(resp).then((resp) => {
-  //     throw resp;
-  //   });
-  // };
-
   const headers = {
     'Content-Type': 'application/json',
   };
 
   const handleSubmit = async () => {
-    // e.preventDefault();
-
     const newErrors = {
       fullname: validateFullname(fullname),
       email: validateEmail(email),
@@ -448,7 +436,7 @@ const Form = () => {
 
         // Handle success
         submitBtn.classList.remove('submiting');
-        submitBtn.innerHTML = 'Sent!';
+        submitBtn.innerHTML = lang.formSent;
         submitBtn.classList.add('submitted');
 
         // Reset form fields
@@ -469,14 +457,12 @@ const Form = () => {
         // console.error('Error:', error);
         // Handle error
         submitBtn.classList.remove('submiting');
-        submitBtn.innerHTML = 'Error';
+        submitBtn.innerHTML = lang.error;
         submitBtn.classList.add('error');
-
-        // Show error message to user
       }
 
       setTimeout(() => {
-        submitBtn.innerHTML = 'Send message';
+        submitBtn.innerHTML = lang.formSendMessage;
         submitBtn.classList.remove('submitted', 'error');
       }, 2000);
     }
@@ -501,7 +487,7 @@ const Form = () => {
               setFullname
             )
           }
-          placeholder="Full Name*"
+          placeholder={`${lang.formFullName}*`}
           // required
           className={`${styles.form_input}`}
         />
@@ -520,7 +506,7 @@ const Form = () => {
           onChange={(e) =>
             handleFieldChange('email', e.target.value, validateEmail, setEmail)
           }
-          placeholder="Email*"
+          placeholder={`${lang.formEmail}*`}
           className={`${styles.form_input}`}
           // required
         />
@@ -542,7 +528,7 @@ const Form = () => {
               setMobile
             )
           }
-          placeholder="Mobile Number*"
+          placeholder={`${lang.formMobileNumber}*`}
           className={`${styles.form_input}`}
           // required
         />
@@ -559,7 +545,7 @@ const Form = () => {
           onChange={(e) =>
             handleFieldChange('phone', e.target.value, validatePhone, setPhone)
           }
-          placeholder="Alternate Phone Number"
+          placeholder={`${lang.formAlternatePhoneNumber}`}
           className={`${styles.form_input}`}
         />
         <small className={`${styles.form_input_error}`}>{errors.phone}</small>
@@ -569,14 +555,14 @@ const Form = () => {
         className={`${styles.form_group} ${errors.company ? styles.error : ''}`}
       >
         <Dropdown
-          label="Customer Type"
+          label={`${lang.formCustomerType}`}
           options={[
-            'US Government Agency',
-            'Foreign Government Agency',
-            'Private Sector/Corporate',
-            'Individual',
-            'NGO',
-            'Other',
+            lang.formCustomerTypeUSGovernment,
+            lang.formCustomerTypeForeignGovernment,
+            lang.formCustomerTypePrivate,
+            lang.formCustomerTypeIndividual,
+            lang.formCustomerTypeNGO,
+            lang.formCustomerTypeOther,
           ]}
           selectedOption={company}
           setSelectedOption={setCompany}
@@ -590,18 +576,18 @@ const Form = () => {
         className={`${styles.form_group} ${errors.inquiry ? styles.error : ''}`}
       >
         <Dropdown
-          label="Your Inquiry"
+          label={`${lang.formInquiry}`}
           options={[
-            'SUVs & Sedans',
-            'SWAT & APC Trucks',
-            'Riot/Water Cannon Crowd Control',
-            'CIT Vans & Trucks',
-            'Rental Vehicles',
-            'Parts & Accessories',
-            'Warranty Related',
-            'To Become a Dealer',
-            'Employment Opportunity',
-            'Other',
+            lang.formInquirySUVs,
+            lang.formInquirySWAT,
+            lang.formInquiryRiot,
+            lang.formInquiryCIT,
+            lang.formInquiryRental,
+            lang.formInquiryParts,
+            lang.formInquiryWarranty,
+            lang.formInquiryDealer,
+            lang.formInquiryEmployment,
+            lang.formInquiryOther,
           ]}
           selectedOption={inquiry}
           setSelectedOption={setInquiry}
@@ -617,8 +603,14 @@ const Form = () => {
         }`}
       >
         <Dropdown
-          label="I Prefer To Be Contacted Via:"
-          options={['Mobile', 'Landline', 'Email', 'Text', 'Whatsapp']}
+          label={`${lang.formContactVia}`}
+          options={[
+            lang.formContactViaMobile,
+            lang.formContactViaLandline,
+            lang.formContactViaEmail,
+            lang.formContactViaText,
+            lang.formContactViaWhatsapp,
+          ]}
           selectedOption={preferredContact}
           setSelectedOption={setPreferredContact}
           isActive={isPreferredContactDropdownActive}
@@ -633,18 +625,18 @@ const Form = () => {
         className={`${styles.form_group} ${errors.hear ? styles.error : ''}`}
       >
         <Dropdown
-          label="How Did You Hear About Us?"
+          label={`${lang.formHear}`}
           options={[
-            'Instagram',
-            'Facebook',
-            'TikTok',
-            'YouTube',
-            'Search Engine (Google, Bing, etc.)',
-            'Repeat Customer',
-            'Email or Newsletter',
-            'Third-Party Review',
-            'Referral',
-            'Other',
+            lang.formHearInstagram,
+            lang.formHearFacebook,
+            lang.formHearTikTok,
+            lang.formHearYouTube,
+            lang.formHearSearch,
+            lang.formHearRepeat,
+            lang.formHearEmail,
+            lang.formHearThird,
+            lang.formHearReferral,
+            lang.formHearOther,
           ]}
           selectedOption={hear}
           setSelectedOption={setHear}
@@ -658,7 +650,7 @@ const Form = () => {
         className={`${styles.form_group} ${errors.country ? styles.error : ''}`}
       >
         <Dropdown
-          label="Country*"
+          label={`${lang.formCountry}*`}
           options={countryOptions}
           selectedOption={country}
           setSelectedOption={(value) => {
@@ -677,7 +669,7 @@ const Form = () => {
         }`}
       >
         <Dropdown
-          label="State*"
+          label={`${lang.formState}*`}
           options={stateOptions}
           selectedOption={state}
           setSelectedOption={setState}
@@ -693,11 +685,11 @@ const Form = () => {
         }`}
       >
         <textarea
+          placeholder={`${lang.formMessage}`}
           id="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={7}
-          placeholder="Message"
           className={`${styles.form_input} ${styles.form_textarea}`}
         />
         <small className={`${styles.form_input_error}`}>{errors.message}</small>
@@ -709,7 +701,7 @@ const Form = () => {
           onClick={handleSubmit}
           className={`${styles.form_submit_button} submitButton primary rounded`}
         >
-          Send Message
+          {lang.formSendMessage}
         </Button>
       </div>
     </div>
