@@ -125,7 +125,7 @@ small {
     margin-bottom: rem(24);
     font-size: var(--bodySize);
 
-    &:last-child{
+    &:last-child {
       margin-bottom: 0;
     }
   }
@@ -134,10 +134,10 @@ small {
     font-weight: var(--font-medium);
     text-decoration: underline;
   }
-  .text-wrap{
+  .text-wrap {
     margin-bottom: rem(24);
   }
-  img{
+  img {
     margin: rem(24) auto;
   }
   br {
@@ -145,7 +145,7 @@ small {
     margin: 10px 0;
     content: '';
   }
-  video{
+  video {
     max-width: 100%;
   }
   blockquote {
