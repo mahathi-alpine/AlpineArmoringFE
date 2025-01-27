@@ -1,6 +1,8 @@
 const fetchRedirects = require('./redirects');
 
 module.exports = {
+  reactStrictMode: true,
+  // outputStrictMode: true,
   // eslint: {
   //   ignoreDuringBuilds: true,
   // },
@@ -51,7 +53,6 @@ module.exports = {
       },
     ],
   },
-  reactStrictMode: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
   },

@@ -124,16 +124,29 @@ small {
   p {
     margin-bottom: rem(24);
     font-size: var(--bodySize);
+
+    &:last-child{
+      margin-bottom: 0;
+    }
   }
   a {
     color: var(--color-primary);
     font-weight: var(--font-medium);
     text-decoration: underline;
   }
+  .text-wrap{
+    margin-bottom: rem(24);
+  }
+  img{
+    margin: rem(24) auto;
+  }
   br {
     display: block;
     margin: 10px 0;
     content: '';
+  }
+  video{
+    max-width: 100%;
   }
   blockquote {
     background-color: var(--color-white);

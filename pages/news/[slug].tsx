@@ -34,11 +34,8 @@ function BlogSingle(props) {
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const categories = data?.categories?.data;
   const date = new Date(data?.updatedAt);
-  // const formattedDate = date.toLocaleString('en-GB', {
-  //   day: 'numeric',
-  //   month: 'long',
-  //   year: 'numeric',
-  // });
+  const dynamicZone = data?.blogDynamic;
+
   const formattedDate = date
     .toLocaleDateString('en-GB', {
       day: '2-digit',
@@ -50,6 +47,7 @@ function BlogSingle(props) {
   const content = data?.content;
 
   const convertMarkdown = useMarkdownToHtml();
+  const wrappedContent = `<p>${convertMarkdown(content || '')}</p>`;
 
   const [pageUrl, setPageUrl] = useState('');
   useEffect(() => {
@@ -206,9 +204,62 @@ function BlogSingle(props) {
           {content ? (
             <div
               className={`${styles.blogSingle_content} static`}
-              dangerouslySetInnerHTML={{ __html: convertMarkdown(content) }}
+              dangerouslySetInnerHTML={{ __html: wrappedContent }}
             ></div>
           ) : null}
+
+          <div className={`${styles.blogSingle_content} static`}>
+            {dynamicZone?.map((component, index) => {
+              switch (component.__component) {
+                case 'slices.text': {
+                  const wrappedContent = `<p>${convertMarkdown(component.Content || '')}</p>`;
+                  return (
+                    <div
+                      key={index}
+                      className={`text-wrap`}
+                      dangerouslySetInnerHTML={{ __html: wrappedContent }}
+                    ></div>
+                  );
+                }
+                case 'slices.single-media':
+                  if (
+                    component.media.data.attributes.mime.startsWith('video/')
+                  ) {
+                    return (
+                      <video autoPlay muted loop key={index}>
+                        <source
+                          src={component.media.data.attributes.url}
+                          type={component.media.data.attributes.mime}
+                        />
+                      </video>
+                    );
+                  } else {
+                    return (
+                      <Image
+                        key={index}
+                        src={
+                          component.media.data.attributes.formats.large.url ||
+                          component.media.data.attributes.url
+                        }
+                        alt={
+                          component.media.data.attributes.alternativeText || ''
+                        }
+                        width={
+                          component.media.data.attributes.formats.large.width ||
+                          component.media.data.attributes.width
+                        }
+                        height={
+                          component.media.data.attributes.formats.large
+                            .height || component.media.data.attributes.height
+                        }
+                      />
+                    );
+                  }
+                default:
+                  return null;
+              }
+            })}
+          </div>
 
           {data?.videos.map((item, index) => (
             <div
