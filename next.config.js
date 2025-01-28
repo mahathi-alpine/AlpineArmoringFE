@@ -1,4 +1,4 @@
-const fetchRedirects = require('./redirects');
+// const fetchRedirects = require('./redirects');
 
 module.exports = {
   reactStrictMode: true,
@@ -6,9 +6,9 @@ module.exports = {
   // eslint: {
   //   ignoreDuringBuilds: true,
   // },
-  async redirects() {
-    return await fetchRedirects();
-  },
+  // async redirects() {
+  //   return await fetchRedirects();
+  // },
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',

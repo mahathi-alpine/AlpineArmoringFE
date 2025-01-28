@@ -22,6 +22,7 @@ function Inventory(props) {
   const faqs = pageData?.faqs;
 
   const convertMarkdown = useMarkdownToHtml();
+  const wrappedContent = `<p>${convertMarkdown(bottomText || '')}</p>`;
   const router = useRouter();
   const { q, vehicles_we_armor } = router.query;
 
@@ -266,12 +267,12 @@ function Inventory(props) {
 
         {bottomText ? (
           <div className={`container_small`}>
-            <p
+            <div
               className={`${styles.listing_bottomText}`}
               dangerouslySetInnerHTML={{
-                __html: convertMarkdown(bottomText),
+                __html: convertMarkdown(wrappedContent),
               }}
-            ></p>
+            ></div>
           </div>
         ) : null}
 

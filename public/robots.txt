@@ -9,21 +9,6 @@ Disallow: /contact?name=*
 Disallow: /contact?id=*
 Disallow: /contact?names=*
 Disallow: /*?make=chrysler
-Disallow: /vehicles-we-armor/150-CIT-International-Navistar-4300-
-Disallow: /vehicles-we-armor/131-SUV-Chevrolet-Suburban-
-Disallow: /vehicles-we-armor/140-Sedan-Mercedes-Benz-S-Class-Right-Hand-Drive
-Disallow: /vehicles-we-armor/267-Pickup Truck-Ford-F-150
-Disallow: /vehicles-we-armor/267-Pickup Truck-Ford-F-150-
-Disallow: /vehicles-we-armor/42-Sedan-Mercedes-Benz-S500
-Disallow: /vehicles-we-armor/54-Sedan-Toyota-Camry
-Disallow: /vehicles-we-armor/179-Police Car-Ford-Taurus-
-Disallow: /vehicles-we-armor/345-SUV-Toyota-Sequoia-Hybrid
-Disallow: /vehicles-we-armor/345-SUV-Toyota-Sequoia-Hybrid-
-Disallow: /vehicles-we-armor/136-SWAT-Pit-Bull-XL®
-Disallow: /vehicles-we-armor/179-Police Pursuit Vehicles
-Disallow: /armored/BMW/X5.php
-Disallow: /armored/Audi/q7.php
-Disallow: /armored/Lexus/LX570.php
 Disallow: /vehicles-we-armor/type/armored-suvs?make=boxer
 Disallow: /vehicles-we-armor/type/armored-suvs?make=bulldog
 Disallow: /vehicles-we-armor/type/armored-suvs?make=condor
@@ -207,9 +192,5 @@ Disallow: /vehicles-we-armor/type/armored-vans-and-buses?make=tesla
 Disallow: /vehicles-we-armor/type/armored-vans-and-buses?make=typhoon
 Disallow: /vehicles-we-armor/type/armored-vans-and-buses?make=volkswagen
 Disallow: /contact?source=become-a-dealer
-Disallow: /available-now/type/armored-cash-in-transit-cit
-Disallow: /vehicles-we-armor/type/armored-pre-owned
-Disallow: /vehicles-we-armor/type/armored-rental 
-Disallow: /vehicles-we-armor/type/special-of-the-month
 
 Sitemap: https://www.alpineco.com/sitemap.xml

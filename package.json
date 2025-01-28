@@ -9,7 +9,8 @@
     "prettier": "prettier --write .",
     "prepare": "husky install .husky",
     "generate-sitemap": "node generateSitemap.js",
-    "prebuild": "npm run generate-sitemap"
+    "prebuild": "npm run generate-sitemap && npm run generate-redirects",
+    "generate-redirects": "node generate-redirects.js"
   },
   "husky": {
     "hooks": {
