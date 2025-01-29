@@ -28,9 +28,9 @@
     font-weight: var(--font-medium);
     margin-bottom: 10px;
     font-size: clamp(0.75rem, 0.7197rem + 0.1294vw, 0.875rem);
-    transition: color .2s ease-in-out;
+    transition: color 0.2s ease-in-out;
 
-    &:hover{
+    &:hover {
       color: var(--color-primary);
     }
 
