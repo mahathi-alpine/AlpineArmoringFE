@@ -18,40 +18,40 @@ const Footer = (props) => {
   const router = useRouter();
   const currentRoute = router.pathname;
   const links = [
-    { path: '/ballistic-chart', text: 'Ballistic Chart' },
-    { path: '/ballistic-testing', text: 'Ballistic Testing' },
-    { path: '/news', text: 'News On Armored Vehicles' },
-    { path: '/become-a-dealer', text: 'Become a Dealer' },
-    { path: '/faqs', text: 'Frequently Asked Questions' },
     { path: '/about-us', text: 'About Alpine Armoring' },
-    { path: '/all-downloads', text: 'All Downloads' },
+    { path: '/news', text: 'News On Armored Vehicles' },
+    { path: '/ballistic-chart', text: 'Ballistic Chart' },
+    { path: '/become-a-dealer', text: 'Become a Dealer' },
+    { path: '/ballistic-testing', text: 'Ballistic Testing' },
+    { path: '/faqs', text: 'Frequently Asked Questions' },
     { path: '/locations-we-serve', text: 'Locations We Serve' },
     { path: '/contact', text: 'Contact Alpine Armoring' },
+    { path: '/all-downloads', text: 'All Downloads' },
   ];
   const links2 = [
-    { path: '/vehicles-we-armor/type/armored-suvs', text: 'Armoring SUVs' },
-    { path: '/vehicles-we-armor/type/armored-sedans', text: 'Armoring Sedans' },
+    { path: '/available-now', text: 'Armored Vehicles for Sale' },
     {
       path: '/vehicles-we-armor/type/armored-pickup-trucks',
       text: 'Armoring Pickup Trucks',
     },
     {
-      path: '/vehicles-we-armor/type/armored-vans-and-buses',
-      text: 'Armoring Vans & Buses',
+      path: '/available-now/type/armored-pre-owned',
+      text: 'Pre-owned Armored Vehicles',
     },
     {
       path: '/vehicles-we-armor/type/armored-law-enforcement',
       text: 'Armoring Law Enforcement Vehicles',
     },
+    { path: '/vehicles-we-armor/type/armored-suvs', text: 'Armoring SUVs' },
     {
-      path: '/available-now/type/armored-pre-owned',
-      text: 'Pre-owned Armored Cars for Sale',
+      path: '/vehicles-we-armor/type/armored-vans-and-buses',
+      text: 'Armoring Vans & Buses',
     },
+    { path: '/vehicles-we-armor/type/armored-sedans', text: 'Armoring Sedans' },
     {
       path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
       text: 'Armoring Cash In Transit Vehicles',
     },
-    { path: '/available-now', text: 'Armored Vehicles for Sale' },
   ];
 
   return (
@@ -96,6 +96,7 @@ const Footer = (props) => {
                   <Link
                     href="tel:+17034710002"
                     className={`${styles.footer_column_list_item}`}
+                    rel="nofollow noreferrer noopener"
                   >
                     <PhoneIcon color="#2d2d27" />
                     1.703.471.0002
@@ -105,6 +106,7 @@ const Footer = (props) => {
                   <Link
                     href="tel:+18009927667"
                     className={`${styles.footer_column_list_item}`}
+                    rel="nofollow noreferrer noopener"
                   >
                     <PhoneIcon color="#2d2d27" />
                     1.800.99ARMOR
@@ -114,6 +116,7 @@ const Footer = (props) => {
                   <Link
                     href="mailto:sales@alpineco.com"
                     className={`${styles.footer_column_list_item}`}
+                    rel="nofollow noreferrer noopener"
                   >
                     <MailIcon color="#2d2d27" />
                     Sales@AlpineCo.com
@@ -133,6 +136,7 @@ const Footer = (props) => {
                   <Link
                     href="https://www.youtube.com/c/AlpineArmoring"
                     target="_blank"
+                    rel="nofollow noreferrer noopener"
                   >
                     <YoutubeIcon />
                   </Link>
@@ -141,6 +145,7 @@ const Footer = (props) => {
                   <Link
                     href="https://www.instagram.com/alpinearmoring/"
                     target="_blank"
+                    rel="nofollow noreferrer noopener"
                   >
                     <InstagramIcon />
                   </Link>
@@ -148,7 +153,11 @@ const Footer = (props) => {
                 <li
                   className={`${styles.footer_socials_item} ${styles.footer_socials_item_x}`}
                 >
-                  <Link href="https://x.com/AlpineArmoring" target="_blank">
+                  <Link
+                    href="https://x.com/AlpineArmoring"
+                    target="_blank"
+                    rel="nofollow noreferrer noopener"
+                  >
                     <XIcon />
                   </Link>
                 </li>
@@ -156,6 +165,7 @@ const Footer = (props) => {
                   <Link
                     href="https://www.facebook.com/AlpineArmoring/"
                     target="_blank"
+                    rel="nofollow noreferrer noopener"
                   >
                     <FacebookIcon />
                   </Link>
@@ -166,6 +176,7 @@ const Footer = (props) => {
                   <Link
                     href="https://www.tiktok.com/@alpinearmoring"
                     target="_blank"
+                    rel="nofollow noreferrer noopener"
                   >
                     <TiktokIcon />
                   </Link>
@@ -174,6 +185,7 @@ const Footer = (props) => {
                   <Link
                     href="https://www.linkedin.com/company/alpinearmoring/"
                     target="_blank"
+                    rel="nofollow noreferrer noopener"
                   >
                     <LinkedinIcon />
                   </Link>
@@ -184,6 +196,7 @@ const Footer = (props) => {
                   <Link
                     href="https://www.threads.net/@alpinearmoring/"
                     target="_blank"
+                    rel="nofollow noreferrer noopener"
                   >
                     <ThreadsIcon />
                   </Link>
@@ -194,11 +207,13 @@ const Footer = (props) => {
 
           <div className={`${styles.footer_column_wrap}`}>
             <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>QUICK LINKS</h3>
+              <h3 className={`${styles.footer_column_title}`}>
+                Most Popular Services
+              </h3>
               <ul
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
               >
-                {links.map((link, index) => (
+                {links2.map((link, index) => (
                   <li className={`${styles.footer_nav_item}`} key={index}>
                     <Link
                       href={link.path}
@@ -212,13 +227,11 @@ const Footer = (props) => {
             </div>
 
             <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>
-                Most Popular Services
-              </h3>
+              <h3 className={`${styles.footer_column_title}`}>QUICK LINKS</h3>
               <ul
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
               >
-                {links2.map((link, index) => (
+                {links.map((link, index) => (
                   <li className={`${styles.footer_nav_item}`} key={index}>
                     <Link
                       href={link.path}
