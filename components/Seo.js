@@ -19,14 +19,6 @@ const Seo = ({ props }) => {
     };
   });
 
-  useEffect(() => {
-    console.log('SEO mount with props:', props);
-    return () => console.log('SEO unmount');
-  }, []);
-  useEffect(() => {
-    console.log('SEO props update:', props);
-  }, [props]);
-
   // Default values
   const metaTitle = props?.metaTitle || 'Alpine Armoring';
   const metaDescription = props?.metaDescription || 'Alpine Armoring';

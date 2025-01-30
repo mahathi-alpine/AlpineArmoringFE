@@ -17,6 +17,11 @@ const blockedPatterns: BlockedPattern[] = [
     pattern: '/contact?source=become-a-dealer',
     exact: true,
   },
+  {
+    pattern:
+      '/news/understanding-armor-levels-in-vehicles-nij-cen-and-vpam-standards-explained',
+    exact: true,
+  },
 ];
 
 const isUrlBlocked = (
