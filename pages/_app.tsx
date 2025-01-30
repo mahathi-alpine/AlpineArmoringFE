@@ -70,7 +70,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Seo props={seoData} />
+      {seoData && <Seo key="global-seo" props={seoData} />}
       <Layout>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />

@@ -1,7 +1,7 @@
 // const fetchRedirects = require('./redirects');
 
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   // outputStrictMode: true,
   // eslint: {
   //   ignoreDuringBuilds: true,
