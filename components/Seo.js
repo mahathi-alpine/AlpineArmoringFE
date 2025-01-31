@@ -1,23 +1,22 @@
 import { React } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 const Seo = ({ props }) => {
   const router = useRouter();
   const baseUrl = 'https://www.alpineco.com';
-  useEffect(() => {
-    // Clean up function that runs before each update and on unmount
-    return () => {
-      const metaTags = document.querySelectorAll('meta[name="description"]');
-      if (metaTags.length > 1) {
-        // Remove all but the first meta description
-        Array.from(metaTags)
-          .slice(1)
-          .forEach((tag) => tag.remove());
-      }
-    };
-  });
+
+  // useEffect(() => {
+  //   return () => {
+  //     const metaTags = document.querySelectorAll('meta[name="description"]');
+  //     if (metaTags.length > 1) {
+  //       Array.from(metaTags)
+  //         .slice(1)
+  //         .forEach((tag) => tag.remove());
+  //     }
+  //   };
+  // });
 
   // Default values
   const metaTitle = props?.metaTitle || 'Alpine Armoring';
