@@ -14,6 +14,7 @@ const Blog = ({
   subtitle = '',
   featured = false,
   customClass = '',
+  type = '',
 }) => {
   return (
     <div
@@ -75,7 +76,7 @@ const Blog = ({
                 >
                   {item.attributes.thumbnail.data?.attributes.url ? (
                     <Link
-                      href={`${item.attributes.evergreen ? '/blog' : '/news'}/${item.attributes.slug}`}
+                      href={`${type ? '/blog' : '/news'}/${item.attributes.slug}`}
                       className={`${styles.news_item_image}`}
                     >
                       <Image
@@ -119,7 +120,9 @@ const Blog = ({
                           </div>
                         ) : null}
 
-                        <Link href={`/news/${item.attributes.slug}`}>
+                        <Link
+                          href={`${type ? '/blog' : '/news'}/${item.attributes.slug}`}
+                        >
                           <h3 className={`${styles.news_item_title}`}>
                             {item.attributes.title}
                           </h3>
@@ -133,7 +136,7 @@ const Blog = ({
                       </div>
 
                       <Button
-                        href={`/news/${item.attributes.slug}`}
+                        href={`${type ? '/blog' : '/news'}/${item.attributes.slug}`}
                         className={`${styles.news_item_button} rounded border desktop-only`}
                       >
                         Read More
@@ -163,7 +166,7 @@ const Blog = ({
         {button ? (
           <div className={`${styles.news_button}`}>
             <Button
-              href={`/news`}
+              href={`${type ? '/blog' : '/news'}`}
               className={`${styles.news_button_link} rounded primary`}
             >
               See All News

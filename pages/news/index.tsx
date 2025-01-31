@@ -44,6 +44,7 @@ function Blog(props) {
           <BlogList
             featured
             props={posts}
+            type="news"
             // subtitle="Latest News"
             // title="Armoring World"
           />
@@ -65,10 +66,9 @@ export async function getStaticProps() {
     populate: 'deep',
     sort: 'date',
     sortType: 'desc',
-    // sort: 'order',
     pageSize: 200,
   });
-  posts = posts?.data?.filter((post) => !post.attributes.evergreen) || null;
+  posts = posts?.data || null;
 
   const seoData = pageData?.seo || null;
 
