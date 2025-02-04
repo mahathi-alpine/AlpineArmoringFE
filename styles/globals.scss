@@ -277,7 +277,19 @@ $shapeColor: var(--color-background);
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(15, 17, 17, 0.5);
+  background: rgba(15, 17, 17, 0.5);  
+
+  &.modal_vertical{
+    @include breakpoint(large) {
+      .modal_inner{
+        max-width: 1500px;
+        padding: 2rem;
+      }
+      .modal_box{
+        gap: 16px;
+      }
+    }
+  }
 
   &_active {
     display: block;
@@ -436,47 +448,6 @@ $shapeColor: var(--color-background);
     }
   }
 
-  .rpv-core__inner-pages {
-    @include breakpoint(untilLarge) {
-      overflow: scroll;
-      padding-top: 18px;
-    }
-  }
-
-  @include breakpoint(large) {
-    .rpv-core__viewer {
-      height: calc(100% - 52px) !important;
-    }
-    .rpv-core__inner-pages > div {
-      height: 100% !important;
-    }
-    .rpv-core__inner-page {
-      height: 100% !important;
-      display: flex;
-      position: static !important;
-      transform: none !important;
-    }
-  }
-
-  .rpv-core__page-layer--single {
-    margin: auto;
-    position: relative;
-    &:before {
-      position: absolute;
-      content: '';
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      box-shadow: 0 0 14px 0 rgba(15, 17, 17, 0.5);
-    }
-  }
-
-  .rpv-core__text-layer,
-  .rpv-core__annotation-layer {
-    display: none;
-  }
-
   &_box {
     @include breakpoint(large) {
       display: flex;
@@ -539,6 +510,47 @@ $shapeColor: var(--color-background);
       //   top: 10px;
       // }
     }
+  }
+
+  .rpv-core__inner-pages {
+    @include breakpoint(untilLarge) {
+      overflow: scroll;
+      padding-top: 18px;
+    }
+  }
+
+  @include breakpoint(large) {
+    .rpv-core__viewer {
+      height: calc(100% - 52px) !important;
+    }
+    .rpv-core__inner-pages > div {
+      height: 100% !important;
+    }
+    .rpv-core__inner-page {
+      height: 100% !important;
+      display: flex;
+      position: static !important;
+      transform: none !important;
+    }
+  }
+
+  .rpv-core__page-layer--single {
+    margin: auto;
+    position: relative;
+    &:before {
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      box-shadow: 0 0 14px 0 rgba(15, 17, 17, 0.5);
+    }
+  }
+
+  .rpv-core__text-layer,
+  .rpv-core__annotation-layer {
+    display: none;
   }
 }
 

@@ -442,22 +442,22 @@ function Testing(props) {
 
             {showPopup && (
               <div
-                className={`modal ${showPopup ? 'modal_active' : ''} ${!selectedItem?.description ? 'modal_simple' : ''}`}
+                className={`modal modal_vertical ${showPopup ? 'modal_active' : ''} ${!selectedItem?.description ? 'modal_simple' : ''}`}
               >
                 <div className={`modal_inner`} ref={popupRef}>
-                  {selectedItem?.title ? (
-                    <h3 className={`modal_title`}>{selectedItem.title}</h3>
-                  ) : null}
-
                   <div className={`modal_box`}>
-                    {selectedItem?.description ? (
-                      <p
-                        className={`modal_description`}
-                        dangerouslySetInnerHTML={{
-                          __html: convertMarkdown(selectedItem.description),
-                        }}
-                      ></p>
-                    ) : null}
+                    <div className={`modal_description`}>
+                      {selectedItem?.title ? (
+                        <h3 className={`modal_title`}>{selectedItem.title}</h3>
+                      ) : null}
+                      {selectedItem?.description ? (
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: convertMarkdown(selectedItem.description),
+                          }}
+                        ></p>
+                      ) : null}
+                    </div>
 
                     {selectedItem?.image?.data && (
                       <div

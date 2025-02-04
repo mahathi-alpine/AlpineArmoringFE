@@ -15,7 +15,16 @@ function VehicleWeArmor(props) {
   const router = useRouter();
   const topBanner = props.pageData?.banner;
   const bottomText = props.pageData?.bottomText;
-  const faqs = props.pageData?.faqs;
+
+  const faqs = router.query.make
+    ? props.filters.make.find(
+        (item) => item.attributes.slug === router.query.make
+      )?.attributes.faqs?.length
+      ? props.filters.make.find(
+          (item) => item.attributes.slug === router.query.make
+        )?.attributes.faqs
+      : props.pageData?.faqs
+    : props.pageData?.faqs;
 
   const convertMarkdown = useMarkdownToHtml();
 
@@ -303,7 +312,6 @@ export async function getServerSideProps(context) {
         return slug.includes(searchTerms);
       }),
     };
-
     const [type, make] = await Promise.all([
       getPageData({
         route: 'categories',
@@ -315,6 +323,7 @@ export async function getServerSideProps(context) {
         sort: 'title',
         pageSize: 100,
         fields: 'fields[0]=title&fields[1]=slug',
+        populate: 'faqs, vehicles_we_armors.category',
       }).then((res) => res.data),
     ]);
 
