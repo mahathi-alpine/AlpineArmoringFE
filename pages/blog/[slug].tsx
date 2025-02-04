@@ -290,7 +290,7 @@ export async function getServerSideProps(context) {
   const { slug } = context.query;
 
   const data = await getPageData({
-    route: 'blogs',
+    route: 'blog-evergreens',
     params: `filters[slug][$eq]=${slug}`,
     populate: 'deep',
   });
