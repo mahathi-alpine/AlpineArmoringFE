@@ -388,24 +388,40 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           router.asPath.split('?')[1] || ''
                         );
 
-                        return (
+                        // Conditional rendering based on inventory vehicles
+                        return item.attributes.inventory_vehicles?.data.length <
+                          1 ? (
+                          <span
+                            className={`
+            ${styles.checkbox_link} 
+            ${styles.checkbox_link_disabled}
+            ${
+              item.attributes.slug ===
+              currentSlug.split('/').pop().split('?')[0]
+                ? styles.selected_filter
+                : ''
+            }
+          `}
+                            key={item.id}
+                          >
+                            <span className={`${styles.checkbox_span}`}>
+                              {baseUrl == '/vehicles-we-armor'
+                                ? item.attributes.title.replace('Armored', '')
+                                : item.attributes.title}
+                            </span>
+                          </span>
+                        ) : (
                           <Link
                             href={newUrl}
                             className={`
-                              ${styles.checkbox_link} 
-                              ${
-                                item.attributes.inventory_vehicles?.data
-                                  .length < 1
-                                  ? styles.checkbox_link_disabled
-                                  : ''
-                              }
-                              ${
-                                item.attributes.slug ===
-                                currentSlug.split('/').pop().split('?')[0]
-                                  ? styles.selected_filter
-                                  : ''
-                              }
-                            `}
+            ${styles.checkbox_link}
+            ${
+              item.attributes.slug ===
+              currentSlug.split('/').pop().split('?')[0]
+                ? styles.selected_filter
+                : ''
+            }
+          `}
                             onClick={openFilters}
                             key={item.id}
                           >
