@@ -93,20 +93,23 @@ const CarouselCurved = ({
                           alt={
                             item.attributes.alternativeText || 'Alpine Armoring'
                           }
-                          // priority={index === 0}
                           width={
                             isMobile
                               ? item.attributes.formats?.thumbnail?.width
-                              : item.attributes.formats?.medium?.width ||
+                              : item.attributes.formats?.large?.width ||
                                 item.attributes.width
                           }
                           height={
                             isMobile
                               ? item.attributes.formats?.thumbnail?.height
-                              : item.attributes.formats?.medium?.height ||
+                              : item.attributes.formats?.large?.height ||
                                 item.attributes.height
                           }
                           className={styles.carousel_slide_img}
+                          quality={100}
+                          // priority
+                          // unoptimized
+                          // priority={index === 0}
                         ></Image>
                       ) : null}
 
