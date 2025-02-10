@@ -84,7 +84,11 @@ small {
   --bodySize: clamp(0.875rem, 0.8295rem + 0.1942vw, 1.0625rem);
   word-wrap: break-word;
 
-  h1, h2, h3, h4, h5{    
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-weight: var(--font-medium);
   }
 
@@ -113,7 +117,7 @@ small {
     margin: 0 0 2.5rem;
     font-size: var(--bodySize);
 
-    li{
+    li {
       margin-bottom: rem(16);
     }
   }
@@ -123,10 +127,10 @@ small {
   }
   ol {
     counter-reset: item;
-    
+
     li {
-      &::before { 
-        content: counter(item) ". ";
+      &::before {
+        content: counter(item) '. ';
         counter-increment: item;
         margin-right: 8px;
         display: inline-block;
