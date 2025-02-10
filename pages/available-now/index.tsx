@@ -9,7 +9,7 @@ import styles from '/components/listing/Listing.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 const ITEMS_PER_PAGE = 16;
@@ -21,8 +21,6 @@ function Inventory(props) {
   const bottomText = pageData?.bottomText;
   const faqs = pageData?.faqs;
 
-  const convertMarkdown = useMarkdownToHtml();
-  const wrappedContent = `<p>${convertMarkdown(bottomText || '')}</p>`;
   const router = useRouter();
   const { q, vehicles_we_armor } = router.query;
 
@@ -267,12 +265,9 @@ function Inventory(props) {
 
         {bottomText ? (
           <div className={`container_small`}>
-            <div
-              className={`${styles.listing_bottomText}`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(wrappedContent),
-              }}
-            ></div>
+            <CustomMarkdown className={`${styles.listing_bottomText}`}>
+              {bottomText}
+            </CustomMarkdown>
           </div>
         ) : null}
 

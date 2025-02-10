@@ -1,10 +1,9 @@
 import styles from './Accordion.module.scss';
 import React, { useState } from 'react';
 import Button from 'components/global/button/Button';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 const Accordion = ({ items, title = '', button = false }) => {
-  const convertMarkdown = useMarkdownToHtml();
   const [activeIndex, setActiveIndex] = useState(null);
 
   const handleTitleClick = (index) => {
@@ -39,12 +38,11 @@ const Accordion = ({ items, title = '', button = false }) => {
               }}
               className={`${styles.accordion_item_content}`}
             >
-              <div
+              <CustomMarkdown
                 className={`${styles.accordion_item_content_text}`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(item.attributes?.text || item?.text),
-                }}
-              ></div>
+              >
+                {item.attributes?.text || item?.text}
+              </CustomMarkdown>
             </div>
           ) : null}
         </div>

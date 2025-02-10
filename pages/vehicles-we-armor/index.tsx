@@ -8,7 +8,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback } from 'react';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 function VehicleWeArmor(props) {
@@ -25,8 +25,6 @@ function VehicleWeArmor(props) {
         )?.attributes.faqs
       : props.pageData?.faqs
     : props.pageData?.faqs;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(12);
@@ -240,12 +238,9 @@ function VehicleWeArmor(props) {
 
       {bottomText ? (
         <div className={`container_small`}>
-          <p
-            className={`${styles.listing_bottomText} darkColor`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(bottomText),
-            }}
-          ></p>
+          <CustomMarkdown className={`${styles.listing_bottomText} darkColor`}>
+            {bottomText}
+          </CustomMarkdown>
         </div>
       ) : null}
 

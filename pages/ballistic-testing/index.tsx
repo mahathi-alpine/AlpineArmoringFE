@@ -2,7 +2,7 @@ import styles from './Testing.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect, useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import Image from 'next/image';
@@ -13,7 +13,6 @@ import { useOutsideClick } from 'hooks/useOutsideClick';
 import ArrowIcon from 'components/icons/Arrow';
 
 function Testing(props) {
-  const convertMarkdown = useMarkdownToHtml();
   const title = props?.pageData?.mainTitle;
   const heading = props?.pageData?.heading;
   const videos = props?.pageData?.section3Video?.data;
@@ -181,12 +180,11 @@ function Testing(props) {
           ) : null}
 
           {props.pageData?.section1Heading ? (
-            <p
+            <CustomMarkdown
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section1Heading),
-              }}
-            ></p>
+            >
+              {props.pageData.section1Heading}
+            </CustomMarkdown>
           ) : null}
 
           <div className={styles.galleryContainer}>
@@ -375,12 +373,11 @@ function Testing(props) {
           ) : null}
 
           {props.pageData?.section2Heading ? (
-            <p
+            <CustomMarkdown
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section2Heading),
-              }}
-            ></p>
+            >
+              {props.pageData.section2Heading}
+            </CustomMarkdown>
           ) : null}
 
           <div className={`${styles.testing_armor}`}>
@@ -392,12 +389,11 @@ function Testing(props) {
                 <h4 className={`${styles.testing_armor_title}`}>
                   {item.title}
                 </h4>
-                <p
+                <CustomMarkdown
                   className={`${styles.testing_armor_description}`}
-                  dangerouslySetInnerHTML={{
-                    __html: convertMarkdown(item.description),
-                  }}
-                ></p>
+                >
+                  {item.description}
+                </CustomMarkdown>
                 <div
                   className={`${styles.testing_armor_read}`}
                   onClick={() => handleReadMore(item)}
@@ -451,11 +447,9 @@ function Testing(props) {
                         <h3 className={`modal_title`}>{selectedItem.title}</h3>
                       ) : null}
                       {selectedItem?.description ? (
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: convertMarkdown(selectedItem.description),
-                          }}
-                        ></p>
+                        <CustomMarkdown>
+                          {selectedItem.description}
+                        </CustomMarkdown>
                       ) : null}
                     </div>
 
@@ -545,35 +539,26 @@ function Testing(props) {
           ) : null}
 
           {props.pageData?.section3Heading ? (
-            <p
+            <CustomMarkdown
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section3Heading),
-              }}
-            ></p>
+            >
+              {props.pageData.section3Heading}
+            </CustomMarkdown>
           ) : null}
           <MediaList props={videos} itemType="video" />
         </section>
 
         <section className={`container_small`}>
           {props.pageData?.section4Title ? (
-            <h3 className={styles.section4Title}>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section4Title),
-                }}
-              ></span>
-            </h3>
+            <CustomMarkdown className={styles.section4Title}>
+              {props.pageData.section4Title}
+            </CustomMarkdown>
           ) : null}
 
           {props.pageData?.section4Heading ? (
-            <h3 className={styles.section4Heading}>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section4Heading),
-                }}
-              ></span>
-            </h3>
+            <CustomMarkdown className={styles.section4Heading}>
+              {props.pageData.section4Heading}
+            </CustomMarkdown>
           ) : null}
         </section>
       </div>

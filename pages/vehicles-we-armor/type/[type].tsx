@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 function Inventory(props) {
@@ -20,8 +20,6 @@ function Inventory(props) {
   // const heading = currentCategory?.attributes.heading;
 
   const router = useRouter();
-
-  const convertMarkdown = useMarkdownToHtml();
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
@@ -266,12 +264,9 @@ function Inventory(props) {
 
       {bottomText ? (
         <div className={`container_small`}>
-          <p
-            className={`${styles.listing_bottomText} darkColor`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(bottomText),
-            }}
-          ></p>
+          <CustomMarkdown className={`${styles.listing_bottomText} darkColor`}>
+            {bottomText}
+          </CustomMarkdown>
         </div>
       ) : null}
 

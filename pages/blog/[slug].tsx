@@ -7,7 +7,7 @@ import PlayIcon from 'components/icons/Play2';
 import LinkedinIcon from 'components/icons/Linkedin';
 import { useState, useEffect } from 'react';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import SocialShare from 'components/global/social-share/SocialShare';
 
 const calculateReadTime = (content) => {
@@ -45,9 +45,6 @@ function BlogSingle(props) {
     .replace(/\//g, '/');
 
   const content = data?.content;
-
-  const convertMarkdown = useMarkdownToHtml();
-  const wrappedContent = `<p>${convertMarkdown(content || '')}</p>`;
 
   const [pageUrl, setPageUrl] = useState('');
   useEffect(() => {
@@ -202,23 +199,19 @@ function BlogSingle(props) {
           </div>
 
           {content ? (
-            <div
-              className={`${styles.blogSingle_content} static`}
-              dangerouslySetInnerHTML={{ __html: wrappedContent }}
-            ></div>
+            <CustomMarkdown className={`${styles.blogSingle_content} static`}>
+              {content}
+            </CustomMarkdown>
           ) : null}
 
           <div className={`${styles.blogSingle_content} static`}>
             {dynamicZone?.map((component, index) => {
               switch (component.__component) {
                 case 'slices.text': {
-                  const wrappedContent = `<p>${convertMarkdown(component.Content || '')}</p>`;
                   return (
-                    <div
-                      key={index}
-                      className={`text-wrap`}
-                      dangerouslySetInnerHTML={{ __html: wrappedContent }}
-                    ></div>
+                    <CustomMarkdown className={`text-wrap`} key={index}>
+                      {component.Content}
+                    </CustomMarkdown>
                   );
                 }
                 case 'slices.single-media':

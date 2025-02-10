@@ -1,5 +1,5 @@
 import styles from './FillingText.module.scss';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 // import { useRef } from 'react';
 // import useEffectOnce from 'hooks/useEffectOnce';
 
@@ -8,8 +8,6 @@ const FillingText = ({ data, dark = false, className = '', small = false }) => {
 
   const title = data.title;
   const text = data.text || data;
-  const convertMarkdown = useMarkdownToHtml();
-  const wrappedContent = `<p>${convertMarkdown(text || '')}</p>`;
 
   // const revealSpans = () => {
   //   const spans = [...fillingTextRef.current.querySelectorAll('span')];
@@ -78,13 +76,11 @@ const FillingText = ({ data, dark = false, className = '', small = false }) => {
         ) : null}
 
         {text ? (
-          <div
-            className={`${styles.fillingText_text} observe`}
-            // ref={fillingTextRef}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(wrappedContent),
-            }}
-          ></div>
+          <CustomMarkdown
+            className={`${styles.fillingText_text} observe fade-in-up`}
+          >
+            {text}
+          </CustomMarkdown>
         ) : null}
       </div>
     </div>

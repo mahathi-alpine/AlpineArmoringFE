@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Banner from 'components/vehicle-we-armor/Banner';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Image from 'next/image';
@@ -15,8 +15,6 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import Accordion from 'components/global/accordion/Accordion';
 
 function Vehicle(props) {
-  const convertMarkdown = useMarkdownToHtml();
-
   useEffect(() => {
     const setupObserver = () => {
       const observerAnimationTargets = document.querySelectorAll('.observe');
@@ -301,11 +299,7 @@ function Vehicle(props) {
           >
             <h2 className={`c-title`}>Overview of {data?.title}</h2>
 
-            <div
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(data.description),
-              }}
-            ></div>
+            <CustomMarkdown>{data.description}</CustomMarkdown>
           </div>
         ) : null}
 

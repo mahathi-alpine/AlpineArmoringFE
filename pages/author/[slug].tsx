@@ -4,7 +4,7 @@ import BlogList from 'components/global/news/News';
 import styles from '../news/News.module.scss';
 import Link from 'next/link';
 import LinkedinIcon from 'components/icons/Linkedin';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 function BlogSingle(props) {
   const data =
@@ -23,9 +23,6 @@ function BlogSingle(props) {
 
     return dateB - dateA;
   });
-
-  const convertMarkdown = useMarkdownToHtml();
-  const authorDescription = `<p>${convertMarkdown(data.description || '')}</p>`;
 
   // Animations
   useEffect(() => {
@@ -65,13 +62,12 @@ function BlogSingle(props) {
             <LinkedinIcon />
           </Link>
         ) : null}
-        {authorDescription ? (
-          <div
+        {data.description ? (
+          <CustomMarkdown
             className={`${styles.news_authorHeading_description} static`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(authorDescription),
-            }}
-          ></div>
+          >
+            {data.description}
+          </CustomMarkdown>
         ) : null}
       </div>
 

@@ -8,7 +8,7 @@ import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
 import Image from 'next/image';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 import useLightbox from 'components/global/lightbox/useLightbox';
 import NextJsImage from 'components/global/lightbox/NextJsImage';
@@ -31,8 +31,6 @@ function Contact(props) {
   const lang = getLocale(locale);
 
   const faqs = props?.pageData?.fa_qs;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   useEffect(() => {
@@ -109,11 +107,7 @@ function Contact(props) {
                   {lang.salesInquiries}
                 </h3>
                 {props.pageData?.salesInfo ? (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: convertMarkdown(props.pageData.salesInfo),
-                    }}
-                  ></div>
+                  <CustomMarkdown>{props.pageData.salesInfo}</CustomMarkdown>
                 ) : null}
               </div>
               <div className={`${styles.contact_main_right_column}`}>
@@ -125,11 +119,7 @@ function Contact(props) {
                   />
                 </h3>
                 {props.pageData?.partsInfo ? (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: convertMarkdown(props.pageData.partsInfo),
-                    }}
-                  ></div>
+                  <CustomMarkdown>{props.pageData.partsInfo}</CustomMarkdown>
                 ) : null}
               </div>
             </div>

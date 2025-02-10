@@ -3,7 +3,7 @@ import styles from './ArticleSingle.module.scss';
 import Link from 'next/link';
 import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import dynamic from 'next/dynamic';
 const LandingInquiryForm = dynamic(
   () => import('components/global/form/LandingInquiryForm')
@@ -18,8 +18,6 @@ function ArticleSingle(props) {
     title: data?.title,
     featuredImage: data?.featuredImage,
   };
-
-  const convertMarkdown = useMarkdownToHtml();
 
   return (
     <div className={`${styles.articleSingle}`}>
@@ -51,11 +49,11 @@ function ArticleSingle(props) {
         ) : null}
 
         {content ? (
-          <div
-            className={`${styles.articleSingle_content} static`}
-            dangerouslySetInnerHTML={{ __html: convertMarkdown(content) }}
-          ></div>
+          <CustomMarkdown className={`${styles.articleSingle_content} static`}>
+            {content}
+          </CustomMarkdown>
         ) : null}
+
         {formData ? (
           <LandingInquiryForm {...formData} className={`formCTA`} />
         ) : null}

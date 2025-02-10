@@ -10,7 +10,7 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import Button from 'components/global/button/Button';
 import Accordion from 'components/global/accordion/Accordion';
 
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 function Inventory(props) {
   const currentCategory = props.filters.type?.find(
@@ -19,8 +19,6 @@ function Inventory(props) {
   const topBanner = currentCategory?.attributes.inventoryBanner;
   const bottomText = currentCategory?.attributes.bottomTextInventory;
   const faqs = currentCategory?.attributes.faqs_stock;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   // const findTitleBySlug = (filters, targetSlug) => {
   //   if (!filters || !Array.isArray(filters.type)) {
@@ -208,12 +206,9 @@ function Inventory(props) {
 
         {bottomText ? (
           <div className={`container_small`}>
-            <p
-              className={`${styles.listing_bottomText}`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(bottomText),
-              }}
-            ></p>
+            <CustomMarkdown className={`${styles.listing_bottomText}`}>
+              {bottomText}
+            </CustomMarkdown>
           </div>
         ) : null}
 

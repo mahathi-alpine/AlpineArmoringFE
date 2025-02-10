@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import Banner from 'components/global/banner/Banner';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 function Dealer(props) {
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   useEffect(() => {
@@ -41,10 +39,9 @@ function Dealer(props) {
       {banner ? <Banner props={banner} shape="white" /> : null}
 
       {text ? (
-        <div
-          className={`static container_small`}
-          dangerouslySetInnerHTML={{ __html: convertMarkdown(text) }}
-        ></div>
+        <CustomMarkdown className={`static container_small`}>
+          {text}
+        </CustomMarkdown>
       ) : null}
     </>
   );

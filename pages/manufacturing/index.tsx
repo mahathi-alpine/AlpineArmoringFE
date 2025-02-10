@@ -2,14 +2,12 @@ import styles from './Manufacturing.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import Banner from 'components/global/banner/Banner';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import Image from 'next/image';
 import Gallery from 'components/global/carousel/CarouselCurved';
 
 function Manufacturing(props) {
-  const convertMarkdown = useMarkdownToHtml();
-
   // Animations
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -97,22 +95,20 @@ function Manufacturing(props) {
           ) : null}
 
           {props.pageData?.section1Heading ? (
-            <p
+            <CustomMarkdown
               className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section1Heading),
-              }}
-            ></p>
+            >
+              {props.pageData.section1Heading}
+            </CustomMarkdown>
           ) : null}
 
           <div className={`${styles.manufacturing_box}`}>
             {props.pageData?.section1Text1 ? (
-              <div
+              <CustomMarkdown
                 className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} fade-in observe`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section1Text1),
-                }}
-              ></div>
+              >
+                {props.pageData.section1Text1}
+              </CustomMarkdown>
             ) : null}
 
             {props.pageData?.section1Image.data ? (
@@ -160,12 +156,11 @@ function Manufacturing(props) {
           </div>
 
           {props.pageData?.section1Text2 ? (
-            <p
+            <CustomMarkdown
               className={`${styles.manufacturing_quote} observe fade-in`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(props.pageData.section1Text2),
-              }}
-            ></p>
+            >
+              {props.pageData.section1Text2}
+            </CustomMarkdown>
           ) : null}
         </section>
 
@@ -195,22 +190,20 @@ function Manufacturing(props) {
             ) : null}
 
             {props.pageData?.section2Text ? (
-              <p
+              <CustomMarkdown
                 className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section2Text),
-                }}
-              ></p>
+              >
+                {props.pageData.section2Text}
+              </CustomMarkdown>
             ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
               {props.pageData?.section2Text2 ? (
-                <p
+                <CustomMarkdown
                   className={`${styles.manufacturing_text} observe fade-in`}
-                  dangerouslySetInnerHTML={{
-                    __html: convertMarkdown(props.pageData.section2Text2),
-                  }}
-                ></p>
+                >
+                  {props.pageData.section2Text2}
+                </CustomMarkdown>
               ) : null}
 
               {props.pageData?.section2Image.data ? (
@@ -239,12 +232,11 @@ function Manufacturing(props) {
             className={`${styles.manufacturing_container_small} container_small`}
           >
             {props.pageData?.section2Text3 ? (
-              <div
+              <CustomMarkdown
                 className={`${styles.manufacturing_quote} observe fade-in`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section2Text3),
-                }}
-              ></div>
+              >
+                {props.pageData.section2Text3}
+              </CustomMarkdown>
             ) : null}
           </div>
 
@@ -272,22 +264,20 @@ function Manufacturing(props) {
             ) : null}
 
             {props.pageData?.section3Heading ? (
-              <p
+              <CustomMarkdown
                 className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section3Heading),
-                }}
-              ></p>
+              >
+                {props.pageData.section3Heading}
+              </CustomMarkdown>
             ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
               {props.pageData?.section3Text ? (
-                <div
+                <CustomMarkdown
                   className={`${styles.manufacturing_section3_text} ${styles.manufacturing_text} observe fade-in`}
-                  dangerouslySetInnerHTML={{
-                    __html: convertMarkdown(props.pageData.section3Text),
-                  }}
-                ></div>
+                >
+                  {props.pageData.section3Text}
+                </CustomMarkdown>
               ) : null}
 
               {props.pageData?.section3Image.data ? (
@@ -312,12 +302,11 @@ function Manufacturing(props) {
             </div>
 
             {props.pageData?.section3Text2 ? (
-              <p
+              <CustomMarkdown
                 className={`${styles.manufacturing_quote} observe fade-in`}
-                dangerouslySetInnerHTML={{
-                  __html: convertMarkdown(props.pageData.section3Text2),
-                }}
-              ></p>
+              >
+                {props.pageData.section3Text2}
+              </CustomMarkdown>
             ) : null}
           </div>
 

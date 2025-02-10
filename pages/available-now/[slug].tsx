@@ -19,12 +19,10 @@ import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 function InventoryVehicle(props) {
-  const convertMarkdown = useMarkdownToHtml();
-
   useEffect(() => {
     const setupObserver = () => {
       const targets = document.querySelectorAll('.observe');
@@ -605,10 +603,11 @@ function InventoryVehicle(props) {
         />
 
         {mainText ? (
-          <div
+          <CustomMarkdown
             className={`${styles.inventory_description} container_small`}
-            dangerouslySetInnerHTML={{ __html: convertMarkdown(mainText) }}
-          ></div>
+          >
+            {mainText}
+          </CustomMarkdown>
         ) : null}
 
         {/* {data?.specifications?.data.length > 0 ? (
