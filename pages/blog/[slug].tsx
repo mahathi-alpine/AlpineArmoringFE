@@ -11,22 +11,22 @@ import CustomMarkdown from 'components/CustomMarkdown';
 import SocialShare from 'components/global/social-share/SocialShare';
 import Accordion from 'components/global/accordion/Accordion';
 
-const calculateReadTime = (content) => {
-  if (!content) return '1 min';
+const calculateReadTime = () => {
+  if (typeof window === 'undefined') return '1 min';
 
-  // Remove HTML tags and special characters
-  const plainText = content.replace(/<[^>]*>/g, '').replace(/[^\w\s]/g, '');
+  const textElement = document.getElementById('blogContent');
+  if (!textElement) return '1 min';
 
-  // Count words (split by whitespace)
+  const plainText = (textElement as HTMLElement).innerText
+    .replace(/<[^>]*>/g, '')
+    .replace(/[^\w\s]/g, '');
+
   const words = plainText.trim().split(/\s+/).length;
 
-  // Calculate read time (words / 400)
   let minutes = Math.ceil(words / 400);
 
-  // Cap at 30 minutes
   minutes = Math.min(minutes, 30);
 
-  // Return formatted string
   return `${minutes} min`;
 };
 
@@ -38,6 +38,11 @@ function BlogSingle(props) {
   const dynamicZone = data?.blogDynamic;
   const faqsTitle = data?.faqsTitle;
   const faqs = data?.faqs;
+  const [readTime, setReadTime] = useState('1 min');
+
+  useEffect(() => {
+    setReadTime(calculateReadTime());
+  });
 
   const formattedDate = date
     .toLocaleDateString('en-GB', {
@@ -227,7 +232,7 @@ function BlogSingle(props) {
                   Read Time
                 </span>
                 <span className={`${styles.blogSingle_info_box_name}`}>
-                  {calculateReadTime(content)}
+                  {readTime}
                 </span>
               </div>
             </div>
@@ -237,13 +242,16 @@ function BlogSingle(props) {
             )}
           </div>
 
-          {content ? (
-            <CustomMarkdown className={`${styles.blogSingle_content} static`}>
-              {content}
-            </CustomMarkdown>
-          ) : null}
+          <div
+            className={`${styles.blogSingle_content} static`}
+            id="blogContent"
+          >
+            {content ? (
+              <CustomMarkdown className={`${styles.blogSingle_content} static`}>
+                {content}
+              </CustomMarkdown>
+            ) : null}
 
-          <div className={`${styles.blogSingle_content} static`}>
             {dynamicZone?.map((component, index) => {
               switch (component.__component) {
                 case 'slices.text': {
