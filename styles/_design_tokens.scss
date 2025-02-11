@@ -159,6 +159,8 @@ small {
   }
   img {
     margin: rem(24) auto;
+    max-width: 875px;
+    width: 100%;
   }
   br {
     display: block;

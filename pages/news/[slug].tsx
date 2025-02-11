@@ -45,7 +45,7 @@ function BlogSingle(props) {
   });
 
   const formattedDate = date
-    .toLocaleDateString('en-GB', {
+    .toLocaleDateString('en-US', {
       day: '2-digit',
       month: '2-digit',
       year: '2-digit',
@@ -313,13 +313,13 @@ function BlogSingle(props) {
               <PlayIcon />
             </div>
           ))}
-
-          {faqs?.length > 0 ? (
-            <div className={`mt2`}>
-              <Accordion items={faqs} title={`${faqsTitle || 'FAQs'}`} />
-            </div>
-          ) : null}
         </div>
+
+        {faqs?.length > 0 ? (
+          <div className={`mt2`}>
+            <Accordion items={faqs} title={`${faqsTitle || 'FAQs'}`} />
+          </div>
+        ) : null}
 
         {isLightboxPopupOpen ? (
           <LightboxCustom
