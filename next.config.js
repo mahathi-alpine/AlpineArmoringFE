@@ -14,9 +14,21 @@ module.exports = {
     defaultLocale: 'en',
     localeDetection: false,
   },
+
   sassOptions: {
-    prependData: `@import './styles/_mixins.scss';`,
+    logger: {
+      warn: (message) => {
+        // Ignore specific deprecation warnings
+        if (message.includes('Deprecation') || message.includes('deprecat')) {
+          return;
+        }
+        console.warn(message);
+      },
+    },
+    quietDeps: true, // Suppress dependency deprecation warnings
+    prependData: `@use './styles/_mixins.scss' as *;`,
   },
+
   images: {
     // unoptimized: true,
     deviceSizes: [384, 640, 750, 828, 1080, 1200, 1920, 2200],
@@ -53,7 +65,6 @@ module.exports = {
       },
     ],
   },
-  swcMinify: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
   },

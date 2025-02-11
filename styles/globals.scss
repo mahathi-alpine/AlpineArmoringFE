@@ -220,27 +220,27 @@ $shapeColor: var(--color-background);
 
   &_leftBottom {
     bottom: 0;
-    height: $shapeSize / 2;
-    width: $shapeSize / 2;
-    left: -$shapeSize / 2;
+    height: calc($shapeSize / 2);
+    width: calc($shapeSize / 2);
+    left: calc(-1 * $shapeSize / 2);
     transform: rotate(-90deg);
     @include breakpoint(large) {
-      height: $shapeSize * 2;
-      width: $shapeSize * 2;
-      left: -$shapeSize * 2;
+      height: calc($shapeSize * 2);
+      width: calc($shapeSize * 2);
+      left: calc(-1 * $shapeSize * 2);
     }
   }
 
   &_rightBottom {
     bottom: 0;
-    right: -$shapeSize / 2;
-    height: $shapeSize / 2;
-    width: $shapeSize / 2;
+    height: calc($shapeSize / 2);
+    width: calc($shapeSize / 2);
+    right: calc(-1 * $shapeSize / 2);
     transform: none;
     @include breakpoint(large) {
-      height: $shapeSize * 2;
-      width: $shapeSize * 2;
-      right: -$shapeSize * 2;
+      height: calc($shapeSize * 2);
+      width: calc($shapeSize * 2);
+      right: calc(-1 * $shapeSize * 2);
     }
   }
 
