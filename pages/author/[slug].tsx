@@ -10,9 +10,20 @@ function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
-  const news = data?.blogs?.data;
-  const blogs = data?.blog_evergreens?.data;
+  const news =
+    data?.blogs?.data?.map((item) => ({
+      ...item,
+      category: 'news',
+    })) || [];
+
+  const blogs =
+    data?.blog_evergreens?.data?.map((item) => ({
+      ...item,
+      category: 'blog',
+    })) || [];
+
   let posts = news.concat(blogs);
+
   posts = posts.sort((a, b) => {
     const dateA = new Date(
       a.attributes.date || a.attributes.publishedAt

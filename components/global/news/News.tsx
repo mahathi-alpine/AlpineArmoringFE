@@ -76,7 +76,7 @@ const Blog = ({
                 >
                   {item.attributes.thumbnail.data?.attributes.url ? (
                     <Link
-                      href={`${type ? '/blog' : '/news'}/${item.attributes.slug}`}
+                      href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}
                       className={`${styles.news_item_image}`}
                     >
                       <Image
@@ -121,7 +121,7 @@ const Blog = ({
                         ) : null}
 
                         <Link
-                          href={`${type ? '/blog' : '/news'}/${item.attributes.slug}`}
+                          href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}
                         >
                           <h3 className={`${styles.news_item_title}`}>
                             {item.attributes.title}
@@ -136,7 +136,7 @@ const Blog = ({
                       </div>
 
                       <Button
-                        href={`${type ? '/blog' : '/news'}/${item.attributes.slug}`}
+                        href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}
                         className={`${styles.news_item_button} rounded border desktop-only`}
                       >
                         Read More
