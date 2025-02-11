@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import CustomMarkdown from 'components/CustomMarkdown';
 import SocialShare from 'components/global/social-share/SocialShare';
+import Accordion from 'components/global/accordion/Accordion';
 
 const calculateReadTime = (content) => {
   if (!content) return '1 min';
@@ -35,6 +36,8 @@ function BlogSingle(props) {
   const categories = data?.categories?.data;
   const date = new Date(data?.updatedAt);
   const dynamicZone = data?.blogDynamic;
+  const faqsTitle = data?.faqsTitle;
+  const faqs = data?.faqs;
 
   const formattedDate = date
     .toLocaleDateString('en-GB', {
@@ -102,6 +105,35 @@ function BlogSingle(props) {
     return JSON.stringify(structuredData);
   };
 
+  // FAQ structured data
+  const getFAQStructuredData = () => {
+    if (!faqs || !Array.isArray(faqs)) {
+      console.error('FAQs is not an array:', faqs);
+      return null;
+    }
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq, index) => {
+        const title =
+          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
+        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+
+        return {
+          '@type': 'Question',
+          name: title,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: text,
+          },
+        };
+      }),
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
       <Head>
@@ -110,6 +142,13 @@ function BlogSingle(props) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
+        {faqs?.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
+            key="faq-jsonld"
+          />
+        )}
       </Head>
 
       <div className={`${styles.blogSingle}`}>
@@ -266,7 +305,14 @@ function BlogSingle(props) {
               <PlayIcon />
             </div>
           ))}
+
+          {faqs?.length > 0 ? (
+            <div className={`mt2`}>
+              <Accordion items={faqs} title={`${faqsTitle || 'FAQs'}`} />
+            </div>
+          ) : null}
         </div>
+
         {isLightboxPopupOpen ? (
           <LightboxCustom
             isLightboxPopupOpen={isLightboxPopupOpen}
