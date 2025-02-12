@@ -200,6 +200,359 @@ async function generateSitemap() {
           priority: ['0.5'],
           changefreq: ['monthly'],
         },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-cash-in-transit-cit?make=international`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=jeep`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=bulldog`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=infiniti`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=chevrolet`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=chevrolet`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=lexus`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-sedans?make=lexus`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=pointer`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-sedans?make=rolls-royce`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-suvs?make=rolls-royce`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-specialty-vehicles?make=mastiff`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=mastiff`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-vans-and-buses?make=pointer`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=ford`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=ford`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=ford`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-cash-in-transit-cit?make=ford`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=bentley`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-sedans?make=bentley`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=genesis`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-sedans?make=genesis`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=bmw`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=hummer`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=cadillac`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=ineos`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-sedans?make=bmw`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=audi`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-sedans?make=audi`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=typhoon`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=typhoon`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=pit-bull`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=pit-bull`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-specialty-vehicles?make=toyota`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=toyota`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-vans-and-buses?make=toyota`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=toyota`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-sedans?make=toyota`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=cuda`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-suvs?make=range-rover`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=lincoln`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=cyclone`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=cyclone`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-vans-and-buses?make=honda`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-suvs?make=land-rover`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-vans-and-buses?make=gmc`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=gmc`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=gmc`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-cash-in-transit-cit?make=gmc`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-pickup-trucks?make=tesla`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-sedans?make=tesla`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [`${baseURL}vehicles-we-armor/type/armored-suvs?make=tesla`],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-law-enforcement?make=boxer`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-specialty-vehicles?make=omicron`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-suvs?make=lamborghini`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-suvs?make=mercedes-benz`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
+        {
+          loc: [
+            `${baseURL}vehicles-we-armor/type/armored-sedans?make=mercedes-benz`,
+          ],
+          priority: ['0.5'],
+          changefreq: ['monthly'],
+        },
       ];
 
       // Append custom URLs to the existing urls

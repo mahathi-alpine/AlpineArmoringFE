@@ -16,7 +16,7 @@ const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 function InventoryVehicle(props) {
   const data =
@@ -26,8 +26,6 @@ function InventoryVehicle(props) {
 
   const videoWebm = data?.video?.data?.attributes;
   const videoMP4 = data?.videoMP4?.data?.attributes;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   const sliderTopOptions = {
     dragFree: false,
@@ -314,10 +312,11 @@ function InventoryVehicle(props) {
         />
 
         {mainText ? (
-          <div
+          <CustomMarkdown
             className={`${styles.inventory_description} container_small observe fade-in-up`}
-            dangerouslySetInnerHTML={{ __html: convertMarkdown(mainText) }}
-          ></div>
+          >
+            {mainText}
+          </CustomMarkdown>
         ) : null}
 
         {videoWebm || videoMP4 ? (

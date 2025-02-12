@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Banner from 'components/vehicle-we-armor/Banner';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Image from 'next/image';
@@ -15,8 +15,6 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import Accordion from 'components/global/accordion/Accordion';
 
 function Vehicle(props) {
-  const convertMarkdown = useMarkdownToHtml();
-
   useEffect(() => {
     const setupObserver = () => {
       const observerAnimationTargets = document.querySelectorAll('.observe');
@@ -221,6 +219,35 @@ function Vehicle(props) {
     return JSON.stringify(structuredData);
   };
 
+  // FAQ structured data
+  const getFAQStructuredData = () => {
+    if (!faqs || !Array.isArray(faqs)) {
+      console.error('FAQs is not an array:', faqs);
+      return null;
+    }
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq, index) => {
+        const title =
+          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
+        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+
+        return {
+          '@type': 'Question',
+          name: title,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: text,
+          },
+        };
+      }),
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   if (!props.data) {
     console.error('Missing or malformed data structure');
     return null;
@@ -234,6 +261,13 @@ function Vehicle(props) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
+        {faqs?.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
+            key="faq-jsonld"
+          />
+        )}
         {getProductStructuredData() && (
           <script
             type="application/ld+json"
@@ -265,11 +299,7 @@ function Vehicle(props) {
           >
             <h2 className={`c-title`}>Overview of {data?.title}</h2>
 
-            <div
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(data.description),
-              }}
-            ></div>
+            <CustomMarkdown>{data.description}</CustomMarkdown>
           </div>
         ) : null}
 

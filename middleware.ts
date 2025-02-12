@@ -1,54 +1,109 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { blockedPatterns } from './blockedUrls';
+import { redirectUrls } from './redirectUrls';
 
-// Specific URLs that need to be redirected
-const redirectMap = new Map([
-  [
-    "/blog/1/alpine-armoring's-featured-vehicle:-pit-bu",
-    '/news/alpine-armorings-featured-vehicle-pit-bull',
-  ],
-  [
-    '/vehicles-we-armor/213-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-',
-    '/vehicles-we-armor/armored-omicron-ambulance',
-  ],
-  [
-    '/vehicles-we-armor/213-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)',
-    '/vehicles-we-armor/armored-omicron-ambulance',
-  ],
-  [
-    '/vehicles-we-armor/213-Special%32Purpose%32Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)',
-    '/vehicles-we-armor/armored-omicron-ambulance',
-  ],
-  [
-    '/vehicles-we-armor/348-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-',
-    '/vehicles-we-armor/armored-omicron-ambulance',
-  ],
-  [
-    '/stock/196-Special%20Purpose%20Vehicle-Armored-Toyota-Land-Cruiser-78-Series-(Ambulance)-1695',
-    '/available-now/type/armored-law-enforcement',
-  ],
-  [
-    '/stock/inventory/Police%20Pursuit%20Vehicles%20(PPV)',
-    '/available-now/type/armored-law-enforcement',
-  ],
-  [
-    '/stock/227-Police%20Pursuit%20Vehicles%20(PPV)-Ford-Explorer-Interceptor-PPV-4571',
-    '/available-now/type/armored-law-enforcement',
-  ],
-  // [
-  //   '/vehicles-we-armor/264-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Ford-Explorer-PPV-',
-  //   '/vehicles-we-armor?make=ford',
-  // ],
-  // [
-  //   '/vehicles-we-armor/259-Police%20Pursuit%20Vehicles%20(PPV)-Armored-Ford-Explorer-PPV-',
-  //   '/vehicles-we-armor?make=ford',
-  // ],
-  // [
-  //   '/vehicles-we-armor/inventory?type=Police+Pursuit+Vehicles+(PPV)',
-  //   '/vehicles-we-armor/type/armored-law-enforcement',
-  // ],
-]);
+const redirectMap = new Map(redirectUrls);
+
+type BlockedPattern = {
+  pattern: string;
+  exact?: boolean;
+  queryParams?: {
+    [key: string]: string[];
+  };
+};
+
+const blockedPatterns: BlockedPattern[] = [
+  {
+    pattern: '/contact?source=become-a-dealer',
+    exact: true,
+  },
+  {
+    pattern:
+      '/news/understanding-armor-levels-in-vehicles-nij-cen-and-vpam-standards-explained',
+    exact: true,
+  },
+  {
+    pattern: '/news/top-security-measures',
+    exact: true,
+  },
+  {
+    pattern: '/news/armored-vehicles-3-steps-to-help-you-find-the-right-one',
+    exact: true,
+  },
+  {
+    pattern: '/news/what-you-should-know-about-armored-cars',
+    exact: true,
+  },
+  {
+    pattern: '/news/3-reasons-to-consider-purchasing-an-armored-vehicle',
+    exact: true,
+  },
+  {
+    pattern:
+      '/blog/armored-tesla-model-s-withstands-live-fire-ballistic-testing',
+    exact: true,
+  },
+  {
+    pattern: '/blog/armored-rolls-royce-cullinan',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-armoring-mastiff-featured-on-hot-cars-com',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-armoring-amg-armored-mercedes-benz-G63-suv',
+    exact: true,
+  },
+  {
+    pattern: '/blog/introducing-mastiff',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-ceo-featured-in-cbs-money-watch-article',
+    exact: true,
+  },
+  {
+    pattern: '/blog/richmond-police-department-unveils-pit-bull-vx',
+    exact: true,
+  },
+  {
+    pattern: '/blog/we-shot-our-bulletproof-tesla-here-s-what-happened',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-armoring-featured-on-the-drive-com',
+    exact: true,
+  },
+  {
+    pattern: '/blog/what-makes-an-armored-car-more-secure-than-other-cars',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-armorings-featured-vehicle-pit-bull',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-armoring-featured-in-motortrend',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-armoring-deatured-in-car-and-driver-magazine',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-pit-bull-featured-in-car-and-driver',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-featured-on-hot-cars-com',
+    exact: true,
+  },
+  {
+    pattern: '/blog/alpine-donates-pit-bull-vx-to-tunisia',
+    exact: true,
+  },
+];
 
 const isUrlBlocked = (
   pathname: string,
@@ -56,7 +111,10 @@ const isUrlBlocked = (
 ): boolean => {
   return blockedPatterns.some(({ pattern, exact, queryParams }) => {
     if (exact) {
-      return pathname === pattern;
+      const fullUrl = searchParams.toString()
+        ? `${pathname}?${searchParams.toString()}`
+        : pathname;
+      return fullUrl === pattern;
     }
 
     if (!pathname.startsWith(pattern)) {
@@ -76,13 +134,35 @@ const isUrlBlocked = (
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
+  const locale = request.nextUrl.locale || '';
+
+  if (locale === 'es') {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
+  // Create a key that includes both pathname and query string for matching
+  const fullPath = searchParams.toString()
+    ? `${pathname}?${searchParams.toString()}`
+    : pathname;
 
   // Check redirects first
-  const redirectTo = redirectMap.get(pathname);
+  const redirectTo = redirectMap.get(fullPath);
   if (redirectTo) {
     const url = request.nextUrl.clone();
-    url.pathname = redirectTo;
-    const response = NextResponse.redirect(url, { status: 301 });
+
+    // Handle the redirect URL properly by parsing it
+    if (redirectTo.includes('?')) {
+      const [newPathname, newSearch] = redirectTo.split('?');
+      url.pathname = newPathname;
+      url.search = `?${newSearch}`;
+    } else {
+      url.pathname = redirectTo;
+      url.search = '';
+    }
+
+    const response = NextResponse.redirect(url, { status: 308 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
@@ -99,20 +179,15 @@ export function middleware(request: NextRequest) {
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
   if (
-    pathname.startsWith('/stock') ||
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
     shouldBlockBrand ||
+    searchParams.has('type') ||
     (pathname.startsWith('/available-now/type/') && vehiclesWeArmorParam) ||
     (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
     hasChryslerMake
   ) {
-    // const url = request.nextUrl.clone();
-    // url.pathname = '/';
-    // url.search = '';
-    // const response = NextResponse.redirect(url, { status: 301 });
-
     const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
@@ -122,7 +197,7 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith('/stock')) {
     const url = request.nextUrl.clone();
     url.pathname = '/available-now';
-    const response = NextResponse.redirect(url, { status: 301 });
+    const response = NextResponse.redirect(url, { status: 308 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
@@ -135,7 +210,7 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.pathname = '/all-downloads';
-    const response = NextResponse.redirect(url, { status: 301 });
+    const response = NextResponse.redirect(url, { status: 308 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
@@ -145,7 +220,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/(stock|inventory|vehicles-we-armor|available-now|armored|blog|media)/:path*',
-    '/contact',
+    // '/(stock|inventory|vehicles-we-armor|available-now|armored|blog|media)/:path*',
+    // '/contact',
+    '/((?!_next/static|_next/image|favicon.ico|api|sitemap|robots|manifest|sw.js).*)',
   ],
 };

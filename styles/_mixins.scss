@@ -1,3 +1,7 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+
 $breakpoints: (
   'small': (
     max-width: 767.98px,
@@ -21,9 +25,9 @@ $breakpoints: (
 
 @mixin breakpoint($breakpoint) {
   // If the key exists in the map
-  @if map-has-key($breakpoints, $breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
     // Prints a media query based on the value
-    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+    @media #{meta.inspect(map.get($breakpoints, $breakpoint))} {
       @content;
     }
   }
@@ -31,15 +35,19 @@ $breakpoints: (
   // If the key doesn't exist in the map
   @else {
     @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+        + "Available breakpoints are: #{map.keys($breakpoints)}.";
   }
+}
+
+@function strip-units($number) {
+  @return math.div($number, ($number * 0 + 1));
 }
 
 // Calculate from px to rem
 @function rem($pxval) {
-  @if not unitless($pxval) {
+  @if not math.is-unitless($pxval) {
     $pxval: strip-units($pxval);
   }
 
-  @return ($pxval / 16) * 1rem;
+  @return calc($pxval / 16) * 1rem;
 }

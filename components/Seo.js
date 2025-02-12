@@ -1,10 +1,22 @@
 import { React } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+// import { useEffect } from 'react';
 
 const Seo = ({ props }) => {
   const router = useRouter();
   const baseUrl = 'https://www.alpineco.com';
+
+  // useEffect(() => {
+  //   return () => {
+  //     const metaTags = document.querySelectorAll('meta[name="description"]');
+  //     if (metaTags.length > 1) {
+  //       Array.from(metaTags)
+  //         .slice(1)
+  //         .forEach((tag) => tag.remove());
+  //     }
+  //   };
+  // });
 
   // Default values
   const metaTitle = props?.metaTitle || 'Alpine Armoring';
@@ -41,7 +53,7 @@ const Seo = ({ props }) => {
   return (
     <Head>
       <title>{metaTitle}</title>
-      <meta name="description" content={metaDescription} />
+      <meta name="description" content={metaDescription} key="description" />
 
       {/* Open Graph / Facebook */}
       <meta

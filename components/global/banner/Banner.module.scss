@@ -21,6 +21,26 @@
     }
   }
 
+  &_heading {
+    position: relative;
+    z-index: 1;
+    font-weight: var(--font-medium);
+
+    @include breakpoint(medium) {
+      margin-bottom: 3rem;
+    }
+    @include breakpoint(large) {
+      margin-top: -40px;
+    }
+
+    &_margin {
+      @include breakpoint(medium) {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
   &_inner {
     position: relative;
     display: flex;
@@ -212,26 +232,6 @@
     }
     &:after {
       box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
-    }
-  }
-
-  &_heading {
-    position: relative;
-    z-index: 1;
-    font-weight: var(--font-regular);
-
-    @include breakpoint(medium) {
-      margin-bottom: 3rem;
-    }
-    @include breakpoint(large) {
-      margin-top: -40px;
-    }
-
-    &_margin {
-      @include breakpoint(medium) {
-        margin-top: 0;
-        margin-bottom: 0;
-      }
     }
   }
 }

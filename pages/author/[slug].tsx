@@ -4,13 +4,36 @@ import BlogList from 'components/global/news/News';
 import styles from '../news/News.module.scss';
 import Link from 'next/link';
 import LinkedinIcon from 'components/icons/Linkedin';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 function BlogSingle(props) {
-  const convertMarkdown = useMarkdownToHtml();
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  const posts = data?.blogs?.data;
+
+  const news =
+    data?.blogs?.data?.map((item) => ({
+      ...item,
+      category: 'news',
+    })) || [];
+
+  const blogs =
+    data?.blog_evergreens?.data?.map((item) => ({
+      ...item,
+      category: 'blog',
+    })) || [];
+
+  let posts = news.concat(blogs);
+
+  posts = posts.sort((a, b) => {
+    const dateA = new Date(
+      a.attributes.date || a.attributes.publishedAt
+    ).getTime();
+    const dateB = new Date(
+      b.attributes.date || b.attributes.publishedAt
+    ).getTime();
+
+    return dateB - dateA;
+  });
 
   // Animations
   useEffect(() => {
@@ -51,23 +74,17 @@ function BlogSingle(props) {
           </Link>
         ) : null}
         {data.description ? (
-          <p
+          <CustomMarkdown
             className={`${styles.news_authorHeading_description} static`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(data.description),
-            }}
-          ></p>
+          >
+            {data.description}
+          </CustomMarkdown>
         ) : null}
       </div>
 
       {posts ? (
         <div className={`${styles.news}`}>
-          <BlogList
-            featured
-            props={posts}
-            // subtitle="Latest News"
-            // title="Armoring World"
-          />
+          <BlogList featured props={posts} />
         </div>
       ) : null}
     </>

@@ -7,7 +7,7 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 
 import Gallery from 'components/global/carousel/CarouselCurved';
 
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 import dynamic from 'next/dynamic';
 const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
@@ -22,8 +22,6 @@ function Shipping(props) {
   const licenseImage = props?.pageData?.licenseImage;
   const licensePDF1 = props?.pageData?.licensePDF1?.data?.attributes;
   const licensePDF2 = props?.pageData?.licensePDF2?.data?.attributes;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   const tabSliderData = [
     {
@@ -104,11 +102,7 @@ function Shipping(props) {
           <div
             className={`${styles.shipping_heading} observe fade-in container_small`}
           >
-            <p
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(heading),
-              }}
-            ></p>
+            <CustomMarkdown>{heading}</CustomMarkdown>
           </div>
         ) : null}
 
@@ -125,21 +119,17 @@ function Shipping(props) {
 
               <div className={`${styles.shipping_box_item_content}`}>
                 {item.title ? (
-                  <h2
-                    className={`${styles.shipping_box_item_title}`}
-                    dangerouslySetInnerHTML={{
-                      __html: convertMarkdown(item.title),
-                    }}
-                  ></h2>
+                  <h2 className={`${styles.shipping_box_item_title}`}>
+                    {item.title}
+                  </h2>
                 ) : null}
 
                 {item.description ? (
-                  <div
+                  <CustomMarkdown
                     className={`${styles.shipping_box_item_text}`}
-                    dangerouslySetInnerHTML={{
-                      __html: convertMarkdown(item.description),
-                    }}
-                  ></div>
+                  >
+                    {item.description}
+                  </CustomMarkdown>
                 ) : null}
               </div>
 
@@ -162,10 +152,9 @@ function Shipping(props) {
             </h2>
 
             {license ? (
-              <div
-                className={`${styles.shipping_license_text}`}
-                dangerouslySetInnerHTML={{ __html: convertMarkdown(license) }}
-              ></div>
+              <CustomMarkdown className={`${styles.shipping_license_text}`}>
+                {license}
+              </CustomMarkdown>
             ) : null}
           </div>
 

@@ -1,12 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import CustomMarkdown from 'components/CustomMarkdown';
 
-const PopupComponent = ({
-  showPopup,
-  setShowPopup,
-  selectedItem,
-  convertMarkdown,
-}) => {
+const PopupComponent = ({ showPopup, setShowPopup, selectedItem }) => {
   const popupRef = useRef(null);
   const innerRef = useRef(null);
 
@@ -33,12 +29,9 @@ const PopupComponent = ({
       <div ref={innerRef} className={`modal_inner`}>
         <h3 className={`modal_title`}>{selectedItem.title}</h3>
         <div className={`modal_box`}>
-          <p
-            className={`modal_description`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(selectedItem.description),
-            }}
-          ></p>
+          <CustomMarkdown className={`modal_description`}>
+            {selectedItem.description}
+          </CustomMarkdown>
           {selectedItem?.image?.data ? (
             <Image
               src={

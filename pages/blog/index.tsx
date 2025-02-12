@@ -44,6 +44,7 @@ function Blog(props) {
           <BlogList
             featured
             props={posts}
+            type="blog"
             // subtitle="Latest News"
             // title="Armoring World"
           />
@@ -61,14 +62,13 @@ export async function getStaticProps() {
   pageData = pageData?.data?.attributes || null;
 
   let posts = await getPageData({
-    route: 'blogs',
+    route: 'blog-evergreens',
     populate: 'deep',
     sort: 'date',
     sortType: 'desc',
-    // sort: 'order',
     pageSize: 200,
   });
-  posts = posts?.data?.filter((post) => post.attributes.evergreen) || null;
+  posts = posts?.data || null;
 
   const seoData = pageData?.seo || null;
 

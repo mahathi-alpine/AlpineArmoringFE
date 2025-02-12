@@ -1,12 +1,14 @@
 import styles from './Contact.module.scss';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
+import getLocale from 'hooks/getLocale';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
 import Image from 'next/image';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 import useLightbox from 'components/global/lightbox/useLightbox';
 import NextJsImage from 'components/global/lightbox/NextJsImage';
@@ -24,9 +26,11 @@ function Contact(props) {
     selectedIndex?: number;
   };
 
-  const faqs = props?.pageData?.fa_qs;
+  const router = useRouter();
+  const { locale } = router;
+  const lang = getLocale(locale);
 
-  const convertMarkdown = useMarkdownToHtml();
+  const faqs = props?.pageData?.fa_qs;
 
   // Animations
   useEffect(() => {
@@ -100,26 +104,22 @@ function Contact(props) {
             <div className={`${styles.contact_main_right_boxes}`}>
               <div className={`${styles.contact_main_right_column}`}>
                 <h3 className={`${styles.contact_main_right_title}`}>
-                  Sales Inquiries
+                  {lang.salesInquiries}
                 </h3>
                 {props.pageData?.salesInfo ? (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: convertMarkdown(props.pageData.salesInfo),
-                    }}
-                  ></div>
+                  <CustomMarkdown>{props.pageData.salesInfo}</CustomMarkdown>
                 ) : null}
               </div>
               <div className={`${styles.contact_main_right_column}`}>
                 <h3 className={`${styles.contact_main_right_title}`}>
-                  Parts, Service &<br /> Warranty
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: lang.partsServiceWarranty,
+                    }}
+                  />
                 </h3>
                 {props.pageData?.partsInfo ? (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: convertMarkdown(props.pageData.partsInfo),
-                    }}
-                  ></div>
+                  <CustomMarkdown>{props.pageData.partsInfo}</CustomMarkdown>
                 ) : null}
               </div>
             </div>

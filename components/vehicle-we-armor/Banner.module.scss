@@ -110,15 +110,16 @@
     justify-content: center;
     // row-gap: 10px;
 
-    & > a:nth-child(2) {
-      margin-top: 8px;
-    }
+    // & > a:nth-child(2) {
+    //   margin-top: 8px;
+    // }
 
     @include breakpoint(medium) {
       position: static;
       flex-flow: row;
 
-      & > a:nth-child(2) {
+      & > a:nth-child(2),
+      & > button:nth-child(2) {
         margin-top: 0;
         margin-left: 16px;
       }

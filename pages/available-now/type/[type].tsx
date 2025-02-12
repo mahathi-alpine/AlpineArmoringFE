@@ -10,7 +10,7 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import Button from 'components/global/button/Button';
 import Accordion from 'components/global/accordion/Accordion';
 
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 function Inventory(props) {
   console.log(props.query);
@@ -20,8 +20,6 @@ function Inventory(props) {
   const topBanner = currentCategory?.attributes.inventoryBanner;
   const bottomText = currentCategory?.attributes.bottomTextInventory;
   const faqs = currentCategory?.attributes.faqs_stock;
-
-  const convertMarkdown = useMarkdownToHtml();
 
   // const findTitleBySlug = (filters, targetSlug) => {
   //   if (!filters || !Array.isArray(filters.type)) {
@@ -110,6 +108,35 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
+  // FAQ structured data
+  const getFAQStructuredData = () => {
+    if (!faqs || !Array.isArray(faqs)) {
+      console.error('FAQs is not an array:', faqs);
+      return null;
+    }
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq, index) => {
+        const title =
+          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
+        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+
+        return {
+          '@type': 'Question',
+          name: title,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: text,
+          },
+        };
+      }),
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
       <Head>
@@ -118,6 +145,13 @@ function Inventory(props) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
+        {faqs?.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
+            key="faq-jsonld"
+          />
+        )}
       </Head>
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
@@ -173,12 +207,9 @@ function Inventory(props) {
 
         {bottomText ? (
           <div className={`container_small`}>
-            <p
-              className={`${styles.listing_bottomText}`}
-              dangerouslySetInnerHTML={{
-                __html: convertMarkdown(bottomText),
-              }}
-            ></p>
+            <CustomMarkdown className={`${styles.listing_bottomText}`}>
+              {bottomText}
+            </CustomMarkdown>
           </div>
         ) : null}
 

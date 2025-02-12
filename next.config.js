@@ -1,20 +1,34 @@
-const fetchRedirects = require('./redirects');
+// const fetchRedirects = require('./redirects');
 
 module.exports = {
+  reactStrictMode: true,
+  // outputStrictMode: true,
   // eslint: {
   //   ignoreDuringBuilds: true,
   // },
-  async redirects() {
-    return await fetchRedirects();
-  },
+  // async redirects() {
+  //   return await fetchRedirects();
+  // },
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',
     localeDetection: false,
   },
+
   sassOptions: {
-    prependData: `@import './styles/_mixins.scss';`,
+    logger: {
+      warn: (message) => {
+        // Ignore specific deprecation warnings
+        if (message.includes('Deprecation') || message.includes('deprecat')) {
+          return;
+        }
+        // console.warn(message);
+      },
+    },
+    quietDeps: true, // Suppress dependency deprecation warnings
+    prependData: `@use './styles/_mixins.scss' as *;`,
   },
+
   images: {
     // unoptimized: true,
     deviceSizes: [384, 640, 750, 828, 1080, 1200, 1920, 2200],
@@ -51,7 +65,6 @@ module.exports = {
       },
     ],
   },
-  reactStrictMode: true,
   experimental: {
     largePageDataBytes: 800 * 1000,
   },

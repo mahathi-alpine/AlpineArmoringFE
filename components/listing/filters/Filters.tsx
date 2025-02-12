@@ -53,6 +53,26 @@ const Filters = ({ props, plain }: FiltersProps) => {
     });
   }, [router.query.type, props.make]);
 
+  const filterTypesByMake = useMemo(() => {
+    const currentMakeSlug = router.query.make as string;
+
+    if (!currentMakeSlug || !props.type) return props.type;
+
+    const selectedMake = props.make?.find(
+      (make) => make.attributes.slug === currentMakeSlug
+    );
+
+    const categorySlugs = selectedMake?.attributes.vehicles_we_armors?.data
+      .flatMap((vehicle) =>
+        vehicle.attributes.category?.data.map((cat) => cat.attributes?.slug)
+      )
+      .filter(Boolean);
+
+    return props.type.filter((type) =>
+      categorySlugs?.includes(type.attributes.slug)
+    );
+  }, [router.query.make, props.make, props.type]);
+
   useEffect(() => {
     if (router.isReady) {
       const q = Array.isArray(router.query.q)
@@ -349,8 +369,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                   )}
 
                   {filter === 'type'
-                    ? sortFilterItems(props[filter]).map((item) => {
-                        // Existing exclusion logic
+                    ? sortFilterItems(filterTypesByMake).map((item) => {
                         if (
                           (baseUrl == '/vehicles-we-armor' &&
                             (item.attributes.title == 'Armored Rental' ||
@@ -369,24 +388,40 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           router.asPath.split('?')[1] || ''
                         );
 
-                        return (
+                        // Conditional rendering based on inventory vehicles
+                        return item.attributes.inventory_vehicles?.data.length <
+                          1 ? (
+                          <span
+                            className={`
+            ${styles.checkbox_link} 
+            ${styles.checkbox_link_disabled}
+            ${
+              item.attributes.slug ===
+              currentSlug.split('/').pop().split('?')[0]
+                ? styles.selected_filter
+                : ''
+            }
+          `}
+                            key={item.id}
+                          >
+                            <span className={`${styles.checkbox_span}`}>
+                              {baseUrl == '/vehicles-we-armor'
+                                ? item.attributes.title.replace('Armored', '')
+                                : item.attributes.title}
+                            </span>
+                          </span>
+                        ) : (
                           <Link
                             href={newUrl}
                             className={`
-                              ${styles.checkbox_link} 
-                              ${
-                                item.attributes.inventory_vehicles?.data
-                                  .length < 1
-                                  ? styles.checkbox_link_disabled
-                                  : ''
-                              }
-                              ${
-                                item.attributes.slug ===
-                                currentSlug.split('/').pop().split('?')[0]
-                                  ? styles.selected_filter
-                                  : ''
-                              }
-                            `}
+            ${styles.checkbox_link}
+            ${
+              item.attributes.slug ===
+              currentSlug.split('/').pop().split('?')[0]
+                ? styles.selected_filter
+                : ''
+            }
+          `}
                             onClick={openFilters}
                             key={item.id}
                           >

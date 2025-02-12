@@ -8,16 +8,23 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback } from 'react';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 function VehicleWeArmor(props) {
   const router = useRouter();
   const topBanner = props.pageData?.banner;
   const bottomText = props.pageData?.bottomText;
-  const faqs = props.pageData?.faqs;
 
-  const convertMarkdown = useMarkdownToHtml();
+  const faqs = router.query.make
+    ? props.filters.make.find(
+        (item) => item.attributes.slug === router.query.make
+      )?.attributes.faqs?.length
+      ? props.filters.make.find(
+          (item) => item.attributes.slug === router.query.make
+        )?.attributes.faqs
+      : props.pageData?.faqs
+    : props.pageData?.faqs;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(12);
@@ -147,6 +154,35 @@ function VehicleWeArmor(props) {
     return JSON.stringify(structuredData);
   };
 
+  // FAQ structured data
+  const getFAQStructuredData = () => {
+    if (!faqs || !Array.isArray(faqs)) {
+      console.error('FAQs is not an array:', faqs);
+      return null;
+    }
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq, index) => {
+        const title =
+          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
+        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+
+        return {
+          '@type': 'Question',
+          name: title,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: text,
+          },
+        };
+      }),
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
       <Head>
@@ -155,6 +191,13 @@ function VehicleWeArmor(props) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
+        {faqs?.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
+            key="faq-jsonld"
+          />
+        )}
       </Head>
 
       <div className={`${styles.listing}`}>
@@ -195,12 +238,9 @@ function VehicleWeArmor(props) {
 
       {bottomText ? (
         <div className={`container_small`}>
-          <p
-            className={`${styles.listing_bottomText} darkColor`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(bottomText),
-            }}
-          ></p>
+          <CustomMarkdown className={`${styles.listing_bottomText} darkColor`}>
+            {bottomText}
+          </CustomMarkdown>
         </div>
       ) : null}
 
@@ -267,7 +307,6 @@ export async function getServerSideProps(context) {
         return slug.includes(searchTerms);
       }),
     };
-
     const [type, make] = await Promise.all([
       getPageData({
         route: 'categories',
@@ -279,6 +318,7 @@ export async function getServerSideProps(context) {
         sort: 'title',
         pageSize: 100,
         fields: 'fields[0]=title&fields[1]=slug',
+        populate: 'faqs, vehicles_we_armors.category',
       }).then((res) => res.data),
     ]);
 

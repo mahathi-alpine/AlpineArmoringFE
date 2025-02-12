@@ -10,7 +10,6 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 import Link from 'next/link';
-// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
@@ -19,12 +18,10 @@ import InquiryForm from 'components/global/form/InquiryForm';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 function InventoryVehicle(props) {
-  const convertMarkdown = useMarkdownToHtml();
-
   useEffect(() => {
     const setupObserver = () => {
       const targets = document.querySelectorAll('.observe');
@@ -605,31 +602,12 @@ function InventoryVehicle(props) {
         />
 
         {mainText ? (
-          <div
+          <CustomMarkdown
             className={`${styles.inventory_description} container_small`}
-            dangerouslySetInnerHTML={{ __html: convertMarkdown(mainText) }}
-          ></div>
+          >
+            {mainText}
+          </CustomMarkdown>
         ) : null}
-
-        {/* {data?.specifications?.data.length > 0 ? (
-          <div id="armoring-specs" className={`${styles.inventory_specs} anchor`}>
-            <StickyHorizontalSlider
-              slides={data.specifications.data}
-              title="Armoring Specifications"
-              inventory
-            />
-          </div>
-        ) : null} */}
-
-        {/* {data?.accessories?.data.length > 0 ? (
-          <div id="options-included" className={`anchor`}>
-            <StickyHorizontalSlider
-              slides={data.accessories.data}
-              title="Options Included"
-              inventory
-            />
-          </div>
-        ) : null} */}
 
         {videoWebm || videoMP4 ? (
           <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />

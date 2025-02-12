@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getPageData } from 'hooks/api';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
-import { useMarkdownToHtml } from 'hooks/useMarkdownToHtml';
+import CustomMarkdown from 'components/CustomMarkdown';
 import FillingText from 'components/global/filling-text/FillingText';
 import Autoplay from 'components/global/carousel/Autoplay';
 import Gallery from 'components/global/carousel/CarouselCurved';
@@ -24,7 +24,6 @@ function About(props) {
   const boxes = props?.pageData?.boxes;
   const certificate1 = props?.pageData?.certificate1?.data?.attributes;
   const certificate2 = props?.pageData?.certificate2?.data?.attributes;
-  const convertMarkdown = useMarkdownToHtml();
 
   // Animations
   useEffect(() => {
@@ -69,12 +68,11 @@ function About(props) {
         ) : null}
 
         {props.pageData?.text ? (
-          <div
+          <CustomMarkdown
             className={`${styles.about_text} observe fade-in container_small`}
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdown(props.pageData.text),
-            }}
-          ></div>
+          >
+            {props.pageData.text}
+          </CustomMarkdown>
         ) : null}
 
         {props.pageData?.timeline1?.filter(
@@ -130,12 +128,9 @@ function About(props) {
                 ) : null}
 
                 {item.description ? (
-                  <p
-                    className={`${styles.about_box_item_text}`}
-                    dangerouslySetInnerHTML={{
-                      __html: convertMarkdown(item.description),
-                    }}
-                  ></p>
+                  <CustomMarkdown className={`${styles.about_box_item_text}`}>
+                    {item.description}
+                  </CustomMarkdown>
                 ) : null}
 
                 {item.title === 'Our Certifications' && (

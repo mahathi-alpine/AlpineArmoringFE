@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
     '/ballistic-testing',
   ];
   const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
-  const pathsPadding0 = ['/news/', '/ballistic-testing'];
+  const pathsPadding0 = ['/news/', '/blog', '/ballistic-testing'];
   const footerPadding0 = ['/available-now'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
@@ -218,6 +218,17 @@ const Layout = ({ children }) => {
         {children}
 
         <ScrollToTopButton />
+
+        <a
+          href="https://wa.me/message/ZKTQXXVR7PGQL1"
+          className="WABusiness"
+          target="_blank"
+          rel="nofollow"
+          aria-label="WhatsApp Chat Button"
+        >
+          <div className="WABusiness_icon"></div>
+          <span className="WABusiness_text">Chat with Us</span>
+        </a>
 
         <Footer isDarkMode={isDarkFooter} isFooterPadding0={isFooterPadding0} />
       </div>
