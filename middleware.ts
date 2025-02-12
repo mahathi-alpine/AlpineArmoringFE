@@ -134,6 +134,13 @@ const isUrlBlocked = (
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
+  const locale = request.nextUrl.locale || '';
+
+  if (locale === 'es') {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
 
   // Create a key that includes both pathname and query string for matching
   const fullPath = searchParams.toString()

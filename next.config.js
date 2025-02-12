@@ -22,7 +22,7 @@ module.exports = {
         if (message.includes('Deprecation') || message.includes('deprecat')) {
           return;
         }
-        console.warn(message);
+        // console.warn(message);
       },
     },
     quietDeps: true, // Suppress dependency deprecation warnings

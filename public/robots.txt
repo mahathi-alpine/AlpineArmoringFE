@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /es/
 Disallow: /stock/
 Disallow: /inventory/
 Disallow: /vehicles-we-armor/inventory/
