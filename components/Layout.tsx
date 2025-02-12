@@ -171,6 +171,24 @@ const Layout = ({ children }) => {
         )}
       </Head>
 
+      {/* Google Ads */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-1066421391"
+        strategy="afterInteractive"
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-1066421391');
+          `,
+        }}
+      />
+
       {/* Google Tag Manager */}
       <Script
         id="gtm"
@@ -219,7 +237,7 @@ const Layout = ({ children }) => {
 
         <ScrollToTopButton />
 
-        <a
+        {/* <a
           href="https://wa.me/message/ZKTQXXVR7PGQL1"
           className="WABusiness"
           target="_blank"
@@ -228,7 +246,7 @@ const Layout = ({ children }) => {
         >
           <div className="WABusiness_icon"></div>
           <span className="WABusiness_text">Chat with Us</span>
-        </a>
+        </a> */}
 
         <Footer isDarkMode={isDarkFooter} isFooterPadding0={isFooterPadding0} />
       </div>
