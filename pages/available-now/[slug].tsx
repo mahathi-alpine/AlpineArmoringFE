@@ -10,7 +10,6 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 import Link from 'next/link';
-// import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
@@ -609,26 +608,6 @@ function InventoryVehicle(props) {
             {mainText}
           </CustomMarkdown>
         ) : null}
-
-        {/* {data?.specifications?.data.length > 0 ? (
-          <div id="armoring-specs" className={`${styles.inventory_specs} anchor`}>
-            <StickyHorizontalSlider
-              slides={data.specifications.data}
-              title="Armoring Specifications"
-              inventory
-            />
-          </div>
-        ) : null} */}
-
-        {/* {data?.accessories?.data.length > 0 ? (
-          <div id="options-included" className={`anchor`}>
-            <StickyHorizontalSlider
-              slides={data.accessories.data}
-              title="Options Included"
-              inventory
-            />
-          </div>
-        ) : null} */}
 
         {videoWebm || videoMP4 ? (
           <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />

@@ -293,9 +293,12 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
+  const { locale = 'en' } = context;
+
   try {
     let pageData = await getPageData({
       route: 'list-inventory',
+      locale,
     });
     pageData = pageData.data?.attributes || null;
 
@@ -354,6 +357,7 @@ export async function getServerSideProps(context) {
         filters,
         seoData,
         searchQuery,
+        locale,
       },
     };
   } catch (error) {
