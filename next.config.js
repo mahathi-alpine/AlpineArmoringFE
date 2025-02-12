@@ -15,6 +15,19 @@ module.exports = {
     localeDetection: false,
   },
 
+  async rewrites() {
+    return [
+      {
+        source: '/sobre-nosotros',
+        destination: '/about-us',
+      },
+      {
+        source: '/available-now',
+        destination: '/disponible-ahora',
+      },
+    ];
+  },
+
   sassOptions: {
     logger: {
       warn: (message) => {

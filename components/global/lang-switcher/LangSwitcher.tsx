@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import styles from './LangSwitcher.module.scss';
+import { routeTranslations } from 'hooks/routes';
 
-export const LanguageSwitcher = (className) => {
+export const LanguageSwitcher = ({ className }: { className?: string }) => {
   const router = useRouter();
-  const { pathname, query } = router;
+  const { pathname, query, asPath } = router;
 
   const languages = router.locales.map((locale) => ({
     code: locale,
@@ -52,22 +53,36 @@ export const LanguageSwitcher = (className) => {
   }
 
   const switchLanguage = async (langCode) => {
-    if (!query.slug) {
-      router.push(pathname, pathname, { locale: langCode });
-      return;
+    if (query.slug) {
+      const slugMappings = await getLocalizedSlugs();
+      const localizedSlug = slugMappings[query.slug as string] || query.slug;
+
+      router.push(
+        {
+          pathname,
+          query: { ...query, slug: localizedSlug },
+        },
+        undefined,
+        { locale: langCode }
+      );
+    } else {
+      const currentRoute = Object.entries(routeTranslations).find(
+        ([, paths]) => {
+          const pathToCheck = asPath.replace(/^\/[a-z]{2}\//, '/');
+          const matches = Object.values(paths).some(
+            (path) => pathToCheck === path
+          );
+          return matches;
+        }
+      );
+
+      if (currentRoute) {
+        const translatedPath = routeTranslations[currentRoute[0]][langCode];
+        await router.push(translatedPath, undefined, { locale: langCode });
+      } else {
+        await router.push(pathname, undefined, { locale: langCode });
+      }
     }
-
-    const slugMappings: SlugMappings = await getLocalizedSlugs();
-    const localizedSlug = slugMappings[query.slug as string] || query.slug;
-
-    router.push(
-      {
-        pathname,
-        query: { ...query, slug: localizedSlug },
-      },
-      undefined,
-      { locale: langCode }
-    );
   };
 
   return (
