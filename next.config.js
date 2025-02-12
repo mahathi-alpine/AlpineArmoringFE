@@ -22,8 +22,8 @@ module.exports = {
         destination: '/about-us',
       },
       {
-        source: '/available-now',
-        destination: '/disponible-ahora',
+        source: '/disponible-ahora',
+        destination: '/available-now',
       },
     ];
   },

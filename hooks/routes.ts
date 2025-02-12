@@ -9,6 +9,10 @@ export const routeTranslations: RouteTranslations = {
     en: '/about-us',
     es: '/sobre-nosotros',
   },
+  contact: {
+    en: '/contact',
+    es: '/contactos',
+  },
   'available-now': {
     en: '/available-now',
     es: '/disponible-ahora',

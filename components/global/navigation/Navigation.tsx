@@ -1,14 +1,17 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import getLocale from 'hooks/getLocale';
 import styles from './Navigation.module.scss';
 import { NavigationProps } from 'types';
 
 const Navigation = ({ isNavOpen }: NavigationProps) => {
   const router = useRouter();
+  const { locale } = router;
+  const lang = getLocale(locale);
 
   const links = [
-    { path: '/available-now', text: 'Available Now' },
+    { path: lang.availableNowURL, text: lang.availableNowTitle },
     {
       text: 'Vehicles We Armor',
       submenu: [
