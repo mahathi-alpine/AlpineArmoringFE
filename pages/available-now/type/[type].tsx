@@ -166,7 +166,7 @@ function Inventory(props) {
         {currentPath.includes('armored-rental') ? (
           <div className={`${styles.listing_rentalsCTA}`}>
             <Button
-              href="https://www.armoredautos.com/armored-rentals"
+              href="https://www.armoredautos.com/armored-rentals?ref=mainWebsite"
               target
               className={`primary rounded`}
               attention
