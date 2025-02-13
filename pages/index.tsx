@@ -13,7 +13,7 @@ const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
 );
 
-function Home({ homepageData, categories, allBlogs }) {
+function Home({ homepageData, categories }) {
   const data = homepageData.data?.attributes;
 
   const getOrganizationStructuredData = () => {
@@ -54,8 +54,20 @@ function Home({ homepageData, categories, allBlogs }) {
   const tabSectionData = data?.tabSection;
   const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
   const ballistingTestings = data?.ballistingTestingsMedia;
-  // const news = data?.blogs?.data;
   const partners = data?.industryPartners;
+  const news =
+    data?.news?.data?.map((item) => ({
+      ...item,
+      category: 'news',
+    })) || [];
+
+  const blogs =
+    data?.blog_evergreens?.data?.map((item) => ({
+      ...item,
+      category: 'blog',
+    })) || [];
+
+  const posts = blogs.concat(news);
 
   // Animations
   useEffect(() => {
@@ -121,9 +133,9 @@ function Home({ homepageData, categories, allBlogs }) {
         <div className="shape-after shape-after-white"></div>
       </div>
 
-      {allBlogs ? (
+      {posts.length ? (
         <News
-          props={allBlogs}
+          props={posts}
           button
           limit="3"
           subtitle="Latest News"
@@ -152,48 +164,10 @@ export async function getStaticProps({ locale = 'en' }) {
     locale,
   });
 
-  const news = await getPageData({
-    route: 'blogs',
-    sort: 'publishedAt',
-    sortType: 'desc',
-    populate: '*',
-    pageSize: 3,
-    locale,
-  });
-
-  const blogs = await getPageData({
-    route: 'blog-evergreens',
-    sort: 'publishedAt',
-    sortType: 'desc',
-    populate: '*',
-    pageSize: 3,
-    locale,
-  });
-
-  const processedNews =
-    news?.data?.map((blog) => ({
-      ...blog,
-      category: 'news',
-    })) || [];
-
-  const processedEvergreenBlogs =
-    blogs?.data?.map((blog) => ({
-      ...blog,
-      category: 'blog',
-    })) || [];
-
-  const allBlogs = [...processedNews, ...processedEvergreenBlogs]
-    .sort((a, b) => {
-      const dateA = new Date(a.attributes.publishedAt);
-      const dateB = new Date(b.attributes.publishedAt);
-      return dateB.getTime() - dateA.getTime();
-    })
-    .slice(0, 3);
-
   const seoData = homepageData.data?.attributes.seo || null;
 
   return {
-    props: { homepageData, categories, allBlogs, seoData, locale },
+    props: { homepageData, categories, seoData, locale },
   };
 }
 
