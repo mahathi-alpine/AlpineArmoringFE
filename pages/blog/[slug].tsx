@@ -33,7 +33,7 @@ const calculateReadTime = () => {
 function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  const categories = data?.categories?.data;
+  // const categories = data?.categories?.data;
   const date = new Date(data?.updatedAt);
   const dynamicZone = data?.blogDynamic;
   const faqsTitle = data?.faqsTitle;
@@ -166,13 +166,13 @@ function BlogSingle(props) {
             <span className={`b-breadcrumbs_current`}>{data?.title}</span>
           </div>
 
-          <div className={`${styles.blogSingle_tags}`}>
+          {/* <div className={`${styles.blogSingle_tags}`}>
             {categories?.map((item, index) => (
               <div className={`${styles.blogSingle_tags_item}`} key={index}>
                 {item.attributes.name}
               </div>
             ))}
-          </div>
+          </div> */}
 
           <h1 className={`${styles.blogSingle_title}`}>{data?.title}</h1>
 

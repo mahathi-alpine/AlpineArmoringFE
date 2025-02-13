@@ -13,7 +13,7 @@ const VideosPopup = dynamic(
   () => import('components/global/videos-popup/VideosPopup')
 );
 
-function Home({ homepageData, categories }) {
+function Home({ homepageData, categories, allBlogs }) {
   const data = homepageData.data?.attributes;
 
   const getOrganizationStructuredData = () => {
@@ -54,7 +54,7 @@ function Home({ homepageData, categories }) {
   const tabSectionData = data?.tabSection;
   const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
   const ballistingTestings = data?.ballistingTestingsMedia;
-  const news = data?.blogs?.data;
+  // const news = data?.blogs?.data;
   const partners = data?.industryPartners;
 
   // Animations
@@ -121,9 +121,9 @@ function Home({ homepageData, categories }) {
         <div className="shape-after shape-after-white"></div>
       </div>
 
-      {news ? (
+      {allBlogs ? (
         <News
-          props={news}
+          props={allBlogs}
           button
           limit="3"
           subtitle="Latest News"
@@ -152,10 +152,48 @@ export async function getStaticProps({ locale = 'en' }) {
     locale,
   });
 
+  const news = await getPageData({
+    route: 'blogs',
+    sort: 'publishedAt',
+    sortType: 'desc',
+    populate: '*',
+    pageSize: 3,
+    locale,
+  });
+
+  const blogs = await getPageData({
+    route: 'blog-evergreens',
+    sort: 'publishedAt',
+    sortType: 'desc',
+    populate: '*',
+    pageSize: 3,
+    locale,
+  });
+
+  const processedNews =
+    news?.data?.map((blog) => ({
+      ...blog,
+      category: 'news',
+    })) || [];
+
+  const processedEvergreenBlogs =
+    blogs?.data?.map((blog) => ({
+      ...blog,
+      category: 'blog',
+    })) || [];
+
+  const allBlogs = [...processedNews, ...processedEvergreenBlogs]
+    .sort((a, b) => {
+      const dateA = new Date(a.attributes.publishedAt);
+      const dateB = new Date(b.attributes.publishedAt);
+      return dateB.getTime() - dateA.getTime();
+    })
+    .slice(0, 3);
+
   const seoData = homepageData.data?.attributes.seo || null;
 
   return {
-    props: { homepageData, categories, seoData, locale },
+    props: { homepageData, categories, allBlogs, seoData, locale },
   };
 }
 
