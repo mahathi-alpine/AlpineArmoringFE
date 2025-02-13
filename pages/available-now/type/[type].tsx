@@ -13,6 +13,7 @@ import Accordion from 'components/global/accordion/Accordion';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 function Inventory(props) {
+  console.log(props.query);
   const currentCategory = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
