@@ -1,9 +1,12 @@
 import styles from './Accordion.module.scss';
 import React, { useState } from 'react';
+import useLocale from 'hooks/useLocale';
 import Button from 'components/global/button/Button';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 const Accordion = ({ items, title = '', button = false }) => {
+  const { lang } = useLocale();
+
   const [activeIndex, setActiveIndex] = useState(null);
 
   const handleTitleClick = (index) => {
@@ -51,7 +54,7 @@ const Accordion = ({ items, title = '', button = false }) => {
       {button ? (
         <div className={`${styles.accordion_button} center`}>
           <Button href="/faqs" className={`primary rounded`}>
-            More FAQ
+            {lang.moreFAQ}
           </Button>
         </div>
       ) : null}

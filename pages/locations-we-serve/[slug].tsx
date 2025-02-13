@@ -1,7 +1,7 @@
 import { getPageData } from 'hooks/api';
-import styles from './ArticleSingle.module.scss';
-import Link from 'next/link';
-import ArrowIcon from 'components/icons/Arrow';
+import styles from './LocationsSingle.module.scss';
+// import Link from 'next/link';
+// import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
 import CustomMarkdown from 'components/CustomMarkdown';
 import dynamic from 'next/dynamic';
@@ -22,13 +22,13 @@ function ArticleSingle(props) {
   return (
     <div className={`${styles.articleSingle}`}>
       <div className={`${styles.articleSingle_inner} container_small`}>
-        <Link
+        {/* <Link
           href="/locations-we-serve"
           className={`${styles.articleSingle_back}`}
         >
           <ArrowIcon />
           All Articles
-        </Link>
+        </Link> */}
 
         <h1 className={`${styles.articleSingle_title}`}>{data?.title}</h1>
 

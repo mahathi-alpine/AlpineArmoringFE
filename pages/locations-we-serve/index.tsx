@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
-import ArticleList from 'components/global/article/Article';
-import styles from './Article.module.scss';
+import useLocale from 'hooks/useLocale';
+import LocationsList from 'components/global/locations/Locations';
+import CustomMarkdown from 'components/CustomMarkdown';
+import styles from './Locations.module.scss';
 
-function Article(props) {
+function Locations(props) {
   const posts = props?.posts;
+  const { lang } = useLocale();
 
   // Animations
   useEffect(() => {
@@ -35,18 +38,29 @@ function Article(props) {
 
   return (
     <>
-      {posts ? (
-        <div className={`${styles.article}`}>
-          <ArticleList featured props={posts} subtitle="Locations We Serve" />
+      <div className={`${styles.locations}`}>
+        <div className={`${styles.locations_inner} container_small`}>
+          <div className={`${styles.locations_heading}`}>
+            <h1 className={`${styles.locations_title} block-reveal observe`}>
+              {lang.locationsWeServe}
+            </h1>
+            {props.pageData?.defaultText ? (
+              <CustomMarkdown className={`${styles.locations_description}`}>
+                {props.pageData?.defaultText}
+              </CustomMarkdown>
+            ) : null}
+          </div>
+
+          {posts ? <LocationsList props={posts} /> : null}
         </div>
-      ) : null}
+      </div>
     </>
   );
 }
 
 export async function getStaticProps() {
   let pageData = await getPageData({
-    route: 'landing',
+    route: 'locations-we-serve-page',
     populate: 'deep',
   });
   pageData = pageData?.data?.attributes || null;
@@ -77,4 +91,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Article;
+export default Locations;

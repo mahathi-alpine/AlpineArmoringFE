@@ -1,0 +1,58 @@
+.locations {
+  position: relative;
+  overflow: hidden;
+  padding-top: rem(100);
+
+  @include breakpoint(large) {
+    padding-top: rem(150);
+    padding-bottom: rem(70);
+  }
+
+  &:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 100px;
+    background: var(--color-white);
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-white);
+    height: 100px;
+    left: -100px;
+    right: -100px;
+    border-radius: 50%/0 0 100% 100%;
+    z-index: -1;
+  }
+
+  &_inner {
+    position: relative;
+  }
+
+  &_heading{
+    margin-bottom: rem(32);
+
+    @include breakpoint(medium) {
+      margin-bottom: rem(48);
+    }
+  }
+
+  &_title {
+    margin-bottom: rem(16);
+    font-size: 2rem;
+    font-size: clamp(2rem, 1.3932rem + 2.589vw, 4.5rem);
+    font-weight: var(--font-light);
+    text-transform: uppercase;
+  }
+
+  &_description{
+    font-size: clamp(0.875rem, 0.7536rem + 0.5178vw, 1.375rem);
+  }
+}

@@ -1,9 +1,8 @@
 import styles from './Contact.module.scss';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
-import getLocale from 'hooks/getLocale';
+import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
@@ -26,9 +25,7 @@ function Contact(props) {
     selectedIndex?: number;
   };
 
-  const router = useRouter();
-  const { locale } = router;
-  const lang = getLocale(locale);
+  const { lang } = useLocale();
 
   const faqs = props?.pageData?.fa_qs;
 
@@ -171,17 +168,18 @@ function Contact(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
   let pageData = await getPageData({
     route: 'contact-page',
     populate: 'deep',
+    locale,
   });
   pageData = pageData.data?.attributes || null;
 
   const seoData = pageData?.seo ?? null;
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 

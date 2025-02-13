@@ -149,7 +149,7 @@ function Vehicle(props) {
   const getProductStructuredData = () => {
     return {
       '@context': 'https://schema.org/',
-      '@type': ['Product', 'Vehicle'],
+      '@type': ['Product'],
       name: data?.title?.replace('\n', ' '),
       image: data?.featuredImage?.data?.attributes?.url,
       description:

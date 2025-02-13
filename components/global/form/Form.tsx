@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getLocale from 'hooks/getLocale';
+import useLocale from 'hooks/useLocale';
 import styles from './Form.module.scss';
 import Button from 'components/global/button/Button';
 import Dropdown from 'components/global/form/Dropdown';
@@ -19,8 +19,7 @@ const Form = () => {
   const [message, setMessage] = useState('');
 
   const router = useRouter();
-  const { locale } = router;
-  const lang = getLocale(locale);
+  const { lang } = useLocale();
 
   useEffect(() => {
     if (router.asPath.includes('rental-vehicles')) {
