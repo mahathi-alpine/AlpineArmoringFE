@@ -146,6 +146,8 @@ function Vehicle(props) {
     title: data?.title,
     featuredImage: data?.featuredImage,
   };
+
+  // Product structured data
   const getProductStructuredData = () => {
     return {
       '@context': 'https://schema.org/',
@@ -185,6 +187,7 @@ function Vehicle(props) {
     };
   };
 
+  // Breadcrumb structured data
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -248,6 +251,24 @@ function Vehicle(props) {
     return JSON.stringify(structuredData);
   };
 
+  // Image structured data
+  const getImageStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'ImageObject',
+      contentUrl: data?.featuredImage?.data?.attributes?.url,
+      creditText:
+        data?.featuredImage?.data?.attributes?.alternativeText ||
+        data?.title?.replace('\n', ' '),
+      creator: {
+        '@type': 'Person',
+        name: 'Alpine Armoring',
+      },
+      copyrightNotice: 'Alpine Armoring',
+    };
+    return JSON.stringify(structuredData);
+  };
+
   if (!props.data) {
     console.error('Missing or malformed data structure');
     return null;
@@ -260,6 +281,11 @@ function Vehicle(props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getImageStructuredData() }}
+          key="image-jsonld"
         />
         {faqs?.length > 0 && (
           <script

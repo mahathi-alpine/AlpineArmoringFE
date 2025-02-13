@@ -54,6 +54,7 @@ const Seo = ({ props }) => {
     <Head>
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} key="description" />
+      <meta name="image" content={metaImgUrl} />
 
       {/* Open Graph / Facebook */}
       <meta

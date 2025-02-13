@@ -242,7 +242,7 @@ const Layout = ({ children }) => {
 
         <ScrollToTopButton />
 
-        {/* <a
+        <a
           href="https://wa.me/message/ZKTQXXVR7PGQL1"
           className="WABusiness"
           target="_blank"
@@ -251,7 +251,7 @@ const Layout = ({ children }) => {
         >
           <div className="WABusiness_icon"></div>
           <span className="WABusiness_text">Chat with Us</span>
-        </a> */}
+        </a>
 
         <Footer isDarkMode={isDarkFooter} isFooterPadding0={isFooterPadding0} />
       </div>
