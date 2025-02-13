@@ -6,9 +6,9 @@
     padding-top: rem(100);
   }
 
-  &:before{
+  &:before {
     position: absolute;
-    content: "";
+    content: '';
     left: 0;
     right: 0;
     top: 0;
@@ -22,9 +22,9 @@
     }
   }
 
-  &:after{
+  &:after {
     position: absolute;
-    content: "";
+    content: '';
     left: 0;
     right: 0;
     top: 250px;
@@ -42,7 +42,7 @@
     }
   }
 
-  &_title{
+  &_title {
     position: relative;
     margin-bottom: 1rem;
     font-size: 1.5rem;
@@ -53,7 +53,7 @@
       margin-bottom: 2rem;
     }
   }
-  
+
   &_thumbnail {
     position: relative;
     border-radius: 8px;

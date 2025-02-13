@@ -1,5 +1,4 @@
 .locations {
-
   &_heading {
     margin-bottom: rem(20);
     font-size: rem(20);
@@ -11,12 +10,12 @@
     }
   }
 
-  &_category{
+  &_category {
     margin-bottom: rem(80);
   }
 
-  &_list{
-    @media (min-width: 500px){
+  &_list {
+    @media (min-width: 500px) {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -26,7 +25,7 @@
     }
   }
 
-  &_card{
+  &_card {
     display: flex;
     flex-direction: column;
     padding: rem(16);
@@ -35,13 +34,13 @@
     background-color: #fff;
     box-shadow: 0 4px 30px 0 #e8e5e2;
     cursor: pointer;
-    transition: box-shadow .3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
 
-    &:hover{
+    &:hover {
       box-shadow: 0 4px 30px 0 #afafae;
     }
 
-    @media (min-width: 500px){
+    @media (min-width: 500px) {
       width: calc(50% - 4px);
       margin-bottom: 0;
     }
@@ -52,17 +51,17 @@
       width: calc(25% - 16px);
     }
 
-    &_region{
+    &_region {
       font-size: rem(12);
       font-weight: var(--font-demi);
       text-transform: uppercase;
     }
 
-    &_flag{
+    &_flag {
       margin: rem(12) 0;
     }
 
-    &_country{
+    &_country {
       color: var(--color-dark);
       font-size: rem(18);
       font-weight: var(--font-demi);
