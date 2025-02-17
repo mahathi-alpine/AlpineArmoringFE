@@ -9,19 +9,25 @@ const ScrollToTopButton = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      // if the user scrolls down, show the button
-      window.scrollY > 500 ? setIsVisible(true) : setIsVisible(false);
+      if (window.scrollY > 500) {
+        setIsVisible(true);
+
+        if (document.querySelector('.WABusiness')) {
+          document.querySelector('.WABusiness').classList.add('scrolled');
+        }
+      } else {
+        setIsVisible(false);
+
+        document.querySelector('.WABusiness').classList.remove('scrolled');
+      }
     };
-    // listen for scroll events
     window.addEventListener('scroll', toggleVisibility);
 
-    // clear the listener on component unmount
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
 
-  // handles the animation when scrolling to the top
   const scrollToTop = () => {
     isVisible &&
       window.scrollTo({

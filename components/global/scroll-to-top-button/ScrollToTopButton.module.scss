@@ -15,7 +15,7 @@
 
   @include breakpoint(large) {
     bottom: rem(7);
-    right: rem(16);
+    right: rem(14);
   }
   @media (min-width: 1380px) {
     bottom: rem(40);
