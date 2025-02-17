@@ -55,4 +55,7 @@ export default {
   formSent: '¡Enviado!',
   error: 'Error',
   partsServiceWarranty: 'Piezas, Servicio y<br />Garantía',
+
+  availableNowURL: '/available-now',
+  aboutURL: 'about-us',
 };
