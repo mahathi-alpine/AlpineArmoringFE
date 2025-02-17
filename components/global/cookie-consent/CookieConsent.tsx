@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import styles from './CookieConsent.module.scss';
 import Script from 'next/script';
+import useLocale from 'hooks/useLocale';
 
 // Extend Window interface to include gtag and dataLayer
 declare global {
@@ -17,6 +18,7 @@ type ConsentType = 'undecided' | 'accepted' | 'rejected';
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [consent, setConsent] = useState<ConsentType>('undecided');
+  const { lang } = useLocale();
 
   useEffect(() => {
     // Check for existing consent
@@ -106,13 +108,11 @@ const CookieConsent = () => {
         <div className={styles.CookieConsent_container}>
           <div className={styles.CookieConsent_popup}>
             <div className={styles.CookieConsent_header}>
-              <h2>We value your privacy</h2>
+              <h2>{lang.cookieTitle}</h2>
             </div>
 
             <p className={styles.CookieConsent_description}>
-              We use cookies to enhance your browsing experience, serve
-              personalized ads or content, and analyze our traffic. By clicking
-              &quot;Accept All&quot;, you consent to our use of cookies.
+              {lang.cookieText}
             </p>
 
             <div className={styles.CookieConsent_buttonContainer}>
@@ -120,14 +120,14 @@ const CookieConsent = () => {
                 onClick={() => handleConsent('accepted')}
                 className={`${styles.CookieConsent_button} ${styles.acceptButton}`}
               >
-                Accept All
+                {lang.acceptAll}
               </button>
 
               <button
                 onClick={() => handleConsent('rejected')}
                 className={`${styles.CookieConsent_button} ${styles.rejectButton}`}
               >
-                Reject All
+                {lang.rejectAll}
               </button>
             </div>
           </div>

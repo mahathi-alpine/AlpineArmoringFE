@@ -3,6 +3,7 @@ import { BannerProps } from 'types';
 import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import useLocale from 'hooks/useLocale';
 
 const TopBanner = ({ props, shape, small }: BannerProps) => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   const bannerSubitle = props.subtitle;
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoMP4 = props.mediaMP4?.data;
+  const { lang } = useLocale();
 
   // Special uppercase cases
   const specialUppercaseCases = ['bmw', 'cuda', 'gmc', 'mastiff', 'pointer'];
@@ -176,9 +178,9 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
                         ? `${bannerTitle}<strong>
                           ${formatMake(router.query.make.toString())}</strong>`
                         : router.query.make
-                          ? `Armored
+                          ? `${lang.armored}
                           ${formatMake(router.query.make.toString())}
-                        for preorder`
+                        ${lang.forPreorder}`
                           : bannerTitle,
                   }}
                 ></h1>

@@ -2,6 +2,7 @@ import styles from './Autoplay.module.scss';
 import Image from 'next/image';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
+import useLocale from 'hooks/useLocale';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import {
@@ -45,6 +46,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
   };
 
   const isMobile = useIsMobile();
+  const { lang } = useLocale();
 
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
 
@@ -192,7 +194,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
                   <div>
                     <Image
                       src="/assets/alpine-shield.png"
-                      alt={'Alpine Shield'}
+                      alt={lang.alpineShield}
                       fill
                       className={styles.carouselCurved_shield}
                     />

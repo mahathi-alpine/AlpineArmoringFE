@@ -13,12 +13,15 @@ import MailIcon from 'components/icons/Mail';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 
 const Footer = (props) => {
   const router = useRouter();
   const currentRoute = router.pathname;
+  const { lang } = useLocale();
+
   const links = [
-    { path: '/about-us', text: 'About Alpine Armoring' },
+    { path: lang.aboutURL, text: lang.aboutTitle },
     { path: '/news', text: 'News On Armored Vehicles' },
     { path: '/ballistic-chart', text: 'Ballistic Chart' },
     { path: '/become-a-dealer', text: 'Become a Dealer' },
@@ -68,8 +71,7 @@ const Footer = (props) => {
             <div className={styles.footer_text}>
               <h2 className={styles.footer_top_heading}>Alpine Armoring</h2>
               <h3 className={styles.footer_top_subheading}>
-                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                "no one protects you better" ®
+                {`"${lang.noOneProtectsBetter}" ®`}
               </h3>
             </div>
             {(currentRoute === '/about-us' ||
