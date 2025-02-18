@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import styles from './News.module.scss';
 import React from 'react';
+import useLocale from 'hooks/useLocale';
 // import XIcon from 'components/icons/X';
 
 const Blog = ({
@@ -16,6 +17,8 @@ const Blog = ({
   customClass = '',
   type = '',
 }) => {
+  const { lang } = useLocale();
+
   return (
     <div
       className={`
@@ -139,7 +142,7 @@ const Blog = ({
                         href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}
                         className={`${styles.news_item_button} rounded border desktop-only`}
                       >
-                        Read More
+                        {lang.readMore}
                       </Button>
                     </div>
                   </div>
@@ -169,7 +172,7 @@ const Blog = ({
               href={`${type ? '/blog' : '/news'}`}
               className={`${styles.news_button_link} rounded primary`}
             >
-              See All News
+              {lang.seeAllNews}
             </Button>
           </div>
         ) : null}

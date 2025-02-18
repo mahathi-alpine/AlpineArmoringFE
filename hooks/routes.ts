@@ -9,4 +9,8 @@ export const routeTranslations: RouteTranslations = {
     en: '/about-us',
     es: '/sobre-nosotros',
   },
+  'available-now': {
+    en: '/available-now',
+    es: '/disponible-ahora',
+  },
 };

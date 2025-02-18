@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './SocialShare.module.scss';
+import useLocale from 'hooks/useLocale';
 
 import FacebookIcon from 'components/icons/Facebook';
 import XIcon from 'components/icons/X';
@@ -8,7 +9,9 @@ import EmailIcon from 'components/icons/Mail';
 import WhatsappIcon from 'components/icons/Whatsapp';
 
 const SocialShare = ({ title, url }) => {
-  const [copyStatus, setCopyStatus] = useState('Copy Link');
+  const { lang } = useLocale();
+
+  const [copyStatus, setCopyStatus] = useState(lang.shareCopyLink);
 
   const shareFacebook = () => {
     const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
@@ -24,12 +27,12 @@ const SocialShare = ({ title, url }) => {
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        setCopyStatus('Copied!');
-        setTimeout(() => setCopyStatus('Copy Link'), 2000);
+        setCopyStatus(lang.shareCopied);
+        setTimeout(() => setCopyStatus(lang.shareCopyLink), 2000);
       })
       .catch((err) => {
         console.error('Failed to copy: ', err);
-        setCopyStatus('Copy Failed');
+        setCopyStatus(lang.shareCopyFailed);
       });
   };
 
@@ -39,9 +42,11 @@ const SocialShare = ({ title, url }) => {
   };
 
   const shareEmail = () => {
-    const emailSubject = encodeURIComponent(`Check out this article: ${title}`);
+    const emailSubject = encodeURIComponent(
+      `${lang.shareEmailSubject} ${title}`
+    );
     const emailBody = encodeURIComponent(
-      `I thought you might find this interesting:\n\n${title}\n\nRead more: ${url}`
+      `${lang.shareEmailBody}\n\n${title}\n\n${lang.readMore}: ${url}`
     );
     const mailtoLink = `mailto:?subject=${emailSubject}&body=${emailBody}`;
     window.location.href = mailtoLink;

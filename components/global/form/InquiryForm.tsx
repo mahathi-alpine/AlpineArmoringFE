@@ -2,10 +2,13 @@ import styles from './InquiryForm.module.scss';
 import Image from 'next/image';
 import Form from 'components/global/form/Form';
 import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 
 const InquiryForm = (props) => {
   const router = useRouter();
+  const { lang } = useLocale();
   const currentPath = router.asPath;
+
   return (
     <div
       className={`${styles.inquiry_form_wrap} inquiryFormContainer observe`}
@@ -22,14 +25,15 @@ const InquiryForm = (props) => {
         <div className={`${styles.inquiry_form_inner} container_small`}>
           <div className={`${styles.inquiry_form_left}`}>
             <div className={`${styles.inquiry_form_heading}`}>
-              You are inquiring about
+              {lang.inquiringAbout}
+
               {/* {!props.plain ? ' this ready-to-ship' : null} */}
               {/* Render Filters conditionally based on path and filter type */}
               {!props.plain
                 ? !currentPath.includes('rental-vehicles')
-                  ? ' this ready-to-ship'
-                  : ' Rental of this'
-                : ' the'}
+                  ? ` ${lang.thisReadyToShip}`
+                  : ` ${lang.rentalOfThis}`
+                : ` ${lang.the}`}
               <p>
                 <strong
                   dangerouslySetInnerHTML={{
@@ -69,7 +73,7 @@ const InquiryForm = (props) => {
             <div className={`${styles.inquiry_form_heading}`}>
               {!props.plain ? (
                 <span>
-                  Vehicle ID: <strong>{props?.vehicleID}</strong>
+                  {lang.vehicleID}: <strong>{props?.vehicleID}</strong>
                 </span>
               ) : null}
             </div>

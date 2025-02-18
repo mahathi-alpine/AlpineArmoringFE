@@ -2,8 +2,11 @@ import React from 'react';
 import styles from './Categories.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
+import useLocale from 'hooks/useLocale';
 
 const Categories = ({ props, allVehiclesImage }) => {
+  const { lang } = useLocale();
+
   return (
     <div className={`${styles.categories} container`}>
       {props.map((item) => {
@@ -58,10 +61,10 @@ const Categories = ({ props, allVehiclesImage }) => {
                       className="primary shiny"
                     >
                       {data.slug === 'armored-rental'
-                        ? 'Ready to Rent'
+                        ? lang.readyToRent
                         : data.slug === 'special-of-the-month'
-                          ? 'CHECK OUT OUR LIMITED OFFER DEALS!'
-                          : 'Available Now / Ready-To-Ship'}
+                          ? lang.specialOfTheMonthButton
+                          : lang.categoriesMainButton}
                     </Button>
                   )}
 
@@ -72,7 +75,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                         href={`/vehicles-we-armor/type/${data.slug}`}
                         className="shiny"
                       >
-                        {data.title.replace('Armored ', '')} we armor
+                        {data.title.replace('Armored ', '')} {lang.weArmor}
                       </Button>
                     )}
                 </div>
@@ -106,17 +109,20 @@ const Categories = ({ props, allVehiclesImage }) => {
           ></div>
 
           <div className={`${styles.categories_item_content_inner}`}>
-            <h3 className={`${styles.categories_item_title}`}>
-              All &nbsp;Armored Vehicles
-            </h3>
+            <h3
+              className={`${styles.categories_item_title}`}
+              dangerouslySetInnerHTML={{
+                __html: lang.allArmoredVehicles,
+              }}
+            ></h3>
 
             <div className={`${styles.categories_item_buttons}`}>
-              <Button href={`/available-now`} className="primary shiny">
-                Available Now / Ready-To-Ship
+              <Button href={lang.availableNowURL} className="primary shiny">
+                {lang.categoriesMainButton}
               </Button>
 
-              <Button href={`/vehicles-we-armor`} className="shiny">
-                Vehicles we Armor
+              <Button href={lang.vehiclesWeArmorURL} className="shiny">
+                {lang.vehiclesWeArmor}
               </Button>
             </div>
           </div>

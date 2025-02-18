@@ -8,6 +8,7 @@ import styles from './Header.module.scss';
 import { HeaderProps } from 'types';
 import SearchIcon from 'components/icons/Search';
 import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 import { LanguageSwitcher } from 'components/global/lang-switcher/LangSwitcher';
 
 const Header = ({
@@ -20,6 +21,7 @@ const Header = ({
 }: HeaderProps) => {
   const [hState, sethState] = useState('-top');
   const router = useRouter();
+  const { lang } = useLocale();
 
   const handleSearchClick = useCallback(() => {
     openSearchPopup(!isSearchVisible);
@@ -113,10 +115,10 @@ const Header = ({
 
         <div className={`${styles.header_right}`}>
           <Button
-            href="/contact"
+            href={lang.contactURL}
             className={`${styles.header_contact} rounded shiny transparent uppercase desktop-only`}
           >
-            <span onClick={() => setNavOpen(false)}>Contact</span>
+            <span onClick={() => setNavOpen(false)}>{lang.contact}</span>
           </Button>
 
           <div

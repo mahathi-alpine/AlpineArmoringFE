@@ -22,39 +22,24 @@ const Footer = (props) => {
 
   const links = [
     { path: lang.aboutURL, text: lang.aboutTitle },
-    { path: '/news', text: 'News On Armored Vehicles' },
-    { path: '/ballistic-chart', text: 'Ballistic Chart' },
-    { path: '/become-a-dealer', text: 'Become a Dealer' },
-    { path: '/ballistic-testing', text: 'Ballistic Testing' },
-    { path: '/faqs', text: 'Frequently Asked Questions' },
-    { path: '/locations-we-serve', text: 'Locations We Serve' },
-    { path: '/contact', text: 'Contact Alpine Armoring' },
-    { path: '/all-downloads', text: 'All Downloads' },
+    { path: lang.newsURL, text: lang.footerNewsTitle },
+    { path: lang.ballisticChartURL, text: lang.ballisticChartTitle },
+    { path: lang.becomeADealerURL, text: lang.becomeADealerTitle },
+    { path: lang.ballisticTestingURL, text: lang.ballisticTestingTitle },
+    { path: lang.faqsURL, text: lang.footerFaqsTitle },
+    { path: lang.locationsWeServeURL, text: lang.locationsWeServeTitle },
+    { path: lang.contactURL, text: lang.footerContactTitle },
+    { path: lang.downloadsURL, text: lang.downloadsTitle },
   ];
   const links2 = [
-    { path: '/available-now', text: 'Armored Vehicles for Sale' },
-    {
-      path: '/vehicles-we-armor/type/armored-pickup-trucks',
-      text: 'Armoring Pickup Trucks',
-    },
-    {
-      path: '/available-now/type/armored-pre-owned',
-      text: 'Pre-owned Armored Vehicles',
-    },
-    {
-      path: '/vehicles-we-armor/type/armored-law-enforcement',
-      text: 'Armoring Law Enforcement Vehicles',
-    },
-    { path: '/vehicles-we-armor/type/armored-suvs', text: 'Armoring SUVs' },
-    {
-      path: '/vehicles-we-armor/type/armored-vans-and-buses',
-      text: 'Armoring Vans & Buses',
-    },
-    { path: '/vehicles-we-armor/type/armored-sedans', text: 'Armoring Sedans' },
-    {
-      path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
-      text: 'Armoring Cash In Transit Vehicles',
-    },
+    { path: lang.availableNowURL, text: lang.footerAvailableNowTitle },
+    { path: lang.pickupTrucksURL, text: lang.footerPickupTrucksTitle },
+    { path: lang.preOwnedURL, text: lang.footerPreOwnedTitle },
+    { path: lang.lawEnforcementURL, text: lang.footerLawEnforcementTitle },
+    { path: lang.suvsURL, text: lang.footerSuvsTitle },
+    { path: lang.vansURL, text: lang.footerVansTitle },
+    { path: lang.sedansURL, text: lang.footerSedansTitle },
+    { path: lang.citURL, text: lang.footerCitTitle },
   ];
 
   return (
@@ -92,7 +77,9 @@ const Footer = (props) => {
         <div className={`${styles.footer_middle}`}>
           <div className={`${styles.footer_middle_info}`}>
             <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>Contact Us</h3>
+              <h3 className={`${styles.footer_column_title}`}>
+                {lang.contactUs}
+              </h3>
               <ul className={`${styles.footer_column_list}`}>
                 <li>
                   <Link
@@ -132,7 +119,9 @@ const Footer = (props) => {
             </div>
 
             <div className={`${styles.footer_column_social}`}>
-              <h3 className={`${styles.footer_column_title}`}>FOLLOW US ON</h3>
+              <h3 className={`${styles.footer_column_title}`}>
+                {lang.followUs}
+              </h3>
               <ul className={`${styles.footer_socials}`}>
                 <li className={`${styles.footer_socials_item}`}>
                   <Link
@@ -210,7 +199,7 @@ const Footer = (props) => {
           <div className={`${styles.footer_column_wrap}`}>
             <div className={`${styles.footer_column}`}>
               <h3 className={`${styles.footer_column_title}`}>
-                Most Popular Services
+                {lang.mostPopularServices}
               </h3>
               <ul
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
@@ -229,7 +218,9 @@ const Footer = (props) => {
             </div>
 
             <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>QUICK LINKS</h3>
+              <h3 className={`${styles.footer_column_title}`}>
+                {lang.quickLinks}
+              </h3>
               <ul
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
               >
@@ -251,20 +242,21 @@ const Footer = (props) => {
         <div className={`${styles.footer_bottom}`}>
           <ul className={`${styles.footer_bottom_nav}`}>
             <li className={`${styles.footer_bottom_nav_item}`}>
-              <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href={lang.privacyPolicyURL}>{lang.privacyPolicy}</Link>
             </li>
           </ul>
 
           <p className={`${styles.footer_bottom_copy}`}>
-            ©1997-2024. Alpine Armoring Inc. <span>All Rights Reserved</span>
+            ©1997-{new Date().getFullYear()}. Alpine Armoring Inc.{' '}
+            <span>{lang.allRightsReserved}</span>
           </p>
 
-          <p
-            className={`${styles.footer_bottom_flag} ${
+          <div
+            className={`${styles.footer_flag} ${
               currentRoute === '/manufacturing' ||
               currentRoute === '/ballistic-testing'
-                ? styles.footer_bottom_flag_dark
-                : styles.footer_bottom_flag_light
+                ? styles.footer_flag_dark
+                : styles.footer_flag_light
             }`}
           >
             <Image
@@ -273,13 +265,10 @@ const Footer = (props) => {
               fill
               unoptimized
             />
-            <span className={`${styles.footer_bottom_flag_wrap}`}>
-              The Home of{' '}
-              <Link href="/" className={`${styles.footer_bottom_copy_middle}`}>
-                ArmoredVehicles.com
-              </Link>
-            </span>
-          </p>
+            <Link href="/" className={`${styles.footer_flag_wrap}`}>
+              {lang.homeOfArmoredVehicles}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -2,8 +2,10 @@ import Link from 'next/link';
 import styles from './Locations.module.scss';
 import React from 'react';
 import Image from 'next/image';
+import useLocale from 'hooks/useLocale';
 
 const Article = ({ props, limit = '' }) => {
+  const { lang } = useLocale();
   // Categorize items into countries, states, and cities
   const countries = props.filter((item) => item.attributes.type === 'country');
   const states = props.filter((item) => item.attributes.type === 'state');
@@ -15,7 +17,7 @@ const Article = ({ props, limit = '' }) => {
       {countries.length > 0 && (
         <div className={`${styles.locations_category}`}>
           <h2 className={`${styles.locations_heading} block-reveal observe`}>
-            COUNTRIES
+            {lang.countries}
           </h2>
 
           <div className={`${styles.locations_list}`}>
@@ -24,7 +26,7 @@ const Article = ({ props, limit = '' }) => {
                 <React.Fragment key={`country-${index}`}>
                   <Link
                     className={`${styles.locations_card} observe fade-in-up`}
-                    href={`/locations-we-serve/${item.attributes.slug}`}
+                    href={`${lang.locationsWeServeURL}/${item.attributes.slug}`}
                   >
                     <div className={`${styles.locations_card_region}`}>
                       {item.attributes.region}
@@ -56,7 +58,7 @@ const Article = ({ props, limit = '' }) => {
       {states.length > 0 && (
         <div className={`${styles.locations_category}`}>
           <h2 className={`${styles.locations_heading} block-reveal observe`}>
-            STATES
+            {lang.states}
           </h2>
 
           <div className={`${styles.locations_list}`}>
@@ -64,7 +66,7 @@ const Article = ({ props, limit = '' }) => {
               <React.Fragment key={`state-${index}`}>
                 <Link
                   className={`${styles.locations_card} observe fade-in-up`}
-                  href={`/locations-we-serve/${item.attributes.slug}`}
+                  href={`${lang.locationsWeServeURL}/${item.attributes.slug}`}
                 >
                   <div className={`${styles.locations_card_region}`}>
                     United States
@@ -93,7 +95,7 @@ const Article = ({ props, limit = '' }) => {
       {cities.length > 0 && (
         <div className={`${styles.locations_category}`}>
           <h2 className={`${styles.locations_heading} block-reveal observe`}>
-            MAJOR CITIES
+            {lang.majorCities}
           </h2>
 
           <div className={`${styles.locations_list}`}>
@@ -101,7 +103,7 @@ const Article = ({ props, limit = '' }) => {
               <React.Fragment key={`city-${index}`}>
                 <Link
                   className={`${styles.locations_card} observe fade-in-up`}
-                  href={`/locations-we-serve/${item.attributes.slug}`}
+                  href={`${lang.locationsWeServeURL}/${item.attributes.slug}`}
                 >
                   <div className={`${styles.locations_card_country}`}>
                     <h3>{item.attributes.excerpt}</h3>

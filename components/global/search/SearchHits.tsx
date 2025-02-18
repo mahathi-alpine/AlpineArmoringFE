@@ -1,7 +1,10 @@
 import { connectStateResults } from 'react-instantsearch-dom';
 import Link from 'next/link';
+import useLocale from 'hooks/useLocale';
 
 function SearchHits({ searchState, searchResults }) {
+  const { lang } = useLocale();
+
   const validQuery = searchState.query?.length >= 1;
 
   function formatString(input) {
@@ -25,7 +28,7 @@ function SearchHits({ searchState, searchResults }) {
 
   return searchState.query && validQuery ? (
     <div className={'search-hits'}>
-      {searchResults?.hits.length === 0 && <div>No results found!</div>}
+      {searchResults?.hits.length === 0 && <div>{lang.noResultsFound}</div>}
       {searchResults?.hits.length > 0 &&
         searchResults.hits.map((hit) => (
           <div key={hit.objectID}>

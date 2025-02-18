@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { NavigationProps } from 'types';
 import styles from './NavigationPopup.module.scss';
 import dynamic from 'next/dynamic';
+import useLocale from 'hooks/useLocale';
 
 import ArrowIcon from 'components/icons/Arrow';
 import FacebookIcon from 'components/icons/Facebook';
@@ -22,59 +23,60 @@ const LanguageSwitcher = dynamic(
 
 const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   const router = useRouter();
+  const { lang } = useLocale();
   const [activeSubmenu, setActiveSubmenu] = useState<
     { text: string; path: string }[] | null
   >(null);
 
   const links = [
-    { path: '/available-now', text: 'Available Now' },
+    { path: lang.availableNowURL, text: lang.availableNowTitle },
     {
-      text: 'Vehicles We Armor',
+      text: lang.vehiclesWeArmor,
       submenu: [
         {
-          text: 'SUVs',
-          path: '/vehicles-we-armor/type/armored-suvs',
+          text: lang.suvsTitleHeader,
+          path: lang.suvsURL,
         },
         {
-          text: 'Sedans',
-          path: '/vehicles-we-armor/type/armored-sedans',
+          text: lang.sedans,
+          path: lang.sedansURL,
         },
         {
-          text: 'Pickup Trucks',
-          path: '/vehicles-we-armor/type/armored-pickup-trucks',
+          text: lang.pickupTrucks,
+          path: lang.pickupTrucksURL,
         },
         {
-          text: 'Vans & Buses',
-          path: '/vehicles-we-armor/type/armored-vans-and-buses',
+          text: lang.vansBuses,
+          path: lang.vansURL,
         },
         {
-          text: 'Law Enforcement',
-          path: '/vehicles-we-armor/type/armored-law-enforcement',
+          text: lang.lawEnforcement,
+          path: lang.lawEnforcementURL,
         },
         {
-          text: 'Cash-In-Transit (CIT)',
-          path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
+          text: lang.CITNavigation,
+          path: lang.citURL,
         },
         {
-          text: 'Specialty Vehicles',
-          path: '/vehicles-we-armor/type/armored-specialty-vehicles',
+          text: lang.specialtyVehicles,
+          path: lang.specialtyURL,
         },
       ],
     },
-    { path: '/ballistic-testing', text: 'Ballistic Testing' },
+    { path: lang.ballisticTestingURL, text: lang.ballisticTestingTitle },
   ];
 
   const linksRight = [
-    { path: '/about-us', text: 'About Us' },
-    { path: '/ballistic-chart', text: 'Ballistic Chart' },
-    { path: '/news', text: 'All News' },
-    { path: '/media', text: 'Videos & Trade Shows' },
-    { path: '/available-now/type/armored-rental', text: 'Rental vehicles' },
-    { path: '/design-and-engineering', text: 'Design & Engineering' },
-    { path: '/manufacturing', text: 'Manufacturing' },
-    { path: '/shipping-and-logistics', text: 'Shipping & Logistics' },
-    { path: '/faqs', text: 'FAQ' },
-    { path: '/contact', text: 'Contact' },
+    { path: lang.aboutURL, text: lang.aboutUs },
+    { path: lang.ballisticChartURL, text: lang.ballisticChartTitle },
+    { path: lang.newsURL, text: lang.headerNewsTitle },
+    { path: lang.mediaURL, text: lang.headerMediaTitle },
+    { path: lang.rentalsURL, text: lang.formInquiryRental },
+    { path: lang.designEngineeringURL, text: lang.designEngineering },
+    { path: lang.manufacturingURL, text: lang.manufacturing },
+    { path: lang.shippingLogisticsURL, text: lang.shippingLogistics },
+    { path: lang.faqsURL, text: lang.faq },
+    { path: lang.contactURL, text: lang.contact },
   ];
 
   const showSubmenu = (

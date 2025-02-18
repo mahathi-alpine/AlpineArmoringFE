@@ -366,37 +366,101 @@
         }
       }
     }
+  }
 
-    &_flag {
+  &_flag {
+    position: relative;
+    display: inline-block;
+    color: white;
+    font-weight: var(--font-medium);
+    letter-spacing: -0.5px;
+
+    @include breakpoint(large) {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 370px;
+      bottom: 5px;
+    }
+    @media (min-width: 1380px) {
+      bottom: 20px;
+    }
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      width: 60px;
+      top: 0;
+      bottom: 0;
+      background: var(--color-background);
+      background: linear-gradient(
+        90deg,
+        rgba(225, 225, 225, 1) 0%,
+        rgba(225, 225, 225, 0) 100%
+      );
+      z-index: 1;
+    }
+
+    &:after {
+      right: 0;
+      left: auto;
+      background: linear-gradient(
+        -90deg,
+        rgba(225, 225, 225, 1) 0%,
+        rgba(225, 225, 225, 0) 100%
+      );
+    }
+
+    &_dark {
+      &:before {
+        background: linear-gradient(
+          90deg,
+          #101010 0%,
+          rgba(16, 16, 16, 0) 100%
+        );
+      }
+      &:after {
+        background: linear-gradient(
+          -90deg,
+          #101010 0%,
+          rgba(16, 16, 16, 0) 100%
+        );
+      }
+
+      .footer_flag_wrap {
+        &:before {
+          background: linear-gradient(
+            180deg,
+            #101010 0%,
+            rgba(16, 16, 16, 0) 100%
+          );
+        }
+        &:after {
+          background: linear-gradient(0, #101010 0%, rgba(16, 16, 16, 0) 100%);
+        }
+      }
+    }
+
+    &_wrap {
+      display: block;
       position: relative;
-      display: inline-block;
-      color: white;
-      font-weight: var(--font-medium);
-      letter-spacing: -0.5px;
-
-      @include breakpoint(large) {
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 370px;
-        bottom: 5px;
-      }
-      @media (min-width: 1380px) {
-        bottom: 20px;
-      }
-
+      z-index: 1;
+      padding: 15px 10px;
       &:before,
       &:after {
         position: absolute;
         content: '';
         left: 0;
-        width: 60px;
+        right: 0;
+        width: 100%;
+        height: 10px;
         top: 0;
-        bottom: 0;
         background: var(--color-background);
         background: linear-gradient(
-          90deg,
+          180deg,
           rgba(225, 225, 225, 1) 0%,
           rgba(225, 225, 225, 0) 100%
         );
@@ -404,81 +468,13 @@
       }
 
       &:after {
-        right: 0;
-        left: auto;
+        bottom: 0;
+        top: auto;
         background: linear-gradient(
-          -90deg,
+          0,
           rgba(225, 225, 225, 1) 0%,
           rgba(225, 225, 225, 0) 100%
         );
-      }
-
-      &_dark {
-        &:before {
-          background: linear-gradient(
-            90deg,
-            #101010 0%,
-            rgba(16, 16, 16, 0) 100%
-          );
-        }
-        &:after {
-          background: linear-gradient(
-            -90deg,
-            #101010 0%,
-            rgba(16, 16, 16, 0) 100%
-          );
-        }
-
-        .footer_bottom_flag_wrap {
-          &:before {
-            background: linear-gradient(
-              180deg,
-              #101010 0%,
-              rgba(16, 16, 16, 0) 100%
-            );
-          }
-          &:after {
-            background: linear-gradient(
-              0,
-              #101010 0%,
-              rgba(16, 16, 16, 0) 100%
-            );
-          }
-        }
-      }
-
-      &_wrap {
-        display: block;
-        position: relative;
-        z-index: 1;
-        padding: 15px 10px;
-        &:before,
-        &:after {
-          position: absolute;
-          content: '';
-          left: 0;
-          right: 0;
-          width: 100%;
-          height: 10px;
-          top: 0;
-          background: var(--color-background);
-          background: linear-gradient(
-            180deg,
-            rgba(225, 225, 225, 1) 0%,
-            rgba(225, 225, 225, 0) 100%
-          );
-          z-index: 1;
-        }
-
-        &:after {
-          bottom: 0;
-          top: auto;
-          background: linear-gradient(
-            0,
-            rgba(225, 225, 225, 1) 0%,
-            rgba(225, 225, 225, 0) 100%
-          );
-        }
       }
     }
   }

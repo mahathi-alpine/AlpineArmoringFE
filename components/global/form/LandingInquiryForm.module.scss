@@ -67,6 +67,9 @@
     font-size: clamp(1rem, 0.9545rem + 0.19vw, 1.1875rem);
     text-align: center;
     white-space: pre-wrap;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: var(--font-demi);
 
     @include breakpoint(hugh) {
       font-size: clamp(1rem, 0.9545rem + 0.22vw, 1.1875rem);
@@ -84,11 +87,6 @@
       @include breakpoint(large) {
         font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
       }
-    }
-
-    span strong {
-      color: var(--color-primary);
-      font-weight: var(--font-demi);
     }
 
     h4 {

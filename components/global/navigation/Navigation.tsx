@@ -12,39 +12,39 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
   const links = [
     { path: lang.availableNowURL, text: lang.availableNowTitle },
     {
-      text: 'Vehicles We Armor',
+      text: lang.vehiclesWeArmor,
       submenu: [
         {
-          text: 'SUVs',
-          path: '/vehicles-we-armor/type/armored-suvs',
+          text: lang.suvsTitleHeader,
+          path: lang.suvsURL,
         },
         {
-          text: 'Sedans',
-          path: '/vehicles-we-armor/type/armored-sedans',
+          text: lang.sedans,
+          path: lang.sedansURL,
         },
         {
-          text: 'Pickup Trucks',
-          path: '/vehicles-we-armor/type/armored-pickup-trucks',
+          text: lang.pickupTrucks,
+          path: lang.pickupTrucksURL,
         },
         {
-          text: 'Vans & Buses',
-          path: '/vehicles-we-armor/type/armored-vans-and-buses',
+          text: lang.vansBuses,
+          path: lang.vansURL,
         },
         {
-          text: 'Law Enforcement',
-          path: '/vehicles-we-armor/type/armored-law-enforcement',
+          text: lang.lawEnforcement,
+          path: lang.lawEnforcementURL,
         },
         {
-          text: 'Cash-In-Transit (CIT)',
-          path: '/vehicles-we-armor/type/armored-cash-in-transit-cit',
+          text: lang.CITNavigation,
+          path: lang.citURL,
         },
         {
-          text: 'Specialty Vehicles',
-          path: '/vehicles-we-armor/type/armored-specialty-vehicles',
+          text: lang.specialtyVehicles,
+          path: lang.specialtyURL,
         },
       ],
     },
-    { path: '/ballistic-testing', text: 'Ballistic Testing' },
+    { path: lang.ballisticTestingURL, text: lang.ballisticTestingTitle },
   ];
 
   return (
