@@ -8,7 +8,7 @@
     "lint:ts": "tsc --noEmit",
     "prettier": "prettier --write .",
     "prepare": "husky install .husky",
-    "generate-sitemap": "node generateSitemap.js",
+    "generate-sitemap": "node generate-sitemaps.js",
     "prebuild": "npm run generate-sitemap && npm run generate-redirects",
     "generate-redirects": "node generate-redirects.js"
   },
