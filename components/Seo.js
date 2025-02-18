@@ -51,9 +51,9 @@ const Seo = ({ props }) => {
       <meta name="image" content={metaImgUrl} />
 
       {/* Hreflang tags */}
-      <link rel="alternate" hreflang="x-default" href={defaultUrl} />
-      <link rel="alternate" hreflang="en" href={enUrl} />
-      <link rel="alternate" hreflang="es" href={esUrl} />
+      <link rel="alternate" hrefLang="x-default" href={defaultUrl} />
+      <link rel="alternate" hrefLang="en" href={enUrl} />
+      <link rel="alternate" hrefLang="es" href={esUrl} />
 
       {/* Open Graph / Facebook */}
       <meta
