@@ -134,25 +134,25 @@
     }
   }
 
-  &_tags {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    font-size: rem(13);
-    margin-top: 40px;
+  // &_tags {
+  //   position: relative;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   font-size: rem(13);
+  //   margin-top: 40px;
 
-    @include breakpoint(medium) {
-      font-size: rem(14);
-    }
+  //   @include breakpoint(medium) {
+  //     font-size: rem(14);
+  //   }
 
-    &_item {
-      padding: rem(5) rem(10);
-      background: var(--color-grayLight);
-      border-radius: 8px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-  }
+  //   &_item {
+  //     padding: rem(5) rem(10);
+  //     background: var(--color-grayLight);
+  //     border-radius: 8px;
+  //     margin-right: 10px;
+  //     margin-bottom: 10px;
+  //   }
+  // }
 
   &_content {
     position: relative;

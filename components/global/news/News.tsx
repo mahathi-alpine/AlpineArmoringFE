@@ -108,7 +108,7 @@ const Blog = ({
 
                     <div className={`${styles.news_item_content_main}`}>
                       <div className={`${styles.news_item_content_main_inner}`}>
-                        {item.attributes.categories.data.length > 0 ? (
+                        {/* {item.attributes.categories.data.length > 0 ? (
                           <div className={`${styles.news_item_tags}`}>
                             {item.attributes.categories.data.map(
                               (item, index) => (
@@ -121,7 +121,7 @@ const Blog = ({
                               )
                             )}
                           </div>
-                        ) : null}
+                        ) : null} */}
 
                         <Link
                           href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}

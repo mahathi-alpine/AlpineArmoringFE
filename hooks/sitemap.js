@@ -16,7 +16,6 @@ async function fetchCollectionData(
       ? '&filters[publishedAt][$notNull]=true'
       : '';
 
-    // Add category filter if specified
     let categoryFilter = '';
     if (collectionConfig.filter?.categories) {
       categoryFilter = '&filters[categories][slug][$eq]=armored-rental';
@@ -24,9 +23,19 @@ async function fetchCollectionData(
 
     let url;
     if (collection === 'categories' || collection.includes('categories')) {
-      url = `${baseUrl}/api/categories?populate=localizations&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100`;
+      url = `${baseUrl}/api/categories?fields[0]=slug&fields[1]=updatedAt&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100`;
     } else {
-      url = `${baseUrl}/api/${collection}?populate=*&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100${publishFilter}${categoryFilter}`;
+      const fields = 'fields[0]=slug&fields[1]=locale&fields[2]=updatedAt';
+      const publishedField = collectionConfig.hasDraftPublish
+        ? '&fields[3]=publishedAt'
+        : '';
+      const populate =
+        '&populate[localizations][fields][0]=slug&populate[localizations][fields][1]=locale&populate[localizations][fields][2]=updatedAt' +
+        (collectionConfig.hasDraftPublish
+          ? '&populate[localizations][fields][3]=publishedAt'
+          : '');
+
+      url = `${baseUrl}/api/${collection}?${fields}${publishedField}${populate}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100${publishFilter}${categoryFilter}`;
     }
 
     try {

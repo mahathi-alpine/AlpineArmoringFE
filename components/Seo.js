@@ -1,22 +1,10 @@
 import { React } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-// import { useEffect } from 'react';
 
 const Seo = ({ props }) => {
   const router = useRouter();
   const baseUrl = 'https://www.alpineco.com';
-
-  // useEffect(() => {
-  //   return () => {
-  //     const metaTags = document.querySelectorAll('meta[name="description"]');
-  //     if (metaTags.length > 1) {
-  //       Array.from(metaTags)
-  //         .slice(1)
-  //         .forEach((tag) => tag.remove());
-  //     }
-  //   };
-  // });
 
   // Default values
   const metaTitle = props?.metaTitle || 'Alpine Armoring';
@@ -50,11 +38,22 @@ const Seo = ({ props }) => {
   const canonicalUrl = props?.canonicalURL || `${baseUrl}${router.asPath}`;
   const ogUrl = `${baseUrl}${router.asPath}`;
 
+  // Construct language-specific URLs
+  const currentPath = router.asPath;
+  const defaultUrl = `${baseUrl}${currentPath}`;
+  const enUrl = `${baseUrl}${currentPath}`;
+  const esUrl = `${baseUrl}/es${currentPath}`;
+
   return (
     <Head>
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} key="description" />
       <meta name="image" content={metaImgUrl} />
+
+      {/* Hreflang tags */}
+      <link rel="alternate" hreflang="x-default" href={defaultUrl} />
+      <link rel="alternate" hreflang="en" href={enUrl} />
+      <link rel="alternate" hreflang="es" href={esUrl} />
 
       {/* Open Graph / Facebook */}
       <meta
