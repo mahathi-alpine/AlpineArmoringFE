@@ -1,12 +1,15 @@
 import styles from './Partners.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import useLocale from 'hooks/useLocale';
 
 const Partners = (props) => {
+  const { lang } = useLocale();
+
   return (
     <div className={`${styles.partners} container`}>
       <h2 className={`${styles.partners_heading} block-reveal observe`}>
-        Industry Partners
+        {lang.industryPartners}
       </h2>
       <div className={`${styles.partners_wrap}`}>
         {props.props.map((item) =>

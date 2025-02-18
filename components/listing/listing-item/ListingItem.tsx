@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItem.module.scss';
 import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 
 interface InventoryItemProps {
   props: any;
@@ -9,9 +10,10 @@ interface InventoryItemProps {
 }
 
 const InventoryItem = ({ props, index }: InventoryItemProps) => {
+  const { lang } = useLocale();
   const data = props.attributes;
-  const router = useRouter(); // Initialize useRouter
-  const currentPath = router.asPath; // Get the current route
+  const router = useRouter();
+  const currentPath = router.asPath;
 
   const linkHref = currentPath.includes('armored-rental')
     ? `/rental-vehicles/${data.slug}`
@@ -49,7 +51,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         ) : null}
 
         <div className={`${styles.inventory_item_button}`}>
-          <span>VIEW DETAILS</span>
+          <span>{lang.viewDetails}</span>
         </div>
 
         {data.flag && data.label ? (
@@ -76,22 +78,27 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
           }}
         ></h2>
 
-        <h3 className={`${styles.inventory_item_level}`}>
-          Armored to <span>level {data.armor_level}</span>
-        </h3>
+        {data.armor_level && (
+          <h3 className={`${styles.inventory_item_level}`}>
+            {lang.armoredTo}{' '}
+            <span>
+              {lang.level} {data.armor_level}
+            </span>
+          </h3>
+        )}
 
         <ul className={`${styles.inventory_item_info}`}>
           {(() => {
-            const fieldsToDisplay = currentPath.includes('armored-rental')
+            const fieldsToDisplay = currentPath.includes(lang.armoredRental)
               ? [
-                  { key: 'rentalsVehicleID', label: 'Vehicle ID' },
-                  { key: 'engine', label: 'Engine' },
-                  { key: 'trans', label: 'Trans' },
+                  { key: 'rentalsVehicleID', label: lang.vehicleID },
+                  { key: 'engine', label: lang.engine },
+                  { key: 'trans', label: lang.trans },
                 ]
               : [
-                  { key: 'VIN', label: 'VIN' },
-                  { key: 'vehicleID', label: 'Vehicle ID' },
-                  { key: 'engine', label: 'Engine' },
+                  { key: 'VIN', label: lang.VIN },
+                  { key: 'vehicleID', label: lang.vehicleID },
+                  { key: 'engine', label: lang.engine },
                 ];
 
             return fieldsToDisplay.map(({ key, label }) =>

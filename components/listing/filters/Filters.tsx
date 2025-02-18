@@ -5,6 +5,7 @@ import ChevronIcon from 'components/icons/Chevron';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import SearchIcon from 'components/icons/Search';
+import useLocale from 'hooks/useLocale';
 
 type FiltersProps = {
   props: {
@@ -15,13 +16,14 @@ type FiltersProps = {
 };
 
 const Filters = ({ props, plain }: FiltersProps) => {
+  const { lang } = useLocale();
   const router = useRouter();
   const [query, setQuery] = useState('');
 
   const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [activeFilterTitles, setActiveFilterTitles] = useState({
-    make: 'Select',
-    type: 'All',
+    make: lang.select,
+    type: lang.all,
   });
 
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -120,8 +122,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
         return newValue;
       });
     }
-    if (e.target.innerHTML == 'All') {
-      activeFilterTitles.make = 'Select';
+    if (e.target.innerHTML == lang.all) {
+      activeFilterTitles.make = lang.select;
     }
   };
 
@@ -134,7 +136,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const handleClearFilters = () => {
     setQuery('');
-    activeFilterTitles.make = 'Select';
+    activeFilterTitles.make = lang.select;
     router.push(`${baseUrl}`, undefined, { scroll: false });
   };
 
@@ -150,7 +152,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
         // Reset make filter title when make query is removed
         setActiveFilterTitles((prevTitles) => ({
           ...prevTitles,
-          make: 'Select',
+          make: lang.select,
         }));
         return;
       }
@@ -275,7 +277,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
             className={`${styles.filters_clear} bold`}
             onClick={handleClearFilters}
           >
-            Clear all filters
+            {lang.clearAllFilters}
           </div>
         )}
       </div>
@@ -295,7 +297,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
               >
                 X
               </div>
-              Filters
+              {lang.filters}
             </div>
 
             {Object.keys(router.query).length > 0 && (
@@ -303,7 +305,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 className={`${styles.filters_clear}`}
                 onClick={handleClearFilters}
               >
-                Clear all filters
+                {lang.clearAllFilters}
               </div>
             )}
           </div>
@@ -312,7 +314,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
             <input
               type="text"
               value={query}
-              placeholder="Search"
+              placeholder={lang.search}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -364,7 +366,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
                       onClick={openFilters}
                       key="all"
                     >
-                      <span className={`${styles.checkbox_span}`}>All</span>
+                      <span className={`${styles.checkbox_span}`}>
+                        {lang.all}
+                      </span>
                     </Link>
                   )}
 

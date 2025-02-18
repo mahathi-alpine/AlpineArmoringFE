@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItemAll.module.scss';
 import Button from 'components/global/button/Button';
+import useLocale from 'hooks/useLocale';
 
 interface InventoryItemProps {
   props: any;
@@ -9,6 +10,7 @@ interface InventoryItemProps {
 }
 
 const InventoryItem = ({ props, index }: InventoryItemProps) => {
+  const { lang } = useLocale();
   const data = props.attributes;
 
   return (
@@ -24,7 +26,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
                 data.featuredImage.data.attributes.formats.thumbnail.url ||
                 data.featuredImage.data.attributes.url
               }`}
-              alt="Description of the image"
+              alt="Alpine Armoring"
               width={420}
               height={200}
               priority={index === 0}
@@ -35,7 +37,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
             className={`${styles.listing_item_button} desktop-only primary small`}
             button
           >
-            View Details
+            {lang.viewDetails}
           </Button>
         </div>
 

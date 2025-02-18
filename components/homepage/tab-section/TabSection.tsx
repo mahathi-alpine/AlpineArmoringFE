@@ -5,8 +5,10 @@ import { useState } from 'react';
 import ArrowIcon from 'components/icons/Arrow';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
+import useLocale from 'hooks/useLocale';
 
 const TabSection = ({ props }) => {
+  const { lang } = useLocale();
   const isMobile = useIsMobile();
 
   const [activeDiv, setActiveDiv] = useState('0');
@@ -70,7 +72,7 @@ const TabSection = ({ props }) => {
                       src={`${item.image.data[0].attributes?.url}`}
                       type={item.image.data[0].attributes.mime}
                     />
-                    Your browser does not support the video tag.
+                    {lang.videoTagNotSupported}
                   </video>
                 ) : null}
               </div>

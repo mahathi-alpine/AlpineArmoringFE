@@ -6,6 +6,7 @@ import { useIsMobile } from 'hooks/useIsMobile';
 import { useEffect, useState } from 'react';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import PlayIcon from 'components/icons/Play2';
+import useLocale from 'hooks/useLocale';
 
 import 'yet-another-react-lightbox/styles.css';
 
@@ -15,6 +16,7 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
 });
 
 const Banner = (props) => {
+  const { lang } = useLocale();
   const data = props.props;
 
   const hasNullFlag = (inventory) =>
@@ -139,24 +141,23 @@ const Banner = (props) => {
               button={true}
               className={`${styles.banner_buttons_item} primary shiny`}
             >
-              Request a quote
+              {lang.requestAQuote}
             </Button>
-            {data.inventory?.length && showComponent ? (
-              <Button
-                href={`/available-now/?vehicles_we_armor=${data.slug}`}
-                className={`${styles.banner_buttons_item} shiny`}
-              >
-                View in-stock availability
-              </Button>
-            ) : (
-              <Button
-                className={`${styles.banner_buttons_item} shiny`}
-                button={true}
-                disabled
-              >
-                View in-stock availability
-              </Button>
-            )}
+
+            <Button
+              {...(data.inventory?.length && showComponent
+                ? {
+                    href: `${lang.vehiclesWeArmorStock}${data.slug}`,
+                    className: `${styles.banner_buttons_item} shiny`,
+                  }
+                : {
+                    className: `${styles.banner_buttons_item} shiny`,
+                    button: true,
+                    disabled: true,
+                  })}
+            >
+              {lang.viewInStockAvailability}
+            </Button>
           </div>
         </div>
 
@@ -214,9 +215,9 @@ const Banner = (props) => {
               className={`${styles.banner_pdf} ${styles.certificate_container}`}
             >
               <span>
-                <span>Watch</span>
+                <span>{lang.watch}</span>
                 <br />
-                Video
+                {lang.video}
               </span>
               <PlayIcon />
             </div>
@@ -252,7 +253,7 @@ const Banner = (props) => {
         </div>
 
         <div className={`${styles.banner_protection}`}>
-          <p>Offered At Protection Levels</p>
+          <p>{lang.offeredAtProtectionLevels}</p>
           <div className={`${styles.banner_protection_levels}`}>
             {protectionLevelSplit.map((item, index) => (
               <span key={index}>{item}</span>
