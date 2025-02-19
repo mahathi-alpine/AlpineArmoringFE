@@ -6,7 +6,7 @@ const Seo = ({ props }) => {
   const router = useRouter();
   const baseUrl = 'https://www.alpineco.com';
 
-  const languageUrls = props?.languageUrls || {};
+  // const languageUrls = props?.languageUrls || {};
 
   // Default values
   const metaTitle = props?.metaTitle || 'Alpine Armoring';
@@ -47,7 +47,7 @@ const Seo = ({ props }) => {
       <meta name="image" content={metaImgUrl} />
 
       {/* Hreflang tags */}
-      <link
+      {/* <link
         rel="alternate"
         hrefLang="x-default"
         href={`${baseUrl}${languageUrls['en'] || '/'}`}
@@ -59,7 +59,7 @@ const Seo = ({ props }) => {
           hrefLang={locale}
           href={`${baseUrl}${path}`}
         />
-      ))}
+      ))} */}
 
       {/* Open Graph / Facebook */}
       <meta
