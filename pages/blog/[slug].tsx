@@ -333,13 +333,12 @@ function BlogSingle(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { slug } = context.query;
-
+export async function getServerSideProps({ params, locale }) {
   const data = await getPageData({
     route: 'blog-evergreens',
-    params: `filters[slug][$eq]=${slug}`,
+    params: `filters[slug][$eq]=${params.slug}`,
     populate: 'deep',
+    locale,
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
@@ -355,7 +354,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { data, seoData },
+    props: { data, seoData, locale },
   };
 }
 

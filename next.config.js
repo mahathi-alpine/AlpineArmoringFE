@@ -17,7 +17,7 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/sobre-nosotros',
+        source: '/hacerca-de-nosotros',
         destination: '/about-us',
       },
       {

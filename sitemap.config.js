@@ -111,7 +111,12 @@ const additionalUrls = {
   ],
   es: [
     {
-      loc: '/es/sobre-nosotros',
+      loc: '/es',
+      priority: '1',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/hacerca-de-nosotros',
       priority: '0.7',
       changefreq: 'monthly',
     },

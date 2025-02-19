@@ -33,7 +33,10 @@ const calculateReadTime = () => {
 function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  // const categories = data?.categories?.data;
+
+  // console.log(props);
+
+  // const localeSlug = data.localizations?.data[0]?.attributes.slug;
   const date = new Date(data?.updatedAt);
   const dynamicZone = data?.blogDynamic;
   const faqsTitle = data?.faqsTitle;
@@ -333,13 +336,12 @@ function BlogSingle(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { slug } = context.query;
-
+export async function getServerSideProps({ params, locale }) {
   const data = await getPageData({
     route: 'blogs',
-    params: `filters[slug][$eq]=${slug}`,
+    params: `filters[slug][$eq]=${params.slug}`,
     populate: 'deep',
+    locale,
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
@@ -355,7 +357,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { data, seoData },
+    props: { data, seoData, locale },
   };
 }
 

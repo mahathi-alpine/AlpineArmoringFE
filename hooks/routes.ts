@@ -7,7 +7,7 @@ interface RouteTranslations {
 export const routeTranslations: RouteTranslations = {
   'about-us': {
     en: '/about-us',
-    es: '/sobre-nosotros',
+    es: '/hacerca-de-nosotros',
   },
   'available-now': {
     en: '/available-now',
