@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getPageData } from 'hooks/api';
+import routes from 'routes';
 import styles from './About.module.scss';
 import Banner from 'components/global/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
@@ -239,14 +240,19 @@ function About(props) {
 }
 
 export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.about;
+
   let pageData = await getPageData({
-    route: 'about',
+    route: route.collection,
     populate: 'deep',
     locale,
   });
   pageData = pageData.data?.attributes || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
     props: { pageData, seoData, locale },

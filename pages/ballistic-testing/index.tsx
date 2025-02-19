@@ -6,6 +6,7 @@ import CustomMarkdown from 'components/CustomMarkdown';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import Image from 'next/image';
+import routes from 'routes';
 import Link from 'next/link';
 import PlayIcon from 'components/icons/Play';
 import MediaList from 'pages/media/MediaList';
@@ -594,17 +595,23 @@ function Testing(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.ballisticTesting;
+
   let pageData = await getPageData({
-    route: 'ballistic-testing',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData?.data?.attributes || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 

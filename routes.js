@@ -60,11 +60,25 @@ const routes = {
     },
   },
   inventory: {
-    collection: 'inventories-list',
+    collection: 'list-inventory',
     collectionSingle: 'inventories',
     paths: {
       en: '/available-now',
       es: '/disponible-ahora',
+    },
+  },
+  ballisticTesting: {
+    collection: 'ballistic-testing',
+    paths: {
+      en: '/ballistic-testing',
+      es: '/pruebas-balisticas',
+    },
+  },
+  about: {
+    collection: 'about',
+    paths: {
+      en: '/about-us',
+      es: '/hacerca-de-nosotros/',
     },
   },
 };
