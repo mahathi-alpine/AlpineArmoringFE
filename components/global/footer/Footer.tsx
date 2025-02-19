@@ -22,14 +22,15 @@ const Footer = (props) => {
 
   const links = [
     { path: lang.aboutURL, text: lang.aboutTitle },
+    { path: lang.ballisticTestingURL, text: lang.ballisticTestingTitle },
     { path: lang.newsURL, text: lang.footerNewsTitle },
     { path: lang.ballisticChartURL, text: lang.ballisticChartTitle },
+    { path: lang.blogsURL, text: lang.blogsTitle },
     { path: lang.becomeADealerURL, text: lang.becomeADealerTitle },
-    { path: lang.ballisticTestingURL, text: lang.ballisticTestingTitle },
     { path: lang.faqsURL, text: lang.footerFaqsTitle },
     { path: lang.locationsWeServeURL, text: lang.locationsWeServeTitle },
-    { path: lang.contactURL, text: lang.footerContactTitle },
     { path: lang.downloadsURL, text: lang.downloadsTitle },
+    { path: lang.contactURL, text: lang.footerContactTitle },
   ];
   const links2 = [
     { path: lang.availableNowURL, text: lang.footerAvailableNowTitle },

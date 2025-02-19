@@ -165,4 +165,7 @@ export default {
   categoriesMainButton: 'Available Now / Ready-To-Ship',
   weArmor: 'we armor',
   allArmoredVehicles: 'All &nbsp;Armored Vehicles',
+  hpLatestNews: 'Armoring industry insights',
+  blogsURL: '/blog',
+  blogsTitle: 'Blogs and Insights',
 };

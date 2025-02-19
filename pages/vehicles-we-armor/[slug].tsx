@@ -464,17 +464,18 @@ function Vehicle(props) {
         ) : null}
 
         {data?.videoYoutube ? (
-          <div className={`${styles.slug_yt}`}>
-            <iframe
-              width="860"
-              height="500"
-              src={`https://www.youtube.com/embed/${data.videoYoutube}?controls=0&showinfo=0&modestbranding=1`}
-              // &autoplay=1&mute=1
-              title={data.title}
-              frameBorder="0"
-              allow="autoplay;"
-              allowFullScreen
-            ></iframe>
+          <div className="container_small">
+            <div className={`${styles.slug_yt}`}>
+              <iframe
+                width="860"
+                height="500"
+                src={`https://www.youtube.com/embed/${data.videoYoutube}?controls=0&showinfo=0&modestbranding=1`}
+                title={data.title}
+                frameBorder="0"
+                allow="autoplay;"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         ) : null}
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import useLocale from 'hooks/useLocale';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -14,6 +15,7 @@ const VideosPopup = dynamic(
 );
 
 function Home({ homepageData, categories }) {
+  const { lang } = useLocale();
   const data = homepageData.data?.attributes;
 
   const getOrganizationStructuredData = () => {
@@ -138,7 +140,7 @@ function Home({ homepageData, categories }) {
           props={posts}
           button
           limit="3"
-          subtitle="Latest News"
+          subtitle={lang.hpLatestNews}
           customClass="newsHomepage"
         />
       ) : null}

@@ -70,6 +70,7 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
     { path: lang.aboutURL, text: lang.aboutUs },
     { path: lang.ballisticChartURL, text: lang.ballisticChartTitle },
     { path: lang.newsURL, text: lang.headerNewsTitle },
+    { path: lang.blogsURL, text: lang.blogsTitle },
     { path: lang.mediaURL, text: lang.headerMediaTitle },
     { path: lang.rentalsURL, text: lang.formInquiryRental },
     { path: lang.designEngineeringURL, text: lang.designEngineering },

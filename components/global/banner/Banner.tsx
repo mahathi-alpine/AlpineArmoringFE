@@ -202,22 +202,30 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
       {bannerTitle &&
       !currentRoute.startsWith('/available-now') &&
       !currentRoute.startsWith('/vehicles-we-armor') ? (
-        <h1
-          className={`
-            ${styles.banner_heading} 
-            c-title
-            ${
-              [
-                '/manufacturing',
-                '/ballistic-testing',
-                '/shipping-and-logistics',
-              ].includes(currentRoute)
-                ? styles.banner_heading_margin
-                : ''
-            }
-            observe fade-in-scale`}
-          dangerouslySetInnerHTML={{ __html: bannerTitle }}
-        ></h1>
+        <>
+          <h1
+            className={`
+              ${styles.banner_heading} 
+              c-title
+              ${
+                [
+                  '/manufacturing',
+                  '/ballistic-testing',
+                  '/shipping-and-logistics',
+                ].includes(currentRoute)
+                  ? styles.banner_heading_margin
+                  : ''
+              }
+              observe fade-in-scale`}
+            dangerouslySetInnerHTML={{ __html: bannerTitle }}
+          ></h1>
+          {bannerSubitle ? (
+            <h2
+              className={`${styles.banner_subheading} observe fade-in-scale`}
+              dangerouslySetInnerHTML={{ __html: bannerSubitle }}
+            ></h2>
+          ) : null}
+        </>
       ) : null}
     </div>
   );

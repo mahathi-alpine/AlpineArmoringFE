@@ -13,8 +13,6 @@
   z-index: 6;
   visibility: hidden;
   opacity: 0;
-  // transform: scale(1.2);
-  // transform-origin: center;
   will-change: opacity, visibility;
   transition:
     opacity 0.3s ease-out,
@@ -149,7 +147,7 @@
 
     &_active {
       color: var(--color-primary);
-      font-weight: var(--font-demi);
+      font-weight: var(--font-demi) !important;
     }
   }
 
