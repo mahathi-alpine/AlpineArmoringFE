@@ -15,14 +15,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "./declaration.d.ts",
-    "hooks/sitemap.js",
-    "generate-sitemaps.js",
-    "sitemap.config.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./declaration.d.ts"],
   "exclude": ["node_modules"]
 }

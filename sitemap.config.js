@@ -116,6 +116,11 @@ const additionalUrls = {
       changefreq: 'monthly',
     },
     {
+      loc: '/es/noticias',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
       loc: '/es/hacerca-de-nosotros',
       priority: '0.7',
       changefreq: 'monthly',

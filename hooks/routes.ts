@@ -1,16 +1,11 @@
-interface RouteTranslations {
+import routes from '../routes';
+
+export interface RouteTranslations {
   [key: string]: {
     [locale: string]: string;
   };
 }
 
-export const routeTranslations: RouteTranslations = {
-  'about-us': {
-    en: '/about-us',
-    es: '/hacerca-de-nosotros',
-  },
-  'available-now': {
-    en: '/available-now',
-    es: '/disponible-ahora',
-  },
-};
+export const routeTranslations: RouteTranslations = Object.fromEntries(
+  Object.entries(routes).map(([key, value]) => [key, value.paths])
+);

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
+import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import BlogList from 'components/global/news/News';
 import styles from './News.module.scss';
@@ -53,26 +54,33 @@ function Blog(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.news;
+
   let pageData = await getPageData({
-    route: 'news-page',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData?.data?.attributes || null;
 
   let posts = await getPageData({
-    route: 'blogs',
+    route: route.collectionSingle,
     populate: 'deep',
     sort: 'date',
     sortType: 'desc',
     pageSize: 200,
+    locale,
   });
   posts = posts?.data || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, posts, seoData },
+    props: { pageData, posts, seoData, locale },
   };
 }
 

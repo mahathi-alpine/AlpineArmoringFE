@@ -1,7 +1,17 @@
-// const fetchRedirects = require('./redirects');
+const routes = require('./routes');
 
 module.exports = {
   reactStrictMode: true,
+  async rewrites() {
+    return Object.values(routes)
+      .map((route) => route.getRewrites())
+      .flat();
+  },
+  i18n: {
+    locales: ['en', 'es'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
   // outputStrictMode: true,
   // eslint: {
   //   ignoreDuringBuilds: true,
@@ -9,23 +19,6 @@ module.exports = {
   // async redirects() {
   //   return await fetchRedirects();
   // },
-  i18n: {
-    locales: ['en', 'es'],
-    defaultLocale: 'en',
-    localeDetection: false,
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/hacerca-de-nosotros',
-        destination: '/about-us',
-      },
-      {
-        source: '/disponible-ahora',
-        destination: '/available-now',
-      },
-    ];
-  },
   sassOptions: {
     logger: {
       warn: (message) => {

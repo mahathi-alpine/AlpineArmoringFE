@@ -3,6 +3,7 @@ import styles from './NewsSingle.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import routes from 'routes';
 import PlayIcon from 'components/icons/Play2';
 import LinkedinIcon from 'components/icons/Linkedin';
 import { useState, useEffect } from 'react';
@@ -33,10 +34,6 @@ const calculateReadTime = () => {
 function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-
-  // console.log(props);
-
-  // const localeSlug = data.localizations?.data[0]?.attributes.slug;
   const date = new Date(data?.updatedAt);
   const dynamicZone = data?.blogDynamic;
   const faqsTitle = data?.faqsTitle;
@@ -337,18 +334,22 @@ function BlogSingle(props) {
 }
 
 export async function getServerSideProps({ params, locale }) {
+  const route = routes.news;
+
   const data = await getPageData({
-    route: 'blogs',
+    route: route.collectionSingle,
     params: `filters[slug][$eq]=${params.slug}`,
     populate: 'deep',
     locale,
   });
 
-  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-  if (seoData) {
-    seoData.thumbnail =
-      data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
-  }
+  const currentPage = data?.data?.[0]?.attributes;
+
+  const seoData = {
+    ...(currentPage?.seo ?? {}),
+    thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
+    languageUrls: route.getLanguageUrls(currentPage, locale),
+  };
 
   if (!data || !data.data || data.data.length === 0) {
     return {

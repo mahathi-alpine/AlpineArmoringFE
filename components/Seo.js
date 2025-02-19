@@ -6,6 +6,8 @@ const Seo = ({ props }) => {
   const router = useRouter();
   const baseUrl = 'https://www.alpineco.com';
 
+  const languageUrls = props?.languageUrls || {};
+
   // Default values
   const metaTitle = props?.metaTitle || 'Alpine Armoring';
   const metaDescription = props?.metaDescription || 'Alpine Armoring';
@@ -38,12 +40,6 @@ const Seo = ({ props }) => {
   const canonicalUrl = props?.canonicalURL || `${baseUrl}${router.asPath}`;
   const ogUrl = `${baseUrl}${router.asPath}`;
 
-  // Construct language-specific URLs
-  const currentPath = router.asPath;
-  const defaultUrl = `${baseUrl}${currentPath}`;
-  const enUrl = `${baseUrl}${currentPath}`;
-  const esUrl = `${baseUrl}/es${currentPath}`;
-
   return (
     <Head>
       <title>{metaTitle}</title>
@@ -51,9 +47,19 @@ const Seo = ({ props }) => {
       <meta name="image" content={metaImgUrl} />
 
       {/* Hreflang tags */}
-      <link rel="alternate" hrefLang="x-default" href={defaultUrl} />
-      <link rel="alternate" hrefLang="en" href={enUrl} />
-      <link rel="alternate" hrefLang="es" href={esUrl} />
+      <link
+        rel="alternate"
+        hrefLang="x-default"
+        href={`${baseUrl}${languageUrls['en'] || '/'}`}
+      />
+      {Object.entries(languageUrls).map(([locale, path]) => (
+        <link
+          key={locale}
+          rel="alternate"
+          hrefLang={locale}
+          href={`${baseUrl}${path}`}
+        />
+      ))}
 
       {/* Open Graph / Facebook */}
       <meta
