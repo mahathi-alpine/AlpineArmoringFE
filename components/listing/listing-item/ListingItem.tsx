@@ -89,7 +89,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
 
         <ul className={`${styles.inventory_item_info}`}>
           {(() => {
-            const fieldsToDisplay = currentPath.includes(lang.armoredRental)
+            const fieldsToDisplay = currentPath.includes(lang.armoredRentalURL)
               ? [
                   { key: 'rentalsVehicleID', label: lang.vehicleID },
                   { key: 'engine', label: lang.engine },

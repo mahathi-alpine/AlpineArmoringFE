@@ -34,6 +34,10 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
       text: lang.vehiclesWeArmor,
       submenu: [
         {
+          text: lang.all,
+          path: lang.vehiclesWeArmorURL,
+        },
+        {
           text: lang.suvsTitleHeader,
           path: lang.suvsURL,
         },

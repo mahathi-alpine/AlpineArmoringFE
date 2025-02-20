@@ -4,6 +4,7 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'hooks/api';
+import routes from 'routes';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -265,12 +266,15 @@ function VehicleWeArmor(props) {
 }
 
 export async function getServerSideProps(context) {
+  const { locale } = context;
+  const route = routes.vehiclesWeArmor;
   const queryMake = context.query.make;
 
   try {
     let pageData = await getPageData({
-      route: 'list-vehicles-we-armor',
+      route: route.collection,
       populate: 'deep',
+      locale,
     });
     pageData = pageData?.data?.attributes || null;
 
@@ -287,11 +291,12 @@ export async function getServerSideProps(context) {
     }
 
     const vehicles = await getPageData({
-      route: 'vehicles-we-armors',
+      route: route.collectionSingle,
       params: query,
       populate: 'featuredImage, category, make',
       pageSize: 100,
       sort: 'order',
+      locale,
     });
 
     const filteredVehicles = {
@@ -312,6 +317,7 @@ export async function getServerSideProps(context) {
         route: 'categories',
         sort: 'order',
         fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
+        locale,
       }).then((res) => res.data),
       getPageData({
         route: 'makes',
@@ -342,7 +348,7 @@ export async function getServerSideProps(context) {
       : seoData.metaDescription;
 
     return {
-      props: { pageData, vehicles: filteredVehicles, filters, seoData },
+      props: { pageData, vehicles: filteredVehicles, filters, seoData, locale },
     };
   } catch (error) {
     // console.error('Error fetching data:', error);

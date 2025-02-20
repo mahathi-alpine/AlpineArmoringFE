@@ -64,7 +64,7 @@ export default {
   availableNowLawURL: '/available-now/type/armored-law-enforcement',
   availableNowSpecialtyURL: '/available-now/type/armored-specialty-vehicles',
   preOwnedURL: '/available-now/type/armored-pre-owned',
-  armoredRental: 'armored-rental',
+  armoredRentalURL: 'armored-rental',
   rentalsURL: '/available-now/type/armored-rental',
   vehiclesWeArmorURL: '/vehicles-we-armor',
   suvsURL: '/vehicles-we-armor/type/armored-suvs',
@@ -89,7 +89,6 @@ export default {
   downloadsURL: '/all-downloads',
   privacyPolicyURL: '/privacy-policy',
   vehiclesWeArmorStock: '/available-now/?vehicles_we_armor=',
-
   availableNowTitle: 'Available Now',
   vehiclesWeArmor: 'Vehicles We Armor',
   suvsTitleHeader: 'SUVs',
@@ -185,8 +184,16 @@ export default {
   watch: 'Watch',
   video: 'Video',
   offeredAtProtectionLevels: 'Offered At Protection Levels',
-
   hpLatestNews: 'Armoring industry insights',
   blogsURL: '/blog',
   blogsTitle: 'Blogs and Insights',
+
+  ballisticTests: 'Ballistic Tests',
+  mediaAppearances: 'Media Appearances',
+  coolVideos: 'Cool Videos',
+  selectedVansAndTrucks: 'Selected Vans and Trucks',
+  selectedSUVsAndSedans: 'Selected SUVs and Sedans',
+  armoredRental: 'Armored Rental',
+  type: 'type',
+  exploreDifferentModels: 'Explore different models of',
 };

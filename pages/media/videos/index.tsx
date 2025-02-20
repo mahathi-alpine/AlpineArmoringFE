@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
-import Banner from 'components/global/banner/Banner';
+import routes from 'routes';
 import MediaList from '../MediaList';
 
 function Videos(props) {
-  const banner = props?.pageData?.banner;
   const title = props?.pageData?.titleH1;
   const videos = props?.videos;
 
@@ -37,8 +36,6 @@ function Videos(props) {
 
   return (
     <>
-      {banner ? <Banner props={banner} shape="white" /> : null}
-
       {title ? <h1 className="c-title mt2">{title}</h1> : null}
 
       <MediaList props={videos} itemType="video" />
@@ -46,25 +43,32 @@ function Videos(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.videos;
+
   let pageData = await getPageData({
-    route: 'video-page',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData?.data?.attributes || null;
 
   let videos = await getPageData({
-    route: 'videos',
+    route: route.collectionSingle,
     sort: 'order',
     pageSize: 1000,
     populate: 'deep',
+    locale,
   });
   videos = videos?.data || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, videos, seoData },
+    props: { pageData, videos, seoData, locale },
   };
 }
 

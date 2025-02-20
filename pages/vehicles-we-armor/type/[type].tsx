@@ -1,6 +1,8 @@
 import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
+import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -11,14 +13,13 @@ import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 function Inventory(props) {
+  const { lang } = useLocale();
   const currentCategory = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
   const topBanner = currentCategory?.attributes.allBanner;
   const bottomText = currentCategory?.attributes.bottomText;
   const faqs = currentCategory?.attributes.faqs_vehicles_we_armor;
-  // const heading = currentCategory?.attributes.heading;
-
   const router = useRouter();
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
@@ -43,17 +44,6 @@ function Inventory(props) {
       !router.query.make ||
       vehicle.attributes.make?.data?.attributes?.slug === router.query.make
   );
-
-  // // Filtering vehicles based on the q parameter
-  // const filteredByQ = filteredByMake?.filter(
-  //   (vehicle) => !q || vehicle.attributes?.slug.includes(q)
-  // );
-
-  // useEffect(() => {
-  //   if (router.isReady) {
-  //     setLoading(false);
-  //   }
-  // }, [router.isReady]);
 
   // Animations
   useEffect(() => {
@@ -80,23 +70,8 @@ function Inventory(props) {
     };
   }, [itemsToRender, fetchMoreItems]);
 
-  // const findTitleBySlug = (filters, targetSlug) => {
-  //   if (!filters || !Array.isArray(filters.type)) {
-  //     return null;
-  //   }
-
-  //   const matchingItem = filters.type.find(
-  //     (item) =>
-  //       item.attributes &&
-  //       item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
-  //   );
-
-  //   return matchingItem ? matchingItem.attributes.title : null;
-  // };
-
-  // const categoryTitle = findTitleBySlug(props?.filters, props?.query);
-  const categoryTitle = currentCategory.attributes.title;
-  const categorySlug = currentCategory.attributes.slug;
+  const categoryTitle = currentCategory?.attributes.title || 'a';
+  const categorySlug = currentCategory?.attributes.slug || 'a';
 
   const make = router.query.make;
   const categoryTitleWithMake = (
@@ -220,7 +195,7 @@ function Inventory(props) {
           </p>
         ) : null} */}
         <p className={`${styles.listing_heading} center container`}>
-          Explore different models of{' '}
+          {lang.exploreDifferentModels}{' '}
           <strong>
             {typeof make === 'string'
               ? make === 'bmw'
@@ -291,10 +266,16 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
-  const category = context.query.type;
+  const { locale } = context;
+  const route = routes.vehiclesWeArmor;
+
+  const englishType = context.query.type;
+  const localizedType = route.getLocalizedType(englishType, locale);
+
+  // const category = context.query.type;
   const queryMake = context.query.make;
 
-  let query = `filters[category][slug][$eq]=${category}`;
+  let query = `filters[category][slug][$eq]=${localizedType}`;
   const q = context.query.q;
   if (q) {
     query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
@@ -302,11 +283,12 @@ export async function getServerSideProps(context) {
 
   // Fetching Vehicles
   const vehicles = await getPageData({
-    route: 'vehicles-we-armors',
+    route: route.collectionSingle,
     params: query,
     sort: 'order',
     pageSize: 100,
     populate: 'featuredImage, make',
+    locale,
   });
 
   const filteredVehicles = {
@@ -330,6 +312,7 @@ export async function getServerSideProps(context) {
         'fields[0]=title&fields[1]=slug&fields[2]=bottomText&fields[3]=heading',
       populate:
         'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo, faqs_vehicles_we_armor',
+      locale,
     }).then((res) => res.data),
     getPageData({
       route: 'makes',
@@ -429,8 +412,9 @@ export async function getServerSideProps(context) {
     props: {
       vehicles: filteredVehicles,
       filters,
-      query: context.query.type,
+      query: localizedType,
       seoData,
+      locale,
     },
   };
 }

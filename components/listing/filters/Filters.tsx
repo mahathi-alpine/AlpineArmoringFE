@@ -129,9 +129,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const currentFilterMake = router.query.make;
 
-  const pathParts = router.pathname.split('/');
+  const pathParts = router.asPath.split('/');
   const baseUrl = pathParts.slice(0, 2).join('/');
-
   const currentSlug = router.asPath.split('/').pop();
 
   const handleClearFilters = () => {
@@ -253,7 +252,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const queryParams = new URLSearchParams(currentQuery);
     queryParams.delete('vehicles_we_armor');
     const queryString = queryParams.toString();
-    return `${baseUrl}/type/${slug}${queryString ? `?${queryString}` : ''}`;
+    return `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
   };
 
   const hasValidMakeQuery =
@@ -375,8 +374,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
                   {filter === 'type'
                     ? sortFilterItems(filterTypesByMake).map((item) => {
                         if (
-                          (baseUrl == '/vehicles-we-armor' &&
-                            (item.attributes.title == 'Armored Rental' ||
+                          (baseUrl == lang.vehiclesWeArmorURL &&
+                            (item.attributes.title == lang.armoredRental ||
                               item.attributes.title.toLowerCase() ==
                                 'special of the month'.toLowerCase() ||
                               item.attributes.title == 'Armored Pre-Owned')) ||
@@ -397,20 +396,23 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           1 ? (
                           <span
                             className={`
-            ${styles.checkbox_link} 
-            ${styles.checkbox_link_disabled}
-            ${
-              item.attributes.slug ===
-              currentSlug.split('/').pop().split('?')[0]
-                ? styles.selected_filter
-                : ''
-            }
-          `}
+                              ${styles.checkbox_link} 
+                              ${styles.checkbox_link_disabled}
+                              ${
+                                item.attributes.slug ===
+                                currentSlug.split('/').pop().split('?')[0]
+                                  ? styles.selected_filter
+                                  : ''
+                              }
+                            `}
                             key={item.id}
                           >
                             <span className={`${styles.checkbox_span}`}>
-                              {baseUrl == '/vehicles-we-armor'
-                                ? item.attributes.title.replace('Armored', '')
+                              {baseUrl == lang.vehiclesWeArmorURL
+                                ? item.attributes.title.replace(
+                                    lang.armored2,
+                                    ''
+                                  )
                                 : item.attributes.title}
                             </span>
                           </span>
@@ -418,20 +420,25 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           <Link
                             href={newUrl}
                             className={`
-            ${styles.checkbox_link}
-            ${
-              item.attributes.slug ===
-              currentSlug.split('/').pop().split('?')[0]
-                ? styles.selected_filter
-                : ''
-            }
-          `}
+                              ${styles.checkbox_link}
+                              ${
+                                item.attributes.slug ===
+                                currentSlug.split('/').pop().split('?')[0]
+                                  ? styles.selected_filter
+                                  : ''
+                              }
+                            `}
                             onClick={openFilters}
                             key={item.id}
                           >
                             <span className={`${styles.checkbox_span}`}>
-                              {baseUrl == '/vehicles-we-armor'
-                                ? item.attributes.title.replace('Armored', '')
+                              {baseUrl == lang.vehiclesWeArmorURL
+                                ? item.attributes.title
+                                    .replace(/Armored/gi, '')
+                                    .replace(/[Bb]lindado(s)?/g, '')
+                                    .replace(/[Bb]lindada(s)?/g, '')
+                                    .replace(/\s+s\b/, '')
+                                    .trim()
                                 : item.attributes.title}
                             </span>
                           </Link>

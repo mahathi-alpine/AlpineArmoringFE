@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import useLocale from 'hooks/useLocale';
 import styles from './MediaList.module.scss';
 import EmblaCarousel from 'embla-carousel';
 import VideoSingle from './videos/VideoSingle';
@@ -8,15 +9,27 @@ import { useRouter } from 'next/router';
 
 function MediaList({ props, itemType }) {
   const router = useRouter();
+  const { lang } = useLocale();
   const currentRoute = router.pathname;
 
   const categoryOrder = [
-    'Ballistic Tests',
-    'Media Appearances',
-    'Cool Videos',
-    'Selected Vans and Trucks',
-    'Selected SUVs and Sedans',
+    'ballisticTests',
+    'mediaAppearances',
+    'coolVideos',
+    'selectedVansAndTrucks',
+    'selectedSUVsAndSedans',
   ];
+
+  const getTranslatedCategory = (category) => {
+    const translationMap = {
+      'Ballistic Tests': lang.ballisticTests,
+      'Media Appearances': lang.mediaAppearances,
+      'Cool Videos': lang.coolVideos,
+      'Selected Vans and Trucks': lang.selectedVansAndTrucks,
+      'Selected SUVs and Sedans': lang.selectedSUVsAndSedans,
+    };
+    return translationMap[category] || category;
+  };
 
   const categoryMap = new Map();
   props?.forEach((item) => {
@@ -174,7 +187,7 @@ function MediaList({ props, itemType }) {
           <div className={`${styles.mediaList_list} container`} key={index}>
             {currentRoute !== '/ballistic-testing' ? (
               <h2 className={`${styles.mediaList_list_title} fade-in observe`}>
-                {category}
+                {getTranslatedCategory(category)}
               </h2>
             ) : null}
 
