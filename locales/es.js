@@ -190,4 +190,13 @@ export default {
   hpLatestNews: 'Industria de blindaje',
   blogsURL: '/blog',
   blogsTitle: 'Blogs y Perspectivas',
+
+  ballisticTests: 'Pruebas Balísticas',
+  mediaAppearances: 'Apariciones en Medios de comunicacion',
+  coolVideos: 'Videos Geniales',
+  selectedVansAndTrucks: 'Furgonetas y Camiones Seleccionados',
+  selectedSUVsAndSedans: 'SUVs y Sedanes Seleccionados',
+  armoredRental: 'Alquiler de autos blindados',
+  type: 'tipo',
+  exploreDifferentModels: 'Explora diferentes modelos de',
 };
