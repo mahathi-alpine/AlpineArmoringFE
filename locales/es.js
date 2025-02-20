@@ -190,13 +190,4 @@ export default {
   hpLatestNews: 'Industria de blindaje',
   blogsURL: '/blog',
   blogsTitle: 'Blogs y Perspectivas',
-
-  ballisticTests: 'Pruebas Balísticas',
-  mediaAppearances: 'Apariciones en Medios',
-  coolVideos: 'Videos Interesantes',
-  selectedVansAndTrucks: 'Furgonetas y Camiones Seleccionados',
-  selectedSUVsAndSedans: 'SUVs y Sedanes Seleccionados',
-  armoredRental: 'Armored Rental',
-  type: 'tipo',
-  exploreDifferentModels: 'Explore different models of',
 };
