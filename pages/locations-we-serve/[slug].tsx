@@ -49,9 +49,9 @@ function ArticleSingle(props) {
         ) : null}
 
         {content ? (
-          <CustomMarkdown className={`${styles.articleSingle_content} static`}>
-            {content}
-          </CustomMarkdown>
+          <div className={`${styles.articleSingle_content} static`}>
+            <CustomMarkdown>{content}</CustomMarkdown>
+          </div>
         ) : null}
 
         {formData ? (

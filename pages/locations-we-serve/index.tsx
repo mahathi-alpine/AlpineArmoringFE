@@ -45,9 +45,9 @@ function Locations(props) {
               {lang.locationsWeServe}
             </h1>
             {props.pageData?.defaultText ? (
-              <CustomMarkdown className={`${styles.locations_description}`}>
-                {props.pageData?.defaultText}
-              </CustomMarkdown>
+              <div className={`${styles.locations_description}`}>
+                <CustomMarkdown>{props.pageData?.defaultText}</CustomMarkdown>
+              </div>
             ) : null}
           </div>
 

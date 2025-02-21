@@ -29,9 +29,9 @@ const PopupComponent = ({ showPopup, setShowPopup, selectedItem }) => {
       <div ref={innerRef} className={`modal_inner`}>
         <h3 className={`modal_title`}>{selectedItem.title}</h3>
         <div className={`modal_box`}>
-          <CustomMarkdown className={`modal_description`}>
-            {selectedItem.description}
-          </CustomMarkdown>
+          <div className={`modal_description`}>
+            <CustomMarkdown>{selectedItem.description}</CustomMarkdown>
+          </div>
           {selectedItem?.image?.data ? (
             <Image
               src={

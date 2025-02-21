@@ -125,11 +125,9 @@ function Shipping(props) {
                 ) : null}
 
                 {item.description ? (
-                  <CustomMarkdown
-                    className={`${styles.shipping_box_item_text}`}
-                  >
-                    {item.description}
-                  </CustomMarkdown>
+                  <div className={`${styles.shipping_box_item_text}`}>
+                    <CustomMarkdown>{item.description}</CustomMarkdown>
+                  </div>
                 ) : null}
               </div>
 
@@ -152,9 +150,9 @@ function Shipping(props) {
             </h2>
 
             {license ? (
-              <CustomMarkdown className={`${styles.shipping_license_text}`}>
-                {license}
-              </CustomMarkdown>
+              <div className={`${styles.shipping_license_text}`}>
+                <CustomMarkdown>{license}</CustomMarkdown>
+              </div>
             ) : null}
           </div>
 

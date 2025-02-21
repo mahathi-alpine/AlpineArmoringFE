@@ -247,18 +247,18 @@ function BlogSingle(props) {
             id="blogContent"
           >
             {content ? (
-              <CustomMarkdown className={`${styles.blogSingle_content} static`}>
-                {content}
-              </CustomMarkdown>
+              <div className={`${styles.blogSingle_content} static`}>
+                <CustomMarkdown>{content}</CustomMarkdown>
+              </div>
             ) : null}
 
             {dynamicZone?.map((component, index) => {
               switch (component.__component) {
                 case 'slices.text': {
                   return (
-                    <CustomMarkdown className={`text-wrap`} key={index}>
-                      {component.Content}
-                    </CustomMarkdown>
+                    <div className={`text-wrap`} key={index}>
+                      <CustomMarkdown>{component.Content}</CustomMarkdown>
+                    </div>
                   );
                 }
                 case 'slices.single-media':

@@ -312,11 +312,11 @@ function InventoryVehicle(props) {
         />
 
         {mainText ? (
-          <CustomMarkdown
+          <div
             className={`${styles.inventory_description} container_small observe fade-in-up`}
           >
-            {mainText}
-          </CustomMarkdown>
+            <CustomMarkdown>{mainText}</CustomMarkdown>
+          </div>
         ) : null}
 
         {videoWebm || videoMP4 ? (

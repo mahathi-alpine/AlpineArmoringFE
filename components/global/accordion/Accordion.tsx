@@ -41,11 +41,11 @@ const Accordion = ({ items, title = '', button = false }) => {
               }}
               className={`${styles.accordion_item_content}`}
             >
-              <CustomMarkdown
-                className={`${styles.accordion_item_content_text}`}
-              >
-                {item.attributes?.text || item?.text}
-              </CustomMarkdown>
+              <div className={`${styles.accordion_item_content_text}`}>
+                <CustomMarkdown>
+                  {item.attributes?.text || item?.text}
+                </CustomMarkdown>
+              </div>
             </div>
           ) : null}
         </div>

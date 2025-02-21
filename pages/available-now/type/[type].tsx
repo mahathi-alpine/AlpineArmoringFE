@@ -206,9 +206,9 @@ function Inventory(props) {
 
         {bottomText ? (
           <div className={`container_small`}>
-            <CustomMarkdown className={`${styles.listing_bottomText}`}>
-              {bottomText}
-            </CustomMarkdown>
+            <div className={`${styles.listing_bottomText}`}>
+              <CustomMarkdown>{bottomText}</CustomMarkdown>
+            </div>
           </div>
         ) : null}
 

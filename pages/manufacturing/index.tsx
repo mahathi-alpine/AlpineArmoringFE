@@ -95,20 +95,20 @@ function Manufacturing(props) {
           ) : null}
 
           {props.pageData?.section1Heading ? (
-            <CustomMarkdown
+            <div
               className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
             >
-              {props.pageData.section1Heading}
-            </CustomMarkdown>
+              <CustomMarkdown>{props.pageData.section1Heading}</CustomMarkdown>
+            </div>
           ) : null}
 
           <div className={`${styles.manufacturing_box}`}>
             {props.pageData?.section1Text1 ? (
-              <CustomMarkdown
+              <div
                 className={`${styles.manufacturing_section1_text1} ${styles.manufacturing_text} fade-in observe`}
               >
-                {props.pageData.section1Text1}
-              </CustomMarkdown>
+                <CustomMarkdown>{props.pageData.section1Text1}</CustomMarkdown>
+              </div>
             ) : null}
 
             {props.pageData?.section1Image.data ? (
@@ -156,11 +156,9 @@ function Manufacturing(props) {
           </div>
 
           {props.pageData?.section1Text2 ? (
-            <CustomMarkdown
-              className={`${styles.manufacturing_quote} observe fade-in`}
-            >
-              {props.pageData.section1Text2}
-            </CustomMarkdown>
+            <div className={`${styles.manufacturing_quote} observe fade-in`}>
+              <CustomMarkdown>{props.pageData.section1Text2}</CustomMarkdown>
+            </div>
           ) : null}
         </section>
 
@@ -190,20 +188,20 @@ function Manufacturing(props) {
             ) : null}
 
             {props.pageData?.section2Text ? (
-              <CustomMarkdown
+              <div
                 className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
               >
-                {props.pageData.section2Text}
-              </CustomMarkdown>
+                <CustomMarkdown>{props.pageData.section2Text}</CustomMarkdown>
+              </div>
             ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
               {props.pageData?.section2Text2 ? (
-                <CustomMarkdown
-                  className={`${styles.manufacturing_text} observe fade-in`}
-                >
-                  {props.pageData.section2Text2}
-                </CustomMarkdown>
+                <div className={`${styles.manufacturing_text} observe fade-in`}>
+                  <CustomMarkdown>
+                    {props.pageData.section2Text2}
+                  </CustomMarkdown>
+                </div>
               ) : null}
 
               {props.pageData?.section2Image.data ? (
@@ -232,11 +230,9 @@ function Manufacturing(props) {
             className={`${styles.manufacturing_container_small} container_small`}
           >
             {props.pageData?.section2Text3 ? (
-              <CustomMarkdown
-                className={`${styles.manufacturing_quote} observe fade-in`}
-              >
-                {props.pageData.section2Text3}
-              </CustomMarkdown>
+              <div className={`${styles.manufacturing_quote} observe fade-in`}>
+                <CustomMarkdown>{props.pageData.section2Text3}</CustomMarkdown>
+              </div>
             ) : null}
           </div>
 
@@ -264,20 +260,22 @@ function Manufacturing(props) {
             ) : null}
 
             {props.pageData?.section3Heading ? (
-              <CustomMarkdown
+              <div
                 className={`${styles.manufacturing_section1_heading} ${styles.manufacturing_heading} fade-in observe`}
               >
-                {props.pageData.section3Heading}
-              </CustomMarkdown>
+                <CustomMarkdown>
+                  {props.pageData.section3Heading}
+                </CustomMarkdown>
+              </div>
             ) : null}
 
             <div className={`${styles.manufacturing_box}`}>
               {props.pageData?.section3Text ? (
-                <CustomMarkdown
+                <div
                   className={`${styles.manufacturing_section3_text} ${styles.manufacturing_text} observe fade-in`}
                 >
-                  {props.pageData.section3Text}
-                </CustomMarkdown>
+                  <CustomMarkdown>{props.pageData.section3Text}</CustomMarkdown>
+                </div>
               ) : null}
 
               {props.pageData?.section3Image.data ? (
@@ -302,11 +300,9 @@ function Manufacturing(props) {
             </div>
 
             {props.pageData?.section3Text2 ? (
-              <CustomMarkdown
-                className={`${styles.manufacturing_quote} observe fade-in`}
-              >
-                {props.pageData.section3Text2}
-              </CustomMarkdown>
+              <div className={`${styles.manufacturing_quote} observe fade-in`}>
+                <CustomMarkdown>{props.pageData.section3Text2}</CustomMarkdown>
+              </div>
             ) : null}
           </div>
 

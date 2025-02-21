@@ -69,11 +69,11 @@ function About(props) {
         ) : null}
 
         {props.pageData?.text ? (
-          <CustomMarkdown
+          <div
             className={`${styles.about_text} observe fade-in container_small`}
           >
-            {props.pageData.text}
-          </CustomMarkdown>
+            <CustomMarkdown>{props.pageData.text}</CustomMarkdown>
+          </div>
         ) : null}
 
         {props.pageData?.timeline1?.filter(
@@ -129,9 +129,9 @@ function About(props) {
                 ) : null}
 
                 {item.description ? (
-                  <CustomMarkdown className={`${styles.about_box_item_text}`}>
-                    {item.description}
-                  </CustomMarkdown>
+                  <div className={`${styles.about_box_item_text}`}>
+                    <CustomMarkdown>{props.description}</CustomMarkdown>
+                  </div>
                 ) : null}
 
                 {item.title === 'Our Certifications' && (

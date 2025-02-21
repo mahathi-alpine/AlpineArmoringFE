@@ -181,11 +181,11 @@ function Testing(props) {
           ) : null}
 
           {props.pageData?.section1Heading ? (
-            <CustomMarkdown
+            <div
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
             >
-              {props.pageData.section1Heading}
-            </CustomMarkdown>
+              <CustomMarkdown>{props.pageData.section1Heading}</CustomMarkdown>
+            </div>
           ) : null}
 
           <div className={styles.galleryContainer}>
@@ -374,11 +374,11 @@ function Testing(props) {
           ) : null}
 
           {props.pageData?.section2Heading ? (
-            <CustomMarkdown
+            <div
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
             >
-              {props.pageData.section2Heading}
-            </CustomMarkdown>
+              <CustomMarkdown>{props.pageData.section2Heading}</CustomMarkdown>
+            </div>
           ) : null}
 
           <div className={`${styles.testing_armor}`}>
@@ -390,11 +390,11 @@ function Testing(props) {
                 <h4 className={`${styles.testing_armor_title}`}>
                   {item.title}
                 </h4>
-                <CustomMarkdown
-                  className={`${styles.testing_armor_description}`}
-                >
-                  {item.description}
-                </CustomMarkdown>
+
+                <div className={`${styles.testing_armor_description}`}>
+                  <CustomMarkdown>{item.description}</CustomMarkdown>
+                </div>
+
                 <div
                   className={`${styles.testing_armor_read}`}
                   onClick={() => handleReadMore(item)}
@@ -540,26 +540,26 @@ function Testing(props) {
           ) : null}
 
           {props.pageData?.section3Heading ? (
-            <CustomMarkdown
+            <div
               className={`${styles.testing_section1_heading} ${styles.testing_heading} fade-in observe`}
             >
-              {props.pageData.section3Heading}
-            </CustomMarkdown>
+              <CustomMarkdown>{props.pageData.section3Heading}</CustomMarkdown>
+            </div>
           ) : null}
           <MediaList props={videos} itemType="video" />
         </section>
 
         <section className={`container_small`}>
           {props.pageData?.section4Title ? (
-            <CustomMarkdown className={styles.section4Title}>
-              {props.pageData.section4Title}
-            </CustomMarkdown>
+            <div className={styles.section4Title}>
+              <CustomMarkdown>{props.pageData.section4Title}</CustomMarkdown>
+            </div>
           ) : null}
 
           {props.pageData?.section4Heading ? (
-            <CustomMarkdown className={styles.section4Heading}>
-              {props.pageData.section4Heading}
-            </CustomMarkdown>
+            <div className={styles.section4Heading}>
+              <CustomMarkdown>{props.pageData.section4Heading}</CustomMarkdown>
+            </div>
           ) : null}
         </section>
       </div>

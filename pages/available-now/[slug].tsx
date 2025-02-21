@@ -602,11 +602,9 @@ function InventoryVehicle(props) {
         />
 
         {mainText ? (
-          <CustomMarkdown
-            className={`${styles.inventory_description} container_small`}
-          >
-            {mainText}
-          </CustomMarkdown>
+          <div className={`${styles.inventory_description} container_small`}>
+            <CustomMarkdown>{mainText}</CustomMarkdown>
+          </div>
         ) : null}
 
         {videoWebm || videoMP4 ? (

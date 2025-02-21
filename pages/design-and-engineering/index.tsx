@@ -85,11 +85,9 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section1Text ? (
-              <CustomMarkdown
-                className={`${styles.design_heading} observe fade-in`}
-              >
-                {props.pageData.section1Text}
-              </CustomMarkdown>
+              <div className={`${styles.design_heading} observe fade-in`}>
+                <CustomMarkdown>{props.pageData.section1Text}</CustomMarkdown>
+              </div>
             ) : null}
           </div>
 
@@ -146,11 +144,9 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section1Text2 ? (
-              <CustomMarkdown
-                className={`${styles.design_text} observe fade-in`}
-              >
-                {props.pageData.section1Text2}
-              </CustomMarkdown>
+              <div className={`${styles.design_text} observe fade-in`}>
+                <CustomMarkdown>{props.pageData.section1Text2}</CustomMarkdown>
+              </div>
             ) : null}
 
             {props.pageData?.section1Image.data ? (
@@ -193,11 +189,9 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section2Text ? (
-              <CustomMarkdown
-                className={`${styles.design_heading} observe fade-in`}
-              >
-                {props.pageData.section2Text}
-              </CustomMarkdown>
+              <div className={`${styles.design_heading} observe fade-in`}>
+                <CustomMarkdown>{props.pageData.section2Text}</CustomMarkdown>
+              </div>
             ) : null}
           </div>
 
@@ -229,11 +223,9 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section2Text2 ? (
-              <CustomMarkdown
-                className={`${styles.design_text} observe fade-in`}
-              >
-                {props.pageData.section2Text2}
-              </CustomMarkdown>
+              <div className={`${styles.design_text} observe fade-in`}>
+                <CustomMarkdown>{props.pageData.section2Text2}</CustomMarkdown>
+              </div>
             ) : null}
 
             {props.pageData?.section2Image2.data ? (
@@ -280,19 +272,21 @@ const Design = (props) => {
 
               <div className={`${styles.design_section3_top_box}`}>
                 {props.pageData?.section3Heading ? (
-                  <CustomMarkdown
+                  <div
                     className={`${styles.design_section3_heading} ${styles.design_heading} observe fade-in`}
                   >
-                    {props.pageData.section3Heading}
-                  </CustomMarkdown>
+                    <CustomMarkdown>
+                      {props.pageData.section3Heading}
+                    </CustomMarkdown>
+                  </div>
                 ) : null}
 
                 {props.pageData?.section3Text ? (
-                  <CustomMarkdown
-                    className={`${styles.design_text} observe fade-in`}
-                  >
-                    {props.pageData.section3Text}
-                  </CustomMarkdown>
+                  <div className={`${styles.design_text} observe fade-in`}>
+                    <CustomMarkdown>
+                      {props.pageData.section3Text}
+                    </CustomMarkdown>
+                  </div>
                 ) : null}
               </div>
             </div>
@@ -306,11 +300,11 @@ const Design = (props) => {
                   <h4 className={`${styles.design_armor_title}`}>
                     {item.title}
                   </h4>
-                  <CustomMarkdown
-                    className={`${styles.design_armor_description}`}
-                  >
-                    {item.description}
-                  </CustomMarkdown>
+
+                  <div className={`${styles.design_armor_description}`}>
+                    <CustomMarkdown>{item.description}</CustomMarkdown>
+                  </div>
+
                   <div
                     className={`${styles.design_armor_read}`}
                     onClick={() => handleReadMore(item)}
@@ -357,11 +351,11 @@ const Design = (props) => {
             ) : null}
 
             {props.pageData?.section4Heading ? (
-              <CustomMarkdown
-                className={`${styles.design_heading} observe fade-in`}
-              >
-                {props.pageData.section4Heading}
-              </CustomMarkdown>
+              <div className={`${styles.design_heading} observe fade-in`}>
+                <CustomMarkdown>
+                  {props.pageData.section4Heading}
+                </CustomMarkdown>
+              </div>
             ) : null}
 
             <div className={`${styles.design_box} container`}>
@@ -394,11 +388,9 @@ const Design = (props) => {
               ) : null}
 
               {props.pageData?.section4Text ? (
-                <CustomMarkdown
-                  className={`${styles.design_text} observe fade-in`}
-                >
-                  {props.pageData.section4Text}
-                </CustomMarkdown>
+                <div className={`${styles.design_text} observe fade-in`}>
+                  <CustomMarkdown>{props.pageData.section4Text}</CustomMarkdown>
+                </div>
               ) : null}
 
               {props.pageData?.section4Image.data?.attributes ? (
@@ -446,20 +438,18 @@ const Design = (props) => {
           ) : null}
 
           {props.pageData?.section6Heading ? (
-            <CustomMarkdown
-              className={`${styles.design_heading} fade-in observe`}
-            >
-              {props.pageData.section6Heading}
-            </CustomMarkdown>
+            <div className={`${styles.design_heading} observe fade-in`}>
+              <CustomMarkdown>{props.pageData.section6Heading}</CustomMarkdown>
+            </div>
           ) : null}
 
           <div className={`${styles.design_box}`}>
             {props.pageData?.section6Text ? (
-              <CustomMarkdown
+              <div
                 className={`${styles.design_section6_text} ${styles.design_text} fade-in observe`}
               >
-                {props.pageData.section6Text}
-              </CustomMarkdown>
+                <CustomMarkdown>{props.pageData.section6Text}</CustomMarkdown>
+              </div>
             ) : null}
 
             {props.pageData?.section6Image.data ? (
@@ -505,11 +495,11 @@ const Design = (props) => {
           </div>
           <div className={`${styles.design_box}`}>
             {props.pageData?.section6Text2 ? (
-              <CustomMarkdown
+              <div
                 className={`${styles.design_section6_text} ${styles.design_text} fade-in observe`}
               >
-                {props.pageData.section6Text2}
-              </CustomMarkdown>
+                <CustomMarkdown>{props.pageData.section6Text2}</CustomMarkdown>
+              </div>
             ) : null}
             {props.pageData?.section6Image2.data ? (
               <div className={`${styles.design_image} observe fade-in`}>

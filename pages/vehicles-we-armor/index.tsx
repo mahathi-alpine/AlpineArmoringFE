@@ -239,9 +239,9 @@ function VehicleWeArmor(props) {
 
       {bottomText ? (
         <div className={`container_small`}>
-          <CustomMarkdown className={`${styles.listing_bottomText} darkColor`}>
-            {bottomText}
-          </CustomMarkdown>
+          <div className={`${styles.listing_bottomText} darkColor`}>
+            <CustomMarkdown>{bottomText}</CustomMarkdown>
+          </div>
         </div>
       ) : null}
 

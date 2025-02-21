@@ -74,11 +74,9 @@ function BlogSingle(props) {
           </Link>
         ) : null}
         {data.description ? (
-          <CustomMarkdown
-            className={`${styles.news_authorHeading_description} static`}
-          >
-            {data.description}
-          </CustomMarkdown>
+          <div className={`${styles.news_authorHeading_description} static`}>
+            <CustomMarkdown>{data.description}</CustomMarkdown>
+          </div>
         ) : null}
       </div>
 

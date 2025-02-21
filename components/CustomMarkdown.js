@@ -2,12 +2,11 @@ import ReactMarkdown from 'react-markdown';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
 
-export default function CustomMarkdown({ children, className = '' }) {
+export default function CustomMarkdown({ children }) {
   if (!children) return null;
 
   return (
     <ReactMarkdown
-      className={className}
       rehypePlugins={[
         rehypeRaw,
         [

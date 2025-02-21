@@ -39,9 +39,9 @@ function Dealer(props) {
       {banner ? <Banner props={banner} shape="white" /> : null}
 
       {text ? (
-        <CustomMarkdown className={`static container_small`}>
-          {text}
-        </CustomMarkdown>
+        <div className={`static container_small`}>
+          <CustomMarkdown>{text}</CustomMarkdown>
+        </div>
       ) : null}
     </>
   );

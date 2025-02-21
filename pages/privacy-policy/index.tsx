@@ -8,7 +8,9 @@ function Privacy(props) {
     <>
       {text ? (
         <div className={`static container_small`}>
-          <CustomMarkdown className={`mt2`}>{text}</CustomMarkdown>
+          <div className={`mt2`}>
+            <CustomMarkdown>{text}</CustomMarkdown>
+          </div>
         </div>
       ) : null}
     </>
