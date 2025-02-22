@@ -73,8 +73,10 @@ export async function getStaticProps() {
   while (page <= totalPages) {
     const response = await getPageData({
       route: 'articles',
-      populate: 'deep',
+      populate: 'flag, localizations, seo',
       sort: 'excerpt',
+      fields:
+        'fields[0]=excerpt&fields[1]=locale&fields[2]=order&fields[3]=region&fields[4]=slug&fields[5]=title&fields[6]=type',
       pageSize: pageSize,
       page: page,
     });

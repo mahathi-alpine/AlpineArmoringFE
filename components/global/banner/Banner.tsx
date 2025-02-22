@@ -159,7 +159,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
       className={`
       ${styles.banner}
       ${small ? styles.banner_small : ''}
-      ${currentRoute.startsWith('/ballistic-testing') ? styles.banner_full : ''}
+      ${currentRoute.startsWith(lang.ballisticTestingURL) ? styles.banner_full : ''}
     `}
     >
       <div className={`${styles.banner_inner}`}>
@@ -201,7 +201,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
 
       {bannerTitle &&
       !currentRoute.startsWith(lang.availableNowURL) &&
-      !currentRoute.startsWith('/vehicles-we-armor') ? (
+      !currentRoute.startsWith(lang.vehiclesWeArmorURL) ? (
         <>
           <h1
             className={`
@@ -209,9 +209,9 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
               c-title
               ${
                 [
-                  '/manufacturing',
-                  '/ballistic-testing',
-                  '/shipping-and-logistics',
+                  lang.manufacturingURL,
+                  lang.ballisticTestingURL,
+                  lang.shippingLogisticsURL,
                 ].includes(currentRoute)
                   ? styles.banner_heading_margin
                   : ''

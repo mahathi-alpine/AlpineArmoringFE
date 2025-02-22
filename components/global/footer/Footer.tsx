@@ -81,9 +81,9 @@ const Footer = (props) => {
                 {`"${lang.noOneProtectsBetter}" ®`}
               </h3>
             </div>
-            {(currentRoute === '/about-us' ||
+            {(currentRoute === lang.aboutURL ||
               currentRoute === lang.availableNowURL ||
-              currentRoute.includes('/countries-we-service')) && (
+              currentRoute.includes(lang.locationsWeServeURL)) && (
               <div className={styles.footer_image}>
                 <Image
                   src="/assets/armored-vehicles.png"
@@ -275,8 +275,8 @@ const Footer = (props) => {
 
           <div
             className={`${styles.footer_flag} ${
-              currentRoute === '/manufacturing' ||
-              currentRoute === '/ballistic-testing'
+              currentRoute === lang.manufacturing ||
+              currentRoute === lang.ballisticTestingURL
                 ? styles.footer_flag_dark
                 : styles.footer_flag_light
             }`}

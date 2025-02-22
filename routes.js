@@ -14,6 +14,20 @@ const routes = {
       en: '/available-now',
       es: '/disponible-ahora',
     },
+    typePath: {
+      en: 'type',
+      es: 'tipo',
+    },
+    types: {
+      'armored-suvs': {
+        en: 'armored-suvs',
+        es: 'suvs-blindados',
+      },
+      'armored-rental': {
+        en: 'armored-rental',
+        es: 'alquiler-blindados',
+      },
+    },
   },
   vehiclesWeArmor: {
     collection: 'list-vehicles-we-armor',
@@ -30,6 +44,10 @@ const routes = {
       'armored-suvs': {
         en: 'armored-suvs',
         es: 'suvs-blindados',
+      },
+      'armored-rental': {
+        en: 'armored-rental',
+        es: 'alquiler-blindados',
       },
     },
   },
@@ -63,6 +81,10 @@ const utils = {
       'armored-suvs': {
         en: 'armored-suvs',
         es: 'suvs-blindados',
+      },
+      'armored-rental': {
+        en: 'armored-rental',
+        es: 'alquiler-blindados',
       },
     };
 

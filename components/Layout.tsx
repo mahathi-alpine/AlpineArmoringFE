@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
+import useLocale from 'hooks/useLocale';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
@@ -50,9 +51,10 @@ const termina = localFont({
 
 const Layout = ({ children }) => {
   const router = useRouter();
+  const { lang } = useLocale();
 
   const pathsDarkMode = [
-    '/available-now',
+    lang.availableNowURL,
     '/rental-vehicles',
     '/manufacturing',
     '/sold-vehicles',
@@ -65,7 +67,7 @@ const Layout = ({ children }) => {
     '/ballistic-testing',
     '/locations-we-serve',
   ];
-  const footerPadding0 = ['/available-now'];
+  const footerPadding0 = [lang.availableNowURL];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.asPath.startsWith(path)
@@ -76,7 +78,7 @@ const Layout = ({ children }) => {
   const isFooterPadding0 = footerPadding0.some(
     (path) =>
       router.asPath === path ||
-      (router.asPath.startsWith('/available-now/type/') &&
+      (router.asPath.startsWith(`${lang.availableNowURL}/${lang.type}/`) &&
         router.asPath.split('/').length === 4)
   );
 

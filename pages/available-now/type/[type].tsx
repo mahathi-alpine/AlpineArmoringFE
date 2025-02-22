@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import styles from '/components/listing/Listing.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
+import routes from 'routes';
 import useLocale, { getLocaleStrings } from 'hooks/useLocale';
 import Head from 'next/head';
 import Filters from 'components/listing/filters/Filters';
@@ -240,22 +241,27 @@ function Inventory(props) {
 export async function getServerSideProps(context) {
   const locale = context.locale || 'en';
   const lang = getLocaleStrings(locale);
+  const route = routes.inventory;
 
-  const category = context.query.type;
-  let query = `filters[categories][slug][$eq]=${category}`;
+  const englishType = context.query.type;
+  const localizedType = route.getLocalizedType(englishType, locale);
+
+  // const category = context.query.type;
+  let query = `filters[categories][slug][$eq]=${localizedType}`;
   const q = context.query.q;
   if (q) {
     query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
   }
 
   const vehicles = await getPageData({
-    route: 'inventories',
+    route: route.collectionSingle,
     params: query,
     sort: 'order',
     populate: 'featuredImage',
     fields:
       'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans',
     pageSize: 100,
+    locale,
   });
 
   const filteredVehicles = {
@@ -275,6 +281,7 @@ export async function getServerSideProps(context) {
   const type = await getPageData({
     route: 'categories',
     custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&fields[2]=bottomTextInventory&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats&populate[faqs_stock][fields][0]=title&populate[faqs_stock][fields][1]=text`,
+    locale,
   }).then((response) => response.data);
 
   const filters = type ? { type } : {};
@@ -336,6 +343,7 @@ export async function getServerSideProps(context) {
       filters,
       query: context.query.type,
       seoData,
+      locale,
     },
   };
 }

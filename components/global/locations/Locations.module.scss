@@ -60,6 +60,11 @@
 
     &_flag {
       margin: rem(12) 0;
+
+      img{
+        max-height: 40px;
+        width: auto;
+      }
     }
 
     &_country {

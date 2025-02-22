@@ -40,7 +40,7 @@ const Article = ({ props, limit = '' }) => {
                         }
                         alt={item.attributes.excerpt}
                         width={45}
-                        height={26}
+                        height={45}
                       />
                     </div>
                     <div className={`${styles.locations_card_country}`}>
