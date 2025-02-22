@@ -39,31 +39,31 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
         },
         {
           text: lang.suvsTitleHeader,
-          path: lang.suvsURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.suvsURL}`,
         },
         {
           text: lang.sedans,
-          path: lang.sedansURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.sedansURL}`,
         },
         {
           text: lang.pickupTrucks,
-          path: lang.pickupTrucksURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.pickupTrucksURL}`,
         },
         {
           text: lang.vansBuses,
-          path: lang.vansURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.vansURL}`,
         },
         {
           text: lang.lawEnforcement,
-          path: lang.lawEnforcementURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.lawEnforcementURL}`,
         },
         {
           text: lang.CITNavigation,
-          path: lang.citURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.citURL}`,
         },
         {
           text: lang.specialtyVehicles,
-          path: lang.specialtyURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.specialtyURL}`,
         },
       ],
     },
@@ -76,7 +76,10 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
     { path: lang.newsURL, text: lang.headerNewsTitle },
     { path: lang.blogsURL, text: lang.blogsTitle },
     { path: lang.mediaURL, text: lang.headerMediaTitle },
-    { path: lang.rentalsURL, text: lang.formInquiryRental },
+    {
+      path: `${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`,
+      text: lang.rentalVehicles,
+    },
     { path: lang.designEngineeringURL, text: lang.designEngineering },
     { path: lang.manufacturingURL, text: lang.manufacturing },
     { path: lang.shippingLogisticsURL, text: lang.shippingLogistics },

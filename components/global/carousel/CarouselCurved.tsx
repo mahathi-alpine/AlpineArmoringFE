@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useIsMobile } from 'hooks/useIsMobile';
 import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import {
@@ -27,6 +28,7 @@ const CarouselCurved = ({
   singular = undefined,
 }) => {
   const slides = props;
+  const { lang } = useLocale();
 
   const options = {
     dragFree: false,
@@ -122,7 +124,7 @@ const CarouselCurved = ({
                         </video>
                       ) : null}
 
-                      {router.pathname.startsWith('/vehicles-we-armor') ? (
+                      {router.asPath.startsWith(lang.vehiclesWeArmorURL) ? (
                         <span
                           className={`${styles.carouselCurved_slide_index}`}
                         >

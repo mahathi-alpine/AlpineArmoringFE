@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import styles from '/components/listing/Listing.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
+import useLocale, { getLocaleStrings } from 'hooks/useLocale';
 import Head from 'next/head';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
@@ -13,6 +14,8 @@ import Accordion from 'components/global/accordion/Accordion';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 function Inventory(props) {
+  const { lang } = useLocale();
+
   const currentCategory = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
@@ -163,7 +166,7 @@ function Inventory(props) {
 
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
-        {currentPath.includes('armored-rental') ? (
+        {currentPath.includes(lang.armoredRentalURL) ? (
           <div className={`${styles.listing_rentalsCTA}`}>
             <Button
               href="https://www.armoredautos.com/armored-rentals?ref=mainWebsite"
@@ -180,7 +183,8 @@ function Inventory(props) {
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
           {/* Render Filters conditionally based on path and filter type */}
-          {!currentPath.includes('armored-rental') && props.filters?.type ? (
+          {!currentPath.includes(lang.armoredRentalURL) &&
+          props.filters?.type ? (
             <div className={`${styles.listing_wrap_filtered}`}>
               <Filters props={props.filters} />
             </div>
@@ -234,6 +238,9 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
+  const locale = context.locale || 'en';
+  const lang = getLocaleStrings(locale);
+
   const category = context.query.type;
   let query = `filters[categories][slug][$eq]=${category}`;
   const q = context.query.q;
@@ -280,13 +287,13 @@ export async function getServerSideProps(context) {
 
   if (seoData) {
     // Modify meta title
-    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== 'armored-rental' && context.query.type !== 'armored-pre-owned' ? ' for Sale' : ''} | Alpine Armoring`;
+    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== lang.armoredRentalURL && context.query.type !== lang.preOwnedURL ? ' for Sale' : ''} | Alpine Armoring`;
 
     // Modify meta description only when not armored-rental
     if (
       context.query.type &&
-      context.query.type !== 'armored-rental' &&
-      context.query.type !== 'armored-pre-owned'
+      context.query.type !== lang.armoredRentalURL &&
+      context.query.type !== lang.preOwnedURL
     ) {
       const vehicleTypeRaw = context.query.type
         .split('-')

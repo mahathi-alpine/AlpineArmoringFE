@@ -12,7 +12,7 @@ const Categories = ({ props, allVehiclesImage }) => {
       {props.map((item) => {
         const data = item.attributes;
 
-        if (data.title == 'Armored Vans & Buses') {
+        if (data.title == lang.vansAndBussesTitle) {
           return;
         }
 
@@ -57,10 +57,10 @@ const Categories = ({ props, allVehiclesImage }) => {
                 <div className={`${styles.categories_item_buttons}`}>
                   {data.inventory_vehicles?.data.length > 0 && (
                     <Button
-                      href={`/available-now/type/${data.slug}`}
+                      href={`${lang.availableNowURL}/${lang.type}/${data.slug}`}
                       className="primary shiny"
                     >
-                      {data.slug === 'armored-rental'
+                      {data.slug === lang.armoredRentalURL
                         ? lang.readyToRent
                         : data.slug === 'special-of-the-month'
                           ? lang.specialOfTheMonthButton
@@ -68,9 +68,9 @@ const Categories = ({ props, allVehiclesImage }) => {
                     </Button>
                   )}
 
-                  {data.slug !== 'armored-pre-owned' &&
+                  {data.slug !== lang.preOwnedURL &&
                     data.slug !== 'special-of-the-month' &&
-                    data.slug !== 'armored-rental' && (
+                    data.slug !== lang.armoredRentalURL && (
                       <Button
                         href={`/vehicles-we-armor/type/${data.slug}`}
                         className="shiny"

@@ -15,9 +15,9 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
   const router = useRouter();
   const currentPath = router.asPath;
 
-  const linkHref = currentPath.includes('armored-rental')
+  const linkHref = currentPath.includes(lang.armoredRentalURL)
     ? `/rental-vehicles/${data.slug}`
-    : `/available-now/${data.slug}`;
+    : `${lang.availableNowURL}/${data.slug}`;
 
   return (
     <Link

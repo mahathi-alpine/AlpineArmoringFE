@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 function MediaList({ props, itemType }) {
   const router = useRouter();
   const { lang } = useLocale();
-  const currentRoute = router.pathname;
+  const currentRoute = router.asPath;
 
   const categoryOrder = [
     'ballisticTests',

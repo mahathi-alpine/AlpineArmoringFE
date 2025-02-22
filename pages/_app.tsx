@@ -3,12 +3,15 @@ import Layout from '../components/Layout';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
+import useLocale from 'hooks/useLocale';
 import Loader from 'components/global/loader/Loader';
 import { install } from 'resize-observer';
 import useLanguageSwitcher from 'hooks/useLanguageSwitcher';
 import CookieConsent from 'components/global/cookie-consent/CookieConsent';
 
 export default function App({ Component, pageProps }) {
+  const { lang } = useLocale();
+
   const seoData = pageProps.seoData;
   const [isLoading, setIsLoading] = useState(false);
   const { currentLanguage } = useLanguageSwitcher();
@@ -18,7 +21,7 @@ export default function App({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    const paths = ['/available-now', '/vehicles-we-armor'];
+    const paths = [lang.availableNowURL, '/vehicles-we-armor'];
 
     const handleChangeStart = (url: string) => {
       const isTargetPath = paths.some((path) => {

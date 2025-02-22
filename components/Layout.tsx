@@ -68,30 +68,30 @@ const Layout = ({ children }) => {
   const footerPadding0 = ['/available-now'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
-    router.pathname.startsWith(path)
+    router.asPath.startsWith(path)
   );
   const isDarkFooter = pathsDarkFooter.some((path) =>
-    router.pathname.startsWith(path)
+    router.asPath.startsWith(path)
   );
   const isFooterPadding0 = footerPadding0.some(
     (path) =>
-      router.pathname === path ||
-      (router.pathname.startsWith('/available-now/type/') &&
-        router.pathname.split('/').length === 4)
+      router.asPath === path ||
+      (router.asPath.startsWith('/available-now/type/') &&
+        router.asPath.split('/').length === 4)
   );
 
-  const isHomepage = router.pathname === '/';
+  const isHomepage = router.asPath === '/';
 
   const pathsHeaderTransparent = ['/ballistic-testing'];
   const isHeaderGray = pathsHeaderTransparent.some(
-    (path) => router.pathname.startsWith(path) || isHomepage
+    (path) => router.asPath.startsWith(path) || isHomepage
   );
 
   const isPadding0 = pathsPadding0.some((path) =>
-    router.pathname.startsWith(path)
+    router.asPath.startsWith(path)
   );
 
-  // const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.pathname);
+  // const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.asPath);
 
   const [isNavOpen, setNavOpen] = useState(false);
 
@@ -114,7 +114,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     openSearchPopup(false);
     setNavOpen(false);
-  }, [router.pathname]);
+  }, [router.asPath]);
 
   return (
     <>

@@ -17,7 +17,7 @@ import useLocale from 'hooks/useLocale';
 
 const Footer = (props) => {
   const router = useRouter();
-  const currentRoute = router.pathname;
+  const currentRoute = router.asPath;
   const { lang } = useLocale();
 
   const links = [
@@ -34,13 +34,34 @@ const Footer = (props) => {
   ];
   const links2 = [
     { path: lang.availableNowURL, text: lang.footerAvailableNowTitle },
-    { path: lang.pickupTrucksURL, text: lang.footerPickupTrucksTitle },
-    { path: lang.preOwnedURL, text: lang.footerPreOwnedTitle },
-    { path: lang.lawEnforcementURL, text: lang.footerLawEnforcementTitle },
-    { path: lang.suvsURL, text: lang.footerSuvsTitle },
-    { path: lang.vansURL, text: lang.footerVansTitle },
-    { path: lang.sedansURL, text: lang.footerSedansTitle },
-    { path: lang.citURL, text: lang.footerCitTitle },
+    {
+      path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.pickupTrucksURL}`,
+      text: lang.footerPickupTrucksTitle,
+    },
+    {
+      path: `${lang.availableNowURL}/${lang.type}/${lang.preOwnedURL}`,
+      text: lang.footerPreOwnedTitle,
+    },
+    {
+      path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.lawEnforcementURL}`,
+      text: lang.footerLawEnforcementTitle,
+    },
+    {
+      path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.suvsURL}`,
+      text: lang.footerSuvsTitle,
+    },
+    {
+      path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.vansURL}`,
+      text: lang.vansAndBussesTitle,
+    },
+    {
+      path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.sedansURL}`,
+      text: lang.footerSedansTitle,
+    },
+    {
+      path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.citURL}`,
+      text: lang.footerCitTitle,
+    },
   ];
 
   return (
@@ -61,7 +82,7 @@ const Footer = (props) => {
               </h3>
             </div>
             {(currentRoute === '/about-us' ||
-              currentRoute === '/available-now' ||
+              currentRoute === lang.availableNowURL ||
               currentRoute.includes('/countries-we-service')) && (
               <div className={styles.footer_image}>
                 <Image

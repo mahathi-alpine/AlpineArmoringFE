@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
+// import useLocale from 'hooks/useLocale';
 import styles from '/components/listing/Listing.module.scss';
 
 import Banner from 'components/global/banner/Banner';
@@ -16,6 +17,8 @@ const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
 
 function Inventory(props) {
+  // const { lang } = useLocale();
+
   const { pageData, vehicles, filters, searchQuery } = props;
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;

@@ -98,7 +98,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     router.push(
       {
-        pathname: router.pathname,
+        pathname: router.asPath,
         query: newQuery,
       },
       undefined
@@ -199,7 +199,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     router.push(
       {
-        pathname: router.pathname,
+        pathname: router.asPath,
         query: newQuery,
       },
       undefined,
@@ -379,8 +379,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
                               item.attributes.title.toLowerCase() ==
                                 'special of the month'.toLowerCase() ||
                               item.attributes.title == 'Armored Pre-Owned')) ||
-                          (baseUrl == '/available-now' &&
-                            item.attributes.title == 'Armored Vans & Buses')
+                          (baseUrl == lang.availableNowURL &&
+                            item.attributes.title == lang.vansAndBussesTitle)
                         ) {
                           return null;
                         }

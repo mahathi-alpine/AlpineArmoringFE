@@ -23,4 +23,5 @@ export const useLocale = () => {
   };
 };
 
+export { getLocaleStrings };
 export default useLocale;

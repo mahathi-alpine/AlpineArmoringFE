@@ -7,7 +7,7 @@ import useLocale from 'hooks/useLocale';
 
 const TopBanner = ({ props, shape, small }: BannerProps) => {
   const router = useRouter();
-  const currentRoute = router.pathname;
+  const currentRoute = router.asPath;
   const bannerImage = props.media.data?.attributes;
   const bannerImageMobile = props.imageMobile?.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
@@ -165,8 +165,8 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
 
-        {currentRoute.startsWith('/available-now') ||
-        currentRoute.startsWith('/vehicles-we-armor') ? (
+        {currentRoute.startsWith(lang.availableNowURL) ||
+        currentRoute.startsWith(lang.vehiclesWeArmorURL) ? (
           <div className={`${styles.banner_content}`}>
             <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
@@ -200,7 +200,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
       ) : null}
 
       {bannerTitle &&
-      !currentRoute.startsWith('/available-now') &&
+      !currentRoute.startsWith(lang.availableNowURL) &&
       !currentRoute.startsWith('/vehicles-we-armor') ? (
         <>
           <h1

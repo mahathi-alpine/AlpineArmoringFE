@@ -20,31 +20,31 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
         },
         {
           text: lang.suvsTitleHeader,
-          path: lang.suvsURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.suvsURL}`,
         },
         {
           text: lang.sedans,
-          path: lang.sedansURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.sedansURL}`,
         },
         {
           text: lang.pickupTrucks,
-          path: lang.pickupTrucksURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.pickupTrucksURL}`,
         },
         {
           text: lang.vansBuses,
-          path: lang.vansURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.vansURL}`,
         },
         {
           text: lang.lawEnforcement,
-          path: lang.lawEnforcementURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.lawEnforcementURL}`,
         },
         {
           text: lang.CITNavigation,
-          path: lang.citURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.citURL}`,
         },
         {
           text: lang.specialtyVehicles,
-          path: lang.specialtyURL,
+          path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.specialtyURL}`,
         },
       ],
     },
@@ -62,7 +62,7 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
             className={`
               ${styles.navigation_item} 
               ${
-                router.pathname.startsWith(link.path)
+                router.asPath.startsWith(link.path)
                   ? `${styles.navigation_item_active}`
                   : ''
               }

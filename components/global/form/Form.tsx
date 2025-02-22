@@ -23,7 +23,7 @@ const Form = () => {
 
   useEffect(() => {
     if (router.asPath.includes('rental-vehicles')) {
-      setInquiry(lang.formInquiryRental);
+      setInquiry(lang.rentalVehicles);
     }
   }, [router.asPath]);
 
@@ -581,7 +581,7 @@ const Form = () => {
             lang.formInquirySWAT,
             lang.formInquiryRiot,
             lang.formInquiryCIT,
-            lang.formInquiryRental,
+            lang.rentalVehicles,
             lang.formInquiryParts,
             lang.formInquiryWarranty,
             lang.formInquiryDealer,
