@@ -1,6 +1,6 @@
 import styles from './Banner.module.scss';
 import { BannerProps } from 'types';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import useLocale from 'hooks/useLocale';
@@ -8,6 +8,9 @@ import useLocale from 'hooks/useLocale';
 const TopBanner = ({ props, shape, small }: BannerProps) => {
   const router = useRouter();
   const currentRoute = router.asPath;
+  const [shouldShowMargin, setShouldShowMargin] = useState(false);
+  const [isBannerFull, setIsBannerFull] = useState(false);
+  const [showBannerContent, setShowBannerContent] = useState(true);
 
   const bannerImage = props.media.data?.attributes;
   const bannerImageMobile = props.imageMobile?.data?.attributes;
@@ -101,6 +104,24 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    const shouldMargin = [
+      lang.manufacturingURL,
+      lang.ballisticTestingURL,
+      lang.shippingLogisticsURL,
+    ].some((url) => currentRoute.startsWith(url));
+
+    setShouldShowMargin(shouldMargin);
+  }, [currentRoute, lang]);
+
+  useEffect(() => {
+    setIsBannerFull(currentRoute.startsWith(lang.ballisticTestingURL));
+    setShowBannerContent(
+      !currentRoute.startsWith(lang.availableNowURL) &&
+        !currentRoute.startsWith(lang.vehiclesWeArmorURL)
+    );
+  }, [currentRoute, lang]);
+
   let mediaElement;
   if (bannerImage && bannerMimeType?.split('/')[0] === 'image') {
     mediaElement = (
@@ -158,10 +179,10 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   return (
     <div
       className={`
-      ${styles.banner}
-      ${small ? styles.banner_small : ''}
-      ${currentRoute.startsWith(lang.ballisticTestingURL) ? styles.banner_full : ''}
-    `}
+        ${styles.banner}
+        ${small ? styles.banner_small : ''}
+        ${isBannerFull ? styles.banner_full : ''}
+      `}
     >
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
@@ -200,23 +221,13 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
         />
       ) : null}
 
-      {bannerTitle &&
-      !currentRoute.startsWith(lang.availableNowURL) &&
-      !currentRoute.startsWith(lang.vehiclesWeArmorURL) ? (
+      {bannerTitle && showBannerContent ? (
         <>
           <h1
             className={`
               ${styles.banner_heading} 
               c-title
-              ${
-                [
-                  lang.manufacturingURL,
-                  lang.ballisticTestingURL,
-                  lang.shippingLogisticsURL,
-                ].includes(currentRoute)
-                  ? styles.banner_heading_margin
-                  : ''
-              }
+              ${shouldShowMargin ? styles.banner_heading_margin : ''}
               observe fade-in-scale`}
             dangerouslySetInnerHTML={{ __html: bannerTitle }}
           ></h1>
