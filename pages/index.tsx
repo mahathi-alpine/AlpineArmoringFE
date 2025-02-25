@@ -111,7 +111,7 @@ function Home({ homepageData, categories }) {
       {topBanner ? <HpBanner props={topBanner} /> : null}
 
       <div className="background-dark">
-        {quote ? <FillingText className="padding" data={quote} /> : null}
+        {quote ? <FillingText className={`padding pt-2`} data={quote} /> : null}
 
         {categoriesData && (
           <Categories
@@ -121,7 +121,7 @@ function Home({ homepageData, categories }) {
         )}
 
         {hpMiddleText ? (
-          <FillingText className="padding" data={hpMiddleText} />
+          <FillingText className="padding hpBottomText" data={hpMiddleText} />
         ) : null}
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}

@@ -61,7 +61,10 @@ const FillingText = ({ data, dark = false, className = '', small = false }) => {
     <div
       className={`
         ${styles.fillingText} container
-        ${styles[className]}
+        ${className
+          .split(' ')
+          .map((c) => styles[c] || c)
+          .join(' ')}
         ${dark ? styles.fillingText_dark : ''}
         ${small ? styles.fillingText_small : ''}
       `}
