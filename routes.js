@@ -73,6 +73,35 @@ const routes = {
       es: '/medios/videos',
     },
   },
+  blog: {
+    collection: 'blog-page',
+    collectionSingle: 'blog-evergreens',
+    paths: {
+      en: '/blog',
+      es: '/blog',
+    },
+  },
+  shippingAndLogistics: {
+    collection: 'shipping',
+    paths: {
+      en: '/shipping-and-logistics',
+      es: '/envio-y-logistica',
+    },
+  },
+  privacyPolicy: {
+    collection: 'privacy-policy',
+    paths: {
+      en: '/privacy-policy',
+      es: '/politica-de-privacidad',
+    },
+  },
+  manufacturing: {
+    collection: 'manufacturing',
+    paths: {
+      en: '/manufacturing',
+      es: '/fabricacion',
+    },
+  },
 };
 
 const utils = {

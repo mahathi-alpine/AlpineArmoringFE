@@ -52,18 +52,17 @@ const termina = localFont({
 const Layout = ({ children }) => {
   const router = useRouter();
   const { lang } = useLocale();
-
   const pathsDarkMode = [
     lang.availableNowURL,
     '/rental-vehicles',
-    '/manufacturing',
+    lang.manufacturingURL,
     '/sold-vehicles',
     '/ballistic-testing',
   ];
-  const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
+  const pathsDarkFooter = [lang.manufacturingURL, '/ballistic-testing'];
   const pathsPadding0 = [
     '/news/',
-    '/blog',
+    '/blog/',
     '/ballistic-testing',
     '/locations-we-serve',
   ];

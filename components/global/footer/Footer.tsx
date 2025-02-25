@@ -275,7 +275,7 @@ const Footer = (props) => {
 
           <div
             className={`${styles.footer_flag} ${
-              currentRoute === lang.manufacturing ||
+              currentRoute === lang.manufacturingURL ||
               currentRoute === lang.ballisticTestingURL
                 ? styles.footer_flag_dark
                 : styles.footer_flag_light

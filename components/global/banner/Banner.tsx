@@ -8,6 +8,7 @@ import useLocale from 'hooks/useLocale';
 const TopBanner = ({ props, shape, small }: BannerProps) => {
   const router = useRouter();
   const currentRoute = router.asPath;
+
   const bannerImage = props.media.data?.attributes;
   const bannerImageMobile = props.imageMobile?.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;

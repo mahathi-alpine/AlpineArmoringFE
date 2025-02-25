@@ -1,4 +1,5 @@
 import { getPageData } from 'hooks/api';
+import routes from 'routes';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 function Privacy(props) {
@@ -17,17 +18,23 @@ function Privacy(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.privacyPolicy;
+
   let pageData = await getPageData({
-    route: 'privacy-policy',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData.data?.attributes || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 

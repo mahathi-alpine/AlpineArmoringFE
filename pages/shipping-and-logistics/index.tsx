@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getPageData } from 'hooks/api';
 import styles from './Shipping.module.scss';
+import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -264,17 +265,23 @@ function Shipping(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.shippingAndLogistics;
+
   let pageData = await getPageData({
-    route: 'shipping',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData.data?.attributes || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 
