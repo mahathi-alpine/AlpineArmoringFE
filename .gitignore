@@ -17,6 +17,7 @@
 
 # misc
 .DS_Store
+.cursorrules
 
 # debug
 npm-debug.log*
