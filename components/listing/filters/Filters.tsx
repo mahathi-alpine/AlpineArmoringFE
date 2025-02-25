@@ -199,7 +199,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     router.push(
       {
-        pathname: router.asPath,
+        pathname: router.pathname,
         query: newQuery,
       },
       undefined,
