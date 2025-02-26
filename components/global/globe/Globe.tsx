@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Globe from 'react-globe.gl';
+import useLocale from 'hooks/useLocale';
 
 interface Location {
   name: string;
@@ -16,42 +17,44 @@ const LOCATION_COLORS = {
   CLIENT: '#FFD700', // Yellow for Clients & Dealers (default)
 };
 
-const Legend = () => (
-  <div className="b-globe-legend">
-    <ul className="b-globe-legend__list">
-      <li className="b-globe-legend__item">
-        <span
-          className="b-globe-legend__color-box"
-          style={{ backgroundColor: LOCATION_COLORS.PRODUCTION }}
-        ></span>
-        Production & Distribution
-      </li>
-      <li className="b-globe-legend__item">
-        <span
-          className="b-globe-legend__color-box"
-          style={{ backgroundColor: LOCATION_COLORS.DISTRIBUTION }}
-        ></span>
-        Distribution
-      </li>
-      <li className="b-globe-legend__item">
-        <span
-          className="b-globe-legend__color-box"
-          style={{ backgroundColor: LOCATION_COLORS.SATELLITE }}
-        ></span>
-        Satellite Offices
-      </li>
-      <li className="b-globe-legend__item">
-        <span
-          className="b-globe-legend__color-box"
-          style={{ backgroundColor: LOCATION_COLORS.CLIENT }}
-        ></span>
-        Clients & Dealers
-      </li>
-    </ul>
-  </div>
-);
-
 const GlobeComponent: React.FC = () => {
+  const { lang } = useLocale();
+
+  const Legend = () => (
+    <div className="b-globe-legend">
+      <ul className="b-globe-legend__list">
+        <li className="b-globe-legend__item">
+          <span
+            className="b-globe-legend__color-box"
+            style={{ backgroundColor: LOCATION_COLORS.PRODUCTION }}
+          ></span>
+          {lang.productionDistribution}
+        </li>
+        <li className="b-globe-legend__item">
+          <span
+            className="b-globe-legend__color-box"
+            style={{ backgroundColor: LOCATION_COLORS.DISTRIBUTION }}
+          ></span>
+          {lang.distribution}
+        </li>
+        <li className="b-globe-legend__item">
+          <span
+            className="b-globe-legend__color-box"
+            style={{ backgroundColor: LOCATION_COLORS.SATELLITE }}
+          ></span>
+          {lang.satelliteOffices}
+        </li>
+        <li className="b-globe-legend__item">
+          <span
+            className="b-globe-legend__color-box"
+            style={{ backgroundColor: LOCATION_COLORS.CLIENT }}
+          ></span>
+          {lang.clientsDealers}
+        </li>
+      </ul>
+    </div>
+  );
+
   const locations: Location[] = [
     {
       name: 'Afghanistan',
@@ -353,7 +356,7 @@ const GlobeComponent: React.FC = () => {
       name: 'Qatar',
       lat: 25.3548,
       lng: 51.1839,
-      description: 'Alpine Armoring International Office',
+      description: `Alpine Armoring ${lang.internationalOffice}`,
       color: '#A020F0',
     },
     {
@@ -442,7 +445,7 @@ const GlobeComponent: React.FC = () => {
       name: 'UAE',
       lat: 23.4241,
       lng: 53.8478,
-      description: 'Alpine Armoring International Partner',
+      description: `Alpine Armoring ${lang.internationalPartner}`,
       color: '#A020F0',
     },
     {
@@ -464,35 +467,35 @@ const GlobeComponent: React.FC = () => {
       name: 'Virginia',
       lat: 38.888691,
       lng: -77.417488,
-      description: 'Alpine Armoring Headquarters',
+      description: `Alpine Armoring ${lang.headquarters}`,
       color: '#fff',
     },
     {
       name: 'Nevada',
       lat: 36.16909,
       lng: -115.140579,
-      description: 'Alpine Armoring Regional Office',
+      description: `Alpine Armoring ${lang.regionalOffice}`,
       color: '#1AA3E8',
     },
     {
       name: 'California',
       lat: 32.715759,
       lng: -117.163818,
-      description: 'Alpine Armoring Regional Office',
+      description: `Alpine Armoring ${lang.regionalOffice}`,
       color: '#1AA3E8',
     },
     {
       name: 'Texas',
       lat: 32.777981,
       lng: -96.796211,
-      description: 'Alpine Armoring Regional Office',
+      description: `Alpine Armoring ${lang.regionalOffice}`,
       color: '#fff',
     },
     {
       name: 'Ontario',
       lat: 43.653225,
       lng: -79.383186,
-      description: 'Alpine Armoring Regional Office',
+      description: `Alpine Armoring ${lang.regionalOffice}`,
       color: '#fff',
     },
     {

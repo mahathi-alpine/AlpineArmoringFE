@@ -215,7 +215,6 @@ function Inventory(props) {
 
   if (!displayedVehicles) return null;
 
-  console.log(filters);
   return (
     <>
       <Head>

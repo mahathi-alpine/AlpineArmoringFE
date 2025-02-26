@@ -8,7 +8,7 @@ import FillingText from 'components/global/filling-text/FillingText';
 import Autoplay from 'components/global/carousel/Autoplay';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Counter from 'components/global/counter/Counter';
-
+import useLocale from 'hooks/useLocale';
 import 'yet-another-react-lightbox/styles.css';
 
 import dynamic from 'next/dynamic';
@@ -22,6 +22,7 @@ const GlobeComponent = dynamic(() => import('components/global/globe/Globe'), {
 });
 
 function About(props) {
+  const { lang } = useLocale();
   const boxes = props?.pageData?.boxes;
   const certificate1 = props?.pageData?.certificate1?.data?.attributes;
   const certificate2 = props?.pageData?.certificate2?.data?.attributes;
@@ -97,15 +98,15 @@ function About(props) {
 
         <div className={styles.counter_grid}>
           <div className={styles.counter_box}>
-            <h3>Countries We Serviced</h3>
+            <h3>{lang.countriesWeServiced}</h3>
             <Counter value={88} />
           </div>
           <div className={styles.counter_box}>
-            <h3>Years In Business</h3>
+            <h3>{lang.yearsInBusiness}</h3>
             <Counter value={31} />
           </div>
           <div className={styles.counter_box}>
-            <h3>Makes & Models We Have Armored</h3>
+            <h3>{lang.makesAndModelsWeHaveArmored}</h3>
             <Counter value={276} />
           </div>
         </div>
@@ -130,11 +131,11 @@ function About(props) {
 
                 {item.description ? (
                   <div className={`${styles.about_box_item_text}`}>
-                    <CustomMarkdown>{props.description}</CustomMarkdown>
+                    <CustomMarkdown>{item.description}</CustomMarkdown>
                   </div>
                 ) : null}
 
-                {item.title === 'Our Certifications' && (
+                {index === 2 && (
                   <>
                     <div className={`${styles.about_downloads}`}>
                       {certificate1 ? (
@@ -143,9 +144,9 @@ function About(props) {
                           className={`${styles.certificate_container}`}
                         >
                           <span className={`${styles.certificate_text}`}>
-                            BESCHUSSAMT MÜNCHEN
+                            Beschussamt München
                             <span className={`${styles.view_certificates}`}>
-                              VIEW CERTIFICATES
+                              {lang.viewCertificates}
                               <div className={`${styles.icon}`}>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -176,9 +177,9 @@ function About(props) {
                           className={`${styles.certificate_container}`}
                         >
                           <span className={`${styles.certificate_text}`}>
-                            OTHER INDEPENDENT LABORATORIES
+                            {lang.otherIndependentLaboratories}
                             <span className={`${styles.view_certificates}`}>
-                              VIEW CERTIFICATES
+                              {lang.viewCertificates}
                               <div className={`${styles.icon}`}>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"

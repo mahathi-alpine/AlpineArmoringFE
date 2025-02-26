@@ -42,6 +42,20 @@ const vehicleTypes = {
 };
 
 const routes = {
+  about: {
+    collection: 'about',
+    paths: {
+      en: '/about-us',
+      es: '/hacerca-de-nosotros',
+    },
+  },
+  allDownloads: {
+    collection: 'all-downloads',
+    paths: {
+      en: '/all-downloads',
+      es: '/todas-las-descargas',
+    },
+  },
   news: {
     collection: 'news-page',
     collectionSingle: 'blogs',
@@ -81,13 +95,6 @@ const routes = {
     paths: {
       en: '/ballistic-testing',
       es: '/pruebas-balisticas',
-    },
-  },
-  about: {
-    collection: 'about',
-    paths: {
-      en: '/about-us',
-      es: '/hacerca-de-nosotros/',
     },
   },
   videos: {

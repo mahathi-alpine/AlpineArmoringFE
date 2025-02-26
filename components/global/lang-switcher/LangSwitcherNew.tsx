@@ -57,22 +57,32 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       const slugMappings = await getLocalizedSlugs();
       const localizedSlug = slugMappings[query.slug as string] || query.slug;
 
-      router.push(
-        {
-          pathname,
-          query: { ...query, slug: localizedSlug },
-        },
-        undefined,
-        { locale: langCode }
+      const currentRoute = Object.entries(routeTranslations).find(
+        ([, paths]) => {
+          const pathToCheck = pathname.replace(/\/\[.*\]$/, '');
+          return Object.values(paths).some((path) => path === pathToCheck);
+        }
       );
+
+      if (currentRoute) {
+        const translatedBasePath = routeTranslations[currentRoute[0]][langCode];
+        const fullPath = `${translatedBasePath}/${localizedSlug}`;
+        await router.push(fullPath, undefined, { locale: langCode });
+      } else {
+        router.push(
+          {
+            pathname,
+            query: { ...query, slug: localizedSlug },
+          },
+          undefined,
+          { locale: langCode }
+        );
+      }
     } else {
       const currentRoute = Object.entries(routeTranslations).find(
         ([, paths]) => {
           const pathToCheck = asPath.replace(/^\/[a-z]{2}\//, '/');
-          const matches = Object.values(paths).some(
-            (path) => pathToCheck === path
-          );
-          return matches;
+          return Object.values(paths).some((path) => pathToCheck === path);
         }
       );
 

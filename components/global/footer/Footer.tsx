@@ -1,5 +1,10 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 import styles from './Footer.module.scss';
+import Link from 'next/link';
+import Image from 'next/image';
+
 import FacebookIcon from 'components/icons/Facebook';
 import TiktokIcon from 'components/icons/Tiktok';
 import XIcon from 'components/icons/X';
@@ -10,14 +15,9 @@ import ThreadsIcon from 'components/icons/Threads';
 import MapIcon from 'components/icons/Map';
 import PhoneIcon from 'components/icons/Phone';
 import MailIcon from 'components/icons/Mail';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import useLocale from 'hooks/useLocale';
 
 const Footer = (props) => {
   const router = useRouter();
-  const currentRoute = router.asPath;
   const { lang } = useLocale();
 
   const links = [
@@ -81,9 +81,10 @@ const Footer = (props) => {
                 {`"${lang.noOneProtectsBetter}" ®`}
               </h3>
             </div>
-            {(currentRoute === lang.aboutURL ||
-              currentRoute === lang.availableNowURL ||
-              currentRoute.includes(lang.locationsWeServeURL)) && (
+
+            {['/about-us', '/available-now', '/locations-we-serve'].includes(
+              router.pathname
+            ) && (
               <div className={styles.footer_image}>
                 <Image
                   src="/assets/armored-vehicles.png"
@@ -274,12 +275,16 @@ const Footer = (props) => {
           </p>
 
           <div
-            className={`${styles.footer_flag} ${
-              currentRoute === lang.manufacturingURL ||
-              currentRoute === lang.ballisticTestingURL
-                ? styles.footer_flag_dark
-                : styles.footer_flag_light
-            }`}
+            className={`
+              ${styles.footer_flag} 
+              ${
+                ['/manufacturing', '/ballistic-testing'].includes(
+                  router.pathname
+                )
+                  ? styles.footer_flag_dark
+                  : styles.footer_flag_light
+              }
+            `}
           >
             <Image
               src="/assets/footer-american-flag.gif"
