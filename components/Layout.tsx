@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
-import useLocale from 'hooks/useLocale';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
@@ -51,48 +50,46 @@ const termina = localFont({
 
 const Layout = ({ children }) => {
   const router = useRouter();
-  const { lang } = useLocale();
+
   const pathsDarkMode = [
-    lang.availableNowURL,
+    '/available-now',
     '/rental-vehicles',
-    lang.manufacturingURL,
+    '/manufacturing',
     '/sold-vehicles',
     '/ballistic-testing',
   ];
-  const pathsDarkFooter = [lang.manufacturingURL, '/ballistic-testing'];
+  const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
   const pathsPadding0 = [
     '/news/',
     '/blog/',
     '/ballistic-testing',
     '/locations-we-serve',
   ];
-  const footerPadding0 = [lang.availableNowURL];
+  const footerPadding0 = ['/available-now'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
-    router.asPath.startsWith(path)
+    router.pathname.startsWith(path)
   );
   const isDarkFooter = pathsDarkFooter.some((path) =>
-    router.asPath.startsWith(path)
+    router.pathname.startsWith(path)
   );
   const isFooterPadding0 = footerPadding0.some(
     (path) =>
-      router.asPath === path ||
-      (router.asPath.startsWith(`${lang.availableNowURL}/${lang.type}/`) &&
-        router.asPath.split('/').length === 4)
+      router.pathname === path ||
+      (router.pathname.startsWith(`/available-now/type/`) &&
+        router.pathname.split('/').length === 4)
   );
 
-  const isHomepage = router.asPath === '/';
+  const isHomepage = router.pathname === '/';
 
   const pathsHeaderTransparent = ['/ballistic-testing'];
   const isHeaderGray = pathsHeaderTransparent.some(
-    (path) => router.asPath.startsWith(path) || isHomepage
+    (path) => router.pathname.startsWith(path) || isHomepage
   );
 
   const isPadding0 = pathsPadding0.some((path) =>
-    router.asPath.startsWith(path)
+    router.pathname.startsWith(path)
   );
-
-  // const isNotSticky = /^\/vehicles-we-armor\/.+/.test(router.asPath);
 
   const [isNavOpen, setNavOpen] = useState(false);
 
@@ -115,7 +112,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     openSearchPopup(false);
     setNavOpen(false);
-  }, [router.asPath]);
+  }, [router.pathname]);
 
   return (
     <>
@@ -226,7 +223,6 @@ const Layout = ({ children }) => {
           setNavOpen={setNavOpen}
           isNavOpen={isNavOpen}
           isHeaderGray={isHeaderGray}
-          // isNotSticky={isNotSticky}
           openSearchPopup={openSearchPopup}
           isSearchVisible={isSearchVisible}
         />

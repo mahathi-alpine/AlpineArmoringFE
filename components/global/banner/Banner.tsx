@@ -160,7 +160,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
       className={`
       ${styles.banner}
       ${small ? styles.banner_small : ''}
-      ${currentRoute.startsWith(lang.ballisticTestingURL) ? styles.banner_full : ''}
+      ${currentRoute.startsWith(lang.ballisticTestingURL) || currentRoute.startsWith('/ballistic-testing') ? styles.banner_full : ''}
     `}
     >
       <div className={`${styles.banner_inner}`}>
@@ -210,10 +210,10 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
               c-title
               ${
                 [
-                  lang.manufacturingURL,
-                  lang.ballisticTestingURL,
-                  lang.shippingLogisticsURL,
-                ].includes(currentRoute)
+                  '/manufacturing',
+                  '/ballistic-testing',
+                  '/shipping-and-logistics',
+                ].includes(router.pathname)
                   ? styles.banner_heading_margin
                   : ''
               }
