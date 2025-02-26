@@ -3,6 +3,7 @@ import { getPageData } from 'hooks/api';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import routes from 'routes';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
 const PDFIcon = dynamic(() => import('components/icons/PDF2'));
@@ -632,9 +633,11 @@ function InventoryVehicle(props) {
 }
 
 export async function getServerSideProps({ params, locale }) {
+  const route = routes.inventory;
+
   try {
     let data = await getPageData({
-      route: 'inventories',
+      route: route.collectionSingle,
       params: `filters[slug][$eq]=${params.slug}`,
       locale,
     });
@@ -643,7 +646,7 @@ export async function getServerSideProps({ params, locale }) {
     if (!data?.data?.length) {
       const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
       data = await getPageData({
-        route: 'inventories',
+        route: route.collectionSingle,
         params: `filters[slug][$eq]=${baseSlug}`,
         locale,
       });

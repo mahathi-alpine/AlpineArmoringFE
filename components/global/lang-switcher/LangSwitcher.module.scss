@@ -26,10 +26,12 @@
       background-position: -8px -8px;
     }
 
-    &_En:before {
+    &_En:before,
+    &_EN:before {
       background-position: -8px -8px;
     }
-    &_Es:before {
+    &_Es:before,
+    &_ES:before {
       background-position: -8px -80px;
     }
     &_Fr:before {

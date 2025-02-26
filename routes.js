@@ -1,3 +1,46 @@
+const vehicleTypes = {
+  'special-of-the-month': {
+    en: 'special-of-the-month',
+    es: 'especial-del-mes',
+  },
+  'armored-suvs': {
+    en: 'armored-suvs',
+    es: 'suvs-blindados',
+  },
+  'armored-sedans': {
+    en: 'armored-sedans',
+    es: 'sedanes-blindados',
+  },
+  'armored-pickup-trucks': {
+    en: 'armored-pickup-trucks',
+    es: 'camionetas-blindadas',
+  },
+  'armored-law-enforcement': {
+    en: 'armored-law-enforcement',
+    es: 'blindados-fuerzas-del-orden',
+  },
+  'armored-cash-in-transit-cit': {
+    en: 'armored-cash-in-transit-cit',
+    es: 'transporte-blindado-valores-cit',
+  },
+  'armored-specialty-vehicles': {
+    en: 'armored-specialty-vehicles',
+    es: 'vehiculos-blindados-especiales',
+  },
+  'armored-pre-owned': {
+    en: 'armored-pre-owned',
+    es: 'blindados-pre-usados',
+  },
+  'armored-rental': {
+    en: 'armored-rental',
+    es: 'alquiler-blindados',
+  },
+  'armored-vans-and-buses': {
+    en: 'armored-vans-and-buses',
+    es: 'furgonetas-y-autobuses-blindados',
+  },
+};
+
 const routes = {
   news: {
     collection: 'news-page',
@@ -18,16 +61,7 @@ const routes = {
       en: 'type',
       es: 'tipo',
     },
-    types: {
-      'armored-suvs': {
-        en: 'armored-suvs',
-        es: 'suvs-blindados',
-      },
-      'armored-rental': {
-        en: 'armored-rental',
-        es: 'alquiler-blindados',
-      },
-    },
+    types: vehicleTypes,
   },
   vehiclesWeArmor: {
     collection: 'list-vehicles-we-armor',
@@ -40,16 +74,7 @@ const routes = {
       en: 'type',
       es: 'tipo',
     },
-    types: {
-      'armored-suvs': {
-        en: 'armored-suvs',
-        es: 'suvs-blindados',
-      },
-      'armored-rental': {
-        en: 'armored-rental',
-        es: 'alquiler-blindados',
-      },
-    },
+    types: vehicleTypes,
   },
   ballisticTesting: {
     collection: 'ballistic-testing',
@@ -106,18 +131,7 @@ const routes = {
 
 const utils = {
   getLocalizedType: (route, type, locale) => {
-    const typeMap = {
-      'armored-suvs': {
-        en: 'armored-suvs',
-        es: 'suvs-blindados',
-      },
-      'armored-rental': {
-        en: 'armored-rental',
-        es: 'alquiler-blindados',
-      },
-    };
-
-    return typeMap[type]?.[locale] || type;
+    return vehicleTypes[type]?.[locale] || type;
   },
 
   getLocalizedPath: (paths, locale, slug) => {

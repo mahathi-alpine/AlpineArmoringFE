@@ -10,7 +10,11 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
   const { lang } = useLocale();
 
   const links = [
-    { path: lang.availableNowURL, text: lang.availableNowTitle },
+    {
+      path: lang.availableNowURL,
+      text: lang.availableNowTitle,
+      pathname: '/available-now',
+    },
     {
       text: lang.vehiclesWeArmor,
       submenu: [
@@ -48,7 +52,11 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
         },
       ],
     },
-    { path: lang.ballisticTestingURL, text: lang.ballisticTestingTitle },
+    {
+      path: lang.ballisticTestingURL,
+      text: lang.ballisticTestingTitle,
+      pathname: '/ballistic-testing',
+    },
   ];
 
   return (
@@ -62,7 +70,7 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
             className={`
               ${styles.navigation_item} 
               ${
-                router.asPath.startsWith(link.path)
+                router.pathname.startsWith(link.pathname)
                   ? `${styles.navigation_item_active}`
                   : ''
               }

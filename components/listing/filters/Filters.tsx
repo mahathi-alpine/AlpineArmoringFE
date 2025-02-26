@@ -19,7 +19,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const { lang } = useLocale();
   const router = useRouter();
   const [query, setQuery] = useState('');
-
   const [activeFilterItem, setActiveFilterItem] = useState('default');
   const [activeFilterTitles, setActiveFilterTitles] = useState({
     make: lang.select,

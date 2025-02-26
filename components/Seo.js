@@ -4,10 +4,8 @@ import { useRouter } from 'next/router';
 
 const Seo = ({ props }) => {
   const router = useRouter();
-  const baseUrl = 'https://www.alpineco.com';
-
+  const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
   // const languageUrls = props?.languageUrls || {};
-
   // Default values
   const metaTitle = props?.metaTitle || 'Alpine Armoring';
   const metaDescription = props?.metaDescription || 'Alpine Armoring';

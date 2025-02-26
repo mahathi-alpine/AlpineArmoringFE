@@ -3,6 +3,7 @@ import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import routes from 'routes';
 import Head from 'next/head';
 // import useLocale from 'hooks/useLocale';
 import styles from '/components/listing/Listing.module.scss';
@@ -214,6 +215,7 @@ function Inventory(props) {
 
   if (!displayedVehicles) return null;
 
+  console.log(filters);
   return (
     <>
       <Head>
@@ -296,11 +298,12 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
-  const { locale = 'en' } = context;
+  const locale = context.locale || 'en';
+  const route = routes.inventory;
 
   try {
     let pageData = await getPageData({
-      route: 'list-inventory',
+      route: route.collection,
       locale,
     });
     pageData = pageData.data?.attributes || null;
@@ -320,7 +323,7 @@ export async function getServerSideProps(context) {
     }
 
     const vehicles = await getPageData({
-      route: 'inventories',
+      route: route.collectionSingle,
       params: query,
       sort: 'order',
       populate: 'featuredImage,categories',
@@ -349,6 +352,7 @@ export async function getServerSideProps(context) {
       route: 'categories',
       custom:
         "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
+      locale,
     }).then((response) => response.data);
 
     const filters = type ? { type } : {};
