@@ -61,7 +61,9 @@ export async function getStaticProps({ locale = 'en' }) {
 
   let posts = await getPageData({
     route: route.collectionSingle,
-    populate: 'deep',
+    populate: 'thumbnail',
+    fields:
+      'fields[0]=publishedAt&fields[1]=locale&fields[2]=title&fields[3]=slug&fields[4]=excerpt&fields[5]=title&fields[6]=date',
     sort: 'date',
     sortType: 'desc',
     pageSize: 200,

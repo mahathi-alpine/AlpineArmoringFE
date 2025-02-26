@@ -66,6 +66,7 @@ export async function getStaticProps({ locale = 'en' }) {
     sort: 'date',
     sortType: 'desc',
     pageSize: 200,
+    locale,
   });
   posts = posts?.data || null;
 
