@@ -71,19 +71,16 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   ];
 
   const linksRight = [
-    { path: lang.aboutURL, text: lang.aboutUs },
-    { path: lang.ballisticChartURL, text: lang.ballisticChartTitle },
-    { path: lang.newsURL, text: lang.headerNewsTitle },
-    { path: lang.blogsURL, text: lang.blogsTitle },
-    { path: lang.mediaURL, text: lang.headerMediaTitle },
     {
       path: `${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`,
       text: lang.rentalVehicles,
     },
+    { path: lang.aboutURL, text: lang.aboutUs },
+    { path: lang.ballisticChartURL, text: lang.ballisticChartTitle },
     { path: lang.designEngineeringURL, text: lang.designEngineering },
     { path: lang.manufacturingURL, text: lang.manufacturing },
     { path: lang.shippingLogisticsURL, text: lang.shippingLogistics },
-    { path: lang.faqsURL, text: lang.faq },
+    { path: lang.mediaURL, text: lang.headerMediaTitle },
     { path: lang.contactURL, text: lang.contact },
   ];
 

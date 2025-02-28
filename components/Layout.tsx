@@ -247,7 +247,7 @@ const Layout = ({ children }) => {
           aria-label="WhatsApp Chat Button"
         >
           <div className="WABusiness_icon"></div>
-          <span className="WABusiness_text">Chat with Us</span>
+          <span className="WABusiness_text desktop-only">Chat with Us</span>
         </a>
 
         <Footer isDarkMode={isDarkFooter} isFooterPadding0={isFooterPadding0} />
