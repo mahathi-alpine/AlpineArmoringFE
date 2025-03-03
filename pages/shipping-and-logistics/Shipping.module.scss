@@ -15,19 +15,23 @@
   }
 
   &_heading {
-    display: block;
-    margin-top: rem(24);
-    font-size: rem(20);
-    font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
-    font-weight: var(--font-regular);
+    // display: block;
+    // margin-top: rem(16);
+    // font-size: rem(20);
+    // font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
+    // font-weight: var(--font-regular);
+    margin-bottom: -20px;
+
     @include breakpoint(medium) {
       margin-top: rem(-40);
     }
     @include breakpoint(large) {
       margin-bottom: rem(80);
+      font-size: rem(18);
     }
     @include breakpoint(huge) {
-      margin-bottom: rem(140);
+      margin-bottom: rem(100);
+      font-size: rem(22);
     }
 
     a {

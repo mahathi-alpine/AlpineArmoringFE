@@ -277,6 +277,7 @@ $shapeColor: var(--color-background);
   right: 0;
   top: 0;
   bottom: 0;
+  flex-direction: column;
   background: rgba(15, 17, 17, 0.5);
 
   &.modal_vertical {
@@ -356,6 +357,7 @@ $shapeColor: var(--color-background);
     margin: auto !important;
     overflow: hidden;
     height: 100%;
+    padding-bottom: 90px;
 
     @include breakpoint(large) {
       position: relative;
@@ -363,7 +365,7 @@ $shapeColor: var(--color-background);
       min-width: 734px;
       max-height: 90vh;
       height: auto;
-      overflow-y: scroll;
+      // overflow: scroll;
       padding: 0 15px 20px 20px;
       border-radius: 8px;
       border: 1px solid #d5d9d9;
@@ -512,16 +514,16 @@ $shapeColor: var(--color-background);
     }
   }
 
-  .rpv-core__inner-pages {
-    @include breakpoint(untilLarge) {
-      overflow: scroll;
-      padding-top: 18px;
-    }
-  }
+  // .rpv-core__inner-pages {
+  //   @include breakpoint(untilLarge) {
+  //     overflow: scroll;
+  //     padding-top: 18px;
+  //   }
+  // }
 
   @include breakpoint(large) {
     .rpv-core__viewer {
-      height: calc(100% - 52px) !important;
+      height: calc(100% - 42px) !important;
     }
     .rpv-core__inner-pages > div {
       height: 100% !important;
