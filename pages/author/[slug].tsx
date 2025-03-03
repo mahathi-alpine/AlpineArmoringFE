@@ -3,10 +3,14 @@ import { useEffect } from 'react';
 import BlogList from 'components/global/news/News';
 import styles from '../news/News.module.scss';
 import Link from 'next/link';
+import useLocale from 'hooks/useLocale';
+import routes from 'routes';
 import LinkedinIcon from 'components/icons/Linkedin';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 function BlogSingle(props) {
+  const { lang } = useLocale();
+
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
@@ -66,7 +70,7 @@ function BlogSingle(props) {
     <>
       <div className={`${styles.news_authorHeading} container_small`}>
         <h1 className={`${styles.news_authorHeading_title}`}>
-          Author: <span>{data.Name}</span>
+          {lang.author}: <span>{data.Name}</span>
         </h1>
         {data.linkedinURL ? (
           <Link href={data.linkedinURL} target="_blank">
@@ -89,16 +93,20 @@ function BlogSingle(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { slug } = context.query;
+export async function getServerSideProps({ params, locale }) {
+  const route = routes.author;
 
   const data = await getPageData({
-    route: 'authors',
-    params: `filters[slug][$eq]=${slug}`,
+    route: route.collection,
+    params: `filters[slug][$eq]=${params.slug}`,
     populate: 'deep',
+    locale,
   });
 
-  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
+  const seoData = {
+    ...(data?.data?.[0]?.attributes?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   if (!data || !data.data || data.data.length === 0) {
     return {
@@ -107,7 +115,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { data, seoData },
+    props: { data, seoData, locale },
   };
 }
 

@@ -1,9 +1,13 @@
 import { getPageData } from 'hooks/api';
 import { useEffect, useMemo } from 'react';
+import useLocale from 'hooks/useLocale';
+import routes from 'routes';
 import styles from './Downloads.module.scss';
 import Banner from 'components/global/banner/Banner';
 
 function Downloads(props) {
+  const { lang } = useLocale();
+
   // Animations
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -67,7 +71,7 @@ function Downloads(props) {
           <div className={`${styles.downloads_column}`}>
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
-                OEM Brochures – 2024
+                {lang.OEMBrochures} – 2024
               </h2>
               <ul>
                 {sortItems(props.pageData.OEMBrochures2024.data).map(
@@ -95,7 +99,7 @@ function Downloads(props) {
           {props?.pageData?.PDFDocuments?.data?.length ? (
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
-                PDF Documents
+                {lang.PDFDocuments}
               </h2>
               <ul>
                 {sortItems(props.pageData.PDFDocuments.data).map(
@@ -121,7 +125,7 @@ function Downloads(props) {
           {props?.pageData?.ArmoredVehicles?.data?.length ? (
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
-                Armored Vehicles
+                {lang.armoredVehicles}
               </h2>
               <ul>
                 {sortItems(props.pageData.ArmoredVehicles.data).map(
@@ -147,7 +151,7 @@ function Downloads(props) {
           {props?.pageData?.stockVideos?.data?.length ? (
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
-                Stock Videos
+                {lang.stockVideos}
               </h2>
               <ul>
                 {props.pageData.stockVideos.data.map((item, index) => (
@@ -176,17 +180,23 @@ function Downloads(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.allDownloads;
+
   let pageData = await getPageData({
-    route: 'all-download',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData.data?.attributes || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 

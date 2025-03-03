@@ -183,12 +183,4 @@ export default {
   video: 'Video',
   offeredAtProtectionLevels: 'Ofrecido en niveles de protección',
   hpLatestNews: 'Industria de blindaje',
-
-  ballisticTests: 'Pruebas Balísticas',
-  mediaAppearances: 'Apariciones en Medios de comunicacion',
-  coolVideos: 'Videos Geniales',
-  selectedVansAndTrucks: 'Furgonetas y Camiones Seleccionados',
-  selectedSUVsAndSedans: 'SUVs y Sedanes Seleccionados',
-  armoredRental: 'Alquiler de autos blindados',
-  exploreDifferentModels: 'Explora diferentes modelos de',
 };

@@ -50,18 +50,17 @@ const routes = {
     },
   },
   allDownloads: {
-    collection: 'all-downloads',
+    collection: 'all-download',
     paths: {
       en: '/all-downloads',
       es: '/todas-las-descargas',
     },
   },
-  news: {
-    collection: 'news-page',
-    collectionSingle: 'blogs',
+  author: {
+    collection: 'authors',
     paths: {
-      en: '/news',
-      es: '/noticias',
+      en: '/author',
+      es: '/autore',
     },
   },
   inventory: {
@@ -76,6 +75,14 @@ const routes = {
       es: 'tipo',
     },
     types: vehicleTypes,
+  },
+  news: {
+    collection: 'news-page',
+    collectionSingle: 'blogs',
+    paths: {
+      en: '/news',
+      es: '/noticias',
+    },
   },
   vehiclesWeArmor: {
     collection: 'list-vehicles-we-armor',

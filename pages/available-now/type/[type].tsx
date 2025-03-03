@@ -24,20 +24,6 @@ function Inventory(props) {
   const bottomText = currentCategory?.attributes.bottomTextInventory;
   const faqs = currentCategory?.attributes.faqs_stock;
 
-  // const findTitleBySlug = (filters, targetSlug) => {
-  //   if (!filters || !Array.isArray(filters.type)) {
-  //     return null;
-  //   }
-
-  //   const matchingItem = filters.type.find(
-  //     (item) =>
-  //       item.attributes &&
-  //       item.attributes.slug.toLowerCase() === targetSlug.toLowerCase()
-  //   );
-
-  //   return matchingItem ? matchingItem.attributes.title : null;
-  // };
-
   const categoryTitle = currentCategory?.attributes.title;
   const categorySlug = currentCategory?.attributes.slug;
 
@@ -91,20 +77,20 @@ function Inventory(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://www.alpineco.com/',
+          name: lang.home,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Available now',
-          item: `https://www.alpineco.com/available-now`,
+          name: lang.availableNowTitle,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: categoryTitle,
-          item: `https://www.alpineco.com/available-now/type/${categorySlug}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}/${lang.type}/${categorySlug}`,
         },
       ],
     };
@@ -123,8 +109,11 @@ function Inventory(props) {
       '@type': 'FAQPage',
       mainEntity: faqs.map((faq, index) => {
         const title =
-          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+          faq?.attributes?.title ||
+          faq?.title ||
+          `${lang.frequentlyAskedQuestions} ${index + 1}`;
+        const text =
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',
@@ -158,9 +147,9 @@ function Inventory(props) {
       </Head>
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
-          <Link href="/">Home</Link>
+          <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          <Link href="/available-now">Available now</Link>
+          <Link href="/available-now">{lang.availableNowTitle}</Link>
           <span>&gt;</span>
           <span className={`b-breadcrumbs_current`}>{categoryTitle}</span>
         </div>
@@ -175,7 +164,7 @@ function Inventory(props) {
               className={`primary rounded`}
               attention
             >
-              Visit our rentals website
+              {lang.visitOurRentalsWebsite}
             </Button>
           </div>
         ) : null}
@@ -204,7 +193,7 @@ function Inventory(props) {
             </div>
           ) : (
             <div className={`${styles.listing_list_error}`}>
-              No Vehicles Found
+              {lang.noVehiclesFound}
             </div>
           )}
         </div>
@@ -219,7 +208,7 @@ function Inventory(props) {
 
         {faqs?.length > 0 ? (
           <div className={`mt2`}>
-            <Accordion items={faqs} title="Frequently Asked Questions" />
+            <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
           </div>
         ) : null}
       </div>
@@ -228,7 +217,7 @@ function Inventory(props) {
         className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
         style={{ opacity: loading ? 1 : 0 }}
       >
-        Loading...
+        {lang.loading}
       </div>
 
       <div className={`observe bottomObserver`}></div>
@@ -290,7 +279,10 @@ export async function getServerSideProps(context) {
     (item) => item.attributes.slug === context.query.type
   );
 
-  seoData = seoData?.attributes?.seo ?? null;
+  seoData = {
+    ...(seoData?.attributes?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   if (seoData) {
     // Modify meta title

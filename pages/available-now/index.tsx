@@ -5,9 +5,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import routes from 'routes';
 import Head from 'next/head';
-// import useLocale from 'hooks/useLocale';
 import styles from '/components/listing/Listing.module.scss';
-
+import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
@@ -18,8 +17,7 @@ const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
 
 function Inventory(props) {
-  // const { lang } = useLocale();
-
+  const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -40,6 +38,9 @@ function Inventory(props) {
   const totalItems = vehicles.meta.pagination.total;
 
   const fetchMoreFromStrapi = async () => {
+    const route = routes.inventory;
+    const locale = router.locale || 'en';
+
     try {
       setLoading(true);
       const nextPage = currentPage + 1;
@@ -49,7 +50,7 @@ function Inventory(props) {
         : '';
 
       const newVehicles = await getPageData({
-        route: 'inventories',
+        route: route.collectionSingle,
         params:
           query +
           `&pagination[page]=${nextPage}&pagination[pageSize]=${ITEMS_PER_PAGE}`,
@@ -57,6 +58,7 @@ function Inventory(props) {
         populate: 'featuredImage,categories',
         fields:
           'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+        locale,
       });
 
       const updatedVehicles = [...allFetchedVehicles, ...newVehicles.data];
@@ -170,14 +172,14 @@ function Inventory(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://www.alpineco.com/',
+          name: lang.home,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Available now',
-          item: `https://www.alpineco.com/available-now`,
+          name: lang.availableNowTitle,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
         },
       ],
     };
@@ -196,8 +198,11 @@ function Inventory(props) {
       '@type': 'FAQPage',
       mainEntity: faqs.map((faq, index) => {
         const title =
-          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+          faq?.attributes?.title ||
+          faq?.title ||
+          `${lang.frequentlyAskedQuestions} ${index + 1}`;
+        const text =
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',
@@ -234,9 +239,9 @@ function Inventory(props) {
 
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
-          <Link href="/">Home</Link>
+          <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          Available now
+          {lang.availableNowTitle}
         </div>
 
         {topBanner && <Banner props={topBanner} shape="dark" />}
@@ -251,7 +256,7 @@ function Inventory(props) {
           <div className={`${styles.listing_wrap_shown}`}>
             {!displayedVehicles.length ? (
               <div className={`${styles.listing_list_error}`}>
-                <h2>No Vehicles Found</h2>
+                <h2>{lang.noVehiclesFound}</h2>
               </div>
             ) : (
               <div className={`${styles.listing_list}`}>
@@ -277,7 +282,7 @@ function Inventory(props) {
 
         {faqs?.length > 0 ? (
           <div className={`mt2`}>
-            <Accordion items={faqs} title="Frequently Asked Questions" />
+            <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
           </div>
         ) : null}
       </div>
@@ -286,7 +291,7 @@ function Inventory(props) {
         className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
         style={{ opacity: loading ? 1 : 0 }}
       >
-        Loading...
+        {lang.loading}
       </div>
 
       <div className={`observe bottomObserver`}></div>
@@ -355,7 +360,11 @@ export async function getServerSideProps(context) {
     }).then((response) => response.data);
 
     const filters = type ? { type } : {};
-    const seoData = pageData?.seo ?? null;
+
+    const seoData = {
+      ...(pageData?.seo || {}),
+      languageUrls: route.getIndexLanguageUrls(locale),
+    };
 
     return {
       props: {

@@ -28,6 +28,8 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blog?pagination[limit]=-1&populate=localizations`;
     } else if (pathname.includes('available-now')) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/inventories?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('author')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/author?pagination[limit]=-1&populate=localizations`;
     }
 
     const response = await fetch(apiUrl);
