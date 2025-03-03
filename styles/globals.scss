@@ -292,6 +292,10 @@ $shapeColor: var(--color-background);
     }
   }
 
+  &.modal_flip {
+    flex-direction: unset;
+  }
+
   &_active {
     display: block;
     z-index: 99;
@@ -456,7 +460,7 @@ $shapeColor: var(--color-background);
       align-items: center;
       gap: 64px;
 
-      &_flip {
+      .modal_flip & {
         display: block;
       }
     }
