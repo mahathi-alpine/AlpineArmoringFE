@@ -455,6 +455,10 @@ $shapeColor: var(--color-background);
       display: flex;
       align-items: center;
       gap: 64px;
+
+      &_flip{
+        display: block;
+      }
     }
   }
 

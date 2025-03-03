@@ -442,7 +442,7 @@ function Testing(props) {
                 className={`modal modal_vertical ${showPopup ? 'modal_active' : ''} ${!selectedItem?.description ? 'modal_simple' : ''}`}
               >
                 <div className={`modal_inner`} ref={popupRef}>
-                  <div className={`modal_box`}>
+                  <div className={`modal_box mode_box_flip`}>
                     <div className={`modal_description`}>
                       {selectedItem?.title ? (
                         <h3 className={`modal_title`}>{selectedItem.title}</h3>
