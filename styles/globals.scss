@@ -531,7 +531,7 @@ $shapeColor: var(--color-background);
 
   @include breakpoint(large) {
     .rpv-core__viewer {
-      height: calc(100% - 42px) !important;
+      height: calc(100% - 66px) !important;
     }
     .rpv-core__inner-pages > div {
       height: 100% !important;
