@@ -87,28 +87,34 @@ const Filters = ({ props, plain }: FiltersProps) => {
     setFiltersOpen(false);
     document.body.classList.remove('no-scroll');
 
-    const newQuery = { ...router.query };
+    // Get clean base URL without any path parameters or query strings
+    const cleanBaseUrl = getBaseUrl();
+
+    // For search, we only want the 'q' parameter, removing all others (type, make)
+    const newQuery: { q?: string } = {};
 
     if (!query || query.trim().length === 0) {
-      delete newQuery.q;
+      // If search is empty, just go to base URL without any parameters
+      router.push(cleanBaseUrl, undefined);
     } else {
+      // If we have a search query, use only that parameter
       newQuery.q = query;
-    }
 
-    router.push(
-      {
-        pathname: router.asPath,
-        query: newQuery,
-      },
-      undefined
-    );
+      router.push(
+        {
+          pathname: cleanBaseUrl,
+          query: newQuery,
+        },
+        undefined
+      );
+    }
   };
 
-  const activateFilterItem = (slug) => {
+  const activateFilterItem = (slug: string) => {
     setActiveFilterItem((current) => (current === slug ? null : slug));
   };
 
-  const openFilters = (e) => {
+  const openFilters = (e: React.MouseEvent<HTMLElement>) => {
     if (window.innerWidth <= 1280) {
       setOpenFiltersClicked(true);
       setFiltersOpen((filtersOpen) => {
@@ -121,21 +127,29 @@ const Filters = ({ props, plain }: FiltersProps) => {
         return newValue;
       });
     }
-    if (e.target.innerHTML == lang.all) {
+    if (e.target instanceof HTMLElement && e.target.innerHTML == lang.all) {
       activeFilterTitles.make = lang.select;
     }
   };
 
   const currentFilterMake = router.query.make;
 
-  const pathParts = router.asPath.split('/');
-  const baseUrl = pathParts.slice(0, 2).join('/');
-  const currentSlug = router.asPath.split('/').pop();
+  // Get clean base URL without query parameters
+  const getBaseUrl = () => {
+    const pathParts = router.asPath.split('/');
+    // Take the first two parts (language and base route)
+    const baseUrl = pathParts.slice(0, 2).join('/');
+    // Remove any query params
+    return baseUrl.split('?')[0];
+  };
+
+  const baseUrl = getBaseUrl();
+  const currentSlug = router.asPath.split('/').pop()?.split('?')[0] || '';
 
   const handleClearFilters = () => {
     setQuery('');
     activeFilterTitles.make = lang.select;
-    router.push(`${baseUrl}`, undefined, { scroll: false });
+    router.push(baseUrl, undefined, { scroll: false });
   };
 
   useEffect(() => {
@@ -169,23 +183,33 @@ const Filters = ({ props, plain }: FiltersProps) => {
     });
   }, [router.isReady, router.query, props]);
 
-  const applyFilter = (item, paramKey) => {
+  // Improved applyFilter function with consistent URL handling
+  const applyFilter = (item: string, paramKey: string) => {
     if (paramKey == 'make') {
       setFiltersOpen(false);
       document.body.classList.remove('no-scroll');
     }
 
+    // Get clean base URL
+    const cleanBaseUrl = getBaseUrl();
+
+    // Get current query parameters
     const newQuery = { ...router.query };
     delete newQuery['vehicles_we_armor'];
+    // Remove 'q' parameter when applying type or make filters
+    delete newQuery.q;
 
+    // Skip if the parameter value hasn't changed
     if (newQuery[paramKey] === item) {
       return;
     }
 
+    // Update the selected parameter
     newQuery[paramKey] = item;
 
     setActiveFilterItem(window.innerWidth >= 768 ? 'default' : 'type');
 
+    // Update the filter title
     const selectedItem = props[paramKey].find(
       (i) => i.attributes.slug === item
     );
@@ -196,14 +220,90 @@ const Filters = ({ props, plain }: FiltersProps) => {
       }));
     }
 
-    router.push(
-      {
-        pathname: router.pathname,
-        query: newQuery,
-      },
-      undefined,
-      { scroll: false }
-    );
+    // Reset search query when applying filters
+    setQuery('');
+
+    // Handle URL construction based on parameter type
+    if (paramKey === 'type') {
+      // If it's a type filter, construct path-based URL
+      const typeUrl = `${cleanBaseUrl}/${lang.type}/${item}`;
+
+      // Remove type from query since it's now in the path
+      delete newQuery.type;
+
+      // Add remaining query parameters
+      const queryString = new URLSearchParams();
+      Object.entries(newQuery).forEach(([key, value]) => {
+        if (typeof value === 'string') {
+          queryString.append(key, value);
+        }
+      });
+      const finalUrl = `${typeUrl}${queryString.toString() ? `?${queryString.toString()}` : ''}`;
+
+      router.push(finalUrl, undefined, { scroll: false });
+    } else {
+      // For other filters (make), use the query parameter approach
+      // Check if we already have a type in the path
+      const pathParts = router.asPath.split('/');
+
+      if (pathParts.length > 2 && pathParts[2] === lang.type) {
+        const typeSlug = pathParts[3]?.split('?')[0];
+        if (typeSlug) {
+          const typeUrl = `${cleanBaseUrl}/${lang.type}/${typeSlug}`;
+
+          // Remove type from query since it's in the path
+          delete newQuery.type;
+
+          // Add remaining query parameters
+          const queryString = new URLSearchParams();
+          Object.entries(newQuery).forEach(([key, value]) => {
+            if (typeof value === 'string') {
+              queryString.append(key, value);
+            }
+          });
+          const finalUrl = `${typeUrl}${queryString.toString() ? `?${queryString.toString()}` : ''}`;
+
+          router.push(finalUrl, undefined, { scroll: false });
+          return;
+        }
+      }
+
+      // If no type in path yet, just use query parameters
+      const cleanQuery: Record<string, string> = {};
+      Object.entries(newQuery).forEach(([key, value]) => {
+        if (typeof value === 'string') {
+          cleanQuery[key] = value;
+        }
+      });
+
+      router.push(
+        {
+          pathname: cleanBaseUrl,
+          query: cleanQuery,
+        },
+        undefined,
+        { scroll: false }
+      );
+    }
+  };
+
+  // Improved constructFilterUrl function
+  const constructFilterUrl = (
+    baseUrl: string,
+    slug: string,
+    currentQuery: string
+  ) => {
+    // Parse the current query string into URLSearchParams
+    const queryParams = new URLSearchParams(currentQuery || '');
+    queryParams.delete('vehicles_we_armor');
+    queryParams.delete('type'); // Remove type from query since it's in the path
+    queryParams.delete('q'); // Remove search query when applying type filters
+
+    // Create a clean query string
+    const queryString = queryParams.toString();
+
+    // Return the properly formatted URL
+    return `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
   };
 
   const filtersRef = useRef(null);
@@ -247,15 +347,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
     }
   }, [openFiltersClicked]);
 
-  const constructFilterUrl = (baseUrl, slug, currentQuery) => {
-    const queryParams = new URLSearchParams(currentQuery);
-    queryParams.delete('vehicles_we_armor');
-    const queryString = queryParams.toString();
-    return `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
-  };
-
+  // Check if we have either a make query or a search query
   const hasValidMakeQuery =
-    router.query.make && (!router.query.type || router.query.type);
+    (router.query.make && (!router.query.type || router.query.type)) ||
+    Boolean(router.query.q);
 
   return (
     <div
@@ -298,7 +393,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
               {lang.filters}
             </div>
 
-            {Object.keys(router.query).length > 0 && (
+            {(Object.keys(router.query).length > 0 ||
+              Boolean(router.query.q)) && (
               <div
                 className={`${styles.filters_clear}`}
                 onClick={handleClearFilters}
@@ -384,10 +480,13 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           return null;
                         }
 
+                        // Construct URL using the improved function
+                        const currentQueryString =
+                          router.asPath.split('?')[1] || '';
                         const newUrl = constructFilterUrl(
                           baseUrl,
                           item.attributes.slug,
-                          router.asPath.split('?')[1] || ''
+                          currentQueryString
                         );
 
                         // Conditional rendering based on inventory vehicles
