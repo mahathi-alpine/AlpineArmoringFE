@@ -19,27 +19,6 @@ const blockedPatterns: BlockedPattern[] = [
   },
   {
     pattern:
-      '/news/understanding-armor-levels-in-vehicles-nij-cen-and-vpam-standards-explained',
-    exact: true,
-  },
-  {
-    pattern: '/news/top-security-measures',
-    exact: true,
-  },
-  {
-    pattern: '/news/armored-vehicles-3-steps-to-help-you-find-the-right-one',
-    exact: true,
-  },
-  {
-    pattern: '/news/what-you-should-know-about-armored-cars',
-    exact: true,
-  },
-  {
-    pattern: '/news/3-reasons-to-consider-purchasing-an-armored-vehicle',
-    exact: true,
-  },
-  {
-    pattern:
       '/blog/armored-tesla-model-s-withstands-live-fire-ballistic-testing',
     exact: true,
   },
@@ -134,6 +113,18 @@ const isUrlBlocked = (
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
+
+  // Normalize the search params by replacing + with %20
+  const normalizedSearch = searchParams.toString().replace(/\+/g, '%20');
+
+  // Create the full path with normalized search
+  const fullPath = normalizedSearch
+    ? `${pathname}?${normalizedSearch}`
+    : pathname;
+
+  // Check redirects
+  const redirectTo = redirectMap.get(fullPath);
+
   const locale = request.nextUrl.locale || '';
 
   if (locale === 'es') {
@@ -142,13 +133,6 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Create a key that includes both pathname and query string for matching
-  const fullPath = searchParams.toString()
-    ? `${pathname}?${searchParams.toString()}`
-    : pathname;
-
-  // Check redirects first
-  const redirectTo = redirectMap.get(fullPath);
   if (redirectTo) {
     const url = request.nextUrl.clone();
 
