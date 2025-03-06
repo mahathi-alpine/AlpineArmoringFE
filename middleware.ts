@@ -133,6 +133,27 @@ export function middleware(request: NextRequest) {
       : decodedPath;
 
     redirectTo = redirectMap.get(decodedFullPath);
+
+    if (
+      (!redirectTo && normalizedSearch.includes('%28')) ||
+      normalizedSearch.includes('%29')
+    ) {
+      for (const [key, value] of redirectMap.entries()) {
+        if (
+          !key.startsWith(pathname) ||
+          (!key.includes('(') && !key.includes(')'))
+        ) {
+          continue;
+        }
+
+        const normalizedKey = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
+
+        if (fullPath === normalizedKey) {
+          redirectTo = value;
+          break;
+        }
+      }
+    }
   }
 
   const locale = request.nextUrl.locale || '';
