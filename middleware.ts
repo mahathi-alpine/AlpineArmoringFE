@@ -123,7 +123,17 @@ export function middleware(request: NextRequest) {
     : pathname;
 
   // Check redirects
-  const redirectTo = redirectMap.get(fullPath);
+  let redirectTo = redirectMap.get(fullPath);
+
+  if (!redirectTo) {
+    const decodedPath = pathname;
+    const decodedSearch = decodeURIComponent(normalizedSearch);
+    const decodedFullPath = decodedSearch
+      ? `${decodedPath}?${decodedSearch}`
+      : decodedPath;
+
+    redirectTo = redirectMap.get(decodedFullPath);
+  }
 
   const locale = request.nextUrl.locale || '';
 
