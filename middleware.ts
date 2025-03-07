@@ -111,8 +111,80 @@ const isUrlBlocked = (
   });
 };
 
+// Safe decoding function that won't throw on invalid URLs
+function safeDecodeURIComponent(str: string): string {
+  try {
+    return decodeURIComponent(str);
+  } catch (e) {
+    console.error('Error decoding URI component:', str);
+    return str;
+  }
+}
+
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
+
+  // Handle special case for path segments embedded in query parameters
+  if (
+    (pathname === '/vehicles-we-armor' ||
+      pathname.startsWith('/available-now/type/')) &&
+    searchParams.has('make')
+  ) {
+    const makeValue = searchParams.get('make') || '';
+
+    // Check if the make parameter contains an encoded path segment with /type/
+    if (makeValue.includes('%2Ftype%2F') || makeValue.includes('/type/')) {
+      try {
+        // Extract the actual make value (everything before /type/)
+        let actualMake = '';
+        let typePath = '';
+
+        if (makeValue.includes('%2Ftype%2F')) {
+          // Handle encoded path
+          const parts = makeValue.split('%2Ftype%2F');
+          actualMake = parts[0];
+          typePath = parts[1];
+
+          // Remove any trailing query parameters
+          if (typePath.includes('%3F')) {
+            typePath = typePath.split('%3F')[0];
+          }
+        } else if (makeValue.includes('/type/')) {
+          // Handle unencoded path
+          const parts = makeValue.split('/type/');
+          actualMake = parts[0];
+          typePath = parts[1];
+
+          // Remove any trailing query parameters
+          if (typePath.includes('?')) {
+            typePath = typePath.split('?')[0];
+          }
+        }
+
+        // Determine the base path
+        let basePath = '';
+        if (pathname === '/vehicles-we-armor') {
+          basePath = '/vehicles-we-armor/type/';
+        } else {
+          // Handle the case where we're already in /available-now/type/
+          basePath = '/vehicles-we-armor/type/';
+        }
+
+        if (actualMake && typePath) {
+          // Create the redirect URL with the extracted information
+          const url = request.nextUrl.clone();
+          url.pathname = `${basePath}${typePath}`;
+          url.search = `?make=${actualMake}`;
+
+          const response = NextResponse.redirect(url, { status: 308 });
+          response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+          return response;
+        }
+      } catch (error) {
+        console.error('Error processing URL:', error);
+      }
+    }
+  }
 
   // Normalize the search params by replacing + with %20
   const normalizedSearch = searchParams.toString().replace(/\+/g, '%20');
@@ -127,18 +199,20 @@ export function middleware(request: NextRequest) {
 
   if (!redirectTo) {
     const decodedPath = pathname;
-    const decodedSearch = decodeURIComponent(normalizedSearch);
+    const decodedSearch = safeDecodeURIComponent(normalizedSearch);
     const decodedFullPath = decodedSearch
       ? `${decodedPath}?${decodedSearch}`
       : decodedPath;
 
     redirectTo = redirectMap.get(decodedFullPath);
 
+    // Handle parentheses encoding differences
     if (
-      (!redirectTo && normalizedSearch.includes('%28')) ||
-      normalizedSearch.includes('%29')
+      !redirectTo &&
+      (normalizedSearch.includes('%28') || normalizedSearch.includes('%29'))
     ) {
       for (const [key, value] of redirectMap.entries()) {
+        // Skip keys that don't match the path or don't include parentheses
         if (
           !key.startsWith(pathname) ||
           (!key.includes('(') && !key.includes(')'))
@@ -146,8 +220,10 @@ export function middleware(request: NextRequest) {
           continue;
         }
 
+        // Normalize the redirect key by encoding parentheses
         const normalizedKey = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
 
+        // Check if our normalized path matches the normalized key
         if (fullPath === normalizedKey) {
           redirectTo = value;
           break;
