@@ -275,6 +275,7 @@ export function middleware(request: NextRequest) {
     shouldBlockBrand ||
     searchParams.has('type') ||
     (pathname.startsWith('/available-now/type/') && vehiclesWeArmorParam) ||
+    searchParams.has('q') ||
     (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
     hasChryslerMake

@@ -284,7 +284,7 @@ export async function getServerSideProps(context) {
     }
     if (context.query.make) {
       query +=
-        (query ? '&' : '') + `&filters[make][slug][$eq]=${context.query.make}`;
+        (query ? '&' : '') + `&filters[make][slug][$eqi]=${context.query.make}`;
     }
     if (context.query.q) {
       query += (query ? '&' : '') + `filters[slug][$notNull]=true`;

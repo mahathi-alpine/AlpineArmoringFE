@@ -42,7 +42,10 @@ function Inventory(props) {
   const filteredByMake = props.vehicles?.data?.filter(
     (vehicle) =>
       !router.query.make ||
-      vehicle.attributes.make?.data?.attributes?.slug === router.query.make
+      vehicle.attributes.make?.data?.attributes?.slug.toLowerCase() ===
+        (typeof router.query.make === 'string'
+          ? router.query.make.toLowerCase()
+          : '')
   );
 
   // Animations

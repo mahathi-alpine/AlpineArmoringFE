@@ -59,8 +59,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     if (!currentMakeSlug || !props.type) return props.type;
 
+    // Case-insensitive comparison for finding make
     const selectedMake = props.make?.find(
-      (make) => make.attributes.slug === currentMakeSlug
+      (make) =>
+        make.attributes.slug.toLowerCase() === currentMakeSlug.toLowerCase()
     );
 
     const categorySlugs = selectedMake?.attributes.vehicles_we_armors?.data
@@ -183,7 +185,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     });
   }, [router.isReady, router.query, props]);
 
-  // Improved applyFilter function with consistent URL handling
   const applyFilter = (item: string, paramKey: string) => {
     if (paramKey == 'make') {
       setFiltersOpen(false);
@@ -199,20 +200,30 @@ const Filters = ({ props, plain }: FiltersProps) => {
     // Remove 'q' parameter when applying type or make filters
     delete newQuery.q;
 
-    // Skip if the parameter value hasn't changed
-    if (newQuery[paramKey] === item) {
+    // Skip if the parameter value hasn't changed (case-insensitive for make)
+    const currentValue = newQuery[paramKey];
+    const isSameValue =
+      paramKey === 'make'
+        ? typeof currentValue === 'string' &&
+          currentValue.toLowerCase() === item.toLowerCase()
+        : currentValue === item;
+
+    if (isSameValue) {
       return;
     }
 
-    // Update the selected parameter
-    newQuery[paramKey] = item;
+    // Update the selected parameter - convert make parameter to lowercase
+    newQuery[paramKey] = paramKey === 'make' ? item.toLowerCase() : item;
 
     setActiveFilterItem(window.innerWidth >= 768 ? 'default' : 'type');
 
-    // Update the filter title
-    const selectedItem = props[paramKey].find(
-      (i) => i.attributes.slug === item
+    // Update the filter title with case-insensitive comparison
+    const selectedItem = props[paramKey].find((i) =>
+      paramKey === 'make'
+        ? i.attributes.slug.toLowerCase() === item.toLowerCase()
+        : i.attributes.slug === item
     );
+
     if (selectedItem) {
       setActiveFilterTitles((prevTitles) => ({
         ...prevTitles,
@@ -220,6 +231,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
       }));
     }
 
+    // Rest of the function remains the same...
     // Reset search query when applying filters
     setQuery('');
 
