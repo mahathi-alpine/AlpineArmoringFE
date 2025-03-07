@@ -259,7 +259,7 @@ function Inventory(props) {
           className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
           style={{ opacity: loading ? 1 : 0 }}
         >
-          Loading...
+          {lang.loading}
         </div>
       ) : null}
 

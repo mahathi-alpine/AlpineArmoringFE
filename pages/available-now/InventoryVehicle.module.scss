@@ -168,6 +168,7 @@
         border-bottom: 1px solid var(--color-gray);
         padding: rem(12) 0;
         font-weight: var(--font-medium);
+        text-transform: capitalize;
 
         &:first-child {
           span {
@@ -186,6 +187,7 @@
           margin-left: rem(8);
           text-align: right;
           font-weight: var(--font-regular);
+          text-transform: initial;
         }
       }
     }

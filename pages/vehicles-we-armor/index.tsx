@@ -1,4 +1,5 @@
 import React from 'react';
+import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
@@ -14,6 +15,7 @@ import Accordion from 'components/global/accordion/Accordion';
 
 function VehicleWeArmor(props) {
   const router = useRouter();
+  const { lang } = useLocale();
   const topBanner = props.pageData?.banner;
   const bottomText = props.pageData?.bottomText;
 
@@ -256,7 +258,7 @@ function VehicleWeArmor(props) {
           className={`${styles.listing_loading}`}
           style={{ opacity: loading ? 1 : 0 }}
         >
-          Loading...
+          {lang.loading}
         </div>
       ) : null}
 

@@ -2,6 +2,7 @@ import styles from './Vehicle.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import useLocale from 'hooks/useLocale';
 import Head from 'next/head';
 import Banner from 'components/vehicle-we-armor/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
@@ -15,6 +16,8 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import Accordion from 'components/global/accordion/Accordion';
 
 function Vehicle(props) {
+  const { lang } = useLocale();
+
   useEffect(() => {
     const setupObserver = () => {
       const observerAnimationTargets = document.querySelectorAll('.observe');
@@ -70,7 +73,7 @@ function Vehicle(props) {
   }, []);
 
   if (!props.data?.data?.[0]) {
-    return <div>Loading...</div>;
+    return <div>{lang.loading}</div>;
   }
 
   const data = props?.data?.data?.[0]?.attributes ?? {};

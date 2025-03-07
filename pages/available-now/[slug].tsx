@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import routes from 'routes';
+import { useRouter } from 'next/router';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
 const PDFIcon = dynamic(() => import('components/icons/PDF2'));
@@ -11,6 +12,7 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 import Link from 'next/link';
+import useLocale from 'hooks/useLocale';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
@@ -23,6 +25,9 @@ import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
 function InventoryVehicle(props) {
+  const router = useRouter();
+  const { lang } = useLocale();
+
   useEffect(() => {
     const setupObserver = () => {
       const targets = document.querySelectorAll('.observe');
@@ -97,7 +102,7 @@ function InventoryVehicle(props) {
   };
 
   if (!props.data?.data?.[0]) {
-    return <div>Loading...</div>;
+    return <div>{lang.loading}</div>;
   }
 
   const data =
@@ -120,24 +125,24 @@ function InventoryVehicle(props) {
   };
 
   const vehicleDetailsMain = {
-    Level: 'armor_level',
-    VIN: 'VIN',
-    'Vehicle ID': 'vehicleID',
-    'Engine & Power': 'engine',
-    Trans: 'trans',
+    [lang.level]: 'armor_level',
+    [lang.VIN]: 'VIN',
+    [lang.vehicleID]: 'vehicleID',
+    [lang.enginePower]: 'engine',
+    [lang.trans]: 'trans',
     // Power: 'power',
-    Year: 'year',
-    Miles: 'miles',
-    Drivetrain: 'driveTrain',
-    'Color (Exterior)': 'color_ext',
-    'Color (Interior)': 'color_int',
-    Trim: 'trim',
-    Wheels: 'wheels',
-    Height: 'height',
-    Length: 'length',
-    Width: 'width',
-    Wheelbase: 'wheelbase',
-    'Weight (Armored)': 'weight',
+    [lang.year]: 'year',
+    [lang.miles]: 'miles',
+    [lang.drivetrain]: 'driveTrain',
+    [lang.colorExt]: 'color_ext',
+    [lang.colorInt]: 'color_int',
+    [lang.trim]: 'trim',
+    [lang.wheels]: 'wheels',
+    [lang.height]: 'height',
+    [lang.length]: 'length',
+    [lang.width]: 'width',
+    [lang.wheelbase]: 'wheelbase',
+    [lang.weightArmored]: 'weight',
   };
 
   const formData = {
@@ -161,15 +166,15 @@ function InventoryVehicle(props) {
       image: data?.featuredImage?.data?.attributes?.url,
       description:
         props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
-      url: `https://www.alpineco.com/available-now/${data?.slug}`,
+      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}/${data?.slug}`,
       brand: {
         '@type': 'Brand',
-        name: 'Alpine Armoring® Armored Vehicles',
+        name: `Alpine Armoring® Armored ${lang.vehicles}`,
       },
       sku: `Alpine-${data?.slug}`,
       offers: {
         '@type': 'AggregateOffer',
-        url: `https://www.alpineco.com/available-now/${data?.slug}`,
+        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}/${data?.slug}`,
         priceCurrency: 'USD',
         lowPrice: '50000',
         highPrice: '200000',
@@ -185,87 +190,87 @@ function InventoryVehicle(props) {
       additionalProperty: [
         {
           '@type': 'PropertyValue',
-          name: 'Armoring Level',
+          name: lang.armoringLevel,
           value: data?.armor_level,
         },
         {
           '@type': 'PropertyValue',
-          name: 'VIN',
+          name: lang.VIN,
           value: data?.VIN,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Vehicle ID',
+          name: lang.vehicleID,
           value: data?.vehicleID,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Engine & Power',
+          name: lang.enginePower,
           value: data?.engine,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Trans',
+          name: lang.trans,
           value: data?.trans,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Year',
+          name: lang.year,
           value: data?.year,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Miles',
+          name: lang.miles,
           value: data?.miles,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Drivetrain',
+          name: lang.drivetrain,
           value: data?.driveTrain,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Color (Exterior)',
+          name: lang.colorExt,
           value: data?.color_ext,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Color (Interior)',
+          name: lang.colorInt,
           value: data?.color_int,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Trim',
+          name: lang.trim,
           value: data?.trim,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Wheels',
+          name: lang.wheels,
           value: data?.wheels,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Height',
+          name: lang.height,
           value: `${data?.height} in.`,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Length',
+          name: lang.length,
           value: `${data?.length} in.`,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Width',
+          name: lang.width,
           value: `${data?.width} in.`,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Wheelbase',
+          name: lang.wheelbase,
           value: `${data?.wheelbase} in.`,
         },
         {
           '@type': 'PropertyValue',
-          name: 'Weight (Armored)',
+          name: lang.weightArmored,
           value: `${data?.weight} lbs`,
         },
       ],
@@ -280,26 +285,20 @@ function InventoryVehicle(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://www.alpineco.com/',
+          name: lang.home,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Available now',
-          item: `https://www.alpineco.com/available-now`,
+          name: lang.availableNowTitle,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}`,
         },
-        // {
-        //   '@type': 'ListItem',
-        //   position: 3,
-        //   name: category,
-        //   item: `https://www.alpineco.com/available-now/type/${categorySlug}`,
-        // },
         {
           '@type': 'ListItem',
           position: 3,
-          name: data?.title,
-          item: `https://www.alpineco.com/available-now/${data?.slug}`,
+          name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}/${data?.slug}`,
         },
       ],
     };
@@ -402,11 +401,15 @@ function InventoryVehicle(props) {
         <div className={`${styles.inventory_main}`}>
           <div className={`${styles.inventory_heading}`}>
             <div className={`b-breadcrumbs`}>
-              <Link href="/">Home</Link>
+              <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
-              <Link href="/available-now">Available now</Link>
+              <Link href={`${lang.availableNowURL}`}>
+                {lang.availableNowTitle}
+              </Link>
               <span>&gt;</span>
-              <Link href={`/available-now/type/${categorySlug}`}>
+              <Link
+                href={`${lang.availableNowURL}/${lang.type}/${categorySlug}`}
+              >
                 {category}
               </Link>
               <span>&gt;</span>
@@ -425,7 +428,7 @@ function InventoryVehicle(props) {
                 <p>
                   {data?.shortDescription
                     ? data.shortDescription
-                    : `This ${data?.title} is in stock and available to ship immediately`}
+                    : `${lang.this} ${data?.title} ${lang.isInStock}`}
                 </p>
               </div>
             ) : null}
@@ -447,7 +450,7 @@ function InventoryVehicle(props) {
                   <div
                     className={`${styles.inventory_top_gallery_wrap_sold_label}`}
                   >
-                    <span>Sold</span>
+                    <span>{lang.sold}</span>
                   </div>
                 ) : null}
 
@@ -455,12 +458,12 @@ function InventoryVehicle(props) {
                   <div className={`${styles.inventory_info}`}>
                     {data?.armor_level ? (
                       <Link
-                        href="/ballistic-chart"
+                        href={`${lang.ballisticChartURL}`}
                         className={`${styles.inventory_armor}`}
                       >
                         <div className={`${styles.inventory_armor_box}`}>
-                          Armor
-                          <span>Level</span>
+                          {lang.armor}
+                          <span>{lang.level}</span>
                         </div>
                         <strong>{data?.armor_level}</strong>
                       </Link>
@@ -478,8 +481,8 @@ function InventoryVehicle(props) {
                         className={`${styles.inventory_armor}`}
                       >
                         <div className={`${styles.inventory_armor_box}`}>
-                          Watch
-                          <span>Video</span>
+                          {lang.watch}
+                          <span>{lang.video}</span>
                         </div>
                         <PlayIcon />
                       </div>
@@ -495,7 +498,7 @@ function InventoryVehicle(props) {
                   className={`${styles.inventory_cta} primary attention`}
                   attention
                 >
-                  Request a quote
+                  {lang.requestAQuote}
                 </Button>
               </div>
 
@@ -515,7 +518,7 @@ function InventoryVehicle(props) {
                     data[value] != '' &&
                     data[value] != ' '
                   ) {
-                    if (key === 'Weight (Armored)') {
+                    if (key === lang.weightArmored) {
                       // Apply thousands separator to the pounds value if it's in the thousands
                       const poundsValue =
                         parseInt(data[value]) >= 1000
@@ -530,7 +533,12 @@ function InventoryVehicle(props) {
                           : weightInKg;
                       dimensionValue = `${poundsValue} lbs (${kilogramsValue} kg)`;
                     } else if (
-                      ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
+                      [
+                        lang.height,
+                        lang.length,
+                        lang.width,
+                        lang.wheelbase,
+                      ].includes(key)
                     ) {
                       // Convert inches to centimeters
                       dimensionValue = `${data[value]} in. (${Math.round(
@@ -570,16 +578,12 @@ function InventoryVehicle(props) {
                       className={`${styles.inventory_pdfs_button} icon rounded`}
                       target
                     >
-                      <strong>OEM</strong> Window Sticker
+                      <strong>{lang.oem}</strong> {lang.windowSticker}
                     </Button>
                   ) : null}
 
                   {data?.OEMArmoringSpecs?.data ? (
                     <Button
-                      // href={data.OEMArmoringSpecs.data.attributes?.url.replace(
-                      //   /\.ai$/,
-                      //   '.pdf'
-                      // )}
                       onClick={() =>
                         togglePDFPopup(data.OEMArmoringSpecs.data.attributes)
                       }
@@ -587,7 +591,7 @@ function InventoryVehicle(props) {
                       className={`${styles.inventory_pdfs_button} icon rounded`}
                       button
                     >
-                      Armoring Specs
+                      {lang.armoringSpecs}
                     </Button>
                   ) : null}
                 </div>
@@ -614,7 +618,7 @@ function InventoryVehicle(props) {
 
         {faqs?.length > 0 ? (
           <div className={`mt2`}>
-            <Accordion items={faqs} title="Frequently Asked Questions" />
+            <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
           </div>
         ) : null}
 
@@ -656,11 +660,18 @@ export async function getServerSideProps({ params, locale }) {
       return { notFound: true };
     }
 
-    const seoData = data.data[0].attributes.seo ?? null;
-    if (seoData) {
-      seoData.thumbnail =
-        data.data[0].attributes.featuredImage?.data.attributes ?? null;
-    }
+    const currentPage = data?.data?.[0]?.attributes;
+
+    const seoData = {
+      ...(currentPage?.seo ?? {}),
+      thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
+      languageUrls: route.getLanguageUrls(currentPage, locale),
+    };
+
+    // if (seoData) {
+    //   seoData.thumbnail =
+    //     data.data[0].attributes.featuredImage?.data.attributes ?? null;
+    // }
 
     return {
       props: {
