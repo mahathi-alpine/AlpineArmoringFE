@@ -76,6 +76,20 @@ const routes = {
     },
     types: vehicleTypes,
   },
+  ballisticChart: {
+    collection: 'ballistic-chart',
+    paths: {
+      en: '/ballistic-chart',
+      es: '/tabla-balistica',
+    },
+  },
+  ballisticTesting: {
+    collection: 'ballistic-testing',
+    paths: {
+      en: '/ballistic-testing',
+      es: '/pruebas-balisticas',
+    },
+  },
   news: {
     collection: 'news-page',
     collectionSingle: 'blogs',
@@ -96,13 +110,6 @@ const routes = {
       es: 'tipo',
     },
     types: vehicleTypes,
-  },
-  ballisticTesting: {
-    collection: 'ballistic-testing',
-    paths: {
-      en: '/ballistic-testing',
-      es: '/pruebas-balisticas',
-    },
   },
   videos: {
     collection: 'video-page',

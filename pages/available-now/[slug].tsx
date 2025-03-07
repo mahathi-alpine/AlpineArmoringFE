@@ -318,7 +318,8 @@ function InventoryVehicle(props) {
       mainEntity: faqs.map((faq, index) => {
         const title =
           faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+        const text =
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',

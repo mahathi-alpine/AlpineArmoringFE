@@ -1,13 +1,15 @@
 import styles from './BallisticChartBottom.module.scss';
 import BallisticChartBottomHeading from './BallisticChartBottomHeading';
 import { useState } from 'react';
-
+import useLocale from 'hooks/useLocale';
 import dynamic from 'next/dynamic';
 const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 
 const BallisticChartBottom = (props) => {
+  const { lang } = useLocale();
+
   const projectileAcronyms = [
     {
       name: 'AP',
@@ -141,7 +143,7 @@ const BallisticChartBottom = (props) => {
       <div className={`${styles.ballistic_bottom_main}`}>
         <div className={`${styles.ballistic_bottom_main_item}`}>
           <h2 className={`${styles.ballistic_bottom_main_title}`}>
-            LINKS TO BALLISTIC STANDARDS
+            {lang.linksToBallisticStandards}
           </h2>
           <ul className={`${styles.ballistic_bottom_main_list}`}>
             {props?.BallisticStandards?.map((item, index) => (
@@ -159,8 +161,7 @@ const BallisticChartBottom = (props) => {
                     <>
                       <br />
                       <small>
-                        Protection Levels for Occupants of Logistic and Light
-                        Armored Vehicles
+                        {lang.protectionLevelsForOccupantsOfLogisticAndLight}
                       </small>
                     </>
                   )}
@@ -172,7 +173,7 @@ const BallisticChartBottom = (props) => {
 
         <div className={`${styles.ballistic_bottom_main_item}`}>
           <h2 className={`${styles.ballistic_bottom_main_title}`}>
-            PROJECTILE ACRONYMS
+            {lang.projectileAcronyms}
           </h2>
           <ul className={`${styles.ballistic_bottom_main_list}`}>
             {projectileAcronyms.map((item, index) => (
@@ -193,7 +194,7 @@ const BallisticChartBottom = (props) => {
 
         <div className={`${styles.ballistic_bottom_main_item}`}>
           <h2 className={`${styles.ballistic_bottom_main_title}`}>
-            OTHER ACRONYMS
+            {lang.otherAcronyms}
           </h2>
           <ul className={`${styles.ballistic_bottom_main_list}`}>
             {otherAcronyms.map((item, index) => (
@@ -218,7 +219,7 @@ const BallisticChartBottom = (props) => {
         onClick={() => togglePDFPopup(props.ammunitionChartPDF)}
       >
         <span className={`${styles.text} text-cta-regular`}>
-          Ammunition Chart
+          {lang.ammunitionChart}
         </span>
         <div className={`${styles.icon}`}>
           <svg

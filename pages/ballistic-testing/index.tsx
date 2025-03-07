@@ -7,6 +7,7 @@ import TabSlider from 'components/global/tab-slider/TabSlider';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import Image from 'next/image';
 import routes from 'routes';
+import useLocale from 'hooks/useLocale';
 import Link from 'next/link';
 import PlayIcon from 'components/icons/Play';
 import MediaList from 'pages/media/MediaList';
@@ -14,6 +15,7 @@ import { useOutsideClick } from 'hooks/useOutsideClick';
 import ArrowIcon from 'components/icons/Arrow';
 
 function Testing(props) {
+  const { lang } = useLocale();
   const title = props?.pageData?.mainTitle;
   const heading = props?.pageData?.heading;
   const videos = props?.pageData?.section3Video?.data;
@@ -86,15 +88,15 @@ function Testing(props) {
   const tabSliderData = [
     {
       id: 0,
-      titleNav: 'Ballistic Certifications',
+      titleNav: lang.ballisticCertifications,
     },
     {
       id: 1,
-      titleNav: 'Material Testing',
+      titleNav: lang.materialTesting,
     },
     {
       id: 2,
-      titleNav: 'Live Fire Testing',
+      titleNav: lang.liveFireTesting,
     },
   ];
 
@@ -143,12 +145,14 @@ function Testing(props) {
           <Banner props={props.pageData?.banner} shape="dark" />
         ) : null}
 
-        <TabSlider
-          className={`${styles.testing_tabs} desktop-only`}
-          props={tabSliderData}
-          onTabChange={handleTabChange}
-          anchor
-        />
+        {lang.ballisticCertifications ? (
+          <TabSlider
+            className={`${styles.testing_tabs} desktop-only`}
+            props={tabSliderData}
+            onTabChange={handleTabChange}
+            anchor
+          />
+        ) : null}
 
         {title ? (
           <div
@@ -570,7 +574,7 @@ function Testing(props) {
           onClick={() => handleReadMore(ballisticFlip)}
         >
           <h3 className={`${styles.testing_flip_title}`}>
-            See Ballistic Postcard
+            {lang.seeBallisticPostcard}
             <ArrowIcon />
           </h3>
 

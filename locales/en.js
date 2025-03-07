@@ -236,4 +236,16 @@ export default {
   windowSticker: 'Window Sticker',
   oem: 'OEM',
   armoringSpecs: 'Armoring Specs',
+  forSale: 'for Sale',
+  projectileEncyclopedia: 'Projectile Encyclopedia',
+  linksToBallisticStandards: 'Links to Ballistic Standards',
+  protectionLevelsForOccupantsOfLogisticAndLight:
+    'Protection Levels for Occupants of Logistic and Light Armored Vehicles',
+  projectileAcronyms: 'Projectile Acronyms',
+  otherAcronyms: 'Other Acronyms',
+  ammunitionChart: 'Ammunition Chart',
+  ballisticCertifications: 'Ballistic Certifications',
+  materialTesting: 'Material Testing',
+  liveFireTesting: 'Live Fire Testing',
+  seeBallisticPostcard: 'See Ballistic Postcard',
 };

@@ -149,7 +149,7 @@ function Inventory(props) {
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
           <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          <Link href="/available-now">{lang.availableNowTitle}</Link>
+          <Link href={`${lang.availableNowURL}`}>{lang.availableNowTitle}</Link>
           <span>&gt;</span>
           <span className={`b-breadcrumbs_current`}>{categoryTitle}</span>
         </div>
@@ -286,7 +286,7 @@ export async function getServerSideProps(context) {
 
   if (seoData) {
     // Modify meta title
-    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== lang.armoredRentalURL && context.query.type !== lang.preOwnedURL ? ' for Sale' : ''} | Alpine Armoring`;
+    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== lang.armoredRentalURL && context.query.type !== lang.preOwnedURL ? ` ${lang.forSale}` : ''} | Alpine Armoring`;
 
     // Modify meta description only when not armored-rental
     if (
@@ -304,7 +304,7 @@ export async function getServerSideProps(context) {
 
       // Create regexes to match with and without 'armored'
       const vehicleTypeRegexWithArmored = new RegExp(
-        `(Armored\\s*${vehicleTypeRaw})\\b`,
+        `(${lang.armored}\\s*${vehicleTypeRaw})\\b`,
         'i'
       );
       const vehicleTypeRegexWithoutArmored = new RegExp(
@@ -315,13 +315,13 @@ export async function getServerSideProps(context) {
       // Replace with 'for sale', first with 'armored' version, then without
       let updatedDescription = seoData.metaDescription.replace(
         vehicleTypeRegexWithArmored,
-        (match) => `${match} for sale`
+        (match) => `${match} ${lang.forSale}`
       );
 
       if (updatedDescription === seoData.metaDescription) {
         updatedDescription = updatedDescription.replace(
           vehicleTypeRegexWithoutArmored,
-          (match) => `${match} for sale`
+          (match) => `${match} ${lang.forSale}`
         );
       }
 

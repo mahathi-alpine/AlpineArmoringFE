@@ -1,27 +1,14 @@
 import styles from './BallisticChartBottom.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
-
+import useLocale from 'hooks/useLocale';
 import dynamic from 'next/dynamic';
 const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
-// import useLightbox from '../lightbox/useLightbox';
-// import NextJsImage from '../lightbox/NextJsImage';
-// import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 const BallisticChartBottomHeading = (props) => {
-  // const { openLightbox, renderLightbox } = useLightbox();
-
-  // type CustomSlide = {
-  //   src: string;
-  //   width?: number;
-  //   height?: number;
-  //   alt?: string;
-  //   unoptimized?: boolean;
-  //   index?: number;
-  //   selectedIndex?: number;
-  // };
+  const { lang } = useLocale();
   const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
   const [currentPdfUrl, setCurrentPdfUrl] = useState('');
 
@@ -46,15 +33,12 @@ const BallisticChartBottomHeading = (props) => {
         <div className={`${styles.ballistic_bottom_top_content}`}>
           <h2
             className={`${styles.ballistic_bottom_top_content_title}`}
-            data-text="PROJECTILE ENCYCLOPEDIA"
+            data-text={lang.projectileEncyclopedia}
           >
-            PROJECTILE ENCYCLOPEDIA
+            {lang.projectileEncyclopedia}
           </h2>
           <button
             className={`${styles.ballistic_bottom_top_content_button}`}
-            // onClick={() => {
-            //   openLightbox();
-            // }}
             onClick={() => togglePDFPopup(props.bulletPoster)}
           >
             Discover
@@ -67,24 +51,6 @@ const BallisticChartBottomHeading = (props) => {
         onClose={() => togglePDFPopup('')}
         pdfUrl={currentPdfUrl}
       />
-
-      {/* {renderLightbox({
-        slides: [
-          {
-            src: props.bulletPoster?.url,
-            width: props.bulletPoster?.width,
-            height: props.bulletPoster?.height,
-            alt: props.bulletPoster?.alternativeText,
-            unoptimized: true,
-          },
-        ] as CustomSlide[],
-        plugins: [Zoom],
-        render: {
-          slide: NextJsImage,
-          buttonPrev: () => null,
-          buttonNext: () => null,
-        },
-      })} */}
     </>
   );
 };
