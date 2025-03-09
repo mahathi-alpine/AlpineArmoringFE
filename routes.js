@@ -134,6 +134,14 @@ const routes = {
       es: '/preguntas-frecuentes',
     },
   },
+  locationsWeServe: {
+    collection: 'locations-we-serve-page',
+    collectionSingle: 'articles',
+    paths: {
+      en: '/locations-we-serve',
+      es: '/ubicaciones-que-servimos',
+    },
+  },
 
   news: {
     collection: 'news-page',

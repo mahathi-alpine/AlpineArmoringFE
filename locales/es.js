@@ -28,6 +28,10 @@ export default {
   vehiclesWeArmorStock: '/disponible-ahora/?vehiculos_que_blindamos=',
   blogsURL: '/blog',
 
+  advancedTechnology: 'Advanced Technology',
+  componentsBallisticMaterial: 'Components & Ballistic Material',
+  production: 'Production',
+
   availableNowTitle: 'Disponible ahora',
   vehiclesWeArmor: 'Vehículos que blindamos',
   suvsTitleHeader: 'SUVs',
