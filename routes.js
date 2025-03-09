@@ -90,6 +90,51 @@ const routes = {
       es: '/pruebas-balisticas',
     },
   },
+  becomeDealer: {
+    collection: 'become-a-dealer',
+    paths: {
+      en: '/become-a-dealer',
+      es: '/conviertase-en-distribuidor',
+    },
+  },
+  blog: {
+    collection: 'blog-page',
+    collectionSingle: 'blog-evergreens',
+    paths: {
+      en: '/blog',
+      es: '/blog',
+    },
+  },
+  contact: {
+    collection: 'contact-page',
+    paths: {
+      en: '/contact',
+      es: '/contacto',
+    },
+  },
+  designAndEngineering: {
+    collection: 'design-and-engineering',
+    paths: {
+      en: '/design-and-engineering',
+      es: '/diseno-e-ingenieria',
+    },
+  },
+  manufacturing: {
+    collection: 'manufacturing',
+    paths: {
+      en: '/manufacturing',
+      es: '/fabricacion',
+    },
+  },
+  faqs: {
+    collection: 'faq',
+    collectionSingle: 'fa-qs',
+    paths: {
+      en: '/faqs',
+      es: '/preguntas-frecuentes',
+    },
+  },
+
   news: {
     collection: 'news-page',
     collectionSingle: 'blogs',
@@ -119,14 +164,6 @@ const routes = {
       es: '/medios/videos',
     },
   },
-  blog: {
-    collection: 'blog-page',
-    collectionSingle: 'blog-evergreens',
-    paths: {
-      en: '/blog',
-      es: '/blog',
-    },
-  },
   shippingAndLogistics: {
     collection: 'shipping',
     paths: {
@@ -139,13 +176,6 @@ const routes = {
     paths: {
       en: '/privacy-policy',
       es: '/politica-de-privacidad',
-    },
-  },
-  manufacturing: {
-    collection: 'manufacturing',
-    paths: {
-      en: '/manufacturing',
-      es: '/fabricacion',
     },
   },
 };

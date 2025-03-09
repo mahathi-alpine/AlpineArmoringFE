@@ -2,6 +2,7 @@ import styles from './Manufacturing.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import routes from 'routes';
+import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -9,6 +10,8 @@ import Image from 'next/image';
 import Gallery from 'components/global/carousel/CarouselCurved';
 
 function Manufacturing(props) {
+  const { lang } = useLocale();
+
   // Animations
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -39,15 +42,15 @@ function Manufacturing(props) {
   const tabSliderData = [
     {
       id: 0,
-      titleNav: 'Advanced Technology',
+      titleNav: lang.advancedTechnology,
     },
     {
       id: 1,
-      titleNav: 'Components & Ballistic Material',
+      titleNav: lang.componentsBallisticMaterial,
     },
     {
       id: 2,
-      titleNav: 'Production',
+      titleNav: lang.production,
     },
   ];
 
@@ -148,7 +151,7 @@ function Manufacturing(props) {
                         src={`${props.pageData.section1Image.data.attributes?.url}`}
                         type={props.pageData.section1Image.data.attributes.mime}
                       />
-                      Your browser does not support the video tag.
+                      {lang.videoTagNotSupported}
                     </video>
                   </div>
                 ) : null}

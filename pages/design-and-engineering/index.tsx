@@ -1,6 +1,8 @@
 import styles from './Design.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect, useState } from 'react';
+import routes from 'routes';
+import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import CustomMarkdown from 'components/CustomMarkdown';
@@ -11,6 +13,7 @@ const Gallery = dynamic(
 const Popup = dynamic(() => import('components/global/lightbox/PopupSimple'));
 
 const Design = (props) => {
+  const { lang } = useLocale();
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -18,25 +21,6 @@ const Design = (props) => {
     setSelectedItem(item);
     setShowPopup(true);
   };
-
-  // useEffect(() => {
-  //   const isModalActive = false;
-
-  //   const handleClickOutside = () => {
-  //     if (!popupRef.current || popupRef.current.contains(event.target)) {
-  //       return;
-  //     }
-
-  //     if (isModalActive) {
-  //       setShowPopup(false);
-  //     }
-  //   };
-
-  //   window.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     window.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
@@ -136,7 +120,7 @@ const Design = (props) => {
                           props.pageData.section1Image2.data.attributes.mime
                         }
                       />
-                      Your browser does not support the video tag.
+                      {lang.videoTagNotSupported}
                     </video>
                   </div>
                 ) : null}
@@ -486,7 +470,7 @@ const Design = (props) => {
                         src={`${props.pageData.section6Image.data.attributes?.url}`}
                         type={props.pageData.section6Image.data.attributes.mime}
                       />
-                      Your browser does not support the video tag.
+                      {lang.videoTagNotSupported}
                     </video>
                   </div>
                 ) : null}
@@ -537,7 +521,7 @@ const Design = (props) => {
                           props.pageData.section6Image2.data.attributes.mime
                         }
                       />
-                      Your browser does not support the video tag.
+                      {lang.videoTagNotSupported}
                     </video>
                   </div>
                 ) : null}
@@ -559,14 +543,20 @@ const Design = (props) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.designAndEngineering;
+
   let pageData = await getPageData({
-    route: 'design-and-engineering',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData?.data?.attributes || null;
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   if (!pageData) {
     return {
@@ -575,7 +565,7 @@ export async function getStaticProps() {
   }
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 

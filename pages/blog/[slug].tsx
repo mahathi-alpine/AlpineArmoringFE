@@ -1,6 +1,9 @@
 import { getPageData } from 'hooks/api';
 import styles from './NewsSingle.module.scss';
 import Link from 'next/link';
+import routes from 'routes';
+import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 import Image from 'next/image';
 import Head from 'next/head';
 import PlayIcon from 'components/icons/Play2';
@@ -33,12 +36,13 @@ const calculateReadTime = () => {
 function BlogSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  // const categories = data?.categories?.data;
   const date = new Date(data?.updatedAt);
   const dynamicZone = data?.blogDynamic;
   const faqsTitle = data?.faqsTitle;
   const faqs = data?.faqs;
   const [readTime, setReadTime] = useState('1 min');
+  const { lang } = useLocale();
+  const router = useRouter();
 
   useEffect(() => {
     setReadTime(calculateReadTime());
@@ -90,20 +94,20 @@ function BlogSingle(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://www.alpineco.com/',
+          name: lang.home,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Blog',
-          item: `https://www.alpineco.com/blog`,
+          name: lang.blog,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.blogsURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: data?.title,
-          item: `https://www.alpineco.com/blog/${data?.slug}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.blogsURL}/${data?.slug}`,
         },
       ],
     };
@@ -123,7 +127,8 @@ function BlogSingle(props) {
       mainEntity: faqs.map((faq, index) => {
         const title =
           faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+        const text =
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',
@@ -159,9 +164,19 @@ function BlogSingle(props) {
       <div className={`${styles.blogSingle}`}>
         <div className={`${styles.blogSingle_inner} container_small`}>
           <div className={`b-breadcrumbs`}>
-            <Link href="/">Home</Link>
+            <Link href={router.locale === 'en' ? '/' : `/${router.locale}`}>
+              {lang.home}
+            </Link>
             <span>&gt;</span>
-            <Link href="/blog">Blog</Link>
+            <Link
+              href={
+                router.locale === 'en'
+                  ? `${lang.blogsURL}`
+                  : `/${router.locale}${lang.blogsURL}`
+              }
+            >
+              {lang.blog}
+            </Link>
             <span>&gt;</span>
             <span className={`b-breadcrumbs_current`}>{data?.title}</span>
           </div>
@@ -197,7 +212,7 @@ function BlogSingle(props) {
               {data?.authors?.data ? (
                 <div className={`${styles.blogSingle_info_box}`}>
                   <span className={`${styles.blogSingle_info_box_heading}`}>
-                    Author
+                    {lang.author}
                     {data.authors.data.attributes.linkedinURL ? (
                       <Link
                         href={data.authors.data.attributes.linkedinURL}
@@ -209,7 +224,7 @@ function BlogSingle(props) {
                   </span>
                   <Link
                     className={`${styles.blogSingle_info_box_name}`}
-                    href={`/author/${data.authors.data.attributes.slug}`}
+                    href={`${lang.authorURL}/${data.authors.data.attributes.slug}`}
                   >
                     {data.authors.data.attributes.Name}
                   </Link>
@@ -220,7 +235,7 @@ function BlogSingle(props) {
                 className={`${styles.blogSingle_info_box} ${styles.blogSingle_info_box_date}`}
               >
                 <span className={`${styles.blogSingle_info_box_heading}`}>
-                  Last Updated
+                  {lang.lastUpdated}
                 </span>
                 <span className={`${styles.blogSingle_info_box_name}`}>
                   {formattedDate}
@@ -229,7 +244,7 @@ function BlogSingle(props) {
 
               <div className={`${styles.blogSingle_info_box}`}>
                 <span className={`${styles.blogSingle_info_box_heading}`}>
-                  Read Time
+                  {lang.readTime}
                 </span>
                 <span className={`${styles.blogSingle_info_box_name}`}>
                   {readTime}
@@ -317,7 +332,7 @@ function BlogSingle(props) {
 
         {faqs?.length > 0 ? (
           <div className={`mt2`}>
-            <Accordion items={faqs} title={`${faqsTitle || 'FAQs'}`} />
+            <Accordion items={faqs} title={`${faqsTitle || lang.faqs}`} />
           </div>
         ) : null}
 
@@ -334,8 +349,10 @@ function BlogSingle(props) {
 }
 
 export async function getServerSideProps({ params, locale }) {
+  const route = routes.blog;
+
   const data = await getPageData({
-    route: 'blog-evergreens',
+    route: route.collectionSingle,
     params: `filters[slug][$eq]=${params.slug}`,
     populate: 'deep',
     locale,
@@ -345,6 +362,7 @@ export async function getServerSideProps({ params, locale }) {
   if (seoData) {
     seoData.thumbnail =
       data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
+    seoData.languageUrls = route.getIndexLanguageUrls(locale);
   }
 
   if (!data || !data.data || data.data.length === 0) {

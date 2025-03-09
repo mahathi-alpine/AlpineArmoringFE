@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import useLocale from 'hooks/useLocale';
+import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
@@ -157,11 +158,7 @@ function Contact(props) {
         </div>
 
         {faqs?.data.length > 0 ? (
-          <Accordion
-            items={faqs.data}
-            title="Frequently Asked Questions"
-            button
-          />
+          <Accordion items={faqs.data} title={lang.footerFaqsTitle} button />
         ) : null}
       </div>
     </>
@@ -169,14 +166,19 @@ function Contact(props) {
 }
 
 export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.contact;
+
   let pageData = await getPageData({
-    route: 'contact-page',
+    route: route.collection,
     populate: 'deep',
     locale,
   });
   pageData = pageData.data?.attributes || null;
 
-  const seoData = pageData?.seo ?? null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
     props: { pageData, seoData, locale },

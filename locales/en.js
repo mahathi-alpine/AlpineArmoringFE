@@ -182,7 +182,6 @@ export default {
   video: 'Video',
   offeredAtProtectionLevels: 'Offered At Protection Levels',
   hpLatestNews: 'Armoring industry insights',
-
   ballisticTests: 'Ballistic Tests',
   mediaAppearances: 'Media Appearances',
   coolVideos: 'Cool Videos',
@@ -248,4 +247,10 @@ export default {
   materialTesting: 'Material Testing',
   liveFireTesting: 'Live Fire Testing',
   seeBallisticPostcard: 'See Ballistic Postcard',
+  blog: 'Blog',
+  lastUpdated: 'Last Updated',
+  readTime: 'Read Time',
+  advancedTechnology: 'Advanced Technology',
+  componentsBallisticMaterial: 'Components & Ballistic Material',
+  production: 'Production',
 };

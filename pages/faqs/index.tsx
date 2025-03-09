@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import Head from 'next/head';
+import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import Accordion from 'components/global/accordion/Accordion';
 
@@ -74,24 +75,29 @@ function FAQs(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.faqs;
+
   let pageData = await getPageData({
-    route: 'faq',
+    route: route.collection,
     populate: 'deep',
   });
   pageData = pageData?.data?.attributes || null;
 
   let faqs = await getPageData({
-    route: 'fa-qs',
+    route: route.collectionSingle,
     populate: 'deep',
     sort: 'order',
   });
   faqs = faqs?.data || null;
 
-  const seoData = pageData?.seo ?? null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, faqs, seoData },
+    props: { pageData, faqs, seoData, locale },
   };
 }
 
