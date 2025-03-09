@@ -183,7 +183,6 @@ export default {
   video: 'Video',
   offeredAtProtectionLevels: 'Ofrecido en niveles de protección',
   hpLatestNews: 'Industria de blindaje',
-
   ballisticTests: 'Pruebas Balísticas',
   mediaAppearances: 'Apariciones en Medios',
   coolVideos: 'Videos Interesantes',
