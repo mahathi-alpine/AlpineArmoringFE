@@ -14,6 +14,11 @@ const additionalUrls = {
       changefreq: 'monthly',
     },
     {
+      loc: '/blog',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
       loc: '/available-now',
       priority: '0.5',
       changefreq: 'monthly',

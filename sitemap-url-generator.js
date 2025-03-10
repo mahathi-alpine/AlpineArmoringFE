@@ -68,6 +68,7 @@ function generateVehicleUrls() {
       'toyota',
       'tesla',
       'mercedes-benz',
+      'maybach',
     ],
     'armored-specialty-vehicles': ['mastiff', 'toyota', 'omicron'],
     'armored-suvs': [
@@ -92,6 +93,7 @@ function generateVehicleUrls() {
       'tesla',
       'lamborghini',
       'mercedes-benz',
+      'maybach',
     ],
     'armored-vans-and-buses': ['pointer', 'toyota', 'honda', 'gmc'],
   };
