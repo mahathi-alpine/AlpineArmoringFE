@@ -164,19 +164,9 @@ function BlogSingle(props) {
       <div className={`${styles.blogSingle}`}>
         <div className={`${styles.blogSingle_inner} container_small`}>
           <div className={`b-breadcrumbs`}>
-            <Link href={router.locale === 'en' ? '/' : `/${router.locale}`}>
-              {lang.home}
-            </Link>
+            <Link href="/">{lang.home}</Link>
             <span>&gt;</span>
-            <Link
-              href={
-                router.locale === 'en'
-                  ? `${lang.blogsURL}`
-                  : `/${router.locale}${lang.blogsURL}`
-              }
-            >
-              {lang.blog}
-            </Link>
+            <Link href={`${lang.blogsURL}`}>{lang.blog}</Link>
             <span>&gt;</span>
             <span className={`b-breadcrumbs_current`}>{data?.title}</span>
           </div>

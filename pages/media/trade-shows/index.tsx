@@ -1,5 +1,6 @@
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
+import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import MediaList from '../MediaList';
 
@@ -46,18 +47,22 @@ const TradeShows = (props) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.tradeShows;
+
   let pageData = await getPageData({
-    route: 'trade-shows-page',
+    route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData?.data?.attributes || null;
 
   let tradeShows = await getPageData({
-    route: 'trade-shows',
+    route: route.collectionSingle,
     populate: 'deep',
     sort: 'date',
     pageSize: 100,
+    locale,
   });
   tradeShows = tradeShows?.data || null;
 
@@ -65,10 +70,13 @@ export async function getStaticProps() {
     tradeShows.reverse();
   }
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, tradeShows, seoData },
+    props: { pageData, tradeShows, seoData, locale },
   };
 }
 

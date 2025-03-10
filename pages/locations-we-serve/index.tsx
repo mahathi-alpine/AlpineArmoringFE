@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
+import routes from 'routes';
 import useLocale from 'hooks/useLocale';
 import LocationsList from 'components/global/locations/Locations';
 import CustomMarkdown from 'components/CustomMarkdown';
@@ -58,9 +59,11 @@ function Locations(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.locationsWeServe;
+
   let pageData = await getPageData({
-    route: 'locations-we-serve-page',
+    route: route.collection,
     populate: 'deep',
   });
   pageData = pageData?.data?.attributes || null;
@@ -72,7 +75,7 @@ export async function getStaticProps() {
 
   while (page <= totalPages) {
     const response = await getPageData({
-      route: 'articles',
+      route: route.collectionSingle,
       populate: 'flag, localizations, seo',
       sort: 'excerpt',
       fields:
@@ -86,10 +89,13 @@ export async function getStaticProps() {
     page++;
   }
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
-    props: { pageData, posts: allPosts, seoData },
+    props: { pageData, posts: allPosts, seoData, locale },
   };
 }
 

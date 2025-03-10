@@ -142,7 +142,29 @@ const routes = {
       es: '/ubicaciones-que-servimos',
     },
   },
-
+  media: {
+    collection: 'media',
+    paths: {
+      en: '/media',
+      es: '/medios',
+    },
+  },
+  videos: {
+    collection: 'video-page',
+    collectionSingle: 'videos',
+    paths: {
+      en: '/media/videos',
+      es: '/medios/videos',
+    },
+  },
+  tradeShows: {
+    collection: 'trade-shows-page',
+    collectionSingle: 'trade-shows',
+    paths: {
+      en: '/media/trade-shows',
+      es: '/medios/trade-shows',
+    },
+  },
   news: {
     collection: 'news-page',
     collectionSingle: 'blogs',
@@ -151,6 +173,27 @@ const routes = {
       es: '/noticias',
     },
   },
+  privacyPolicy: {
+    collection: 'privacy-policy',
+    paths: {
+      en: '/privacy-policy',
+      es: '/politica-de-privacidad',
+    },
+  },
+  rentalVehicles: {
+    paths: {
+      en: '/rental-vehicles',
+      es: '/vehiculos-de-renta',
+    },
+  },
+  shippingAndLogistics: {
+    collection: 'shipping',
+    paths: {
+      en: '/shipping-and-logistics',
+      es: '/envio-y-logistica',
+    },
+  },
+
   vehiclesWeArmor: {
     collection: 'list-vehicles-we-armor',
     collectionSingle: 'vehicles-we-armors',
@@ -163,28 +206,6 @@ const routes = {
       es: 'tipo',
     },
     types: vehicleTypes,
-  },
-  videos: {
-    collection: 'video-page',
-    collectionSingle: 'videos',
-    paths: {
-      en: '/media/videos',
-      es: '/medios/videos',
-    },
-  },
-  shippingAndLogistics: {
-    collection: 'shipping',
-    paths: {
-      en: '/shipping-and-logistics',
-      es: '/envio-y-logistica',
-    },
-  },
-  privacyPolicy: {
-    collection: 'privacy-policy',
-    paths: {
-      en: '/privacy-policy',
-      es: '/politica-de-privacidad',
-    },
   },
 };
 

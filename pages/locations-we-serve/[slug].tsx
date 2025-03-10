@@ -3,6 +3,7 @@ import styles from './LocationsSingle.module.scss';
 // import Link from 'next/link';
 // import ArrowIcon from 'components/icons/Arrow';
 import Image from 'next/image';
+import routes from 'routes';
 import CustomMarkdown from 'components/CustomMarkdown';
 import dynamic from 'next/dynamic';
 const LandingInquiryForm = dynamic(
@@ -64,17 +65,21 @@ function ArticleSingle(props) {
 
 export async function getServerSideProps(context) {
   const { slug } = context.query;
+  const { locale } = context;
+  const route = routes.locationsWeServe;
 
   const data = await getPageData({
-    route: 'articles',
+    route: route.collectionSingle,
     params: `filters[slug][$eq]=${slug}`,
     populate: 'deep',
+    locale,
   });
 
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
   if (seoData) {
     seoData.thumbnail =
       data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
+    seoData.languageUrls = route.getIndexLanguageUrls(locale);
   }
 
   if (!data || !data.data || data.data.length === 0) {
@@ -84,7 +89,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { data, seoData },
+    props: { data, seoData, locale },
   };
 }
 

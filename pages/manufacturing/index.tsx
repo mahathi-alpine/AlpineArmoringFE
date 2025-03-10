@@ -42,15 +42,15 @@ function Manufacturing(props) {
   const tabSliderData = [
     {
       id: 0,
-      titleNav: lang.advancedTechnology,
+      titleNav: lang.advancedTechnology2,
     },
     {
       id: 1,
-      titleNav: lang.componentsBallisticMaterial,
+      titleNav: lang.componentsBallisticMaterial2,
     },
     {
       id: 2,
-      titleNav: lang.production,
+      titleNav: lang.production2,
     },
   ];
 

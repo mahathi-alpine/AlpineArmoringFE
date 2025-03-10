@@ -28,6 +28,10 @@ export default {
   vehiclesWeArmorStock: '/available-now/?vehicles_we_armor=',
   blogsURL: '/blog',
 
+  advancedTechnology2: 'Advanced Technology',
+  componentsBallisticMaterial2: 'Components & Ballistic Material',
+  production2: 'Production',
+
   availableNowTitle: 'Available Now',
   vehiclesWeArmor: 'Vehicles We Armor',
   suvsTitleHeader: 'SUVs',
@@ -253,4 +257,14 @@ export default {
   advancedTechnology: 'Advanced Technology',
   componentsBallisticMaterial: 'Components & Ballistic Material',
   production: 'Production',
+  seeAllVideos: 'See All Videos',
+  seeAllTradeShows: 'See All Trade Shows',
+  videos: 'Videos',
+  tradeShows: 'Trade Shows',
+  videosURL: '/videos',
+  tradeShowsURL: '/trade-shows',
+  news: 'News',
+  rentalVehiclesURL: '/rental-vehicles',
+  rental: 'Rental',
+  armoredSmall: 'armored',
 };

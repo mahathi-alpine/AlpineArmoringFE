@@ -28,9 +28,9 @@ export default {
   vehiclesWeArmorStock: '/disponible-ahora/?vehiculos_que_blindamos=',
   blogsURL: '/blog',
 
-  advancedTechnology: 'Advanced Technology',
-  componentsBallisticMaterial: 'Components & Ballistic Material',
-  production: 'Production',
+  advancedTechnology2: 'Advanced Technology',
+  componentsBallisticMaterial2: 'Components & Ballistic Material',
+  production2: 'Production',
 
   availableNowTitle: 'Disponible ahora',
   vehiclesWeArmor: 'Vehículos que blindamos',
