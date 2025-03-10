@@ -331,11 +331,6 @@ export async function getServerSideProps(context) {
     filters = { type, make };
   }
 
-  let seoData = type?.find(
-    (item) => item.attributes.slug === context.query.type
-  );
-  seoData = seoData?.attributes.seo || null;
-
   const makeMetaTitle = queryMake
     ? ` ${queryMake
         .split('-')
@@ -343,9 +338,16 @@ export async function getServerSideProps(context) {
         .join(' ')}`
     : '';
 
-  if (seoData) {
-    seoData.metaTitle = `${seoData.metaTitle}${makeMetaTitle} | Alpine Armoring`;
-  }
+  const categoryData = type?.find(
+    (item) => item.attributes.slug === context.query.type
+  );
+
+  const seoData = {
+    ...(categoryData?.attributes.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+    metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring`,
+    thumbnail: categoryData.attributes.allBanner.media.data.attributes ?? null,
+  };
 
   // Modify meta description if queryMake exists
   if (queryMake && seoData?.metaDescription) {

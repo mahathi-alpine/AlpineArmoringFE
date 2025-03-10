@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
+import useLocale from 'hooks/useLocale';
 import Button from 'components/global/button/Button';
 
 export default function Custom404() {
+  const { lang } = useLocale();
+
   useEffect(() => {
     document.body.classList.add('p0');
     return () => {
@@ -13,17 +16,15 @@ export default function Custom404() {
   return (
     <>
       <Head>
-        <title>Page Not Found - Alpine Armoring</title>
+        <title>{lang.pageNotFound} - Alpine Armoring</title>
       </Head>
       <div className="errorPage">
         <div className="container_small">
           <h1 className="errorPage_h1">404</h1>
-          <h2 className="errorPage_h2">
-            We are sorry, but this page does not exist!
-          </h2>
+          <h2 className="errorPage_h2">{lang.pageDoesNotExist}</h2>
 
           <Button href={`/`} className={`primary rounded`}>
-            Go to homepage
+            {lang.goToHomepage}
           </Button>
 
           <div className="errorPage_gradient"></div>

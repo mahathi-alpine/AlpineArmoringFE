@@ -1,5 +1,5 @@
 import React from 'react';
-import useLocale from 'hooks/useLocale';
+import useLocale, { getLocaleStrings } from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
@@ -269,6 +269,7 @@ function VehicleWeArmor(props) {
 
 export async function getServerSideProps(context) {
   const { locale } = context;
+  const lang = getLocaleStrings(locale);
   const route = routes.vehiclesWeArmor;
   const queryMake = context.query.make;
 
@@ -335,7 +336,10 @@ export async function getServerSideProps(context) {
       filters = { type, make };
     }
 
-    const seoData = pageData?.seo || null;
+    const seoData = {
+      ...(pageData?.seo || {}),
+      languageUrls: route.getIndexLanguageUrls(locale),
+    };
 
     const makeMetaTitle = queryMake
       ? `- ${queryMake
@@ -346,7 +350,7 @@ export async function getServerSideProps(context) {
     seoData.metaTitle = `${seoData.metaTitle} ${makeMetaTitle} | Alpine Armoring`;
 
     seoData.metaDescription = queryMake
-      ? `Make your armored ${makeMetaTitle.replace('-', '').trim()} secure and stylish with Alpine Armoring's top-tier solutions, from SUVs to luxury cars, customized for ultimate protection.`
+      ? `${lang.vwaMakesMetaDescription1} ${makeMetaTitle.replace('-', '').trim()} ${lang.vwaMakesMetaDescription2}.`
       : seoData.metaDescription;
 
     return {

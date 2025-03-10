@@ -4,8 +4,11 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
+import routes from 'routes';
+import useLocale from 'hooks/useLocale';
 
 function Inventory(props) {
+  const { lang } = useLocale();
   const topBanner = props.pageData?.banner;
 
   // Animations
@@ -45,7 +48,7 @@ function Inventory(props) {
         >
           {props.vehicles.data?.length < 1 ? (
             <div className={`${styles.listing_list_error}`}>
-              <h2>No Vehicles Found</h2>
+              <h2>{lang.noVehiclesFound}</h2>
             </div>
           ) : null}
 
@@ -63,9 +66,12 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
+  const locale = context.locale || 'en';
+  const route = routes.soldVehicles;
+
   let pageData = await getPageData({
-    route: 'sold-vehicle',
-    populate: 'deep',
+    route: route.collection,
+    locale,
   });
   pageData = pageData.data?.attributes || null;
 
@@ -77,13 +83,17 @@ export async function getServerSideProps(context) {
   }
 
   const vehicles = await getPageData({
-    route: 'inventories',
+    route: route.collectionSingle,
     params: query,
     sort: 'title',
     populate: 'featuredImage, categories',
+    locale,
   });
 
-  const seoData = pageData?.seo || null;
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
 
   return {
     props: { pageData, vehicles, seoData },

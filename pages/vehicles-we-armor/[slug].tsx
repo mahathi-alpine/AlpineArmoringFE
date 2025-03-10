@@ -2,6 +2,8 @@ import styles from './Vehicle.module.scss';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import routes from 'routes';
+import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
 import Head from 'next/head';
 import Banner from 'components/vehicle-we-armor/Banner';
@@ -16,6 +18,7 @@ import { animateVideo } from 'components/global/video-scale/VideoScale';
 import Accordion from 'components/global/accordion/Accordion';
 
 function Vehicle(props) {
+  const router = useRouter();
   const { lang } = useLocale();
 
   useEffect(() => {
@@ -96,36 +99,36 @@ function Vehicle(props) {
 
   let navItems = [
     {
-      titleNav: 'Overview',
+      titleNav: lang.overview2,
       isVisible: data?.description ? true : false,
     },
     {
-      titleNav: 'Gallery',
+      titleNav: lang.gallery2,
       isVisible: data?.gallery?.data ? true : false,
     },
     {
-      titleNav: 'Dimensions',
+      titleNav: lang.dimensions2,
       isVisible:
         data?.dimensions1?.data && data?.dimensions2?.data ? true : false,
     },
     {
-      titleNav: 'Armoring Features',
+      titleNav: lang.armoringFeatures2,
       isVisible: data?.armoringFeatures?.data.length > 0 ? true : false,
     },
     {
-      titleNav: 'Conversion Accessories',
+      titleNav: lang.conversionAccessories2,
       isVisible: data?.conversionAccessories?.data.length > 0 ? true : false,
     },
     {
-      titleNav: 'Communications & Electronics',
+      titleNav: lang.communicationsElectronics2,
       isVisible: data?.communications?.data.length > 0 ? true : false,
     },
     {
-      titleNav: 'Other Options',
+      titleNav: lang.otherOptions2,
       isVisible: data?.otherOptions?.data.length > 0 ? true : false,
     },
     {
-      titleNav: 'Request a quote',
+      titleNav: lang.requestAQuote,
       button: true,
       isVisible: true,
     },
@@ -159,15 +162,15 @@ function Vehicle(props) {
       image: data?.featuredImage?.data?.attributes?.url,
       description:
         props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
-      url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
+      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
       brand: {
         '@type': 'Brand',
-        name: 'Alpine Armoring® Armored Vehicles',
+        name: `Alpine Armoring® ${lang.armoredVehicles}`,
       },
       sku: `Alpine-${data?.slug}`,
       offers: {
         '@type': 'AggregateOffer',
-        url: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
+        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
         priceCurrency: 'USD',
         lowPrice: '50000',
         highPrice: '200000',
@@ -183,7 +186,7 @@ function Vehicle(props) {
       additionalProperty: [
         {
           '@type': 'PropertyValue',
-          name: 'Offered At Protection Levels',
+          name: lang.offeredAtProtectionLevels,
           value: data.protectionLevel || 'A4, A6, A9, A11',
         },
       ],
@@ -199,14 +202,14 @@ function Vehicle(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://www.alpineco.com/',
+          name: lang.home,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Vehicles we armor',
-          item: `https://www.alpineco.com/vehicles-we-armor`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
         },
         // {
         //   '@type': 'ListItem',
@@ -217,8 +220,8 @@ function Vehicle(props) {
         {
           '@type': 'ListItem',
           position: 3,
-          name: data?.title,
-          item: `https://www.alpineco.com/vehicles-we-armor/${data?.slug}`,
+          name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
         },
       ],
     };
@@ -238,7 +241,8 @@ function Vehicle(props) {
       mainEntity: faqs.map((faq, index) => {
         const title =
           faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+        const text =
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',
@@ -312,9 +316,11 @@ function Vehicle(props) {
         <div
           className={`${styles.slug_breadcrumbs} b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
-          <Link href="/">Home</Link>
+          <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
+          <Link href={`${lang.vehiclesWeArmorURL}`}>
+            {lang.vehiclesWeArmor}
+          </Link>
           <span>&gt;</span>
           <span className={`b-breadcrumbs_current`}>{data?.slug}</span>
         </div>
@@ -326,7 +332,9 @@ function Vehicle(props) {
             id="overview"
             className={`${styles.slug_description} anchor container_small`}
           >
-            <h2 className={`c-title`}>Overview of {data?.title}</h2>
+            <h2 className={`c-title`}>
+              {lang.overviewOf} {data?.title}
+            </h2>
 
             <CustomMarkdown>{data.description}</CustomMarkdown>
           </div>
@@ -349,7 +357,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Dimensions for {data?.title}
+              {lang.dimensionsFor} {data?.title}
             </h2>
             <div className={`${styles.slug_dimensions_wrap}`}>
               <div
@@ -391,10 +399,7 @@ function Vehicle(props) {
                 afterImage={beforeAfterSlider_After}
               />
               <p className={`${styles.slug_slider_small}`}>
-                <small>
-                  The actual custom-armoring conversion may vary per each
-                  vehicle’s structural configuration and client’s final specs
-                </small>
+                <small>{lang.conversionMayVary}</small>
               </p>
             </div>
 
@@ -410,7 +415,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Armoring Features for {data?.title}
+              {lang.armoringFeaturesFor} {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.armoringFeatures.data} />
             <div className={`divider_fade`}></div>
@@ -425,7 +430,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Conversion Accessories for {data?.title}
+              {lang.conversionAccessoriesFor} {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.conversionAccessories.data} />
             <div className={`divider_fade`}></div>
@@ -440,7 +445,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Communications & Electronics for {data?.title}
+              {lang.communicationsElectronicsFor} {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.communications.data} />
             <div className={`divider_fade`}></div>
@@ -455,7 +460,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} observe fade-in c-title`}
             >
-              Other Optional Equipment for {data?.title}
+              {lang.otherOptionalEquipmentFor} {data?.title}
             </h2>
             <StickyHorizontalSlider slides={data.otherOptions.data} />
             <div className={`divider_fade`}></div>
@@ -484,7 +489,7 @@ function Vehicle(props) {
 
         {faqs?.length > 0 ? (
           <div className={`m2`}>
-            <Accordion items={faqs} title="Frequently Asked Questions" />
+            <Accordion items={faqs} title={lang.footerFaqsTitle} />
           </div>
         ) : null}
 
@@ -499,9 +504,11 @@ function Vehicle(props) {
 }
 
 export async function getServerSideProps({ params, locale }) {
+  const route = routes.vehiclesWeArmor;
+
   try {
     let data = await getPageData({
-      route: 'vehicles-we-armors',
+      route: route.collectionSingle,
       params: `filters[slug][$eq]=${params.slug}`,
       locale,
     });
@@ -510,7 +517,7 @@ export async function getServerSideProps({ params, locale }) {
     if (!data?.data?.length) {
       const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
       data = await getPageData({
-        route: 'vehicles-we-armors',
+        route: route.collectionSingle,
         params: `filters[slug][$eq]=${baseSlug}`,
         locale,
       });
@@ -520,11 +527,13 @@ export async function getServerSideProps({ params, locale }) {
       return { notFound: true };
     }
 
-    const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-    if (seoData) {
-      seoData.thumbnail =
-        data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
-    }
+    const currentPage = data?.data?.[0]?.attributes;
+
+    const seoData = {
+      ...(currentPage?.seo ?? {}),
+      thumbnail: currentPage?.featuredImage?.data?.attributes ?? null,
+      languageUrls: route.getLanguageUrls(currentPage, locale),
+    };
 
     return {
       props: {

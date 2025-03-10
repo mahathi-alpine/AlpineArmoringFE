@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    const paths = [lang.availableNowURL, '/vehicles-we-armor'];
+    const paths = [lang.availableNowURL, lang.vehiclesWeArmorURL];
 
     const handleChangeStart = (url: string) => {
       const isTargetPath = paths.some((path) => {

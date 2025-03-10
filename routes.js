@@ -42,6 +42,13 @@ const vehicleTypes = {
 };
 
 const routes = {
+  homepage: {
+    collection: 'homepage',
+    paths: {
+      en: '/',
+      es: '/es',
+    },
+  },
   about: {
     collection: 'about',
     paths: {
@@ -193,7 +200,14 @@ const routes = {
       es: '/envio-y-logistica',
     },
   },
-
+  soldVehicles: {
+    collection: 'sold-vehicle',
+    collectionSingle: 'inventories',
+    paths: {
+      en: '/sold-vehicles',
+      es: '/disponible-ahora',
+    },
+  },
   vehiclesWeArmor: {
     collection: 'list-vehicles-we-armor',
     collectionSingle: 'vehicles-we-armors',

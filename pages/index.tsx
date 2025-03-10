@@ -3,6 +3,7 @@ import { getPageData } from 'hooks/api';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import useLocale from 'hooks/useLocale';
+import routes from 'routes';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -151,8 +152,10 @@ function Home({ homepageData, categories }) {
 }
 
 export async function getStaticProps({ locale = 'en' }) {
+  const route = routes.homepage;
+
   const homepageData = await getPageData({
-    route: 'homepage',
+    route: route.collection,
     locale,
   });
 
@@ -166,7 +169,12 @@ export async function getStaticProps({ locale = 'en' }) {
     locale,
   });
 
-  const seoData = homepageData.data?.attributes.seo || null;
+  const currentPage = homepageData?.data?.attributes;
+
+  const seoData = {
+    ...(currentPage?.seo ?? {}),
+    languageUrls: route.getLanguageUrls(currentPage, locale),
+  };
 
   return {
     props: { homepageData, categories, seoData, locale },

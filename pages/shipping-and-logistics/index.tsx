@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getPageData } from 'hooks/api';
 import styles from './Shipping.module.scss';
 import routes from 'routes';
+import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import Image from 'next/image';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -16,6 +17,7 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
 });
 
 function Shipping(props) {
+  const { lang } = useLocale();
   const banner = props?.pageData?.banner;
   const heading = props?.pageData?.heading;
   const boxes = props?.pageData?.boxes;
@@ -27,15 +29,15 @@ function Shipping(props) {
   const tabSliderData = [
     {
       id: 0,
-      titleNav: 'Ground Shipping',
+      titleNav: lang.groundShipping2,
     },
     {
       id: 1,
-      titleNav: 'Ocean Shipping',
+      titleNav: lang.oceanShipping2,
     },
     {
       id: 2,
-      titleNav: 'Air Cargo Shipping',
+      titleNav: lang.airCargoShipping2,
     },
   ];
   const handleTabChange = (index, titleNav) => {
@@ -147,7 +149,7 @@ function Shipping(props) {
         >
           <div className={`${styles.shipping_license_left}`}>
             <h2 className={`${styles.shipping_license_title}`}>
-              Export License Guidelines
+              {lang.exportLicenseGuidelines}
             </h2>
 
             {license ? (
@@ -175,7 +177,7 @@ function Shipping(props) {
 
             <div className={`${styles.shipping_license_right_description}`}>
               {/* <p><strong>Form BIS-711</strong></p> */}
-              <p>Statement by ultimate consignee & purchaser</p>
+              <p>{lang.statementConsignee}</p>
             </div>
 
             <div className={`${styles.shipping_license_downloads}`}>
@@ -186,9 +188,9 @@ function Shipping(props) {
                 >
                   <span className={`${styles.certificate_text}`}>
                     <span className={`${styles.view_certificates}`}>
-                      Download
+                      {lang.download}
                     </span>
-                    Form BIS-711
+                    {lang.form} BIS-711
                   </span>
                   <div className={`${styles.icon}`}>
                     <svg
@@ -223,11 +225,11 @@ function Shipping(props) {
                       className={`${styles.view_certificates}`}
                       style={{ fontSize: '15px' }}
                     >
-                      Instructions
+                      {lang.instructions}
                       <br />
-                      to complete
+                      {lang.toComplete}
                     </span>
-                    Form BIS-711
+                    {lang.form} BIS-711
                   </span>
                   <div className={`${styles.icon}`}>
                     <svg

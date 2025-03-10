@@ -2,6 +2,7 @@ import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'hooks/api';
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import routes from 'routes';
 import dynamic from 'next/dynamic';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
@@ -9,6 +10,7 @@ const PDFIcon = dynamic(() => import('components/icons/PDF2'));
 const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
+import { getLocaleStrings } from 'hooks/useLocale';
 import Link from 'next/link';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
@@ -329,28 +331,41 @@ function InventoryVehicle(props) {
   );
 }
 
-// export async function getServerSideProps({ params, locale }) {
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, locale }) {
+  const route = routes.inventory;
+  const lang = getLocaleStrings(locale);
+
   try {
-    // const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
-
-    // const localizedSlug = locale === 'en' ? baseSlug : `${baseSlug}-${locale}`;
-
-    const data = await getPageData({
-      route: 'inventories',
-      // params: `filters[slug][$eq]=${localizedSlug}`,
+    let data = await getPageData({
+      route: route.collectionSingle,
       params: `filters[slug][$eq]=${params.slug}`,
-      // locale,
+      locale,
     });
 
-    const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-    if (seoData) {
-      seoData.thumbnail =
-        data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
+    // If no data found, try fetching without language suffix
+    if (!data?.data?.length) {
+      const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+      data = await getPageData({
+        route: route.collectionSingle,
+        params: `filters[slug][$eq]=${baseSlug}`,
+        locale,
+      });
     }
 
+    if (!data?.data?.length) {
+      return { notFound: true };
+    }
+
+    const currentPage = data?.data?.[0]?.attributes;
+
+    const seoData = {
+      ...(currentPage?.seo ?? {}),
+      thumbnail: currentPage?.featuredImage?.data?.attributes ?? null,
+      languageUrls: route.getLanguageUrls(currentPage, locale),
+    };
+
     if (seoData && seoData.metaDescription) {
-      seoData.metaTitle = `Rental ${seoData.metaTitle}`;
+      seoData.metaTitle = `${lang.rental} ${seoData.metaTitle}`;
 
       seoData.metaDescription = seoData.metaDescription.replace(
         /\b(armored)\b/,
@@ -368,7 +383,7 @@ export async function getServerSideProps({ params }) {
       props: {
         data,
         seoData,
-        // locale,
+        locale,
       },
     };
   } catch (error) {
@@ -378,65 +393,5 @@ export async function getServerSideProps({ params }) {
     };
   }
 }
-
-// export async function getStaticPaths() {
-//   try {
-//     const slugsResponse = await getPageData({
-//       route: 'inventories',
-//       fields: 'fields[0]=slug',
-//       populate: '/',
-//     });
-
-//     if (!Array.isArray(slugsResponse.data)) {
-//       throw new Error('Invalid data format');
-//     }
-
-//     const paths = slugsResponse.data.reduce((acc, item) => {
-//       if (item.attributes && item.attributes.slug) {
-//         acc.push({ params: { slug: item.attributes.slug } });
-//       }
-//       return acc;
-//     }, []);
-
-//     return {
-//       paths,
-//       fallback: true,
-//     };
-//   } catch (error) {
-//     // console.error('Error fetching slugs:', error);
-//     return {
-//       paths: [],
-//       fallback: false,
-//     };
-//   }
-// }
-
-// export async function getStaticProps({ params }) {
-//   const data = await getPageData({
-//     route: 'inventories',
-//     params: `filters[slug][$eq]=${params.slug}`,
-//   });
-
-//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-
-//   if (seoData && seoData.metaDescription) {
-//     seoData.metaTitle = `Rental ${seoData.metaTitle}`;
-
-//     seoData.metaDescription = seoData.metaDescription.replace(
-//       /\b(armored)\b/,
-//       'rental armored'
-//     );
-//   }
-
-//   if (!data || !data.data || data.data.length === 0) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: { data, seoData },
-//   };
-// }
 
 export default InventoryVehicle;

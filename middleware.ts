@@ -18,6 +18,10 @@ const blockedPatterns: BlockedPattern[] = [
     exact: true,
   },
   {
+    pattern: '/sold-vehicles',
+    exact: true,
+  },
+  {
     pattern:
       '/blog/armored-tesla-model-s-withstands-live-fire-ballistic-testing',
     exact: true,

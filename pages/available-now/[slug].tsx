@@ -169,7 +169,7 @@ function InventoryVehicle(props) {
       url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}/${data?.slug}`,
       brand: {
         '@type': 'Brand',
-        name: `Alpine Armoring® Armored ${lang.vehicles}`,
+        name: `Alpine Armoring® ${lang.armoredVehicles}`,
       },
       sku: `Alpine-${data?.slug}`,
       offers: {
@@ -668,11 +668,6 @@ export async function getServerSideProps({ params, locale }) {
       thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
       languageUrls: route.getLanguageUrls(currentPage, locale),
     };
-
-    // if (seoData) {
-    //   seoData.thumbnail =
-    //     data.data[0].attributes.featuredImage?.data.attributes ?? null;
-    // }
 
     return {
       props: {

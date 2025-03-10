@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
+import useLocale from 'hooks/useLocale';
 
 import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
@@ -50,6 +51,7 @@ const termina = localFont({
 
 const Layout = ({ children }) => {
   const router = useRouter();
+  const { lang } = useLocale();
 
   const pathsDarkMode = [
     '/available-now',
@@ -247,7 +249,9 @@ const Layout = ({ children }) => {
           aria-label="WhatsApp Chat Button"
         >
           <div className="WABusiness_icon"></div>
-          <span className="WABusiness_text desktop-only">Chat with Us</span>
+          <span className="WABusiness_text desktop-only">
+            {lang.chatWithUs}
+          </span>
         </a>
 
         <Footer isDarkMode={isDarkFooter} isFooterPadding0={isFooterPadding0} />
