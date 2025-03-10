@@ -22,6 +22,10 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   const specialUppercaseCases = ['bmw', 'cuda', 'gmc', 'mastiff', 'pointer'];
 
   function formatMake(make: string) {
+    if (make.toLowerCase() === 'pit-bull') {
+      return 'Pit-Bull';
+    }
+
     return make
       .toString()
       .replace('-', ' ')
