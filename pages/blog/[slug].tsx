@@ -322,7 +322,7 @@ function BlogSingle(props) {
 
         {faqs?.length > 0 ? (
           <div className={`mt2`}>
-            <Accordion items={faqs} title={`${faqsTitle || lang.faqs}`} />
+            <Accordion items={faqs} title={`${faqsTitle || lang.faq}`} />
           </div>
         ) : null}
 

@@ -169,7 +169,7 @@ const routes = {
     collectionSingle: 'trade-shows',
     paths: {
       en: '/media/trade-shows',
-      es: '/medios/trade-shows',
+      es: '/medios/ferias-comerciales',
     },
   },
   news: {
@@ -190,7 +190,7 @@ const routes = {
   rentalVehicles: {
     paths: {
       en: '/rental-vehicles',
-      es: '/vehiculos-de-renta',
+      es: '/vehículos-de-renta',
     },
   },
   shippingAndLogistics: {
@@ -205,7 +205,7 @@ const routes = {
     collectionSingle: 'inventories',
     paths: {
       en: '/sold-vehicles',
-      es: '/disponible-ahora',
+      es: '/vehículos-vendidos',
     },
   },
   vehiclesWeArmor: {
