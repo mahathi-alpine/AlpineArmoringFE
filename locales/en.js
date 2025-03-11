@@ -1,5 +1,5 @@
 export default {
-  availableNowURL: '/available-now',
+  availableNowURL: 'available-now',
   vehiclesWeArmorURL: '/vehicles-we-armor',
   type: 'type',
   suvsURL: 'armored-suvs',
@@ -28,20 +28,6 @@ export default {
   vehiclesWeArmorStock: '/available-now/?vehicles_we_armor=',
   blogsURL: '/blog',
 
-  advancedTechnology2: 'Advanced Technology',
-  componentsBallisticMaterial2: 'Components & Ballistic Material',
-  production2: 'Production',
-  groundShipping2: 'Ground Shipping',
-  oceanShipping2: 'Ocean Shipping',
-  airCargoShipping2: 'Air Cargo Shipping',
-  overview2: 'Overview',
-  gallery2: 'Gallery',
-  dimensions2: 'Dimensions',
-  armoringFeatures2: 'Armoring Features',
-  conversionAccessories2: 'Conversion Accessories',
-  communicationsElectronics2: 'Communications & Electronics',
-  otherOptions2: 'Other Options',
-
   availableNowTitle: 'Available Now',
   vehiclesWeArmor: 'Vehicles We Armor',
   suvsTitleHeader: 'SUVs',
@@ -50,7 +36,10 @@ export default {
   vansBuses: 'Vans & Buses',
   lawEnforcement: 'Law Enforcement',
   CITNavigation: 'Cash-In-Transit (CIT)',
+  armoredPreOwned: 'Blindados pre Usados',
   specialtyVehicles: 'Specialty Vehicles',
+  specialOfTheMonth: 'special of the month',
+  specialOfTheMonth2: 'special-of-the-month',
   aboutUs: 'About Us',
   aboutTitle: 'About Alpine Armoring',
   headerMediaTitle: 'Videos & Trade Shows',
@@ -225,7 +214,6 @@ export default {
   noAnswerProvided: 'No answer provided',
   visitOurRentalsWebsite: 'Visit our rentals website',
   loading: 'Loading...',
-
   year: 'Year',
   miles: 'Miles',
   drivetrain: 'Drivetrain',
@@ -277,7 +265,6 @@ export default {
   rentalVehiclesURL: '/rental-vehicles',
   rental: 'Rental',
   armoredSmall: 'armored',
-
   groundShipping: 'Ground Shipping',
   oceanShipping: 'Ocean Shipping',
   airCargoShipping: 'Air Cargo Shipping',
@@ -310,4 +297,6 @@ export default {
   conversionAccessoriesFor: 'Conversion Accessories for',
   communicationsElectronicsFor: 'Communications & Electronics for',
   otherOptionalEquipmentFor: 'Other Optional Equipment for',
+
+  make: 'make',
 };

@@ -11,7 +11,7 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
 
   const links = [
     {
-      path: lang.availableNowURL,
+      path: '/' + lang.availableNowURL,
       text: lang.availableNowTitle,
       pathname: '/available-now',
     },

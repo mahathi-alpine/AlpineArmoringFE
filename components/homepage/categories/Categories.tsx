@@ -57,25 +57,29 @@ const Categories = ({ props, allVehiclesImage }) => {
                 <div className={`${styles.categories_item_buttons}`}>
                   {data.inventory_vehicles?.data.length > 0 && (
                     <Button
-                      href={`${lang.availableNowURL}/${lang.type}/${data.slug}`}
+                      href={`/${lang.availableNowURL}/${lang.type}/${data.slug}`}
                       className="primary shiny"
                     >
                       {data.slug === lang.armoredRentalURL
                         ? lang.readyToRent
-                        : data.slug === 'special-of-the-month'
+                        : data.slug === lang.specialOfTheMonth2
                           ? lang.specialOfTheMonthButton
                           : lang.categoriesMainButton}
                     </Button>
                   )}
 
                   {data.slug !== lang.preOwnedURL &&
-                    data.slug !== 'special-of-the-month' &&
+                    data.slug !== lang.specialOfTheMonth2 &&
                     data.slug !== lang.armoredRentalURL && (
                       <Button
-                        href={`/vehicles-we-armor/type/${data.slug}`}
+                        href={`${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`}
                         className="shiny"
                       >
-                        {data.title.replace('Armored ', '')} {lang.weArmor}
+                        {data.title
+                          .replace('Armored ', '')
+                          .replace(/[Bb]lindado(s)?/g, '')
+                          .replace(/[Bb]lindada(s)?/g, '')}{' '}
+                        {lang.weArmor}
                       </Button>
                     )}
                 </div>
@@ -117,7 +121,10 @@ const Categories = ({ props, allVehiclesImage }) => {
             ></h3>
 
             <div className={`${styles.categories_item_buttons}`}>
-              <Button href={lang.availableNowURL} className="primary shiny">
+              <Button
+                href={'/' + lang.availableNowURL}
+                className="primary shiny"
+              >
                 {lang.categoriesMainButton}
               </Button>
 

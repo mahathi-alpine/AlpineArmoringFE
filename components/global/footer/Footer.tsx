@@ -33,13 +33,13 @@ const Footer = (props) => {
     { path: lang.contactURL, text: lang.footerContactTitle },
   ];
   const links2 = [
-    { path: lang.availableNowURL, text: lang.footerAvailableNowTitle },
+    { path: '/' + lang.availableNowURL, text: lang.footerAvailableNowTitle },
     {
       path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.pickupTrucksURL}`,
       text: lang.footerPickupTrucksTitle,
     },
     {
-      path: `${lang.availableNowURL}/${lang.type}/${lang.preOwnedURL}`,
+      path: `/${lang.availableNowURL}/${lang.type}/${lang.preOwnedURL}`,
       text: lang.footerPreOwnedTitle,
     },
     {

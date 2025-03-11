@@ -1,5 +1,5 @@
 export default {
-  availableNowURL: '/disponible-ahora',
+  availableNowURL: 'disponible-ahora',
   vehiclesWeArmorURL: '/vehiculos-que-blindamos',
   type: 'tipo',
   suvsURL: 'suvs-blindados',
@@ -28,20 +28,6 @@ export default {
   vehiclesWeArmorStock: '/disponible-ahora/?vehiculos_que_blindamos=',
   blogsURL: '/blog',
 
-  advancedTechnology2: 'Advanced Technology',
-  componentsBallisticMaterial2: 'Components & Ballistic Material',
-  production2: 'Production',
-  groundShipping2: 'Ground Shipping',
-  oceanShipping2: 'Ocean Shipping',
-  airCargoShipping2: 'Air Cargo Shipping',
-  overview2: 'Overview',
-  gallery2: 'Gallery',
-  dimensions2: 'Dimensions',
-  armoringFeatures2: 'Armoring Features',
-  conversionAccessories2: 'Conversion Accessories',
-  communicationsElectronics2: 'Communications & Electronics',
-  otherOptions2: 'Other Options',
-
   availableNowTitle: 'Disponible ahora',
   vehiclesWeArmor: 'Vehículos que blindamos',
   suvsTitleHeader: 'SUVs',
@@ -51,6 +37,8 @@ export default {
   lawEnforcement: 'Vehículos para fuerzas del orden',
   CITNavigation: 'Transporte de valores (CIT)',
   specialtyVehicles: 'Vehículos especiales',
+  specialOfTheMonth: 'especial del mes',
+  specialOfTheMonth2: 'especial-del-mes',
   aboutUs: 'Sobre nosotros',
   aboutTitle: 'Sobre Alpine Armoring',
   headerMediaTitle: 'Videos y ferias comerciales',
@@ -226,7 +214,6 @@ export default {
   noAnswerProvided: 'No se Proporcionó Respuesta',
   visitOurRentalsWebsite: 'Visite nuestro sitio web de alquileres',
   loading: 'Cargando...',
-
   year: 'Año',
   miles: 'Millas',
   drivetrain: 'Tren motriz',
@@ -253,7 +240,8 @@ export default {
   forSale: 'En venta',
   projectileEncyclopedia: 'Enciclopedia de proyectiles',
   linksToBallisticStandards: 'Enlaces a estándares balísticos',
-  protectionLevelsForOccupantsOfLogisticAndLight: 'Niveles de protección para ocupantes de vehículos logísticos y ligeros blindados',
+  protectionLevelsForOccupantsOfLogisticAndLight:
+    'Niveles de protección para ocupantes de vehículos logísticos y ligeros blindados',
   projectileAcronyms: 'Acrónimos de proyectiles',
   otherAcronyms: 'Otros acrónimos',
   ammunitionChart: 'Tabla de municiones',
@@ -277,7 +265,6 @@ export default {
   rentalVehiclesURL: '/vehículos-de-renta',
   rental: 'Renta',
   armoredSmall: 'Blindado',
-
   groundShipping: 'Envío terrestre',
   oceanShipping: 'Envío marítimo',
   airCargoShipping: 'Envío de carga aérea',
@@ -288,13 +275,15 @@ export default {
   instructions: 'Instrucciones',
   toComplete: 'para completar',
   vwaMakesMetaDescription1: 'Haz que tu blindado',
-  vwaMakesMetaDescription2: 'sea seguro y elegante con las soluciones de primer nivel de Alpine Armoring, desde SUVs hasta autos de lujo, personalizados para una protección máxima',
+  vwaMakesMetaDescription2:
+    'sea seguro y elegante con las soluciones de primer nivel de Alpine Armoring, desde SUVs hasta autos de lujo, personalizados para una protección máxima',
   pageNotFound: 'Página no encontrada',
   pageDoesNotExist: 'Lo sentimos, pero esta página no existe',
   goToHomepage: 'Ir a la página principal',
   soldVehiclesURL: '/vehículos-vendidos',
   chatWithUs: 'Chatea con nosotros',
-  conversionMayVary: 'La conversión de blindaje personalizada real puede variar según la configuración estructural de cada vehículo y las especificaciones finales del cliente',
+  conversionMayVary:
+    'La conversión de blindaje personalizada real puede variar según la configuración estructural de cada vehículo y las especificaciones finales del cliente',
   armoringFeaturesFor: 'Características de blindaje para',
   overview: 'Resumen',
   gallery: 'Galería',
@@ -307,5 +296,5 @@ export default {
   dimensionsFor: 'Dimensiones para',
   conversionAccessoriesFor: 'Accesorios para conversión para',
   communicationsElectronicsFor: 'Comunicaciones y electrónica para',
-  otherOptionalEquipmentFor: 'Otros equipos opcionales para',  
+  otherOptionalEquipmentFor: 'Otros equipos opcionales para',
 };

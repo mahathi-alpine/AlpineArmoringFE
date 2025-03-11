@@ -29,15 +29,15 @@ function Shipping(props) {
   const tabSliderData = [
     {
       id: 0,
-      titleNav: lang.groundShipping2,
+      titleNav: lang.groundShipping,
     },
     {
       id: 1,
-      titleNav: lang.oceanShipping2,
+      titleNav: lang.oceanShipping,
     },
     {
       id: 2,
-      titleNav: lang.airCargoShipping2,
+      titleNav: lang.airCargoShipping,
     },
   ];
   const handleTabChange = (index, titleNav) => {

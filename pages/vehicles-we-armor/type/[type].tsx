@@ -314,7 +314,7 @@ export async function getServerSideProps(context) {
       fields:
         'fields[0]=title&fields[1]=slug&fields[2]=bottomText&fields[3]=heading',
       populate:
-        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo, faqs_vehicles_we_armor',
+        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo.metaImage, seo.metaSocial, faqs_vehicles_we_armor',
       locale,
     }).then((res) => res.data),
     getPageData({
@@ -346,7 +346,7 @@ export async function getServerSideProps(context) {
     ...(categoryData?.attributes.seo || {}),
     languageUrls: route.getIndexLanguageUrls(locale),
     metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring`,
-    thumbnail: categoryData.attributes.allBanner.media.data.attributes ?? null,
+    // thumbnail: categoryData.attributes.allBanner.media.data.attributes ?? null,
   };
 
   // Modify meta description if queryMake exists

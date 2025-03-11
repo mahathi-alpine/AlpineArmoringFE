@@ -149,7 +149,9 @@ function Inventory(props) {
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
           <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          <Link href={`${lang.availableNowURL}`}>{lang.availableNowTitle}</Link>
+          <Link href={`/${lang.availableNowURL}`}>
+            {lang.availableNowTitle}
+          </Link>
           <span>&gt;</span>
           <span className={`b-breadcrumbs_current`}>{categoryTitle}</span>
         </div>

@@ -373,7 +373,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     >
       <div className={`${styles.filters_top}`}>
         <div className={`${styles.filters_top_title}`} onClick={openFilters}>
-          Filters
+          {lang.filters}
           <FiltersIcon />
         </div>
 
@@ -451,13 +451,16 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 onClick={() => activateFilterItem(filter)}
               >
                 <span className={`${styles.filters_item_title}`}>
-                  {filter}
+                  {filter == 'type' ? lang.type : lang.make}
                   <ChevronIcon className={`${styles.filters_item_chevron}`} />
                 </span>
                 <span className={`${styles.filters_item_choice}`}>
                   {filter == 'make'
                     ? activeFilterTitles.make
-                    : activeFilterTitles.type.replace('Armored', '')}
+                    : activeFilterTitles.type
+                        .replace('Armored', '')
+                        .replace(/[Bb]lindado(s)?/g, '')
+                        .replace(/[Bb]lindada(s)?/g, '')}
                 </span>
 
                 <div className={`${styles.filters_item_wrap}`}>
@@ -484,9 +487,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           (baseUrl == lang.vehiclesWeArmorURL &&
                             (item.attributes.title == lang.armoredRental ||
                               item.attributes.title.toLowerCase() ==
-                                'special of the month'.toLowerCase() ||
-                              item.attributes.title == 'Armored Pre-Owned')) ||
-                          (baseUrl == lang.availableNowURL &&
+                                lang.specialOfTheMonth.toLowerCase() ||
+                              item.attributes.title == lang.armoredPreOwned)) ||
+                          (baseUrl == '/' + lang.availableNowURL &&
                             item.attributes.title == lang.vansAndBussesTitle)
                         ) {
                           return null;
@@ -545,6 +548,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                               {baseUrl == lang.vehiclesWeArmorURL
                                 ? item.attributes.title
                                     .replace(/Armored/gi, '')
+                                    // .replace(new RegExp(lang.armored, 'gi'), '')
                                     .replace(/[Bb]lindado(s)?/g, '')
                                     .replace(/[Bb]lindada(s)?/g, '')
                                     .replace(/\s+s\b/, '')

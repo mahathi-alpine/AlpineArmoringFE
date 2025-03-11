@@ -99,32 +99,32 @@ function Vehicle(props) {
 
   let navItems = [
     {
-      titleNav: lang.overview2,
+      titleNav: lang.overview,
       isVisible: data?.description ? true : false,
     },
     {
-      titleNav: lang.gallery2,
+      titleNav: lang.gallery,
       isVisible: data?.gallery?.data ? true : false,
     },
     {
-      titleNav: lang.dimensions2,
+      titleNav: lang.dimensions,
       isVisible:
         data?.dimensions1?.data && data?.dimensions2?.data ? true : false,
     },
     {
-      titleNav: lang.armoringFeatures2,
+      titleNav: lang.armoringFeatures,
       isVisible: data?.armoringFeatures?.data.length > 0 ? true : false,
     },
     {
-      titleNav: lang.conversionAccessories2,
+      titleNav: lang.conversionAccessories,
       isVisible: data?.conversionAccessories?.data.length > 0 ? true : false,
     },
     {
-      titleNav: lang.communicationsElectronics2,
+      titleNav: lang.communicationsElectronics,
       isVisible: data?.communications?.data.length > 0 ? true : false,
     },
     {
-      titleNav: lang.otherOptions2,
+      titleNav: lang.otherOptions,
       isVisible: data?.otherOptions?.data.length > 0 ? true : false,
     },
     {

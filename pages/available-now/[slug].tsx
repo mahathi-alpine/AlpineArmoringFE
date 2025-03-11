@@ -166,7 +166,7 @@ function InventoryVehicle(props) {
       image: data?.featuredImage?.data?.attributes?.url,
       description:
         props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
-      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}/${data?.slug}`,
+      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
       brand: {
         '@type': 'Brand',
         name: `Alpine Armoring® ${lang.armoredVehicles}`,
@@ -174,7 +174,7 @@ function InventoryVehicle(props) {
       sku: `Alpine-${data?.slug}`,
       offers: {
         '@type': 'AggregateOffer',
-        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}/${data?.slug}`,
+        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
         priceCurrency: 'USD',
         lowPrice: '50000',
         highPrice: '200000',
@@ -292,13 +292,13 @@ function InventoryVehicle(props) {
           '@type': 'ListItem',
           position: 2,
           name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.availableNowURL}/${data?.slug}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
         },
       ],
     };
@@ -404,12 +404,12 @@ function InventoryVehicle(props) {
             <div className={`b-breadcrumbs`}>
               <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
-              <Link href={`${lang.availableNowURL}`}>
+              <Link href={`/${lang.availableNowURL}`}>
                 {lang.availableNowTitle}
               </Link>
               <span>&gt;</span>
               <Link
-                href={`${lang.availableNowURL}/${lang.type}/${categorySlug}`}
+                href={`/${lang.availableNowURL}/${lang.type}/${categorySlug}`}
               >
                 {category}
               </Link>

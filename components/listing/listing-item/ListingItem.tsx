@@ -17,7 +17,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
 
   const linkHref = currentPath.includes(lang.armoredRentalURL)
     ? `/${lang.rentalVehiclesURL}/${data.slug}`
-    : `${lang.availableNowURL}/${data.slug}`;
+    : `/${lang.availableNowURL}/${data.slug}`;
 
   return (
     <Link
@@ -27,7 +27,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         ${data.flag == 'sold' ? styles.inventory_item_sold : ''}
         ${
           currentPath.includes(
-            `${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`
+            `/${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`
           )
             ? styles.inventory_item_rental
             : ''
