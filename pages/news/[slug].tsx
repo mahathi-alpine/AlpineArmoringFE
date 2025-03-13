@@ -268,39 +268,44 @@ function BlogSingle(props) {
                   );
                 }
                 case 'slices.single-media':
-                  if (
-                    component.media.data.attributes.mime.startsWith('video/')
-                  ) {
-                    return (
-                      <video autoPlay muted loop key={index}>
-                        <source
-                          src={component.media.data.attributes.url}
-                          type={component.media.data.attributes.mime}
+                  if (component.media.data) {
+                    if (
+                      component.media.data?.attributes.mime.startsWith('video/')
+                    ) {
+                      return (
+                        <video autoPlay muted loop key={index}>
+                          <source
+                            src={component.media.data.attributes.url}
+                            type={component.media.data.attributes.mime}
+                          />
+                        </video>
+                      );
+                    } else {
+                      return (
+                        <Image
+                          key={index}
+                          src={
+                            component.media.data?.attributes.formats.large
+                              ?.url || component.media.data?.attributes.url
+                          }
+                          alt={
+                            component.media.data?.attributes.alternativeText ||
+                            ''
+                          }
+                          width={
+                            component.media.data?.attributes.formats.large
+                              ?.width || component.media.data?.attributes.width
+                          }
+                          height={
+                            component.media.data?.attributes.formats.large
+                              ?.height ||
+                            component.media.data?.attributes.height
+                          }
                         />
-                      </video>
-                    );
-                  } else {
-                    return (
-                      <Image
-                        key={index}
-                        src={
-                          component.media.data.attributes.formats.large?.url ||
-                          component.media.data.attributes.url
-                        }
-                        alt={
-                          component.media.data.attributes.alternativeText || ''
-                        }
-                        width={
-                          component.media.data.attributes.formats.large
-                            ?.width || component.media.data.attributes.width
-                        }
-                        height={
-                          component.media.data.attributes.formats.large
-                            ?.height || component.media.data.attributes.height
-                        }
-                      />
-                    );
+                      );
+                    }
                   }
+                  return null;
                 default:
                   return null;
               }
