@@ -58,7 +58,8 @@ export default {
   footerAvailableNowTitle: 'Vehículos blindados en venta',
   footerPickupTrucksTitle: 'Pickup Blindados',
   footerPreOwnedTitle: 'Vehículos blindados de segunda mano',
-  footerLawEnforcementTitle: 'Vehiculos Blindados para Fuerzas Militares y Policiales',
+  footerLawEnforcementTitle:
+    'Vehiculos Blindados para Fuerzas Militares y Policiales',
   footerSuvsTitle: 'Camionetas Blindadas (SUV)',
   vansAndBussesTitle: 'Furgonetas y Autobuses Blindados',
   footerSedansTitle: 'Sedanes Blindados',
