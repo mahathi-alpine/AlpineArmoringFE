@@ -6,10 +6,10 @@ import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
 import Image from 'next/image';
 import Head from 'next/head';
-import PlayIcon from 'components/icons/Play2';
+// import PlayIcon from 'components/icons/Play2';
 import LinkedinIcon from 'components/icons/Linkedin';
 import { useState, useEffect } from 'react';
-import LightboxCustom from 'components/global/lightbox/LightboxCustom';
+// import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import CustomMarkdown from 'components/CustomMarkdown';
 import SocialShare from 'components/global/social-share/SocialShare';
 import Accordion from 'components/global/accordion/Accordion';
@@ -66,25 +66,25 @@ function BlogSingle(props) {
   }, []);
 
   // Lightbox
-  const [selectedTitle, setSelectedTitle] = useState('');
-  const [contentType, setContentType] = useState('');
-  const [videoSrc, setVideoSrc] = useState('');
-  const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
+  // const [selectedTitle, setSelectedTitle] = useState('');
+  // const [contentType, setContentType] = useState('');
+  // const [videoSrc, setVideoSrc] = useState('');
+  // const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
 
-  const handleLightboxOpen = (title, location, contentType, url = null) => {
-    setSelectedTitle(title);
-    setContentType(contentType);
-    if (contentType === 'video') {
-      setVideoSrc(url);
-    }
-    setLightboxPopupOpen(true);
-  };
+  // const handleLightboxOpen = (title, location, contentType, url = null) => {
+  //   setSelectedTitle(title);
+  //   setContentType(contentType);
+  //   if (contentType === 'video') {
+  //     setVideoSrc(url);
+  //   }
+  //   setLightboxPopupOpen(true);
+  // };
 
-  const lightboxData = {
-    title: selectedTitle,
-    contentType: contentType,
-    videoSrc: videoSrc,
-  };
+  // const lightboxData = {
+  //   title: selectedTitle,
+  //   contentType: contentType,
+  //   videoSrc: videoSrc,
+  // };
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -266,6 +266,21 @@ function BlogSingle(props) {
                     </div>
                   );
                 }
+                case 'slices.youtube-video': {
+                  return (
+                    <div className={`center`} key={index}>
+                      <iframe
+                        width="860"
+                        height="500"
+                        src={`https://www.youtube.com/embed/${component.url}?controls=0&showinfo=0&modestbranding=1`}
+                        title={data.title}
+                        frameBorder="0"
+                        allow="autoplay;"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  );
+                }
                 case 'slices.single-media':
                   if (component.media.data) {
                     if (
@@ -312,16 +327,27 @@ function BlogSingle(props) {
           </div>
 
           {data?.videos.map((item, index) => (
-            <div
-              className={`${styles.blogSingle_video}`}
-              key={index}
-              onClick={() =>
-                handleLightboxOpen(item.text, '', 'video', item.videoLink)
-              }
-            >
-              <span>{item.text}</span>
-              <PlayIcon />
+            <div className={`center`} key={index}>
+              <iframe
+                width="860"
+                height="500"
+                src={`https://www.youtube.com/embed/${item.videoLink}?controls=0&showinfo=0&modestbranding=1`}
+                title={item.text || 'Alpine Armoring'}
+                frameBorder="0"
+                allow="autoplay;"
+                allowFullScreen
+              ></iframe>
             </div>
+            // <div
+            //   className={`${styles.blogSingle_video}`}
+            //   key={index}
+            //   onClick={() =>
+            //     handleLightboxOpen(item.text, '', 'video', item.videoLink)
+            //   }
+            // >
+            //   <span>{item.text}</span>
+            //   <PlayIcon />
+            // </div>
           ))}
         </div>
 
@@ -331,13 +357,13 @@ function BlogSingle(props) {
           </div>
         ) : null}
 
-        {isLightboxPopupOpen ? (
+        {/* {isLightboxPopupOpen ? (
           <LightboxCustom
             isLightboxPopupOpen={isLightboxPopupOpen}
             lightboxData={lightboxData}
             setLightboxPopupOpen={setLightboxPopupOpen}
           />
-        ) : null}
+        ) : null} */}
       </div>
     </>
   );
