@@ -299,4 +299,5 @@ export default {
   otherOptionalEquipmentFor: 'Other Optional Equipment for',
 
   make: 'make',
+  viewSomeCoolVideos: 'View some cool videos',
 };

@@ -61,13 +61,13 @@ function Home({ homepageData, categories }) {
   const news =
     data?.news?.data?.map((item) => ({
       ...item,
-      category: 'news',
+      category: lang.news.toLowerCase(),
     })) || [];
 
   const blogs =
     data?.blog_evergreens?.data?.map((item) => ({
       ...item,
-      category: 'blog',
+      category: lang.blog.toLowerCase(),
     })) || [];
 
   const posts = blogs.concat(news);

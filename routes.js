@@ -17,7 +17,7 @@ const vehicleTypes = {
   },
   'armored-law-enforcement': {
     en: 'armored-law-enforcement',
-    es: 'blindados-fuerzas-del-orden',
+    es: 'blindados-para-fuerzas-militares-y-policiales',
   },
   'armored-cash-in-transit-cit': {
     en: 'armored-cash-in-transit-cit',

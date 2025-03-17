@@ -2,6 +2,7 @@ import styles from './VideosPopup.module.scss';
 import Button from 'components/global/button/Button';
 import PlayIcon from 'components/icons/Play';
 
+import useLocale from 'hooks/useLocale';
 import NextJsImage from '../lightbox/NextJsImage';
 import NextJsImageThumbs from '../lightbox/NextJsImageThumbs';
 import useLightbox from '../lightbox/useLightbox';
@@ -14,6 +15,7 @@ import 'yet-another-react-lightbox/plugins/captions.css';
 
 const VideosPopup = (props) => {
   const { openLightbox, renderLightbox } = useLightbox();
+  const { lang } = useLocale();
 
   const slidesData = props.props.map((item) => {
     const type = item.image.data?.attributes.mime.split('/')[0];
@@ -67,7 +69,7 @@ const VideosPopup = (props) => {
             attention
             onClick={openLightbox}
           >
-            View some cool videos
+            {lang.viewSomeCoolVideos}
           </Button>
           <PlayIcon />
         </div>

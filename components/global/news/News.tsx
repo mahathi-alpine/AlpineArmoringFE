@@ -79,7 +79,7 @@ const Blog = ({
                 >
                   {item.attributes.thumbnail.data?.attributes.url ? (
                     <Link
-                      href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}
+                      href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
                       className={`${styles.news_item_image}`}
                     >
                       <Image
@@ -124,7 +124,7 @@ const Blog = ({
                         ) : null} */}
 
                         <Link
-                          href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}
+                          href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
                         >
                           <h3 className={`${styles.news_item_title}`}>
                             {item.attributes.title}
@@ -139,7 +139,7 @@ const Blog = ({
                       </div>
 
                       <Button
-                        href={`${item.category ? `/${item.category}` : type ? '/blog' : '/news'}/${item.attributes.slug}`}
+                        href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
                         className={`${styles.news_item_button} rounded border desktop-only`}
                       >
                         {lang.readMore}
@@ -169,7 +169,7 @@ const Blog = ({
         {button ? (
           <div className={`${styles.news_button}`}>
             <Button
-              href={`${type ? '/blog' : '/news'}`}
+              href={`${type ? `${lang.blogsURL}` : `${lang.newsURL}`}`}
               className={`${styles.news_button_link} rounded primary`}
             >
               {lang.seeAllNews}
