@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
+import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
 import Loader from 'components/global/loader/Loader';
 import { install } from 'resize-observer';
@@ -70,6 +71,36 @@ export default function App({ Component, pageProps }) {
       document.body.appendChild(script);
     }
   }, [currentLanguage]);
+
+  const router = useRouter();
+  useEffect(() => {
+    // Log locale changes
+    console.log('Client-side locale:', router.locale);
+    console.log('Available locales:', router.locales);
+    console.log('Page props:', pageProps);
+
+    // Add event listeners to debug navigation
+    const handleRouteChangeStart = (url) => {
+      console.log('Route change starting to:', url);
+    };
+
+    const handleRouteChangeComplete = (url) => {
+      console.log(
+        'Route change completed to:',
+        url,
+        'with locale:',
+        router.locale
+      );
+    };
+
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
+    };
+  }, [router]);
 
   return (
     <>
