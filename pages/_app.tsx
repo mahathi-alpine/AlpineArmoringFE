@@ -107,7 +107,7 @@ export default function App({ Component, pageProps }) {
       {seoData && <Seo key="global-seo" props={seoData} />}
       <Layout>
         {isLoading ? <Loader /> : null}
-        <Component {...pageProps} key={router.locale} />
+        <Component {...pageProps} key={`${router.pathname}-${router.locale}`} />
         <CookieConsent />
       </Layout>
     </>
