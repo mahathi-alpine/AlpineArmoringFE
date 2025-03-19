@@ -165,7 +165,7 @@ function Contact(props) {
   );
 }
 
-export async function getStaticProps({ locale = 'en' }) {
+export async function getServerSideProps({ locale = 'en' }) {
   const route = routes.contact;
 
   let pageData = await getPageData({
@@ -177,13 +177,11 @@ export async function getStaticProps({ locale = 'en' }) {
 
   const seoData = {
     ...(pageData?.seo ?? {}),
-    // languageUrls: route.getIndexLanguageUrls(locale),
     languageUrls: route.getLanguageUrls(pageData, locale),
   };
 
   return {
     props: { pageData, seoData, locale },
-    revalidate: 60,
   };
 }
 
