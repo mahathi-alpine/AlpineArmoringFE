@@ -183,6 +183,7 @@ export async function getStaticProps({ locale = 'en' }) {
 
   return {
     props: { pageData, seoData, locale },
+    revalidate: 60,
   };
 }
 

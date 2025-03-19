@@ -126,9 +126,6 @@ function safeDecodeURIComponent(str: string): string {
 }
 
 export function middleware(request: NextRequest) {
-  console.log('Middleware - Current locale:', request.nextUrl.locale);
-  console.log('Middleware - Pathname:', request.nextUrl.pathname);
-
   const { pathname, searchParams } = request.nextUrl;
 
   // Handle special case for path segments embedded in query parameters
