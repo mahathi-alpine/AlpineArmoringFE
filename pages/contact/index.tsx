@@ -165,7 +165,7 @@ function Contact(props) {
   );
 }
 
-export async function getServerSideProps({ locale = 'en' }) {
+export async function getStaticProps({ locale = 'en' }) {
   const route = routes.contact;
 
   let pageData = await getPageData({
