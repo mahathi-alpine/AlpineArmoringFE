@@ -173,11 +173,12 @@ export async function getStaticProps({ locale = 'en' }) {
     populate: 'deep',
     locale,
   });
-  pageData = pageData.data?.attributes || null;
+  pageData = pageData?.data?.attributes;
 
   const seoData = {
-    ...(pageData?.seo || {}),
-    languageUrls: route.getIndexLanguageUrls(locale),
+    ...(pageData?.seo ?? {}),
+    // languageUrls: route.getIndexLanguageUrls(locale),
+    languageUrls: route.getLanguageUrls(pageData, locale),
   };
 
   return {
