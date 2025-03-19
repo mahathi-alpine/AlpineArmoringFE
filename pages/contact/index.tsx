@@ -1,4 +1,5 @@
 import styles from './Contact.module.scss';
+import withLocaleRefetch from 'components/withLocaleRefetch';
 import Head from 'next/head';
 import { getPageData } from 'hooks/api';
 import { useEffect } from 'react';
@@ -173,11 +174,11 @@ export async function getStaticProps({ locale = 'en' }) {
     populate: 'deep',
     locale,
   });
-  pageData = pageData?.data?.attributes;
+  pageData = pageData.data?.attributes || null;
 
   const seoData = {
-    ...(pageData?.seo ?? {}),
-    languageUrls: route.getLanguageUrls(pageData, locale),
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
   };
 
   return {
@@ -185,4 +186,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Contact;
+export default withLocaleRefetch(Contact, async (locale) => {
+  const data = await getPageData({
+    route: routes.contact.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});

@@ -1,31 +1,10 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { getPageData } from 'hooks/api';
 import routes from 'routes';
 import CustomMarkdown from 'components/CustomMarkdown';
+import withLocaleRefetch from 'components/withLocaleRefetch';
 
 function Privacy(props) {
-  const router = useRouter();
-  const [pageData, setPageData] = useState(props.pageData);
-
-  useEffect(() => {
-    if (!router.isReady || router.locale === props.locale) return;
-
-    const fetchData = async () => {
-      console.log('a');
-      const newPageData = await getPageData({
-        route: routes.privacyPolicy.collection,
-        populate: 'deep',
-        locale: router.locale,
-      });
-
-      setPageData(newPageData.data?.attributes || null);
-    };
-
-    fetchData();
-  }, [router.isReady, router.locale, props.locale]);
-
-  const text = pageData?.text;
+  const text = props?.pageData?.text;
 
   return (
     <>
@@ -60,4 +39,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Privacy;
+export default withLocaleRefetch(Privacy, async (locale) => {
+  const data = await getPageData({
+    route: routes.privacyPolicy.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});
