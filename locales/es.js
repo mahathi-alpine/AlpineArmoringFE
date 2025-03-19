@@ -298,4 +298,7 @@ export default {
   conversionAccessoriesFor: 'Accesorios para conversión para',
   communicationsElectronicsFor: 'Comunicaciones y electrónica para',
   otherOptionalEquipmentFor: 'Otros equipos opcionales para',
+
+  make: 'marca',
+  viewSomeCoolVideos: 'Ver videos interesantes',
 };
