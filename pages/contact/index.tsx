@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import styles from './Contact.module.scss';
 import withLocaleRefetch from 'components/withLocaleRefetch';
 import Head from 'next/head';
@@ -17,6 +18,10 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 function Contact(props) {
   const { openLightbox, renderLightbox } = useLightbox();
+
+  const router = useRouter();
+  const isDefaultLanguage = router.locale === 'en';
+
   type CustomSlide = {
     src: string;
     width?: number;
@@ -33,30 +38,65 @@ function Contact(props) {
 
   // Animations
   useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
+    if (isDefaultLanguage) {
+      const targets = document.querySelectorAll('.observe');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.toggle('in-view', entry.isIntersecting);
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.2,
+        }
+      );
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
+      targets.forEach((item) => observer.observe(item));
+
+      return () => {
+        targets.forEach((item) => observer.unobserve(item));
+        observer.disconnect();
+      };
+    } else {
+      const animationTimeout = setTimeout(() => {
+        const targets = document.querySelectorAll('.observe');
+
+        targets.forEach((item) => {
+          item.classList.remove('in-view');
         });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
 
-    targets.forEach((item) => observer.observe(item));
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.toggle('in-view', entry.isIntersecting);
+              }
+            });
+          },
+          {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2,
+          }
+        );
 
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+        targets.forEach((item) => observer.observe(item));
+
+        return () => {
+          targets.forEach((item) => observer.unobserve(item));
+          observer.disconnect();
+        };
+      }, 100);
+
+      return () => {
+        clearTimeout(animationTimeout);
+      };
+    }
+  }, [props.pageData, router.locale, isDefaultLanguage]);
 
   // FAQ structured data
   const getFAQStructuredData = () => {
