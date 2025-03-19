@@ -1,4 +1,5 @@
 const routes = require('./routes');
+const path = require('path');
 
 module.exports = {
   reactStrictMode: true,
@@ -12,6 +13,7 @@ module.exports = {
     defaultLocale: 'en',
     localeDetection: true,
   },
+  localePath: path.resolve('./locales'),
   // outputStrictMode: true,
   // eslint: {
   //   ignoreDuringBuilds: true,
