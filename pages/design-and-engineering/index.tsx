@@ -1,6 +1,8 @@
 import styles from './Design.module.scss';
+import withLocaleRefetch from 'components/withLocaleRefetch';
+import useAnimationObserver from 'hooks/useAnimationObserver';
 import { getPageData } from 'hooks/api';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import routes from 'routes';
 import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
@@ -22,31 +24,10 @@ const Design = (props) => {
     setShowPopup(true);
   };
 
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  // Animations
+  useAnimationObserver({
+    dependencies: [props.pageData],
+  });
 
   return (
     <>
@@ -569,4 +550,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Design;
+export default withLocaleRefetch(Design, async (locale) => {
+  const data = await getPageData({
+    route: routes.designAndEngineering.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});

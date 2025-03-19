@@ -1,25 +1,34 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 const Seo = ({ props }) => {
   const router = useRouter();
+  const [seoProps, setSeoProps] = useState(props);
+
+  // Update seoProps when props change (including after locale refetch)
+  useEffect(() => {
+    setSeoProps(props);
+  }, [props]);
+
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
-  // const languageUrls = props?.languageUrls || {};
+  // const languageUrls = seoProps?.languageUrls || {};
+
   // Default values
-  const metaTitle = props?.metaTitle || 'Alpine Armoring';
-  const metaDescription = props?.metaDescription || 'Alpine Armoring';
+  const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
+  const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
   const metaImgUrl =
-    props?.metaImage?.data?.attributes.formats?.large?.url ||
-    props?.metaImage?.data?.attributes.url ||
-    props?.thumbnail?.formats?.large?.url ||
-    props?.thumbnail?.url ||
+    seoProps?.metaImage?.data?.attributes.formats?.large?.url ||
+    seoProps?.metaImage?.data?.attributes.url ||
+    seoProps?.thumbnail?.formats?.large?.url ||
+    seoProps?.thumbnail?.url ||
     '';
 
   // Faceook social meta
   const facebookMeta =
-    props?.metaSocial?.find((social) => social.socialNetwork === 'Facebook') ||
-    {};
+    seoProps?.metaSocial?.find(
+      (social) => social.socialNetwork === 'Facebook'
+    ) || {};
   const facebookMetaImg =
     facebookMeta?.image?.data?.attributes.formats?.large?.url ||
     facebookMeta?.image?.data?.attributes.url ||
@@ -27,15 +36,16 @@ const Seo = ({ props }) => {
 
   // Twitter social meta
   const twitterMeta =
-    props?.metaSocial?.find((social) => social.socialNetwork === 'Twitter') ||
-    {};
+    seoProps?.metaSocial?.find(
+      (social) => social.socialNetwork === 'Twitter'
+    ) || {};
   const twitterMetaImg =
     twitterMeta?.image?.data?.attributes.formats?.large?.url ||
     twitterMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
   // Construct full URLs
-  const canonicalUrl = props?.canonicalURL || `${baseUrl}${router.asPath}`;
+  const canonicalUrl = seoProps?.canonicalURL || `${baseUrl}${router.asPath}`;
   const ogUrl = `${baseUrl}${router.asPath}`;
 
   return (

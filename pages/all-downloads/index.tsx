@@ -1,5 +1,7 @@
 import { getPageData } from 'hooks/api';
-import { useEffect, useMemo } from 'react';
+import withLocaleRefetch from 'components/withLocaleRefetch';
+import useAnimationObserver from 'hooks/useAnimationObserver';
+import { useMemo } from 'react';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 import styles from './Downloads.module.scss';
@@ -9,31 +11,9 @@ function Downloads(props) {
   const { lang } = useLocale();
 
   // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  useAnimationObserver({
+    dependencies: [props.pageData],
+  });
 
   // Sorting function
   const sortItems = useMemo(() => {
@@ -200,4 +180,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Downloads;
+export default withLocaleRefetch(Downloads, async (locale) => {
+  const data = await getPageData({
+    route: routes.allDownloads.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});

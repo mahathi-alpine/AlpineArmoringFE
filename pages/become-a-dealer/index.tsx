@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import withLocaleRefetch from 'components/withLocaleRefetch';
+import useAnimationObserver from 'hooks/useAnimationObserver';
 import { getPageData } from 'hooks/api';
 import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
@@ -9,31 +10,9 @@ function Dealer(props) {
   const text = props?.pageData?.text;
 
   // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  useAnimationObserver({
+    dependencies: [props.pageData],
+  });
 
   return (
     <>
@@ -68,4 +47,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Dealer;
+export default withLocaleRefetch(Dealer, async (locale) => {
+  const data = await getPageData({
+    route: routes.becomeDealer.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});

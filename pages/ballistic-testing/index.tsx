@@ -1,6 +1,8 @@
 import styles from './Testing.module.scss';
+import withLocaleRefetch from 'components/withLocaleRefetch';
+import useAnimationObserver from 'hooks/useAnimationObserver';
 import { getPageData } from 'hooks/api';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Banner from 'components/global/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
 import TabSlider from 'components/global/tab-slider/TabSlider';
@@ -59,31 +61,9 @@ function Testing(props) {
   });
 
   // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  useAnimationObserver({
+    dependencies: [props.pageData],
+  });
 
   const tabSliderData = [
     {
@@ -619,4 +599,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Testing;
+export default withLocaleRefetch(Testing, async (locale) => {
+  const data = await getPageData({
+    route: routes.ballisticTesting.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});

@@ -1,6 +1,6 @@
 import '/styles/globals.scss';
 import Layout from '../components/Layout';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
 import useLocale from 'hooks/useLocale';
@@ -11,10 +11,17 @@ import CookieConsent from 'components/global/cookie-consent/CookieConsent';
 
 export default function App({ Component, pageProps }) {
   const { lang } = useLocale();
-
-  const seoData = pageProps.seoData;
+  const router = useRouter();
+  const [currentSeoData, setCurrentSeoData] = useState(pageProps.seoData);
   const [isLoading, setIsLoading] = useState(false);
   const { currentLanguage } = useLanguageSwitcher();
+
+  // Update SEO data when pageProps changes (including after locale changes)
+  useEffect(() => {
+    if (pageProps.seoData) {
+      setCurrentSeoData(pageProps.seoData);
+    }
+  }, [pageProps.seoData]);
 
   if (typeof window !== 'undefined') {
     if (!window.ResizeObserver) install();
@@ -73,7 +80,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      {seoData && <Seo key="global-seo" props={seoData} />}
+      {currentSeoData && (
+        <Seo key={`seo-${router.locale}`} props={currentSeoData} />
+      )}
       <Layout>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
