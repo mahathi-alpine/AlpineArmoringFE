@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import withLocaleRefetch from 'components/withLocaleRefetch';
+import useAnimationObserver from 'hooks/useAnimationObserver';
 import { getPageData } from 'hooks/api';
 import styles from './Shipping.module.scss';
 import routes from 'routes';
@@ -55,31 +57,9 @@ function Shipping(props) {
   };
 
   // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  useAnimationObserver({
+    dependencies: [props.pageData],
+  });
 
   const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
   const [currentPdfUrl, setCurrentPdfUrl] = useState('');
@@ -287,4 +267,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Shipping;
+export default withLocaleRefetch(Shipping, async (locale) => {
+  const data = await getPageData({
+    route: routes.shippingAndLogistics.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});

@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import routes from 'routes';
+import withLocaleRefetch from 'components/withLocaleRefetch';
+import useAnimationObserver from 'hooks/useAnimationObserver';
 import useLocale from 'hooks/useLocale';
 import LocationsList from 'components/global/locations/Locations';
 import CustomMarkdown from 'components/CustomMarkdown';
@@ -11,31 +12,9 @@ function Locations(props) {
   const { lang } = useLocale();
 
   // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  useAnimationObserver({
+    dependencies: [props.pageData],
+  });
 
   return (
     <>
@@ -99,4 +78,11 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Locations;
+export default withLocaleRefetch(Locations, async (locale) => {
+  const data = await getPageData({
+    route: routes.locationsWeServe.collection,
+    populate: 'deep',
+    locale,
+  });
+  return data.data?.attributes || null;
+});
