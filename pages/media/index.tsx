@@ -13,6 +13,7 @@ import useLocale from 'hooks/useLocale';
 
 function Media(props) {
   const { lang } = useLocale();
+  console.log(props.pageData);
 
   const banner = props?.pageData?.banner;
   const videos = props?.pageData?.videos?.data;
@@ -144,6 +145,7 @@ export async function getStaticProps({ locale = 'en' }) {
   let pageData = await getPageData({
     route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData.data?.attributes || null;
 
@@ -157,11 +159,19 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Media, async (locale) => {
-  const data = await getPageData({
-    route: routes.media.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Media,
+  {
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.media.collection,
+        populate: 'deep',
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+  },
+  {
+    routeName: 'media',
+  }
+);

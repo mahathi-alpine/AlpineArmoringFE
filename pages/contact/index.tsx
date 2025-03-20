@@ -165,18 +165,17 @@ export async function getStaticProps({ locale = 'en' }) {
 
 export default withLocaleRefetch(
   Contact,
-  async (locale) => {
-    const data = await getPageData({
-      route: routes.contact.collection,
-      populate: 'deep',
-      locale,
-    });
-    return data.data?.attributes || null;
-  },
-  'pageData',
   {
-    includeSeo: true, // Enable SEO updates
-    routeName: 'contact', // Route name for generating SEO data
-    debug: process.env.NODE_ENV === 'development',
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.contact.collection,
+        populate: 'deep',
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+  },
+  {
+    routeName: 'contact',
   }
 );

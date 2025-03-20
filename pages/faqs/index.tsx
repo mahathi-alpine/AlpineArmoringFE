@@ -80,11 +80,30 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(FAQs, async (locale) => {
-  const data = await getPageData({
-    route: routes.faqs.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  FAQs,
+  {
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.faqs.collection,
+        populate: 'deep',
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+    faqs: async (locale) => {
+      const data = await getPageData({
+        route: routes.faqs.collectionSingle,
+        populate: 'deep',
+        sort: 'order',
+        locale,
+      });
+      return data?.data || null;
+    },
+  },
+  {
+    includeSeo: true,
+    routeName: 'faqs',
+    debug: process.env.NODE_ENV === 'development',
+  }
+);
