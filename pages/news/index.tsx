@@ -60,11 +60,32 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Blog, async (locale) => {
-  const data = await getPageData({
-    route: routes.news.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Blog,
+  {
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.news.collection,
+        populate: 'deep',
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+    posts: async (locale) => {
+      const data = await getPageData({
+        route: routes.news.collectionSingle,
+        populate: 'thumbnail',
+        fields:
+          'fields[0]=publishedAt&fields[1]=locale&fields[2]=title&fields[3]=slug&fields[4]=excerpt&fields[5]=title&fields[6]=date',
+        sort: 'date',
+        sortType: 'desc',
+        pageSize: 200,
+        locale,
+      });
+      return data?.data || null;
+    },
+  },
+  {
+    routeName: 'news',
+  }
+);

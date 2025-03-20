@@ -13,7 +13,6 @@ import useLocale from 'hooks/useLocale';
 
 function Media(props) {
   const { lang } = useLocale();
-  console.log(props.pageData);
 
   const banner = props?.pageData?.banner;
   const videos = props?.pageData?.videos?.data;

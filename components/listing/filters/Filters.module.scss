@@ -525,7 +525,7 @@
 
   @include breakpoint(large) {
     font-size: rem(15);
-    align-items: flex-end;
+    // align-items: flex-end;
     .filters_plain & {
       font-size: rem(13);
     }
@@ -541,6 +541,7 @@
     background: rgba(241, 243, 244, 0.24);
     overflow: hidden;
     margin-right: 10px;
+    flex-shrink: 0;
     @include breakpoint(large) {
       width: rem(22);
       height: rem(22);
