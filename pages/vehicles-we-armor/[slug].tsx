@@ -379,11 +379,12 @@ function Vehicle(props) {
                 className={`${styles.slug_dimensions_wrap_image} observe fade-in`}
               >
                 <Image
-                  src={dimensions2.formats?.large?.url || dimensions2.url}
+                  src={dimensions2.url}
                   alt={dimensions2.alternativeText || 'Alpine Armoring'}
                   width={dimensions2.width}
                   height={dimensions2.height}
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  quality={100}
                 />
               </div>
             </div>
