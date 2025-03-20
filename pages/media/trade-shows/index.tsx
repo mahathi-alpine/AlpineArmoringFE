@@ -59,11 +59,31 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(TradeShows, async (locale) => {
-  const data = await getPageData({
-    route: routes.tradeShows.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  TradeShows,
+  {
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.tradeShows.collection,
+        populate: 'deep',
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+    tradeShows: async (locale) => {
+      const data = await getPageData({
+        route: routes.tradeShows.collectionSingle,
+        sort: 'order',
+        pageSize: 1000,
+        populate: 'deep',
+        locale,
+      });
+      return data?.data || null;
+    },
+  },
+  {
+    includeSeo: true,
+    routeName: 'tradeShows',
+    debug: process.env.NODE_ENV === 'development',
+  }
+);

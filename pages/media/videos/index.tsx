@@ -51,11 +51,31 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Videos, async (locale) => {
-  const data = await getPageData({
-    route: routes.videos.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Videos,
+  {
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.videos.collection,
+        populate: 'deep',
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+    videos: async (locale) => {
+      const data = await getPageData({
+        route: routes.videos.collectionSingle,
+        sort: 'order',
+        pageSize: 1000,
+        populate: 'deep',
+        locale,
+      });
+      return data?.data || null;
+    },
+  },
+  {
+    includeSeo: true,
+    routeName: 'videos',
+    debug: process.env.NODE_ENV === 'development',
+  }
+);
