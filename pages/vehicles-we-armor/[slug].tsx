@@ -365,11 +365,12 @@ function Vehicle(props) {
               >
                 <div className={`${styles.slug_dimensions_wrap_image_box}`}>
                   <Image
-                    src={dimensions1.formats?.large?.url || dimensions1.url}
+                    src={dimensions1.url}
                     alt={dimensions1.alternativeText || 'Alpine Armoring'}
                     width={dimensions1.width}
                     height={dimensions1.height}
                     sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={100}
                   />
                 </div>
               </div>
