@@ -190,7 +190,7 @@ const routes = {
   rentalVehicles: {
     paths: {
       en: '/rental-vehicles',
-      es: '/vehículos-de-renta',
+      es: '/vehiculos-de-renta',
     },
   },
   shippingAndLogistics: {
@@ -205,7 +205,7 @@ const routes = {
     collectionSingle: 'inventories',
     paths: {
       en: '/sold-vehicles',
-      es: '/vehículos-vendidos',
+      es: '/vehiculos-vendidos',
     },
   },
   vehiclesWeArmor: {

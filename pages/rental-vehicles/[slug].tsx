@@ -1,9 +1,11 @@
 import styles from './InventoryVehicle.module.scss';
 import { getPageData } from 'hooks/api';
-import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import routes from 'routes';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import useLocale from 'hooks/useLocale';
+import { useRouter } from 'next/router';
+import routes from 'routes';
 const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
 const PDFIcon = dynamic(() => import('components/icons/PDF2'));
@@ -21,6 +23,9 @@ import VideoScale, {
 import CustomMarkdown from 'components/CustomMarkdown';
 
 function InventoryVehicle(props) {
+  const router = useRouter();
+  const { lang } = useLocale();
+
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const topGallery = data?.gallery?.data;
@@ -36,13 +41,13 @@ function InventoryVehicle(props) {
   };
 
   const vehicleDetailsMain = {
-    Level: 'armor_level',
-    'Vehicle ID': 'rentalsVehicleID',
-    'Engine & Power': 'engine',
-    Trans: 'trans',
-    Drivetrain: 'driveTrain',
-    'Color (Exterior)': 'color_ext',
-    'Color (Interior)': 'color_int',
+    [lang.level]: 'armor_level',
+    [lang.vehicleID]: 'rentalsVehicleID',
+    [lang.enginePower]: 'engine',
+    [lang.trans]: 'trans',
+    [lang.drivetrain]: 'driveTrain',
+    [lang.colorExt]: 'color_ext',
+    [lang.colorInt]: 'color_int',
   };
 
   const formData = {
@@ -117,20 +122,20 @@ function InventoryVehicle(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://www.alpineco.com/',
+          name: lang.home,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Rental Vehicles',
-          item: `https://www.alpineco.com/rental-vehicles`,
+          name: lang.availableNowTitle,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.rentalVehiclesURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
-          name: data?.title,
-          item: `https://www.alpineco.com/rental-vehicles/${data?.slug}`,
+          name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.rentalVehiclesURL}/${data?.slug}`,
         },
       ],
     };
@@ -151,12 +156,16 @@ function InventoryVehicle(props) {
         <div className={`${styles.inventory_main}`}>
           <div className={`${styles.inventory_heading}`}>
             <div className={`b-breadcrumbs`}>
-              <Link href="/">Home</Link>
+              <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
-              <Link href="/available-now">Available now</Link>
+              <Link href={`/${lang.availableNowURL}`}>
+                {lang.availableNowTitle}
+              </Link>
               <span>&gt;</span>
-              <Link href={`/available-now/type/armored-rental`}>
-                Rental Vehicles
+              <Link
+                href={`/${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`}
+              >
+                {lang.rentalVehicles}
               </Link>
               <span>&gt;</span>
               <span className={`b-breadcrumbs_current`}>{data?.title}</span>
@@ -173,7 +182,12 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_heading_description}`}>
               <InfoIcon />
               <p>
-                This {data?.title} is now available for <span>RENTAL</span>
+                {`${lang.this} ${data?.title}`}
+                <strong
+                  dangerouslySetInnerHTML={{
+                    __html: lang.isAvailableForRental,
+                  }}
+                />
               </p>
             </div>
           </div>
@@ -187,12 +201,12 @@ function InventoryVehicle(props) {
 
                 {data?.armor_level ? (
                   <Link
-                    href="/ballistic-chart"
+                    href={`${lang.ballisticChartURL}`}
                     className={`${styles.inventory_armor}`}
                   >
                     <div className={`${styles.inventory_armor_box}`}>
-                      Armor
-                      <span>Level</span>
+                      {lang.armor}
+                      <span>{lang.level}</span>
                     </div>
                     <strong>{data?.armor_level}</strong>
                   </Link>
@@ -206,7 +220,7 @@ function InventoryVehicle(props) {
                   className={`${styles.inventory_cta} primary attention`}
                   attention
                 >
-                  Request a quote
+                  {lang.requestAQuote}
                 </Button>
               </div>
 
@@ -226,7 +240,7 @@ function InventoryVehicle(props) {
                     data[value] != '' &&
                     data[value] != ' '
                   ) {
-                    if (key === 'Weight (Armored)') {
+                    if (key === lang.weightArmored) {
                       // Apply thousands separator to the pounds value if it's in the thousands
                       const poundsValue =
                         parseInt(data[value]) >= 1000
@@ -241,7 +255,12 @@ function InventoryVehicle(props) {
                           : weightInKg;
                       dimensionValue = `${poundsValue} lbs (${kilogramsValue} kg)`;
                     } else if (
-                      ['Height', 'Length', 'Width', 'Wheelbase'].includes(key)
+                      [
+                        lang.height,
+                        lang.length,
+                        lang.width,
+                        lang.wheelbase,
+                      ].includes(key)
                     ) {
                       // Convert inches to centimeters
                       dimensionValue = `${data[value]} in. (${Math.round(
@@ -281,7 +300,7 @@ function InventoryVehicle(props) {
                       className={`${styles.inventory_pdfs_button} icon rounded`}
                       target
                     >
-                      <strong>OEM</strong> Window Sticker
+                      <strong>{lang.oem}</strong> {lang.windowSticker}
                     </Button>
                   ) : null}
 
@@ -298,7 +317,7 @@ function InventoryVehicle(props) {
                       className={`${styles.inventory_pdfs_button} icon rounded`}
                       button
                     >
-                      Armoring Specs
+                      {lang.armoringSpecs}
                     </Button>
                   ) : null}
                 </div>

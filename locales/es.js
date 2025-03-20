@@ -176,7 +176,7 @@ export default {
   search: 'Buscar',
   viewDetails: 'Ver detalles',
   armoredTo: 'Blindado a',
-  level: 'nivel',
+  level: 'Nivel',
   engine: 'Motor',
   trans: 'Transmisión',
   VIN: 'VIN',
@@ -263,7 +263,7 @@ export default {
   videosURL: '/videos',
   tradeShowsURL: '/ferias-comerciales',
   news: 'Noticias',
-  rentalVehiclesURL: '/vehículos-de-renta',
+  rentalVehiclesURL: '/vehiculos-de-renta',
   rental: 'Renta',
   armoredSmall: 'Blindado',
   groundShipping: 'Envío terrestre',
@@ -281,7 +281,7 @@ export default {
   pageNotFound: 'Página no encontrada',
   pageDoesNotExist: 'Lo sentimos, pero esta página no existe',
   goToHomepage: 'Ir a la página principal',
-  soldVehiclesURL: '/vehículos-vendidos',
+  soldVehiclesURL: '/vehiculos-vendidos',
   chatWithUs: 'Chatea con nosotros',
   conversionMayVary:
     'La conversión de blindaje personalizada real puede variar según la configuración estructural de cada vehículo y las especificaciones finales del cliente',
@@ -298,7 +298,6 @@ export default {
   conversionAccessoriesFor: 'Accesorios para conversión para',
   communicationsElectronicsFor: 'Comunicaciones y electrónica para',
   otherOptionalEquipmentFor: 'Otros equipos opcionales para',
-
   make: 'marca',
   viewSomeCoolVideos: 'Ver videos interesantes',
 };

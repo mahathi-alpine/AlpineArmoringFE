@@ -175,7 +175,7 @@ export default {
   search: 'Search',
   viewDetails: 'View Details',
   armoredTo: 'Armored to',
-  level: 'level',
+  level: 'Level',
   engine: 'Engine',
   trans: 'Trans',
   VIN: 'VIN',
@@ -297,7 +297,8 @@ export default {
   conversionAccessoriesFor: 'Conversion Accessories for',
   communicationsElectronicsFor: 'Communications & Electronics for',
   otherOptionalEquipmentFor: 'Other Optional Equipment for',
-
   make: 'make',
   viewSomeCoolVideos: 'View some cool videos',
+
+  isAvailableForRental: 'is now available for <span>RENTAL</span>',
 };
