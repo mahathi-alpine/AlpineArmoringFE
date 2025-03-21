@@ -36,6 +36,7 @@ export default {
   vansBuses: 'Furgonetas y autobuses',
   lawEnforcement: 'Fuerzas del Orden',
   CITNavigation: 'Transporte de valores (CIT)',
+  armoredPreOwned: 'Blindados pre Usados',
   specialtyVehicles: 'Vehículos especiales',
   specialOfTheMonth: 'especial del mes',
   specialOfTheMonth2: 'especial-del-mes',
