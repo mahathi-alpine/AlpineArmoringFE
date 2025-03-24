@@ -199,7 +199,15 @@ export function middleware(request: NextRequest) {
     : pathname;
 
   // Check redirects
-  let redirectTo = redirectMap.get(fullPath);
+  let redirectTo = redirectMap.get(
+    normalizedSearch ? `${pathname}?${searchParams.toString()}` : pathname
+  );
+
+  if (!redirectTo) {
+    redirectTo = redirectMap.get(
+      normalizedSearch ? `${pathname}?${normalizedSearch}` : pathname
+    );
+  }
 
   if (!redirectTo) {
     const decodedPath = pathname;
