@@ -6,7 +6,7 @@ export function animateVideo(entry) {
   const video = entry.querySelector('.videoScaleVideo');
   let scale = 1 - (bottom - window.innerHeight) * 0.0005;
 
-  scale = scale < 0.2 ? 0.2 : scale > 1 ? 1 : scale;
+  scale = scale < 0.8 ? 0.8 : scale > 1 ? 1 : scale;
   video.style.transform = `scale(${scale})`;
 
   // Text transformation
