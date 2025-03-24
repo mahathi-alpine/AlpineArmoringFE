@@ -38,7 +38,7 @@ export default function CustomMarkdown({ children }) {
                   : 'External Content'
               );
             }}
-            // className="external-link"
+            className="external-link"
             data-external="true"
             rel="nofollow noopener noreferrer"
             aria-label={`${typeof children[0] === 'string' ? children[0] : 'Link'} (opens in popup window)`}

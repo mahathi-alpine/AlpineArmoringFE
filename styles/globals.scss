@@ -949,22 +949,22 @@ $shapeColor: var(--color-background);
   }
 }
 
-// .external-link {
-//   position: relative;
+.external-link {
+  position: relative;
 
-//   &:after {
-//     content: "↗";
-//     display: inline;
-//     font-size: 0.7em;
-//     position: relative;
-//     top: 0;
-//     transition: top 0.2s ease, margin-top 0.2s ease;
-//   }
+  &:after {
+    content: "↗";
+    display: inline;
+    font-size: 0.7em;
+    position: relative;
+    top: 0;
+    transition: top 0.2s ease, margin-top 0.2s ease;
+  }
 
-//   &:hover {
-//     &:after {
-//       top: -2px;
-//       margin-top: -2px;
-//     }
-//   }
-// }
+  &:hover {
+    &:after {
+      top: -2px;
+      margin-top: -2px;
+    }
+  }
+}
