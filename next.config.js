@@ -3,14 +3,23 @@ const routes = require('./routes');
 module.exports = {
   reactStrictMode: true,
   async rewrites() {
-    return Object.values(routes)
+    const hardcodedRewrites = [
+      {
+        source: '/medios/ferias-comerciales',
+        destination: '/media/trade-shows',
+      },
+    ];
+
+    const routeRewrites = Object.values(routes)
       .map((route) => route.getRewrites())
       .flat();
+
+    return [...hardcodedRewrites, ...routeRewrites];
   },
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',
-    localeDetection: true,
+    localeDetection: false,
   },
   // outputStrictMode: true,
   // eslint: {
