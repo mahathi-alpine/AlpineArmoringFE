@@ -33,8 +33,8 @@ function Manufacturing(props) {
     },
   ];
 
-  const handleTabChange = (index, titleNav) => {
-    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+  const handleTabChange = (index) => {
+    const targetId = `anchor${index + 1}`;
     const targetElement = document.getElementById(targetId);
     const offset = 100;
 
@@ -63,7 +63,7 @@ function Manufacturing(props) {
 
         <section
           className={`${styles.manufacturing_section1} ${styles.manufacturing_container_small} container_small`}
-          id="advanced-technology"
+          id="anchor1"
         >
           {props.pageData?.section1Title ? (
             <h2
@@ -151,10 +151,7 @@ function Manufacturing(props) {
           </div>
         ) : null}
 
-        <section
-          className={`${styles.manufacturing_section2}`}
-          id="components-&-ballistic-material"
-        >
+        <section className={`${styles.manufacturing_section2}`} id="anchor2">
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >
@@ -226,7 +223,7 @@ function Manufacturing(props) {
           ) : null}
         </section>
 
-        <section className={`${styles.manufacturing_section3}`} id="production">
+        <section className={`${styles.manufacturing_section3}`} id="anchor3">
           <div
             className={`${styles.manufacturing_container_small} container_small`}
           >

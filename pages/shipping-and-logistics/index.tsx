@@ -42,8 +42,8 @@ function Shipping(props) {
       titleNav: lang.airCargoShipping,
     },
   ];
-  const handleTabChange = (index, titleNav) => {
-    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+  const handleTabChange = (index) => {
+    const targetId = `anchor${index + 1}`;
     const targetElement = document.getElementById(targetId);
     const offset = 100;
 
@@ -94,7 +94,8 @@ function Shipping(props) {
             <div
               className={`${styles.shipping_box_item} background-dark observe fade-in`}
               key={index}
-              id={item.title.toLowerCase().replace(/\s+/g, '-')}
+              // id={item.title.toLowerCase().replace(/\s+/g, '-')}
+              id={`anchor${index + 1}`}
             >
               <div
                 className={`${styles.shipping_box_item_shape} shape-before`}

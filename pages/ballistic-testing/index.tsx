@@ -80,8 +80,9 @@ function Testing(props) {
     },
   ];
 
-  const handleTabChange = (index, titleNav) => {
-    const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+  const handleTabChange = (index) => {
+    // const targetId = titleNav.toLowerCase().replace(/\s+/g, '-');
+    const targetId = `anchor${index + 1}`;
     const targetElement = document.getElementById(targetId);
     const offset = 100;
 
@@ -152,7 +153,7 @@ function Testing(props) {
 
         <section
           className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
-          id="ballistic-certifications"
+          id="anchor1"
         >
           {props.pageData?.section1Title ? (
             <h2 className={`${styles.testing_title} block-reveal observe`}>
@@ -345,7 +346,7 @@ function Testing(props) {
         </section>
         <section
           className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
-          id="material-testing"
+          id="anchor2"
         >
           {props.pageData?.section2Title ? (
             <h2 className={`${styles.testing_title} block-reveal observe`}>
@@ -511,7 +512,7 @@ function Testing(props) {
 
         <section
           className={`${styles.testing_section1} ${styles.testing_container_small} container_small`}
-          id="live-fire-testing"
+          id="anchor3"
         >
           {props.pageData?.section3Title ? (
             <h2 className={`${styles.testing_title} block-reveal observe`}>
