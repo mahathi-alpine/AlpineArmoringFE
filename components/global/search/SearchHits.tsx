@@ -7,6 +7,25 @@ function SearchHits({ searchState, searchResults }) {
 
   const validQuery = searchState.query?.length >= 1;
 
+  // Function to get the correct URL path based on category and language
+  function getLocalizedPath(category, slug) {
+    if (!category || !slug) return '/';
+
+    // Use localized URL paths from the language file
+    switch (category) {
+      case 'available-now':
+        return `${'/' + lang.availableNowURL || '/available-now'}/${slug}`;
+      case 'vehicles-we-armor':
+        return `${lang.vehiclesWeArmorURL || '/vehicles-we-armor'}/${slug}`;
+      case 'news':
+        return `${lang.newsURL || '/news'}/${slug}`;
+      case 'blogs':
+        return `${lang.blogsURL || '/blog'}/${slug}`;
+      default:
+        return `/${slug}`;
+    }
+  }
+
   function formatString(input) {
     const words = input.split('-');
 
@@ -38,9 +57,7 @@ function SearchHits({ searchState, searchResults }) {
                 <span>{hit.title}</span>
               </a>
             ) : (
-              <Link
-                href={`${hit.category && ['available-now', 'vehicles-we-armor', 'news'].includes(hit.category) ? `/${hit.category}` : ''}/${hit.slug}`}
-              >
+              <Link href={getLocalizedPath(hit.category, hit.slug)}>
                 <span className="search_categories">
                   {formatString(hit.category)}:
                 </span>
