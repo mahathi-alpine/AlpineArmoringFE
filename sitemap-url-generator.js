@@ -120,19 +120,25 @@ function generateVehicleUrls() {
 
   const spanishUrls = urls.map((url) => ({
     loc: url.loc
-      .replace('/vehicles-we-armor', '/es/vehiculos-blindados')
+      .replace('/vehicles-we-armor', '/es/vehiculos-que-blindamos')
       .replace(
         '/type/armored-cash-in-transit-cit',
-        '/tipo/unidades-blindadas-cit'
+        '/tipo/transporte-blindado-valores-cit'
       )
-      .replace('/type/armored-law-enforcement', '/tipo/vehiculos-policiales')
-      .replace('/type/armored-pickup-trucks', '/tipo/pickups-blindadas')
+      .replace(
+        '/type/armored-law-enforcement',
+        '/tipo/fuerzas-del-orden-blindadas'
+      )
+      .replace('/type/armored-pickup-trucks', '/tipo/camionetas-blindadas')
       .replace('/type/armored-sedans', '/tipo/sedanes-blindados')
-      .replace('/type/armored-specialty-vehicles', '/tipo/vehiculos-especiales')
+      .replace(
+        '/type/armored-specialty-vehicles',
+        '/tipo/vehiculos-blindados-especiales'
+      )
       .replace('/type/armored-suvs', '/tipo/suv-blindados')
       .replace(
         '/type/armored-vans-and-buses',
-        '/tipo/vans-y-autobuses-blindados'
+        '/tipo/furgonetas-y-autobuses-blindados'
       ),
     priority: url.priority,
     changefreq: url.changefreq,

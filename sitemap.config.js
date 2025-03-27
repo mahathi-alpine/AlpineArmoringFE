@@ -126,8 +126,103 @@ const additionalUrls = {
       changefreq: 'monthly',
     },
     {
+      loc: '/blog',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/disponible-ahora',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/politica-de-privacidad',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/tabla-balistica',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/preguntas-frecuentes',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
       loc: '/es/hacerca-de-nosotros',
       priority: '0.7',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/envio-y-logistica',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/ubicaciones-que-servimos',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/fabricacion',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/autora/laila-asbergs',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/autora/dan-diana',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/todas-las-descargas',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/contacto',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/medios/videos',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/medios/ferias-comerciales',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/medios',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/vehiculos-que-blindamos',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/pruebas-balisticas',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/conviertase-en-distribuidor',
+      priority: '0.5',
+      changefreq: 'monthly',
+    },
+    {
+      loc: '/es/diseno-e-ingenieria',
+      priority: '0.5',
       changefreq: 'monthly',
     },
   ],
@@ -159,7 +254,7 @@ const config = {
       priority: '0.8',
       changefreq: 'monthly',
       translations: {
-        es: '/es/vehiculos-blindados/:slug',
+        es: '/es/vehiculos-que-blindamos/:slug',
       },
     },
     blogs: {
@@ -177,7 +272,7 @@ const config = {
       priority: '0.7',
       changefreq: 'weekly',
       translations: {
-        es: '/es/blogs/:slug',
+        es: '/es/blog/:slug',
       },
     },
     articles: {
@@ -186,7 +281,7 @@ const config = {
       priority: '0.5',
       changefreq: 'monthly',
       translations: {
-        es: '/es/locationes/:slug',
+        es: '/es/ubicaciones-que-servimos/:slug',
       },
     },
     rentalInventories: {
@@ -195,12 +290,12 @@ const config = {
       priority: '0.5',
       changefreq: 'weekly',
       translations: {
-        es: '/es/rentales/:slug',
+        es: '/es/vehiculos-de-renta/:slug',
       },
       filter: {
         categories: {
           slug: {
-            $eq: 'armored-rental',
+            $in: ['armored-rental', 'alquiler-blindados'],
           },
         },
       },
@@ -211,12 +306,15 @@ const config = {
       priority: '0.5',
       changefreq: 'monthly',
       translations: {
-        es: '/es/vehiculos-blindados/tipo/:slug',
+        es: '/es/vehiculos-que-blindamos/tipo/:slug',
       },
       excludeSlugs: [
         'special-of-the-month',
         'armored-rental',
         'armored-pre-owned',
+        'especial-del-mes',
+        'alquiler-blindados',
+        'blindados-pre-usados',
       ],
     },
     categoriesInventory: {
@@ -227,7 +325,12 @@ const config = {
       translations: {
         es: '/es/disponible-ahora/tipo/:slug',
       },
-      excludeSlugs: ['armored-cash-in-transit-cit', 'armored-vans-and-buses'],
+      excludeSlugs: [
+        'armored-cash-in-transit-cit',
+        'armored-vans-and-buses',
+        'transporte-blindado-valores-cit',
+        'furgonetas-y-autobuses-blindados',
+      ],
     },
   },
 };

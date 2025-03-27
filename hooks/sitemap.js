@@ -18,7 +18,8 @@ async function fetchCollectionData(
 
     let categoryFilter = '';
     if (collectionConfig.filter?.categories) {
-      categoryFilter = '&filters[categories][slug][$eq]=armored-rental';
+      categoryFilter =
+        '&filters[categories][slug][$in][]=armored-rental&filters[categories][slug][$in][]=alquiler-blindados';
     }
 
     let url;
