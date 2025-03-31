@@ -67,7 +67,7 @@ const routes = {
     collection: 'authors',
     paths: {
       en: '/author',
-      es: '/autore',
+      es: '/autora',
     },
   },
   inventory: {
