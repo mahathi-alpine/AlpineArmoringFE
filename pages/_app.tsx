@@ -1,12 +1,11 @@
 import '/styles/globals.scss';
-import Layout from '../components/Layout';
+import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import useLocale from 'hooks/useLocale';
 import Loader from 'components/global/loader/Loader';
-import { install } from 'resize-observer';
-import useLanguageSwitcher from 'hooks/useLanguageSwitcher';
 import CookieConsent from 'components/global/cookie-consent/CookieConsent';
 
 export default function App({ Component, pageProps }) {
@@ -14,7 +13,12 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [currentSeoData, setCurrentSeoData] = useState(pageProps.seoData);
   const [isLoading, setIsLoading] = useState(false);
-  const { currentLanguage } = useLanguageSwitcher();
+  const [currentLanguage, setCurrentLanguage] = useState('en');
+
+  // Update language when route changes
+  useEffect(() => {
+    setCurrentLanguage(router.locale);
+  }, [router.locale]);
 
   // Update SEO data when pageProps changes (including after locale changes)
   useEffect(() => {
@@ -64,17 +68,19 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     document.documentElement.lang = currentLanguage || 'en-us';
 
-    if (currentLanguage && currentLanguage !== 'en') {
-      const script = document.createElement('script');
-      script.src =
-        '//translate.google.com/translate_a/element.js?cb=TranslateInit';
-      script.async = true;
-      script.onload = () => {
-        window.TranslateInit = function () {
-          new window.google.translate.TranslateElement();
-        };
-      };
-      document.body.appendChild(script);
+    // Add language class to body
+    const bodyElement = document.body;
+    // Remove any existing language classes
+    const languageClasses = Array.from(bodyElement.classList).filter((cls) =>
+      cls.startsWith('lang-')
+    );
+    languageClasses.forEach((cls) => bodyElement.classList.remove(cls));
+
+    // Add new language class
+    if (currentLanguage) {
+      bodyElement.classList.add(`lang-${currentLanguage}`);
+    } else {
+      bodyElement.classList.add('lang-en');
     }
   }, [currentLanguage]);
 

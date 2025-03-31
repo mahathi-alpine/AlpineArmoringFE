@@ -1,68 +1,121 @@
-import { NextPageContext } from 'next';
-import useLanguageSwitcher, {
-  LanguageDescriptor,
-} from 'hooks/useLanguageSwitcher';
+import { useRouter } from 'next/router';
 import styles from './LangSwitcher.module.scss';
-import React, { useCallback, useMemo } from 'react';
+import { routeTranslations } from 'hooks/routes';
 
-export type LanguageSwitcherProps = {
-  context?: NextPageContext;
-  className?: string;
-};
+export const LanguageSwitcher = ({ className }: { className?: string }) => {
+  const router = useRouter();
+  const { pathname, query, asPath } = router;
 
-export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
-  className = '',
-}) => {
-  const { currentLanguage, switchLanguage, languageConfig } =
-    useLanguageSwitcher();
+  const languages = router.locales.map((locale) => ({
+    code: locale,
+    label: locale.toUpperCase(),
+  }));
 
-  const handleLanguageSwitch = useCallback(
-    (lang: string) => (e: React.MouseEvent) => {
-      e.preventDefault();
-      switchLanguage(lang)();
-    },
-    [switchLanguage]
-  );
+  const currentLanguage =
+    languages.find((lang) => lang.code === router.locale) || languages[0];
 
-  const { currentLanguageDiv, otherLanguagesDiv, languageClass } =
-    useMemo(() => {
-      const current = languageConfig.languages.find(
-        (ld: LanguageDescriptor) => ld.name === currentLanguage
+  interface SlugMappings {
+    [key: string]: string;
+  }
+
+  async function getLocalizedSlugs(): Promise<SlugMappings> {
+    const pathname = router.pathname;
+    let apiUrl;
+
+    if (pathname.includes('vehicles-we-armor')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/vehicles-we-armors?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('news')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blog?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('available-now')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/inventories?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('author')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/author?pagination[limit]=-1&populate=localizations`;
+    }
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    const slugMappings = {};
+    if (data?.data) {
+      data.data.forEach((item) => {
+        if (item?.attributes) {
+          const enSlug = item.attributes.slug;
+          const esSlug =
+            item.attributes.localizations?.data?.[0]?.attributes?.slug;
+
+          if (enSlug && esSlug) {
+            slugMappings[enSlug] = esSlug;
+            slugMappings[esSlug] = enSlug;
+          }
+        }
+      });
+    }
+
+    return slugMappings;
+  }
+
+  const switchLanguage = async (langCode) => {
+    if (query.slug) {
+      const slugMappings = await getLocalizedSlugs();
+      const localizedSlug = slugMappings[query.slug as string] || query.slug;
+
+      const currentRoute = Object.entries(routeTranslations).find(
+        ([, paths]) => {
+          const pathToCheck = pathname.replace(/\/\[.*\]$/, '');
+          return Object.values(paths).some((path) => path === pathToCheck);
+        }
       );
-      const others = languageConfig.languages.filter(
-        (ld: LanguageDescriptor) => ld.name !== currentLanguage
-      );
-      const langClass = `langSwitcher_flag_${current?.title || 'default'}`;
 
-      return {
-        currentLanguageDiv: current,
-        otherLanguagesDiv: others,
-        languageClass: langClass,
-      };
-    }, [languageConfig, currentLanguage]);
+      if (currentRoute) {
+        const translatedBasePath = routeTranslations[currentRoute[0]][langCode];
+        const fullPath = `${translatedBasePath}/${localizedSlug}`;
+        await router.push(fullPath, undefined, { locale: langCode });
+      } else {
+        router.push(
+          {
+            pathname,
+            query: { ...query, slug: localizedSlug },
+          },
+          undefined,
+          { locale: langCode }
+        );
+      }
+    } else {
+      const currentRoute = Object.entries(routeTranslations).find(
+        ([, paths]) => {
+          const pathToCheck = asPath.replace(/^\/[a-z]{2}\//, '/');
+          return Object.values(paths).some((path) => pathToCheck === path);
+        }
+      );
+
+      if (currentRoute) {
+        const translatedPath = routeTranslations[currentRoute[0]][langCode];
+        await router.push(translatedPath, undefined, { locale: langCode });
+      } else {
+        await router.push(pathname, undefined, { locale: langCode });
+      }
+    }
+  };
 
   return (
-    <div className={`${className} ${styles.langSwitcher} notranslate`}>
-      <div className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}>
-        <span>{currentLanguageDiv?.title || 'EN'}</span>
-      </div>
+    <div className={`${className} ${styles.langSwitcher}`}>
+      <button
+        className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${currentLanguage.label}`]}`}
+      >
+        <span>{currentLanguage.label}</span>
+      </button>
 
       <ul className={styles.langSwitcher_wrap}>
-        {otherLanguagesDiv.map((ld: LanguageDescriptor) => {
-          const languageClass = `langSwitcher_flag_${ld.title}`;
-
-          return (
-            <li key={`l_s_${ld.name}`}>
-              <a
-                href="#"
-                onClick={handleLanguageSwitch(ld.name)}
-                className={`${styles.langSwitcher_flag} ${styles[languageClass]}`}
-              >
-                <span className={styles.langSwitcher_name}>{ld.title}</span>
-              </a>
-            </li>
-          );
-        })}
+        {languages.map((lang) => (
+          <li key={lang.code}>
+            <button
+              onClick={() => switchLanguage(lang.code)}
+              className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${lang.label}`]}`}
+            >
+              <span className={styles.langSwitcher_name}>{lang.label}</span>
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

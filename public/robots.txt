@@ -14,3 +14,4 @@ Disallow: /contact?names=*
 Disallow: /contact?source=become-a-dealer
 
 Sitemap: https://www.alpineco.com/sitemap.xml
+Sitemap: https://www.alpineco.com/es/sitemap.xml

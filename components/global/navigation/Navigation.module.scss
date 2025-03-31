@@ -11,12 +11,20 @@
       display: grid;
       grid-auto-flow: column;
       gap: 32px;
+
+      :global(.lang-es) & {
+        gap: 10px;
+      }
     }
     &_item {
       font-weight: var(--font-medium);
       position: relative;
-      font-size: clamp(0.8125rem, 0.6875rem + 0.1563vw, 0.875rem);
+      font-size: clamp(0.76875rem, 0.5563rem + 0.2656vw, 0.875rem);
       text-transform: uppercase;
+
+      :global(.lang-es) & {
+        letter-spacing: -0.8px;
+      }
 
       @include breakpoint(large) {
         padding: 8px 0;
@@ -84,6 +92,19 @@
         &:hover {
           transform: translateX(8px);
         }
+      }
+    }
+  }
+
+  @include breakpoint('huge') {
+    &_list {
+      :global(.lang-es) & {
+        gap: 32px;
+      }
+    }
+    &_item {
+      :global(.lang-es) & {
+        letter-spacing: 0px;
       }
     }
   }
