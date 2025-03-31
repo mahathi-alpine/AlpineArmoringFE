@@ -301,4 +301,6 @@ export default {
   otherOptionalEquipmentFor: 'Otros equipos opcionales para',
   make: 'marca',
   viewSomeCoolVideos: 'Ver videos interesantes',
+
+  isAvailableForRental: 'disponible para <span>ALQUILER</span>',
 };
