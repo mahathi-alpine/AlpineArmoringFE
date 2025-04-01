@@ -302,4 +302,9 @@ export default {
   make: 'marca',
   viewSomeCoolVideos: 'Ver videos interesantes',
   isAvailableForRental: 'disponible para <span>ALQUILER</span>',
+
+  soldFlag: 'Vendido',
+  comingSoonFlag: 'Próximamente',
+  preOwnedFlag: 'Seminuevos',
+  exportOnlyFlag: 'Solo exportación',
 };
