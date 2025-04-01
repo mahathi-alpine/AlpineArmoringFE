@@ -45,72 +45,6 @@ function VehicleWeArmor(props) {
     }
   }, [itemsToRender, vehiclesData]);
 
-  // const categoryOrderMap = new Map(
-  //   props.filters.type?.map((category) => [
-  //     category.attributes.title,
-  //     category.attributes.order,
-  //   ])
-  // );
-
-  // const vehiclesArray = vehiclesData?.sort((a, b) => {
-  //   // Correctly access the category order using the category title
-  //   const categoryOrderA = categoryOrderMap.get(
-  //     a.attributes.category.data?.attributes.title
-  //   );
-  //   const categoryOrderB = categoryOrderMap.get(
-  //     b.attributes.category.data?.attributes.title
-  //   );
-
-  //   // Compare by category order
-  //   if (categoryOrderA !== categoryOrderB) {
-  //     return Number(categoryOrderA) - Number(categoryOrderB);
-  //   }
-
-  //   // If categories are equal, compare by make title alphabetically
-  //   const makeOrderA = a.attributes.make
-  //     ? a.attributes.make.data?.attributes.title
-  //     : '';
-  //   const makeOrderB = b.attributes.make
-  //     ? b.attributes.make.data?.attributes.title
-  //     : '';
-  //   return makeOrderA?.localeCompare(makeOrderB);
-  // });
-
-  // const [currentPage, setCurrentPage] = useState(2);
-  // const [hasMore, setHasMore] = useState(true);
-  // const pageLimit = 30;
-
-  // const fetchMoreItems = async () => {
-  //   if (!hasMore) return;
-
-  //   const totalItems = props.vehicles?.meta?.pagination?.total || 0;
-
-  //   if (currentPage * pageLimit >= totalItems + pageLimit) return;
-
-  //   setLoading(true);
-  //   setCurrentPage(currentPage + 1);
-
-  //   const query = q ? `filters[slug][$contains]=${q}` : '';
-
-  //   // Fetch the next batch of items using the current page number
-  //   const vehicles = await getPageData({
-  //     route: 'vehicles-we-armors',
-  //     sort: 'category.order',
-  //     populate: 'featuredImage, category, make',
-  //     page: currentPage,
-  //     pageSize: pageLimit,
-  //     params: query,
-  //   });
-
-  //   if (Array.isArray(vehicles.data)) {
-  //     setVehiclesData((prevData) => [...prevData, ...vehicles.data]);
-  //   }
-
-  //   const itemsFetched = vehiclesData?.length + vehicles.data.length || 0;
-  //   setHasMore(itemsFetched < totalItems);
-  //   setLoading(false);
-  // };
-
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
@@ -143,14 +77,14 @@ function VehicleWeArmor(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
+          name: lang.home,
           item: 'https://www.alpineco.com/',
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Vehicles we armor',
-          item: `https://www.alpineco.com/vehicles-we-armor`,
+          name: lang.vehiclesWeArmor,
+          item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}`,
         },
       ],
     };
@@ -170,7 +104,8 @@ function VehicleWeArmor(props) {
       mainEntity: faqs.map((faq, index) => {
         const title =
           faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+        const text =
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',
@@ -207,9 +142,9 @@ function VehicleWeArmor(props) {
         <div
           className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
-          <Link href="/">Home</Link>
+          <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          Vehicles We Armor
+          {lang.vehiclesWeArmor}
         </div>
 
         {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
@@ -221,7 +156,7 @@ function VehicleWeArmor(props) {
         <div className={`${styles.listing_wrap} container`}>
           {vehiclesData?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
-              <h2>No Vehicles Found</h2>
+              <h2>{lang.noVehiclesFound}</h2>
             </div>
           ) : null}
 
@@ -249,7 +184,7 @@ function VehicleWeArmor(props) {
 
       {faqs?.length > 0 ? (
         <div className={`mt2`}>
-          <Accordion items={faqs} title="Frequently Asked Questions" />
+          <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
         </div>
       ) : null}
 

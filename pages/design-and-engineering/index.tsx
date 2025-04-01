@@ -274,7 +274,7 @@ const Design = (props) => {
                     className={`${styles.design_armor_read}`}
                     onClick={() => handleReadMore(item)}
                   >
-                    Read More
+                    {lang.readMore}
                   </div>
 
                   {item.image?.data ? (

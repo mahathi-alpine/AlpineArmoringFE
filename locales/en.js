@@ -299,6 +299,10 @@ export default {
   otherOptionalEquipmentFor: 'Other Optional Equipment for',
   make: 'make',
   viewSomeCoolVideos: 'View some cool videos',
-
   isAvailableForRental: 'is now available for <span>RENTAL</span>',
+
+  soldFlag: 'Sold',
+  comingSoonFlag: 'Coming Soon',
+  preOwnedFlag: 'Pre-Owned',
+  exportOnlyFlag: 'Export Only',
 };

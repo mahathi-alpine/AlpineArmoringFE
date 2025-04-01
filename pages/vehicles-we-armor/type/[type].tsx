@@ -82,7 +82,9 @@ function Inventory(props) {
       {!make && <span>{categoryTitle}</span>}
       {make && (
         <span>
-          <Link href={`/vehicles-we-armor/type/${categorySlug}`}>
+          <Link
+            href={`/${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`}
+          >
             {categoryTitle}
           </Link>
         </span>
@@ -100,20 +102,20 @@ function Inventory(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
+          name: lang.home,
           item: 'https://www.alpineco.com/',
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Vehicles we armor',
-          item: `https://www.alpineco.com/vehicles-we-armor`,
+          name: lang.vehiclesWeArmor,
+          item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: categoryTitle,
-          item: `https://www.alpineco.com/vehicles-we-armor/type/${categorySlug}`,
+          item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`,
         },
       ],
     };
@@ -125,7 +127,7 @@ function Inventory(props) {
         '@type': 'ListItem',
         position: 4,
         name: make,
-        item: `https://www.alpineco.com/vehicles-we-armor/type/${categorySlug}?make=${make}`,
+        item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}?make=${make}`,
       });
     }
 
@@ -145,7 +147,8 @@ function Inventory(props) {
       mainEntity: faqs.map((faq, index) => {
         const title =
           faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text = faq?.attributes?.text || faq?.text || 'No answer provided';
+        const text =
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',
@@ -181,9 +184,9 @@ function Inventory(props) {
         <div
           className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
         >
-          <Link href="/">Home</Link>
+          <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          <Link href="/vehicles-we-armor">Vehicles We Armor</Link>
+          <Link href="/{lang.vehiclesWeArmorURL}">{lang.vehiclesWeArmor}</Link>
           <span>&gt;</span>
           <span className={`b-breadcrumbs_current`}>
             {categoryTitleWithMake}
@@ -218,7 +221,7 @@ function Inventory(props) {
           {typeof categoryTitle === 'string'
             ? ' ' + categoryTitle.replace('Armored', '').trim()
             : ''}{' '}
-          We Armor
+          {lang.weArmor}
         </p>
 
         {props.filters?.type ? (
@@ -235,7 +238,9 @@ function Inventory(props) {
               ))}
             </div>
           ) : (
-            <div className={`${styles.listing_empty}`}>No Vehicles Found</div>
+            <div className={`${styles.listing_empty}`}>
+              {lang.noVehiclesFound}
+            </div>
           )}
         </div>
       </div>
@@ -250,7 +255,7 @@ function Inventory(props) {
 
       {faqs?.length > 0 ? (
         <div className={`mt2`}>
-          <Accordion items={faqs} title="Frequently Asked Questions" />
+          <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
         </div>
       ) : null}
 

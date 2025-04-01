@@ -60,11 +60,25 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
           <>
             {(() => {
               const flagClass = `inventory_item_label_${data.flag}`;
+              const getFlagTranslation = (flag: string) => {
+                const flagMap: Record<string, string> = {
+                  sold: 'soldFlag',
+                  'coming soon': 'comingSoonFlag',
+                  'pre-owned': 'preOwnedFlag',
+                  'export only': 'exportOnlyFlag',
+                };
+
+                const translationKey = flagMap[flag];
+                return translationKey && lang[translationKey]
+                  ? lang[translationKey]
+                  : flag;
+              };
+
               return (
                 <div
                   className={`${styles.inventory_item_label} ${styles[flagClass]}`}
                 >
-                  <span>{data.flag}</span>
+                  <span>{getFlagTranslation(data.flag)}</span>
                 </div>
               );
             })()}
