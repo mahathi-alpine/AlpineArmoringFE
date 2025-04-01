@@ -45,10 +45,26 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     if (!currentTypeSlug || !props.make) return props.make;
 
+    const localizedToEnglishMap = {
+      [lang.sedansURL]: 'armored-sedans',
+      [lang.suvsURL]: 'armored-suvs',
+      [lang.pickupTrucksURL]: 'armored-pickup-trucks',
+      [lang.vansURL]: 'armored-vans-and-buses',
+      [lang.lawEnforcementURL]: 'armored-law-enforcement',
+      [lang.citURL]: 'armored-cash-in-transit-cit',
+      [lang.specialtyURL]: 'armored-specialty-vehicles',
+      [lang.preOwnedURL]: 'armored-pre-owned',
+    };
+
+    const englishTypeSlug =
+      localizedToEnglishMap[currentTypeSlug] || currentTypeSlug;
+
     return props.make.filter((make) => {
       return make.attributes.vehicles_we_armors?.data.some((vehicleArmor) =>
         vehicleArmor.attributes.category?.data.some(
-          (item) => item.attributes?.slug === currentTypeSlug
+          (item) =>
+            item.attributes?.slug === englishTypeSlug ||
+            item.attributes?.slug === currentTypeSlug
         )
       );
     });
@@ -505,8 +521,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
                         );
 
                         // Conditional rendering based on inventory vehicles
-                        return item.attributes.inventory_vehicles?.data.length <
-                          1 ? (
+                        // Only check inventory length when on the Available Now page
+                        return baseUrl === '/' + lang.availableNowURL &&
+                          item.attributes.inventory_vehicles?.data.length <
+                            1 ? (
                           <span
                             className={`
                               ${styles.checkbox_link} 

@@ -83,7 +83,7 @@ function Inventory(props) {
       {make && (
         <span>
           <Link
-            href={`/${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`}
+            href={`${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`}
           >
             {categoryTitle}
           </Link>
@@ -109,13 +109,13 @@ function Inventory(props) {
           '@type': 'ListItem',
           position: 2,
           name: lang.vehiclesWeArmor,
-          item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}`,
+          item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: categoryTitle,
-          item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`,
+          item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`,
         },
       ],
     };
@@ -127,7 +127,7 @@ function Inventory(props) {
         '@type': 'ListItem',
         position: 4,
         name: make,
-        item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}?make=${make}`,
+        item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}?make=${make}`,
       });
     }
 
@@ -186,7 +186,9 @@ function Inventory(props) {
         >
           <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          <Link href="/{lang.vehiclesWeArmorURL}">{lang.vehiclesWeArmor}</Link>
+          <Link href={`${lang.vehiclesWeArmorURL}`}>
+            {lang.vehiclesWeArmor}
+          </Link>
           <span>&gt;</span>
           <span className={`b-breadcrumbs_current`}>
             {categoryTitleWithMake}
@@ -295,7 +297,7 @@ export async function getServerSideProps(context) {
     params: query,
     sort: 'order',
     pageSize: 100,
-    populate: 'featuredImage, make',
+    populate: 'featuredImage, make, category',
     locale,
   });
 
@@ -319,7 +321,7 @@ export async function getServerSideProps(context) {
       fields:
         'fields[0]=title&fields[1]=slug&fields[2]=bottomText&fields[3]=heading',
       populate:
-        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo.metaImage, seo.metaSocial, faqs_vehicles_we_armor',
+        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo.metaImage, seo.metaSocial, faqs_vehicles_we_armor, inventory_vehicles',
       locale,
     }).then((res) => res.data),
     getPageData({
@@ -327,7 +329,7 @@ export async function getServerSideProps(context) {
       sort: 'title',
       pageSize: 100,
       fields: 'fields[0]=title&fields[1]=slug',
-      populate: 'vehicles_we_armors.category',
+      populate: 'vehicles_we_armors.category, vehicles_we_armors',
     }).then((res) => res.data),
   ]);
 

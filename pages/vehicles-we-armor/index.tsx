@@ -84,7 +84,7 @@ function VehicleWeArmor(props) {
           '@type': 'ListItem',
           position: 2,
           name: lang.vehiclesWeArmor,
-          item: `https://www.alpineco.com/${lang.vehiclesWeArmorURL}`,
+          item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}`,
         },
       ],
     };
