@@ -383,7 +383,10 @@ export async function getServerSideProps({ params, locale }) {
   if (seoData) {
     seoData.thumbnail =
       data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
-    seoData.languageUrls = route.getIndexLanguageUrls(locale);
+    seoData.languageUrls = route.getLanguageUrls(
+      data?.data?.[0]?.attributes,
+      locale
+    );
   }
 
   if (!data || !data.data || data.data.length === 0) {

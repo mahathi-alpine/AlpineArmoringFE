@@ -11,9 +11,10 @@ const Seo = ({ props }) => {
     setSeoProps(props);
   }, [props]);
 
+  const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
-  // const languageUrls = seoProps?.languageUrls || {};
-
+  const languageUrls = seoProps?.languageUrls || {};
+  // console.log(languageUrls)
   // Default values
   const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
   const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
@@ -55,19 +56,19 @@ const Seo = ({ props }) => {
       <meta name="image" content={metaImgUrl} />
 
       {/* Hreflang tags */}
-      {/* <link
+      <link
         rel="alternate"
         hrefLang="x-default"
-        href={`${baseUrl}${languageUrls['en'] || '/'}`}
+        href={`${baseUrlDefault}${languageUrls['en'] || '/'}`}
       />
       {Object.entries(languageUrls).map(([locale, path]) => (
         <link
           key={locale}
           rel="alternate"
           hrefLang={locale}
-          href={`${baseUrl}${path}`}
+          href={`${baseUrlDefault}${path}`}
         />
-      ))} */}
+      ))}
 
       {/* Open Graph / Facebook */}
       <meta

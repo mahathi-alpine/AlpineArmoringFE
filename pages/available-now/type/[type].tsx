@@ -281,9 +281,43 @@ export async function getServerSideProps(context) {
     (item) => item.attributes.slug === context.query.type
   );
 
+  // All languages urls
+  let correctEnglishType;
+  let correctSpanishType;
+
+  if (locale === 'en') {
+    correctEnglishType = context.query.type;
+    correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
+  } else {
+    const types = route.types || {};
+
+    for (const [engType, translations] of Object.entries(types)) {
+      if (
+        translations &&
+        typeof translations === 'object' &&
+        'es' in translations &&
+        translations.es === context.query.type
+      ) {
+        correctEnglishType = engType;
+        break;
+      }
+    }
+
+    if (!correctEnglishType) {
+      correctEnglishType = englishType;
+    }
+
+    correctSpanishType = context.query.type;
+  }
+
+  const languageUrls = {
+    en: `${route.paths.en}/type/${correctEnglishType}`,
+    es: `/${locale === 'en' ? 'es' : locale}${route.paths.es}/tipo/${correctSpanishType}`,
+  };
+
   seoData = {
     ...(seoData?.attributes?.seo || {}),
-    languageUrls: route.getIndexLanguageUrls(locale),
+    languageUrls,
   };
 
   if (seoData) {
