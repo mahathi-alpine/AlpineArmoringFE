@@ -1,6 +1,6 @@
 import { getPageData } from 'hooks/api';
 import routes from 'routes';
-// import withLocaleRefetch from 'components/withLocaleRefetch';
+import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import useLocale from 'hooks/useLocale';
 import LocationsList from 'components/global/locations/Locations';
@@ -80,45 +80,44 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default Locations;
-// export default withLocaleRefetch(
-//   Locations,
-//   {
-//     pageData: async (locale) => {
-//       const data = await getPageData({
-//         route: routes.locationsWeServe.collection,
-//         populate: 'deep',
-//         locale,
-//       });
-//       return data.data?.attributes || null;
-//     },
-//     posts: async (locale) => {
-//       const pageSize = 100;
-//       let allPosts = [];
-//       let page = 1;
-//       let totalPages = 1;
+export default withLocaleRefetch(
+  Locations,
+  {
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.locationsWeServe.collection,
+        populate: 'deep',
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+    posts: async (locale) => {
+      const pageSize = 100;
+      let allPosts = [];
+      let page = 1;
+      let totalPages = 1;
 
-//       while (page <= totalPages) {
-//         const response = await getPageData({
-//           route: routes.locationsWeServe.collectionSingle,
-//           populate: 'flag, seo',
-//           sort: 'excerpt',
-//           fields:
-//             'fields[0]=excerpt&fields[1]=locale&fields[2]=order&fields[3]=region&fields[4]=slug&fields[5]=title&fields[6]=type',
-//           pageSize: pageSize,
-//           page: page,
-//           locale,
-//         });
-//         const posts = response?.data || [];
-//         allPosts = [...allPosts, ...posts];
-//         totalPages = response?.meta?.pagination?.pageCount || 1;
-//         page++;
-//       }
+      while (page <= totalPages) {
+        const response = await getPageData({
+          route: routes.locationsWeServe.collectionSingle,
+          populate: 'flag, seo',
+          sort: 'excerpt',
+          fields:
+            'fields[0]=excerpt&fields[1]=locale&fields[2]=order&fields[3]=region&fields[4]=slug&fields[5]=title&fields[6]=type',
+          pageSize: pageSize,
+          page: page,
+          locale,
+        });
+        const posts = response?.data || [];
+        allPosts = [...allPosts, ...posts];
+        totalPages = response?.meta?.pagination?.pageCount || 1;
+        page++;
+      }
 
-//       return allPosts;
-//     },
-//   },
-//   {
-//     routeName: 'locationsWeServe',
-//   }
-// );
+      return allPosts;
+    },
+  },
+  {
+    routeName: 'locationsWeServe',
+  }
+);
