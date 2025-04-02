@@ -171,9 +171,14 @@ export async function getStaticProps({ locale = 'en' }) {
 
   const currentPage = homepageData?.data?.attributes;
 
+  const languageUrls = {
+    en: `/`,
+    es: `/es`,
+  };
+
   const seoData = {
     ...(currentPage?.seo ?? {}),
-    languageUrls: route.getLanguageUrls(currentPage, locale),
+    languageUrls,
   };
 
   return {
