@@ -23,8 +23,47 @@ export default function withLocaleRefetch(
   return function WrappedComponent(props) {
     const router = useRouter();
     const isDefaultLanguage = router.locale === options.defaultLocale;
-    const [isRefetching, setIsRefetching] = useState(false);
-    const [refetchTime, setRefetchTime] = useState(null);
+    const [fetchedLocales, setFetchedLocales] = useState(() => {
+      // Initialize with the props locale
+      const locales = {};
+      if (props.locale) {
+        locales[props.locale] = true;
+      }
+      return locales;
+    });
+
+    // Store cached data for each locale
+    const [localeData, setLocaleData] = useState(() => {
+      // Initialize with the props locale data
+      const data = {};
+      if (props.locale) {
+        // Create initial entry for pageData and any other keys
+        const initialEntry = {};
+
+        if (typeof fetchConfig === 'function') {
+          // For single data source
+          initialEntry['pageData'] = props['pageData'];
+
+          // Include SEO data if enabled
+          if (options.includeSeo) {
+            initialEntry['seoData'] = props.seoData;
+          }
+        } else if (typeof fetchConfig === 'object') {
+          // For multiple data sources
+          Object.keys(fetchConfig).forEach((key) => {
+            initialEntry[key] = props[key];
+          });
+
+          // Include SEO data if enabled
+          if (options.includeSeo) {
+            initialEntry['seoData'] = props.seoData;
+          }
+        }
+
+        data[props.locale] = initialEntry;
+      }
+      return data;
+    });
 
     // Initialize state for each data key
     const [stateData, setStateData] = useState({});
@@ -54,33 +93,24 @@ export default function withLocaleRefetch(
       setStateData(initialData);
     }, []);
 
-    // Handle locale changes
+    // Handle locale changes and swap cached data
     useEffect(() => {
-      // Don't refetch if router isn't ready
+      // Don't do anything if router isn't ready
       if (!router.isReady) return;
 
-      // Don't refetch if we're on the same locale as the initial props
-      if (router.locale === props.locale) return;
+      // If we've already fetched this locale, just swap to the cached data
+      if (fetchedLocales[router.locale] && localeData[router.locale]) {
+        // Update stateData with the cached data for this locale
+        setStateData(localeData[router.locale]);
+        return;
+      }
 
       // Skip refetching for default locale if option is enabled
       if (options.onlyNonDefaultLocale && isDefaultLanguage) {
-        if (options.debug)
-          console.log(
-            `[LocaleRefetch] Skipping refetch for default locale: ${options.defaultLocale}`
-          );
         return;
       }
 
       const refetchData = async () => {
-        if (options.debug) {
-          console.log(
-            `[LocaleRefetch] Refetching data for locale: ${router.locale}`
-          );
-          console.time('localeRefetch');
-          setIsRefetching(true);
-        }
-
-        const startTime = performance.now();
         const newData = {};
 
         try {
@@ -111,44 +141,38 @@ export default function withLocaleRefetch(
             }
           }
 
-          // Update the state with all new data
-          setStateData((prevData) => ({
-            ...prevData,
-            ...newData,
+          // Update the state with new data
+          setStateData(newData);
+
+          // Cache the data for this locale
+          setLocaleData((prev) => ({
+            ...prev,
+            [router.locale]: newData,
           }));
 
-          const endTime = performance.now();
-
-          if (options.debug) {
-            console.timeEnd('localeRefetch');
-            console.log(
-              `[LocaleRefetch] Refetch took ${endTime - startTime}ms`
-            );
-            setRefetchTime(endTime - startTime);
-          }
+          // Update tracking of which locales we've fetched
+          setFetchedLocales((prev) => ({
+            ...prev,
+            [router.locale]: true,
+          }));
         } catch (error) {
           console.error('[LocaleRefetch] Error fetching data:', error);
-        } finally {
-          if (options.debug) {
-            setIsRefetching(false);
-          }
         }
       };
 
       refetchData();
-    }, [router.isReady, router.locale, props.locale, isDefaultLanguage]);
+    }, [
+      router.isReady,
+      router.locale,
+      fetchedLocales,
+      localeData,
+      isDefaultLanguage,
+    ]);
 
     // Create new props by combining original props with updated state data
     const updatedProps = {
       ...props,
       ...stateData,
-      // Debug info
-      __localeRefetch: {
-        isRefetching,
-        refetchTime,
-        currentLocale: router.locale,
-        initialLocale: props.locale,
-      },
     };
 
     return <Component {...updatedProps} />;

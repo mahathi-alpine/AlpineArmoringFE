@@ -47,15 +47,21 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 
   return {
-    props: { pageData, seoData },
+    props: { pageData, seoData, locale },
   };
 }
 
-export default withLocaleRefetch(Ballistic, async (locale) => {
-  const data = await getPageData({
-    route: routes.ballisticChart.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Ballistic,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.ballisticChart.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'ballisticChart',
+  }
+);
