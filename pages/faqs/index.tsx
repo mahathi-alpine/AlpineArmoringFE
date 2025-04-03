@@ -60,6 +60,7 @@ export async function getStaticProps({ locale = 'en' }) {
   let pageData = await getPageData({
     route: route.collection,
     populate: 'deep',
+    locale,
   });
   pageData = pageData?.data?.attributes || null;
 
@@ -67,6 +68,7 @@ export async function getStaticProps({ locale = 'en' }) {
     route: route.collectionSingle,
     populate: 'deep',
     sort: 'order',
+    locale,
   });
   faqs = faqs?.data || null;
 
