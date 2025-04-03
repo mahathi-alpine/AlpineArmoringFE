@@ -1,5 +1,15 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import { useRouter } from 'next/router';
+
+// Create request cache to prevent duplicate fetches
+const requestCache = new Map();
 
 // Create context
 const LanguageContext = createContext();
@@ -9,11 +19,14 @@ export const LanguageProvider = ({ children }) => {
   const { locale, events } = router;
   const [currentLocale, setCurrentLocale] = useState(locale);
   const [isChangingLanguage, setIsChangingLanguage] = useState(false);
+  const [pendingRequests, setPendingRequests] = useState(0);
 
   // Update current locale state when router locale changes
   useEffect(() => {
     if (locale !== currentLocale) {
       setCurrentLocale(locale);
+      // Clear cache when language changes
+      requestCache.clear();
     }
   }, [locale, currentLocale]);
 
@@ -40,14 +53,52 @@ export const LanguageProvider = ({ children }) => {
     };
   }, [events, currentLocale]);
 
-  const value = {
-    currentLocale,
-    isChangingLanguage,
-    // Add other language-related functionality here
-  };
+  // Fetch data with caching and deduplication
+  const fetchLocalizedData = useCallback(async (fetcher, cacheKey) => {
+    // Check if we already have this request in progress
+    if (requestCache.has(cacheKey)) {
+      return requestCache.get(cacheKey);
+    }
+
+    // Start a new request and cache the promise
+    setPendingRequests((prev) => prev + 1);
+    const promise = fetcher().finally(() => {
+      setPendingRequests((prev) => prev - 1);
+    });
+
+    requestCache.set(cacheKey, promise);
+
+    try {
+      // Await the result
+      const result = await promise;
+
+      // Keep successful results in cache briefly, but eventually remove them
+      // so they can be refetched if needed
+      setTimeout(() => {
+        requestCache.delete(cacheKey);
+      }, 30000); // Cache successful results for 30 seconds
+
+      return result;
+    } catch (error) {
+      // Remove failed requests from cache immediately
+      requestCache.delete(cacheKey);
+      throw error;
+    }
+  }, []);
+
+  // Memoize context value to prevent unnecessary rerenders
+  const contextValue = useMemo(
+    () => ({
+      currentLocale,
+      isChangingLanguage,
+      pendingRequests: pendingRequests > 0,
+      fetchLocalizedData,
+    }),
+    [currentLocale, isChangingLanguage, pendingRequests, fetchLocalizedData]
+  );
 
   return (
-    <LanguageContext.Provider value={value}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );
@@ -60,6 +111,56 @@ export const useLanguage = () => {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
+};
+
+// Custom hook to fetch localized data using the language context
+export const useLocalizedData = (initialData, fetcher, dependencies = []) => {
+  const { currentLocale, fetchLocalizedData } = useLanguage();
+  const [data, setData] = useState(initialData);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Create a stable cache key from the dependencies
+  const cacheKey = useMemo(
+    () => `${currentLocale}:${dependencies.join(',')}`,
+    [currentLocale, ...dependencies]
+  );
+
+  useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
+
+    const loadData = async () => {
+      try {
+        const newData = await fetchLocalizedData(
+          () => fetcher(currentLocale),
+          cacheKey
+        );
+
+        if (isMounted) {
+          setData(newData);
+          setError(null);
+        }
+      } catch (err) {
+        console.error('Error fetching localized data:', err);
+        if (isMounted) {
+          setError(err);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [cacheKey, currentLocale, fetchLocalizedData, fetcher]);
+
+  return { data, isLoading, error };
 };
 
 export default LanguageContext;
