@@ -27,12 +27,16 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
     if (pathname.includes('vehicles-we-armor')) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/vehicles-we-armors?pagination[limit]=-1&populate=localizations`;
-    } else if (pathname.includes('news')) {
-      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blog?pagination[limit]=-1&populate=localizations`;
     } else if (pathname.includes('available-now')) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/inventories?pagination[limit]=-1&populate=localizations`;
     } else if (pathname.includes('author')) {
-      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/author?pagination[limit]=-1&populate=localizations`;
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/authors?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('locations-we-serve')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/articles?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('blog')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blog-evergreens?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('news')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blogs?pagination[limit]=-1&populate=localizations`;
     }
 
     const response = await fetch(apiUrl);
