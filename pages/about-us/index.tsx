@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { getPageData } from 'hooks/api';
-import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import routes from 'routes';
 import styles from './About.module.scss';
@@ -240,11 +239,4 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(About, async (locale) => {
-  const data = await getPageData({
-    route: routes.about.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default About;

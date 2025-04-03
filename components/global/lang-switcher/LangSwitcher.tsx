@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 import styles from './LangSwitcher.module.scss';
 import { routeTranslations } from 'hooks/routes';
+import { useLanguage } from 'hooks/LanguageContext';
 
 export const LanguageSwitcher = ({ className }: { className?: string }) => {
   const router = useRouter();
   const { pathname, query, asPath } = router;
+  const { isChangingLanguage } = useLanguage();
 
   const languages = router.locales.map((locale) => ({
     code: locale,
@@ -100,7 +102,8 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
   return (
     <div className={`${className} ${styles.langSwitcher}`}>
       <button
-        className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${currentLanguage.label}`]}`}
+        className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${currentLanguage.label}`]} ${isChangingLanguage ? styles.loading : ''}`}
+        disabled={isChangingLanguage}
       >
         <span>{currentLanguage.label}</span>
       </button>
@@ -111,6 +114,7 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
             <button
               onClick={() => switchLanguage(lang.code)}
               className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${lang.label}`]}`}
+              disabled={isChangingLanguage}
             >
               <span className={styles.langSwitcher_name}>{lang.label}</span>
             </button>

@@ -1,7 +1,6 @@
 import { getPageData } from 'hooks/api';
 import routes from 'routes';
 import CustomMarkdown from 'components/CustomMarkdown';
-import withLocaleRefetch from 'components/withLocaleRefetch';
 
 function Privacy(props) {
   const text = props?.pageData?.text;
@@ -39,11 +38,4 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Privacy, async (locale) => {
-  const data = await getPageData({
-    route: routes.privacyPolicy.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default Privacy;
