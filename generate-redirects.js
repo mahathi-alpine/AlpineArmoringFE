@@ -10,57 +10,57 @@ async function fetchAllRedirects() {
   let allRedirects = [];
   let hasMorePages = true;
 
-  while (hasMorePages) {
-    const url = `${apiUrl}/api/redirects?pagination[page]=${currentPage}&pagination[pageSize]=100`;
+  try {
+    while (hasMorePages) {
+      const url = `${apiUrl}/api/redirects?pagination[page]=${currentPage}&pagination[pageSize]=100`;
 
-    try {
-      const response = await fetch(url);
+      try {
+        const response = await fetch(url, { timeout: 5000 }); // Add timeout to prevent long waits
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.data || data.data.length === 0) {
+          hasMorePages = false;
+          continue;
+        }
+
+        // Transform the data to the required format with validation
+        const transformedRedirects = data.data
+          .map((item) => {
+            if (!item?.attributes) {
+              return null;
+            }
+
+            const { from, to } = item.attributes;
+
+            if (!from || !to) {
+              return null;
+            }
+
+            return [from, to];
+          })
+          .filter((item) => item !== null); // Remove any invalid entries
+
+        allRedirects = [...allRedirects, ...transformedRedirects];
+
+        // Check if there are more pages
+        const { pagination } = data.meta;
+        hasMorePages = pagination.page < pagination.pageCount;
+        currentPage++;
+      } catch (error) {
+        console.warn(
+          `⚠️ Error fetching page ${currentPage} of redirects:`,
+          error.message
+        );
+        hasMorePages = false; // Stop trying on error
       }
-
-      const data = await response.json();
-
-      if (!data.data || data.data.length === 0) {
-        hasMorePages = false;
-        continue;
-      }
-
-      // Transform the data to the required format with validation
-      const transformedRedirects = data.data
-        .map((item) => {
-          if (!item?.attributes) {
-            return null;
-          }
-
-          const { from, to } = item.attributes;
-
-          if (!from || !to) {
-            return null;
-          }
-
-          return [from, to];
-        })
-        .filter((item) => item !== null); // Remove any invalid entries
-
-      allRedirects = [...allRedirects, ...transformedRedirects];
-
-      // Check if there are more pages
-      const { pagination } = data.meta;
-      hasMorePages = pagination.page < pagination.pageCount;
-      currentPage++;
-    } catch (error) {
-      console.error('❌ Error fetching redirects:', error);
-      process.exit(1);
     }
-  }
-
-  if (allRedirects.length === 0) {
-    console.error(
-      '⚠️ No valid redirects found! This might indicate a problem with the data structure or API response.'
-    );
-    process.exit(1);
+  } catch (error) {
+    console.warn('⚠️ Could not fetch redirects from API:', error.message);
   }
 
   return allRedirects;
@@ -68,21 +68,73 @@ async function fetchAllRedirects() {
 
 async function generateRedirectsFile() {
   try {
-    const redirects = await fetchAllRedirects();
+    let redirects = [];
+
+    try {
+      redirects = await fetchAllRedirects();
+    } catch (error) {
+      console.warn(
+        '⚠️ Error fetching redirects, using empty array as fallback'
+      );
+    }
+
+    // If we have a previous redirects file and no new redirects were fetched,
+    // try to use the existing file data as fallback
+    if (redirects.length === 0) {
+      const filePath = path.join(projectRoot, 'redirectUrls.ts');
+      if (fs.existsSync(filePath)) {
+        try {
+          console.log(
+            'ℹ️ No redirects fetched from API, using existing redirectUrls.ts as fallback'
+          );
+          // We're not loading the file here, just keeping the previous one
+          return; // Exit without overwriting the file
+        } catch (readError) {
+          console.warn(
+            '⚠️ Could not read existing redirects file, using empty array'
+          );
+        }
+      } else {
+        console.log(
+          'ℹ️ No redirects fetched and no existing file, creating empty redirects file'
+        );
+      }
+    }
 
     // Generate the TypeScript content
     const fileContent = `// THIS FILE IS AUTO-GENERATED - DO NOT EDIT
-    // Generated on: ${new Date().toISOString()}
+// Generated on: ${new Date().toISOString()}
 
-    export const redirectUrls: [string, string][] = ${JSON.stringify(redirects, null, 2)};`;
+export const redirectUrls: [string, string][] = ${JSON.stringify(redirects, null, 2)};`;
 
     // Write to file in project root
     const filePath = path.join(projectRoot, 'redirectUrls.ts');
 
     fs.writeFileSync(filePath, fileContent);
+    console.log(
+      `✅ Successfully generated redirects file with ${redirects.length} entries`
+    );
   } catch (error) {
-    console.error('❌ Error generating redirects file:', error);
-    process.exit(1);
+    console.error('⚠️ Error generating redirects file:', error.message);
+
+    // Create empty redirects file as fallback instead of exiting
+    const filePath = path.join(projectRoot, 'redirectUrls.ts');
+    const fallbackContent = `// THIS FILE IS AUTO-GENERATED - DO NOT EDIT
+// Generated on: ${new Date().toISOString()}
+// NOTICE: Generated as fallback due to API connection error
+
+export const redirectUrls: [string, string][] = [];`;
+
+    try {
+      fs.writeFileSync(filePath, fallbackContent);
+      console.log('ℹ️ Created fallback empty redirects file');
+    } catch (writeError) {
+      console.error(
+        '❌ Critical error: Could not create fallback redirects file:',
+        writeError.message
+      );
+      process.exit(1); // Only exit if we absolutely cannot create the file
+    }
   }
 }
 
