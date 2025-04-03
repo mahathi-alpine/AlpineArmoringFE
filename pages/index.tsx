@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
+import useAnimationObserver from 'hooks/useAnimationObserver';
 
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -73,31 +73,9 @@ function Home({ homepageData, categories }) {
   const posts = blogs.concat(news);
 
   // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  useAnimationObserver({
+    dependencies: [homepageData, categories],
+  });
 
   return (
     <>
