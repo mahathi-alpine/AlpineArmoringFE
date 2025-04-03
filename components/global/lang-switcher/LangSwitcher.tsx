@@ -1,8 +1,11 @@
 import { useRouter } from 'next/router';
 import styles from './LangSwitcher.module.scss';
 import { routeTranslations } from 'hooks/routes';
+import useLocale from 'hooks/useLocale';
+import routes from 'routes';
 
 export const LanguageSwitcher = ({ className }: { className?: string }) => {
+  const { lang } = useLocale();
   const router = useRouter();
   const { pathname, query, asPath } = router;
 
@@ -54,7 +57,69 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
     return slugMappings;
   }
 
+  // Helper to extract and preserve query parameters
+  const extractQueryParams = (path) => {
+    const [pathPart, queryPart] = path.split('?');
+    if (!queryPart) return { path: pathPart, queryString: '' };
+
+    return {
+      path: pathPart,
+      queryString: `?${queryPart}`,
+    };
+  };
+
   const switchLanguage = async (langCode) => {
+    const { path: cleanPath, queryString } = extractQueryParams(asPath);
+
+    const hasTypeParameter = cleanPath.includes(lang.type);
+
+    if (hasTypeParameter) {
+      const segments = cleanPath.split('/').filter((segment) => segment);
+
+      const isInventoryPage = segments.some((s) => s === lang.availableNowURL);
+      const isVehiclesWeArmorPage = segments.some(
+        (s) => s === lang.vehiclesWeArmorURL.replace(/^\//, '')
+      );
+
+      if (isInventoryPage || isVehiclesWeArmorPage) {
+        const routeKey = isInventoryPage ? 'inventory' : 'vehiclesWeArmor';
+        const routeConfig = routes[routeKey];
+
+        if (!routeConfig) return;
+
+        const typePathIndex = segments.findIndex(
+          (s) => s === routeConfig.typePath.en || s === routeConfig.typePath.es
+        );
+
+        if (typePathIndex === -1 || typePathIndex + 1 >= segments.length)
+          return;
+
+        const currentTypeValue = segments[typePathIndex + 1];
+
+        let typeKey = null;
+        for (const key in routeConfig.types) {
+          if (
+            routeConfig.types[key].en === currentTypeValue ||
+            routeConfig.types[key].es === currentTypeValue
+          ) {
+            typeKey = key;
+            break;
+          }
+        }
+
+        if (!typeKey) return;
+
+        const translatedBasePath = routeConfig.paths[langCode];
+        const translatedTypePath = routeConfig.typePath[langCode];
+        const translatedTypeValue = routeConfig.types[typeKey][langCode];
+
+        const newPath = `${translatedBasePath}/${translatedTypePath}/${translatedTypeValue}${queryString}`;
+
+        await router.push(newPath, undefined, { locale: langCode });
+        return;
+      }
+    }
+
     if (query.slug) {
       const slugMappings = await getLocalizedSlugs();
       const localizedSlug = slugMappings[query.slug as string] || query.slug;
@@ -68,7 +133,19 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
       if (currentRoute) {
         const translatedBasePath = routeTranslations[currentRoute[0]][langCode];
-        const fullPath = `${translatedBasePath}/${localizedSlug}`;
+        const queryParams = { ...query };
+        delete queryParams.slug;
+
+        let queryStr = '';
+        if (Object.keys(queryParams).length > 0) {
+          queryStr =
+            '?' +
+            new URLSearchParams(
+              queryParams as Record<string, string>
+            ).toString();
+        }
+
+        const fullPath = `${translatedBasePath}/${localizedSlug}${queryStr}`;
         await router.push(fullPath, undefined, { locale: langCode });
       } else {
         router.push(
@@ -83,16 +160,25 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
     } else {
       const currentRoute = Object.entries(routeTranslations).find(
         ([, paths]) => {
-          const pathToCheck = asPath.replace(/^\/[a-z]{2}\//, '/');
-          return Object.values(paths).some((path) => pathToCheck === path);
+          const pathToCheck = cleanPath.replace(/^\/[a-z]{2}\//, '/');
+          return Object.values(paths).some((path) => path === pathToCheck);
         }
       );
 
       if (currentRoute) {
         const translatedPath = routeTranslations[currentRoute[0]][langCode];
-        await router.push(translatedPath, undefined, { locale: langCode });
+        await router.push(`${translatedPath}${queryString}`, undefined, {
+          locale: langCode,
+        });
       } else {
-        await router.push(pathname, undefined, { locale: langCode });
+        await router.push(
+          {
+            pathname,
+            search: queryString,
+          },
+          undefined,
+          { locale: langCode }
+        );
       }
     }
   };
