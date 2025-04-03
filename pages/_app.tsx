@@ -1,5 +1,3 @@
-import { LanguageProvider } from '../hooks/LanguageContext';
-import LanguageChangeIndicator from '../components/LanguageChangeIndicator';
 import '/styles/globals.scss';
 import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
@@ -87,16 +85,15 @@ export default function App({ Component, pageProps }) {
   }, [currentLanguage]);
 
   return (
-    <LanguageProvider>
+    <>
       {currentSeoData && (
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
       )}
-      <LanguageChangeIndicator />
       <Layout>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
         <CookieConsent />
       </Layout>
-    </LanguageProvider>
+    </>
   );
 }
