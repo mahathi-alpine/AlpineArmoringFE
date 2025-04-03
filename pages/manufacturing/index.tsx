@@ -317,11 +317,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Manufacturing, async (locale) => {
-  const data = await getPageData({
-    route: routes.manufacturing.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Manufacturing,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.manufacturing.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'manufacturing',
+  }
+);

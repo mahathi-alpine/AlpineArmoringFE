@@ -180,11 +180,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Downloads, async (locale) => {
-  const data = await getPageData({
-    route: routes.allDownloads.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Downloads,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.allDownloads.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'allDownloads',
+  }
+);

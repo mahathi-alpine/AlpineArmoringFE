@@ -550,11 +550,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Design, async (locale) => {
-  const data = await getPageData({
-    route: routes.designAndEngineering.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Design,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.designAndEngineering.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'designAndEngineering',
+  }
+);

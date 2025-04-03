@@ -268,11 +268,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Shipping, async (locale) => {
-  const data = await getPageData({
-    route: routes.shippingAndLogistics.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Shipping,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.shippingAndLogistics.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'shippingAndLogistics',
+  }
+);

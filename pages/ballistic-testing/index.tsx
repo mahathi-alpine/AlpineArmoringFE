@@ -600,11 +600,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Testing, async (locale) => {
-  const data = await getPageData({
-    route: routes.ballisticTesting.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Testing,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.ballisticTesting.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'ballisticTesting',
+  }
+);

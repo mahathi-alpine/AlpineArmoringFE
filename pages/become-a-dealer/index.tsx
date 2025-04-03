@@ -47,11 +47,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Dealer, async (locale) => {
-  const data = await getPageData({
-    route: routes.becomeDealer.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Dealer,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.becomeDealer.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'becomeDealer',
+  }
+);
