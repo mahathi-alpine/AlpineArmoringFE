@@ -50,6 +50,6 @@ export default withLocaleRefetch(
     return data.data?.attributes || null;
   },
   {
-    routeName: 'privacy-policy',
+    routeName: 'privacyPolicy',
   }
 );
