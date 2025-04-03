@@ -240,11 +240,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(About, async (locale) => {
-  const data = await getPageData({
-    route: routes.about.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  About,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.about.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'about',
+  }
+);

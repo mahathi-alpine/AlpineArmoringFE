@@ -39,11 +39,17 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(Privacy, async (locale) => {
-  const data = await getPageData({
-    route: routes.privacyPolicy.collection,
-    populate: 'deep',
-    locale,
-  });
-  return data.data?.attributes || null;
-});
+export default withLocaleRefetch(
+  Privacy,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.privacyPolicy.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'privacy-policy',
+  }
+);
