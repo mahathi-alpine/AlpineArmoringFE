@@ -174,7 +174,9 @@ function InventoryVehicle(props) {
             <div className={`${styles.inventory_heading_title}`}>
               {data?.title ? (
                 <h1
-                  dangerouslySetInnerHTML={{ __html: `Rental ${data.title}` }}
+                  dangerouslySetInnerHTML={{
+                    __html: `${lang.rental} ${data.title}`,
+                  }}
                 ></h1>
               ) : null}
             </div>

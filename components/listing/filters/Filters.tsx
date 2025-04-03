@@ -28,24 +28,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [openFiltersClicked, setOpenFiltersClicked] = useState(false);
 
-  // Sorting function for filter items
-  const sortFilterItems = (items: any[]) => {
-    return items.sort((a, b) => {
-      const aHasInventory = a.attributes.inventory_vehicles?.data.length > 0;
-      const bHasInventory = b.attributes.inventory_vehicles?.data.length > 0;
-
-      // Items with inventory come first, then items without inventory
-      return aHasInventory === bHasInventory ? 0 : aHasInventory ? -1 : 1;
-    });
-  };
-
-  // Filter makes based on current type
-  const filterMakesByType = useMemo(() => {
-    const currentTypeSlug = router.query.type as string;
-
-    if (!currentTypeSlug || !props.make) return props.make;
-
-    const localizedToEnglishMap = {
+  // Create a mapping from localized slugs to English slugs
+  const localizedToEnglishMap = useMemo(
+    () => ({
       [lang.sedansURL]: 'armored-sedans',
       [lang.suvsURL]: 'armored-suvs',
       [lang.pickupTrucksURL]: 'armored-pickup-trucks',
@@ -54,43 +39,86 @@ const Filters = ({ props, plain }: FiltersProps) => {
       [lang.citURL]: 'armored-cash-in-transit-cit',
       [lang.specialtyURL]: 'armored-specialty-vehicles',
       [lang.preOwnedURL]: 'armored-pre-owned',
-    };
+    }),
+    [lang]
+  );
+
+  // Create a reverse mapping from English slugs to localized slugs
+  const englishToLocalizedMap = useMemo(
+    () =>
+      Object.entries(localizedToEnglishMap).reduce(
+        (acc, [localized, english]) => {
+          acc[english] = localized;
+          return acc;
+        },
+        {}
+      ),
+    [localizedToEnglishMap]
+  );
+
+  const sortFilterItems = (items: any[]) => {
+    return items.sort((a, b) => {
+      const aHasInventory = a.attributes.inventory_vehicles?.data.length > 0;
+      const bHasInventory = b.attributes.inventory_vehicles?.data.length > 0;
+
+      return aHasInventory === bHasInventory ? 0 : aHasInventory ? -1 : 1;
+    });
+  };
+
+  const filterMakesByType = useMemo(() => {
+    const currentTypeSlug = router.query.type as string;
+
+    if (!currentTypeSlug || !props.make) return props.make;
 
     const englishTypeSlug =
       localizedToEnglishMap[currentTypeSlug] || currentTypeSlug;
 
     return props.make.filter((make) => {
       return make.attributes.vehicles_we_armors?.data.some((vehicleArmor) =>
-        vehicleArmor.attributes.category?.data.some(
-          (item) =>
-            item.attributes?.slug === englishTypeSlug ||
-            item.attributes?.slug === currentTypeSlug
-        )
+        vehicleArmor.attributes.category?.data.some((item) => {
+          const catSlug = item.attributes?.slug;
+          return catSlug === englishTypeSlug || catSlug === currentTypeSlug;
+        })
       );
     });
-  }, [router.query.type, props.make]);
+  }, [router.query.type, props.make, lang, localizedToEnglishMap]);
 
   const filterTypesByMake = useMemo(() => {
     const currentMakeSlug = router.query.make as string;
 
     if (!currentMakeSlug || !props.type) return props.type;
 
-    // Case-insensitive comparison for finding make
     const selectedMake = props.make?.find(
       (make) =>
         make.attributes.slug.toLowerCase() === currentMakeSlug.toLowerCase()
     );
 
+    if (!selectedMake) return props.type;
+
     const categorySlugs = selectedMake?.attributes.vehicles_we_armors?.data
       .flatMap((vehicle) =>
-        vehicle.attributes.category?.data.map((cat) => cat.attributes?.slug)
+        vehicle.attributes.category?.data.map((cat) => {
+          const slug = cat.attributes?.slug;
+          return englishToLocalizedMap[slug] || slug;
+        })
       )
       .filter(Boolean);
 
-    return props.type.filter((type) =>
-      categorySlugs?.includes(type.attributes.slug)
-    );
-  }, [router.query.make, props.make, props.type]);
+    return props.type.filter((type) => {
+      const typeSlug = type.attributes.slug;
+      return (
+        categorySlugs?.includes(typeSlug) ||
+        (localizedToEnglishMap[typeSlug] &&
+          categorySlugs?.includes(localizedToEnglishMap[typeSlug]))
+      );
+    });
+  }, [
+    router.query.make,
+    props.make,
+    props.type,
+    englishToLocalizedMap,
+    localizedToEnglishMap,
+  ]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -105,17 +133,13 @@ const Filters = ({ props, plain }: FiltersProps) => {
     setFiltersOpen(false);
     document.body.classList.remove('no-scroll');
 
-    // Get clean base URL without any path parameters or query strings
     const cleanBaseUrl = getBaseUrl();
 
-    // For search, we only want the 'q' parameter, removing all others (type, make)
     const newQuery: { q?: string } = {};
 
     if (!query || query.trim().length === 0) {
-      // If search is empty, just go to base URL without any parameters
       router.push(cleanBaseUrl, undefined);
     } else {
-      // If we have a search query, use only that parameter
       newQuery.q = query;
 
       router.push(
@@ -152,12 +176,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const currentFilterMake = router.query.make;
 
-  // Get clean base URL without query parameters
   const getBaseUrl = () => {
     const pathParts = router.asPath.split('/');
-    // Take the first two parts (language and base route)
     const baseUrl = pathParts.slice(0, 2).join('/');
-    // Remove any query params
     return baseUrl.split('?')[0];
   };
 
@@ -179,7 +200,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
       const { [paramKey]: item } = router.query;
 
       if (paramKey === 'make' && !item) {
-        // Reset make filter title when make query is removed
         setActiveFilterTitles((prevTitles) => ({
           ...prevTitles,
           make: lang.select,
@@ -207,16 +227,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
       document.body.classList.remove('no-scroll');
     }
 
-    // Get clean base URL
     const cleanBaseUrl = getBaseUrl();
 
-    // Get current query parameters
     const newQuery = { ...router.query };
     delete newQuery['vehicles_we_armor'];
-    // Remove 'q' parameter when applying type or make filters
     delete newQuery.q;
 
-    // Skip if the parameter value hasn't changed (case-insensitive for make)
     const currentValue = newQuery[paramKey];
     const isSameValue =
       paramKey === 'make'
@@ -228,12 +244,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
       return;
     }
 
-    // Update the selected parameter - convert make parameter to lowercase
     newQuery[paramKey] = paramKey === 'make' ? item.toLowerCase() : item;
 
     setActiveFilterItem(window.innerWidth >= 768 ? 'default' : 'type');
 
-    // Update the filter title with case-insensitive comparison
     const selectedItem = props[paramKey].find((i) =>
       paramKey === 'make'
         ? i.attributes.slug.toLowerCase() === item.toLowerCase()
@@ -247,19 +261,13 @@ const Filters = ({ props, plain }: FiltersProps) => {
       }));
     }
 
-    // Rest of the function remains the same...
-    // Reset search query when applying filters
     setQuery('');
 
-    // Handle URL construction based on parameter type
     if (paramKey === 'type') {
-      // If it's a type filter, construct path-based URL
       const typeUrl = `${cleanBaseUrl}/${lang.type}/${item}`;
 
-      // Remove type from query since it's now in the path
       delete newQuery.type;
 
-      // Add remaining query parameters
       const queryString = new URLSearchParams();
       Object.entries(newQuery).forEach(([key, value]) => {
         if (typeof value === 'string') {
@@ -270,8 +278,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
       router.push(finalUrl, undefined, { scroll: false });
     } else {
-      // For other filters (make), use the query parameter approach
-      // Check if we already have a type in the path
       const pathParts = router.asPath.split('/');
 
       if (pathParts.length > 2 && pathParts[2] === lang.type) {
@@ -279,10 +285,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
         if (typeSlug) {
           const typeUrl = `${cleanBaseUrl}/${lang.type}/${typeSlug}`;
 
-          // Remove type from query since it's in the path
           delete newQuery.type;
 
-          // Add remaining query parameters
           const queryString = new URLSearchParams();
           Object.entries(newQuery).forEach(([key, value]) => {
             if (typeof value === 'string') {
@@ -296,7 +300,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
         }
       }
 
-      // If no type in path yet, just use query parameters
       const cleanQuery: Record<string, string> = {};
       Object.entries(newQuery).forEach(([key, value]) => {
         if (typeof value === 'string') {
@@ -315,22 +318,18 @@ const Filters = ({ props, plain }: FiltersProps) => {
     }
   };
 
-  // Improved constructFilterUrl function
   const constructFilterUrl = (
     baseUrl: string,
     slug: string,
     currentQuery: string
   ) => {
-    // Parse the current query string into URLSearchParams
     const queryParams = new URLSearchParams(currentQuery || '');
     queryParams.delete('vehicles_we_armor');
-    queryParams.delete('type'); // Remove type from query since it's in the path
-    queryParams.delete('q'); // Remove search query when applying type filters
+    queryParams.delete('type');
+    queryParams.delete('q');
 
-    // Create a clean query string
     const queryString = queryParams.toString();
 
-    // Return the properly formatted URL
     return `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
   };
 
@@ -375,7 +374,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     }
   }, [openFiltersClicked]);
 
-  // Check if we have either a make query or a search query
   const hasValidMakeQuery =
     (router.query.make && (!router.query.type || router.query.type)) ||
     Boolean(router.query.q);
@@ -484,7 +482,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                     <Link
                       href={baseUrl}
                       className={`${styles.checkbox_link} ${
-                        'available-now' === currentSlug
+                        lang.availableNowURL === currentSlug
                           ? styles.selected_filter
                           : ''
                       }`}
@@ -511,7 +509,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           return null;
                         }
 
-                        // Construct URL using the improved function
                         const currentQueryString =
                           router.asPath.split('?')[1] || '';
                         const newUrl = constructFilterUrl(
@@ -520,8 +517,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           currentQueryString
                         );
 
-                        // Conditional rendering based on inventory vehicles
-                        // Only check inventory length when on the Available Now page
                         return baseUrl === '/' + lang.availableNowURL &&
                           item.attributes.inventory_vehicles?.data.length <
                             1 ? (
@@ -566,7 +561,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
                               {baseUrl == lang.vehiclesWeArmorURL
                                 ? item.attributes.title
                                     .replace(/Armored/gi, '')
-                                    // .replace(new RegExp(lang.armored, 'gi'), '')
                                     .replace(/[Bb]lindado(s)?/g, '')
                                     .replace(/[Bb]lindada(s)?/g, '')
                                     .replace(/\s+s\b/, '')
