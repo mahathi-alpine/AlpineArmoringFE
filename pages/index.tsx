@@ -45,7 +45,6 @@ function Home({ homepageData, categories }) {
     return JSON.stringify(structuredData);
   };
 
-  // Your existing const declarations...
   const topBanner = {
     title: data?.topBannerTitle,
     description: data?.topBannerDescription,

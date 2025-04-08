@@ -46,18 +46,24 @@ function Testing(props) {
   };
 
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlip, setIsFlip] = useState(false);
+
   const handleFlip = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setIsFlipped(!isFlipped);
   };
 
-  const handleReadMore = (item) => {
+  const handleReadMore = (item, flip = false) => {
     setSelectedItem(item);
     setShowPopup(true);
+    if (flip) {
+      setIsFlip(flip);
+    }
   };
 
   useOutsideClick(popupRef, () => {
     setShowPopup(false);
+    setIsFlip(false);
   });
 
   // Animations
@@ -382,7 +388,7 @@ function Testing(props) {
 
                 <div
                   className={`${styles.testing_armor_read}`}
-                  onClick={() => handleReadMore(item)}
+                  onClick={() => handleReadMore(item, false)}
                 >
                   {lang.readMore}
                 </div>
@@ -424,7 +430,7 @@ function Testing(props) {
 
             {showPopup && (
               <div
-                className={`modal modal_vertical modal_flip ${showPopup ? 'modal_active' : ''} ${!selectedItem?.description ? 'modal_simple' : ''}`}
+                className={`modal modal_vertical ${isFlip ? 'modal_flip' : ''} ${showPopup ? 'modal_active' : ''} ${!selectedItem?.description ? 'modal_simple' : ''}`}
               >
                 <div className={`modal_inner`} ref={popupRef}>
                   <div className={`modal_box`}>
@@ -485,7 +491,10 @@ function Testing(props) {
 
                   <button
                     className={`modal_close`}
-                    onClick={() => setShowPopup(false)}
+                    onClick={() => {
+                      setShowPopup(false);
+                      setIsFlip(false);
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -552,7 +561,7 @@ function Testing(props) {
       {ballisticFlip.image.data[0].attributes.url ? (
         <div
           className={`${styles.testing_flip} container_small`}
-          onClick={() => handleReadMore(ballisticFlip)}
+          onClick={() => handleReadMore(ballisticFlip, true)}
         >
           <h3 className={`${styles.testing_flip_title}`}>
             {lang.seeBallisticPostcard}
