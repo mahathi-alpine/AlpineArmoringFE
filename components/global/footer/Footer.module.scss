@@ -103,6 +103,13 @@
       font-size: rem(20);
       font-weight: var(--font-medium);
       text-transform: uppercase;
+
+      @include breakpoint(medium) {
+        :global(.lang-es) & {
+          font-size: rem(18);
+          letter-spacing: -0.5px;
+        }
+      }
     }
     &_list {
       &_item {

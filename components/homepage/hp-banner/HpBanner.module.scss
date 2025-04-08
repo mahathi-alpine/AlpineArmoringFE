@@ -47,6 +47,12 @@
     padding: rem(32) rem(16) rem(72) rem(16);
     z-index: 3;
 
+    @include breakpoint(small) {
+      :global(.lang-es) & {
+        padding: rem(32) rem(10) rem(72) rem(10);
+      }
+    }
+
     @include breakpoint(medium) {
       padding: rem(32) rem(32) rem(72) rem(32);
     }
@@ -91,6 +97,10 @@
 
     @include breakpoint(small) {
       transition-delay: unset;
+
+      :global(.lang-es) & {
+        letter-spacing: -1px;
+      }
     }
 
     @include breakpoint(large) {

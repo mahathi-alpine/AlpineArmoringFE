@@ -68,15 +68,12 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     document.documentElement.lang = currentLanguage || 'en-us';
 
-    // Add language class to body
     const bodyElement = document.body;
-    // Remove any existing language classes
     const languageClasses = Array.from(bodyElement.classList).filter((cls) =>
       cls.startsWith('lang-')
     );
     languageClasses.forEach((cls) => bodyElement.classList.remove(cls));
 
-    // Add new language class
     if (currentLanguage) {
       bodyElement.classList.add(`lang-${currentLanguage}`);
     } else {
