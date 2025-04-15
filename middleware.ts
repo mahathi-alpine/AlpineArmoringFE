@@ -244,13 +244,13 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  const locale = request.nextUrl.locale || '';
+  // const locale = request.nextUrl.locale || '';
 
-  if (locale === 'es') {
-    const response = NextResponse.next();
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-    return response;
-  }
+  // if (locale === 'es') {
+  //   const response = NextResponse.next();
+  //   response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  //   return response;
+  // }
 
   if (redirectTo) {
     const url = request.nextUrl.clone();
