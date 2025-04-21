@@ -272,7 +272,11 @@ export function middleware(request: NextRequest) {
 
   // Check for blocked conditions
   const vehiclesWeArmorParam = searchParams.has('vehicles_we_armor');
-  const nxtPslugParam = searchParams.has('nxtPslug');
+  const nxtParam =
+    searchParams.has('nxtPslug') ||
+    searchParams.has('nxtPtype') ||
+    searchParams.has('type') ||
+    searchParams.has('slug');
   const contactPageParams = ['name', 'id', 'names'].some((param) =>
     searchParams.has(param)
   );
@@ -291,7 +295,7 @@ export function middleware(request: NextRequest) {
     searchParams.has('q') ||
     (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
-    nxtPslugParam ||
+    nxtParam ||
     hasChryslerMake
   ) {
     const response = NextResponse.next();
