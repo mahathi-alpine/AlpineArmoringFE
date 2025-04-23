@@ -59,14 +59,6 @@ const blockedPatterns: BlockedPattern[] = [
     exact: true,
   },
   {
-    pattern: '/blog/what-makes-an-armored-car-more-secure-than-other-cars',
-    exact: true,
-  },
-  {
-    pattern: '/blog/alpine-armorings-featured-vehicle-pit-bull',
-    exact: true,
-  },
-  {
     pattern: '/blog/alpine-armoring-featured-in-motortrend',
     exact: true,
   },
