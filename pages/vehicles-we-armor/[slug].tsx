@@ -143,6 +143,7 @@ function Vehicle(props) {
     slug: data?.slug,
     inventory: inventory,
     pdf: data?.pdf,
+    mediaPassword: data?.mediaPassword,
     protectionLevel: data?.protectionLevel,
     navItems: navItems,
     videoURL: data?.videoURL,

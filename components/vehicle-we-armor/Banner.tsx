@@ -88,6 +88,14 @@ const Banner = (props) => {
     setCurrentPdfUrl(url);
   };
 
+  const handlePdfClick = (mediaData, password = null) => {
+    const pdfData = {
+      ...mediaData,
+      password: password,
+    };
+    togglePDFPopup(pdfData);
+  };
+
   // Lightbox
   const [selectedTitle, setSelectedTitle] = useState('');
   const [contentType, setContentType] = useState('');
@@ -223,9 +231,44 @@ const Banner = (props) => {
             </div>
           ) : null}
 
+          {data.mediaPassword ? (
+            <div
+              onClick={() =>
+                handlePdfClick(
+                  data.mediaPassword.media.data.attributes,
+                  data.mediaPassword.password
+                )
+              }
+              className={`${styles.banner_pdf} ${styles.certificate_container}`}
+            >
+              <span className={`${styles.certificate_text}`}>
+                <span className={`${styles.view_certificates}`}>
+                  {data.mediaPassword.text}
+                </span>
+                <br />
+                Brochure
+              </span>
+              <div className={`${styles.icon}`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <circle cx="10" cy="10" r="8" stroke="currentColor"></circle>
+                  <path
+                    stroke="currentColor"
+                    d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+          ) : null}
+
           {data.pdf?.data ? (
             <div
-              onClick={() => togglePDFPopup(data.pdf.data.attributes)}
+              onClick={() => handlePdfClick(data.pdf.data.attributes)}
               className={`${styles.banner_pdf} ${styles.certificate_container}`}
             >
               <span className={`${styles.certificate_text}`}>
