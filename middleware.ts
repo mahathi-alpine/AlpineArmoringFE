@@ -22,60 +22,11 @@ const blockedPatterns: BlockedPattern[] = [
     exact: true,
   },
   {
-    pattern:
-      '/blog/armored-tesla-model-s-withstands-live-fire-ballistic-testing',
-    exact: true,
-  },
-  {
-    pattern: '/blog/armored-rolls-royce-cullinan',
-    exact: true,
-  },
-  {
-    pattern: '/blog/alpine-armoring-mastiff-featured-on-hot-cars-com',
-    exact: true,
-  },
-  {
-    pattern: '/blog/alpine-armoring-amg-armored-mercedes-benz-G63-suv',
-    exact: true,
-  },
-  {
-    pattern: '/blog/introducing-mastiff',
-    exact: true,
-  },
-  {
-    pattern: '/blog/alpine-ceo-featured-in-cbs-money-watch-article',
-    exact: true,
-  },
-  {
-    pattern: '/blog/richmond-police-department-unveils-pit-bull-vx',
-    exact: true,
-  },
-  {
-    pattern: '/blog/we-shot-our-bulletproof-tesla-here-s-what-happened',
-    exact: true,
-  },
-  {
     pattern: '/blog/alpine-armoring-featured-on-the-drive-com',
     exact: true,
   },
   {
-    pattern: '/blog/alpine-armoring-featured-in-motortrend',
-    exact: true,
-  },
-  {
-    pattern: '/blog/alpine-armoring-deatured-in-car-and-driver-magazine',
-    exact: true,
-  },
-  {
-    pattern: '/blog/alpine-pit-bull-featured-in-car-and-driver',
-    exact: true,
-  },
-  {
     pattern: '/blog/alpine-featured-on-hot-cars-com',
-    exact: true,
-  },
-  {
-    pattern: '/blog/alpine-donates-pit-bull-vx-to-tunisia',
     exact: true,
   },
 ];
