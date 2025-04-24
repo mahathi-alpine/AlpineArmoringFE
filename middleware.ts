@@ -214,10 +214,13 @@ export function middleware(request: NextRequest) {
   }
 
   // Check for blocked conditions
-  const vehiclesWeArmorParam = searchParams.has('vehicles_we_armor');
+  const vehiclesWeArmorParam =
+    searchParams.has('vehicles_we_armor') ||
+    searchParams.has('vehiculos_que_blindamos');
   const nxtParam =
     searchParams.has('nxtPslug') ||
     searchParams.has('nxtPtype') ||
+    searchParams.has('nextInternalLocale') ||
     searchParams.has('type') ||
     searchParams.has('slug');
   const contactPageParams = ['name', 'id', 'names'].some((param) =>

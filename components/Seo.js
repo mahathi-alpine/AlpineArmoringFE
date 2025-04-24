@@ -48,7 +48,6 @@ const Seo = ({ props }) => {
   // Construct full URLs
   const canonicalUrl = seoProps?.canonicalURL || `${baseUrl}${router.asPath}`;
   const ogUrl = `${baseUrl}${router.asPath}`;
-
   return (
     <Head>
       <title>{metaTitle}</title>
@@ -96,7 +95,10 @@ const Seo = ({ props }) => {
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
       {/* Canonical URL */}
-      <link rel="canonical" href={canonicalUrl} />
+      <link
+        rel="canonical"
+        href={canonicalUrl.replace(/\/\/*/g, '/').replace(/\/+$/, '')}
+      />
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
