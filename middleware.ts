@@ -69,64 +69,122 @@ function safeDecodeURIComponent(str: string): string {
   }
 }
 
-// Function to check if a locale/path combination is valid
-function isValidLocalePath(locale: string, pathname: string): boolean {
-  if (locale === 'en') return true;
+// Function to check if a locale/path combination is valid and get the correct path if needed
+function validateLocalePath(
+  locale: string,
+  pathname: string
+): { isValid: boolean; correctPath?: string } {
+  // Skip check for default locale (en)
+  if (locale === 'en') return { isValid: true };
 
-  // For non-default locales, check if the path is valid for the locale
+  // For mixed paths like /es/vehicles-we-armor/tipo/suvs-blindados
+  const pathSegments = pathname.split('/').filter((segment) => segment);
+  let hasInvalidSegment = false;
+  let correctPathSegments: string[] = [];
+  let matchedRouteConfig = null;
+
+  // First, check if the first path segment matches any English routes
   for (const [, routeConfig] of Object.entries(routes)) {
-    const englishPath = routeConfig.paths['en'];
-    const localizedPath = routeConfig.paths[locale];
+    const englishPath = routeConfig.paths['en'].replace(/^\//, ''); // Remove leading slash
+    const localizedPath = routeConfig.paths[locale].replace(/^\//, ''); // Remove leading slash
 
-    // If this is an exact match to an English route but in non-English locale
-    if (pathname === englishPath) {
-      return false; // English path in non-English locale is invalid
-    }
-
-    // Handle type paths for inventory and vehicles-we-armor routes
-    if (routeConfig.typePath && routeConfig.types) {
-      const englishTypePath = routeConfig.typePath['en'];
-      const localizedTypePath = routeConfig.typePath[locale];
-
-      if (
-        pathname.startsWith(`${englishPath}/${englishTypePath}/`) &&
-        englishTypePath !== localizedTypePath
-      ) {
-        return false; // English type path in non-English locale
-      }
-
-      // Check for English type slugs in localized paths
-      if (pathname.startsWith(`${localizedPath}/${localizedTypePath}/`)) {
-        const typeSlug = pathname
-          .split(`${localizedPath}/${localizedTypePath}/`)[1]
-          .split('/')[0];
-
-        // Check if this slug exists in the types with a different localized version
-        for (const [, typeValues] of Object.entries(routeConfig.types)) {
-          if (
-            typeValues['en'] === typeSlug &&
-            typeValues[locale] !== typeSlug
-          ) {
-            return false; // English type slug in localized path
-          }
-        }
-      }
+    // If the first segment matches an English path but we're in a non-English locale
+    if (pathSegments[0] === englishPath && englishPath !== localizedPath) {
+      hasInvalidSegment = true;
+      correctPathSegments.push(localizedPath);
+      matchedRouteConfig = routeConfig;
+      break;
     }
   }
 
-  return true;
+  // If we found a route with an English path in a non-English locale
+  if (hasInvalidSegment && matchedRouteConfig) {
+    // Process the rest of the path for the special cases (type paths)
+    if (
+      pathSegments.length > 1 &&
+      matchedRouteConfig.typePath &&
+      matchedRouteConfig.types
+    ) {
+      const englishTypePath = matchedRouteConfig.typePath['en'];
+      const localizedTypePath = matchedRouteConfig.typePath[locale];
+
+      // If the second segment matches the English type path
+      if (
+        pathSegments[1] === englishTypePath &&
+        englishTypePath !== localizedTypePath
+      ) {
+        correctPathSegments.push(localizedTypePath);
+
+        // Add the remaining segments (the type value and anything after)
+        if (pathSegments.length > 2) {
+          // For the type value, check if we need to translate it
+          const typeSlug = pathSegments[2];
+          let localizedTypeSlug = typeSlug;
+
+          // Try to find a matching type and get its localized version
+          for (const [, typeValues] of Object.entries(
+            matchedRouteConfig.types
+          )) {
+            if (typeValues['en'] === typeSlug) {
+              localizedTypeSlug = typeValues[locale] || typeSlug;
+              break;
+            }
+          }
+
+          correctPathSegments.push(localizedTypeSlug);
+
+          // Add any remaining segments
+          if (pathSegments.length > 3) {
+            correctPathSegments = [
+              ...correctPathSegments,
+              ...pathSegments.slice(3),
+            ];
+          }
+        }
+      } else {
+        // Just add the remaining segments as is
+        correctPathSegments = [
+          ...correctPathSegments,
+          ...pathSegments.slice(1),
+        ];
+      }
+    } else {
+      // Just add the remaining segments as is
+      correctPathSegments = [...correctPathSegments, ...pathSegments.slice(1)];
+    }
+
+    return {
+      isValid: false,
+      correctPath: '/' + correctPathSegments.join('/'),
+    };
+  }
+
+  return { isValid: true };
 }
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
   const locale = request.nextUrl.locale || 'en';
 
-  // Check for invalid locale/path combinations
-  if (!isValidLocalePath(locale, pathname)) {
-    // Redirect to the English version by removing the locale prefix
+  // Check for invalid locale/path combinations and get correct path if needed
+  const { isValid, correctPath } = validateLocalePath(locale, pathname);
+
+  if (!isValid) {
+    // If we have a correct path, redirect to it
+    if (correctPath) {
+      const url = request.nextUrl.clone();
+      url.pathname = correctPath;
+      // Keep the same locale since we're redirecting to the proper localized path
+
+      const response = NextResponse.redirect(url, { status: 307 });
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      return response;
+    }
+
+    // Fallback: redirect to English version if we don't have a correct path
     const url = request.nextUrl.clone();
-    url.pathname = pathname; // Keep the same path
-    url.locale = 'en'; // Switch to English locale
+    url.pathname = pathname;
+    url.locale = 'en';
 
     const response = NextResponse.redirect(url, { status: 307 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
