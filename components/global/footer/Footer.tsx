@@ -126,12 +126,12 @@ const Footer = (props) => {
                 </li>
                 <li>
                   <Link
-                    href="mailto:sales@alpineco.com"
+                    href="mailto:info@alpineco.com"
                     className={`${styles.footer_column_list_item}`}
                     rel="nofollow noreferrer noopener"
                   >
                     <MailIcon color="#2d2d27" />
-                    Sales@AlpineCo.com
+                    info@AlpineCo.com
                   </Link>
                 </li>
                 <li className={`${styles.footer_column_list_item}`}>

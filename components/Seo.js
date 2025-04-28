@@ -14,8 +14,7 @@ const Seo = ({ props }) => {
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
   const languageUrls = seoProps?.languageUrls || {};
-  // console.log(languageUrls)
-  // Default values
+
   const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
   const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
   const metaImgUrl =

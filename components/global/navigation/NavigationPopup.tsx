@@ -223,12 +223,12 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
               1.703.471.0002
             </Link>
             <Link
-              href="mailto:sales@alpineco.com"
+              href="mailto:info@alpineco.com"
               className={`${styles.navigationPopup_contact_item}`}
               rel="nofollow noreferrer noopener"
             >
               <MailIcon />
-              Sales@AlpineCo.com
+              info@AlpineCo.com
             </Link>
 
             <div className={`${styles.navigationPopup_contact_item}`}>

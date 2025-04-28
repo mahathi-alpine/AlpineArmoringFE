@@ -135,7 +135,7 @@ function generateVehicleUrls() {
         '/type/armored-specialty-vehicles',
         '/tipo/vehiculos-blindados-especiales'
       )
-      .replace('/type/armored-suvs', '/tipo/suv-blindados')
+      .replace('/type/armored-suvs', '/tipo/suvs-blindados')
       .replace(
         '/type/armored-vans-and-buses',
         '/tipo/furgonetas-y-autobuses-blindados'

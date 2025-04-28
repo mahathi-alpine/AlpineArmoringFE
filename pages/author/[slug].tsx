@@ -103,9 +103,11 @@ export async function getServerSideProps({ params, locale }) {
     locale,
   });
 
+  const currentPage = data?.data?.[0]?.attributes;
+
   const seoData = {
     ...(data?.data?.[0]?.attributes?.seo || {}),
-    languageUrls: route.getIndexLanguageUrls(locale),
+    languageUrls: route.getLanguageUrls(currentPage, locale),
   };
 
   if (!data || !data.data || data.data.length === 0) {
