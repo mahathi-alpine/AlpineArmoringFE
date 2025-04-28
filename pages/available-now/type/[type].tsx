@@ -349,13 +349,13 @@ export async function getServerSideProps(context) {
       );
 
       // Replace with 'for sale', first with 'armored' version, then without
-      let updatedDescription = seoData.metaDescription.replace(
+      let updatedDescription = seoData?.metaDescription?.replace(
         vehicleTypeRegexWithArmored,
         (match) => `${match} ${lang.forSale}`
       );
 
-      if (updatedDescription === seoData.metaDescription) {
-        updatedDescription = updatedDescription.replace(
+      if (updatedDescription === seoData?.metaDescription) {
+        updatedDescription = updatedDescription?.replace(
           vehicleTypeRegexWithoutArmored,
           (match) => `${match} ${lang.forSale}`
         );

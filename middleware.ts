@@ -162,9 +162,27 @@ function validateLocalePath(
   return { isValid: true };
 }
 
+// Function to check and correct 'suv-blindados' to 'suvs-blindados' in URLs
+function correctSuvBlindadosPath(pathname: string): string | null {
+  if (pathname.includes('/suv-blindados')) {
+    return pathname.replace('/suv-blindados', '/suvs-blindados');
+  }
+  return null;
+}
+
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
   const locale = request.nextUrl.locale || 'en';
+
+  // Check for and correct 'suv-blindados' to 'suvs-blindados' in URLs
+  const correctedSuvPath = correctSuvBlindadosPath(pathname);
+  if (correctedSuvPath) {
+    const url = request.nextUrl.clone();
+    url.pathname = correctedSuvPath;
+    const response = NextResponse.redirect(url, { status: 307 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
 
   // Check for invalid locale/path combinations and get correct path if needed
   const { isValid, correctPath } = validateLocalePath(locale, pathname);
