@@ -82,7 +82,6 @@
   }
 
   &_list {
-
     @include breakpoint(large) {
       margin-bottom: rem(60);
     }

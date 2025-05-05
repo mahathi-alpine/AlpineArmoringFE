@@ -53,12 +53,12 @@
       }
 
       &_excerpt {
-        font-size: rem(13);  
+        font-size: rem(13);
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
-                line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
 
         @include breakpoint(large) {
