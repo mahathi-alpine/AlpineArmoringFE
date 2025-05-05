@@ -36,8 +36,11 @@ function CategoryPage(props) {
     // Get the content from the text component
     const content = textComponent.Content;
 
-    // Strip any markdown heading symbols
-    const cleanContent = content.replace(/^#+\s+/gm, '');
+    // Strip any markdown heading symbols, bold (**), and italic (_) formatting
+    const cleanContent = content
+      .replace(/^#+\s+/gm, '') // Remove heading markers
+      .replace(/\*\*/g, '') // Remove bold markers (**)
+      .replace(/_/g, ''); // Remove italic markers (_)
 
     // Split by sentence-ending punctuation (., !, ?)
     // This regex looks for ., ! or ? followed by a space or end of string
@@ -143,9 +146,11 @@ function CategoryPage(props) {
                       {postExcerpt && (
                         <p className={styles.categoryPage_list_item_excerpt}>
                           {postExcerpt}
-                          <span>Read More &gt;</span>
                         </p>
                       )}
+                      <p className={styles.categoryPage_list_item_excerpt_more}>
+                        Read More &gt;
+                      </p>
                     </Link>
                   </div>
                 );

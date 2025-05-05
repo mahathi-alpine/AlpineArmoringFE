@@ -73,14 +73,25 @@
       svg {
         margin-left: 8px;
       }
+
+      @include breakpoint(large) {
+        position: absolute;
+        bottom: rem(32);
+      }
     }
   }
 
   &_list {
+
+    @include breakpoint(large) {
+      margin-bottom: rem(60);
+    }
+
     &_item {
       position: relative;
       padding: 0 0 16px 18px;
       font-size: rem(14);
+      letter-spacing: -0.5px;
       transition: color 0.15s ease-in-out;
 
       &:hover {
