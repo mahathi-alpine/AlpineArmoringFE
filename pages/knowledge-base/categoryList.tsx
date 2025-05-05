@@ -44,7 +44,7 @@ function CategoryPage(props) {
     const sentences = cleanContent.split(/(?<=[.!?])\s+/);
 
     // Take first two sentences or all if less than two
-    const firstTwo = sentences.slice(0, 1);
+    const firstTwo = sentences.slice(0, 2);
 
     // Join them back and add ellipsis if there are more sentences
     let excerpt = firstTwo.join(' ');
@@ -109,7 +109,8 @@ function CategoryPage(props) {
         <div className={`container_small`}>
           <h1 className={`${styles.categoryPage_title} c-title mt2`}>
             Knowledge Base <span className={`large-only`}>|</span>{' '}
-            <strong>{category.title}</strong> <small>(19 articles)</small>
+            <strong>{category.title}</strong>{' '}
+            <small>({posts.length} articles)</small>
           </h1>
 
           <div className={`b-breadcrumbs`}>

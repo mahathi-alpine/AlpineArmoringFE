@@ -87,10 +87,6 @@
         color: var(--color-primary);
       }
 
-      @include breakpoint(large) {
-        font-size: clamp(0.875rem, 0.625rem + 0.3125vw, 1rem);
-      }
-
       &:last-child {
         padding-bottom: 0;
       }
