@@ -1,19 +1,23 @@
 .categoryPage {
   &_title {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    font-size: rem(24);
-    font-weight: var(--font-medium);
 
-    @include breakpoint(large) {
-      font-size: rem(32);
+    strong{
+      @include breakpoint(small) {
+        display: block;
+        margin-bottom: -6px;
+      }
     }
 
-    span {
-      margin-left: 7px;
+    small {
+      display: inline;
       color: var(--color-gray);
-      font-size: rem(20);
+      font-size: rem(16);
+      vertical-align: middle;
+
+      @include breakpoint(large) {
+        margin-left: 4px;
+        font-size: rem(20);
+      }
     }
   }
 
@@ -36,6 +40,10 @@
         box-shadow: 0 8px 24px rgba(200, 214, 229, 0.48);
       }
 
+      @include breakpoint(large) {
+        padding: rem(32);
+      }
+
       &_title {
         margin-bottom: rem(16);
         font-weight: var(--font-medium);
@@ -49,7 +57,13 @@
         font-size: rem(13);
 
         @include breakpoint(large) {
-          font-size: rem(15);
+          font-size: rem(14);
+        }
+
+        span{
+          display: block;
+          margin-top: 16px;
+          font-weight: var(--font-medium);
         }
       }
     }

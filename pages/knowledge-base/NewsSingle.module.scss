@@ -1,7 +1,7 @@
 .blogSingle {
   position: relative;
   overflow: hidden;
-  padding-top: rem(80);
+  padding-top: rem(40);
 
   @include breakpoint(large) {
     &_inner {
@@ -9,44 +9,40 @@
     }
   }
 
-  @include breakpoint(huge) {
-    padding-top: rem(100);
-  }
-
-  &:before {
-    position: absolute;
-    content: '';
-    left: 0;
-    right: 0;
-    top: 0;
-    background: var(--color-white);
-    height: 250px;
-    @include breakpoint(large) {
-      height: 450px;
-    }
-    @include breakpoint(huge) {
-      height: 550px;
-    }
-  }
-  &:after {
-    position: absolute;
-    content: '';
-    left: 0;
-    right: 0;
-    top: 250px;
-    background: var(--color-white);
-    height: 100px;
-    left: -100px;
-    right: -100px;
-    border-radius: 50%/0 0 100% 100%;
-    z-index: -1;
-    @include breakpoint(large) {
-      top: 450px;
-    }
-    @include breakpoint(huge) {
-      top: 550px;
-    }
-  }
+  // &:before {
+  //   position: absolute;
+  //   content: '';
+  //   left: 0;
+  //   right: 0;
+  //   top: 0;
+  //   background: var(--color-white);
+  //   height: 250px;
+  //   @include breakpoint(large) {
+  //     height: 450px;
+  //   }
+  //   @include breakpoint(huge) {
+  //     height: 550px;
+  //   }
+  // }
+  // &:after {
+  //   position: absolute;
+  //   content: '';
+  //   left: 0;
+  //   right: 0;
+  //   top: 250px;
+  //   background: var(--color-white);
+  //   height: 100px;
+  //   left: -100px;
+  //   right: -100px;
+  //   border-radius: 50%/0 0 100% 100%;
+  //   z-index: -1;
+  //   @include breakpoint(large) {
+  //     top: 450px;
+  //   }
+  //   @include breakpoint(huge) {
+  //     top: 550px;
+  //   }
+  // }
 
   &_title {
     position: relative;

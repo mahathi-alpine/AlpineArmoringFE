@@ -107,6 +107,11 @@ function CategoryPage(props) {
 
       <div className={styles.categoryPage}>
         <div className={`container_small`}>
+          <h1 className={`${styles.categoryPage_title} c-title mt2`}>
+            Knowledge Base <span className={`large-only`}>|</span>{' '}
+            <strong>{category.title}</strong> <small>(19 articles)</small>
+          </h1>
+
           <div className={`b-breadcrumbs`}>
             <Link href="/">{lang.home}</Link>
             <span>&gt;</span>
@@ -117,11 +122,7 @@ function CategoryPage(props) {
         </div>
 
         <div className={`container_extrasmall`}>
-          <h1 className={styles.categoryPage_title}>
-            {category.title} <span>(19 articles)</span>
-          </h1>
-
-          <div className={styles.categoryPage_list}>
+          <div className={`${styles.categoryPage_list} mt2`}>
             {posts.length > 0 ? (
               posts.map((post) => {
                 // Generate excerpt from dynamicZone if no explicit excerpt exists
@@ -141,6 +142,7 @@ function CategoryPage(props) {
                       {postExcerpt && (
                         <p className={styles.categoryPage_list_item_excerpt}>
                           {postExcerpt}
+                          <span>Read More &gt;</span>
                         </p>
                       )}
                     </Link>
