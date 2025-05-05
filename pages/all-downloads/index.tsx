@@ -51,7 +51,7 @@ function Downloads(props) {
           <div className={`${styles.downloads_column}`}>
             <div className={`${styles.downloads_group}`}>
               <h2 className={`${styles.downloads_group_title}`}>
-                {lang.OEMBrochures} – 2024
+                {lang.OEMBrochures}
               </h2>
               <ul>
                 {sortItems(props.pageData.OEMBrochures2024.data).map(

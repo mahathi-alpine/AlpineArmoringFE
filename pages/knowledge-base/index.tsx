@@ -54,15 +54,15 @@ function KnowledgeBase(props) {
 
   return (
     <>
+      <h1 className="c-title mt2">Knowledge Base</h1>
+
       {Array.isArray(posts) && posts.length > 0 ? (
         <div className={`${styles.knowledgeBase}`}>
           <div className={`container_small`}>
             <div className={`b-breadcrumbs`}>
               <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
-              <Link href={`/${lang.knowledgeBaseURL}`}>
-                {lang.knowledgeBase}
-              </Link>
+              {lang.knowledgeBase}
             </div>
           </div>
 
