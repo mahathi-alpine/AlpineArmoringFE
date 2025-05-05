@@ -10,27 +10,27 @@ const additionalUrls = {
     },
     {
       loc: '/news',
-      priority: '0.5',
+      priority: '0.7',
       changefreq: 'monthly',
     },
     {
       loc: '/blog',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
       loc: '/available-now',
-      priority: '0.5',
+      priority: '0.9',
       changefreq: 'monthly',
     },
     {
       loc: '/privacy-policy',
-      priority: '0.5',
+      priority: '0.1',
       changefreq: 'monthly',
     },
     {
       loc: '/ballistic-chart',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
@@ -40,22 +40,22 @@ const additionalUrls = {
     },
     {
       loc: '/about-us',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
       loc: '/shipping-and-logistics',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
       loc: '/locations-we-serve',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
       loc: '/manufacturing',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
@@ -75,32 +75,32 @@ const additionalUrls = {
     },
     {
       loc: '/contact',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
       loc: '/media/videos',
-      priority: '0.5',
+      priority: '0.7',
       changefreq: 'monthly',
     },
     {
       loc: '/media/trade-shows',
-      priority: '0.5',
+      priority: '0.7',
       changefreq: 'monthly',
     },
     {
       loc: '/media',
-      priority: '0.5',
+      priority: '0.7',
       changefreq: 'monthly',
     },
     {
       loc: '/vehicles-we-armor',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
       loc: '/ballistic-testing',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
     {
@@ -110,7 +110,7 @@ const additionalUrls = {
     },
     {
       loc: '/design-and-engineering',
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     },
   ],
