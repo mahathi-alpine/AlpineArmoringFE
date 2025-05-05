@@ -70,7 +70,8 @@ body {
 }
 
 .container,
-.container_small {
+.container_small,
+.container_extrasmall {
   padding: 0 rem(16);
   @include breakpoint(medium) {
     padding: 0 rem(32);
@@ -81,6 +82,10 @@ body {
 
     &_small {
       max-width: 1560px;
+    }
+
+    &_extrasmall{
+      max-width: 1024px;
     }
   }
 }

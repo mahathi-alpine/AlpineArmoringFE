@@ -221,6 +221,14 @@ const routes = {
     },
     types: vehicleTypes,
   },
+  knowledgeBase: {
+    collection: 'knowledge-base-page',
+    collectionSingle: 'knowledge-bases',
+    paths: {
+      en: '/knowledge-base',
+      es: '/base-de-conocimientos',
+    },
+  },
 };
 
 const utils = {
