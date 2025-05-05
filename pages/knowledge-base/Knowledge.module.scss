@@ -1,104 +1,105 @@
-.knowledgeBase{
-
-    &_container{
-        @include breakpoint(large) {
-            display: flex;
-            gap: 16px;
-        }
-
-        @include breakpoint(huge) {
-            gap: 32px;
-        }
+.knowledgeBase {
+  &_container {
+    @include breakpoint(large) {
+      display: flex;
+      gap: 16px;
     }
 
-    &_category{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        padding: rem(30) rem(16);
-        margin-bottom: 1.5rem;
-        background: var(--color-white);
-        border: 1px solid var(--color-grayDark);
-        border-radius: 1rem;
-        box-shadow: 0 0 32px rgba(0, 0, 0, .05);
-        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    @include breakpoint(huge) {
+      gap: 32px;
+    }
+  }
 
-        &:hover {
-            border-color: var(--color-primary);
-            box-shadow: 0 8px 24px rgba(200, 214, 229, .48);
-        }
+  &_category {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: rem(30) rem(16);
+    margin-bottom: 1.5rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-grayDark);
+    border-radius: 1rem;
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.05);
+    transition:
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
 
-        @include breakpoint(large) {
-            width: 50%;
-            padding: rem(32);
-        }
-
-        &_title{
-            margin-bottom: 1.5rem;
-            font-size: rem(20);
-            font-weight: var(--font-medium);
-
-            @include breakpoint(large) {
-                font-size: clamp(1.25rem, 1rem + 0.3125vw, 1.375rem);
-            }
-        }
-
-        &_count{
-            position: absolute;
-            top: 0;
-            right: rem(8);
-            background-color: var(--color-primary);
-            border-radius: 0 0 4px 4px;
-            color: #fff;
-            font-size: rem(13);
-            font-weight: var(--font-medium);
-            padding: rem(8);
-        }
-
-        &_all{
-            display: flex;
-            align-items: center;
-            margin-top: rem(40);
-            font-size: rem(13);
-            font-weight: var(--font-medium);
-            color: var(--color-primary);
-
-            svg{
-                margin-left: 8px;
-            }
-        }
+    &:hover {
+      border-color: var(--color-primary);
+      box-shadow: 0 8px 24px rgba(200, 214, 229, 0.48);
     }
 
-    &_list{
-        &_item{
-            position: relative;
-            padding: 0 0 16px 18px;
-            font-size: rem(14);
-            transition: color .15s ease-in-out;
-
-            &:hover {
-                color: var(--color-primary);
-            }
-
-            @include breakpoint(large) {
-                font-size: clamp(0.875rem, 0.625rem + 0.3125vw, 1rem);
-            }
-
-            &:last-child{
-                padding-bottom: 0;
-            }
-
-            &:before{
-                position: absolute;
-                content: '';
-                height: 8px;
-                width: 8px;
-                left: 0;
-                top: 5px;
-                transform: rotate(45deg);
-                border-style: solid;
-                border-width: 2px 2px 0 0;
-            }
-        }
+    @include breakpoint(large) {
+      width: 50%;
+      padding: rem(32);
     }
+
+    &_title {
+      margin-bottom: 1.5rem;
+      font-size: rem(20);
+      font-weight: var(--font-medium);
+
+      @include breakpoint(large) {
+        font-size: clamp(1.25rem, 1rem + 0.3125vw, 1.375rem);
+      }
+    }
+
+    &_count {
+      position: absolute;
+      top: 0;
+      right: rem(8);
+      background-color: var(--color-primary);
+      border-radius: 0 0 4px 4px;
+      color: #fff;
+      font-size: rem(13);
+      font-weight: var(--font-medium);
+      padding: rem(8);
+    }
+
+    &_all {
+      display: flex;
+      align-items: center;
+      margin-top: rem(40);
+      font-size: rem(13);
+      font-weight: var(--font-medium);
+      color: var(--color-primary);
+
+      svg {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &_list {
+    &_item {
+      position: relative;
+      padding: 0 0 16px 18px;
+      font-size: rem(14);
+      transition: color 0.15s ease-in-out;
+
+      &:hover {
+        color: var(--color-primary);
+      }
+
+      @include breakpoint(large) {
+        font-size: clamp(0.875rem, 0.625rem + 0.3125vw, 1rem);
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 8px;
+        width: 8px;
+        left: 0;
+        top: 5px;
+        transform: rotate(45deg);
+        border-style: solid;
+        border-width: 2px 2px 0 0;
+      }
+    }
+  }
 }
