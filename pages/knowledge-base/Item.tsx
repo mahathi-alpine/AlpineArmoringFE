@@ -13,7 +13,7 @@ function Item(props) {
 
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  const category = data.knowledge_base_category.data.attributes;
+  const category = data.knowledge_base_category.data?.attributes;
   const dynamicZone = data?.dynamicZone;
   // const faqsTitle = data?.faqsTitle;
   // const faqs = data?.faqs;
@@ -103,8 +103,12 @@ function Item(props) {
             <span>&gt;</span>
             <Link href={`/${lang.knowledgeBaseURL}`}>{lang.knowledgeBase}</Link>
             <span>&gt;</span>
-            <Link href={`${category.slug}`}>{category.title}</Link>
-            <span>&gt;</span>
+            {category && (
+              <>
+                <Link href={`${category.slug}`}>{category.title}</Link>
+                <span>&gt;</span>
+              </>
+            )}
             <span className={`b-breadcrumbs_current`}>{data?.title}</span>
           </div>
 

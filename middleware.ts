@@ -371,6 +371,7 @@ export function middleware(request: NextRequest) {
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
   if (
+    pathname.startsWith('/knowledge-base') ||
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
     shouldBlockBrand ||
