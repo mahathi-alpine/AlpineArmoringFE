@@ -1,7 +1,6 @@
 .categoryPage {
   &_title {
-
-    strong{
+    strong {
       @include breakpoint(small) {
         display: block;
         margin-bottom: -6px;
@@ -60,7 +59,7 @@
           font-size: rem(14);
         }
 
-        span{
+        span {
           display: block;
           margin-top: 16px;
           font-weight: var(--font-medium);
