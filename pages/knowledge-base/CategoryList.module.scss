@@ -36,9 +36,9 @@
 
       &:hover {
         border-color: var(--color-primary);
-        box-shadow: 0 5px 18px rgba(111,96,68,.48);
+        box-shadow: 0 5px 18px rgba(111, 96, 68, 0.48);
 
-        .categoryPage_list_item_excerpt_more{
+        .categoryPage_list_item_excerpt_more {
           color: var(--color-primary);
         }
       }
@@ -74,8 +74,7 @@
           margin-top: 16px;
           font-weight: var(--font-medium);
           font-size: rem(13);
-          transition:
-            color 0.25s ease-in-out;
+          transition: color 0.25s ease-in-out;
         }
       }
     }
