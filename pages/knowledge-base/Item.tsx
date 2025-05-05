@@ -13,7 +13,7 @@ function Item(props) {
 
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  const category = data.knowledge_base_category.data?.attributes;
+  const category = data?.knowledge_base_category?.data?.attributes;
   const dynamicZone = data?.dynamicZone;
   // const faqsTitle = data?.faqsTitle;
   // const faqs = data?.faqs;
