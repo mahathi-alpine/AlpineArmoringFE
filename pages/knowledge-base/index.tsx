@@ -78,11 +78,11 @@ function KnowledgeBase(props) {
                 </Link>
 
                 <div className={styles.knowledgeBase_category_count}>
-                  {props.posts.length} Articles
+                  {category.posts.length} Articles
                 </div>
 
                 <ul className={styles.knowledgeBase_list}>
-                  {category.posts.map((post: any) => (
+                  {category.posts.slice(0, 4).map((post: any) => (
                     <li
                       key={post.id}
                       className={styles.knowledgeBase_list_item}
