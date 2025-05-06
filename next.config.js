@@ -90,7 +90,5 @@ module.exports = {
   poweredByHeader: false,
   compress: true,
   swcMinify: true,
-  bundlePagesRouterDependencies: true,
-  serverExternalPackages: ['pdfjs-dist'],
   productionBrowserSourceMaps: true,
 };
