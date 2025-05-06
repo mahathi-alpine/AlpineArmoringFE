@@ -91,5 +91,6 @@ module.exports = {
   compress: true,
   swcMinify: true,
   bundlePagesRouterDependencies: true,
+  serverExternalPackages: ['pdfjs-dist'],
   productionBrowserSourceMaps: true,
 };
