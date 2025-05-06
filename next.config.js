@@ -82,6 +82,14 @@ module.exports = {
   },
   experimental: {
     largePageDataBytes: 800 * 1000,
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
   },
+  poweredByHeader: false,
+  compress: true,
+  swcMinify: true,
+  bundlePagesRouterDependencies: true,
   productionBrowserSourceMaps: true,
 };
