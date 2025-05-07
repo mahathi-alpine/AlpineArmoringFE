@@ -379,10 +379,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
     shouldBlockBrand ||
+    vehiclesWeArmorParam ||
     searchParams.has('type') ||
-    ((pathname.startsWith('/available-now') ||
-      pathname.startsWith('/disponible-ahora')) &&
-      vehiclesWeArmorParam) ||
     searchParams.has('q') ||
     (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
