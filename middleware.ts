@@ -355,19 +355,23 @@ export function middleware(request: NextRequest) {
   const vehiclesWeArmorParam =
     searchParams.has('vehicles_we_armor') ||
     searchParams.has('vehiculos_que_blindamos');
+
   const nxtParam =
     searchParams.has('nxtPslug') ||
     searchParams.has('nxtPtype') ||
-    searchParams.has('nextInternalLocale') ||
     searchParams.has('type') ||
-    searchParams.has('slug');
+    searchParams.has('slug') ||
+    searchParams.has('nextInternalLocale');
+
   const contactPageParams = ['name', 'id', 'names'].some((param) =>
     searchParams.has(param)
   );
+
   const isBrandBlockedPath =
     pathname.startsWith('/available-now/type/') ||
     pathname.startsWith('/vehicles-we-armor/inventory');
   const shouldBlockBrand = isBrandBlockedPath && searchParams.has('brand');
+
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
   if (
@@ -376,7 +380,9 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/vehicles-we-armor/inventory') ||
     shouldBlockBrand ||
     searchParams.has('type') ||
-    (pathname.startsWith('/available-now/type/') && vehiclesWeArmorParam) ||
+    ((pathname.startsWith('/available-now') ||
+      pathname.startsWith('/disponible-ahora')) &&
+      vehiclesWeArmorParam) ||
     searchParams.has('q') ||
     (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
