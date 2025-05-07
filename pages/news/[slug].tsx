@@ -384,6 +384,11 @@ export async function getServerSideProps({ params, locale }) {
 
   const seoData = {
     ...(currentPage?.seo ?? {}),
+    metaTitle: currentPage?.seo?.metaTitle || currentPage.title,
+    metaDescription:
+      currentPage?.seo?.metaDescription ||
+      currentPage.excerpt ||
+      'Alpine Armoring',
     thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
     languageUrls: route.getLanguageUrls(currentPage, locale),
   };

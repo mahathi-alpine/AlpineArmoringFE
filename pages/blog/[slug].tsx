@@ -379,15 +379,18 @@ export async function getServerSideProps({ params, locale }) {
     locale,
   });
 
-  const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-  if (seoData) {
-    seoData.thumbnail =
-      data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
-    seoData.languageUrls = route.getLanguageUrls(
-      data?.data?.[0]?.attributes,
-      locale
-    );
-  }
+  const currentPage = data?.data?.[0]?.attributes;
+
+  const seoData = {
+    ...(currentPage?.seo ?? {}),
+    metaTitle: currentPage?.seo?.metaTitle || currentPage.title,
+    metaDescription:
+      currentPage?.seo?.metaDescription ||
+      currentPage.excerpt ||
+      'Alpine Armoring',
+    thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
+    languageUrls: route.getLanguageUrls(currentPage, locale),
+  };
 
   if (!data || !data.data || data.data.length === 0) {
     return {
