@@ -367,21 +367,16 @@ export function middleware(request: NextRequest) {
     searchParams.has(param)
   );
 
-  const isBrandBlockedPath =
-    pathname.startsWith('/available-now/type/') ||
-    pathname.startsWith('/vehicles-we-armor/inventory');
-  const shouldBlockBrand = isBrandBlockedPath && searchParams.has('brand');
-
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
   if (
     pathname.startsWith('/knowledge-base') ||
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
-    shouldBlockBrand ||
     vehiclesWeArmorParam ||
     searchParams.has('type') ||
     searchParams.has('q') ||
+    searchParams.has('brand') ||
     (pathname === '/contact' && contactPageParams) ||
     isUrlBlocked(pathname, searchParams) ||
     nxtParam ||

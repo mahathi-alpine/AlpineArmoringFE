@@ -63,7 +63,10 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
   // Helper to extract and preserve query parameters
   const extractQueryParams = (path) => {
-    const [pathPart, queryPart] = path.split('?');
+    // Normalize the path first to remove any domain duplication
+    const normalizedPath = normalizeUrl(path);
+
+    const [pathPart, queryPart] = normalizedPath.split('?');
     if (!queryPart) return { path: pathPart, queryString: '' };
 
     return {
@@ -72,8 +75,24 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
     };
   };
 
+  const normalizePath = (path) => {
+    // Remove domain if present in the path
+    const domainRegex = new RegExp(
+      `^(https?://)?(www\\.)?${window.location.hostname.replace('.', '\\.')}`,
+      'i'
+    );
+    return path.replace(domainRegex, '');
+  };
+
+  const normalizeUrl = (url) => {
+    if (!url) return '';
+    // Remove any protocol and domain part if present
+    return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
+  };
+
   const switchLanguage = async (langCode) => {
-    const { path: cleanPath, queryString } = extractQueryParams(asPath);
+    const { path: rawPath, queryString } = extractQueryParams(asPath);
+    const cleanPath = normalizePath(rawPath);
 
     const hasTypeParameter = cleanPath.includes(lang.type);
 
@@ -113,11 +132,11 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
         if (!typeKey) return;
 
-        const translatedBasePath = routeConfig.paths[langCode];
+        const translatedBasePath = normalizeUrl(routeConfig.paths[langCode]);
         const translatedTypePath = routeConfig.typePath[langCode];
         const translatedTypeValue = routeConfig.types[typeKey][langCode];
 
-        const newPath = `${translatedBasePath}/${translatedTypePath}/${translatedTypeValue}${queryString}`;
+        const newPath = `${normalizeUrl(translatedBasePath)}/${translatedTypePath}/${translatedTypeValue}${queryString}`;
 
         await router.push(newPath, undefined, { locale: langCode });
         return;
@@ -136,7 +155,9 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       );
 
       if (currentRoute) {
-        const translatedBasePath = routeTranslations[currentRoute[0]][langCode];
+        const translatedBasePath = normalizeUrl(
+          routeTranslations[currentRoute[0]][langCode]
+        );
         const queryParams = { ...query };
         delete queryParams.slug;
 
@@ -149,7 +170,7 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
             ).toString();
         }
 
-        const fullPath = `${translatedBasePath}/${localizedSlug}${queryStr}`;
+        const fullPath = `${normalizeUrl(translatedBasePath)}/${localizedSlug}${queryStr}`;
         await router.push(fullPath, undefined, { locale: langCode });
       } else {
         router.push(
@@ -170,7 +191,9 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       );
 
       if (currentRoute) {
-        const translatedPath = routeTranslations[currentRoute[0]][langCode];
+        const translatedPath = normalizeUrl(
+          routeTranslations[currentRoute[0]][langCode]
+        );
         await router.push(`${translatedPath}${queryString}`, undefined, {
           locale: langCode,
         });

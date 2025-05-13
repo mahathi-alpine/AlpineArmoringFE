@@ -1,6 +1,12 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+
+const normalizeUrl = (url) => {
+  if (!url) return '';
+  // Remove any protocol and domain part if present
+  return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
+};
 
 const Seo = ({ props }) => {
   const router = useRouter();
@@ -45,8 +51,10 @@ const Seo = ({ props }) => {
     metaImgUrl;
 
   // Construct full URLs
-  const canonicalUrl = seoProps?.canonicalURL || `${baseUrl}${router.asPath}`;
-  const ogUrl = `${baseUrl}${router.asPath}`;
+  const canonicalUrl =
+    seoProps?.canonicalURL || `${baseUrl}${normalizeUrl(router.asPath)}`;
+  const ogUrl = `${baseUrl}${normalizeUrl(router.asPath)}`;
+
   return (
     <Head>
       <title>{metaTitle}</title>
@@ -57,14 +65,14 @@ const Seo = ({ props }) => {
       <link
         rel="alternate"
         hrefLang="x-default"
-        href={`${baseUrlDefault}${languageUrls['en'] || '/'}`}
+        href={`${baseUrlDefault}${normalizeUrl(languageUrls['en'] || '/')}`}
       />
       {Object.entries(languageUrls).map(([locale, path]) => (
         <link
           key={locale}
           rel="alternate"
           hrefLang={locale}
-          href={`${baseUrlDefault}${path}`}
+          href={`${baseUrlDefault}${normalizeUrl(path)}`}
         />
       ))}
 
@@ -94,10 +102,7 @@ const Seo = ({ props }) => {
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
       {/* Canonical URL */}
-      <link
-        rel="canonical"
-        href={canonicalUrl.replace(/\/\/*/g, '/').replace(/\/+$/, '')}
-      />
+      <link rel="canonical" href={canonicalUrl.replace(/([^:])\/+/g, '$1/')} />
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
