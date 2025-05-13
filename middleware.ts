@@ -69,11 +69,19 @@ function safeDecodeURIComponent(str: string): string {
   }
 }
 
+function normalizeUrl(url: string): string {
+  if (!url) return '';
+  // Remove any protocol and domain part if present
+  return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
+}
+
 // Function to check if a locale/path combination is valid and get the correct path if needed
 function validateLocalePath(
   locale: string,
   pathname: string
 ): { isValid: boolean; correctPath?: string } {
+  pathname = normalizeUrl(pathname);
+
   // Skip check for default locale (en)
   if (locale === 'en') return { isValid: true };
 
@@ -171,7 +179,11 @@ function correctSuvBlindadosPath(pathname: string): string | null {
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname, searchParams } = request.nextUrl;
+  const url = request.nextUrl.clone();
+  url.pathname = normalizeUrl(url.pathname);
+
+  const { pathname, searchParams } = url;
+
   const locale = request.nextUrl.locale || 'en';
 
   // Check for and correct 'suv-blindados' to 'suvs-blindados' in URLs
