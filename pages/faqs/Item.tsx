@@ -34,14 +34,14 @@ function Item(props) {
         {
           '@type': 'ListItem',
           position: 2,
-          name: lang.knowledgeBase,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.knowledgeBaseURL}`,
+          name: lang.footerFaqsTitle,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.faqsURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.knowledgeBaseURL}/${data?.slug}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.faqsURL}/${data?.slug}`,
         },
       ],
     };
@@ -101,7 +101,7 @@ function Item(props) {
           <div className={`b-breadcrumbs`}>
             <Link href="/">{lang.home}</Link>
             <span>&gt;</span>
-            <Link href={`/${lang.knowledgeBaseURL}`}>{lang.knowledgeBase}</Link>
+            <Link href={`${lang.faqsURL}`}>{lang.footerFaqsTitle}</Link>
             <span>&gt;</span>
             {category && (
               <>

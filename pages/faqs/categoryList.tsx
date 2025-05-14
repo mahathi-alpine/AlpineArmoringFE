@@ -73,14 +73,14 @@ function CategoryPage(props) {
         {
           '@type': 'ListItem',
           position: 2,
-          name: lang.knowledgeBase,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.knowledgeBaseURL}`,
+          name: lang.faq,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.faqsURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: category?.title || '',
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.knowledgeBaseURL}/${category?.slug}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.faqsURL}/${category?.slug}`,
         },
       ],
     };
@@ -94,13 +94,18 @@ function CategoryPage(props) {
   return (
     <>
       <Head>
-        <title>{`${category.title} - ${lang.knowledgeBase} | Alpine Armoring`}</title>
-        <meta
-          name="description"
-          content={
-            category.description || `${category.title} - ${lang.knowledgeBase}`
-          }
-        />
+        <title>
+          {props.seoData?.metaTitle ||
+            `${category.title} - ${lang.footerFaqsTitle} | Alpine Armoring`}
+        </title>
+        {/* {!props.seoData?.metaDescription && (
+          <meta
+            name="description"
+            content={
+              `${category.title} - ${lang.footerFaqsTitle}`
+            }
+          />
+        )} */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
@@ -111,15 +116,15 @@ function CategoryPage(props) {
       <div className={styles.categoryPage}>
         <div className={`container_small`}>
           <h1 className={`${styles.categoryPage_title} c-title mt2`}>
-            Knowledge Base <span className={`large-only`}>|</span>{' '}
-            <strong>{category.title}</strong>{' '}
+            {lang.footerFaqsTitle}
+            <strong>-{category.title}-</strong>
             <small>({posts.length} articles)</small>
           </h1>
 
           <div className={`b-breadcrumbs`}>
             <Link href="/">{lang.home}</Link>
             <span>&gt;</span>
-            <Link href={`/${lang.knowledgeBaseURL}`}>{lang.knowledgeBase}</Link>
+            <Link href={`${lang.faqsURL}`}>{lang.footerFaqsTitle}</Link>
             <span>&gt;</span>
             <span className={`b-breadcrumbs_current`}>{category.title}</span>
           </div>
@@ -137,7 +142,7 @@ function CategoryPage(props) {
                 return (
                   <div key={post.id} className={styles.categoryPage_list_item}>
                     <Link
-                      href={`/${lang.knowledgeBaseURL}/${post.attributes?.slug || ''}`}
+                      href={`${lang.faqsURL}/${post.attributes?.slug || ''}`}
                       className={styles.postLink}
                     >
                       <h2 className={styles.categoryPage_list_item_title}>
@@ -145,7 +150,7 @@ function CategoryPage(props) {
                       </h2>
                       {postExcerpt && (
                         <p className={styles.categoryPage_list_item_excerpt}>
-                          {postExcerpt}
+                          {post.attributes.shortDescription || postExcerpt}
                         </p>
                       )}
                       <p className={styles.categoryPage_list_item_excerpt_more}>

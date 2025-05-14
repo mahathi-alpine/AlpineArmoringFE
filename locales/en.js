@@ -304,6 +304,4 @@ export default {
   comingSoonFlag: 'Coming Soon',
   preOwnedFlag: 'Pre-Owned',
   exportOnlyFlag: 'Export Only',
-  knowledgeBase: 'Knowledge Base',
-  knowledgeBaseURL: 'knowledge-base',
 };

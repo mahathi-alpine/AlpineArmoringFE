@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /knowledge-base/
 Disallow: /stock/
 Disallow: /inventory/
 Disallow: /inventory

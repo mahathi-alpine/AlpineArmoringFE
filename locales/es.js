@@ -307,6 +307,4 @@ export default {
   comingSoonFlag: 'Próximamente',
   preOwnedFlag: 'Seminuevos',
   exportOnlyFlag: 'Solo exportación',
-  knowledgeBase: 'Base de Conocimientos',
-  knowledgeBaseURL: 'base-de-conocimientos',
 };

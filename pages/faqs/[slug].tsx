@@ -12,7 +12,7 @@ function BlogSingle(props) {
 }
 
 export async function getServerSideProps({ params, locale }) {
-  const route = routes.knowledgeBase;
+  const route = routes.faqs;
   const { slug } = params;
 
   // First, try to find a post with this slug

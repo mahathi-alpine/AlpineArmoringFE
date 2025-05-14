@@ -133,14 +133,6 @@ const routes = {
       es: '/fabricacion',
     },
   },
-  faqs: {
-    collection: 'faq',
-    collectionSingle: 'fa-qs',
-    paths: {
-      en: '/faqs',
-      es: '/preguntas-frecuentes',
-    },
-  },
   locationsWeServe: {
     collection: 'locations-we-serve-page',
     collectionSingle: 'articles',
@@ -221,12 +213,12 @@ const routes = {
     },
     types: vehicleTypes,
   },
-  knowledgeBase: {
-    collection: 'knowledge-base-page',
+  faqs: {
+    collection: 'faq',
     collectionSingle: 'knowledge-bases',
     paths: {
-      en: '/knowledge-base',
-      es: '/base-de-conocimientos',
+      en: '/faqs',
+      es: '/preguntas-frecuentes',
     },
   },
 };
