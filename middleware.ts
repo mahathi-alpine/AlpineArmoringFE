@@ -179,21 +179,31 @@ function correctSuvBlindadosPath(pathname: string): string | null {
 }
 
 export function middleware(request: NextRequest) {
+  console.log(`Middleware processing URL: ${request.nextUrl.pathname}`);
   const url = request.nextUrl.clone();
 
-  if (
-    request.nextUrl.pathname
-      .toLowerCase()
-      .includes('www.alpineco.com/www.alpineco.com') ||
-    request.nextUrl.pathname.toLowerCase().includes('alpineco.com/alpineco.com')
-  ) {
-    // Apply noindex and also normalize the URL for any redirects
-    const correctedPath = request.nextUrl.pathname.replace(
-      /^(.*?)(\/www\.alpineco\.com|\/alpineco\.com)(.*)/i,
-      '$1$3'
+  const lowerPathname = request.nextUrl.pathname.toLowerCase();
+  const hasDuplicateDomain =
+    lowerPathname.includes('www.alpineco.com/www.alpineco.com') ||
+    lowerPathname.includes('alpineco.com/alpineco.com') ||
+    lowerPathname.includes('www.alpineco.com/alpineco.com') ||
+    lowerPathname.includes('alpineco.com/www.alpineco.com') ||
+    lowerPathname.match(/^\/www\.alpineco\.com/) ||
+    lowerPathname.match(/^\/alpineco\.com/);
+
+  if (hasDuplicateDomain) {
+    // Ensure we correctly remove the duplicate domain
+    const correctedPath = request.nextUrl.pathname
+      .replace(/^(\/)(www\.alpineco\.com|alpineco\.com)(\/.*)$/i, '$1$3')
+      .replace(/\/{2,}/g, '/'); // Also clean up any double slashes
+
+    const url = request.nextUrl.clone();
+    url.pathname = correctedPath;
+
+    console.log(
+      `Redirecting duplicated domain URL: ${request.nextUrl.pathname} → ${correctedPath}`
     );
 
-    url.pathname = correctedPath;
     const response = NextResponse.redirect(url, { status: 301 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
@@ -447,5 +457,6 @@ export const config = {
     // '/(stock|inventory|vehicles-we-armor|available-now|armored|blog|media)/:path*',
     // '/contact',
     '/((?!_next/static|_next/image|favicon.ico|api|sitemap|robots|manifest|sw.js).*)',
+    '/www.alpineco.com/:path*',
   ],
 };
