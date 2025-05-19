@@ -180,6 +180,25 @@ function correctSuvBlindadosPath(pathname: string): string | null {
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
+
+  if (
+    request.nextUrl.pathname
+      .toLowerCase()
+      .includes('www.alpineco.com/www.alpineco.com') ||
+    request.nextUrl.pathname.toLowerCase().includes('alpineco.com/alpineco.com')
+  ) {
+    // Apply noindex and also normalize the URL for any redirects
+    const correctedPath = request.nextUrl.pathname.replace(
+      /^(.*?)(\/www\.alpineco\.com|\/alpineco\.com)(.*)/i,
+      '$1$3'
+    );
+
+    url.pathname = correctedPath;
+    const response = NextResponse.redirect(url, { status: 301 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
   url.pathname = normalizeUrl(url.pathname);
 
   const { pathname, searchParams } = url;
