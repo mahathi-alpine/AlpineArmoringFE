@@ -81,7 +81,7 @@
     @include breakpoint(large) {
       padding: 0;
       border-top-right-radius: 32px;
-      max-width: 500px;
+      max-width: 554px;
     }
   }
 
@@ -130,7 +130,7 @@
     }
 
     &_item {
-      max-width: 280px;
+      max-width: 292px;
       border-radius: 99px;
 
       @include breakpoint(small) {
