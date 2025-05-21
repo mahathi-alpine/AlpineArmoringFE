@@ -179,7 +179,6 @@ function correctSuvBlindadosPath(pathname: string): string | null {
 }
 
 export function middleware(request: NextRequest) {
-  console.log(`Middleware processing URL: ${request.nextUrl.pathname}`);
   const url = request.nextUrl.clone();
 
   const lowerPathname = request.nextUrl.pathname.toLowerCase();
@@ -199,10 +198,6 @@ export function middleware(request: NextRequest) {
 
     const url = request.nextUrl.clone();
     url.pathname = correctedPath;
-
-    console.log(
-      `Redirecting duplicated domain URL: ${request.nextUrl.pathname} → ${correctedPath}`
-    );
 
     const response = NextResponse.redirect(url, { status: 301 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
