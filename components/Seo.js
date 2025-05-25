@@ -102,8 +102,7 @@ const Seo = ({ props }) => {
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
       {/* Canonical URL */}
-      {/* <link rel="canonical" href={canonicalUrl.replace(/([^:])\/+/g, '$1/')} /> */}
-      <link rel="canonical" href={canonicalUrl} />
+      <link rel="canonical" href={canonicalUrl.replace(/([^:])\/+/g, '$1/')} />
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
