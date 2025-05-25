@@ -8,6 +8,10 @@ const normalizeUrl = (url) => {
   return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
 };
 
+const isFullUrl = (url) => {
+  return url && (url.startsWith('http://') || url.startsWith('https://'));
+};
+
 const Seo = ({ props }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
@@ -50,10 +54,25 @@ const Seo = ({ props }) => {
     twitterMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
-  // Construct full URLs
-  const canonicalUrl =
-    seoProps?.canonicalURL || `${baseUrl}${normalizeUrl(router.asPath)}`;
-  const ogUrl = `${baseUrl}${normalizeUrl(router.asPath)}`;
+  const ogUrl = `${baseUrl}${normalizeUrl(router.asPath)}`.replace(
+    /([^:])\/+/g,
+    '$1/'
+  );
+
+  let canonicalUrl;
+  if (seoProps?.canonicalURL) {
+    canonicalUrl = isFullUrl(seoProps.canonicalURL)
+      ? seoProps.canonicalURL
+      : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
+  } else {
+    canonicalUrl = `${baseUrl}${normalizeUrl(router.asPath)}`;
+  }
+
+  // Clean up any double slashes (except after protocol)
+  canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
+
+  console.log('canonicalURL from props:', seoProps?.canonicalURL);
+  console.log('final canonicalUrl:', canonicalUrl);
 
   return (
     <Head>

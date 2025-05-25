@@ -393,6 +393,8 @@ export function middleware(request: NextRequest) {
     searchParams.has('nxtPtype') ||
     searchParams.has('type') ||
     searchParams.has('slug') ||
+    searchParams.has('r') ||
+    searchParams.has('app') ||
     searchParams.has('nextInternalLocale');
 
   const contactPageParams = ['name', 'id', 'names'].some((param) =>
