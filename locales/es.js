@@ -28,7 +28,8 @@ export default {
   vehiclesWeArmorStock: '/disponible-ahora/?vehiculos_que_blindamos=',
   blogsURL: '/blog',
 
-  availableNowTitle: 'Disponible ahora',
+  // availableNowTitle: 'Disponible ahora',
+  availableNowTitle: 'Vehículos blindados en venta',
   vehiclesWeArmor: 'Vehículos que blindamos',
   suvsTitleHeader: 'SUVs',
   sedans: 'Sedanes',

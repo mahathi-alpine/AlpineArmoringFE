@@ -71,11 +71,11 @@ const Seo = ({ props }) => {
   // Clean up any double slashes (except after protocol)
   canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
 
-  console.log('canonicalURL from props:', seoProps?.canonicalURL);
-  console.log('final canonicalUrl:', canonicalUrl);
-
   return (
     <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta charSet="utf-8" />
+
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} key="description" />
       <meta name="image" content={metaImgUrl} />
@@ -125,10 +125,6 @@ const Seo = ({ props }) => {
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
-
-      {/* Additional Recommended Meta Tags */}
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta charSet="utf-8" />
     </Head>
   );
 };

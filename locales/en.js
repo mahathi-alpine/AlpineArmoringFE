@@ -28,7 +28,8 @@ export default {
   vehiclesWeArmorStock: '/available-now/?vehicles_we_armor=',
   blogsURL: '/blog',
 
-  availableNowTitle: 'Available Now',
+  // availableNowTitle: 'Available Now',
+  availableNowTitle: 'Armored Vehicles for Sale',
   vehiclesWeArmor: 'Vehicles We Armor',
   suvsTitleHeader: 'SUVs',
   sedans: 'Sedans',
