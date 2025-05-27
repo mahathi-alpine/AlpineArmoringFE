@@ -4,7 +4,7 @@ const vehicleUrls = generateVehicleUrls();
 const additionalUrls = {
   en: [
     {
-      loc: '/',
+      loc: '',
       priority: '1',
       changefreq: 'monthly',
     },
@@ -242,7 +242,7 @@ const config = {
     inventories: {
       collection: 'inventories',
       urlPattern: '/available-now/:slug',
-      priority: '0.9',
+      priority: '0.8',
       changefreq: 'weekly',
       translations: {
         es: '/es/disponible-ahora/:slug',
