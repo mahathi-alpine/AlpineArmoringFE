@@ -303,9 +303,21 @@ export default {
   make: 'marca',
   viewSomeCoolVideos: 'Ver videos interesantes',
   isAvailableForRental: 'disponible para <span>ALQUILER</span>',
-
   soldFlag: 'Vendido',
   comingSoonFlag: 'Próximamente',
   preOwnedFlag: 'Seminuevos',
   exportOnlyFlag: 'Solo exportación',
+
+  allStaticPages: 'Todas las páginas estáticas',
+  allBlogPosts: 'Todas las publicaciones del blog',
+  allNewsArticles: 'Todos los artículos de noticias',
+  allArmoredVehiclesForSale: 'Todos los vehículos blindados en venta',
+  allRentalVehicles: 'Todos los vehículos de alquiler',
+  allInventoryCategories: 'Todas las categorías de inventario',
+  allVehiclesWecanArmor: 'Todos los vehículos que podemos blindar',
+  allVehiclesWecanArmorCategories:
+    'Todas las categorías de vehículos que podemos blindar',
+  allMakesWeCanArmor: 'Todas las marcas que podemos blindar',
+  makesWeCanArmor: 'hace que podamos blindarnos',
+  allLocationsWeServe: 'Todas Ubicaciones que servimos',
 };

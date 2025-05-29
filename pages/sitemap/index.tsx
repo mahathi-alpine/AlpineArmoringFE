@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import config from 'sitemap.config';
+import useLocale from 'hooks/useLocale';
 import styles from './sitemap.module.scss';
 
 interface SitemapItem {
@@ -29,37 +30,74 @@ interface SitemapData {
   staticPages: Array<{ loc: string }>;
 }
 
-function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
-  const getPageTitle = (url: string): string => {
-    const path = url.replace(/^\//, '');
+function Sitemap({
+  sitemapData,
+  locale = 'en',
+}: {
+  sitemapData: SitemapData;
+  locale?: string;
+}) {
+  const { lang } = useLocale();
 
-    const titleMap: Record<string, string> = {
-      '': 'Home',
-      'available-now': 'Available Now',
-      'vehicles-we-armor': 'Vehicles We Armor',
-      'ballistic-chart': 'Weapons & Ammunition Chart',
-      'ballistic-testing': 'Ballistic Testing',
-      news: 'News on Armored Vehicles',
-      blog: 'Blogs and Insights',
-      faqs: 'Frequently Asked Questions',
-      'about-us': 'About Us',
-      'shipping-and-logistics': 'Shipping and Logistics',
-      'locations-we-serve': 'Locations We Serve',
-      manufacturing: 'Manufacturing',
-      'author/laila-asbergs': 'Author - Laila Asbergs',
-      'author/dan-diana': 'Author - Dan Diana',
-      'all-downloads': 'All Downloads',
-      contact: 'Contact',
-      'media/videos': 'Media - Videos',
-      'media/trade-shows': 'Media - Trade Shows',
-      media: 'Media',
-      'become-a-dealer': 'Become a Dealer',
-      'design-and-engineering': 'Design and Engineering',
-      'privacy-policy': 'Privacy Policy',
+  const getPageTitle = (url: string, currentLocale: string = 'en'): string => {
+    const path = url.replace(/^\//, '').replace(/^es\//, '');
+
+    const titleMaps = {
+      en: {
+        '': 'Home',
+        'available-now': 'Available Now',
+        'vehicles-we-armor': 'Vehicles We Armor',
+        'ballistic-chart': 'Weapons & Ammunition Chart',
+        'ballistic-testing': 'Ballistic Testing',
+        news: 'News on Armored Vehicles',
+        blog: 'Blogs and Insights',
+        faqs: 'Frequently Asked Questions',
+        'about-us': 'About Us',
+        'shipping-and-logistics': 'Shipping and Logistics',
+        'locations-we-serve': 'Locations We Serve',
+        manufacturing: 'Manufacturing',
+        'author/laila-asbergs': 'Author - Laila Asbergs',
+        'author/dan-diana': 'Author - Dan Diana',
+        'all-downloads': 'All Downloads',
+        contact: 'Contact',
+        'media/videos': 'Media - Videos',
+        'media/trade-shows': 'Media - Trade Shows',
+        media: 'Media',
+        'become-a-dealer': 'Become a Dealer',
+        'design-and-engineering': 'Design and Engineering',
+        'privacy-policy': 'Privacy Policy',
+      },
+      es: {
+        '': 'Inicio',
+        'disponible-ahora': 'Disponible Ahora',
+        'vehiculos-que-blindamos': 'Vehículos que Blindamos',
+        'tabla-balistica': 'Tabla de Armas y Municiones',
+        'pruebas-balisticas': 'Pruebas Balísticas',
+        noticias: 'Noticias sobre Vehículos Blindados',
+        blog: 'Blogs e Insights',
+        'preguntas-frecuentes': 'Preguntas Frecuentes',
+        'hacerca-de-nosotros': 'Acerca de Nosotros',
+        'envio-y-logistica': 'Envío y Logística',
+        'ubicaciones-que-servimos': 'Ubicaciones que Servimos',
+        fabricacion: 'Fabricación',
+        'autora/laila-asbergs': 'Autora - Laila Asbergs',
+        'autora/dan-diana': 'Autora - Dan Diana',
+        'todas-las-descargas': 'Todas las Descargas',
+        contacto: 'Contacto',
+        'medios/videos': 'Medios - Videos',
+        'medios/ferias-comerciales': 'Medios - Ferias Comerciales',
+        medios: 'Medios',
+        'conviertase-en-distribuidor': 'Conviértase en Distribuidor',
+        'diseno-e-ingenieria': 'Diseño e Ingeniería',
+        'politica-de-privacidad': 'Política de Privacidad',
+      },
     };
 
+    const titleMap =
+      titleMaps[currentLocale as keyof typeof titleMaps] || titleMaps.en;
+
     return (
-      titleMap[path] ||
+      titleMap[path as keyof typeof titleMap] ||
       path
         .split('/')
         .pop()
@@ -70,38 +108,65 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
   };
 
   const getSortedStaticPages = () => {
-    const pageOrder = [
-      '',
-      'about-us',
-      'available-now',
-      'vehicles-we-armor',
-      'contact',
-      'ballistic-chart',
-      'ballistic-testing',
-      'news',
-      'blog',
-      'faqs',
-      'manufacturing',
-      'design-and-engineering',
-      'shipping-and-logistics',
-      'locations-we-serve',
-      'media',
-      'media/videos',
-      'media/trade-shows',
-      'become-a-dealer',
-      'all-downloads',
-      'privacy-policy',
-    ];
+    const pageOrders = {
+      en: [
+        '',
+        'about-us',
+        'available-now',
+        'vehicles-we-armor',
+        'contact',
+        'ballistic-chart',
+        'ballistic-testing',
+        'news',
+        'blog',
+        'faqs',
+        'manufacturing',
+        'design-and-engineering',
+        'shipping-and-logistics',
+        'locations-we-serve',
+        'media',
+        'media/videos',
+        'media/trade-shows',
+        'become-a-dealer',
+        'all-downloads',
+        'privacy-policy',
+      ],
+      es: [
+        '',
+        'hacerca-de-nosotros',
+        'disponible-ahora',
+        'vehiculos-que-blindamos',
+        'contacto',
+        'tabla-balistica',
+        'pruebas-balisticas',
+        'noticias',
+        'blog',
+        'preguntas-frecuentes',
+        'fabricacion',
+        'diseno-e-ingenieria',
+        'envio-y-logistica',
+        'ubicaciones-que-servimos',
+        'medios',
+        'medios/videos',
+        'medios/ferias-comerciales',
+        'conviertase-en-distribuidor',
+        'todas-las-descargas',
+        'politica-de-privacidad',
+      ],
+    };
+
+    const pageOrder =
+      pageOrders[locale as keyof typeof pageOrders] || pageOrders.en;
 
     // Filter out author pages
     const filteredPages = sitemapData.staticPages.filter((page) => {
-      const path = page.loc.replace(/^\//, '');
-      return !path.startsWith('author/');
+      const path = page.loc.replace(/^\//, '').replace(/^es\//, '');
+      return !path.startsWith('author/') && !path.startsWith('autora/');
     });
 
     return filteredPages.sort((a, b) => {
-      const aPath = a.loc.replace(/^\//, '');
-      const bPath = b.loc.replace(/^\//, '');
+      const aPath = a.loc.replace(/^\//, '').replace(/^es\//, '');
+      const bPath = b.loc.replace(/^\//, '').replace(/^es\//, '');
       const aIndex = pageOrder.indexOf(aPath);
       const bIndex = pageOrder.indexOf(bPath);
 
@@ -112,6 +177,13 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
     });
   };
 
+  const getLocalizedUrl = (basePath: string, slug?: string) => {
+    const localePrefix = locale === 'es' ? '/es' : '';
+    return slug
+      ? `${config.baseUrl}${localePrefix}${basePath}/${slug}`
+      : `${config.baseUrl}${localePrefix}${basePath}`;
+  };
+
   return (
     <div className={`container`}>
       <h1 className={`c-title mt2`}>Sitemap</h1>
@@ -119,12 +191,12 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
       <div className={`${styles.sitemap_wrap}`}>
         <div className={`${styles.sitemap_column}`}>
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Static Pages</h2>
+            <h2>{lang.allStaticPages}</h2>
             <ul>
               {getSortedStaticPages().map((page, index) => (
                 <li key={index}>
                   <Link href={`${config.baseUrl}${page.loc}`}>
-                    {getPageTitle(page.loc)}
+                    {getPageTitle(page.loc, locale)}
                   </Link>
                 </li>
               ))}
@@ -132,11 +204,11 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
           </div>
 
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Blog Posts</h2>
+            <h2>{lang.allBlogPosts}</h2>
             <ul>
               {sitemapData.blogEvergreens.map((item, index) => (
                 <li key={index}>
-                  <Link href={`${config.baseUrl}/blog/${item.slug}`}>
+                  <Link href={getLocalizedUrl(`${lang.blogsURL}`, item.slug)}>
                     {item.title}
                   </Link>
                 </li>
@@ -145,11 +217,11 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
           </div>
 
           <div className={`${styles.sitemap_category}`}>
-            <h2>All News Articles</h2>
+            <h2>{lang.allNewsArticles}</h2>
             <ul>
               {sitemapData.blogs.map((item, index) => (
                 <li key={index}>
-                  <Link href={`${config.baseUrl}/news/${item.slug}`}>
+                  <Link href={getLocalizedUrl(`${lang.newsURL}`, item.slug)}>
                     {item.title}
                   </Link>
                 </li>
@@ -160,11 +232,16 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
 
         <div className={`${styles.sitemap_column}`}>
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Available Vehicles</h2>
+            <h2>{lang.allArmoredVehiclesForSale}</h2>
             <ul>
               {sitemapData.inventories.map((item, index) => (
                 <li key={index}>
-                  <Link href={`${config.baseUrl}/available-now/${item.slug}`}>
+                  <Link
+                    href={getLocalizedUrl(
+                      `/${lang.availableNowURL}`,
+                      item.slug
+                    )}
+                  >
                     {item.title}
                   </Link>
                 </li>
@@ -173,11 +250,16 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
           </div>
 
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Rental Vehicles</h2>
+            <h2>{lang.allRentalVehicles}</h2>
             <ul>
               {sitemapData.rentalInventories.map((item, index) => (
                 <li key={index}>
-                  <Link href={`${config.baseUrl}/rental-vehicles/${item.slug}`}>
+                  <Link
+                    href={getLocalizedUrl(
+                      `${lang.rentalVehiclesURL}`,
+                      item.slug
+                    )}
+                  >
                     {item.title}
                   </Link>
                 </li>
@@ -186,12 +268,15 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
           </div>
 
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Inventory Categories</h2>
+            <h2>{lang.allInventoryCategories}</h2>
             <ul>
               {sitemapData.inventoryCategories.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`${config.baseUrl}/available-now/type/${item.slug}`}
+                    href={getLocalizedUrl(
+                      `/${lang.availableNowURL}/${lang.type}`,
+                      item.slug
+                    )}
                   >
                     {item.title}
                   </Link>
@@ -203,12 +288,15 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
 
         <div className={`${styles.sitemap_column}`}>
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Vehicles We can Armor</h2>
+            <h2>{lang.allVehiclesWecanArmor}</h2>
             <ul>
               {sitemapData.vehiclesWeArmor.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`${config.baseUrl}/vehicles-we-armor/${item.slug}`}
+                    href={getLocalizedUrl(
+                      `${lang.vehiclesWeArmorURL}`,
+                      item.slug
+                    )}
                   >
                     {item.title}
                   </Link>
@@ -218,12 +306,15 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
           </div>
 
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Vehicles We can Armor Categories</h2>
+            <h2>{lang.allVehiclesWecanArmorCategories}</h2>
             <ul>
               {sitemapData.vehicleCategories.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`${config.baseUrl}/vehicles-we-armor/type/${item.slug}`}
+                    href={getLocalizedUrl(
+                      `${lang.vehiclesWeArmorURL}/${lang.type}`,
+                      item.slug
+                    )}
                   >
                     {item.title}
                   </Link>
@@ -235,12 +326,14 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
 
         <div className={`${styles.sitemap_column}`}>
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Makes We can Armor</h2>
+            <h2>{lang.allMakesWeCanArmor}</h2>
 
             <ul>
               {sitemapData.vehicleMakes.baseMakes.map((item, index) => (
                 <li key={index}>
-                  <Link href={`${config.baseUrl}${item.url}`}>
+                  <Link
+                    href={`${config.baseUrl}${locale === 'es' ? '/es' : ''}${item.url}`}
+                  >
                     {item.title}
                   </Link>
                 </li>
@@ -253,16 +346,38 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
               ([typeName, makes]) => {
                 const makesList = makes as VehicleMakeItem[];
 
+                // Translate type names for Spanish
+                const getLocalizedTypeName = (name: string) => {
+                  if (locale === 'es') {
+                    const translations: Record<string, string> = {
+                      'Cash In Transit Cit': 'Transporte de valores (CIT)',
+                      'Law Enforcement': 'Fuerzas del Orden',
+                      'Pickup Trucks': 'Camionetas',
+                      Sedans: 'Sedanes',
+                      'Specialty Vehicles': 'Vehículos Especiales',
+                      Suvs: 'SUVs',
+                      'Vans And Buses': 'Furgonetas y autobuses',
+                    };
+                    return translations[name] || name;
+                  }
+                  return name;
+                };
+
                 return (
                   <div
                     key={typeName}
                     className={`${styles.sitemap_category_sub}`}
                   >
-                    <h3>All {typeName} makes we can armor</h3>
+                    <h3>
+                      {lang.all} {getLocalizedTypeName(typeName)}{' '}
+                      {lang.makesWeCanArmor}
+                    </h3>
                     <ul>
                       {makesList.map((item, index) => (
                         <li key={index}>
-                          <Link href={`${config.baseUrl}${item.url}`}>
+                          <Link
+                            href={`${config.baseUrl}${locale === 'es' ? '/es' : ''}${item.url}`}
+                          >
                             {item.title}
                           </Link>
                         </li>
@@ -277,12 +392,15 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
 
         <div className={`${styles.sitemap_column_full}`}>
           <div className={`${styles.sitemap_category}`}>
-            <h2>All Locations We Serve</h2>
+            <h2>{lang.allLocationsWeServe}</h2>
             <ul>
               {sitemapData.articles.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`${config.baseUrl}/locations-we-serve/${item.slug}`}
+                    href={getLocalizedUrl(
+                      `${lang.locationsWeServeURL}`,
+                      item.slug
+                    )}
                   >
                     {item.title}
                   </Link>
@@ -398,26 +516,56 @@ export async function getStaticProps({ locale = 'en' }) {
     };
 
     const baseMakes = makes.map((make) => ({
-      url: `/vehicles-we-armor?make=${make}`,
+      url: `${locale === 'es' ? '/vehiculos-que-blindamos' : '/vehicles-we-armor'}?make=${make}`,
       title: make.charAt(0).toUpperCase() + make.slice(1),
     }));
 
     const typeCategories: Record<string, VehicleMakeItem[]> = {};
 
     Object.entries(vehicleTypes).forEach(([typeName, allowedMakes]) => {
-      const slugMap: Record<string, string> = {
-        'Cash In Transit Cit': 'armored-cash-in-transit-cit',
-        'Law Enforcement': 'armored-law-enforcement',
-        'Pickup Trucks': 'armored-pickup-trucks',
-        Sedans: 'armored-sedans',
-        'Specialty Vehicles': 'armored-specialty-vehicles',
-        Suvs: 'armored-suvs',
-        'Vans And Buses': 'armored-vans-and-buses',
+      const slugMaps = {
+        en: {
+          'Cash In Transit Cit': 'armored-cash-in-transit-cit',
+          'Law Enforcement': 'armored-law-enforcement',
+          'Pickup Trucks': 'armored-pickup-trucks',
+          Sedans: 'armored-sedans',
+          'Specialty Vehicles': 'armored-specialty-vehicles',
+          Suvs: 'armored-suvs',
+          'Vans And Buses': 'armored-vans-and-buses',
+        },
+        es: {
+          'Cash In Transit Cit': 'transporte-blindado-valores-cit',
+          'Law Enforcement': 'fuerzas-del-orden-blindadas',
+          'Pickup Trucks': 'camionetas-blindadas',
+          Sedans: 'sedanes-blindados',
+          'Specialty Vehicles': 'vehiculos-blindados-especiales',
+          Suvs: 'suvs-blindados',
+          'Vans And Buses': 'furgonetas-y-autobuses-blindados',
+        },
+      };
+
+      const slugMap = slugMaps[locale as keyof typeof slugMaps] || slugMaps.en;
+
+      // Translate type names for Spanish titles
+      const getLocalizedTypeName = (name: string) => {
+        if (locale === 'es') {
+          const translations: Record<string, string> = {
+            'Cash In Transit Cit': 'Transporte Blindado Valores CIT',
+            'Law Enforcement': 'Fuerzas del Orden',
+            'Pickup Trucks': 'Camionetas',
+            Sedans: 'Sedanes',
+            'Specialty Vehicles': 'Vehículos Especiales',
+            Suvs: 'SUVs',
+            'Vans And Buses': 'Furgonetas y Autobuses',
+          };
+          return translations[name] || name;
+        }
+        return name;
       };
 
       typeCategories[typeName] = allowedMakes.map((make) => ({
-        url: `/vehicles-we-armor/type/${slugMap[typeName]}?make=${make}`,
-        title: `${typeName} - ${make.charAt(0).toUpperCase() + make.slice(1)}`,
+        url: `${locale === 'es' ? '/vehiculos-que-blindamos' : '/vehicles-we-armor'}/${locale === 'es' ? 'tipo' : 'type'}/${slugMap[typeName as keyof typeof slugMap]}?make=${make}`,
+        title: `${getLocalizedTypeName(typeName)} - ${make.charAt(0).toUpperCase() + make.slice(1)}`,
       }));
     });
 
@@ -425,7 +573,8 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 
   const fetchStrapiCollection = async (
-    collection: string
+    collection: string,
+    currentLocale: string = 'en'
   ): Promise<SitemapItem[]> => {
     const baseUrl =
       process.env.NEXT_PUBLIC_API_URL ||
@@ -444,11 +593,11 @@ export async function getStaticProps({ locale = 'en' }) {
               ? 'createdAt'
               : 'publishedAt';
 
-        let url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&fields[2]=${dateField}&locale=en&pagination[page]=${page}&pagination[pageSize]=100`;
+        let url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&locale=${currentLocale}&pagination[page]=${page}&pagination[pageSize]=100`;
 
         // Add date field for blogs and blog-evergreens
         if (collection === 'blogs' || collection === 'blog-evergreens') {
-          url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&fields[2]=date&fields[3]=${dateField}&locale=en&pagination[page]=${page}&pagination[pageSize]=100`;
+          url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&fields[2]=date&fields[3]=${dateField}&locale=${currentLocale}&pagination[page]=${page}&pagination[pageSize]=100`;
         }
 
         const response = await fetch(url);
@@ -515,12 +664,12 @@ export async function getStaticProps({ locale = 'en' }) {
       articles,
       categories,
     ] = await Promise.all([
-      fetchStrapiCollection('inventories'),
-      fetchStrapiCollection('vehicles-we-armors'),
-      fetchStrapiCollection('blogs'),
-      fetchStrapiCollection('blog-evergreens'),
-      fetchStrapiCollection('articles'),
-      fetchStrapiCollection('categories'),
+      fetchStrapiCollection('inventories', locale),
+      fetchStrapiCollection('vehicles-we-armors', locale),
+      fetchStrapiCollection('blogs', locale),
+      fetchStrapiCollection('blog-evergreens', locale),
+      fetchStrapiCollection('articles', locale),
+      fetchStrapiCollection('categories', locale),
     ]);
 
     sitemapData.inventories = inventories;
@@ -559,7 +708,7 @@ export async function getStaticProps({ locale = 'en' }) {
       const baseUrl =
         process.env.NEXT_PUBLIC_API_URL ||
         'https://alpinetesting.cloudflex-ha.com';
-      const rentalUrl = `${baseUrl}/api/inventories?fields[0]=slug&fields[1]=title&locale=en&filters[categories][slug][$in][]=armored-rental&filters[categories][slug][$in][]=alquiler-blindados&pagination[pageSize]=100`;
+      const rentalUrl = `${baseUrl}/api/inventories?fields[0]=slug&fields[1]=title&locale=${locale}&filters[categories][slug][$in][]=armored-rental&filters[categories][slug][$in][]=alquiler-blindados&pagination[pageSize]=100`;
 
       const rentalResponse = await fetch(rentalUrl);
       if (rentalResponse.ok) {
@@ -579,20 +728,27 @@ export async function getStaticProps({ locale = 'en' }) {
 
     sitemapData.vehicleMakes = generateVehicleMakeUrls();
 
-    const allCustomUrls = config.customUrls?.en || [];
+    const allCustomUrls =
+      config.customUrls?.[locale] || config.customUrls?.en || [];
     sitemapData.staticPages = allCustomUrls.filter(
       (page) =>
         !page.loc.includes('vehicles-we-armor?make=') &&
         !page.loc.includes('vehicles-we-armor/type/') &&
-        !page.loc.includes('vehiculos-que-blindamos')
+        !page.loc.includes('vehiculos-que-blindamos?make=') &&
+        !page.loc.includes('vehiculos-que-blindamos/tipo/')
     );
 
     // Create SEO data for the sitemap page
     const seoData = {
-      metaTitle: 'Sitemap - Alpine Armoring',
+      metaTitle:
+        locale === 'es'
+          ? 'Mapa del Sitio - Alpine Armoring'
+          : 'Sitemap - Alpine Armoring',
       metaDescription:
-        'Complete sitemap for Alpine Armoring website including all armored vehicles, inventory, blog posts, news articles, and locations we serve.',
-      canonicalURL: '/sitemap',
+        locale === 'es'
+          ? 'Mapa completo del sitio web de Alpine Armoring incluyendo todos los vehículos blindados, inventario, publicaciones de blog, artículos de noticias y ubicaciones que servimos.'
+          : 'Complete sitemap for Alpine Armoring website including all armored vehicles, inventory, blog posts, news articles, and locations we serve.',
+      // canonicalURL: locale === 'es' ? '/es/sitemap' : '/sitemap',
       metaRobots: 'noindex, follow',
       languageUrls: {
         en: '/sitemap',
@@ -610,11 +766,18 @@ export async function getStaticProps({ locale = 'en' }) {
     };
   } catch (error) {
     const fallbackSeoData = {
-      metaTitle: 'Sitemap - Alpine Armoring',
-      metaDescription: 'Complete sitemap for Alpine Armoring website.',
-      canonicalURL: '/sitemap',
+      metaTitle:
+        locale === 'es'
+          ? 'Mapa del Sitio - Alpine Armoring'
+          : 'Sitemap - Alpine Armoring',
+      metaDescription:
+        locale === 'es'
+          ? 'Mapa completo del sitio web de Alpine Armoring.'
+          : 'Complete sitemap for Alpine Armoring website.',
+      // canonicalURL: locale === 'es' ? '/es/sitemap' : '/sitemap',
       languageUrls: {
         en: '/sitemap',
+        es: '/es/sitemap',
       },
     };
 
@@ -624,11 +787,12 @@ export async function getStaticProps({ locale = 'en' }) {
           ...sitemapData,
           vehicleMakes: generateVehicleMakeUrls(),
           staticPages:
-            config.customUrls?.en?.filter(
+            config.customUrls?.[locale]?.filter(
               (page) =>
                 !page.loc.includes('vehicles-we-armor?make=') &&
                 !page.loc.includes('vehicles-we-armor/type/') &&
-                !page.loc.includes('vehiculos-que-blindamos')
+                !page.loc.includes('vehiculos-que-blindamos?make=') &&
+                !page.loc.includes('vehiculos-que-blindamos/tipo/')
             ) || [],
         },
         seoData: fallbackSeoData,
