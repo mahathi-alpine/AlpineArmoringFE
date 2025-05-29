@@ -10,7 +10,7 @@
     &_list {
       display: grid;
       grid-auto-flow: column;
-      gap: 32px;
+      gap: 16px;
 
       :global(.lang-es) & {
         gap: 10px;
@@ -19,7 +19,7 @@
     &_item {
       font-weight: var(--font-medium);
       position: relative;
-      font-size: clamp(0.76875rem, 0.5563rem + 0.2656vw, 0.875rem);
+      font-size: clamp(0.6875rem, 0.3125rem + 0.4688vw, 0.875rem); // 11-14
       text-transform: uppercase;
 
       :global(.lang-es) & {
@@ -98,6 +98,7 @@
 
   @include breakpoint('huge') {
     &_list {
+      gap: 32px;
       :global(.lang-es) & {
         gap: 32px;
       }
