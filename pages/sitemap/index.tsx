@@ -226,7 +226,9 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
               ))}
             </ul>
           </div>
+        </div>
 
+        <div className={`${styles.sitemap_column}`}>
           <div className={`${styles.sitemap_category}`}>
             <h2>All Makes We can Armor</h2>
 
@@ -268,7 +270,7 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
           </div>
         </div>
 
-        <div className={`${styles.sitemap_column}`}>
+        <div className={`${styles.sitemap_column_full}`}>
           <div className={`${styles.sitemap_category}`}>
             <h2>All Locations We Serve</h2>
             <ul>

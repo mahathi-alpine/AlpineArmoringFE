@@ -26,6 +26,33 @@
     @include breakpoint(huge) {
       width: calc(100% / 4 - 48px);
     }
+
+    &_full{
+      @include breakpoint(large) {
+        width: 50%;
+      }
+      @include breakpoint(huge) {
+        width: 100%;
+      }
+
+      ul{
+        @include breakpoint(large) {
+          flex-wrap: wrap;
+          display: flex;
+          column-gap: 16px;
+        }
+
+        li{
+          @include breakpoint(huge) {
+            width: calc(100% / 3 - 16px);
+          }
+
+          @include breakpoint(max) {
+            width: calc(100% / 4 - 12px);
+          }
+        }
+      }
+    }
   }
 
   &_category {
