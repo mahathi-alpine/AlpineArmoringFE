@@ -87,14 +87,14 @@
     justify-content: space-between;
     align-items: center;
 
-      :global(.lang-es) & {
-        @include breakpoint('large') {
-          padding: 0 rem(10);
-        }
-        @include breakpoint('huge') {
-          padding: 0 2rem;
-        }
+    :global(.lang-es) & {
+      @include breakpoint('large') {
+        padding: 0 rem(10);
       }
+      @include breakpoint('huge') {
+        padding: 0 2rem;
+      }
+    }
   }
 
   &_logo {
