@@ -138,7 +138,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const newQuery: { q?: string } = {};
 
     if (!query || query.trim().length === 0) {
-      router.push(cleanBaseUrl, undefined);
+      router.push(cleanBaseUrl, cleanBaseUrl, { locale: false });
     } else {
       newQuery.q = query;
 
@@ -147,7 +147,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
           pathname: cleanBaseUrl,
           query: newQuery,
         },
-        undefined
+        undefined,
+        { locale: false }
       );
     }
   };
@@ -232,6 +233,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const newQuery = { ...router.query };
     delete newQuery['vehicles_we_armor'];
     delete newQuery.q;
+    delete newQuery.nextInternalLocale;
 
     const currentValue = newQuery[paramKey];
     const isSameValue =
@@ -276,7 +278,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
       });
       const finalUrl = `${typeUrl}${queryString.toString() ? `?${queryString.toString()}` : ''}`;
 
-      router.push(finalUrl, undefined, { scroll: false });
+      router.push(finalUrl, finalUrl, { scroll: false, locale: false });
     } else {
       const pathParts = router.asPath.split('/');
 
