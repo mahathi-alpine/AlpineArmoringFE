@@ -27,7 +27,7 @@
       width: calc(100% / 4 - 48px);
     }
 
-    &_full{
+    &_full {
       @include breakpoint(large) {
         width: 50%;
       }
@@ -35,14 +35,14 @@
         width: 100%;
       }
 
-      ul{
+      ul {
         @include breakpoint(large) {
           flex-wrap: wrap;
           display: flex;
           column-gap: 16px;
         }
 
-        li{
+        li {
           @include breakpoint(huge) {
             width: calc(100% / 3 - 16px);
           }
