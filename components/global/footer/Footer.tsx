@@ -265,6 +265,9 @@ const Footer = (props) => {
         <div className={`${styles.footer_bottom}`}>
           <ul className={`${styles.footer_bottom_nav}`}>
             <li className={`${styles.footer_bottom_nav_item}`}>
+              <Link href="/sitemap">Sitemap</Link>
+            </li>
+            <li className={`${styles.footer_bottom_nav_item}`}>
               <Link href={lang.privacyPolicyURL}>{lang.privacyPolicy}</Link>
             </li>
           </ul>

@@ -5,6 +5,7 @@ import styles from './sitemap.module.scss';
 interface SitemapItem {
   slug: string;
   title: string;
+  date?: string;
 }
 
 interface VehicleMakeItem {
@@ -34,11 +35,13 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
 
     const titleMap: Record<string, string> = {
       '': 'Home',
-      news: 'News',
-      blog: 'Blog',
       'available-now': 'Available Now',
-      'ballistic-chart': 'Ballistic Chart',
-      faqs: 'FAQs',
+      'vehicles-we-armor': 'Vehicles We Armor',
+      'ballistic-chart': 'Weapons & Ammunition Chart',
+      'ballistic-testing': 'Ballistic Testing',
+      news: 'News on Armored Vehicles',
+      blog: 'Blogs and Insights',
+      faqs: 'Frequently Asked Questions',
       'about-us': 'About Us',
       'shipping-and-logistics': 'Shipping and Logistics',
       'locations-we-serve': 'Locations We Serve',
@@ -50,8 +53,6 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
       'media/videos': 'Media - Videos',
       'media/trade-shows': 'Media - Trade Shows',
       media: 'Media',
-      'vehicles-we-armor': 'Vehicles We Armor',
-      'ballistic-testing': 'Ballistic Testing',
       'become-a-dealer': 'Become a Dealer',
       'design-and-engineering': 'Design and Engineering',
       'privacy-policy': 'Privacy Policy',
@@ -70,31 +71,35 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
 
   const getSortedStaticPages = () => {
     const pageOrder = [
-      '', // Home
+      '',
+      'about-us',
+      'available-now',
+      'vehicles-we-armor',
+      'contact',
+      'ballistic-chart',
+      'ballistic-testing',
       'news',
       'blog',
-      'available-now',
-      'ballistic-chart',
       'faqs',
-      'about-us',
+      'manufacturing',
+      'design-and-engineering',
       'shipping-and-logistics',
       'locations-we-serve',
-      'manufacturing',
-      'author/laila-asbergs',
-      'author/dan-diana',
-      'all-downloads',
-      'contact',
+      'media',
       'media/videos',
       'media/trade-shows',
-      'media',
-      'vehicles-we-armor',
-      'ballistic-testing',
       'become-a-dealer',
-      'design-and-engineering',
-      'privacy-policy', // Last
+      'all-downloads',
+      'privacy-policy',
     ];
 
-    return sitemapData.staticPages.sort((a, b) => {
+    // Filter out author pages
+    const filteredPages = sitemapData.staticPages.filter((page) => {
+      const path = page.loc.replace(/^\//, '');
+      return !path.startsWith('author/');
+    });
+
+    return filteredPages.sort((a, b) => {
       const aPath = a.loc.replace(/^\//, '');
       const bPath = b.loc.replace(/^\//, '');
       const aIndex = pageOrder.indexOf(aPath);
@@ -291,7 +296,7 @@ function Sitemap({ sitemapData }: { sitemapData: SitemapData }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale = 'en' }) {
   const generateVehicleMakeUrls = () => {
     const makes = [
       'audi',
@@ -432,7 +437,19 @@ export async function getStaticProps() {
       let hasMorePages = true;
 
       while (hasMorePages) {
-        const url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&locale=en&pagination[page]=${page}&pagination[pageSize]=100`;
+        const dateField =
+          collection === 'blogs'
+            ? 'publishedAt'
+            : collection === 'blog-evergreens'
+              ? 'createdAt'
+              : 'publishedAt';
+
+        let url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&fields[2]=${dateField}&locale=en&pagination[page]=${page}&pagination[pageSize]=100`;
+
+        // Add date field for blogs and blog-evergreens
+        if (collection === 'blogs' || collection === 'blog-evergreens') {
+          url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&fields[2]=date&fields[3]=${dateField}&locale=en&pagination[page]=${page}&pagination[pageSize]=100`;
+        }
 
         const response = await fetch(url);
         if (!response.ok) {
@@ -456,8 +473,21 @@ export async function getStaticProps() {
         .map((item) => ({
           slug: item.attributes?.slug || '',
           title: item.attributes?.title || item.attributes?.slug || 'Untitled',
+          date:
+            item.attributes?.date ||
+            item.attributes?.publishedAt ||
+            item.attributes?.createdAt ||
+            null,
         }))
-        .filter((item) => item.slug);
+        .filter((item) => item.slug)
+        .sort((a, b) => {
+          // Sort by date descending (newest first)
+          if (a.date && b.date) {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          }
+          // If no date, sort alphabetically
+          return a.title.localeCompare(b.title);
+        });
     } catch (error) {
       return [];
     }
@@ -557,11 +587,37 @@ export async function getStaticProps() {
         !page.loc.includes('vehiculos-que-blindamos')
     );
 
+    // Create SEO data for the sitemap page
+    const seoData = {
+      metaTitle: 'Sitemap - Alpine Armoring',
+      metaDescription:
+        'Complete sitemap for Alpine Armoring website including all armored vehicles, inventory, blog posts, news articles, and locations we serve.',
+      canonicalURL: '/sitemap',
+      metaRobots: 'noindex, follow',
+      languageUrls: {
+        en: '/sitemap',
+        es: '/es/sitemap',
+      },
+    };
+
     return {
-      props: { sitemapData },
+      props: {
+        sitemapData,
+        seoData,
+        locale,
+      },
       revalidate: 3600,
     };
   } catch (error) {
+    const fallbackSeoData = {
+      metaTitle: 'Sitemap - Alpine Armoring',
+      metaDescription: 'Complete sitemap for Alpine Armoring website.',
+      canonicalURL: '/sitemap',
+      languageUrls: {
+        en: '/sitemap',
+      },
+    };
+
     return {
       props: {
         sitemapData: {
@@ -575,6 +631,8 @@ export async function getStaticProps() {
                 !page.loc.includes('vehiculos-que-blindamos')
             ) || [],
         },
+        seoData: fallbackSeoData,
+        locale,
       },
       revalidate: 300,
     };

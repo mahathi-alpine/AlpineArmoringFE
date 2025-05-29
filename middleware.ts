@@ -208,6 +208,12 @@ export function middleware(request: NextRequest) {
 
   const locale = request.nextUrl.locale || 'en';
 
+  if (pathname === '/sitemap' || pathname.endsWith('/sitemap')) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, follow');
+    return response;
+  }
+
   // Check for and correct 'suv-blindados' to 'suvs-blindados' in URLs
   const correctedSuvPath = correctSuvBlindadosPath(pathname);
   if (correctedSuvPath) {
@@ -448,7 +454,8 @@ export const config = {
   matcher: [
     // '/(stock|inventory|vehicles-we-armor|available-now|armored|blog|media)/:path*',
     // '/contact',
-    '/((?!_next/static|_next/image|favicon.ico|api|sitemap|robots|manifest|sw.js).*)',
+    '/sitemap',
+    '/((?!_next/static|_next/image|favicon.ico|api|sitemap.xml|robots|manifest|sw.js).*)',
     '/www.alpineco.com/:path*',
   ],
 };

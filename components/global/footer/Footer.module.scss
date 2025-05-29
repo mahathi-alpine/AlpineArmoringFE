@@ -324,9 +324,10 @@
 
       &_item {
         position: relative;
+        margin: 0 10px;
 
         @include breakpoint(medium) {
-          margin-bottom: 0;
+          margin: 0;
         }
 
         @include breakpoint(large) {

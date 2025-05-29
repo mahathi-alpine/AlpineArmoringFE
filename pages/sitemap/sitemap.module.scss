@@ -43,6 +43,7 @@
         }
 
         li {
+          width: 100%;
           @include breakpoint(huge) {
             width: calc(100% / 3 - 16px);
           }
