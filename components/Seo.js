@@ -15,6 +15,12 @@ const isFullUrl = (url) => {
 const Seo = ({ props }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
+  const [isClient, setIsClient] = useState(false);
+
+  // Track when we're on the client side
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
@@ -127,7 +133,15 @@ const Seo = ({ props }) => {
   } else {
     let pathForCanonical;
 
-    if (typeof window !== 'undefined') {
+    // Always log to see when this runs
+    console.log('🔧 Canonical URL construction running:', {
+      isClient,
+      hasWindow: typeof window !== 'undefined',
+      routerAsPath: router.asPath,
+      routerLocale: router.locale,
+    });
+
+    if (isClient && typeof window !== 'undefined') {
       // CLIENT SIDE: Use the actual URL path from window.location
       const actualPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(actualPath);
@@ -135,26 +149,48 @@ const Seo = ({ props }) => {
       // Remove locale prefix since baseUrl already includes it
       pathForCanonical =
         router.locale !== 'en'
-          ? cleanPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
+          ? cleanPath.replace(new RegExp(`^/${router.locale}(/|$)`), '$1')
           : cleanPath;
+
+      // Ensure we have at least '/' if the path becomes empty
+      if (!pathForCanonical || pathForCanonical === '') {
+        pathForCanonical = '/';
+      }
 
       console.log('🔧 CLIENT - actualPath:', actualPath);
       console.log('🔧 CLIENT - cleanPath:', cleanPath);
-      console.log('🔧 CLIENT - pathForCanonical:', pathForCanonical);
+      console.log(
+        '🔧 CLIENT - pathForCanonical after locale removal:',
+        pathForCanonical
+      );
     } else {
-      // SERVER SIDE: The issue is here - router.asPath might contain the English internal path
-      // Let's try to construct the correct path from available data
-      console.log('🔧 SERVER - router.asPath:', router.asPath);
-      console.log('🔧 SERVER - router.locale:', router.locale);
-      console.log('🔧 SERVER - seoProps available:', !!seoProps);
+      // SERVER SIDE or initial render: Try to use languageUrls or construct safely
+      console.log(
+        '🔧 SERVER/INITIAL - seoProps.languageUrls:',
+        seoProps?.languageUrls
+      );
 
-      // Try to use languageUrls from seoProps if available
       if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
         const localeUrl = seoProps.languageUrls[router.locale];
-        pathForCanonical = removeNxtParams(localeUrl);
-        console.log('🔧 SERVER - using languageUrls:', localeUrl);
+        let cleanLocaleUrl = removeNxtParams(localeUrl);
+
+        // Remove locale prefix from languageUrls if it exists
+        if (router.locale !== 'en') {
+          cleanLocaleUrl = cleanLocaleUrl.replace(
+            new RegExp(`^/${router.locale}(/|$)`),
+            '$1'
+          );
+        }
+
+        pathForCanonical = cleanLocaleUrl || '/';
+        console.log(
+          '🔧 SERVER - using languageUrls:',
+          localeUrl,
+          '→',
+          pathForCanonical
+        );
       } else {
-        // Fallback to router.asPath (which might be wrong but we'll see)
+        // Fallback: use router.asPath (should not have locale prefix on server)
         const serverPath = removeNxtParams(router.asPath);
         pathForCanonical = serverPath;
         console.log('🔧 SERVER - fallback to router.asPath:', serverPath);
@@ -163,11 +199,6 @@ const Seo = ({ props }) => {
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
     console.log('🔧 Final canonicalUrl:', canonicalUrl);
-    console.log('🔧 baseUrl used:', baseUrl);
-    console.log(
-      '🔧 Running on:',
-      typeof window !== 'undefined' ? 'CLIENT' : 'SERVER'
-    );
   }
 
   // DEBUG: Log final canonical URL (remove after fixing)
