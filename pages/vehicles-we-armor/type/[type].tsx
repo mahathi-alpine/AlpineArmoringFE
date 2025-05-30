@@ -5,7 +5,7 @@ import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
-import Head from 'next/head';
+// import Head from 'next/head';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
@@ -94,79 +94,79 @@ function Inventory(props) {
     </>
   );
 
-  const getBreadcrumbStructuredData = () => {
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: lang.home,
-          item: 'https://www.alpineco.com/',
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: lang.vehiclesWeArmor,
-          item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: categoryTitle,
-          item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`,
-        },
-      ],
-    };
+  // const getBreadcrumbStructuredData = () => {
+  //   const structuredData = {
+  //     '@context': 'https://schema.org',
+  //     '@type': 'BreadcrumbList',
+  //     itemListElement: [
+  //       {
+  //         '@type': 'ListItem',
+  //         position: 1,
+  //         name: lang.home,
+  //         item: 'https://www.alpineco.com/',
+  //       },
+  //       {
+  //         '@type': 'ListItem',
+  //         position: 2,
+  //         name: lang.vehiclesWeArmor,
+  //         item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}`,
+  //       },
+  //       {
+  //         '@type': 'ListItem',
+  //         position: 3,
+  //         name: categoryTitle,
+  //         item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`,
+  //       },
+  //     ],
+  //   };
 
-    // Conditionally add make ListItem if router.query.make exists
-    if (router.query.make) {
-      const make = router.query.make;
-      structuredData.itemListElement.push({
-        '@type': 'ListItem',
-        position: 4,
-        name: make,
-        item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}?make=${make}`,
-      });
-    }
+  //   // Conditionally add make ListItem if router.query.make exists
+  //   if (router.query.make) {
+  //     const make = router.query.make;
+  //     structuredData.itemListElement.push({
+  //       '@type': 'ListItem',
+  //       position: 4,
+  //       name: make,
+  //       item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}?make=${make}`,
+  //     });
+  //   }
 
-    return JSON.stringify(structuredData);
-  };
+  //   return JSON.stringify(structuredData);
+  // };
 
-  // FAQ structured data
-  const getFAQStructuredData = () => {
-    if (!faqs || !Array.isArray(faqs)) {
-      console.error('FAQs is not an array:', faqs);
-      return null;
-    }
+  // // FAQ structured data
+  // const getFAQStructuredData = () => {
+  //   if (!faqs || !Array.isArray(faqs)) {
+  //     console.error('FAQs is not an array:', faqs);
+  //     return null;
+  //   }
 
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faqs.map((faq, index) => {
-        const title =
-          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text =
-          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
+  //   const structuredData = {
+  //     '@context': 'https://schema.org',
+  //     '@type': 'FAQPage',
+  //     mainEntity: faqs.map((faq, index) => {
+  //       const title =
+  //         faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
+  //       const text =
+  //         faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
-        return {
-          '@type': 'Question',
-          name: title,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: text,
-          },
-        };
-      }),
-    };
+  //       return {
+  //         '@type': 'Question',
+  //         name: title,
+  //         acceptedAnswer: {
+  //           '@type': 'Answer',
+  //           text: text,
+  //         },
+  //       };
+  //     }),
+  //   };
 
-    return JSON.stringify(structuredData);
-  };
+  //   return JSON.stringify(structuredData);
+  // };
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
@@ -179,7 +179,7 @@ function Inventory(props) {
             key="faq-jsonld"
           />
         )}
-      </Head>
+      </Head> */}
       <div className={`${styles.listing}`}>
         <div
           className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}

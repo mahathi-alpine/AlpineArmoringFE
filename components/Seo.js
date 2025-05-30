@@ -100,10 +100,52 @@ const Seo = ({ props }) => {
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
-    // Always use router.asPath for consistency between server and client
-    const serverPath = removeNxtParams(router.asPath);
-    const [pathOnly, queryOnly] = serverPath.split('?');
-    const pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
+    let pathForCanonical;
+
+    if (typeof window !== 'undefined') {
+      // CLIENT SIDE: Use window.location for the actual user-facing URL
+      const actualPath = window.location.pathname + window.location.search;
+      const cleanPath = removeNxtParams(actualPath);
+
+      // Remove locale prefix since baseUrl already includes it
+      const pathWithoutLocale =
+        router.locale !== 'en'
+          ? cleanPath.replace(new RegExp(`^/${router.locale}(/|$)`), '$1') ||
+            '/'
+          : cleanPath;
+
+      pathForCanonical = pathWithoutLocale;
+    } else {
+      // SERVER SIDE: Try to construct the correct localized path
+      // router.asPath might contain the English internal path during SSR
+
+      if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
+        // Use the languageUrls if available, but add query params from router.asPath
+        const localeUrl = seoProps.languageUrls[router.locale];
+        const cleanLocaleUrl = removeNxtParams(localeUrl);
+
+        // Remove locale prefix from languageUrls
+        const pathWithoutLocale =
+          router.locale !== 'en'
+            ? cleanLocaleUrl.replace(
+                new RegExp(`^/${router.locale}(/|$)`),
+                '$1'
+              ) || '/'
+            : cleanLocaleUrl;
+
+        // Add query params from router.asPath if they exist
+        const queryFromAsPath = router.asPath.includes('?')
+          ? '?' + router.asPath.split('?')[1]
+          : '';
+
+        pathForCanonical = pathWithoutLocale + queryFromAsPath;
+      } else {
+        // Fallback to router.asPath
+        const serverPath = removeNxtParams(router.asPath);
+        const [pathOnly, queryOnly] = serverPath.split('?');
+        pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
+      }
+    }
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
   }
