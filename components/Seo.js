@@ -158,39 +158,19 @@ const Seo = ({ props }) => {
       console.log('  router.asPath:', router.asPath);
       console.log('  seoProps.languageUrls:', seoProps?.languageUrls);
 
-      if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
-        const localeUrl = seoProps.languageUrls[router.locale];
-        let cleanLocaleUrl = removeNxtParams(localeUrl);
+      // Prefer router.asPath since it contains query parameters
+      // languageUrls from getServerSideProps doesn't include dynamic query params
+      const serverPath = removeNxtParams(router.asPath);
+      console.log('  serverPath after removeNxtParams:', serverPath);
 
-        console.log('  localeUrl:', localeUrl);
-        console.log('  cleanLocaleUrl after removeNxtParams:', cleanLocaleUrl);
+      // Split path and query to handle them separately
+      const [pathOnly, queryOnly] = serverPath.split('?');
+      console.log('  pathOnly:', pathOnly);
+      console.log('  queryOnly:', queryOnly);
 
-        // Split path and query to handle them separately
-        const [pathOnly, queryOnly] = cleanLocaleUrl.split('?');
-        console.log('  pathOnly:', pathOnly);
-        console.log('  queryOnly:', queryOnly);
-
-        // Remove locale prefix from path only
-        let cleanPathOnly =
-          router.locale !== 'en'
-            ? pathOnly.replace(new RegExp(`^/${router.locale}(/|$)`), '$1')
-            : pathOnly;
-
-        if (!cleanPathOnly || cleanPathOnly === '') {
-          cleanPathOnly = '/';
-        }
-
-        // Reconstruct with query parameters
-        pathForCanonical = queryOnly
-          ? `${cleanPathOnly}?${queryOnly}`
-          : cleanPathOnly;
-        console.log('  pathForCanonical from languageUrls:', pathForCanonical);
-      } else {
-        // Fallback: use router.asPath (should not have locale prefix on server)
-        const serverPath = removeNxtParams(router.asPath);
-        pathForCanonical = serverPath;
-        console.log('  pathForCanonical from router.asPath:', pathForCanonical);
-      }
+      // router.asPath on server doesn't include locale prefix, so use as-is
+      pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
+      console.log('  pathForCanonical from router.asPath:', pathForCanonical);
     }
 
     console.log(
