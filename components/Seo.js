@@ -125,11 +125,10 @@ const Seo = ({ props }) => {
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
-    // Use a consistent approach: always use window.location when available
     let pathForCanonical;
 
     if (typeof window !== 'undefined') {
-      // On client side, use the actual URL path from window.location
+      // CLIENT SIDE: Use the actual URL path from window.location
       const actualPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(actualPath);
 
@@ -143,19 +142,32 @@ const Seo = ({ props }) => {
       console.log('🔧 CLIENT - cleanPath:', cleanPath);
       console.log('🔧 CLIENT - pathForCanonical:', pathForCanonical);
     } else {
-      // On server side, we need to construct the correct Spanish URL
-      // but router.asPath might be giving us the English internal path
-      // So let's try to use the current page data if available
-      const serverPath = removeNxtParams(router.asPath);
-      pathForCanonical = serverPath;
-
+      // SERVER SIDE: The issue is here - router.asPath might contain the English internal path
+      // Let's try to construct the correct path from available data
       console.log('🔧 SERVER - router.asPath:', router.asPath);
-      console.log('🔧 SERVER - pathForCanonical:', pathForCanonical);
+      console.log('🔧 SERVER - router.locale:', router.locale);
+      console.log('🔧 SERVER - seoProps available:', !!seoProps);
+
+      // Try to use languageUrls from seoProps if available
+      if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
+        const localeUrl = seoProps.languageUrls[router.locale];
+        pathForCanonical = removeNxtParams(localeUrl);
+        console.log('🔧 SERVER - using languageUrls:', localeUrl);
+      } else {
+        // Fallback to router.asPath (which might be wrong but we'll see)
+        const serverPath = removeNxtParams(router.asPath);
+        pathForCanonical = serverPath;
+        console.log('🔧 SERVER - fallback to router.asPath:', serverPath);
+      }
     }
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
     console.log('🔧 Final canonicalUrl:', canonicalUrl);
     console.log('🔧 baseUrl used:', baseUrl);
+    console.log(
+      '🔧 Running on:',
+      typeof window !== 'undefined' ? 'CLIENT' : 'SERVER'
+    );
   }
 
   // DEBUG: Log final canonical URL (remove after fixing)
