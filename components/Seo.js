@@ -119,11 +119,22 @@ const Seo = ({ props }) => {
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
-    // Use the current path as seen by the user
-    const pathForCanonical =
-      router.locale !== 'en'
-        ? currentPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
-        : currentPath;
+    // Since currentPath includes the locale and baseUrl also includes the locale,
+    // we need to use the path without locale for construction
+    let pathForCanonical;
+
+    if (typeof window !== 'undefined') {
+      // On client side, use window.location.pathname and remove locale prefix
+      const fullPath = window.location.pathname + window.location.search;
+      const cleanPath = removeNxtParams(fullPath);
+      pathForCanonical =
+        router.locale !== 'en'
+          ? cleanPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
+          : cleanPath;
+    } else {
+      // On server side, router.asPath doesn't include locale prefix
+      pathForCanonical = removeNxtParams(router.asPath);
+    }
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
   }
