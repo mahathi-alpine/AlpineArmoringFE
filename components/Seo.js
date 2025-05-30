@@ -112,19 +112,35 @@ const Seo = ({ props }) => {
   } else {
     let pathForCanonical;
 
+    console.log('🔧 DEBUG: Starting canonical URL construction');
+    console.log(
+      '🔧 DEBUG: isClient:',
+      isClient,
+      'hasWindow:',
+      typeof window !== 'undefined'
+    );
+
     if (isClient && typeof window !== 'undefined') {
       // CLIENT SIDE: Use the actual URL path from window.location
       const actualPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(actualPath);
 
+      console.log('🔧 CLIENT DEBUG:');
+      console.log('  actualPath:', actualPath);
+      console.log('  cleanPath after removeNxtParams:', cleanPath);
+
       // Split path and query to handle them separately
       const [pathOnly, queryOnly] = cleanPath.split('?');
+      console.log('  pathOnly:', pathOnly);
+      console.log('  queryOnly:', queryOnly);
 
       // Remove locale prefix from path only
       let cleanPathOnly =
         router.locale !== 'en'
           ? pathOnly.replace(new RegExp(`^/${router.locale}(/|$)`), '$1')
           : pathOnly;
+
+      console.log('  cleanPathOnly after locale removal:', cleanPathOnly);
 
       // Ensure we have at least '/' if the path becomes empty
       if (!cleanPathOnly || cleanPathOnly === '') {
@@ -135,14 +151,24 @@ const Seo = ({ props }) => {
       pathForCanonical = queryOnly
         ? `${cleanPathOnly}?${queryOnly}`
         : cleanPathOnly;
+      console.log('  pathForCanonical final:', pathForCanonical);
     } else {
-      // SERVER SIDE or initial render: Try to use languageUrls or construct safely
+      // SERVER SIDE or initial render
+      console.log('🔧 SERVER DEBUG:');
+      console.log('  router.asPath:', router.asPath);
+      console.log('  seoProps.languageUrls:', seoProps?.languageUrls);
+
       if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
         const localeUrl = seoProps.languageUrls[router.locale];
         let cleanLocaleUrl = removeNxtParams(localeUrl);
 
+        console.log('  localeUrl:', localeUrl);
+        console.log('  cleanLocaleUrl after removeNxtParams:', cleanLocaleUrl);
+
         // Split path and query to handle them separately
         const [pathOnly, queryOnly] = cleanLocaleUrl.split('?');
+        console.log('  pathOnly:', pathOnly);
+        console.log('  queryOnly:', queryOnly);
 
         // Remove locale prefix from path only
         let cleanPathOnly =
@@ -158,14 +184,23 @@ const Seo = ({ props }) => {
         pathForCanonical = queryOnly
           ? `${cleanPathOnly}?${queryOnly}`
           : cleanPathOnly;
+        console.log('  pathForCanonical from languageUrls:', pathForCanonical);
       } else {
         // Fallback: use router.asPath (should not have locale prefix on server)
         const serverPath = removeNxtParams(router.asPath);
         pathForCanonical = serverPath;
+        console.log('  pathForCanonical from router.asPath:', pathForCanonical);
       }
     }
 
+    console.log(
+      '🔧 DEBUG: Before normalizeUrl - pathForCanonical:',
+      pathForCanonical
+    );
+    console.log('🔧 DEBUG: baseUrl:', baseUrl);
+
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
+    console.log('🔧 DEBUG: After construction - canonicalUrl:', canonicalUrl);
   }
 
   // Clean up any double slashes (except after protocol)
