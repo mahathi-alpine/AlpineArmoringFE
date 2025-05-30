@@ -83,9 +83,10 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      {currentSeoData && (
+      {/* {currentSeoData && (
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
-      )}
+      )} */}
+      {currentSeoData && <Seo props={currentSeoData} />}
       <Layout>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
