@@ -4,11 +4,8 @@ import { useRouter } from 'next/router';
 
 const normalizeUrl = (url) => {
   if (!url) return '';
-  console.log('🔧 normalizeUrl input:', url);
   // Remove any protocol and domain part if present
-  const result = url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
-  console.log('🔧 normalizeUrl output:', result);
-  return result;
+  return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
 };
 
 const isFullUrl = (url) => {
@@ -18,18 +15,6 @@ const isFullUrl = (url) => {
 const Seo = ({ props }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
-  const [isClient, setIsClient] = useState(false);
-
-  // Track when we're on the client side
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // Log server-side execution immediately
-  if (typeof window === 'undefined') {
-    console.log('🟦 SERVER SIDE EXECUTION - router.asPath:', router.asPath);
-    console.log('🟦 SERVER SIDE EXECUTION - router.locale:', router.locale);
-  }
 
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
@@ -87,22 +72,17 @@ const Seo = ({ props }) => {
     return cleanQuery ? `${path}?${cleanQuery}` : path;
   };
 
-  // Get the current URL path as seen by the user (not the rewritten internal path)
+  // For ogUrl, we need the path without locale prefix for construction
   const getCurrentPath = () => {
     if (typeof window !== 'undefined') {
-      // On client side, use window.location.pathname + search
       const fullPath = window.location.pathname + window.location.search;
       return removeNxtParams(fullPath);
     } else {
-      // On server side, construct from router
-      const cleanAsPath = removeNxtParams(router.asPath);
-      return cleanAsPath;
+      return removeNxtParams(router.asPath);
     }
   };
 
   const currentPath = getCurrentPath();
-
-  // For ogUrl, we need the path without locale prefix for construction
   const pathForOg =
     router.locale !== 'en'
       ? currentPath.replace(new RegExp(`^/${router.locale}(/|$)`), '$1') || '/'
@@ -113,47 +93,19 @@ const Seo = ({ props }) => {
     '$1/'
   );
 
+  // Canonical URL construction
   let canonicalUrl;
   if (seoProps?.canonicalURL) {
     canonicalUrl = isFullUrl(seoProps.canonicalURL)
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
-    let pathForCanonical;
-
-    console.log('🔧 DEBUG: Starting canonical URL construction');
-    console.log(
-      '🔧 DEBUG: isClient:',
-      isClient,
-      'hasWindow:',
-      typeof window !== 'undefined'
-    );
-    console.log('🔧 DEBUG: router.asPath:', router.asPath);
-    console.log('🔧 DEBUG: router.locale:', router.locale);
-
-    // ALWAYS use router.asPath for consistency between server and client
-    // This ensures both server and client use the same Spanish path with query params
-    console.log('🔧 ALWAYS USING ROUTER.ASPATH FOR CONSISTENCY:');
-    console.log('  router.asPath:', router.asPath);
-    console.log('  router.locale:', router.locale);
-
+    // Always use router.asPath for consistency between server and client
     const serverPath = removeNxtParams(router.asPath);
-    console.log('  serverPath after removeNxtParams:', serverPath);
-
-    // Split path and query to handle them separately
     const [pathOnly, queryOnly] = serverPath.split('?');
-    console.log('  pathOnly:', pathOnly);
-    console.log('  queryOnly:', queryOnly);
-
-    // router.asPath doesn't include locale prefix, so use as-is
-    pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
-    console.log('  pathForCanonical from router.asPath:', pathForCanonical);
-
-    console.log('🔧 DEBUG: Final pathForCanonical:', pathForCanonical);
-    console.log('🔧 DEBUG: baseUrl:', baseUrl);
+    const pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
-    console.log('🔧 DEBUG: Final canonicalUrl:', canonicalUrl);
   }
 
   // Clean up any double slashes (except after protocol)
@@ -209,7 +161,7 @@ const Seo = ({ props }) => {
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
       {/* Canonical URL */}
-      <link rel="canonical" href={canonicalUrl} />
+      <link rel="canonical" href={canonicalUrl} data-seo-component="true" />
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
