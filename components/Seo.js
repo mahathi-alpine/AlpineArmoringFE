@@ -131,65 +131,23 @@ const Seo = ({ props }) => {
     console.log('🔧 DEBUG: router.asPath:', router.asPath);
     console.log('🔧 DEBUG: router.locale:', router.locale);
 
-    // Force consistent behavior: always use router.asPath if available and has query params
-    // Only use window.location as fallback when router.asPath doesn't have query params
-    const hasQueryInRouterAsPath = router.asPath.includes('?');
-    const shouldUseRouterAsPath =
-      hasQueryInRouterAsPath || typeof window === 'undefined';
+    // ALWAYS use router.asPath for consistency between server and client
+    // This ensures both server and client use the same Spanish path with query params
+    console.log('🔧 ALWAYS USING ROUTER.ASPATH FOR CONSISTENCY:');
+    console.log('  router.asPath:', router.asPath);
+    console.log('  router.locale:', router.locale);
 
-    console.log('🔧 DEBUG: hasQueryInRouterAsPath:', hasQueryInRouterAsPath);
-    console.log('🔧 DEBUG: shouldUseRouterAsPath:', shouldUseRouterAsPath);
+    const serverPath = removeNxtParams(router.asPath);
+    console.log('  serverPath after removeNxtParams:', serverPath);
 
-    if (shouldUseRouterAsPath) {
-      // Use router.asPath (works on both server and client, contains query params)
-      console.log('🔧 USING ROUTER.ASPATH:');
-      console.log('  router.asPath:', router.asPath);
-      console.log('  router.locale:', router.locale);
+    // Split path and query to handle them separately
+    const [pathOnly, queryOnly] = serverPath.split('?');
+    console.log('  pathOnly:', pathOnly);
+    console.log('  queryOnly:', queryOnly);
 
-      const serverPath = removeNxtParams(router.asPath);
-      console.log('  serverPath after removeNxtParams:', serverPath);
-
-      // Split path and query to handle them separately
-      const [pathOnly, queryOnly] = serverPath.split('?');
-      console.log('  pathOnly:', pathOnly);
-      console.log('  queryOnly:', queryOnly);
-
-      // router.asPath doesn't include locale prefix on server, use as-is
-      pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
-      console.log('  pathForCanonical from router.asPath:', pathForCanonical);
-    } else {
-      // Use window.location only when router.asPath doesn't have query params
-      const actualPath = window.location.pathname + window.location.search;
-      const cleanPath = removeNxtParams(actualPath);
-
-      console.log('🔧 USING WINDOW.LOCATION:');
-      console.log('  actualPath:', actualPath);
-      console.log('  cleanPath after removeNxtParams:', cleanPath);
-
-      // Split path and query to handle them separately
-      const [pathOnly, queryOnly] = cleanPath.split('?');
-      console.log('  pathOnly:', pathOnly);
-      console.log('  queryOnly:', queryOnly);
-
-      // Remove locale prefix from path only
-      let cleanPathOnly =
-        router.locale !== 'en'
-          ? pathOnly.replace(new RegExp(`^/${router.locale}(/|$)`), '$1')
-          : pathOnly;
-
-      console.log('  cleanPathOnly after locale removal:', cleanPathOnly);
-
-      // Ensure we have at least '/' if the path becomes empty
-      if (!cleanPathOnly || cleanPathOnly === '') {
-        cleanPathOnly = '/';
-      }
-
-      // Reconstruct with query parameters
-      pathForCanonical = queryOnly
-        ? `${cleanPathOnly}?${queryOnly}`
-        : cleanPathOnly;
-      console.log('  pathForCanonical final:', pathForCanonical);
-    }
+    // router.asPath doesn't include locale prefix, so use as-is
+    pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
+    console.log('  pathForCanonical from router.asPath:', pathForCanonical);
 
     console.log('🔧 DEBUG: Final pathForCanonical:', pathForCanonical);
     console.log('🔧 DEBUG: baseUrl:', baseUrl);
