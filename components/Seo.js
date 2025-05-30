@@ -138,7 +138,10 @@ const Seo = ({ props }) => {
           ? '?' + router.asPath.split('?')[1]
           : '';
 
-        pathForCanonical = pathWithoutLocale + queryFromAsPath;
+        // Clean the query params to remove nxtP* parameters
+        const cleanQueryFromAsPath = removeNxtParams(queryFromAsPath);
+
+        pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
       } else {
         // Fallback to router.asPath
         const serverPath = removeNxtParams(router.asPath);
