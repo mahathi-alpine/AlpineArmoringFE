@@ -205,7 +205,6 @@ export function middleware(request: NextRequest) {
   url.pathname = normalizeUrl(url.pathname);
 
   const { pathname, searchParams } = url;
-
   const locale = request.nextUrl.locale || 'en';
 
   if (pathname === '/sitemap' || pathname.endsWith('/sitemap')) {
@@ -312,53 +311,55 @@ export function middleware(request: NextRequest) {
   // Normalize the search params by replacing + with %20
   const normalizedSearch = searchParams.toString().replace(/\+/g, '%20');
 
-  // Create the full path with normalized search
-  const fullPath = normalizedSearch
-    ? `${pathname}?${normalizedSearch}`
-    : pathname;
+  // Create paths for redirect lookup - include locale in the lookup
+  const pathWithLocale = locale !== 'en' ? `/${locale}${pathname}` : pathname;
+  const fullPathWithLocale = normalizedSearch
+    ? `${pathWithLocale}?${normalizedSearch}`
+    : pathWithLocale;
 
-  // Check redirects
-  let redirectTo = redirectMap.get(
-    normalizedSearch ? `${pathname}?${searchParams.toString()}` : pathname
-  );
+  // Check redirects with multiple lookup strategies
+  let redirectTo = redirectMap.get(fullPathWithLocale);
 
   if (!redirectTo) {
-    redirectTo = redirectMap.get(
-      normalizedSearch ? `${pathname}?${normalizedSearch}` : pathname
-    );
+    // Try with original search params format
+    const fullPathWithOriginalSearch = searchParams.toString()
+      ? `${pathWithLocale}?${searchParams.toString()}`
+      : pathWithLocale;
+    redirectTo = redirectMap.get(fullPathWithOriginalSearch);
   }
 
   if (!redirectTo) {
-    const decodedPath = pathname;
+    // Try with decoded path
+    const decodedPathWithLocale = safeDecodeURIComponent(pathWithLocale);
     const decodedSearch = safeDecodeURIComponent(normalizedSearch);
     const decodedFullPath = decodedSearch
-      ? `${decodedPath}?${decodedSearch}`
-      : decodedPath;
+      ? `${decodedPathWithLocale}?${decodedSearch}`
+      : decodedPathWithLocale;
 
     redirectTo = redirectMap.get(decodedFullPath);
+  }
 
-    // Handle parentheses encoding differences
-    if (
-      !redirectTo &&
-      (normalizedSearch.includes('%28') || normalizedSearch.includes('%29'))
-    ) {
-      for (const [key, value] of redirectMap.entries()) {
-        // Skip keys that don't match the path or don't include parentheses
-        if (
-          !key.startsWith(pathname) ||
-          (!key.includes('(') && !key.includes(')'))
-        ) {
-          continue;
-        }
+  // Handle parentheses encoding differences
+  if (
+    !redirectTo &&
+    (normalizedSearch.includes('%28') || normalizedSearch.includes('%29'))
+  ) {
+    for (const [key, value] of redirectMap.entries()) {
+      // Skip keys that don't match the path or don't include parentheses
+      if (
+        !key.startsWith(pathWithLocale) ||
+        (!key.includes('(') && !key.includes(')'))
+      ) {
+        continue;
+      }
 
-        // Normalize the redirect key by encoding parentheses
-        const normalizedKey = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
+      // Normalize the redirect key by encoding parentheses
+      const normalizedKey = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
 
-        // Check if our normalized path matches the normalized key
-        if (fullPath === normalizedKey) {
-          redirectTo = value;
-          break;
-        }
+      // Check if our normalized path matches the normalized key
+      if (fullPathWithLocale === normalizedKey) {
+        redirectTo = value;
+        break;
       }
     }
   }
