@@ -93,31 +93,10 @@ const Seo = ({ props }) => {
 
   const currentPath = getCurrentPath();
 
-  // DEBUG: Log debugging information to console (remove after fixing)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.group('🔍 SEO Debug Information - CLIENT SIDE');
-      console.log('router.locale:', router.locale);
-      console.log('router.asPath:', router.asPath);
-      console.log('window.location.pathname:', window.location.pathname);
-      console.log('window.location.search:', window.location.search);
-      console.log('window.location.href:', window.location.href);
-      console.log('currentPath (calculated):', currentPath);
-      console.log('baseUrl:', baseUrl);
-      console.groupEnd();
-    } else {
-      console.group('🔍 SEO Debug Information - SERVER SIDE');
-      console.log('router.locale:', router.locale);
-      console.log('router.asPath:', router.asPath);
-      console.log('baseUrl:', baseUrl);
-      console.groupEnd();
-    }
-  }, [router.asPath, router.locale, currentPath, baseUrl]);
-
   // For ogUrl, we need the path without locale prefix for construction
   const pathForOg =
     router.locale !== 'en'
-      ? currentPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
+      ? currentPath.replace(new RegExp(`^/${router.locale}(/|$)`), '$1') || '/'
       : currentPath;
 
   const ogUrl = `${baseUrl}${normalizeUrl(pathForOg)}`.replace(
@@ -133,80 +112,61 @@ const Seo = ({ props }) => {
   } else {
     let pathForCanonical;
 
-    // Always log to see when this runs
-    console.log('🔧 Canonical URL construction running:', {
-      isClient,
-      hasWindow: typeof window !== 'undefined',
-      routerAsPath: router.asPath,
-      routerLocale: router.locale,
-    });
-
     if (isClient && typeof window !== 'undefined') {
       // CLIENT SIDE: Use the actual URL path from window.location
       const actualPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(actualPath);
 
-      // Remove locale prefix since baseUrl already includes it
-      pathForCanonical =
+      // Split path and query to handle them separately
+      const [pathOnly, queryOnly] = cleanPath.split('?');
+
+      // Remove locale prefix from path only
+      let cleanPathOnly =
         router.locale !== 'en'
-          ? cleanPath.replace(new RegExp(`^/${router.locale}(/|$)`), '$1')
-          : cleanPath;
+          ? pathOnly.replace(new RegExp(`^/${router.locale}(/|$)`), '$1')
+          : pathOnly;
 
       // Ensure we have at least '/' if the path becomes empty
-      if (!pathForCanonical || pathForCanonical === '') {
-        pathForCanonical = '/';
+      if (!cleanPathOnly || cleanPathOnly === '') {
+        cleanPathOnly = '/';
       }
 
-      console.log('🔧 CLIENT - actualPath:', actualPath);
-      console.log('🔧 CLIENT - cleanPath:', cleanPath);
-      console.log(
-        '🔧 CLIENT - pathForCanonical after locale removal:',
-        pathForCanonical
-      );
+      // Reconstruct with query parameters
+      pathForCanonical = queryOnly
+        ? `${cleanPathOnly}?${queryOnly}`
+        : cleanPathOnly;
     } else {
       // SERVER SIDE or initial render: Try to use languageUrls or construct safely
-      console.log(
-        '🔧 SERVER/INITIAL - seoProps.languageUrls:',
-        seoProps?.languageUrls
-      );
-
       if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
         const localeUrl = seoProps.languageUrls[router.locale];
         let cleanLocaleUrl = removeNxtParams(localeUrl);
 
-        // Remove locale prefix from languageUrls if it exists
-        if (router.locale !== 'en') {
-          cleanLocaleUrl = cleanLocaleUrl.replace(
-            new RegExp(`^/${router.locale}(/|$)`),
-            '$1'
-          );
+        // Split path and query to handle them separately
+        const [pathOnly, queryOnly] = cleanLocaleUrl.split('?');
+
+        // Remove locale prefix from path only
+        let cleanPathOnly =
+          router.locale !== 'en'
+            ? pathOnly.replace(new RegExp(`^/${router.locale}(/|$)`), '$1')
+            : pathOnly;
+
+        if (!cleanPathOnly || cleanPathOnly === '') {
+          cleanPathOnly = '/';
         }
 
-        pathForCanonical = cleanLocaleUrl || '/';
-        console.log(
-          '🔧 SERVER - using languageUrls:',
-          localeUrl,
-          '→',
-          pathForCanonical
-        );
+        // Reconstruct with query parameters
+        pathForCanonical = queryOnly
+          ? `${cleanPathOnly}?${queryOnly}`
+          : cleanPathOnly;
       } else {
         // Fallback: use router.asPath (should not have locale prefix on server)
         const serverPath = removeNxtParams(router.asPath);
         pathForCanonical = serverPath;
-        console.log('🔧 SERVER - fallback to router.asPath:', serverPath);
       }
     }
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
-    console.log('🔧 Final canonicalUrl:', canonicalUrl);
   }
-
-  // DEBUG: Log final canonical URL (remove after fixing)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.log('🔗 Final canonical URL:', canonicalUrl);
-    }
-  }, [canonicalUrl]);
 
   // Clean up any double slashes (except after protocol)
   canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
@@ -261,7 +221,7 @@ const Seo = ({ props }) => {
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
       {/* Canonical URL */}
-      <link rel="canonical" href={canonicalUrl.replace(/([^:])\/+/g, '$1/')} />
+      <link rel="canonical" href={canonicalUrl} />
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
