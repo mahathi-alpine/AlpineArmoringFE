@@ -4,8 +4,11 @@ import { useRouter } from 'next/router';
 
 const normalizeUrl = (url) => {
   if (!url) return '';
+  console.log('🔧 normalizeUrl input:', url);
   // Remove any protocol and domain part if present
-  return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
+  const result = url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
+  console.log('🔧 normalizeUrl output:', result);
+  return result;
 };
 
 const isFullUrl = (url) => {
@@ -178,9 +181,20 @@ const Seo = ({ props }) => {
       pathForCanonical
     );
     console.log('🔧 DEBUG: baseUrl:', baseUrl);
+    console.log(
+      '🔧 DEBUG: normalizeUrl(pathForCanonical):',
+      normalizeUrl(pathForCanonical)
+    );
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
     console.log('🔧 DEBUG: After construction - canonicalUrl:', canonicalUrl);
+
+    // Add timestamp to track different renders
+    console.log('🔧 DEBUG: Render timestamp:', Date.now());
+    console.log(
+      '🔧 DEBUG: Component render environment:',
+      typeof window !== 'undefined' ? 'CLIENT' : 'SERVER'
+    );
   }
 
   // Clean up any double slashes (except after protocol)
