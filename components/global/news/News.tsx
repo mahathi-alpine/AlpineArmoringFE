@@ -108,21 +108,6 @@ const Blog = ({
 
                     <div className={`${styles.news_item_content_main}`}>
                       <div className={`${styles.news_item_content_main_inner}`}>
-                        {/* {item.attributes.categories.data.length > 0 ? (
-                          <div className={`${styles.news_item_tags}`}>
-                            {item.attributes.categories.data.map(
-                              (item, index) => (
-                                <div
-                                  className={`${styles.news_item_tags_item}`}
-                                  key={index}
-                                >
-                                  {item.attributes.name}
-                                </div>
-                              )
-                            )}
-                          </div>
-                        ) : null} */}
-
                         <Link
                           href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
                         >

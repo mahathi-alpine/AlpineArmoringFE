@@ -23,7 +23,7 @@ async function fetchCollectionData(
     }
 
     let url;
-    if (collection === 'categories' || collection.includes('categories')) {
+    if (collection === 'categories') {
       url = `${baseUrl}/api/categories?fields[0]=slug&fields[1]=updatedAt&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100`;
     } else {
       const fields = 'fields[0]=slug&fields[1]=locale&fields[2]=updatedAt';

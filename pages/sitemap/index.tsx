@@ -23,6 +23,8 @@ interface SitemapData {
   blogEvergreens: SitemapItem[];
   articles: SitemapItem[];
   rentalInventories: SitemapItem[];
+  faqsCategories: SitemapItem[];
+  faqs: SitemapItem[];
   vehicleMakes: {
     baseMakes: VehicleMakeItem[];
     typeCategories: Record<string, VehicleMakeItem[]>;
@@ -222,6 +224,32 @@ function Sitemap({
               {sitemapData.blogs.map((item, index) => (
                 <li key={index}>
                   <Link href={getLocalizedUrl(`${lang.newsURL}`, item.slug)}>
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={`${styles.sitemap_category}`}>
+            <h2>{lang.allFaqCategories}</h2>
+            <ul>
+              {sitemapData.faqsCategories.map((item, index) => (
+                <li key={index}>
+                  <Link href={getLocalizedUrl(`${lang.faqsURL}`, item.slug)}>
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={`${styles.sitemap_category}`}>
+            <h2>{lang.allFaqs}</h2>
+            <ul>
+              {sitemapData.faqs.map((item, index) => (
+                <li key={index}>
+                  <Link href={getLocalizedUrl(`${lang.faqsURL}`, item.slug)}>
                     {item.title}
                   </Link>
                 </li>
@@ -651,6 +679,8 @@ export async function getStaticProps({ locale = 'en' }) {
     blogEvergreens: [],
     articles: [],
     rentalInventories: [],
+    faqsCategories: [],
+    faqs: [],
     vehicleMakes: { baseMakes: [], typeCategories: {} },
     staticPages: [],
   };
@@ -663,6 +693,8 @@ export async function getStaticProps({ locale = 'en' }) {
       blogEvergreens,
       articles,
       categories,
+      faqsCategories,
+      faqs,
     ] = await Promise.all([
       fetchStrapiCollection('inventories', locale),
       fetchStrapiCollection('vehicles-we-armors', locale),
@@ -670,6 +702,8 @@ export async function getStaticProps({ locale = 'en' }) {
       fetchStrapiCollection('blog-evergreens', locale),
       fetchStrapiCollection('articles', locale),
       fetchStrapiCollection('categories', locale),
+      fetchStrapiCollection('knowledge-base-categories', locale),
+      fetchStrapiCollection('knowledge-bases', locale),
     ]);
 
     sitemapData.inventories = inventories;
@@ -677,6 +711,8 @@ export async function getStaticProps({ locale = 'en' }) {
     sitemapData.blogs = blogs;
     sitemapData.blogEvergreens = blogEvergreens;
     sitemapData.articles = articles;
+    sitemapData.faqsCategories = faqsCategories;
+    sitemapData.faqs = faqs;
 
     // Filter categories
     const inventoryCategoryExcludes = [

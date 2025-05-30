@@ -320,4 +320,6 @@ export default {
   allMakesWeCanArmor: 'Todas las marcas que podemos blindar',
   makesWeCanArmor: 'hace que podamos blindarnos',
   allLocationsWeServe: 'Todas Ubicaciones que servimos',
+  allFaqCategories: 'Todas las Categorías de Preguntas Frecuentes',
+  allFaqs: 'Todas Preguntas Frecuentes',
 };

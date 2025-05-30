@@ -284,6 +284,24 @@ const config = {
         es: '/es/ubicaciones-que-servimos/:slug',
       },
     },
+    faqs: {
+      collection: 'knowledge-bases',
+      urlPattern: '/faqs/:slug',
+      priority: '0.5',
+      changefreq: 'monthly',
+      translations: {
+        es: '/es/preguntas-frecuentes/:slug',
+      },
+    },
+    faqsCategories: {
+      collection: 'knowledge-base-categories',
+      urlPattern: '/faqs/:slug',
+      priority: '0.5',
+      changefreq: 'monthly',
+      translations: {
+        es: '/es/preguntas-frecuentes/:slug',
+      },
+    },
     rentalInventories: {
       collection: 'inventories',
       urlPattern: '/rental-vehicles/:slug',

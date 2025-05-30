@@ -316,4 +316,6 @@ export default {
   allMakesWeCanArmor: 'All Makes We can Armor',
   makesWeCanArmor: 'makes we can armor',
   allLocationsWeServe: 'All Locations We Serve',
+  allFaqCategories: 'All FAQ Categories',
+  allFaqs: 'All FAQs',
 };

@@ -54,17 +54,6 @@ export async function getServerSideProps({ params, locale }) {
 
   // If category exists, get all posts from this category
   if (categoryData?.data?.length > 0) {
-    // const categoryId = categoryData.data[0].id;
-
-    // Get posts for this category
-    // const categoryPosts = await getPageData({
-    //   route: route.collectionSingle,
-    //   params: `filters[knowledge_base_category][id][$eq]=${categoryId}`,
-    //   populate: 'basic',
-    //   pageSize: 100,
-    //   locale,
-    // });
-
     // SEO data for category page
     const currentCategory = categoryData?.data?.[0]?.attributes;
     const seoData = {
