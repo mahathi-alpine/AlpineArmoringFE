@@ -128,13 +128,41 @@ const Seo = ({ props }) => {
       'hasWindow:',
       typeof window !== 'undefined'
     );
+    console.log('🔧 DEBUG: router.asPath:', router.asPath);
+    console.log('🔧 DEBUG: router.locale:', router.locale);
 
-    if (typeof window !== 'undefined') {
-      // CLIENT SIDE: Use the actual URL path from window.location
+    // Force consistent behavior: always use router.asPath if available and has query params
+    // Only use window.location as fallback when router.asPath doesn't have query params
+    const hasQueryInRouterAsPath = router.asPath.includes('?');
+    const shouldUseRouterAsPath =
+      hasQueryInRouterAsPath || typeof window === 'undefined';
+
+    console.log('🔧 DEBUG: hasQueryInRouterAsPath:', hasQueryInRouterAsPath);
+    console.log('🔧 DEBUG: shouldUseRouterAsPath:', shouldUseRouterAsPath);
+
+    if (shouldUseRouterAsPath) {
+      // Use router.asPath (works on both server and client, contains query params)
+      console.log('🔧 USING ROUTER.ASPATH:');
+      console.log('  router.asPath:', router.asPath);
+      console.log('  router.locale:', router.locale);
+
+      const serverPath = removeNxtParams(router.asPath);
+      console.log('  serverPath after removeNxtParams:', serverPath);
+
+      // Split path and query to handle them separately
+      const [pathOnly, queryOnly] = serverPath.split('?');
+      console.log('  pathOnly:', pathOnly);
+      console.log('  queryOnly:', queryOnly);
+
+      // router.asPath doesn't include locale prefix on server, use as-is
+      pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
+      console.log('  pathForCanonical from router.asPath:', pathForCanonical);
+    } else {
+      // Use window.location only when router.asPath doesn't have query params
       const actualPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(actualPath);
 
-      console.log('🔧 CLIENT DEBUG:');
+      console.log('🔧 USING WINDOW.LOCATION:');
       console.log('  actualPath:', actualPath);
       console.log('  cleanPath after removeNxtParams:', cleanPath);
 
@@ -161,46 +189,13 @@ const Seo = ({ props }) => {
         ? `${cleanPathOnly}?${queryOnly}`
         : cleanPathOnly;
       console.log('  pathForCanonical final:', pathForCanonical);
-    } else {
-      // SERVER SIDE or initial render
-      console.log('🔧 SERVER DEBUG:');
-      console.log('  router.asPath:', router.asPath);
-      console.log('  seoProps.languageUrls:', seoProps?.languageUrls);
-
-      // Prefer router.asPath since it contains query parameters
-      // languageUrls from getServerSideProps doesn't include dynamic query params
-      const serverPath = removeNxtParams(router.asPath);
-      console.log('  serverPath after removeNxtParams:', serverPath);
-
-      // Split path and query to handle them separately
-      const [pathOnly, queryOnly] = serverPath.split('?');
-      console.log('  pathOnly:', pathOnly);
-      console.log('  queryOnly:', queryOnly);
-
-      // router.asPath on server doesn't include locale prefix, so use as-is
-      pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
-      console.log('  pathForCanonical from router.asPath:', pathForCanonical);
     }
 
-    console.log(
-      '🔧 DEBUG: Before normalizeUrl - pathForCanonical:',
-      pathForCanonical
-    );
+    console.log('🔧 DEBUG: Final pathForCanonical:', pathForCanonical);
     console.log('🔧 DEBUG: baseUrl:', baseUrl);
-    console.log(
-      '🔧 DEBUG: normalizeUrl(pathForCanonical):',
-      normalizeUrl(pathForCanonical)
-    );
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
-    console.log('🔧 DEBUG: After construction - canonicalUrl:', canonicalUrl);
-
-    // Add timestamp to track different renders
-    console.log('🔧 DEBUG: Render timestamp:', Date.now());
-    console.log(
-      '🔧 DEBUG: Component render environment:',
-      typeof window !== 'undefined' ? 'CLIENT' : 'SERVER'
-    );
+    console.log('🔧 DEBUG: Final canonicalUrl:', canonicalUrl);
   }
 
   // Clean up any double slashes (except after protocol)
