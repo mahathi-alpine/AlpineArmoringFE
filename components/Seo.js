@@ -25,6 +25,12 @@ const Seo = ({ props }) => {
     setIsClient(true);
   }, []);
 
+  // Log server-side execution immediately
+  if (typeof window === 'undefined') {
+    console.log('🟦 SERVER SIDE EXECUTION - router.asPath:', router.asPath);
+    console.log('🟦 SERVER SIDE EXECUTION - router.locale:', router.locale);
+  }
+
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
