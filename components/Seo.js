@@ -127,16 +127,26 @@ const Seo = ({ props }) => {
       // On client side, use window.location.pathname and remove locale prefix
       const fullPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(fullPath);
+
+      // DEBUG: Log path construction steps
+      console.log('🔧 Path construction steps:');
+      console.log('  fullPath:', fullPath);
+      console.log('  cleanPath after removeNxtParams:', cleanPath);
+
       pathForCanonical =
         router.locale !== 'en'
           ? cleanPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
           : cleanPath;
+
+      console.log('  pathForCanonical after locale removal:', pathForCanonical);
     } else {
       // On server side, router.asPath doesn't include locale prefix
       pathForCanonical = removeNxtParams(router.asPath);
+      console.log('🔧 Server side pathForCanonical:', pathForCanonical);
     }
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
+    console.log('🔧 Final canonicalUrl construction:', canonicalUrl);
   }
 
   // DEBUG: Log final canonical URL (remove after fixing)
