@@ -90,13 +90,19 @@ const Seo = ({ props }) => {
   // DEBUG: Log debugging information to console (remove after fixing)
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      console.group('🔍 SEO Debug Information');
+      console.group('🔍 SEO Debug Information - CLIENT SIDE');
       console.log('router.locale:', router.locale);
       console.log('router.asPath:', router.asPath);
       console.log('window.location.pathname:', window.location.pathname);
       console.log('window.location.search:', window.location.search);
       console.log('window.location.href:', window.location.href);
       console.log('currentPath (calculated):', currentPath);
+      console.log('baseUrl:', baseUrl);
+      console.groupEnd();
+    } else {
+      console.group('🔍 SEO Debug Information - SERVER SIDE');
+      console.log('router.locale:', router.locale);
+      console.log('router.asPath:', router.asPath);
       console.log('baseUrl:', baseUrl);
       console.groupEnd();
     }
@@ -119,34 +125,37 @@ const Seo = ({ props }) => {
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
-    // Since currentPath includes the locale and baseUrl also includes the locale,
-    // we need to use the path without locale for construction
+    // Use a consistent approach: always use window.location when available
     let pathForCanonical;
 
     if (typeof window !== 'undefined') {
-      // On client side, use window.location.pathname and remove locale prefix
-      const fullPath = window.location.pathname + window.location.search;
-      const cleanPath = removeNxtParams(fullPath);
+      // On client side, use the actual URL path from window.location
+      const actualPath = window.location.pathname + window.location.search;
+      const cleanPath = removeNxtParams(actualPath);
 
-      // DEBUG: Log path construction steps
-      console.log('🔧 Path construction steps:');
-      console.log('  fullPath:', fullPath);
-      console.log('  cleanPath after removeNxtParams:', cleanPath);
-
+      // Remove locale prefix since baseUrl already includes it
       pathForCanonical =
         router.locale !== 'en'
           ? cleanPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
           : cleanPath;
 
-      console.log('  pathForCanonical after locale removal:', pathForCanonical);
+      console.log('🔧 CLIENT - actualPath:', actualPath);
+      console.log('🔧 CLIENT - cleanPath:', cleanPath);
+      console.log('🔧 CLIENT - pathForCanonical:', pathForCanonical);
     } else {
-      // On server side, router.asPath doesn't include locale prefix
-      pathForCanonical = removeNxtParams(router.asPath);
-      console.log('🔧 Server side pathForCanonical:', pathForCanonical);
+      // On server side, we need to construct the correct Spanish URL
+      // but router.asPath might be giving us the English internal path
+      // So let's try to use the current page data if available
+      const serverPath = removeNxtParams(router.asPath);
+      pathForCanonical = serverPath;
+
+      console.log('🔧 SERVER - router.asPath:', router.asPath);
+      console.log('🔧 SERVER - pathForCanonical:', pathForCanonical);
     }
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
-    console.log('🔧 Final canonicalUrl construction:', canonicalUrl);
+    console.log('🔧 Final canonicalUrl:', canonicalUrl);
+    console.log('🔧 baseUrl used:', baseUrl);
   }
 
   // DEBUG: Log final canonical URL (remove after fixing)
