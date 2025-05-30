@@ -123,7 +123,7 @@ const Seo = ({ props }) => {
       typeof window !== 'undefined'
     );
 
-    if (isClient && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       // CLIENT SIDE: Use the actual URL path from window.location
       const actualPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(actualPath);
