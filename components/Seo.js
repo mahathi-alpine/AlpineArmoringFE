@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 const normalizeUrl = (url) => {
   if (!url) return '';
-  // Remove any protocol and domain part if present
   return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
 };
 
@@ -72,7 +71,7 @@ const Seo = ({ props }) => {
     return cleanQuery ? `${path}?${cleanQuery}` : path;
   };
 
-  // For ogUrl, we need the path without locale prefix for construction
+  // Path without locale prefix for construction
   const getCurrentPath = () => {
     if (typeof window !== 'undefined') {
       const fullPath = window.location.pathname + window.location.search;
@@ -118,7 +117,6 @@ const Seo = ({ props }) => {
     } else {
       // SERVER SIDE: Try to construct the correct localized path
       // router.asPath might contain the English internal path during SSR
-
       if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
         // Use the languageUrls if available, but add query params from router.asPath
         const localeUrl = seoProps.languageUrls[router.locale];
