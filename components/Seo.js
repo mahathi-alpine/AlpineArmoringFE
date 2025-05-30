@@ -54,8 +54,22 @@ const Seo = ({ props }) => {
     twitterMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
-  // Fix for ogUrl - remove locale from asPath if it exists
-  const cleanAsPath = router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+  // Function to remove only nxtPslug parameter
+  const removeNxtPslug = (url) => {
+    if (!url.includes('?')) return url;
+
+    const [path, queryString] = url.split('?');
+    const params = new URLSearchParams(queryString);
+    params.delete('nxtPslug');
+
+    const cleanQuery = params.toString();
+    return cleanQuery ? `${path}?${cleanQuery}` : path;
+  };
+
+  // Fix for ogUrl - remove locale from asPath if it exists and remove nxtPslug
+  const cleanAsPath = removeNxtPslug(
+    router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/')
+  );
   const ogUrl = `${baseUrl}${normalizeUrl(cleanAsPath)}`.replace(
     /([^:])\/+/g,
     '$1/'
@@ -68,7 +82,10 @@ const Seo = ({ props }) => {
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
     // Fix for canonical URL - remove locale from asPath if it exists to avoid duplication
-    const pathWithoutLocale = router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+    // Also remove nxtPslug parameter while keeping other query params
+    const pathWithoutLocale = removeNxtPslug(
+      router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/')
+    );
     canonicalUrl = `${baseUrl}${normalizeUrl(pathWithoutLocale)}`;
   }
 
