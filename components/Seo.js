@@ -87,6 +87,21 @@ const Seo = ({ props }) => {
 
   const currentPath = getCurrentPath();
 
+  // DEBUG: Log debugging information to console (remove after fixing)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.group('🔍 SEO Debug Information');
+      console.log('router.locale:', router.locale);
+      console.log('router.asPath:', router.asPath);
+      console.log('window.location.pathname:', window.location.pathname);
+      console.log('window.location.search:', window.location.search);
+      console.log('window.location.href:', window.location.href);
+      console.log('currentPath (calculated):', currentPath);
+      console.log('baseUrl:', baseUrl);
+      console.groupEnd();
+    }
+  }, [router.asPath, router.locale, currentPath, baseUrl]);
+
   // For ogUrl, we need the path without locale prefix for construction
   const pathForOg =
     router.locale !== 'en'
@@ -112,6 +127,13 @@ const Seo = ({ props }) => {
 
     canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
   }
+
+  // DEBUG: Log final canonical URL (remove after fixing)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.log('🔗 Final canonical URL:', canonicalUrl);
+    }
+  }, [canonicalUrl]);
 
   // Clean up any double slashes (except after protocol)
   canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
