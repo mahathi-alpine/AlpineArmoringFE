@@ -34,7 +34,7 @@ const Seo = ({ props }) => {
     seoProps?.thumbnail?.url ||
     '';
 
-  // Faceook social meta
+  // Facebook social meta
   const facebookMeta =
     seoProps?.metaSocial?.find(
       (social) => social.socialNetwork === 'Facebook'
@@ -54,7 +54,9 @@ const Seo = ({ props }) => {
     twitterMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
-  const ogUrl = `${baseUrl}${normalizeUrl(router.asPath)}`.replace(
+  // Fix for ogUrl - remove locale from asPath if it exists
+  const cleanAsPath = router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+  const ogUrl = `${baseUrl}${normalizeUrl(cleanAsPath)}`.replace(
     /([^:])\/+/g,
     '$1/'
   );
@@ -65,7 +67,9 @@ const Seo = ({ props }) => {
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
-    canonicalUrl = `${baseUrl}${normalizeUrl(router.asPath)}`;
+    // Fix for canonical URL - remove locale from asPath if it exists to avoid duplication
+    const pathWithoutLocale = router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+    canonicalUrl = `${baseUrl}${normalizeUrl(pathWithoutLocale)}`;
   }
 
   // Clean up any double slashes (except after protocol)

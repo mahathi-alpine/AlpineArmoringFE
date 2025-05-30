@@ -119,7 +119,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Head>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
 
         <link rel="author" type="text/plain" href="/humans.txt" />
 
