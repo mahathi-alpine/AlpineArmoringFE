@@ -54,23 +54,46 @@ const Seo = ({ props }) => {
     twitterMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
-  // Function to remove only nxtPslug parameter
-  const removeNxtPslug = (url) => {
+  // Function to remove nxtP* parameters (nxtPslug, nxtPtype, etc.)
+  const removeNxtParams = (url) => {
     if (!url.includes('?')) return url;
 
     const [path, queryString] = url.split('?');
     const params = new URLSearchParams(queryString);
-    params.delete('nxtPslug');
+
+    // Remove all parameters that start with 'nxtP'
+    for (const [key] of params.entries()) {
+      if (key.startsWith('nxtP')) {
+        params.delete(key);
+      }
+    }
 
     const cleanQuery = params.toString();
     return cleanQuery ? `${path}?${cleanQuery}` : path;
   };
 
-  // Fix for ogUrl - remove locale from asPath if it exists and remove nxtPslug
-  const cleanAsPath = removeNxtPslug(
-    router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/')
-  );
-  const ogUrl = `${baseUrl}${normalizeUrl(cleanAsPath)}`.replace(
+  // Get the current URL path as seen by the user (not the rewritten internal path)
+  const getCurrentPath = () => {
+    if (typeof window !== 'undefined') {
+      // On client side, use window.location.pathname + search
+      const fullPath = window.location.pathname + window.location.search;
+      return removeNxtParams(fullPath);
+    } else {
+      // On server side, construct from router
+      const cleanAsPath = removeNxtParams(router.asPath);
+      return cleanAsPath;
+    }
+  };
+
+  const currentPath = getCurrentPath();
+
+  // For ogUrl, we need the path without locale prefix for construction
+  const pathForOg =
+    router.locale !== 'en'
+      ? currentPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
+      : currentPath;
+
+  const ogUrl = `${baseUrl}${normalizeUrl(pathForOg)}`.replace(
     /([^:])\/+/g,
     '$1/'
   );
@@ -81,12 +104,13 @@ const Seo = ({ props }) => {
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
   } else {
-    // Fix for canonical URL - remove locale from asPath if it exists to avoid duplication
-    // Also remove nxtPslug parameter while keeping other query params
-    const pathWithoutLocale = removeNxtPslug(
-      router.asPath.replace(/^\/[a-z]{2}(\/|$)/, '/')
-    );
-    canonicalUrl = `${baseUrl}${normalizeUrl(pathWithoutLocale)}`;
+    // Use the current path as seen by the user
+    const pathForCanonical =
+      router.locale !== 'en'
+        ? currentPath.replace(new RegExp(`^/${router.locale}`), '') || '/'
+        : currentPath;
+
+    canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
   }
 
   // Clean up any double slashes (except after protocol)
