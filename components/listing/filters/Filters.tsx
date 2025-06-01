@@ -178,12 +178,42 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const currentFilterMake = router.query.make;
 
   const getBaseUrl = () => {
-    const pathParts = router.asPath.split('/');
+    let currentPath;
 
-    const baseUrl = pathParts.slice(0, 2).join('/');
-    const cleanBaseUrl = baseUrl.split('?')[0];
+    if (typeof window !== 'undefined') {
+      // CLIENT SIDE: Use actual URL from browser
+      currentPath = window.location.pathname;
+    } else {
+      // SERVER SIDE: Use router.asPath but map English to localized URLs
+      const rawPath = router.asPath.split('?')[0];
 
-    return cleanBaseUrl;
+      // Map English internal paths to localized paths
+      if (rawPath === '/available-now') {
+        currentPath =
+          router.locale !== 'en'
+            ? `/${router.locale}/${lang.availableNowURL}`
+            : rawPath;
+      } else if (rawPath === '/vehicles-we-armor') {
+        currentPath =
+          router.locale !== 'en'
+            ? `/${router.locale}${lang.vehiclesWeArmorURL}`
+            : rawPath;
+      } else {
+        currentPath =
+          router.locale !== 'en' ? `/${router.locale}${rawPath}` : rawPath;
+      }
+    }
+
+    // Extract base URL (first two segments)
+    const pathParts = currentPath.split('/').filter(Boolean);
+
+    if (pathParts.length >= 2) {
+      return `/${pathParts[0]}/${pathParts[1]}`;
+    } else if (pathParts.length === 1) {
+      return `/${pathParts[0]}`;
+    }
+
+    return '/';
   };
 
   const baseUrl = getBaseUrl();
@@ -330,13 +360,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     slug: string,
     currentQuery: string
   ) => {
-    console.log('=== constructFilterUrl DEBUG ===');
-    console.log('Input baseUrl:', baseUrl);
-    console.log('Input slug:', slug);
-    console.log('Input currentQuery:', currentQuery);
-    console.log('lang.type:', lang.type);
     const queryParams = new URLSearchParams(currentQuery || '');
-    console.log('Original query params:', Array.from(queryParams.entries()));
 
     queryParams.delete('vehicles_we_armor');
     queryParams.delete('vehiculos_que_blindamos');
@@ -347,14 +371,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
     queryParams.delete('nextInternalLocale');
 
     const queryString = queryParams.toString();
-    console.log('Final query string:', queryString);
 
-    const result = `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
-    console.log('=== constructFilterUrl FINAL RESULT ===');
-    console.log('Final URL:', result);
-    console.log('=====================================\n');
-
-    return result;
+    return `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
   };
 
   const filtersRef = useRef(null);
