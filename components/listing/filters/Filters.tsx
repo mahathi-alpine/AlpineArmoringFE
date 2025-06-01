@@ -613,6 +613,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           item.attributes.slug,
                           currentQueryString
                         );
+                        console.log('=== LINK HREF DEBUG ===');
+                        console.log(
+                          'item.attributes.slug:',
+                          item.attributes.slug
+                        );
+                        console.log('newUrl for Link:', newUrl);
+                        console.log('baseUrl used:', baseUrl);
+                        console.log('======================');
 
                         return baseUrl === '/' + lang.availableNowURL &&
                           item.attributes.inventory_vehicles?.data.length <
