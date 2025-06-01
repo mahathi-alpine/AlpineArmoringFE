@@ -393,19 +393,41 @@ const Filters = ({ props, plain }: FiltersProps) => {
     slug: string,
     currentQuery: string
   ) => {
-    const queryParams = new URLSearchParams(currentQuery || '');
+    console.log('=== constructFilterUrl DEBUG ===');
+    console.log('Input baseUrl:', baseUrl);
+    console.log('Input slug:', slug);
+    console.log('Input currentQuery:', currentQuery);
+    console.log('lang.type:', lang.type);
 
+    const queryParams = new URLSearchParams(currentQuery || '');
+    console.log('Original query params:', Array.from(queryParams.entries()));
+
+    // Remove Next.js internal parameters and filter-specific params
     queryParams.delete('vehicles_we_armor');
-    queryParams.delete('vehiculos_que_blindamos');
     queryParams.delete('type');
-    queryParams.delete('tipo');
+    queryParams.delete('tipo'); // This was the key fix for the double tipo issue
     queryParams.delete('q');
     queryParams.delete('nxtPtype');
     queryParams.delete('nextInternalLocale');
 
-    const queryString = queryParams.toString();
+    // Remove any other Next.js internal parameters that might appear
+    const paramsToRemove = Array.from(queryParams.keys()).filter(
+      (key) => key.startsWith('nxt') || key.startsWith('next')
+    );
+    paramsToRemove.forEach((param) => queryParams.delete(param));
 
-    return `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
+    console.log('Cleaned query params:', Array.from(queryParams.entries()));
+
+    const queryString = queryParams.toString();
+    console.log('Final query string:', queryString);
+
+    const result = `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
+
+    console.log('=== constructFilterUrl FINAL RESULT ===');
+    console.log('Final URL:', result);
+    console.log('=====================================\n');
+
+    return result;
   };
 
   const filtersRef = useRef(null);
