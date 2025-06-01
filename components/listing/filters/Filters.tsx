@@ -178,27 +178,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const currentFilterMake = router.query.make;
 
   const getBaseUrl = () => {
-    const queryIndex = router.asPath.indexOf('?');
-    const cleanPath =
-      queryIndex > -1 ? router.asPath.substring(0, queryIndex) : router.asPath;
+    const pathParts = router.asPath.split('/');
 
-    const cleanPathParts = cleanPath.split('/').filter(Boolean);
+    const baseUrl = pathParts.slice(0, 2).join('/');
+    const cleanBaseUrl = baseUrl.split('?')[0];
 
-    const isTipoRoute =
-      cleanPathParts.length >= 3 && cleanPathParts[1] === lang.type;
-
-    let result;
-    if (isTipoRoute) {
-      result = `/${cleanPathParts[0]}`;
-    } else if (cleanPathParts.length >= 2) {
-      result = `/${cleanPathParts[0]}/${cleanPathParts[1]}`;
-    } else if (cleanPathParts.length === 1) {
-      result = `/${cleanPathParts[0]}`;
-    } else {
-      result = '/';
-    }
-
-    return result;
+    return cleanBaseUrl;
   };
 
   const baseUrl = getBaseUrl();
