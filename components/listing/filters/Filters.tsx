@@ -184,64 +184,55 @@ const Filters = ({ props, plain }: FiltersProps) => {
       // CLIENT SIDE: Use actual URL from browser
       currentPath = window.location.pathname;
     } else {
-      // SERVER SIDE: Use router.asPath but map English to localized URLs
+      // SERVER SIDE
       const rawPath = router.asPath.split('?')[0];
 
-      // Map English internal paths to localized paths
-      if (rawPath === '/available-now') {
-        currentPath =
-          router.locale !== 'en'
-            ? `/${router.locale}/${lang.availableNowURL}`
-            : rawPath;
-      } else if (rawPath === '/vehicles-we-armor') {
-        currentPath =
-          router.locale !== 'en'
-            ? `/${router.locale}${lang.vehiclesWeArmorURL}`
-            : rawPath;
-      } else if (rawPath.includes('/vehicles-we-armor/')) {
-        // Handle nested vehicles-we-armor paths like /vehicles-we-armor/type/[slug]
-        const pathAfterBase = rawPath.replace('/vehicles-we-armor', '');
-        currentPath =
-          router.locale !== 'en'
-            ? `/${router.locale}${lang.vehiclesWeArmorURL}${pathAfterBase}`
-            : rawPath;
-      } else if (rawPath.includes('/available-now/')) {
-        // Handle nested available-now paths like /available-now/type/[slug]
-        const pathAfterBase = rawPath.replace('/available-now', '');
-        currentPath =
-          router.locale !== 'en'
-            ? `/${router.locale}/${lang.availableNowURL}${pathAfterBase}`
-            : rawPath;
-      } else {
-        // For paths that are already localized (like /vehiculos-que-blindamos/tipo/...)
-        // Add the language prefix if it's missing
-        if (
-          router.locale !== 'en' &&
-          !rawPath.startsWith(`/${router.locale}`)
-        ) {
-          currentPath = `/${router.locale}${rawPath}`;
+      // Only handle non-English locales - leave English as-is
+      if (router.locale !== 'en') {
+        // Map English internal paths to localized paths for non-English locales
+        if (rawPath === '/available-now') {
+          currentPath = `/${router.locale}/${lang.availableNowURL}`;
+        } else if (rawPath === '/vehicles-we-armor') {
+          currentPath = `/${router.locale}${lang.vehiclesWeArmorURL}`;
+        } else if (rawPath.includes('/vehicles-we-armor/')) {
+          // Handle nested vehicles-we-armor paths like /vehicles-we-armor/type/[slug]
+          const pathAfterBase = rawPath.replace('/vehicles-we-armor', '');
+          currentPath = `/${router.locale}${lang.vehiclesWeArmorURL}${pathAfterBase}`;
+        } else if (rawPath.includes('/available-now/')) {
+          // Handle nested available-now paths like /available-now/type/[slug]
+          const pathAfterBase = rawPath.replace('/available-now', '');
+          currentPath = `/${router.locale}/${lang.availableNowURL}${pathAfterBase}`;
         } else {
-          currentPath = rawPath;
+          // For paths that are already localized, add language prefix if missing
+          if (!rawPath.startsWith(`/${router.locale}`)) {
+            currentPath = `/${router.locale}${rawPath}`;
+          } else {
+            currentPath = rawPath;
+          }
         }
+      } else {
+        // For English, use the original simple logic
+        currentPath = rawPath;
       }
     }
 
-    // Check if we're on a tipo route and remove the tipo part
+    // Extract base URL using the original simple logic that worked for English
     const pathParts = currentPath.split('/').filter(Boolean);
 
-    // If we have [lang, section, "tipo", slug] - return just [lang, section]
-    if (pathParts.length >= 3 && pathParts[2] === lang.type) {
-      const result = `/${pathParts[0]}/${pathParts[1]}`;
-      return result;
+    // Check if we're on a tipo/type route and remove the tipo/type part
+    if (
+      pathParts.length >= 3 &&
+      (pathParts[2] === lang.type || pathParts[2] === 'type')
+    ) {
+      // Return base without the tipo/type part
+      return `/${pathParts[0]}/${pathParts[1]}`;
     }
 
-    // Otherwise, extract base URL (first two segments)
+    // Otherwise, return first two segments (or one for English root)
     if (pathParts.length >= 2) {
-      const result = `/${pathParts[0]}/${pathParts[1]}`;
-      return result;
+      return `/${pathParts[0]}/${pathParts[1]}`;
     } else if (pathParts.length === 1) {
-      const result = `/${pathParts[0]}`;
-      return result;
+      return `/${pathParts[0]}`;
     }
 
     return '/';
