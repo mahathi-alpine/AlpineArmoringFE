@@ -178,26 +178,17 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const currentFilterMake = router.query.make;
 
   const getBaseUrl = () => {
-    console.log('=== getBaseUrl DEBUG ===');
-    console.log('router.asPath:', router.asPath);
-    console.log('router.pathname:', router.pathname);
-    console.log('router.locale:', router.locale);
-    console.log('router.defaultLocale:', router.defaultLocale);
-    console.log('lang.type:', lang.type);
-    console.log('lang.availableNowURL:', lang.availableNowURL);
-    console.log('lang.vehiclesWeArmorURL:', lang.vehiclesWeArmorURL);
-    console.log('typeof window:', typeof window);
-
     let currentPath;
 
     if (typeof window !== 'undefined') {
       // CLIENT SIDE: Use actual URL from browser
       currentPath = window.location.pathname;
-      console.log('CLIENT SIDE - window.location.pathname:', currentPath);
     } else {
       // SERVER SIDE: Use router.asPath but map English to localized URLs
       const rawPath = router.asPath.split('?')[0];
-      console.log('SERVER SIDE - rawPath:', rawPath);
+
+      console.log('SSR DEBUG - rawPath:', rawPath);
+      console.log('SSR DEBUG - router.locale:', router.locale);
 
       // Map English internal paths to localized paths
       if (rawPath === '/available-now') {
@@ -205,49 +196,66 @@ const Filters = ({ props, plain }: FiltersProps) => {
           router.locale !== 'en'
             ? `/${router.locale}/${lang.availableNowURL}`
             : rawPath;
-        console.log('Mapped /available-now to:', currentPath);
       } else if (rawPath === '/vehicles-we-armor') {
         currentPath =
           router.locale !== 'en'
             ? `/${router.locale}${lang.vehiclesWeArmorURL}`
             : rawPath;
-        console.log('Mapped /vehicles-we-armor to:', currentPath);
-      } else {
+      } else if (rawPath.includes('/vehicles-we-armor/')) {
+        // Handle nested vehicles-we-armor paths like /vehicles-we-armor/type/[slug]
+        const pathAfterBase = rawPath.replace('/vehicles-we-armor', '');
         currentPath =
-          router.locale !== 'en' ? `/${router.locale}${rawPath}` : rawPath;
-        console.log('Default mapping to:', currentPath);
+          router.locale !== 'en'
+            ? `/${router.locale}${lang.vehiclesWeArmorURL}${pathAfterBase}`
+            : rawPath;
+      } else if (rawPath.includes('/available-now/')) {
+        // Handle nested available-now paths like /available-now/type/[slug]
+        const pathAfterBase = rawPath.replace('/available-now', '');
+        currentPath =
+          router.locale !== 'en'
+            ? `/${router.locale}/${lang.availableNowURL}${pathAfterBase}`
+            : rawPath;
+      } else {
+        // For paths that are already localized (like /vehiculos-que-blindamos/tipo/...)
+        // Add the language prefix if it's missing
+        if (
+          router.locale !== 'en' &&
+          !rawPath.startsWith(`/${router.locale}`)
+        ) {
+          currentPath = `/${router.locale}${rawPath}`;
+        } else {
+          currentPath = rawPath;
+        }
       }
-    }
 
-    console.log('currentPath after mapping:', currentPath);
+      console.log('SSR DEBUG - currentPath after mapping:', currentPath);
+    }
 
     // Check if we're on a tipo route and remove the tipo part
     const pathParts = currentPath.split('/').filter(Boolean);
-    console.log('pathParts:', pathParts);
 
-    let result;
+    console.log('SSR DEBUG - pathParts:', pathParts);
 
     // If we have [lang, section, "tipo", slug] - return just [lang, section]
     if (pathParts.length >= 3 && pathParts[2] === lang.type) {
-      result = `/${pathParts[0]}/${pathParts[1]}`;
-      console.log('TIPO ROUTE DETECTED - returning base without tipo:', result);
-    } else if (pathParts.length >= 2) {
-      // Otherwise, extract base URL (first two segments)
-      result = `/${pathParts[0]}/${pathParts[1]}`;
-      console.log('NORMAL ROUTE - returning first two segments:', result);
-    } else if (pathParts.length === 1) {
-      result = `/${pathParts[0]}`;
-      console.log('SINGLE SEGMENT - returning single segment:', result);
-    } else {
-      result = '/';
-      console.log('FALLBACK - returning root:', result);
+      const result = `/${pathParts[0]}/${pathParts[1]}`;
+      console.log('SSR DEBUG - TIPO ROUTE DETECTED, returning:', result);
+      return result;
     }
 
-    console.log('=== getBaseUrl FINAL RESULT ===');
-    console.log('Final baseUrl:', result);
-    console.log('========================\n');
+    // Otherwise, extract base URL (first two segments)
+    if (pathParts.length >= 2) {
+      const result = `/${pathParts[0]}/${pathParts[1]}`;
+      console.log('SSR DEBUG - NORMAL ROUTE, returning:', result);
+      return result;
+    } else if (pathParts.length === 1) {
+      const result = `/${pathParts[0]}`;
+      console.log('SSR DEBUG - SINGLE SEGMENT, returning:', result);
+      return result;
+    }
 
-    return result;
+    console.log('SSR DEBUG - FALLBACK, returning: /');
+    return '/';
   };
   const baseUrl = getBaseUrl();
   const currentSlug = router.asPath.split('/').pop()?.split('?')[0] || '';
