@@ -78,6 +78,18 @@ export async function getServerSideProps(context) {
   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
 
   if (seoData) {
+    // Remove "for sale" from metaTitle and metaDescription
+    if (seoData.metaTitle) {
+      seoData.metaTitle = seoData.metaTitle.replace(/for sale/gi, '').trim();
+      seoData.metaTitle = seoData.metaTitle.replace(/\s+/g, ' ');
+    }
+    if (seoData.metaDescription) {
+      seoData.metaDescription = seoData.metaDescription
+        .replace(/for sale/gi, '')
+        .trim();
+      seoData.metaDescription = seoData.metaDescription.replace(/\s+/g, ' ');
+    }
+
     seoData.thumbnail =
       data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
     seoData.languageUrls = route.getLanguageUrls(

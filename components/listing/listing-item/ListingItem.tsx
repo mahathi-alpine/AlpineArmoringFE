@@ -95,12 +95,12 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         ></h2>
 
         {data.armor_level && (
-          <h3 className={`${styles.inventory_item_level}`}>
+          <p className={`${styles.inventory_item_level}`}>
             {lang.armoredTo}{' '}
             <span>
               {lang.level} {data.armor_level}
             </span>
-          </h3>
+          </p>
         )}
 
         <ul className={`${styles.inventory_item_info}`}>

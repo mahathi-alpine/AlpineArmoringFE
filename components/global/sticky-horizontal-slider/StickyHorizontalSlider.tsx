@@ -107,9 +107,9 @@ const StickyHorizontalSlider = ({
                 <div
                   className={`${styles.stickyHorizontalSlider_item_content}`}
                 >
-                  <h5 className={`${styles.stickyHorizontalSlider_item_title}`}>
+                  <p className={`${styles.stickyHorizontalSlider_item_title}`}>
                     {data.title}
-                  </h5>
+                  </p>
                   {/* <p className={`${styles.stickyHorizontalSlider_item_date}`}>
                     {data.subtitle}
                   </p> */}

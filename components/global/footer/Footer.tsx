@@ -76,10 +76,10 @@ const Footer = (props) => {
         <div className={`${styles.footer_top}`}>
           <div className={styles.footer_content}>
             <div className={styles.footer_text}>
-              <h2 className={styles.footer_top_heading}>Alpine Armoring</h2>
-              <h3 className={styles.footer_top_subheading}>
+              <p className={styles.footer_top_heading}>Alpine Armoring</p>
+              <p className={styles.footer_top_subheading}>
                 {`"${lang.noOneProtectsBetter}" ®`}
-              </h3>
+              </p>
             </div>
 
             {['/about-us', '/available-now', '/locations-we-serve'].includes(
@@ -100,9 +100,9 @@ const Footer = (props) => {
         <div className={`${styles.footer_middle}`}>
           <div className={`${styles.footer_middle_info}`}>
             <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>
+              <p className={`${styles.footer_column_title}`}>
                 {lang.contactUs}
-              </h3>
+              </p>
               <ul className={`${styles.footer_column_list}`}>
                 <li>
                   <Link
@@ -142,9 +142,7 @@ const Footer = (props) => {
             </div>
 
             <div className={`${styles.footer_column_social}`}>
-              <h3 className={`${styles.footer_column_title}`}>
-                {lang.followUs}
-              </h3>
+              <p className={`${styles.footer_column_title}`}>{lang.followUs}</p>
               <ul className={`${styles.footer_socials}`}>
                 <li className={`${styles.footer_socials_item}`}>
                   <Link
@@ -221,9 +219,9 @@ const Footer = (props) => {
 
           <div className={`${styles.footer_column_wrap}`}>
             <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>
+              <p className={`${styles.footer_column_title}`}>
                 {lang.mostPopularServices}
-              </h3>
+              </p>
               <ul
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
               >
@@ -241,9 +239,9 @@ const Footer = (props) => {
             </div>
 
             <div className={`${styles.footer_column}`}>
-              <h3 className={`${styles.footer_column_title}`}>
+              <p className={`${styles.footer_column_title}`}>
                 {lang.quickLinks}
-              </h3>
+              </p>
               <ul
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
               >

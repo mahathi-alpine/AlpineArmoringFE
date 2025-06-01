@@ -24,7 +24,7 @@ const InquiryForm = (props) => {
 
         <div className={`${styles.inquiry_form_inner} container_small`}>
           <div className={`${styles.inquiry_form_left}`}>
-            <div className={`${styles.inquiry_form_heading}`}>
+            <h2 className={`${styles.inquiry_form_heading}`}>
               {lang.inquiringAbout}
 
               {/* {!props.plain ? ' this ready-to-ship' : null} */}
@@ -34,14 +34,12 @@ const InquiryForm = (props) => {
                   ? ` ${lang.thisReadyToShip}`
                   : ` ${lang.rentalOfThis}`
                 : ` ${lang.the}`}
-              <p>
-                <strong
-                  dangerouslySetInnerHTML={{
-                    __html: props?.title,
-                  }}
-                ></strong>
-              </p>
-            </div>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: props?.title,
+                }}
+              ></span>
+            </h2>
 
             {props?.featuredImage?.data ? (
               <Image
@@ -70,7 +68,9 @@ const InquiryForm = (props) => {
                 }
               />
             ) : null}
-            <div className={`${styles.inquiry_form_heading}`}>
+            <div
+              className={`${styles.inquiry_form_heading} ${styles.inquiry_form_heading_level}`}
+            >
               {!props.plain ? (
                 <span>
                   {lang.vehicleID}: <strong>{props?.vehicleID}</strong>

@@ -208,6 +208,13 @@ const Seo = ({ props }) => {
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
+      <meta name="theme-color" content="#6F6044" />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-touch-icon.png"
+      />
+      <link rel="manifest" href="/manifest.json" />
     </Head>
   );
 };

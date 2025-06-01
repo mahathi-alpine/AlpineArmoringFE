@@ -79,21 +79,21 @@ function Contact(props) {
           <div className={`${styles.contact_main_right}`}>
             <div className={`${styles.contact_main_right_boxes}`}>
               <div className={`${styles.contact_main_right_column}`}>
-                <h3 className={`${styles.contact_main_right_title}`}>
+                <h2 className={`${styles.contact_main_right_title}`}>
                   {lang.salesInquiries}
-                </h3>
+                </h2>
                 {props.pageData?.salesInfo ? (
                   <CustomMarkdown>{props.pageData.salesInfo}</CustomMarkdown>
                 ) : null}
               </div>
               <div className={`${styles.contact_main_right_column}`}>
-                <h3 className={`${styles.contact_main_right_title}`}>
+                <h2 className={`${styles.contact_main_right_title}`}>
                   <span
                     dangerouslySetInnerHTML={{
                       __html: lang.partsServiceWarranty,
                     }}
                   />
-                </h3>
+                </h2>
                 {props.pageData?.partsInfo ? (
                   <CustomMarkdown>{props.pageData.partsInfo}</CustomMarkdown>
                 ) : null}

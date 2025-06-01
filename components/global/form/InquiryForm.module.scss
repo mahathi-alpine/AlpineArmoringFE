@@ -80,9 +80,15 @@
       }
     }
 
-    span strong {
-      color: var(--color-primary);
-      font-weight: var(--font-demi);
+    &_level{
+      span strong {
+        color: var(--color-primary);
+        font-weight: var(--font-demi);
+      }
+    }
+
+    span{
+      display: block;
     }
 
     h4 {
