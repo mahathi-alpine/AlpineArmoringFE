@@ -178,9 +178,27 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const currentFilterMake = router.query.make;
 
   const getBaseUrl = () => {
-    const pathParts = router.asPath.split('/');
-    const baseUrl = pathParts.slice(0, 2).join('/');
-    return baseUrl.split('?')[0];
+    const queryIndex = router.asPath.indexOf('?');
+    const cleanPath =
+      queryIndex > -1 ? router.asPath.substring(0, queryIndex) : router.asPath;
+
+    const cleanPathParts = cleanPath.split('/').filter(Boolean);
+
+    const isTipoRoute =
+      cleanPathParts.length >= 3 && cleanPathParts[1] === lang.type;
+
+    let result;
+    if (isTipoRoute) {
+      result = `/${cleanPathParts[0]}`;
+    } else if (cleanPathParts.length >= 2) {
+      result = `/${cleanPathParts[0]}/${cleanPathParts[1]}`;
+    } else if (cleanPathParts.length === 1) {
+      result = `/${cleanPathParts[0]}`;
+    } else {
+      result = '/';
+    }
+
+    return result;
   };
 
   const baseUrl = getBaseUrl();
@@ -232,6 +250,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     const newQuery = { ...router.query };
     delete newQuery['vehicles_we_armor'];
+    delete newQuery['vehiculos_que_blindamos'];
     delete newQuery.q;
     delete newQuery.nextInternalLocale;
     delete newQuery['nxtPtype'];
@@ -329,7 +348,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const queryParams = new URLSearchParams(currentQuery || '');
 
     queryParams.delete('vehicles_we_armor');
+    queryParams.delete('vehiculos_que_blindamos');
     queryParams.delete('type');
+    queryParams.delete('tipo');
     queryParams.delete('q');
     queryParams.delete('nxtPtype');
     queryParams.delete('nextInternalLocale');

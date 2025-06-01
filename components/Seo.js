@@ -60,9 +60,9 @@ const Seo = ({ props }) => {
     const [path, queryString] = url.split('?');
     const params = new URLSearchParams(queryString);
 
-    // Remove all parameters that start with 'nxtP'
+    // Remove all parameters that start with 'nxt'
     for (const [key] of params.entries()) {
-      if (key.startsWith('nxtP')) {
+      if (key.startsWith('nxt')) {
         params.delete(key);
       }
     }
