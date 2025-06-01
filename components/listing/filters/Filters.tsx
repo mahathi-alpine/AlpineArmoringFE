@@ -178,53 +178,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const currentFilterMake = router.query.make;
 
   const getBaseUrl = () => {
-    console.log('=== getBaseUrl DEBUG ===');
-    console.log('router.asPath:', router.asPath);
-    console.log('router.pathname:', router.pathname);
-    console.log('router.query:', router.query);
-    console.log('lang.type:', lang.type);
-
     const pathParts = router.asPath.split('/');
-    console.log('pathParts (raw):', pathParts);
 
-    const filteredParts = pathParts.filter(Boolean);
-    console.log('filteredParts:', filteredParts);
+    const baseUrl = pathParts.slice(0, 2).join('/');
+    const cleanBaseUrl = baseUrl.split('?')[0];
 
-    const queryIndex = router.asPath.indexOf('?');
-    const cleanPath =
-      queryIndex > -1 ? router.asPath.substring(0, queryIndex) : router.asPath;
-    console.log('cleanPath:', cleanPath);
-
-    const cleanPathParts = cleanPath.split('/').filter(Boolean);
-    console.log('cleanPathParts:', cleanPathParts);
-
-    // Check if we're on a tipo route - the correct check should be cleanPathParts[1] === lang.type
-    const isTipoRoute =
-      cleanPathParts.length >= 3 && cleanPathParts[1] === lang.type;
-    console.log('isTipoRoute:', isTipoRoute);
-    console.log('cleanPathParts[1]:', cleanPathParts[1]);
-
-    let result;
-    if (isTipoRoute) {
-      // If we're on a tipo route, return just the base without /tipo/[slug]
-      result = `/${cleanPathParts[0]}`;
-      console.log('Using tipo route logic, result:', result);
-    } else if (cleanPathParts.length >= 2) {
-      result = `/${cleanPathParts[0]}/${cleanPathParts[1]}`;
-      console.log('Using normal route logic, result:', result);
-    } else if (cleanPathParts.length === 1) {
-      result = `/${cleanPathParts[0]}`;
-      console.log('Using single segment logic, result:', result);
-    } else {
-      result = '/';
-      console.log('Using fallback logic, result:', result);
-    }
-
-    console.log('=== getBaseUrl FINAL RESULT ===');
-    console.log('Final baseUrl:', result);
-    console.log('========================\n');
-
-    return result;
+    return cleanBaseUrl;
   };
 
   const baseUrl = getBaseUrl();
@@ -371,7 +330,13 @@ const Filters = ({ props, plain }: FiltersProps) => {
     slug: string,
     currentQuery: string
   ) => {
+    console.log('=== constructFilterUrl DEBUG ===');
+    console.log('Input baseUrl:', baseUrl);
+    console.log('Input slug:', slug);
+    console.log('Input currentQuery:', currentQuery);
+    console.log('lang.type:', lang.type);
     const queryParams = new URLSearchParams(currentQuery || '');
+    console.log('Original query params:', Array.from(queryParams.entries()));
 
     queryParams.delete('vehicles_we_armor');
     queryParams.delete('vehiculos_que_blindamos');
@@ -382,8 +347,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
     queryParams.delete('nextInternalLocale');
 
     const queryString = queryParams.toString();
+    console.log('Final query string:', queryString);
 
-    return `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
+    const result = `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
+    console.log('=== constructFilterUrl FINAL RESULT ===');
+    console.log('Final URL:', result);
+    console.log('=====================================\n');
+
+    return result;
   };
 
   const filtersRef = useRef(null);
