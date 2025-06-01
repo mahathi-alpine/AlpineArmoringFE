@@ -400,7 +400,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     const queryString = queryParams.toString();
 
-    const result = `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
+    // Use 'type' for English, 'tipo' for other languages
+    const typeSegment = router.locale === 'en' ? 'type' : lang.type;
+
+    const result = `${baseUrl}/${typeSegment}/${slug}${queryString ? `?${queryString}` : ''}`;
 
     return result;
   };
