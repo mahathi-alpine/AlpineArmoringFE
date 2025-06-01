@@ -187,9 +187,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
       // SERVER SIDE: Use router.asPath but map English to localized URLs
       const rawPath = router.asPath.split('?')[0];
 
-      console.log('SSR DEBUG - rawPath:', rawPath);
-      console.log('SSR DEBUG - router.locale:', router.locale);
-
       // Map English internal paths to localized paths
       if (rawPath === '/available-now') {
         currentPath =
@@ -227,34 +224,26 @@ const Filters = ({ props, plain }: FiltersProps) => {
           currentPath = rawPath;
         }
       }
-
-      console.log('SSR DEBUG - currentPath after mapping:', currentPath);
     }
 
     // Check if we're on a tipo route and remove the tipo part
     const pathParts = currentPath.split('/').filter(Boolean);
 
-    console.log('SSR DEBUG - pathParts:', pathParts);
-
     // If we have [lang, section, "tipo", slug] - return just [lang, section]
     if (pathParts.length >= 3 && pathParts[2] === lang.type) {
       const result = `/${pathParts[0]}/${pathParts[1]}`;
-      console.log('SSR DEBUG - TIPO ROUTE DETECTED, returning:', result);
       return result;
     }
 
     // Otherwise, extract base URL (first two segments)
     if (pathParts.length >= 2) {
       const result = `/${pathParts[0]}/${pathParts[1]}`;
-      console.log('SSR DEBUG - NORMAL ROUTE, returning:', result);
       return result;
     } else if (pathParts.length === 1) {
       const result = `/${pathParts[0]}`;
-      console.log('SSR DEBUG - SINGLE SEGMENT, returning:', result);
       return result;
     }
 
-    console.log('SSR DEBUG - FALLBACK, returning: /');
     return '/';
   };
   const baseUrl = getBaseUrl();
@@ -401,19 +390,13 @@ const Filters = ({ props, plain }: FiltersProps) => {
     slug: string,
     currentQuery: string
   ) => {
-    console.log('=== constructFilterUrl DEBUG ===');
-    console.log('Input baseUrl:', baseUrl);
-    console.log('Input slug:', slug);
-    console.log('Input currentQuery:', currentQuery);
-    console.log('lang.type:', lang.type);
-
     const queryParams = new URLSearchParams(currentQuery || '');
-    console.log('Original query params:', Array.from(queryParams.entries()));
 
     // Remove Next.js internal parameters and filter-specific params
     queryParams.delete('vehicles_we_armor');
+    queryParams.delete('vehiculos_que_blindamos');
     queryParams.delete('type');
-    queryParams.delete('tipo'); // This was the key fix for the double tipo issue
+    queryParams.delete('tipo');
     queryParams.delete('q');
     queryParams.delete('nxtPtype');
     queryParams.delete('nextInternalLocale');
@@ -424,16 +407,9 @@ const Filters = ({ props, plain }: FiltersProps) => {
     );
     paramsToRemove.forEach((param) => queryParams.delete(param));
 
-    console.log('Cleaned query params:', Array.from(queryParams.entries()));
-
     const queryString = queryParams.toString();
-    console.log('Final query string:', queryString);
 
     const result = `${baseUrl}/${lang.type}/${slug}${queryString ? `?${queryString}` : ''}`;
-
-    console.log('=== constructFilterUrl FINAL RESULT ===');
-    console.log('Final URL:', result);
-    console.log('=====================================\n');
 
     return result;
   };
@@ -621,14 +597,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           item.attributes.slug,
                           currentQueryString
                         );
-                        console.log('=== LINK HREF DEBUG ===');
-                        console.log(
-                          'item.attributes.slug:',
-                          item.attributes.slug
-                        );
-                        console.log('newUrl for Link:', newUrl);
-                        console.log('baseUrl used:', baseUrl);
-                        console.log('======================');
 
                         return baseUrl === '/' + lang.availableNowURL &&
                           item.attributes.inventory_vehicles?.data.length <
