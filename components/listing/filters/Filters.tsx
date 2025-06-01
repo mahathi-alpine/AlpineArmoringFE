@@ -234,6 +234,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     delete newQuery['vehicles_we_armor'];
     delete newQuery.q;
     delete newQuery.nextInternalLocale;
+    delete newQuery['nxtPtype'];
 
     const currentValue = newQuery[paramKey];
     const isSameValue =
@@ -326,9 +327,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
     currentQuery: string
   ) => {
     const queryParams = new URLSearchParams(currentQuery || '');
+
     queryParams.delete('vehicles_we_armor');
     queryParams.delete('type');
     queryParams.delete('q');
+    queryParams.delete('nxtPtype');
+    queryParams.delete('nextInternalLocale');
 
     const queryString = queryParams.toString();
 
