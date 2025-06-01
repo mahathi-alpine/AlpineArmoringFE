@@ -178,61 +178,34 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const currentFilterMake = router.query.make;
 
   const getBaseUrl = () => {
-    let currentPath;
-
-    if (typeof window !== 'undefined') {
-      // CLIENT SIDE: Use actual URL from browser
-      currentPath = window.location.pathname;
-    } else {
-      // SERVER SIDE
-      const rawPath = router.asPath.split('?')[0];
-
-      // Only handle non-English locales - leave English as-is
-      if (router.locale !== 'en') {
-        // Map English internal paths to localized paths for non-English locales
-        if (rawPath === '/available-now') {
-          currentPath = `/${router.locale}/${lang.availableNowURL}`;
-        } else if (rawPath === '/vehicles-we-armor') {
-          currentPath = `/${router.locale}${lang.vehiclesWeArmorURL}`;
-        } else if (rawPath.includes('/vehicles-we-armor/')) {
-          // Handle nested vehicles-we-armor paths like /vehicles-we-armor/type/[slug]
-          const pathAfterBase = rawPath.replace('/vehicles-we-armor', '');
-          currentPath = `/${router.locale}${lang.vehiclesWeArmorURL}${pathAfterBase}`;
-        } else if (rawPath.includes('/available-now/')) {
-          // Handle nested available-now paths like /available-now/type/[slug]
-          const pathAfterBase = rawPath.replace('/available-now', '');
-          currentPath = `/${router.locale}/${lang.availableNowURL}${pathAfterBase}`;
-        } else {
-          // For paths that are already localized, add language prefix if missing
-          if (!rawPath.startsWith(`/${router.locale}`)) {
-            currentPath = `/${router.locale}${rawPath}`;
-          } else {
-            currentPath = rawPath;
-          }
-        }
-      } else {
-        // For English, use the original simple logic
-        currentPath = rawPath;
+    if (router.locale === 'en') {
+      // English pages
+      if (
+        router.pathname === '/available-now' ||
+        router.pathname === '/available-now/type/[type]'
+      ) {
+        return '/available-now';
       }
-    }
-
-    // Extract base URL using the original simple logic that worked for English
-    const pathParts = currentPath.split('/').filter(Boolean);
-
-    // Check if we're on a tipo/type route and remove the tipo/type part
-    if (
-      pathParts.length >= 3 &&
-      (pathParts[2] === lang.type || pathParts[2] === 'type')
-    ) {
-      // Return base without the tipo/type part
-      return `/${pathParts[0]}/${pathParts[1]}`;
-    }
-
-    // Otherwise, return first two segments (or one for English root)
-    if (pathParts.length >= 2) {
-      return `/${pathParts[0]}/${pathParts[1]}`;
-    } else if (pathParts.length === 1) {
-      return `/${pathParts[0]}`;
+      if (
+        router.pathname === '/vehicles-we-armor' ||
+        router.pathname === '/vehicles-we-armor/type/[type]'
+      ) {
+        return '/vehicles-we-armor';
+      }
+    } else {
+      // Non-English pages
+      if (
+        router.pathname === '/available-now' ||
+        router.pathname === '/available-now/type/[type]'
+      ) {
+        return `/${router.locale}/${lang.availableNowURL}`; // /es/disponible-ahora
+      }
+      if (
+        router.pathname === '/vehicles-we-armor' ||
+        router.pathname === '/vehicles-we-armor/type/[type]'
+      ) {
+        return `/${router.locale}${lang.vehiclesWeArmorURL}`; // /es/vehiculos-que-blindamos
+      }
     }
 
     return '/';
@@ -392,7 +365,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     queryParams.delete('nxtPtype');
     queryParams.delete('nextInternalLocale');
 
-    // Remove any other Next.js internal parameters that might appear
+    // Remove any other Next.js internal parameters
     const paramsToRemove = Array.from(queryParams.keys()).filter(
       (key) => key.startsWith('nxt') || key.startsWith('next')
     );
@@ -400,10 +373,18 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     const queryString = queryParams.toString();
 
-    // Use 'type' for English, 'tipo' for other languages
-    const typeSegment = router.locale === 'en' ? 'type' : lang.type;
+    // Hardcoded type segment based on language
+    let result;
+    if (router.locale === 'en') {
+      result = `${baseUrl}/type/${slug}`;
+    } else {
+      result = `${baseUrl}/tipo/${slug}`;
+    }
 
-    const result = `${baseUrl}/${typeSegment}/${slug}${queryString ? `?${queryString}` : ''}`;
+    // Add query string if it exists
+    if (queryString) {
+      result += `?${queryString}`;
+    }
 
     return result;
   };
