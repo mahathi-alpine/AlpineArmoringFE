@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import { getPageData } from 'hooks/api';
 import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
@@ -65,8 +66,76 @@ function Media(props) {
     dependencies: [props.pageData],
   });
 
+  const generateVideoStructuredData = () => {
+    if (!videos || !Array.isArray(videos)) return null;
+
+    // Create an array of VideoObject schemas
+    const videoObjects = videos.map((video) => {
+      const attributes = video.attributes;
+
+      // Clean up YouTube ID by trimming whitespace
+      const cleanYouTubeId = attributes.URLExternal?.trim();
+
+      return {
+        '@type': 'VideoObject',
+        name: attributes.title || '',
+        description: attributes.description || attributes.title || '',
+        thumbnailUrl: `https://i.ytimg.com/vi/${cleanYouTubeId}/sddefault.jpg`,
+        uploadDate: attributes.createdAt || attributes.publishedAt,
+        duration: attributes.duration || 'PT0M0S',
+        contentUrl: `https://www.youtube.com/watch?v=${cleanYouTubeId}`,
+        embedUrl: `https://www.youtube.com/embed/${cleanYouTubeId}`,
+        publisher: {
+          '@type': 'Organization',
+          name: 'Alpine Armoring',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
+          },
+        },
+        // Add location if available
+        ...(attributes.location && {
+          locationCreated: {
+            '@type': 'Place',
+            name: attributes.location,
+          },
+        }),
+        // Add category/genre based on videoCategory
+        ...(attributes.videoCategory && {
+          genre: attributes.videoCategory,
+        }),
+      };
+    });
+
+    // Return as ItemList for multiple videos
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: videoObjects.map((video, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: video,
+      })),
+    };
+
+    return JSON.stringify(structuredData);
+  };
+  const videoStructuredData = generateVideoStructuredData();
+
   return (
     <>
+      <Head>
+        {videoStructuredData && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: videoStructuredData,
+            }}
+            key="video-jsonld"
+          />
+        )}
+      </Head>
+
       {banner ? <Banner props={banner} shape="white" /> : null}
 
       {videos?.length > 0 ? (

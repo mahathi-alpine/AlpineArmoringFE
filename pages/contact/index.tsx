@@ -35,6 +35,32 @@ function Contact(props) {
     dependencies: [props.pageData],
   });
 
+  const getOrganizationStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      image:
+        'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fmedium_About_us_hompage_thumbnail_1_ea1c33f592.JPG&w=640&q=75',
+      url: 'https://www.alpineco.com',
+      logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
+      name: 'Alpine Armoring',
+      description:
+        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
+      email: 'sales@alpineco.com',
+      telephone: '+1 703 471 0002',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '4170 Lafayette Center Drive #100',
+        addressLocality: 'Chantilly',
+        addressCountry: 'US',
+        addressRegion: 'Virginia',
+        postalCode: '20151',
+      },
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   // FAQ structured data
   const getFAQStructuredData = () => {
     if (!faqs) return null;
@@ -65,6 +91,11 @@ function Contact(props) {
             key="faq-jsonld"
           />
         )}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getOrganizationStructuredData() }}
+          key="organization-jsonld"
+        />
       </Head>
 
       <div className={`${styles.contact}`}>

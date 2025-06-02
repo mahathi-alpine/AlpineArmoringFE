@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import { getPageData } from 'hooks/api';
 import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
@@ -42,8 +43,66 @@ function About(props) {
     setCurrentPdfUrl(url);
   };
 
+  const getAboutPageStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Alpine Armoring',
+      url: 'https://www.alpineco.com',
+      logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
+      description:
+        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
+      foundingDate: '1993',
+      industry: 'Armored Vehicle Manufacturing',
+      numberOfEmployees: '50-200',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '4170 Lafayette Center Drive #100',
+        addressLocality: 'Chantilly',
+        addressCountry: 'US',
+        addressRegion: 'Virginia',
+        postalCode: '20151',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+1 703 471 0002',
+        email: 'sales@alpineco.com',
+        contactType: 'customer service',
+      },
+      sameAs: [
+        'https://www.instagram.com/alpinearmoring/',
+        'https://x.com/AlpineArmoring',
+        'https://www.facebook.com/AlpineArmoring/',
+        'https://www.linkedin.com/company/alpinearmoring/',
+        'https://www.youtube.com/c/AlpineArmoring',
+        'https://www.tiktok.com/@alpinearmoring',
+        'https://www.threads.com/@alpinearmoring/',
+      ],
+      areaServed: 'Worldwide',
+      serviceArea: {
+        '@type': 'GeoCircle',
+        geoMidpoint: {
+          '@type': 'GeoCoordinates',
+          latitude: '38.90491917326487',
+          longitude: '-77.4702548649953',
+        },
+        geoRadius: 'global',
+      },
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getAboutPageStructuredData() }}
+          key="organization-jsonld"
+        />
+      </Head>
+
       <div className={`${styles.about}`}>
         {props.pageData?.banner ? (
           <Banner props={props.pageData.banner} shape="white" />
