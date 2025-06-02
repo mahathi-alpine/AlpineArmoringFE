@@ -70,7 +70,7 @@ export async function getServerSideProps(context) {
 
   const data = await getPageData({
     route: route.collectionSingle,
-    params: `filters[slug][$eq]=${slug}`,
+    params: `filters[slug][$eqi]=${slug}`,
     populate: 'deep',
     locale,
   });
