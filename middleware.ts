@@ -178,6 +178,13 @@ function correctSuvBlindadosPath(pathname: string): string | null {
 }
 
 export function middleware(request: NextRequest) {
+  // Add noindex to all _next/image URLs to save crawl budget
+  if (request.nextUrl.pathname.startsWith('/_next/image')) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
   const url = request.nextUrl.clone();
 
   const lowerPathname = request.nextUrl.pathname.toLowerCase();

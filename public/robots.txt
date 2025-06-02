@@ -20,6 +20,7 @@ Disallow: /contact?name=*
 Disallow: /contact?id=*
 Disallow: /contact?names=*
 Disallow: /contact?source=become-a-dealer
+Disallow: /_next/image
 
 Sitemap: https://www.alpineco.com/sitemap.xml
 Sitemap: https://www.alpineco.com/es/sitemap.xml
