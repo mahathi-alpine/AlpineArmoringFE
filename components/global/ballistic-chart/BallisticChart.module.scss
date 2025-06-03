@@ -47,6 +47,13 @@
     }
   }
 
+  .ballistic_compare{
+    @include breakpoint(large) {
+      height: 1.25vw;
+      top: 0.4vW;
+    }
+  }
+
   &_table {
     display: flex;
     flex-direction: column;
@@ -582,6 +589,10 @@
       }
       @include breakpoint(large) {
         margin-top: -10px;
+
+        .ballistic_compare{
+          // top: 0.3vW;
+        }
       }
     }
     &:nth-child(2) {
@@ -590,6 +601,10 @@
       }
       @include breakpoint(large) {
         margin-top: -0.365vw;
+
+        .ballistic_compare{
+          // top: 0.2vW;
+        }
       }
       @include breakpoint(max) {
         margin-top: -7px;

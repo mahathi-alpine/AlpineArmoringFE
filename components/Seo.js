@@ -31,7 +31,7 @@ const Seo = ({ props }) => {
     seoProps?.metaImage?.data?.attributes.url ||
     seoProps?.thumbnail?.formats?.large?.url ||
     seoProps?.thumbnail?.url ||
-    '';
+    'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png';
 
   // Facebook social meta
   const facebookMeta =

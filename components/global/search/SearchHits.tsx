@@ -21,6 +21,8 @@ function SearchHits({ searchState, searchResults }) {
         return `${lang.newsURL || '/news'}/${slug}`;
       case 'blogs':
         return `${lang.blogsURL || '/blog'}/${slug}`;
+      case 'faqs':
+        return `${lang.faqsURL || '/faqs'}/${slug}`;
       default:
         return `/${slug}`;
     }

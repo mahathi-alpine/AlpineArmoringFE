@@ -31,7 +31,8 @@ const syncAllLanguages = async (req, res) => {
           category: 'vehicles-we-armor',
         },
         { type: 'news', route: 'blogs', category: 'news' },
-        { type: 'blog', route: 'blog-evergreens', category: 'blogs' }
+        { type: 'blog', route: 'blog-evergreens', category: 'blogs' },
+        { type: 'faqs', route: 'knowledge-bases', category: 'faqs' }
       );
     } else {
       // Process just the specified content type
@@ -50,6 +51,9 @@ const syncAllLanguages = async (req, res) => {
       } else if (type === 'blog') {
         route = 'blog-evergreens';
         category = 'blogs';
+      } else if (type === 'faqs') {
+        route = 'knowledge-bases';
+        category = 'faqs';
       } else {
         res.status(400).json({ error: 'Invalid content type' });
         return;
