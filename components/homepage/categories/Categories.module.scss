@@ -166,15 +166,8 @@
       }
 
       &_plain {
-        background: transparent !important;
-        border: 2px solid var(--color-primary) !important;
-        color: var(--color-primary);
-        font-weight: var(--font-medium);
-
-        &:hover {
-          background: var(--color-secondary) !important;
-          border-color: var(--color-secondary) !important;
-        }
+        background: var(--color-secondary) !important;
+        border-color: var(--color-secondary) !important;
       }
 
       &_button {
