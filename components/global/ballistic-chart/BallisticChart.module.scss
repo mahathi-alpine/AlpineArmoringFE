@@ -47,10 +47,10 @@
     }
   }
 
-  .ballistic_compare{
+  .ballistic_compare {
     @include breakpoint(large) {
       height: 1.25vw;
-      top: 0.4vW;
+      top: 0.4vw;
     }
   }
 
@@ -590,7 +590,7 @@
       @include breakpoint(large) {
         margin-top: -10px;
 
-        .ballistic_compare{
+        .ballistic_compare {
           // top: 0.3vW;
         }
       }
@@ -602,7 +602,7 @@
       @include breakpoint(large) {
         margin-top: -0.365vw;
 
-        .ballistic_compare{
+        .ballistic_compare {
           // top: 0.2vW;
         }
       }
