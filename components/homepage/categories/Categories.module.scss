@@ -154,24 +154,24 @@
         }
       }
 
-      &_plain{
+      &_plain {
         background: transparent !important;
         border: 2px solid var(--color-primary) !important;
         color: var(--color-primary);
         font-weight: var(--font-medium);
 
-        &:hover{
+        &:hover {
           background: var(--color-secondary) !important;
           border-color: var(--color-secondary) !important;
-
         }
       }
 
-      &_button{
+      &_button {
         padding: 0;
       }
 
-      button, a {
+      button,
+      a {
         &:first-child {
           margin-top: rem(8);
           @include breakpoint(medium) {
@@ -206,7 +206,7 @@
         }
       }
 
-      &_info{
+      &_info {
         display: block;
         margin-top: rem(4);
         color: var(--color-secondary);
