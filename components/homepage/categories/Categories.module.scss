@@ -131,12 +131,12 @@
       }
     }
 
-    &_main{
+    &_main {
       @include breakpoint(small) {
-        .categories_item_content{
+        .categories_item_content {
           padding-bottom: 12px;
         }
-        .categories_item_buttons{
+        .categories_item_buttons {
           display: none;
         }
       }
