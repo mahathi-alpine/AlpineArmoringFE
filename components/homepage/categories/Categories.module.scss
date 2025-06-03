@@ -131,6 +131,17 @@
       }
     }
 
+    &_main{
+      @include breakpoint(small) {
+        .categories_item_content{
+          padding-bottom: 12px;
+        }
+        .categories_item_buttons{
+          display: none;
+        }
+      }
+    }
+
     &_buttons {
       display: flex;
       justify-content: center;

@@ -19,7 +19,7 @@ const Categories = ({ props, allVehiclesImage }) => {
 
         return (
           <Link
-            className={`${styles.categories_item} observe fade-in-up`}
+            className={`${styles.categories_item} ${styles.categories_item_main} observe fade-in-up`}
             key={item.id}
             href={
               data.inventory_vehicles?.data.length > 0
