@@ -525,7 +525,7 @@
 
   @include breakpoint(large) {
     font-size: rem(15);
-    // align-items: flex-end;
+    
     .filters_plain & {
       font-size: rem(13);
     }

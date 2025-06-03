@@ -554,12 +554,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
                   {filter === 'type'
                     ? sortFilterItems(filterTypesByMake).map((item) => {
                         if (
-                          (baseUrl == lang.vehiclesWeArmorURL &&
+                          (baseUrl.endsWith(lang.vehiclesWeArmorURL) &&
                             (item.attributes.title == lang.armoredRental ||
                               item.attributes.title.toLowerCase() ==
                                 lang.specialOfTheMonth.toLowerCase() ||
                               item.attributes.title == lang.armoredPreOwned)) ||
-                          (baseUrl == '/' + lang.availableNowURL &&
+                          (baseUrl.endsWith('/' + lang.availableNowURL) &&
                             item.attributes.title == lang.vansAndBussesTitle)
                         ) {
                           return null;
@@ -573,7 +573,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           currentQueryString
                         );
 
-                        return baseUrl === '/' + lang.availableNowURL &&
+                        return baseUrl.endsWith('/' + lang.availableNowURL) &&
                           item.attributes.inventory_vehicles?.data.length <
                             1 ? (
                           <span
@@ -590,12 +590,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                             key={item.id}
                           >
                             <span className={`${styles.checkbox_span}`}>
-                              {baseUrl == lang.vehiclesWeArmorURL
-                                ? item.attributes.title.replace(
-                                    lang.armored2,
-                                    ''
-                                  )
-                                : item.attributes.title}
+                              {item.attributes.title}
                             </span>
                           </span>
                         ) : (
@@ -614,7 +609,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
                             key={item.id}
                           >
                             <span className={`${styles.checkbox_span}`}>
-                              {baseUrl == lang.vehiclesWeArmorURL
+                              {baseUrl.endsWith(lang.vehiclesWeArmorURL)
                                 ? item.attributes.title
                                     .replace(/Armored/gi, '')
                                     .replace(/[Bb]lindado(s)?/g, '')

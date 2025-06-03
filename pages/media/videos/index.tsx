@@ -8,7 +8,6 @@ import MediaList from '../MediaList';
 function Videos(props) {
   const title = props?.pageData?.titleH1;
   const videos = props?.videos;
-  console.log(videos);
   // Animations
   useAnimationObserver({
     dependencies: [props.pageData],
