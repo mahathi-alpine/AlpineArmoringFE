@@ -162,7 +162,7 @@ export default {
   shareEmailSubject: 'Check out this article:',
   shareEmailBody: 'I thought you might find this interesting:',
   readMore: 'Read more',
-  readyToRent: 'Ready to Rent',
+  exploreArmoredRentalVehicles: 'Explore Armored Rental Vehicles',
   specialOfTheMonthButton: 'Check Out Our Limited Offer Deals!',
   categoriesMainButton: 'Available Now / Ready-To-Ship',
   weArmor: 'we armor',
@@ -318,4 +318,6 @@ export default {
   allLocationsWeServe: 'All Locations We Serve',
   allFaqCategories: 'All FAQ Categories',
   allFaqs: 'All FAQs',
+  explore: 'Explore',
+  readyToShipNow: 'Ready-to-ship now',
 };

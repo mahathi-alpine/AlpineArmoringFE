@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from './Categories.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
@@ -17,9 +18,14 @@ const Categories = ({ props, allVehiclesImage }) => {
         }
 
         return (
-          <div
+          <Link
             className={`${styles.categories_item} observe fade-in-up`}
             key={item.id}
+            href={
+              data.inventory_vehicles?.data.length > 0
+                ? `/${lang.availableNowURL}/${lang.type}/${data.slug}`
+                : `${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`
+            }
           >
             {data.image.data ? (
               <Image
@@ -55,37 +61,50 @@ const Categories = ({ props, allVehiclesImage }) => {
                 ) : null}
 
                 <div className={`${styles.categories_item_buttons}`}>
-                  {data.inventory_vehicles?.data.length > 0 && (
-                    <Button
-                      href={`/${lang.availableNowURL}/${lang.type}/${data.slug}`}
-                      className="primary shiny"
-                    >
-                      {data.slug === lang.armoredRentalURL
-                        ? lang.readyToRent
-                        : data.slug === lang.specialOfTheMonth2
-                          ? lang.specialOfTheMonthButton
-                          : lang.categoriesMainButton}
-                    </Button>
-                  )}
-
-                  {data.slug !== lang.preOwnedURL &&
+                  {data.inventory_vehicles?.data.length > 0 ? (
+                    <>
+                      <Button
+                        // href={`/${lang.availableNowURL}/${lang.type}/${data.slug}`}
+                        className={`${styles.categories_item_buttons_button} primary shiny`}
+                        button
+                      >
+                        {data.slug === lang.armoredRentalURL
+                          ? lang.exploreArmoredRentalVehicles
+                          : data.slug === lang.specialOfTheMonth2
+                            ? lang.specialOfTheMonthButton
+                            : `${lang.explore} ${data.title} ${lang.forSale}`}
+                      </Button>
+                      {data.slug !== lang.specialOfTheMonth2 &&
+                        data.slug !== lang.armoredRentalURL && (
+                          <span
+                            className={`${styles.categories_item_buttons_info}`}
+                          >
+                            *{lang.readyToShipNow}
+                          </span>
+                        )}
+                    </>
+                  ) : (
+                    data.slug !== lang.preOwnedURL &&
                     data.slug !== lang.specialOfTheMonth2 &&
                     data.slug !== lang.armoredRentalURL && (
                       <Button
-                        href={`${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`}
-                        className="shiny"
+                        // href={`${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`}
+                        button
+                        className={`${styles.categories_item_buttons_button} ${styles.categories_item_buttons_plain} shiny`}
                       >
+                        {lang.explore}&nbsp;
                         {data.title
                           .replace('Armored ', '')
                           .replace(/[Bb]lindado(s)?/g, '')
                           .replace(/[Bb]lindada(s)?/g, '')}{' '}
                         {lang.weArmor}
                       </Button>
-                    )}
+                    )
+                  )}
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         );
       })}
 
@@ -125,10 +144,14 @@ const Categories = ({ props, allVehiclesImage }) => {
                 href={'/' + lang.availableNowURL}
                 className="primary shiny"
               >
-                {lang.categoriesMainButton}
+                {lang.explore}&nbsp;{lang.allArmoredVehiclesForSale}
               </Button>
 
-              <Button href={lang.vehiclesWeArmorURL} className="shiny">
+              <Button
+                href={lang.vehiclesWeArmorURL}
+                className={`${styles.categories_item_buttons_plain} shiny`}
+              >
+                {lang.explore}&nbsp;{lang.all}&nbsp;{lang.armored}&nbsp;
                 {lang.vehiclesWeArmor}
               </Button>
             </div>

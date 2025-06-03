@@ -33,7 +33,7 @@ const Footer = (props) => {
     { path: lang.contactURL, text: lang.footerContactTitle },
   ];
   const links2 = [
-    { path: '/' + lang.availableNowURL, text: lang.footerAvailableNowTitle },
+    { path: '/' + lang.availableNowURL, text: lang.availableNowTitle },
     {
       path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.pickupTrucksURL}`,
       text: lang.footerPickupTrucksTitle,

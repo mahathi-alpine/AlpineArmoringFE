@@ -164,7 +164,7 @@ export default {
   shareEmailSubject: 'Mira este artículo',
   shareEmailBody: 'Pensé que podría interesarte',
   readMore: 'Leer más',
-  readyToRent: 'Listo para alquilar',
+  exploreArmoredRentalVehicles: 'Explora los vehículos blindados de alquiler',
   specialOfTheMonthButton: '¡Consulte nuestras ofertas limitadas!',
   categoriesMainButton: 'Disponible ahora / Listo para enviar',
   weArmor: 'nosotros blindamos',
@@ -307,7 +307,6 @@ export default {
   comingSoonFlag: 'Próximamente',
   preOwnedFlag: 'Seminuevos',
   exportOnlyFlag: 'Solo exportación',
-
   allStaticPages: 'Todas las páginas estáticas',
   allBlogPosts: 'Todas las publicaciones del blog',
   allNewsArticles: 'Todos los artículos de noticias',
@@ -322,4 +321,6 @@ export default {
   allLocationsWeServe: 'Todas Ubicaciones que servimos',
   allFaqCategories: 'Todas las Categorías de Preguntas Frecuentes',
   allFaqs: 'Todas Preguntas Frecuentes',
+  explore: 'explorar',
+  readyToShipNow: 'Listo para enviar ahora',
 };
