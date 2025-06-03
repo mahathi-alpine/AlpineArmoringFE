@@ -39,7 +39,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 }
                 width={740}
                 height={290}
-                sizes="(max-width: 768px) 80vw, (max-width: 1600px) 50vw, 33vw"
+                sizes="(max-width: 450px) 40vw, (max-width: 1600px) 50vw, 33vw"
                 // quality={100}
                 className={`${styles.categories_item_image}`}
               />
@@ -117,7 +117,7 @@ const Categories = ({ props, allVehiclesImage }) => {
             alt={allVehiclesImage.alternativeText || 'Alpine Armoring'}
             width={740}
             height={290}
-            sizes="(max-width: 768px) 80vw, (max-width: 1600px) 50vw, 33vw"
+            sizes="(max-width: 450px) 40vw, (max-width: 1600px) 50vw, 33vw"
             // quality={100}
             className={`${styles.categories_item_image}`}
           />

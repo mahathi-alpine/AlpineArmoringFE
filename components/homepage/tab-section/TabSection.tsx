@@ -57,6 +57,7 @@ const TabSection = ({ props }) => {
                     }
                     width={620}
                     height={430}
+                    sizes="(max-width: 450px) 50vw"
                   />
                 ) : item.image.data[0].attributes.mime.startsWith('video/') ? (
                   <video

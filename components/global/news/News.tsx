@@ -94,7 +94,7 @@ const Blog = ({
                         }
                         width={700}
                         height={300}
-                        sizes="(max-width: 550px) 100vw, 50vw"
+                        sizes="50vw"
                       />
                     </Link>
                   ) : null}
