@@ -128,14 +128,14 @@ function InventoryVehicle(props) {
         {
           '@type': 'ListItem',
           position: 2,
-          name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.rentalVehiclesURL}`,
+          name: lang.rentalVehicles,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.rentalVehiclesURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.rentalVehiclesURL}/${data?.slug}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.rentalVehiclesURL}/${data?.slug}`,
         },
       ],
     };
@@ -379,10 +379,43 @@ export async function getServerSideProps({ params, locale }) {
 
     const currentPage = data?.data?.[0]?.attributes;
 
+    // Create custom language URLs using rentalVehicles paths
+    const customLanguageUrls = {};
+
+    // Add current locale URL
+    const currentLocalePath =
+      routes.rentalVehicles.paths[locale] || routes.rentalVehicles.paths.en;
+    customLanguageUrls[locale] =
+      locale === 'en'
+        ? `${currentLocalePath}/${currentPage.slug}`
+        : `/${locale}${currentLocalePath}/${currentPage.slug}`;
+
+    // Add other locale URLs if localizations exist
+    if (currentPage.localizations?.data) {
+      currentPage.localizations.data.forEach((localization) => {
+        const localeCode = localization.attributes.locale;
+        const localePath =
+          routes.rentalVehicles.paths[localeCode] ||
+          routes.rentalVehicles.paths.en;
+        customLanguageUrls[localeCode] =
+          localeCode === 'en'
+            ? `${localePath}/${localization.attributes.slug}`
+            : `/${localeCode}${localePath}/${localization.attributes.slug}`;
+      });
+    }
+
+    // Also add English if not already present
+    if (!customLanguageUrls['en']) {
+      customLanguageUrls['en'] =
+        `${routes.rentalVehicles.paths.en}/${currentPage.slug}`;
+    }
+
     const seoData = {
       ...(currentPage?.seo ?? {}),
       thumbnail: currentPage?.featuredImage?.data?.attributes ?? null,
-      languageUrls: route.getLanguageUrls(currentPage, locale),
+      languageUrls: customLanguageUrls,
+      // Set canonical URL to use rental-vehicles path
+      canonicalURL: `${routes.rentalVehicles.paths[locale] || routes.rentalVehicles.paths.en}/${currentPage.slug}`,
     };
 
     if (seoData && seoData.metaDescription) {

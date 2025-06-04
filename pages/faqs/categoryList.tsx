@@ -74,13 +74,13 @@ function CategoryPage(props) {
           '@type': 'ListItem',
           position: 2,
           name: lang.faq,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.faqsURL}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.faqsURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: category?.title || '',
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.faqsURL}/${category?.slug}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.faqsURL}/${category?.slug}`,
         },
       ],
     };

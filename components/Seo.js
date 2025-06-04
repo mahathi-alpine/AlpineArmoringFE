@@ -153,7 +153,8 @@ const Seo = ({ props }) => {
 
   // Clean up any double slashes (except after protocol)
   canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
-
+  console.log(canonicalUrl);
+  console.log(languageUrls);
   return (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
