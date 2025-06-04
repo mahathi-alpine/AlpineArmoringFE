@@ -31,6 +31,9 @@ export async function getServerSideProps({ params, locale }) {
       ...(currentPage?.seo ?? {}),
       thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
       languageUrls: route.getLanguageUrls(currentPage, locale),
+      metaTitle:
+        `${currentPage?.seo?.metaTitle} | Alpine Armoring® USA` ||
+        currentPage.title,
     };
 
     return {

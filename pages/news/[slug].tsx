@@ -322,7 +322,9 @@ export async function getServerSideProps({ params, locale }) {
 
   const seoData = {
     ...(currentPage?.seo ?? {}),
-    metaTitle: currentPage?.seo?.metaTitle || currentPage.title,
+    metaTitle:
+      `${currentPage?.seo?.metaTitle} | Alpine Armoring® USA` ||
+      currentPage.title,
     metaDescription:
       currentPage?.seo?.metaDescription ||
       currentPage.excerpt ||

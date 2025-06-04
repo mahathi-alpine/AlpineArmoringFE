@@ -31,7 +31,7 @@ const InquiryForm = (props) => {
               {/* Render Filters conditionally based on path and filter type */}
               {!props.plain
                 ? !currentPath.includes('rental-vehicles')
-                  ? ` ${lang.thisReadyToShip}`
+                  ? ` ${lang.thisReadyToShip} `
                   : ` ${lang.rentalOfThis}`
                 : ` ${lang.the}`}
               <span

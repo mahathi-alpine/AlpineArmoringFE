@@ -13,7 +13,38 @@ const LandingInquiryForm = dynamic(
 function ArticleSingle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  const content = data?.content;
+
+  const formatSlug = (str) => {
+    const withoutDashes = str.replace(/-/g, ' ');
+    return withoutDashes.charAt(0).toUpperCase() + withoutDashes.slice(1);
+  };
+
+  let content = data?.content;
+
+  if (content && data?.slug) {
+    const formattedSlug = formatSlug(data.slug);
+
+    const phrasesToReplace = [
+      'Unmatched Security with Alpine Armoring',
+      'Superior Protection with Alpine Armoring',
+      'Ultimate Security with Alpine Armoring',
+      'Secure Your Journey with Alpine Armoring',
+      'Stay Safe with Alpine Armoring',
+      'Secure Your Ride with Alpine Armoring',
+      'Invest in Safety with Alpine Armoring',
+      'Ensure Your Safety with Alpine Armoring',
+      'Enhance Your Security with Alpine Armoring',
+      'Enhance Your Safety with Alpine Armoring',
+      'Elevate Your Security with Alpine Armoring',
+    ];
+
+    phrasesToReplace.forEach((phrase) => {
+      content = content.replace(
+        new RegExp(phrase, 'g'),
+        `${phrase} in ${formattedSlug}`
+      );
+    });
+  }
 
   const formData = {
     title: data?.title,
@@ -82,6 +113,7 @@ export async function getServerSideProps(context) {
     if (seoData.metaTitle) {
       seoData.metaTitle = seoData.metaTitle.replace(/for sale/gi, '').trim();
       seoData.metaTitle = seoData.metaTitle.replace(/\s+/g, ' ');
+      seoData.metaTitle = `${seoData.metaTitle} | Alpine Armoring® USA`;
     }
     if (seoData.metaDescription) {
       seoData.metaDescription = seoData.metaDescription

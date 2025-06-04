@@ -111,9 +111,15 @@ const Blog = ({
                         <Link
                           href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
                         >
-                          <h3 className={`${styles.news_item_title}`}>
-                            {item.attributes.title}
-                          </h3>
+                          {button ? (
+                            <h3 className={`${styles.news_item_title}`}>
+                              {item.attributes.title}
+                            </h3>
+                          ) : (
+                            <h2 className={`${styles.news_item_title}`}>
+                              {item.attributes.title}
+                            </h2>
+                          )}
                         </Link>
 
                         {item.attributes.excerpt ? (

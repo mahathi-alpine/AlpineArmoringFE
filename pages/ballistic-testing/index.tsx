@@ -378,9 +378,9 @@ function Testing(props) {
                 className={`${styles.testing_armor_item}  observe fade-in-up`}
                 key={index}
               >
-                <h4 className={`${styles.testing_armor_title}`}>
+                <h3 className={`${styles.testing_armor_title}`}>
                   {item.title}
-                </h4>
+                </h3>
 
                 <div className={`${styles.testing_armor_description}`}>
                   <CustomMarkdown>{item.description}</CustomMarkdown>
