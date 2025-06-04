@@ -78,13 +78,13 @@ function VehicleWeArmor(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: 'https://www.alpineco.com/',
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang.vehiclesWeArmor,
-          item: `https://www.alpineco.com${lang.vehiclesWeArmorURL}`,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
         },
       ],
     };
