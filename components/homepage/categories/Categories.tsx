@@ -40,7 +40,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 width={740}
                 height={290}
                 sizes="(max-width: 450px) 40vw, (max-width: 1600px) 50vw, 33vw"
-                // quality={100}
+                quality={100}
                 className={`${styles.categories_item_image}`}
               />
             ) : null}
@@ -118,7 +118,7 @@ const Categories = ({ props, allVehiclesImage }) => {
             width={740}
             height={290}
             sizes="(max-width: 450px) 40vw, (max-width: 1600px) 50vw, 33vw"
-            // quality={100}
+            quality={100}
             className={`${styles.categories_item_image}`}
           />
         ) : null}

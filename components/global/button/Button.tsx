@@ -12,6 +12,7 @@ const Button = ({
   iconComponent: IconComponent,
   button,
   target,
+  nofollow,
 }: ButtonProps) => {
   if (button) {
     return (
@@ -41,12 +42,22 @@ const Button = ({
     );
   }
 
+  const relParts = [];
+
+  if (target) {
+    relParts.push('noopener');
+  }
+
+  if (nofollow) {
+    relParts.push('nofollow');
+  }
+
   return (
     <Link
       href={href}
       className={`c-button_wrap`}
       target={target ? '_blank' : undefined}
-      rel={target ? 'noopener noreferrer' : undefined}
+      rel={relParts.length > 0 ? relParts.join(' ') : undefined}
     >
       <span className={`c-button ${className}`}>
         {children}

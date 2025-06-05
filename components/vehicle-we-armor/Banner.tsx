@@ -157,6 +157,7 @@ const Banner = (props) => {
                 ? {
                     href: `${lang.vehiclesWeArmorStock}${data.slug}`,
                     className: `${styles.banner_buttons_item} shiny`,
+                    nofollow: true,
                   }
                 : {
                     className: `${styles.banner_buttons_item} shiny`,

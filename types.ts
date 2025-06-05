@@ -36,6 +36,7 @@ export interface ButtonProps {
   attention?: boolean;
   onClick?: () => void;
   iconComponent?: React.ElementType;
+  nofollow?: boolean;
 }
 
 export interface HeaderProps {
