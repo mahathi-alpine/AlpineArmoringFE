@@ -32,21 +32,18 @@ const calculateReadTime = () => {
 };
 
 function BlogSingle(props) {
-  // ALL HOOKS MUST BE AT THE TOP - BEFORE ANY CONDITIONAL LOGIC
   const { lang } = useLocale();
   const router = useRouter();
   const [readTime, setReadTime] = useState('1 min');
   const [pageUrl, setPageUrl] = useState('');
 
-  // Add proper null checks and default values
   const data = props?.data?.data?.[0]?.attributes;
 
-  // ALL useEffect hooks must be at the top level
   useEffect(() => {
     if (data) {
       setReadTime(calculateReadTime());
     }
-  }, [data]); // Add dependency
+  }, [data]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -54,7 +51,6 @@ function BlogSingle(props) {
     }
   }, []);
 
-  // Early return AFTER all hooks
   if (!data) {
     return (
       <div className={`${styles.blogSingle}`}>
@@ -65,7 +61,6 @@ function BlogSingle(props) {
     );
   }
 
-  // Safe date parsing with fallback
   const date = data?.updatedAt ? new Date(data.updatedAt) : new Date();
 
   const contentData = {
@@ -86,7 +81,6 @@ function BlogSingle(props) {
   const content = data.content;
 
   const getBreadcrumbStructuredData = () => {
-    // Add safety checks
     if (!data?.title || !data?.slug) return '{}';
 
     const structuredData = {
@@ -296,7 +290,6 @@ export async function getServerSideProps({ params, locale }) {
       locale,
     });
 
-    // Add better error handling
     if (!data || !data.data || data.data.length === 0) {
       return {
         notFound: true,
@@ -305,7 +298,6 @@ export async function getServerSideProps({ params, locale }) {
 
     const currentPage = data.data[0]?.attributes;
 
-    // Add null checks for seoData
     const seoData = {
       ...(currentPage?.seo ?? {}),
       metaTitle: currentPage?.seo?.metaTitle

@@ -6,10 +6,8 @@ import Head from 'next/head';
 import routes from 'routes';
 import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
-// import PlayIcon from 'components/icons/Play2';
 import LinkedinIcon from 'components/icons/Linkedin';
 import { useState, useEffect } from 'react';
-// import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import CustomMarkdown from 'components/CustomMarkdown';
 import SocialShare from 'components/global/social-share/SocialShare';
 import Accordion from 'components/global/accordion/Accordion';
@@ -28,7 +26,6 @@ const calculateReadTime = () => {
   const words = plainText.trim().split(/\s+/).length;
 
   let minutes = Math.ceil(words / 400);
-
   minutes = Math.min(minutes, 30);
 
   return `${minutes} min`;
@@ -37,21 +34,41 @@ const calculateReadTime = () => {
 function BlogSingle(props) {
   const { lang } = useLocale();
   const router = useRouter();
-
-  const data =
-    props && props.data && props.data.data[0] && props.data.data[0].attributes;
-  const date = new Date(data?.updatedAt);
-  // const dynamicZone = data?.blogDynamic;
-  const contentData = {
-    dynamicZone: data?.blogDynamic,
-  };
-  const faqsTitle = data?.faqsTitle;
-  const faqs = data?.faqs;
   const [readTime, setReadTime] = useState('1 min');
+  const [pageUrl, setPageUrl] = useState('');
+
+  const data = props?.data?.data?.[0]?.attributes;
 
   useEffect(() => {
-    setReadTime(calculateReadTime());
-  });
+    if (data) {
+      setReadTime(calculateReadTime());
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setPageUrl(window.location.href);
+    }
+  }, []);
+
+  if (!data) {
+    return (
+      <div className={`${styles.blogSingle}`}>
+        <div className={`${styles.blogSingle_inner} container_small`}>
+          <p>News article not found</p>
+        </div>
+      </div>
+    );
+  }
+
+  const date = data.updatedAt ? new Date(data.updatedAt) : new Date();
+
+  const contentData = {
+    dynamicZone: data.blogDynamic || [],
+  };
+
+  const faqsTitle = data.faqsTitle;
+  const faqs = data.faqs || [];
 
   const formattedDate = date
     .toLocaleDateString('en-US', {
@@ -61,37 +78,11 @@ function BlogSingle(props) {
     })
     .replace(/\//g, '/');
 
-  const content = data?.content;
-
-  const [pageUrl, setPageUrl] = useState('');
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setPageUrl(window.location.href);
-    }
-  }, []);
-
-  // Lightbox
-  // const [selectedTitle, setSelectedTitle] = useState('');
-  // const [contentType, setContentType] = useState('');
-  // const [videoSrc, setVideoSrc] = useState('');
-  // const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
-
-  // const handleLightboxOpen = (title, location, contentType, url = null) => {
-  //   setSelectedTitle(title);
-  //   setContentType(contentType);
-  //   if (contentType === 'video') {
-  //     setVideoSrc(url);
-  //   }
-  //   setLightboxPopupOpen(true);
-  // };
-
-  // const lightboxData = {
-  //   title: selectedTitle,
-  //   contentType: contentType,
-  //   videoSrc: videoSrc,
-  // };
+  const content = data.content;
 
   const getBreadcrumbStructuredData = () => {
+    if (!data?.title || !data?.slug) return '{}';
+
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -99,30 +90,28 @@ function BlogSingle(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: lang.home,
+          name: lang?.home || 'Home',
           item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: lang.news,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.newsURL}`,
+          name: lang?.news || 'News',
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
-          name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.newsURL}/${data?.slug}`,
+          name: data.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
         },
       ],
     };
     return JSON.stringify(structuredData);
   };
 
-  // FAQ structured data
   const getFAQStructuredData = () => {
-    if (!faqs || !Array.isArray(faqs)) {
-      console.error('FAQs is not an array:', faqs);
+    if (!faqs || !Array.isArray(faqs) || faqs.length === 0) {
       return null;
     }
 
@@ -133,7 +122,10 @@ function BlogSingle(props) {
         const title =
           faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
         const text =
-          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
+          faq?.attributes?.text ||
+          faq?.text ||
+          lang?.noAnswerProvided ||
+          'No answer provided';
 
         return {
           '@type': 'Question',
@@ -169,24 +161,18 @@ function BlogSingle(props) {
       <div className={`${styles.blogSingle}`}>
         <div className={`${styles.blogSingle_inner} container_small`}>
           <div className={`b-breadcrumbs`}>
-            <Link href="/">{lang.home}</Link>
+            <Link href="/">{lang?.home || 'Home'}</Link>
             <span>&gt;</span>
-            <Link href={`${lang.newsURL}`}>{lang.news}</Link>
+            <Link href={`${lang?.newsURL || '/news'}`}>
+              {lang?.news || 'News'}
+            </Link>
             <span>&gt;</span>
-            <span className={`b-breadcrumbs_current`}>{data?.title}</span>
+            <span className={`b-breadcrumbs_current`}>{data.title}</span>
           </div>
 
-          {/* <div className={`${styles.blogSingle_tags}`}>
-            {categories?.map((item, index) => (
-              <div className={`${styles.blogSingle_tags_item}`} key={index}>
-                {item.attributes.name}
-              </div>
-            ))}
-          </div> */}
+          <h1 className={`${styles.blogSingle_title}`}>{data.title}</h1>
 
-          <h1 className={`${styles.blogSingle_title}`}>{data?.title}</h1>
-
-          {data?.thumbnail.data?.attributes.url ? (
+          {data?.thumbnail?.data?.attributes?.url && (
             <Image
               src={
                 data.thumbnail.data.attributes.formats?.large?.url ||
@@ -199,38 +185,38 @@ function BlogSingle(props) {
               width={1280}
               height={700}
               className={`${styles.blogSingle_thumbnail}`}
-            ></Image>
-          ) : null}
+            />
+          )}
 
           <div className={`${styles.blogSingle_info}`}>
             <div className={`${styles.blogSingle_info_wrap}`}>
-              {data?.authors?.data ? (
+              {data?.authors?.data?.attributes && (
                 <div className={`${styles.blogSingle_info_box}`}>
                   <span className={`${styles.blogSingle_info_box_heading}`}>
-                    {lang.author}
-                    {data.authors.data.attributes.linkedinURL ? (
+                    {lang?.author || 'Author'}
+                    {data.authors.data.attributes.linkedinURL && (
                       <Link
                         href={data.authors.data.attributes.linkedinURL}
                         target="_blank"
                       >
                         <LinkedinIcon />
                       </Link>
-                    ) : null}
+                    )}
                   </span>
                   <Link
                     className={`${styles.blogSingle_info_box_name}`}
-                    href={`${lang.authorURL}/${data.authors.data.attributes.slug}`}
+                    href={`${lang?.authorURL || '/author'}/${data.authors.data.attributes.slug}`}
                   >
                     {data.authors.data.attributes.Name}
                   </Link>
                 </div>
-              ) : null}
+              )}
 
               <div
                 className={`${styles.blogSingle_info_box} ${styles.blogSingle_info_box_date}`}
               >
                 <span className={`${styles.blogSingle_info_box_heading}`}>
-                  {lang.lastUpdated}
+                  {lang?.lastUpdated || 'Last Updated'}
                 </span>
                 <span className={`${styles.blogSingle_info_box_name}`}>
                   {formattedDate}
@@ -239,7 +225,7 @@ function BlogSingle(props) {
 
               <div className={`${styles.blogSingle_info_box}`}>
                 <span className={`${styles.blogSingle_info_box_heading}`}>
-                  {lang.readTime}
+                  {lang?.readTime || 'Read Time'}
                 </span>
                 <span className={`${styles.blogSingle_info_box_name}`}>
                   {readTime}
@@ -247,7 +233,7 @@ function BlogSingle(props) {
               </div>
             </div>
 
-            {pageUrl && data?.title && (
+            {pageUrl && data.title && (
               <SocialShare title={data.title} url={pageUrl} />
             )}
           </div>
@@ -256,16 +242,16 @@ function BlogSingle(props) {
             className={`${styles.blogSingle_content} static`}
             id="blogContent"
           >
-            {content ? (
+            {content && (
               <div className={`${styles.blogSingle_content} static`}>
                 <CustomMarkdown>{content}</CustomMarkdown>
               </div>
-            ) : null}
+            )}
 
             <Content data={contentData} />
           </div>
 
-          {data?.videos.map((item, index) => (
+          {data?.videos?.map((item, index) => (
             <div className={`center`} key={index}>
               <iframe
                 width="860"
@@ -275,73 +261,65 @@ function BlogSingle(props) {
                 frameBorder="0"
                 allow="autoplay;"
                 allowFullScreen
-              ></iframe>
+              />
             </div>
-            // <div
-            //   className={`${styles.blogSingle_video}`}
-            //   key={index}
-            //   onClick={() =>
-            //     handleLightboxOpen(item.text, '', 'video', item.videoLink)
-            //   }
-            // >
-            //   <span>{item.text}</span>
-            //   <PlayIcon />
-            // </div>
           ))}
         </div>
 
-        {faqs?.length > 0 ? (
+        {faqs?.length > 0 && (
           <div className={`mt2`}>
-            <Accordion items={faqs} title={`${faqsTitle || lang.faqs}`} />
+            <Accordion
+              items={faqs}
+              title={`${faqsTitle || lang?.faqs || 'FAQ'}`}
+            />
           </div>
-        ) : null}
-
-        {/* {isLightboxPopupOpen ? (
-          <LightboxCustom
-            isLightboxPopupOpen={isLightboxPopupOpen}
-            lightboxData={lightboxData}
-            setLightboxPopupOpen={setLightboxPopupOpen}
-          />
-        ) : null} */}
+        )}
       </div>
     </>
   );
 }
 
 export async function getServerSideProps({ params, locale }) {
-  const route = routes.news;
+  try {
+    const route = routes.news;
 
-  const data = await getPageData({
-    route: route.collectionSingle,
-    params: `filters[slug][$eq]=${params.slug}`,
-    populate: 'deep',
-    locale,
-  });
+    const data = await getPageData({
+      route: route.collectionSingle,
+      params: `filters[slug][$eq]=${params.slug}`,
+      populate: 'deep',
+      locale,
+    });
 
-  const currentPage = data?.data?.[0]?.attributes;
+    if (!data || !data.data || data.data.length === 0) {
+      return {
+        notFound: true,
+      };
+    }
 
-  const seoData = {
-    ...(currentPage?.seo ?? {}),
-    metaTitle:
-      `${currentPage?.seo?.metaTitle} | Alpine Armoring® USA` ||
-      currentPage.title,
-    metaDescription:
-      currentPage?.seo?.metaDescription ||
-      currentPage.excerpt ||
-      'Alpine Armoring',
-    thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
-    languageUrls: route.getLanguageUrls(currentPage, locale),
-  };
+    const currentPage = data.data[0]?.attributes;
 
-  if (!data || !data.data || data.data.length === 0) {
+    const seoData = {
+      ...(currentPage?.seo ?? {}),
+      metaTitle: currentPage?.seo?.metaTitle
+        ? `${currentPage.seo.metaTitle} | Alpine Armoring® USA`
+        : currentPage?.title || 'Alpine Armoring',
+      metaDescription:
+        currentPage?.seo?.metaDescription ||
+        currentPage?.excerpt ||
+        'Alpine Armoring',
+      thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
+      languageUrls: route.getLanguageUrls(currentPage, locale),
+    };
+
+    return {
+      props: { data, seoData, locale },
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps:', error);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: { data, seoData, locale },
-  };
 }
 
 export default BlogSingle;
