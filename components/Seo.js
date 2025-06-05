@@ -62,7 +62,7 @@ const Seo = ({ props }) => {
 
     // Remove all parameters that start with 'nxt'
     for (const [key] of params.entries()) {
-      if (key.startsWith('nxt')) {
+      if (key.startsWith('nxt') || key.startsWith('next')) {
         params.delete(key);
       }
     }
@@ -78,7 +78,7 @@ const Seo = ({ props }) => {
 
       // Remove nxt* parameters
       for (const [key] of params.entries()) {
-        if (key.startsWith('nxt')) {
+        if (key.startsWith('nxt') || key.startsWith('next')) {
           params.delete(key);
         }
       }
@@ -93,7 +93,7 @@ const Seo = ({ props }) => {
 
         // Remove nxt* parameters
         for (const [key] of params.entries()) {
-          if (key.startsWith('nxt')) {
+          if (key.startsWith('nxt') || key.startsWith('next')) {
             params.delete(key);
           }
         }
