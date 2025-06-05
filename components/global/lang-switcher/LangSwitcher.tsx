@@ -27,7 +27,11 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
     if (pathname.includes('vehicles-we-armor')) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/vehicles-we-armors?pagination[limit]=-1&populate=localizations`;
-    } else if (pathname.includes('available-now')) {
+    } else if (
+      pathname.includes('available-now') ||
+      pathname.includes('rental-vehicles') ||
+      pathname.includes('vehiculos-de-renta')
+    ) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/inventories?pagination[limit]=-1&populate=localizations`;
     } else if (pathname.includes('author')) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/authors?pagination[limit]=-1&populate=localizations`;
