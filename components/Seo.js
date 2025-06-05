@@ -71,6 +71,40 @@ const Seo = ({ props }) => {
     return cleanQuery ? `${path}?${cleanQuery}` : path;
   };
 
+  // Get current query parameters (excluding nxt* params)
+  const getCurrentQueryString = () => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+
+      // Remove nxt* parameters
+      for (const [key] of params.entries()) {
+        if (key.startsWith('nxt')) {
+          params.delete(key);
+        }
+      }
+
+      const cleanQuery = params.toString();
+      return cleanQuery ? `?${cleanQuery}` : '';
+    } else {
+      // Server-side: extract from router.asPath
+      if (router.asPath.includes('?')) {
+        const queryString = router.asPath.split('?')[1];
+        const params = new URLSearchParams(queryString);
+
+        // Remove nxt* parameters
+        for (const [key] of params.entries()) {
+          if (key.startsWith('nxt')) {
+            params.delete(key);
+          }
+        }
+
+        const cleanQuery = params.toString();
+        return cleanQuery ? `?${cleanQuery}` : '';
+      }
+      return '';
+    }
+  };
+
   // Path without locale prefix for construction
   const getCurrentPath = () => {
     if (typeof window !== 'undefined') {
@@ -91,6 +125,29 @@ const Seo = ({ props }) => {
     /([^:])\/+/g,
     '$1/'
   );
+
+  // Get query string for hreflang URLs
+  const queryString = getCurrentQueryString();
+
+  // Build hreflang URLs with query parameters
+  const buildHreflangUrls = () => {
+    const hreflangUrls = {};
+
+    // Add x-default (English)
+    const defaultPath = languageUrls['en'] || '/';
+    hreflangUrls['x-default'] =
+      `${baseUrlDefault}${normalizeUrl(defaultPath)}${queryString}`;
+
+    // Add all language versions
+    Object.entries(languageUrls).forEach(([locale, path]) => {
+      hreflangUrls[locale] =
+        `${baseUrlDefault}${normalizeUrl(path)}${queryString}`;
+    });
+
+    return hreflangUrls;
+  };
+
+  const hreflangUrls = buildHreflangUrls();
 
   // Canonical URL construction
   let canonicalUrl;
@@ -163,19 +220,9 @@ const Seo = ({ props }) => {
       <meta name="description" content={metaDescription} key="description" />
       <meta name="image" content={metaImgUrl} />
 
-      {/* Hreflang tags */}
-      <link
-        rel="alternate"
-        hrefLang="x-default"
-        href={`${baseUrlDefault}${normalizeUrl(languageUrls['en'] || '/')}`}
-      />
-      {Object.entries(languageUrls).map(([locale, path]) => (
-        <link
-          key={locale}
-          rel="alternate"
-          hrefLang={locale}
-          href={`${baseUrlDefault}${normalizeUrl(path)}`}
-        />
+      {/* Hreflang tags with query parameters */}
+      {Object.entries(hreflangUrls).map(([hreflang, url]) => (
+        <link key={hreflang} rel="alternate" hrefLang={hreflang} href={url} />
       ))}
 
       {/* Open Graph / Facebook */}
