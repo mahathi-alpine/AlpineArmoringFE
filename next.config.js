@@ -2,6 +2,7 @@ const routes = require('./routes');
 
 module.exports = {
   reactStrictMode: true,
+  trailingSlash: false,
   async rewrites() {
     const hardcodedRewrites = [
       {

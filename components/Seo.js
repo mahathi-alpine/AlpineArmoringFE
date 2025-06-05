@@ -4,7 +4,21 @@ import { useRouter } from 'next/router';
 
 const normalizeUrl = (url) => {
   if (!url) return '';
-  return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
+
+  // Remove the full domain if present
+  let cleanUrl = url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
+
+  // Ensure it starts with / if not empty
+  if (cleanUrl && !cleanUrl.startsWith('/')) {
+    cleanUrl = '/' + cleanUrl;
+  }
+
+  // Handle root path - decide if you want trailing slash or not
+  if (cleanUrl === '' || cleanUrl === '/') {
+    return ''; // or return '' if you don't want trailing slash on root
+  }
+
+  return cleanUrl;
 };
 
 const isFullUrl = (url) => {
@@ -147,13 +161,19 @@ const Seo = ({ props }) => {
 
     // Add x-default (English)
     const defaultPath = languageUrls['en'] || '/';
+    const normalizedDefaultPath = normalizeUrl(defaultPath);
     hreflangUrls['x-default'] =
-      `${baseUrlDefault}${normalizeUrl(defaultPath)}${queryString}`;
+      normalizedDefaultPath === '/'
+        ? `${baseUrlDefault}${queryString}` // No trailing slash for homepage
+        : `${baseUrlDefault}${normalizedDefaultPath}${queryString}`;
 
     // Add all language versions
     Object.entries(languageUrls).forEach(([locale, path]) => {
+      const normalizedPath = normalizeUrl(path);
       hreflangUrls[locale] =
-        `${baseUrlDefault}${normalizeUrl(path)}${queryString}`;
+        normalizedPath === '/'
+          ? `${baseUrlDefault}${queryString}` // No trailing slash for homepage
+          : `${baseUrlDefault}${normalizedPath}${queryString}`;
     });
 
     return hreflangUrls;
@@ -217,7 +237,14 @@ const Seo = ({ props }) => {
       }
     }
 
-    canonicalUrl = `${baseUrl}${normalizeUrl(pathForCanonical)}`;
+    const normalizedPath = normalizeUrl(pathForCanonical);
+    canonicalUrl =
+      normalizedPath === '/'
+        ? baseUrl // No trailing slash for homepage
+        : `${baseUrl}${normalizedPath}`;
+    console.log('pathForCanonical:', pathForCanonical);
+    console.log('normalizeUrl result:', normalizeUrl(pathForCanonical));
+    console.log('final canonicalUrl:', canonicalUrl);
   }
 
   // Clean up any double slashes (except after protocol)
