@@ -41,6 +41,8 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blog-evergreens?pagination[limit]=-1&populate=localizations`;
     } else if (pathname.includes('news')) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blogs?pagination[limit]=-1&populate=localizations`;
+    } else if (pathname.includes('faqs')) {
+      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/knowledge-bases?pagination[limit]=-1&populate=localizations`;
     }
 
     const response = await fetch(apiUrl);
