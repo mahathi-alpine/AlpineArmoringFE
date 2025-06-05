@@ -242,9 +242,6 @@ const Seo = ({ props }) => {
       normalizedPath === '/'
         ? baseUrl // No trailing slash for homepage
         : `${baseUrl}${normalizedPath}`;
-    console.log('pathForCanonical:', pathForCanonical);
-    console.log('normalizeUrl result:', normalizeUrl(pathForCanonical));
-    console.log('final canonicalUrl:', canonicalUrl);
   }
 
   // Clean up any double slashes (except after protocol)

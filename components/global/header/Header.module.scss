@@ -59,14 +59,12 @@
   &.down:not(.header_navOpen),
   &.up:not(.header_navOpen) {
     background: var(--color-dark);
-    .header_logo_gold {
-      display: block;
-      // width: revert-layer;
-      // width: 100%;
-    }
-    .header_logo_black {
-      display: none;
-    }
+    // .header_logo_gold {
+    //   display: block;
+    // }
+    // .header_logo_black {
+    //   display: none;
+    // }
   }
 
   &_transparent,
@@ -112,9 +110,9 @@
       width: 125px;
     }
 
-    &_gold {
-      display: none;
-    }
+    // &_gold {
+    //   display: none;
+    // }
   }
 
   &_burger {

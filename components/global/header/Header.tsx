@@ -97,17 +97,23 @@ const Header = ({
           onClick={() => setNavOpen(false)}
         >
           <Link href={'/'} aria-label="Alpine Armoring Logo">
-            <Image
-              src="/assets/Alpine-Armoring-Armored-Vehicles.png"
-              alt="armored vehicles"
-              width={125}
-              height={42}
-              quality={100}
-              priority
-              unoptimized
-              className={`${styles.header_logo_gold} header_logo_gold`}
-            />
-            <Logo className={`${styles.header_logo_black} header_logo_black`} />
+            {(isDarkMode || isHeaderGray) && (
+              <Image
+                src="/assets/Alpine-Armoring-Armored-Vehicles.png"
+                alt="armored vehicles"
+                width={125}
+                height={42}
+                quality={100}
+                priority
+                unoptimized
+                className={`${styles.header_logo_gold} header_logo_gold`}
+              />
+            )}
+            {!isDarkMode && (
+              <Logo
+                className={`${styles.header_logo_black} header_logo_black`}
+              />
+            )}
           </Link>
         </div>
 
