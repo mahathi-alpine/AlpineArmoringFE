@@ -60,9 +60,13 @@ const Seo = ({ props }) => {
     const [path, queryString] = url.split('?');
     const params = new URLSearchParams(queryString);
 
-    // Remove all parameters that start with 'nxt'
+    // Remove all parameters that start with 'nxt' or 'next', and nextInternalLocale
     for (const [key] of params.entries()) {
-      if (key.startsWith('nxt') || key.startsWith('next')) {
+      if (
+        key.startsWith('nxt') ||
+        key.startsWith('next') ||
+        key === 'nextInternalLocale'
+      ) {
         params.delete(key);
       }
     }
@@ -76,9 +80,13 @@ const Seo = ({ props }) => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
 
-      // Remove nxt* parameters
+      // Remove nxt* parameters and nextInternalLocale
       for (const [key] of params.entries()) {
-        if (key.startsWith('nxt') || key.startsWith('next')) {
+        if (
+          key.startsWith('nxt') ||
+          key.startsWith('next') ||
+          key === 'nextInternalLocale'
+        ) {
           params.delete(key);
         }
       }
@@ -91,9 +99,13 @@ const Seo = ({ props }) => {
         const queryString = router.asPath.split('?')[1];
         const params = new URLSearchParams(queryString);
 
-        // Remove nxt* parameters
+        // Remove nxt* parameters and nextInternalLocale
         for (const [key] of params.entries()) {
-          if (key.startsWith('nxt') || key.startsWith('next')) {
+          if (
+            key.startsWith('nxt') ||
+            key.startsWith('next') ||
+            key === 'nextInternalLocale'
+          ) {
             params.delete(key);
           }
         }
