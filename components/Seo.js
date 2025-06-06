@@ -79,7 +79,10 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       if (
         key.startsWith('nxt') ||
         key.startsWith('next') ||
-        key === 'nextInternalLocale'
+        key === 'nextInternalLocale' ||
+        key === 'source' ||
+        key.startsWith('vehicles_we_armor') ||
+        key.startsWith('vehiculos_que_blindamos')
       ) {
         params.delete(key);
       }
@@ -99,7 +102,10 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
         if (
           key.startsWith('nxt') ||
           key.startsWith('next') ||
-          key === 'nextInternalLocale'
+          key === 'nextInternalLocale' ||
+          key.startsWith('source') ||
+          key.startsWith('vehicles_we_armor') ||
+          key.startsWith('vehiculos_que_blindamos')
         ) {
           params.delete(key);
         }
@@ -118,7 +124,10 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
           if (
             key.startsWith('nxt') ||
             key.startsWith('next') ||
-            key === 'nextInternalLocale'
+            key === 'nextInternalLocale' ||
+            key.startsWith('source') ||
+            key.startsWith('vehicles_we_armor') ||
+            key.startsWith('vehiculos_que_blindamos')
           ) {
             params.delete(key);
           }

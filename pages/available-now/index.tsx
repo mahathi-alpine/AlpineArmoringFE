@@ -24,7 +24,7 @@ function Inventory(props) {
   const faqs = pageData?.faqs;
 
   const router = useRouter();
-  const { q, vehicles_we_armor } = router.query;
+  const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
   const [allFetchedVehicles, setAllFetchedVehicles] = useState(vehicles.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
@@ -45,9 +45,10 @@ function Inventory(props) {
       setLoading(true);
       const nextPage = currentPage + 1;
 
-      const query = vehicles_we_armor
-        ? `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`
-        : '';
+      const query =
+        vehicles_we_armor || vehiculos_que_blindamos
+          ? `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor || vehiculos_que_blindamos}`
+          : '';
 
       const newVehicles = await getPageData({
         route: route.collectionSingle,
@@ -124,7 +125,13 @@ function Inventory(props) {
       setCurrentPage(1);
       setHasMore(true);
     }
-  }, [q, vehicles_we_armor, vehicles.data, searchQuery]);
+  }, [
+    q,
+    vehicles_we_armor,
+    vehiculos_que_blindamos,
+    vehicles.data,
+    searchQuery,
+  ]);
 
   // Update displayed vehicles when not in search mode
   useEffect(() => {
@@ -312,13 +319,13 @@ export async function getServerSideProps(context) {
     });
     pageData = pageData.data?.attributes || null;
 
-    const { vehicles_we_armor, q } = context.query;
+    const { vehicles_we_armor, q, vehiculos_que_blindamos } = context.query;
     let query = '';
     let pageSize = 16;
     let searchQuery = null;
 
-    if (vehicles_we_armor) {
-      query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor}`;
+    if (vehicles_we_armor || vehiculos_que_blindamos) {
+      query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor || vehiculos_que_blindamos}`;
     }
     if (q) {
       query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
