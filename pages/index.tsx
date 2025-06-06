@@ -16,7 +16,6 @@ const VideosPopup = dynamic(
 );
 
 function Home({ homepageData, categories }) {
-  console.log(homepageData);
   const { lang } = useLocale();
   const data = homepageData.data?.attributes;
 
