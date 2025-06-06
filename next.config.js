@@ -48,6 +48,8 @@ module.exports = {
     contentDispositionType: 'inline',
     minimumCacheTTL: 60 * 60 * 24 * 30,
     deviceSizes: [384, 640, 750, 828, 1080, 1200, 1920, 2200],
+    imageSizes: [],
+    formats: ['image/webp', 'image/avif'],
     remotePatterns: [
       {
         protocol: 'https',

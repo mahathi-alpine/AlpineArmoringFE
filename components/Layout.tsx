@@ -1,5 +1,6 @@
-import Head from 'next/head';
+// import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
+import Seo from '../components/Seo';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
@@ -49,7 +50,7 @@ const termina = localFont({
   ],
 });
 
-const Layout = ({ children }) => {
+const Layout = ({ children, seoData }) => {
   const router = useRouter();
   const { lang } = useLocale();
 
@@ -118,65 +119,6 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Head>
-        {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
-
-        <link rel="author" type="text/plain" href="/humans.txt" />
-
-        <meta
-          name="google-site-verification"
-          content="bCcF8Vxq5RVDB8JW0bfGQynjo9U6f5oQEwQVbobmyjE"
-        />
-
-        {isDarkMode && (
-          <style>{`
-              body {
-                background: #101010 url(/assets/noise4.png) !important;
-                background-size: 30px !important;
-              }
-              .navigation_submenu{
-                background-color: rgba(23, 23, 23, 0.8) !important;
-                backdrop-filter: blur(10px) !important;
-              }
-              .navigation_submenu a{
-                color: white;
-              }
-              // .header_logo_gold{
-              //   display: block !important;
-              // }
-              // .header_logo_black{
-              //   display: none;
-              // }
-            `}</style>
-        )}
-        {(isPadding0 || isHomepage) && (
-          <style>{`
-              body {
-                padding-top: 0 !important;
-              }
-            `}</style>
-        )}
-        {isHeaderGray && (
-          <style>{`
-              header,
-              .navigation_submenu{
-                background-color: rgba(23, 23, 23, 0.8) !important;
-                backdrop-filter: blur(10px) !important;
-              }
-              .navigation_submenu a{
-                color: white;
-              }
-              .header_logo_gold{
-                display: block !important;
-              }
-              // .header_logo_black{
-              //   display: none;
-              // }
-            `}</style>
-        )}
-      </Head>
-
-      {/* Google Ads */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-1066421391"
         strategy="afterInteractive"
@@ -218,6 +160,16 @@ const Layout = ({ children }) => {
           style={{ display: 'none', visibility: 'hidden' }}
         />
       </noscript>
+
+      {seoData && (
+        <Seo
+          props={seoData}
+          isDarkMode={isDarkMode}
+          isPadding0={isPadding0}
+          isHomepage={isHomepage}
+          isHeaderGray={isHeaderGray}
+        />
+      )}
 
       <div className={termina.className}>
         <Header

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import styles from './Categories.module.scss';
 import Image from 'next/image';
 import Button from 'components/global/button/Button';
@@ -18,14 +18,9 @@ const Categories = ({ props, allVehiclesImage }) => {
         }
 
         return (
-          <Link
+          <div
             className={`${styles.categories_item} ${styles.categories_item_main} observe fade-in-up`}
             key={item.id}
-            href={
-              data.inventory_vehicles?.data.length > 0
-                ? `/${lang.availableNowURL}/${lang.type}/${data.slug}`
-                : `${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`
-            }
           >
             {data.image.data ? (
               <Image
@@ -39,7 +34,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 }
                 width={740}
                 height={290}
-                sizes="(max-width: 450px) 40vw, (max-width: 1600px) 50vw, 33vw"
+                sizes="(max-width: 980px) 40vw, min(22vw, 750px)"
                 quality={100}
                 className={`${styles.categories_item_image}`}
               />
@@ -64,9 +59,14 @@ const Categories = ({ props, allVehiclesImage }) => {
                   {data.inventory_vehicles?.data.length > 0 ? (
                     <>
                       <Button
-                        // href={`/${lang.availableNowURL}/${lang.type}/${data.slug}`}
+                        href={`/${lang.availableNowURL}/${lang.type}/${data.slug}`}
                         className={`${styles.categories_item_buttons_button} primary shiny`}
-                        button
+                        // button
+                        // href={
+                        //   data.inventory_vehicles?.data.length > 0
+                        //     ? `/${lang.availableNowURL}/${lang.type}/${data.slug}`
+                        //     : `${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`
+                        // }
                       >
                         {data.slug === lang.armoredRentalURL
                           ? lang.exploreArmoredRentalVehicles
@@ -88,8 +88,8 @@ const Categories = ({ props, allVehiclesImage }) => {
                     data.slug !== lang.specialOfTheMonth2 &&
                     data.slug !== lang.armoredRentalURL && (
                       <Button
-                        // href={`${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`}
-                        button
+                        href={`${lang.vehiclesWeArmorURL}/${lang.type}/${data.slug}`}
+                        // button
                         className={`${styles.categories_item_buttons_button} ${styles.categories_item_buttons_plain} shiny`}
                       >
                         {lang.explore}&nbsp;
@@ -104,7 +104,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 </div>
               </div>
             </div>
-          </Link>
+          </div>
         );
       })}
 
@@ -117,7 +117,7 @@ const Categories = ({ props, allVehiclesImage }) => {
             alt={allVehiclesImage.alternativeText || 'Alpine Armoring'}
             width={740}
             height={290}
-            sizes="(max-width: 450px) 40vw, (max-width: 1600px) 50vw, 33vw"
+            sizes="(max-width: 980px) 40vw, min(22vw, 750px)"
             quality={100}
             className={`${styles.categories_item_image}`}
           />

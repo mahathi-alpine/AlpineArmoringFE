@@ -386,7 +386,7 @@ export async function getServerSideProps(context) {
   const seoData = {
     ...(categoryData?.attributes.seo || {}),
     languageUrls,
-    metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring`,
+    metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring®`,
     // thumbnail: categoryData.attributes.allBanner.media.data.attributes ?? null,
   };
 

@@ -25,7 +25,7 @@ const isFullUrl = (url) => {
   return url && (url.startsWith('http://') || url.startsWith('https://'));
 };
 
-const Seo = ({ props }) => {
+const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
 
@@ -255,6 +255,53 @@ const Seo = ({ props }) => {
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} key="description" />
       <meta name="image" content={metaImgUrl} />
+
+      {isDarkMode && (
+        <style>{`
+          body {
+            background: #101010 url(/assets/noise4.png) !important;
+            background-size: 30px !important;
+          }
+          .navigation_submenu{
+            background-color: rgba(23, 23, 23, 0.8) !important;
+            backdrop-filter: blur(10px) !important;
+          }
+          .navigation_submenu a{
+            color: white;
+          }
+        `}</style>
+      )}
+
+      {(isPadding0 || isHomepage) && (
+        <style>{`
+          body {
+            padding-top: 0 !important;
+          }
+        `}</style>
+      )}
+
+      {isHeaderGray && (
+        <style>{`
+          header,
+          .navigation_submenu{
+            background-color: rgba(23, 23, 23, 0.8) !important;
+            backdrop-filter: blur(10px) !important;
+          }
+          .navigation_submenu a{
+            color: white;
+          }
+          .header_logo_gold{
+            display: block !important;
+          }
+        `}</style>
+      )}
+
+      <link rel="author" type="text/plain" href="/humans.txt" />
+
+      <meta
+        name="google-site-verification"
+        content="bCcF8Vxq5RVDB8JW0bfGQynjo9U6f5oQEwQVbobmyjE"
+      />
 
       {/* Hreflang tags with query parameters */}
       {Object.entries(hreflangUrls).map(([hreflang, url]) => (

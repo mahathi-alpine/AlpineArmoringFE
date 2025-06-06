@@ -3,7 +3,7 @@ import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import Seo from '../components/Seo';
+// import Seo from '../components/Seo';
 import useLocale from 'hooks/useLocale';
 import Loader from 'components/global/loader/Loader';
 import CookieConsent from 'components/global/cookie-consent/CookieConsent';
@@ -83,10 +83,10 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      {currentSeoData && (
+      {/* {currentSeoData && (
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
-      )}
-      <Layout>
+      )} */}
+      <Layout seoData={currentSeoData}>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
         <CookieConsent />
