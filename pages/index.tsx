@@ -16,22 +16,47 @@ const VideosPopup = dynamic(
 );
 
 function Home({ homepageData, categories }) {
+  console.log(homepageData);
   const { lang } = useLocale();
   const data = homepageData.data?.attributes;
 
+  // const getLocalBusinessStructuredData = () => {
+  //   const structuredData = {
+  //     '@context': 'https://schema.org',
+  //     '@type': 'LocalBusiness',
+  //     image:
+  //       'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fmedium_About_us_hompage_thumbnail_1_ea1c33f592.JPG&w=640&q=100',
+  //     url: 'https://www.alpineco.com',
+  //     logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
+  //     name: 'Alpine Armoring',
+  //     description:
+  //       'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
+  //     email: 'sales@alpineco.com',
+  //     telephone: '+1 703 471 0002',
+  //     address: {
+  //       '@type': 'PostalAddress',
+  //       streetAddress: '4170 Lafayette Center Drive #100',
+  //       addressLocality: 'Chantilly',
+  //       addressCountry: 'US',
+  //       addressRegion: 'Virginia',
+  //       postalCode: '20151',
+  //     },
+  //   };
+
+  //   return JSON.stringify(structuredData);
+  // };
   const getOrganizationStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
-      '@type': 'LocalBusiness',
-      image:
-        'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fmedium_About_us_hompage_thumbnail_1_ea1c33f592.JPG&w=640&q=100',
+      '@type': 'Organization',
+      name: 'Alpine Armoring',
       url: 'https://www.alpineco.com',
       logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
-      name: 'Alpine Armoring',
       description:
         'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
-      email: 'sales@alpineco.com',
-      telephone: '+1 703 471 0002',
+      foundingDate: '1993',
+      industry: 'Armored Vehicle Manufacturing',
+      numberOfEmployees: '50-200',
       address: {
         '@type': 'PostalAddress',
         streetAddress: '4170 Lafayette Center Drive #100',
@@ -39,6 +64,31 @@ function Home({ homepageData, categories }) {
         addressCountry: 'US',
         addressRegion: 'Virginia',
         postalCode: '20151',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+1 703 471 0002',
+        email: 'sales@alpineco.com',
+        contactType: 'customer service',
+      },
+      sameAs: [
+        'https://www.instagram.com/alpinearmoring/',
+        'https://x.com/AlpineArmoring',
+        'https://www.facebook.com/AlpineArmoring/',
+        'https://www.linkedin.com/company/alpinearmoring/',
+        'https://www.youtube.com/c/AlpineArmoring',
+        'https://www.tiktok.com/@alpinearmoring',
+        'https://www.threads.com/@alpinearmoring/',
+      ],
+      areaServed: 'Worldwide',
+      serviceArea: {
+        '@type': 'GeoCircle',
+        geoMidpoint: {
+          '@type': 'GeoCoordinates',
+          latitude: '38.90491917326487',
+          longitude: '-77.4702548649953',
+        },
+        geoRadius: 'global',
       },
     };
 
@@ -138,18 +188,35 @@ export async function getStaticProps({ locale = 'en' }) {
 
   const categories = await getPageData({
     route: 'categories',
-    sort: 'order',
-    populate: 'image, inventory_vehicles',
-    fields: 'fields[0]=slug&fields[1]=title&fields[2]=order',
+    // custom:
+    //   'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
     custom:
-      'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
+      'populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
     locale,
   });
+
+  const categoriesWithStatus = await Promise.all(
+    categories?.data?.map(async (category) => {
+      const vehicleCheck = await getPageData({
+        route: 'inventories',
+        custom: `filters[categories][slug][$eq]=${category.attributes.slug}&pagination[limit]=1&fields=id`,
+        locale,
+      });
+
+      return {
+        ...category,
+        attributes: {
+          ...category.attributes,
+          hasVehicles: vehicleCheck.data?.length > 0,
+        },
+      };
+    })
+  );
 
   const currentPage = homepageData?.data?.attributes;
 
   const languageUrls = {
-    en: `/`,
+    en: ``,
     es: `/es`,
   };
 
@@ -159,7 +226,12 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 
   return {
-    props: { homepageData, categories, seoData, locale },
+    props: {
+      homepageData,
+      categories: { data: categoriesWithStatus },
+      seoData,
+      locale,
+    },
   };
 }
 

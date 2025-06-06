@@ -1,7 +1,7 @@
 import styles from './TabSection.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ArrowIcon from 'components/icons/Arrow';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
@@ -12,8 +12,12 @@ const TabSection = ({ props }) => {
   const isMobile = useIsMobile();
 
   const [activeDiv, setActiveDiv] = useState('0');
-  const handleTabChange = (id) => {
+  const [loadedVideos, setLoadedVideos] = useState(new Set(['0']));
+  const videoRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
+
+  const handleTabChange = (id: string) => {
     setActiveDiv(id);
+    setLoadedVideos((prev) => new Set([...prev, id]));
   };
 
   const sliderProps = props.map((item) => {
@@ -23,6 +27,28 @@ const TabSection = ({ props }) => {
     });
     return newItem;
   });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = (entry.target as HTMLElement).dataset.index;
+            if (index) {
+              setLoadedVideos((prev) => new Set([...prev, index]));
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    Object.values(videoRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className={`${styles.tabSection} container`}>
@@ -37,6 +63,10 @@ const TabSection = ({ props }) => {
         {props.map((item, index) => (
           <div
             key={item.id}
+            ref={(el) => {
+              videoRefs.current[index] = el;
+            }}
+            data-index={index.toString()}
             className={`${styles.tabSection_item} ${
               activeDiv == index ? styles.tabSection_item_active : ''
             }`}
@@ -60,21 +90,36 @@ const TabSection = ({ props }) => {
                     sizes="(max-width: 450px) 50vw"
                   />
                 ) : item.image.data[0].attributes.mime.startsWith('video/') ? (
-                  <video
-                    preload="none"
-                    muted={true}
-                    autoPlay={true}
-                    playsInline={true}
-                    loop={true}
-                    width={isMobile ? 380 : 620}
-                    height={isMobile ? 200 : 430}
-                  >
-                    <source
-                      src={`${item.image.data[0].attributes?.url}`}
-                      type={item.image.data[0].attributes.mime}
-                    />
-                    {lang.videoTagNotSupported}
-                  </video>
+                  loadedVideos.has(index.toString()) ? (
+                    <video
+                      preload="metadata"
+                      muted={true}
+                      autoPlay
+                      playsInline={true}
+                      loop={true}
+                      width={isMobile ? 380 : 620}
+                      height={isMobile ? 200 : 430}
+                    >
+                      <source
+                        src={item.image.data[0].attributes?.url}
+                        type={item.image.data[0].attributes.mime}
+                      />
+                      {lang.videoTagNotSupported}
+                    </video>
+                  ) : (
+                    <div
+                      style={{
+                        width: isMobile ? 380 : 620,
+                        height: isMobile ? 200 : 430,
+                        backgroundColor: '#f0f0f0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      Loading video...
+                    </div>
+                  )
                 ) : null}
               </div>
             ) : null}

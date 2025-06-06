@@ -14,7 +14,7 @@ const Categories = ({ props, allVehiclesImage }) => {
         const data = item.attributes;
 
         if (data.title == lang.vansAndBussesTitle) {
-          return;
+          return null;
         }
 
         return (
@@ -30,7 +30,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 }`}
                 alt={
                   data.image.data.attributes.alternativeText ||
-                  'Alpine Armoring'
+                  data.title + ' | Alpine Armoring®'
                 }
                 width={740}
                 height={290}
@@ -56,7 +56,7 @@ const Categories = ({ props, allVehiclesImage }) => {
                 ) : null}
 
                 <div className={`${styles.categories_item_buttons}`}>
-                  {data.inventory_vehicles?.data.length > 0 ? (
+                  {data.hasVehicles ? (
                     <>
                       <Button
                         href={`/${lang.availableNowURL}/${lang.type}/${data.slug}`}
@@ -114,7 +114,10 @@ const Categories = ({ props, allVehiclesImage }) => {
             src={`${
               allVehiclesImage.formats?.medium?.url || allVehiclesImage.url
             }`}
-            alt={allVehiclesImage.alternativeText || 'Alpine Armoring'}
+            alt={
+              allVehiclesImage.alternativeText ||
+              'All Armored Vehicles | Alpine Armoring®'
+            }
             width={740}
             height={290}
             sizes="(max-width: 980px) 40vw, min(22vw, 750px)"

@@ -48,6 +48,7 @@ const termina = localFont({
       style: 'normal',
     },
   ],
+  preload: true,
 });
 
 const Layout = ({ children, seoData }) => {
@@ -158,6 +159,8 @@ const Layout = ({ children, seoData }) => {
           height="0"
           width="0"
           style={{ display: 'none', visibility: 'hidden' }}
+          title="Google Tag Manager"
+          aria-hidden="true"
         />
       </noscript>
 
