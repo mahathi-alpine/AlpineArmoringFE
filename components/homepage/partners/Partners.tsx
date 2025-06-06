@@ -30,10 +30,10 @@ const Partners = (props) => {
                   item.image.data[0].attributes.alternativeText ||
                   'Alpine Armoring'
                 }
-                width={310}
-                height={90}
+                width="180"
+                height="90"
+                loading="lazy"
                 className={`${styles.partners_image}`}
-                sizes={'(min-width: 1280px ) 25vw, 40vw'}
               />
               <h3>{item.title}</h3>
             </Link>
