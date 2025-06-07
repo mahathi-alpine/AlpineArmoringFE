@@ -95,7 +95,7 @@ module.exports = {
   // swcMinify: true,
   // bundlePagesRouterDependencies: true,
   // serverExternalPackages: ['pdfjs-dist'],
-  productionBrowserSourceMaps: true,
+  // productionBrowserSourceMaps: true,
   async headers() {
     return [
       {

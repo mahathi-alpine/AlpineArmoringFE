@@ -38,17 +38,16 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         {data.featuredImage.data ? (
           <Image
             src={`${
-              data.featuredImage.data.attributes.formats.medium?.url ||
+              data.featuredImage.data.attributes.formats.thumbnail?.url ||
               data.featuredImage.data.attributes.url
             }`}
             alt={
               data.featuredImage.data.attributes.alternativeText ||
-              'Alpine Armoring'
+              data.title + ' Alpine Armoring'
             }
-            width={563}
-            height={433}
+            width={500}
+            height={385}
             priority={index === 0}
-            sizes="(max-width: 1600px) 50vw, 30vw"
           />
         ) : null}
 
@@ -95,12 +94,12 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
         ></h2>
 
         {data.armor_level && (
-          <p className={`${styles.inventory_item_level}`}>
-            {lang.armoredTo}{' '}
-            <span>
-              {lang.level} {data.armor_level}
-            </span>
-          </p>
+          <p
+            className={`${styles.inventory_item_level}`}
+            dangerouslySetInnerHTML={{
+              __html: `${lang.armoredTo} <span>${lang.level} ${data.armor_level}</span>`,
+            }}
+          />
         )}
 
         <ul className={`${styles.inventory_item_info}`}>

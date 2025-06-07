@@ -56,7 +56,7 @@ function Inventory(props) {
           query +
           `&pagination[page]=${nextPage}&pagination[pageSize]=${ITEMS_PER_PAGE}`,
         sort: 'order',
-        populate: 'featuredImage,categories',
+        populate: 'featuredImage',
         fields:
           'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
         locale,
@@ -326,11 +326,7 @@ export async function getServerSideProps(context) {
       route: route.collection,
       locale,
     });
-    console.log('Raw pageData:', pageData);
     pageData = pageData.data?.attributes || null;
-
-    console.log('Processed pageData:', pageData);
-    console.log('Banner data:', pageData?.banner);
 
     const { vehicles_we_armor, q, vehiculos_que_blindamos } = context.query;
     let query = '';
@@ -350,7 +346,7 @@ export async function getServerSideProps(context) {
       route: route.collectionSingle,
       params: query,
       sort: 'order',
-      populate: 'featuredImage,categories',
+      populate: 'featuredImage',
       fields:
         'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
       pageSize: pageSize,
