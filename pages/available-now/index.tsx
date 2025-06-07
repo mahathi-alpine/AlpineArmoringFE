@@ -1,5 +1,5 @@
 import React from 'react';
-import { setPublicCache } from 'hooks/cache';
+// import { setPublicCache } from 'hooks/cache';
 import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
@@ -314,7 +314,11 @@ function Inventory(props) {
 // };
 
 export async function getServerSideProps(context) {
-  setPublicCache(context.res);
+  // setPublicCache(context.res);
+  context.res.setHeader(
+    'Cache-Control',
+    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+  );
 
   const locale = context.locale || 'en';
   const route = routes.inventory;
@@ -324,7 +328,11 @@ export async function getServerSideProps(context) {
       route: route.collection,
       locale,
     });
+    console.log('Raw pageData:', pageData);
     pageData = pageData.data?.attributes || null;
+
+    console.log('Processed pageData:', pageData);
+    console.log('Banner data:', pageData?.banner);
 
     const { vehicles_we_armor, q, vehiculos_que_blindamos } = context.query;
     let query = '';
