@@ -28,6 +28,7 @@
     "embla-carousel-react": "^8.0.0-rc18",
     "eslint-config-next": "^14.0.3",
     "eslint-config-prettier": "^9.1.0",
+    "logrocket": "^10.1.0",
     "next": "latest",
     "pdfjs-dist": "3.4.120",
     "prettier-eslint": "^16.1.2",

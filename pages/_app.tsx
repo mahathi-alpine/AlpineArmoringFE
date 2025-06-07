@@ -1,4 +1,5 @@
 import '/styles/globals.scss';
+import LogRocket from 'logrocket';
 import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -14,6 +15,16 @@ export default function App({ Component, pageProps }) {
   const [currentSeoData, setCurrentSeoData] = useState(pageProps.seoData);
   const [isLoading, setIsLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        LogRocket.init('md2s86/alpine');
+      } catch (error) {
+        console.error('LogRocket initialization failed:', error);
+      }
+    }
+  }, []);
 
   // Update language when route changes
   useEffect(() => {
