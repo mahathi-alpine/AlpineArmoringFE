@@ -108,6 +108,7 @@ const TabSection = ({ props }) => {
                     </video>
                   ) : (
                     <div
+                      className={`${styles.tabSection_item_image_placeholder}`}
                       style={{
                         width: isMobile ? 380 : 620,
                         height: isMobile ? 200 : 430,

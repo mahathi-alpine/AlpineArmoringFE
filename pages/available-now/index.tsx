@@ -160,7 +160,7 @@ function Inventory(props) {
         });
       },
       {
-        rootMargin: '0px 0px 70%',
+        rootMargin: '0px 0px 20%',
         threshold: 0,
       }
     );
@@ -279,6 +279,8 @@ function Inventory(props) {
           </div>
         </div>
 
+        <div className={`observe bottomObserver`}></div>
+
         {bottomText ? (
           <div className={`container_small`}>
             <div className={`${styles.listing_bottomText}`}>
@@ -300,8 +302,6 @@ function Inventory(props) {
       >
         {lang.loading}
       </div>
-
-      <div className={`observe bottomObserver`}></div>
 
       <div className="shape-before shape-before-white"></div>
     </>

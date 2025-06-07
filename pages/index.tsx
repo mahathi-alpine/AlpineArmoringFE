@@ -1,5 +1,5 @@
 import { getPageData } from 'hooks/api';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
@@ -11,9 +11,9 @@ import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/homepage/tab-section/TabSection';
 import News from 'components/global/news/News';
 import Partners from 'components/homepage/partners/Partners';
-const VideosPopup = dynamic(
-  () => import('components/global/videos-popup/VideosPopup')
-);
+// const VideosPopup = dynamic(
+//   () => import('components/global/videos-popup/VideosPopup')
+// );
 
 function Home({ homepageData, categories }) {
   const { lang } = useLocale();
@@ -104,7 +104,7 @@ function Home({ homepageData, categories }) {
   const hpMiddleText = data?.hpMiddleText;
   const tabSectionData = data?.tabSection;
   const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
-  const ballistingTestings = data?.ballistingTestingsMedia;
+  // const ballistingTestings = data?.ballistingTestingsMedia;
   const partners = data?.industryPartners;
   const news =
     data?.news?.data?.map((item) => ({
@@ -153,11 +153,11 @@ function Home({ homepageData, categories }) {
 
         {tabSectionData ? <TabSection props={tabSectionData} /> : null}
 
-        {ballistingTestings && !data?.disableCoolVideos ? (
+        {/* {ballistingTestings && !data?.disableCoolVideos ? (
           <div className={`observe fade-in-up`}>
             <VideosPopup props={ballistingTestings} />
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className="shape-after shape-after-white"></div>
       </div>

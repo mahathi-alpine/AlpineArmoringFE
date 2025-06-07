@@ -112,6 +112,10 @@
           border-radius: 16px;
         }
       }
+      
+      &_placeholder{
+        max-width: 100%;
+      }
     }
     &_title {
       font-size: rem(18);
