@@ -330,7 +330,7 @@ function Vehicle(props) {
 
         {data?.description ? (
           <div
-            id="overview"
+            id={lang.overview.toLowerCase().replace(/\s+/g, '-')}
             className={`${styles.slug_description} anchor container_small`}
           >
             <h2 className={`c-title_small c-title`}>
@@ -344,7 +344,7 @@ function Vehicle(props) {
         {gallery ? (
           <div
             className={`${styles.slug_gallery} observe fade-in anchor`}
-            id="gallery"
+            id={lang.gallery.toLowerCase().replace(/\s+/g, '-')}
           >
             <Gallery props={gallery} white regular />
           </div>
@@ -353,7 +353,7 @@ function Vehicle(props) {
         {dimensions1 && dimensions2 ? (
           <div
             className={`${styles.slug_dimensions} container anchor`}
-            id="dimensions"
+            id={lang.dimensions.toLowerCase().replace(/\s+/g, '-')}
           >
             <h2 className={`c-title_small c-title observe fade-in`}>
               {lang.dimensionsFor} {data?.title}
@@ -410,7 +410,7 @@ function Vehicle(props) {
 
         {data?.armoringFeatures?.data.length > 0 ? (
           <div
-            id="armoring-features"
+            id={lang.armoringFeatures.toLowerCase().replace(/\s+/g, '-')}
             className={`${styles.slug_specs} container anchor`}
           >
             <h2
@@ -425,7 +425,7 @@ function Vehicle(props) {
 
         {data?.conversionAccessories?.data.length > 0 ? (
           <div
-            id="conversion-accessories"
+            id={lang.conversionAccessories.toLowerCase().replace(/\s+/g, '-')}
             className={`${styles.slug_specs} container anchor`}
           >
             <h2
@@ -440,7 +440,9 @@ function Vehicle(props) {
 
         {data?.communications?.data.length > 0 ? (
           <div
-            id="communications-&-electronics"
+            id={lang.communicationsElectronics
+              .toLowerCase()
+              .replace(/\s+/g, '-')}
             className={`${styles.slug_specs} container anchor`}
           >
             <h2
@@ -455,7 +457,7 @@ function Vehicle(props) {
 
         {data?.otherOptions?.data.length > 0 ? (
           <div
-            id="other-options"
+            id={lang.otherOptions.toLowerCase().replace(/\s+/g, '-')}
             className={`${styles.slug_specs} container anchor`}
           >
             <h2

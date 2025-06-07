@@ -152,7 +152,7 @@ const Banner = (props) => {
               {lang.requestAQuote}
             </Button>
 
-            {data.inventory?.length && hasNullFlag(data.inventory) && (
+            {data.inventory?.length > 0 && hasNullFlag(data.inventory) && (
               <Button
                 href={`${lang.vehiclesWeArmorStock}${data.slug}`}
                 className={`${styles.banner_buttons_item} shiny`}
