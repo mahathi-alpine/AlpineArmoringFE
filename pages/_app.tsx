@@ -17,9 +17,17 @@ export default function App({ Component, pageProps }) {
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (
+      typeof window !== 'undefined' &&
+      process.env.NODE_ENV === 'production'
+    ) {
+      const disableLogging =
+        localStorage.getItem('disable_logrocket') === 'true';
+
       try {
-        LogRocket.init('md2s86/alpine');
+        if (!disableLogging) {
+          LogRocket.init('md2s86/alpine');
+        }
       } catch (error) {
         console.error('LogRocket initialization failed:', error);
       }
