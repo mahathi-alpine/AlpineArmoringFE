@@ -1,5 +1,4 @@
 import { getPageData } from 'hooks/api';
-import { setPublicCache } from 'hooks/cache';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
@@ -277,7 +276,10 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
-  setPublicCache(context.res);
+  context.res.setHeader(
+    'Cache-Control',
+    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+  );
 
   const { locale } = context;
   const route = routes.vehiclesWeArmor;

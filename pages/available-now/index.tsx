@@ -1,5 +1,4 @@
 import React from 'react';
-// import { setPublicCache } from 'hooks/cache';
 import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
@@ -314,7 +313,6 @@ function Inventory(props) {
 // };
 
 export async function getServerSideProps(context) {
-  // setPublicCache(context.res);
   context.res.setHeader(
     'Cache-Control',
     'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
