@@ -99,7 +99,29 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/(available-now|vehicles-we-armor|blog|news|faqs)/:path*',
+        source: '/available-now',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value:
+              'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      // Then the pattern for sub-pages
+      {
+        source: '/available-now/:path+',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value:
+              'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      // Other patterns
+      {
+        source: '/(vehicles-we-armor|blog|news|faqs)/:path*',
         headers: [
           {
             key: 'Cache-Control',

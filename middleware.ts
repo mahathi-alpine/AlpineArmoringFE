@@ -416,6 +416,15 @@ export function middleware(request: NextRequest) {
 
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
+  if (pathname === '/available-now' || pathname.startsWith('/available-now/')) {
+    const response = NextResponse.next();
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+    );
+    return response;
+  }
+
   if (
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
