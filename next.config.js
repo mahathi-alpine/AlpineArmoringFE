@@ -99,6 +99,16 @@ module.exports = {
   async headers() {
     return [
       {
+        source: '/(available-now|vehicles-we-armor|blog|news|faqs)/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value:
+              'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
         source: '/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
