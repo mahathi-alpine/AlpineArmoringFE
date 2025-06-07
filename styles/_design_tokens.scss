@@ -227,7 +227,7 @@ small {
 
   &_small {
     margin-bottom: rem(24);
-    font-size: rem(22);
+    font-size: rem(19);
 
     @include breakpoint(large) {
       font-size: rem(28);

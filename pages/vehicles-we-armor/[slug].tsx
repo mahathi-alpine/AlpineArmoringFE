@@ -355,9 +355,7 @@ function Vehicle(props) {
             className={`${styles.slug_dimensions} container anchor`}
             id="dimensions"
           >
-            <h2
-              className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
-            >
+            <h2 className={`c-title_small c-title observe fade-in`}>
               {lang.dimensionsFor} {data?.title}
             </h2>
             <div className={`${styles.slug_dimensions_wrap}`}>

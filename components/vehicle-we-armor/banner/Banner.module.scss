@@ -268,7 +268,7 @@
   }
 
   &_noPdf {
-    margin-bottom: -70px;
+    margin-bottom: -50px;
     @include breakpoint(large) {
       margin-bottom: 0;
     }
