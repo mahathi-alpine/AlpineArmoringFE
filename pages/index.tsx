@@ -194,22 +194,25 @@ export async function getStaticProps({ locale = 'en' }) {
     locale,
   });
 
+  const categoriesArray = categories?.data || categories || [];
   const categoriesWithStatus = await Promise.all(
-    categories?.data?.map(async (category) => {
-      const vehicleCheck = await getPageData({
-        route: 'inventories',
-        custom: `filters[categories][slug][$eq]=${category.attributes.slug}&pagination[limit]=1&fields=id`,
-        locale,
-      });
+    (Array.isArray(categoriesArray) ? categoriesArray : []).map(
+      async (category) => {
+        const vehicleCheck = await getPageData({
+          route: 'inventories',
+          custom: `filters[categories][slug][$eq]=${category.attributes.slug}&pagination[limit]=1&fields=id`,
+          locale,
+        });
 
-      return {
-        ...category,
-        attributes: {
-          ...category.attributes,
-          hasVehicles: vehicleCheck.data?.length > 0,
-        },
-      };
-    })
+        return {
+          ...category,
+          attributes: {
+            ...category.attributes,
+            hasVehicles: vehicleCheck.data?.length > 0,
+          },
+        };
+      }
+    )
   );
 
   const currentPage = homepageData?.data?.attributes;

@@ -108,8 +108,8 @@ const Categories = ({ props, allVehiclesImage }) => {
         );
       })}
 
-      <div className={`${styles.categories_item} observe fade-in-up`}>
-        {allVehiclesImage ? (
+      {allVehiclesImage ? (
+        <div className={`${styles.categories_item} observe fade-in-up`}>
           <Image
             src={`${
               allVehiclesImage.formats?.medium?.url || allVehiclesImage.url
@@ -124,43 +124,43 @@ const Categories = ({ props, allVehiclesImage }) => {
             quality={100}
             className={`${styles.categories_item_image}`}
           />
-        ) : null}
 
-        <div className={`${styles.categories_item_content}`}>
-          <div
-            className={`shapeCurved_topLeft shapeCurved_small shapeCurved_white shapeCurved`}
-          ></div>
-          <div
-            className={`shapeCurved_topRight shapeCurved_small shapeCurved_white shapeCurved`}
-          ></div>
+          <div className={`${styles.categories_item_content}`}>
+            <div
+              className={`shapeCurved_topLeft shapeCurved_small shapeCurved_white shapeCurved`}
+            ></div>
+            <div
+              className={`shapeCurved_topRight shapeCurved_small shapeCurved_white shapeCurved`}
+            ></div>
 
-          <div className={`${styles.categories_item_content_inner}`}>
-            <h3
-              className={`${styles.categories_item_title}`}
-              dangerouslySetInnerHTML={{
-                __html: lang.allArmoredVehicles,
-              }}
-            ></h3>
+            <div className={`${styles.categories_item_content_inner}`}>
+              <h3
+                className={`${styles.categories_item_title}`}
+                dangerouslySetInnerHTML={{
+                  __html: lang.allArmoredVehicles,
+                }}
+              ></h3>
 
-            <div className={`${styles.categories_item_buttons}`}>
-              <Button
-                href={'/' + lang.availableNowURL}
-                className="primary shiny"
-              >
-                {lang.explore}&nbsp;{lang.allArmoredVehiclesForSale}
-              </Button>
+              <div className={`${styles.categories_item_buttons}`}>
+                <Button
+                  href={'/' + lang.availableNowURL}
+                  className="primary shiny"
+                >
+                  {lang.explore}&nbsp;{lang.allArmoredVehiclesForSale}
+                </Button>
 
-              <Button
-                href={lang.vehiclesWeArmorURL}
-                className={`${styles.categories_item_buttons_plain} shiny`}
-              >
-                {lang.explore}&nbsp;{lang.all}&nbsp;{lang.armored}&nbsp;
-                {lang.vehiclesWeArmor}
-              </Button>
+                <Button
+                  href={lang.vehiclesWeArmorURL}
+                  className={`${styles.categories_item_buttons_plain} shiny`}
+                >
+                  {lang.explore}&nbsp;{lang.all}&nbsp;{lang.armored}&nbsp;
+                  {lang.vehiclesWeArmor}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

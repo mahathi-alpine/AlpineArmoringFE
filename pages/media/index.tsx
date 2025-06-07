@@ -69,11 +69,9 @@ function Media(props) {
   const generateVideoStructuredData = () => {
     if (!videos || !Array.isArray(videos)) return null;
 
-    // Create an array of VideoObject schemas
     const videoObjects = videos.map((video) => {
       const attributes = video.attributes;
 
-      // Clean up YouTube ID by trimming whitespace
       const cleanYouTubeId = attributes.URLExternal?.trim();
 
       return {
@@ -82,7 +80,7 @@ function Media(props) {
         description: attributes.description || attributes.title || '',
         thumbnailUrl: `https://i.ytimg.com/vi/${cleanYouTubeId}/sddefault.jpg`,
         uploadDate: attributes.createdAt || attributes.publishedAt,
-        duration: attributes.duration || 'PT0M0S',
+        duration: attributes.duration ? `PT${attributes.duration}` : 'PT2M0S',
         contentUrl: `https://www.youtube.com/watch?v=${cleanYouTubeId}`,
         embedUrl: `https://www.youtube.com/embed/${cleanYouTubeId}`,
         publisher: {
@@ -93,21 +91,18 @@ function Media(props) {
             url: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
           },
         },
-        // Add location if available
         ...(attributes.location && {
           locationCreated: {
             '@type': 'Place',
             name: attributes.location,
           },
         }),
-        // Add category/genre based on videoCategory
         ...(attributes.videoCategory && {
           genre: attributes.videoCategory,
         }),
       };
     });
 
-    // Return as ItemList for multiple videos
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'ItemList',

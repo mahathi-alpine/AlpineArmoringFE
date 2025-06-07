@@ -43,7 +43,7 @@ function Videos(props) {
             '',
           thumbnailUrl: `https://i.ytimg.com/vi/${cleanYouTubeId}/sddefault.jpg`,
           uploadDate: attributes.createdAt || attributes.updatedAt,
-          duration: attributes.duration || 'PT0M0S',
+          duration: attributes.duration ? `PT${attributes.duration}` : 'PT2M0S',
           contentUrl: `https://www.youtube.com/watch?v=${cleanYouTubeId}`,
           embedUrl: `https://www.youtube.com/embed/${cleanYouTubeId}`,
           publisher: {
