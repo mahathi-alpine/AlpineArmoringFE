@@ -308,7 +308,16 @@ function Inventory(props) {
   );
 }
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 export async function getServerSideProps(context) {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+  );
+
   const locale = context.locale || 'en';
   const route = routes.inventory;
 
