@@ -247,6 +247,8 @@ function Inventory(props) {
         </div>
       </div>
 
+      <div className={`observe bottomObserver`}></div>
+
       {bottomText ? (
         <div className={`container_small`}>
           <div className={`${styles.listing_bottomText} darkColor`}>
@@ -269,8 +271,6 @@ function Inventory(props) {
           {lang.loading}
         </div>
       ) : null}
-
-      <div className={`observe bottomObserver`}></div>
     </>
   );
 }

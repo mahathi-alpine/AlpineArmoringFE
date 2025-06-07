@@ -46,11 +46,6 @@ function ArticleSingle(props) {
     });
   }
 
-  const formData = {
-    title: data?.title,
-    featuredImage: data?.featuredImage,
-  };
-
   return (
     <div className={`${styles.articleSingle}`}>
       <div className={`${styles.articleSingle_inner} container_small`}>
@@ -86,9 +81,7 @@ function ArticleSingle(props) {
           </div>
         ) : null}
 
-        {formData ? (
-          <LandingInquiryForm {...formData} className={`formCTA`} />
-        ) : null}
+        <LandingInquiryForm />
       </div>
     </div>
   );

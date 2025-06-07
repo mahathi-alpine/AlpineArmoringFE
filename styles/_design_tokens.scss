@@ -219,9 +219,20 @@ small {
   margin-bottom: rem(32);
   font-size: rem(26);
   text-align: center;
+
   @include breakpoint(large) {
     margin-bottom: rem(48);
     font-size: rem(36);
+  }
+
+  &_small{
+    margin-bottom: rem(24);
+    font-size: rem(22);
+
+    @include breakpoint(large) {
+      font-size: rem(28);
+      margin-bottom: rem(32);
+    }
   }
 }
 

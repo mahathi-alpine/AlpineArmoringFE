@@ -6,7 +6,7 @@ import routes from 'routes';
 import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
 import Head from 'next/head';
-import Banner from 'components/vehicle-we-armor/Banner';
+import Banner from 'components/vehicle-we-armor/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
 import ComparisonSlider from 'components/global/comparison-slider/ComparisonSlider';
 import StickyHorizontalSlider from 'components/global/sticky-horizontal-slider/StickyHorizontalSlider';
@@ -333,7 +333,7 @@ function Vehicle(props) {
             id="overview"
             className={`${styles.slug_description} anchor container_small`}
           >
-            <h2 className={`c-title`}>
+            <h2 className={`c-title_small c-title`}>
               {lang.overviewOf} {data?.title}
             </h2>
 
@@ -356,7 +356,7 @@ function Vehicle(props) {
             id="dimensions"
           >
             <h2
-              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+              className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
               {lang.dimensionsFor} {data?.title}
             </h2>
@@ -394,7 +394,7 @@ function Vehicle(props) {
 
         {beforeAfterSlider_Before && beforeAfterSlider_After ? (
           <div className={`${styles.slug_slider_wrap} observe fade-in anchor`}>
-            <div className={`shape-before`}></div>
+            <div className={`${styles.slug_slider_shape} shape-before`}></div>
 
             <div className={`${styles.slug_slider} background-dark`}>
               <ComparisonSlider
@@ -406,7 +406,7 @@ function Vehicle(props) {
               </p>
             </div>
 
-            <div className={`shape-after`}></div>
+            <div className={`${styles.slug_slider_shape} shape-after`}></div>
           </div>
         ) : null}
 
@@ -416,7 +416,7 @@ function Vehicle(props) {
             className={`${styles.slug_specs} container anchor`}
           >
             <h2
-              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+              className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
               {lang.armoringFeaturesFor} {data?.title}
             </h2>
@@ -431,7 +431,7 @@ function Vehicle(props) {
             className={`${styles.slug_specs} container anchor`}
           >
             <h2
-              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+              className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
               {lang.conversionAccessoriesFor} {data?.title}
             </h2>
@@ -446,7 +446,7 @@ function Vehicle(props) {
             className={`${styles.slug_specs} container anchor`}
           >
             <h2
-              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+              className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
               {lang.communicationsElectronicsFor} {data?.title}
             </h2>
@@ -461,7 +461,7 @@ function Vehicle(props) {
             className={`${styles.slug_specs} container anchor`}
           >
             <h2
-              className={`${styles.slug_dimensions_title} observe fade-in c-title`}
+              className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
               {lang.otherOptionalEquipmentFor} {data?.title}
             </h2>

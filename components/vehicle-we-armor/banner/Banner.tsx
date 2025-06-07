@@ -24,7 +24,7 @@ const Banner = (props) => {
       (item) => item.attributes.hide === null || item.attributes.hide === false
     );
 
-  const showComponent = hasNullFlag(data.inventory);
+  // const showComponent = hasNullFlag(data.inventory);
 
   const protectionLevel = data.protectionLevel || 'A4, A6, A9, A11';
   const protectionLevelSplit = protectionLevel.split(',');
@@ -152,7 +152,17 @@ const Banner = (props) => {
               {lang.requestAQuote}
             </Button>
 
-            <Button
+            {data.inventory?.length && hasNullFlag(data.inventory) && (
+              <Button
+                href={`${lang.vehiclesWeArmorStock}${data.slug}`}
+                className={`${styles.banner_buttons_item} shiny`}
+                nofollow={true}
+              >
+                {lang.viewInStockAvailability}
+              </Button>
+            )}
+
+            {/* <Button
               {...(data.inventory?.length && showComponent
                 ? {
                     href: `${lang.vehiclesWeArmorStock}${data.slug}`,
@@ -166,7 +176,7 @@ const Banner = (props) => {
                   })}
             >
               {lang.viewInStockAvailability}
-            </Button>
+            </Button> */}
           </div>
         </div>
 
