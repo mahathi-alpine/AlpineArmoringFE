@@ -1,4 +1,5 @@
 import React from 'react';
+import { setPublicCache } from 'hooks/cache';
 import useLocale, { getLocaleStrings } from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
@@ -203,6 +204,8 @@ function VehicleWeArmor(props) {
 }
 
 export async function getServerSideProps(context) {
+  setPublicCache(context.res);
+
   const { locale } = context;
   const lang = getLocaleStrings(locale);
   const route = routes.vehiclesWeArmor;

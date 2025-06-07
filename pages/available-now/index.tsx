@@ -1,4 +1,5 @@
 import React from 'react';
+import { setPublicCache } from 'hooks/cache';
 import { getPageData } from 'hooks/api';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
@@ -308,15 +309,12 @@ function Inventory(props) {
   );
 }
 
-export const config = {
-  unstable_runtimeJS: false,
-};
+// export const config = {
+//   unstable_runtimeJS: false,
+// };
 
 export async function getServerSideProps(context) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
-  );
+  setPublicCache(context.res);
 
   const locale = context.locale || 'en';
   const route = routes.inventory;

@@ -1,4 +1,5 @@
 import { getPageData } from 'hooks/api';
+import { setPublicCache } from 'hooks/cache';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback } from 'react';
 import styles from '/components/listing/Listing.module.scss';
@@ -230,6 +231,8 @@ function Inventory(props) {
 }
 
 export async function getServerSideProps(context) {
+  setPublicCache(context.res);
+
   const locale = context.locale || 'en';
   const lang = getLocaleStrings(locale);
   const route = routes.inventory;

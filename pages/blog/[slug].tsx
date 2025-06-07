@@ -279,7 +279,45 @@ function BlogSingle(props) {
   );
 }
 
-export async function getServerSideProps({ params, locale }) {
+export async function getStaticPaths({ locales }) {
+  try {
+    const route = routes.blog;
+
+    const paths = [];
+
+    for (const locale of locales) {
+      const data = await getPageData({
+        route: route.collectionSingle,
+        params: '',
+        fields: 'fields[0]=slug',
+        pageSize: 100,
+        locale,
+      });
+
+      if (data?.data) {
+        data.data.forEach((post) => {
+          paths.push({
+            params: { slug: post.attributes.slug },
+            locale,
+          });
+        });
+      }
+    }
+
+    return {
+      paths,
+      fallback: 'blocking', // Generate new pages on-demand
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
+}
+
+export async function getStaticProps({ params, locale }) {
   try {
     const route = routes.blog;
 
@@ -293,6 +331,7 @@ export async function getServerSideProps({ params, locale }) {
     if (!data || !data.data || data.data.length === 0) {
       return {
         notFound: true,
+        revalidate: 60,
       };
     }
 
@@ -312,14 +351,63 @@ export async function getServerSideProps({ params, locale }) {
     };
 
     return {
-      props: { data, seoData, locale },
+      props: {
+        data,
+        seoData,
+        locale,
+      },
+      revalidate: 7200, // Revalidate every 2 hours
     };
   } catch (error) {
-    console.error('Error in getServerSideProps:', error);
+    console.error('Error in getStaticProps:', error);
     return {
       notFound: true,
+      revalidate: 60,
     };
   }
 }
+
+// export async function getServerSideProps({ params, locale }) {
+//   try {
+//     const route = routes.blog;
+
+//     const data = await getPageData({
+//       route: route.collectionSingle,
+//       params: `filters[slug][$eq]=${params.slug}`,
+//       populate: 'deep',
+//       locale,
+//     });
+
+//     if (!data || !data.data || data.data.length === 0) {
+//       return {
+//         notFound: true,
+//       };
+//     }
+
+//     const currentPage = data.data[0]?.attributes;
+
+//     const seoData = {
+//       ...(currentPage?.seo ?? {}),
+//       metaTitle: currentPage?.seo?.metaTitle
+//         ? `${currentPage.seo.metaTitle} | Alpine Armoring® USA`
+//         : currentPage?.title || 'Alpine Armoring',
+//       metaDescription:
+//         currentPage?.seo?.metaDescription ||
+//         currentPage?.excerpt ||
+//         'Alpine Armoring',
+//       thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
+//       languageUrls: route.getLanguageUrls(currentPage, locale),
+//     };
+
+//     return {
+//       props: { data, seoData, locale },
+//     };
+//   } catch (error) {
+//     console.error('Error in getServerSideProps:', error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default BlogSingle;
