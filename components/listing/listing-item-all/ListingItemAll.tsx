@@ -26,8 +26,14 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
                 data.featuredImage.data.attributes.formats.thumbnail.url ||
                 data.featuredImage.data.attributes.url
               }`}
-              alt="Alpine Armoring"
-              width={420}
+              alt={
+                data.featuredImage.data.attributes.alternativeText ||
+                data.title
+                  .replace(/[\r\n]+/g, ' ')
+                  .replace(/\s+/g, ' ')
+                  .trim() + ' | Alpine Armoring'
+              }
+              width={500}
               height={200}
               priority={index === 0}
             />

@@ -54,12 +54,15 @@
 
   @include breakpoint(huge) {
     flex-basis: calc(100% / 3 - 16px);
-    // max-width: unset;
   }
 
   &_rental {
     @include breakpoint(large) {
       flex-basis: calc(100% / 3 - 16px);
+      max-width: unset;
+    }
+    @include breakpoint(max) {
+      flex-basis: calc(100% / 4 - 18px);
     }
   }
 

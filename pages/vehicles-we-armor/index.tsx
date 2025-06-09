@@ -103,7 +103,10 @@ function VehicleWeArmor(props) {
           fetchMoreVehicles();
         }
       },
-      { rootMargin: '100px' }
+      {
+        rootMargin: '0px 0px 20%',
+        threshold: 0,
+      }
     );
 
     const target = document.querySelector('.bottomObserver');

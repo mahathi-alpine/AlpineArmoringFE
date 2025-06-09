@@ -58,6 +58,12 @@
         max-width: 2050px;
       }
     }
+    
+    &_rental{
+      @include breakpoint(large) {
+        max-width: 2200px;
+      }
+    }
   }
   &_list {
     padding-top: rem(32);

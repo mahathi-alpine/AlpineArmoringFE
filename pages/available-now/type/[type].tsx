@@ -145,6 +145,7 @@ function Inventory(props) {
           />
         )}
       </Head>
+
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
           <Link href="/">{lang.home}</Link>
@@ -172,9 +173,18 @@ function Inventory(props) {
         ) : null}
 
         <div
-          className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
+          className={`
+            ${styles.listing_wrap} 
+            ${styles.listing_wrap_inventory} 
+            ${
+              currentPath.includes(
+                `/${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`
+              )
+                ? styles.listing_wrap_rental
+                : ''
+            }
+            container`}
         >
-          {/* Render Filters conditionally based on path and filter type */}
           {!currentPath.includes(lang.armoredRentalURL) &&
           props.filters?.type ? (
             <div className={`${styles.listing_wrap_filtered}`}>
