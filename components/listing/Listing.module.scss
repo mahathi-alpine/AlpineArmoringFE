@@ -58,8 +58,8 @@
         max-width: 2050px;
       }
     }
-    
-    &_rental{
+
+    &_rental {
       @include breakpoint(large) {
         max-width: 2200px;
       }
