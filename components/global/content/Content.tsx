@@ -2,8 +2,6 @@ import CustomMarkdown from 'components/CustomMarkdown';
 import Image from 'next/image';
 
 function Content(props) {
-  // console.log(props);
-  // return null;
   const dynamicZone = props.data.dynamicZone;
 
   return (
@@ -13,6 +11,48 @@ function Content(props) {
           case 'slices.text': {
             return (
               <CustomMarkdown key={index}>{component.Content}</CustomMarkdown>
+            );
+          }
+          case 'slices.two-images': {
+            return (
+              <div className="twoImages" key={index}>
+                <Image
+                  src={
+                    component.firstImage?.data?.attributes.formats.medium
+                      ?.url || component.firstImage.data?.attributes.url
+                  }
+                  alt={
+                    component.firstImage.data?.attributes.alternativeText || ''
+                  }
+                  width={
+                    component.firstImage.data?.attributes.formats.medium
+                      ?.width || component.firstImage.data?.attributes.width
+                  }
+                  height={
+                    component.firstImage.data?.attributes.formats.medium
+                      ?.height || component.firstImage.data?.attributes.height
+                  }
+                  quality={100}
+                />
+                <Image
+                  src={
+                    component.secondImage?.data?.attributes.formats.medium
+                      ?.url || component.secondImage.data?.attributes.url
+                  }
+                  alt={
+                    component.secondImage.data?.attributes.alternativeText || ''
+                  }
+                  width={
+                    component.secondImage.data?.attributes.formats.medium
+                      ?.width || component.secondImage.data?.attributes.width
+                  }
+                  height={
+                    component.secondImage.data?.attributes.formats.medium
+                      ?.height || component.secondImage.data?.attributes.height
+                  }
+                  quality={100}
+                />
+              </div>
             );
           }
           case 'slices.youtube-video': {

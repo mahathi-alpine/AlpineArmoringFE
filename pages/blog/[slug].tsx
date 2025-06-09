@@ -34,6 +34,7 @@ const calculateReadTime = () => {
 function BlogSingle(props) {
   const { lang } = useLocale();
   const router = useRouter();
+  const { preview = false } = props;
   const [readTime, setReadTime] = useState('1 min');
   const [pageUrl, setPageUrl] = useState('');
 
@@ -156,6 +157,7 @@ function BlogSingle(props) {
             key="faq-jsonld"
           />
         )}
+        {preview && <meta name="robots" content="noindex,nofollow" />}
       </Head>
 
       <div className={`${styles.blogSingle}`}>
@@ -170,7 +172,26 @@ function BlogSingle(props) {
             <span className={`b-breadcrumbs_current`}>{data.title}</span>
           </div>
 
-          <h1 className={`${styles.blogSingle_title}`}>{data.title}</h1>
+          <h1 className={`${styles.blogSingle_title}`}>
+            {data.title}
+            {preview && (
+              <span style={{ color: '#ff6b35', verticalAlign: 'middle' }}>
+                {' '}
+                (Preview)
+                <Link
+                  href="/api/exit-preview"
+                  style={{
+                    fontSize: '13px',
+                    border: '1px solid #ff6b35',
+                    padding: '5px',
+                    marginLeft: '10px',
+                  }}
+                >
+                  Exit Preview Mode
+                </Link>
+              </span>
+            )}
+          </h1>
 
           {data?.thumbnail?.data?.attributes?.url && (
             <Image
@@ -317,13 +338,18 @@ export async function getStaticPaths({ locales }) {
   }
 }
 
-export async function getStaticProps({ params, locale }) {
+export async function getStaticProps({ params, locale, preview = false }) {
   try {
     const route = routes.blog;
 
+    // Add publicationState=preview when in preview mode
+    const apiParams = preview
+      ? `filters[slug][$eq]=${params.slug}&publicationState=preview`
+      : `filters[slug][$eq]=${params.slug}`;
+
     const data = await getPageData({
       route: route.collectionSingle,
-      params: `filters[slug][$eq]=${params.slug}`,
+      params: apiParams,
       populate: 'deep',
       locale,
     });
@@ -355,8 +381,9 @@ export async function getStaticProps({ params, locale }) {
         data,
         seoData,
         locale,
+        preview,
       },
-      revalidate: 7200, // Revalidate every 2 hours
+      revalidate: preview ? 1 : 7200,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
