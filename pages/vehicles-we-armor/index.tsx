@@ -16,58 +16,101 @@ import Accordion from 'components/global/accordion/Accordion';
 function VehicleWeArmor(props) {
   const router = useRouter();
   const { lang } = useLocale();
-  const topBanner = props.pageData?.banner;
-  const bottomText = props.pageData?.bottomText;
+  const { pageData, vehicles, filters, searchQuery } = props;
+  const topBanner = pageData?.banner;
+  const bottomText = pageData?.bottomText;
 
   const faqs = router.query.make
-    ? props.filters.make.find(
-        (item) => item.attributes.slug === router.query.make
-      )?.attributes.faqs?.length
-      ? props.filters.make.find(
-          (item) => item.attributes.slug === router.query.make
-        )?.attributes.faqs
-      : props.pageData?.faqs
-    : props.pageData?.faqs;
+    ? filters.make.find((item) => item.attributes.slug === router.query.make)
+        ?.attributes.faqs?.length
+      ? filters.make.find((item) => item.attributes.slug === router.query.make)
+          ?.attributes.faqs
+      : pageData?.faqs
+    : pageData?.faqs;
 
-  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
-  const [itemsToRender, setItemsToRender] = useState(12);
+  const [vehiclesData, setVehiclesData] = useState(
+    searchQuery ? vehicles.data : vehicles.data.slice(0, 12)
+  );
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(
+    !searchQuery && vehicles.data.length === 12
+  );
 
-  useEffect(() => {
-    setVehiclesData(props.vehicles.data);
-  }, [router.query, props.vehicles.data]);
+  const fetchMoreVehicles = useCallback(async () => {
+    if (loading || !hasMore || searchQuery) return;
 
-  const fetchMoreItems = useCallback(() => {
-    if (itemsToRender < vehiclesData?.length) {
-      setLoading(true);
-      setItemsToRender((prevItemsToRender) => prevItemsToRender + 12);
+    setLoading(true);
+    const nextPage = currentPage + 1;
+
+    try {
+      let query = '';
+      if (router.query.category) {
+        query += `&filters[category][slug][$eq]=${router.query.category}`;
+      }
+      if (router.query.make) {
+        query +=
+          (query ? '&' : '') +
+          `&filters[make][slug][$eqi]=${router.query.make}`;
+      }
+      if (router.query.q) {
+        query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
+      }
+
+      const newVehicles = await getPageData({
+        route: routes.vehiclesWeArmor.collectionSingle,
+        params: query + `&pagination[page]=${nextPage}&pagination[pageSize]=12`,
+        populate: 'featuredImage',
+        fields:
+          'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=protectionLevel',
+        sort: 'order',
+        locale: router.locale,
+      });
+
+      if (newVehicles?.data) {
+        setVehiclesData((prev) => [...prev, ...newVehicles.data]);
+        setCurrentPage(nextPage);
+        setHasMore(newVehicles.data.length === 12);
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error('Error fetching more vehicles:', error);
+      setHasMore(false);
+    } finally {
       setLoading(false);
     }
-  }, [itemsToRender, vehiclesData]);
+  }, [loading, hasMore, currentPage, router.query, router.locale, searchQuery]);
+
+  // Reset when filters change
+  useEffect(() => {
+    if (searchQuery) {
+      setVehiclesData(vehicles.data);
+      setHasMore(false);
+    } else {
+      setVehiclesData(vehicles.data.slice(0, 12));
+      setHasMore(vehicles.data.length === 12);
+    }
+    setCurrentPage(1);
+  }, [router.query, vehicles.data, searchQuery]);
 
   useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
+    if (searchQuery) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.toggle('in-view', entry.isIntersecting);
-          observer.unobserve(entry.target);
-
-          if (entry.target.classList.contains('bottomObserver')) {
-            fetchMoreItems();
-          }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchMoreVehicles();
         }
-      });
-    });
+      },
+      { rootMargin: '100px' }
+    );
 
-    targets.forEach((item) => observer.observe(item));
+    const target = document.querySelector('.bottomObserver');
+    if (target) observer.observe(target);
 
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, [itemsToRender, vehiclesData, fetchMoreItems]);
+    return () => observer.disconnect();
+  }, [fetchMoreVehicles, searchQuery]);
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -91,12 +134,8 @@ function VehicleWeArmor(props) {
     return JSON.stringify(structuredData);
   };
 
-  // FAQ structured data
   const getFAQStructuredData = () => {
-    if (!faqs || !Array.isArray(faqs)) {
-      console.error('FAQs is not an array:', faqs);
-      return null;
-    }
+    if (!faqs || !Array.isArray(faqs)) return null;
 
     const structuredData = {
       '@context': 'https://schema.org',
@@ -147,10 +186,10 @@ function VehicleWeArmor(props) {
           {lang.vehiclesWeArmor}
         </div>
 
-        {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
+        {topBanner && <Banner props={topBanner} shape="white" small />}
 
         <div className={`${styles.listing_all_filters} container`}>
-          {props.filters.type ? <Filters props={props.filters} plain /> : null}
+          {filters.type && <Filters props={filters} plain />}
         </div>
 
         <div className={`${styles.listing_wrap} container`}>
@@ -158,46 +197,43 @@ function VehicleWeArmor(props) {
             <div className={`${styles.listing_empty}`}>
               <h2>{lang.noVehiclesFound}</h2>
             </div>
-          ) : null}
-
-          {vehiclesData ? (
+          ) : (
             <div className={`${styles.listing_list}`}>
-              {vehiclesData.slice(0, itemsToRender).map((item, index) => (
+              {vehiclesData.map((item, index) => (
                 <InventoryItem
-                  key={index}
+                  key={item.id || index}
                   props={item}
-                  index={index === 0 ? index : 1}
+                  index={index === 0 ? 0 : 1}
                 />
               ))}
             </div>
-          ) : null}
+          )}
         </div>
       </div>
 
-      <div className={`observe bottomObserver`}></div>
+      {hasMore && !searchQuery && (
+        <div className="observe bottomObserver"></div>
+      )}
 
-      {bottomText ? (
-        <div className={`container_small`}>
+      {bottomText && (
+        <div className="container_small">
           <div className={`${styles.listing_bottomText} darkColor`}>
             <CustomMarkdown>{bottomText}</CustomMarkdown>
           </div>
         </div>
-      ) : null}
+      )}
 
-      {faqs?.length > 0 ? (
-        <div className={`mt2`}>
+      {faqs?.length > 0 && (
+        <div className="mt2">
           <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
         </div>
-      ) : null}
+      )}
 
-      {loading ? (
-        <div
-          className={`${styles.listing_loading}`}
-          style={{ opacity: loading ? 1 : 0 }}
-        >
+      {loading && (
+        <div className={`${styles.listing_loading}`} style={{ opacity: 1 }}>
           {lang.loading}
         </div>
-      ) : null}
+      )}
     </>
   );
 }
@@ -222,6 +258,9 @@ export async function getServerSideProps(context) {
     pageData = pageData?.data?.attributes || null;
 
     let query = '';
+    let pageSize = 12;
+    let searchQuery = null;
+
     if (context.query.category) {
       query += `&filters[category][slug][$eq]=${context.query.category}`;
     }
@@ -231,13 +270,17 @@ export async function getServerSideProps(context) {
     }
     if (context.query.q) {
       query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
+      pageSize = 100;
+      searchQuery = true;
     }
 
     const vehicles = await getPageData({
       route: route.collectionSingle,
       params: query,
-      populate: 'featuredImage, category, make',
-      pageSize: 100,
+      populate: 'featuredImage',
+      fields:
+        'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=protectionLevel',
+      pageSize: pageSize,
       sort: 'order',
       locale,
     });
@@ -247,14 +290,16 @@ export async function getServerSideProps(context) {
       data: vehicles.data.filter((vehicle) => {
         if (!context.query.q) return true;
 
-        const searchTerms = context.query.q.toLowerCase().replace(/[-\s]/g, '');
-        const slug = vehicle.attributes.slug
+        const searchTerms = String(context.query.q || '')
           .toLowerCase()
           .replace(/[-\s]/g, '');
-
+        const slug = String(vehicle.attributes.slug || '')
+          .toLowerCase()
+          .replace(/[-\s]/g, '');
         return slug.includes(searchTerms);
       }),
     };
+
     const [type, make] = await Promise.all([
       getPageData({
         route: 'categories',
@@ -267,14 +312,16 @@ export async function getServerSideProps(context) {
         sort: 'title',
         pageSize: 100,
         fields: 'fields[0]=title&fields[1]=slug',
-        populate: 'faqs, vehicles_we_armors.category',
+        custom: context.query.make
+          ? 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[faqs]=*&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug'
+          : 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
+        populate: context.query.make
+          ? 'faqs, vehicles_we_armors.category'
+          : 'vehicles_we_armors.category',
       }).then((res) => res.data),
     ]);
 
-    let filters = {};
-    if (type && make) {
-      filters = { type, make };
-    }
+    const filters = type && make ? { type, make } : {};
 
     const seoData = {
       ...(pageData?.seo || {}),
@@ -294,13 +341,17 @@ export async function getServerSideProps(context) {
       : seoData.metaDescription;
 
     return {
-      props: { pageData, vehicles: filteredVehicles, filters, seoData, locale },
+      props: {
+        pageData,
+        vehicles: filteredVehicles,
+        filters,
+        seoData,
+        searchQuery,
+        locale,
+      },
     };
   } catch (error) {
-    // console.error('Error fetching data:', error);
-    return {
-      notFound: true,
-    };
+    return { notFound: true };
   }
 }
 
