@@ -5,6 +5,55 @@ import routes from './routes';
 
 const redirectMap = new Map(redirectUrls);
 
+const isDuplicateDomain = (pathname: string): boolean => {
+  const lowerPathname = pathname.toLowerCase();
+
+  // Check for various patterns of domain duplication
+  const duplicatePatterns = [
+    /\/www\.alpineco\.com\/www\.alpineco\.com/,
+    /\/alpineco\.com\/alpineco\.com/,
+    /\/www\.alpineco\.com\/alpineco\.com/,
+    /\/alpineco\.com\/www\.alpineco\.com/,
+    /^\/www\.alpineco\.com\//,
+    /^\/alpineco\.com\//,
+    // Handle encoded versions
+    /\/www%2Ealpineco%2Ecom/,
+    /\/alpineco%2Ecom/,
+    // Handle multiple slashes that might indicate domain issues
+    /\/\/+www\.alpineco\.com/,
+    /\/\/+alpineco\.com/,
+  ];
+
+  return duplicatePatterns.some((pattern) => pattern.test(lowerPathname));
+};
+
+const cleanDuplicateDomain = (pathname: string): string => {
+  let cleanedPath = pathname;
+
+  // Remove all variations of duplicate domains
+  cleanedPath = cleanedPath
+    // Remove duplicate domain patterns
+    .replace(
+      /^(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)/i,
+      '/'
+    )
+    .replace(/^(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)/i, '/')
+    // Handle encoded versions
+    .replace(/\/www%2Ealpineco%2Ecom/gi, '')
+    .replace(/\/alpineco%2Ecom/gi, '')
+    // Clean up multiple slashes
+    .replace(/\/+/g, '/')
+    // Ensure we start with a slash
+    .replace(/^(?!\/)/, '/');
+
+  // If we end up with just slashes, return root
+  if (cleanedPath === '/' || cleanedPath === '') {
+    return '/';
+  }
+
+  return cleanedPath;
+};
+
 type BlockedPattern = {
   pattern: string;
   exact?: boolean;
@@ -246,6 +295,34 @@ export function middleware(request: NextRequest) {
     // Fallback: redirect to English version if we don't have a correct path
     const url = request.nextUrl.clone();
     url.pathname = pathname;
+
+    const originalPathname = request.nextUrl.pathname;
+    if (isDuplicateDomain(originalPathname)) {
+      const correctedPath = cleanDuplicateDomain(originalPathname);
+      // Log detailed information about the source
+      const logData = {
+        timestamp: new Date().toISOString(),
+        originalUrl: originalPathname,
+        correctedUrl: correctedPath,
+        fullUrl: request.url,
+        userAgent: request.headers.get('user-agent') || 'unknown',
+        referer: request.headers.get('referer') || 'direct',
+        ip:
+          request.headers.get('x-forwarded-for') ||
+          request.headers.get('x-real-ip') ||
+          'unknown',
+        country: request.headers.get('cf-ipcountry') || 'unknown',
+        isBot: /bot|crawler|spider|scraper/i.test(
+          request.headers.get('user-agent') || ''
+        ),
+        searchParams: Object.fromEntries(
+          request.nextUrl.searchParams.entries()
+        ),
+      };
+
+      // Log to console (will appear in Vercel logs)
+      console.log('🔍 DUPLICATE_DOMAIN_SOURCE:', JSON.stringify(logData));
+    }
     url.locale = 'en';
 
     const response = NextResponse.redirect(url, { status: 307 });

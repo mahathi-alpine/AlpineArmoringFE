@@ -2,6 +2,27 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+const sanitizeUrl = (url) => {
+  if (!url) return '';
+
+  // Remove any duplicate domain patterns
+  const cleanUrl = url
+    // Remove duplicate alpineco.com patterns
+    .replace(/\/www\.alpineco\.com\/www\.alpineco\.com/gi, '')
+    .replace(/\/alpineco\.com\/alpineco\.com/gi, '')
+    .replace(/\/www\.alpineco\.com\/alpineco\.com/gi, '')
+    .replace(/\/alpineco\.com\/www\.alpineco\.com/gi, '')
+    // Remove standalone domain prefixes in paths
+    .replace(/^\/www\.alpineco\.com/, '')
+    .replace(/^\/alpineco\.com/, '')
+    // Clean up multiple slashes
+    .replace(/\/+/g, '/')
+    // Ensure starts with slash if not empty
+    .replace(/^(?!\/)(.+)/, '/$1');
+
+  return cleanUrl;
+};
+
 const normalizeUrl = (url) => {
   if (!url) return '';
 
@@ -168,20 +189,19 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const buildHreflangUrls = () => {
     const hreflangUrls = {};
 
-    // Add x-default (English)
-    const defaultPath = languageUrls['en'] || '/';
+    const defaultPath = sanitizeUrl(languageUrls['en'] || '/');
     const normalizedDefaultPath = normalizeUrl(defaultPath);
     hreflangUrls['x-default'] =
       normalizedDefaultPath === '/'
-        ? `${baseUrlDefault}${queryString}` // No trailing slash for homepage
+        ? `${baseUrlDefault}${queryString}`
         : `${baseUrlDefault}${normalizedDefaultPath}${queryString}`;
 
-    // Add all language versions
     Object.entries(languageUrls).forEach(([locale, path]) => {
-      const normalizedPath = normalizeUrl(path);
+      const sanitizedPath = sanitizeUrl(path);
+      const normalizedPath = normalizeUrl(sanitizedPath);
       hreflangUrls[locale] =
         normalizedPath === '/'
-          ? `${baseUrlDefault}${queryString}` // No trailing slash for homepage
+          ? `${baseUrlDefault}${queryString}`
           : `${baseUrlDefault}${normalizedPath}${queryString}`;
     });
 
@@ -193,64 +213,63 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Canonical URL construction
   let canonicalUrl;
   if (seoProps?.canonicalURL) {
+    const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
     canonicalUrl = isFullUrl(seoProps.canonicalURL)
       ? seoProps.canonicalURL
-      : `${baseUrl}${normalizeUrl(seoProps.canonicalURL)}`;
+      : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
   } else {
     let pathForCanonical;
 
     if (typeof window !== 'undefined') {
-      // CLIENT SIDE: Use window.location for the actual user-facing URL
       const actualPath = window.location.pathname + window.location.search;
       const cleanPath = removeNxtParams(actualPath);
 
-      // Remove locale prefix since baseUrl already includes it
+      // Sanitize the path to remove any domain duplications
+      const sanitizedPath = sanitizeUrl(cleanPath);
+
       const pathWithoutLocale =
         router.locale !== 'en'
-          ? cleanPath.replace(new RegExp(`^/${router.locale}(/|$)`), '$1') ||
-            '/'
-          : cleanPath;
+          ? sanitizedPath.replace(
+              new RegExp(`^/${router.locale}(/|$)`),
+              '$1'
+            ) || '/'
+          : sanitizedPath;
 
       pathForCanonical = pathWithoutLocale;
     } else {
-      // SERVER SIDE: Try to construct the correct localized path
-      // router.asPath might contain the English internal path during SSR
       if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
-        // Use the languageUrls if available, but add query params from router.asPath
         const localeUrl = seoProps.languageUrls[router.locale];
         const cleanLocaleUrl = removeNxtParams(localeUrl);
 
-        // Remove locale prefix from languageUrls
+        // Sanitize the locale URL
+        const sanitizedLocaleUrl = sanitizeUrl(cleanLocaleUrl);
+
         const pathWithoutLocale =
           router.locale !== 'en'
-            ? cleanLocaleUrl.replace(
+            ? sanitizedLocaleUrl.replace(
                 new RegExp(`^/${router.locale}(/|$)`),
                 '$1'
               ) || '/'
-            : cleanLocaleUrl;
+            : sanitizedLocaleUrl;
 
-        // Add query params from router.asPath if they exist
         const queryFromAsPath = router.asPath.includes('?')
           ? '?' + router.asPath.split('?')[1]
           : '';
 
-        // Clean the query params to remove nxtP* parameters
         const cleanQueryFromAsPath = removeNxtParams(queryFromAsPath);
 
         pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
       } else {
-        // Fallback to router.asPath
         const serverPath = removeNxtParams(router.asPath);
-        const [pathOnly, queryOnly] = serverPath.split('?');
+        const sanitizedServerPath = sanitizeUrl(serverPath);
+        const [pathOnly, queryOnly] = sanitizedServerPath.split('?');
         pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
       }
     }
 
     const normalizedPath = normalizeUrl(pathForCanonical);
     canonicalUrl =
-      normalizedPath === '/'
-        ? baseUrl // No trailing slash for homepage
-        : `${baseUrl}${normalizedPath}`;
+      normalizedPath === '/' ? baseUrl : `${baseUrl}${normalizedPath}`;
   }
 
   // Clean up any double slashes (except after protocol)
