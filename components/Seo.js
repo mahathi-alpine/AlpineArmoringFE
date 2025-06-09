@@ -88,73 +88,53 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     twitterMeta?.image?.data?.attributes.url ||
     metaImgUrl;
 
-  // Function to remove nxtP* parameters (nxtPslug, nxtPtype, etc.)
-  const removeNxtParams = (url) => {
+  const keepOnlyAllowedParams = (url) => {
     if (!url.includes('?')) return url;
 
     const [path, queryString] = url.split('?');
     const params = new URLSearchParams(queryString);
+    const allowedParams = new URLSearchParams();
 
-    // Remove all parameters that start with 'nxt' or 'next', and nextInternalLocale
-    for (const [key] of params.entries()) {
-      if (
-        key.startsWith('nxt') ||
-        key.startsWith('next') ||
-        key === 'nextInternalLocale' ||
-        key === 'source' ||
-        key.startsWith('vehicles_we_armor') ||
-        key.startsWith('vehiculos_que_blindamos')
-      ) {
-        params.delete(key);
-      }
+    if (params.has('make')) {
+      allowedParams.set('make', params.get('make'));
     }
+    // if (params.has('type')) {
+    //   allowedParams.set('type', params.get('type'));
+    // }
 
-    const cleanQuery = params.toString();
+    const cleanQuery = allowedParams.toString();
     return cleanQuery ? `${path}?${cleanQuery}` : path;
   };
 
-  // Get current query parameters (excluding nxt* params)
   const getCurrentQueryString = () => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
+      const allowedParams = new URLSearchParams();
 
-      // Remove nxt* parameters and nextInternalLocale
-      for (const [key] of params.entries()) {
-        if (
-          key.startsWith('nxt') ||
-          key.startsWith('next') ||
-          key === 'nextInternalLocale' ||
-          key.startsWith('source') ||
-          key.startsWith('vehicles_we_armor') ||
-          key.startsWith('vehiculos_que_blindamos')
-        ) {
-          params.delete(key);
-        }
+      if (params.has('make')) {
+        allowedParams.set('make', params.get('make'));
       }
+      // if (params.has('type')) {
+      //   allowedParams.set('type', params.get('type'));
+      // }
 
-      const cleanQuery = params.toString();
+      const cleanQuery = allowedParams.toString();
       return cleanQuery ? `?${cleanQuery}` : '';
     } else {
       // Server-side: extract from router.asPath
       if (router.asPath.includes('?')) {
         const queryString = router.asPath.split('?')[1];
         const params = new URLSearchParams(queryString);
+        const allowedParams = new URLSearchParams();
 
-        // Remove nxt* parameters and nextInternalLocale
-        for (const [key] of params.entries()) {
-          if (
-            key.startsWith('nxt') ||
-            key.startsWith('next') ||
-            key === 'nextInternalLocale' ||
-            key.startsWith('source') ||
-            key.startsWith('vehicles_we_armor') ||
-            key.startsWith('vehiculos_que_blindamos')
-          ) {
-            params.delete(key);
-          }
+        if (params.has('make')) {
+          allowedParams.set('make', params.get('make'));
         }
+        // if (params.has('type')) {
+        //   allowedParams.set('type', params.get('type'));
+        // }
 
-        const cleanQuery = params.toString();
+        const cleanQuery = allowedParams.toString();
         return cleanQuery ? `?${cleanQuery}` : '';
       }
       return '';
@@ -165,9 +145,9 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const getCurrentPath = () => {
     if (typeof window !== 'undefined') {
       const fullPath = window.location.pathname + window.location.search;
-      return removeNxtParams(fullPath);
+      return keepOnlyAllowedParams(fullPath);
     } else {
-      return removeNxtParams(router.asPath);
+      return keepOnlyAllowedParams(router.asPath);
     }
   };
 
@@ -222,7 +202,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
     if (typeof window !== 'undefined') {
       const actualPath = window.location.pathname + window.location.search;
-      const cleanPath = removeNxtParams(actualPath);
+      const cleanPath = keepOnlyAllowedParams(actualPath);
 
       // Sanitize the path to remove any domain duplications
       const sanitizedPath = sanitizeUrl(cleanPath);
@@ -239,7 +219,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     } else {
       if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
         const localeUrl = seoProps.languageUrls[router.locale];
-        const cleanLocaleUrl = removeNxtParams(localeUrl);
+        const cleanLocaleUrl = keepOnlyAllowedParams(localeUrl);
 
         // Sanitize the locale URL
         const sanitizedLocaleUrl = sanitizeUrl(cleanLocaleUrl);
@@ -256,11 +236,11 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
           ? '?' + router.asPath.split('?')[1]
           : '';
 
-        const cleanQueryFromAsPath = removeNxtParams(queryFromAsPath);
+        const cleanQueryFromAsPath = keepOnlyAllowedParams(queryFromAsPath);
 
         pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
       } else {
-        const serverPath = removeNxtParams(router.asPath);
+        const serverPath = keepOnlyAllowedParams(router.asPath);
         const sanitizedServerPath = sanitizeUrl(serverPath);
         const [pathOnly, queryOnly] = sanitizedServerPath.split('?');
         pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
