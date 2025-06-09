@@ -178,7 +178,7 @@ small {
       max-width: 875px;
     }
   }
-  .twoImages{
+  .twoImages {
     margin: rem(30) auto;
 
     @include breakpoint(medium) {
@@ -186,7 +186,7 @@ small {
       gap: 8px;
     }
 
-    img{
+    img {
       margin: 0;
       max-width: 100%;
 
@@ -194,7 +194,7 @@ small {
         width: calc(50% - 4px);
       }
 
-      &:first-child{
+      &:first-child {
         @include breakpoint(small) {
           margin-bottom: 8px;
         }
