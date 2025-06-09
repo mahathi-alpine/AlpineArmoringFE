@@ -1,8 +1,10 @@
 User-agent: *
 Disallow: /stock/
+Disallow: /stock
 Disallow: /inventory/
 Disallow: /inventory
 Disallow: /vehicles-we-armor/inventory/
+Disallow: /vehicles-we-armor/inventory
 Disallow: /media/documents/
 Disallow: /*?*vehicles_we_armor=*
 Disallow: /*?*vehiculos_que_blindamos=*
@@ -21,6 +23,8 @@ Disallow: /contact?id=*
 Disallow: /contact?names=*
 Disallow: /contact?source=become-a-dealer
 Disallow: /_next/image
+Disallow: /api/
+Disallow: /api
 
 Sitemap: https://www.alpineco.com/sitemap.xml
 Sitemap: https://www.alpineco.com/es/sitemap.xml
