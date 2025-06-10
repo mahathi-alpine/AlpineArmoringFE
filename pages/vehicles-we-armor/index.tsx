@@ -20,13 +20,19 @@ function VehicleWeArmor(props) {
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
 
-  const faqs = router.query.make
-    ? filters.make.find((item) => item.attributes.slug === router.query.make)
-        ?.attributes.faqs?.length
-      ? filters.make.find((item) => item.attributes.slug === router.query.make)
-          ?.attributes.faqs
-      : pageData?.faqs
-    : pageData?.faqs;
+  const faqs = (() => {
+    if (!router.query.make || !filters?.make) {
+      return pageData?.faqs;
+    }
+
+    const makeItem = filters.make.find(
+      (item) => item.attributes.slug === router.query.make
+    );
+
+    return makeItem?.attributes.faqs?.length
+      ? makeItem.attributes.faqs
+      : pageData?.faqs;
+  })();
 
   const [vehiclesData, setVehiclesData] = useState(
     searchQuery ? vehicles.data : vehicles.data.slice(0, 12)
@@ -264,12 +270,11 @@ export async function getServerSideProps(context) {
     let pageSize = 12;
     let searchQuery = null;
 
-    if (context.query.category) {
-      query += `&filters[category][slug][$eq]=${context.query.category}`;
-    }
-    if (context.query.make) {
-      query +=
-        (query ? '&' : '') + `&filters[make][slug][$eqi]=${context.query.make}`;
+    // if (context.query.category) {
+    //   query += `&filters[category][slug][$eq]=${context.query.category}`;
+    // }
+    if (queryMake) {
+      query += (query ? '&' : '') + `&filters[make][slug][$eqi]=${queryMake}`;
     }
     if (context.query.q) {
       query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
@@ -281,8 +286,7 @@ export async function getServerSideProps(context) {
       route: route.collectionSingle,
       params: query,
       populate: 'featuredImage',
-      fields:
-        'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=protectionLevel',
+      fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
       pageSize: pageSize,
       sort: 'order',
       locale,
@@ -309,22 +313,20 @@ export async function getServerSideProps(context) {
         sort: 'order',
         fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
         locale,
-      }).then((res) => res.data),
+      }).then((res) => res.data || []),
       getPageData({
         route: 'makes',
-        sort: 'title',
-        pageSize: 100,
-        fields: 'fields[0]=title&fields[1]=slug',
-        custom: context.query.make
+        custom: queryMake
           ? 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[faqs]=*&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug'
           : 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
-        populate: context.query.make
-          ? 'faqs, vehicles_we_armors.category'
-          : 'vehicles_we_armors.category',
-      }).then((res) => res.data),
+        locale,
+      }).then((res) => res.data || []),
     ]);
 
-    const filters = type && make ? { type, make } : {};
+    const filters = {
+      type: type || [],
+      make: make || [],
+    };
 
     const seoData = {
       ...(pageData?.seo || {}),
@@ -354,6 +356,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
+    console.error('Error in getServerSideProps:', error);
     return { notFound: true };
   }
 }

@@ -14,44 +14,86 @@ import Accordion from 'components/global/accordion/Accordion';
 
 function Inventory(props) {
   const { lang } = useLocale();
+  const router = useRouter();
+
   const currentCategory = props.filters.type?.find(
     (item) => item.attributes.slug === props.query
   );
   const topBanner = currentCategory?.attributes.allBanner;
   const bottomText = currentCategory?.attributes.bottomText;
   const faqs = currentCategory?.attributes.faqs_vehicles_we_armor;
-  const router = useRouter();
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
-  const [itemsToRender, setItemsToRender] = useState(6);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setVehiclesData(props.vehicles.data);
-  }, [router.query, props.vehicles.data]);
-
-  const fetchMoreItems = useCallback(() => {
-    if (itemsToRender < vehiclesData?.length) {
-      setLoading(true);
-      setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
-      setLoading(false);
-    }
-  }, [itemsToRender, vehiclesData]);
-
-  // // Filtering vehicles based on the make parameter
-  const filteredByMake = props.vehicles?.data?.filter(
-    (vehicle) =>
-      !router.query.make ||
-      vehicle.attributes.make?.data?.attributes?.slug.toLowerCase() ===
-        (typeof router.query.make === 'string'
-          ? router.query.make.toLowerCase()
-          : '')
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(
+    !props.searchQuery && props.vehicles.data.length === 12
   );
 
-  // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
+  const fetchMoreItems = useCallback(async () => {
+    if (loading || !hasMore || props.searchQuery) return;
 
+    setLoading(true);
+    const nextPage = currentPage + 1;
+
+    try {
+      let query = `filters[category][slug][$eq]=${props.query}`;
+      if (router.query.make) {
+        query += `&filters[make][slug][$eqi]=${router.query.make}`;
+      }
+      if (router.query.q) {
+        query += `&filters[slug][$notNull]=true`;
+      }
+
+      const newVehicles = await getPageData({
+        route: routes.vehiclesWeArmor.collectionSingle,
+        params: query + `&pagination[page]=${nextPage}&pagination[pageSize]=12`,
+        populate: 'featuredImage, make',
+        fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
+        sort: 'order',
+        locale: router.locale,
+      });
+
+      if (newVehicles?.data) {
+        setVehiclesData((prev) => [...prev, ...newVehicles.data]);
+        setCurrentPage(nextPage);
+        setHasMore(newVehicles.data.length === 12);
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error('Error fetching more vehicles:', error);
+      setHasMore(false);
+    } finally {
+      setLoading(false);
+    }
+  }, [
+    loading,
+    hasMore,
+    currentPage,
+    router.query,
+    router.locale,
+    props.query,
+    props.searchQuery,
+  ]);
+
+  // Reset state when filters change
+  useEffect(() => {
+    if (props.searchQuery) {
+      setVehiclesData(props.vehicles.data);
+      setHasMore(false);
+    } else {
+      setVehiclesData(props.vehicles.data);
+      setHasMore(props.vehicles.data.length === 12);
+    }
+    setCurrentPage(1);
+  }, [router.query, props.vehicles.data, props.searchQuery]);
+
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    if (props.searchQuery) return;
+
+    const targets = document.querySelectorAll('.observe');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -71,26 +113,43 @@ function Inventory(props) {
       targets.forEach((item) => observer.unobserve(item));
       observer.disconnect();
     };
-  }, [itemsToRender, fetchMoreItems]);
+  }, [fetchMoreItems, props.searchQuery]);
 
-  const categoryTitle = currentCategory?.attributes.title || 'a';
-  const categorySlug = currentCategory?.attributes.slug || 'a';
-
+  const categoryTitle = currentCategory?.attributes.title || '';
+  const categorySlug = currentCategory?.attributes.slug || '';
   const make = router.query.make;
+
+  const formatMakeName = (make) => {
+    if (typeof make !== 'string') return '';
+
+    const specialCases = {
+      bmw: 'BMW',
+      cuda: 'CUDA',
+      gmc: 'GMC',
+      mastiff: 'MASTIFF',
+      pointer: 'POINTER',
+    };
+
+    return (
+      specialCases[make] ||
+      make.charAt(0).toUpperCase() + make.slice(1).replace('-', ' ')
+    );
+  };
+
   const categoryTitleWithMake = (
     <>
       {!make && <span>{categoryTitle}</span>}
       {make && (
-        <span>
+        <>
           <Link
             href={`${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`}
           >
             {categoryTitle}
           </Link>
-        </span>
+          <span>&gt;</span>
+          <span>{make}</span>
+        </>
       )}
-      {make && <span>&gt;</span>}
-      {make && <span>{make}</span>}
     </>
   );
 
@@ -120,9 +179,7 @@ function Inventory(props) {
       ],
     };
 
-    // Conditionally add make ListItem if router.query.make exists
-    if (router.query.make) {
-      const make = router.query.make;
+    if (make) {
       structuredData.itemListElement.push({
         '@type': 'ListItem',
         position: 4,
@@ -134,31 +191,20 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
-  // FAQ structured data
   const getFAQStructuredData = () => {
-    if (!faqs || !Array.isArray(faqs)) {
-      console.error('FAQs is not an array:', faqs);
-      return null;
-    }
+    if (!faqs || !Array.isArray(faqs)) return null;
 
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: faqs.map((faq, index) => {
-        const title =
-          faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-        const text =
-          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
-
-        return {
-          '@type': 'Question',
-          name: title,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: text,
-          },
-        };
-      }),
+      mainEntity: faqs.map((faq, index) => ({
+        '@type': 'Question',
+        name: faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq?.attributes?.text || faq?.text || lang.noAnswerProvided,
+        },
+      })),
     };
 
     return JSON.stringify(structuredData);
@@ -180,6 +226,7 @@ function Inventory(props) {
           />
         )}
       </Head>
+
       <div className={`${styles.listing}`}>
         <div
           className={`b-breadcrumbs b-breadcrumbs-list b-breadcrumbs-dark container`}
@@ -195,47 +242,26 @@ function Inventory(props) {
           </span>
         </div>
 
-        {topBanner ? <Banner props={topBanner} shape="white" small /> : null}
+        {topBanner && <Banner props={topBanner} shape="white" small />}
 
-        {/* {heading ? (
-          <p className={`${styles.listing_heading} center container`}>
-            {heading}
-          </p>
-        ) : null} */}
         <p className={`${styles.listing_heading} center container`}>
-          {lang.exploreDifferentModels}{' '}
-          <strong>
-            {typeof make === 'string'
-              ? make === 'bmw'
-                ? 'BMW'
-                : make === 'cuda'
-                  ? 'CUDA'
-                  : make === 'gmc'
-                    ? 'GMC'
-                    : make === 'mastiff'
-                      ? 'MASTIFF'
-                      : make === 'pointer'
-                        ? 'POINTER'
-                        : make.charAt(0).toUpperCase() +
-                          make.slice(1).replace('-', ' ')
-              : ''}
-          </strong>
-          {typeof categoryTitle === 'string'
+          {lang.exploreDifferentModels} <strong>{formatMakeName(make)}</strong>
+          {categoryTitle
             ? ' ' + categoryTitle.replace('Armored', '').trim()
             : ''}{' '}
           {lang.weArmor}
         </p>
 
-        {props.filters?.type ? (
+        {props.filters?.type && (
           <div className={`${styles.listing_all_filters} container`}>
             <Filters props={props.filters} plain />
           </div>
-        ) : null}
+        )}
 
         <div className={`${styles.listing_wrap} container`}>
-          {filteredByMake?.length > 0 && !loading ? (
+          {vehiclesData?.length > 0 ? (
             <div className={`${styles.listing_list}`}>
-              {filteredByMake.map((item, index) => (
+              {vehiclesData.map((item, index) => (
                 <InventoryItem key={item.id} props={item} index={index} />
               ))}
             </div>
@@ -247,30 +273,32 @@ function Inventory(props) {
         </div>
       </div>
 
-      <div className={`observe bottomObserver`}></div>
+      {hasMore && !props.searchQuery && (
+        <div className="observe bottomObserver"></div>
+      )}
 
-      {bottomText ? (
-        <div className={`container_small`}>
+      {bottomText && (
+        <div className="container_small">
           <div className={`${styles.listing_bottomText} darkColor`}>
             <CustomMarkdown>{bottomText}</CustomMarkdown>
           </div>
         </div>
-      ) : null}
+      )}
 
-      {faqs?.length > 0 ? (
-        <div className={`mt2`}>
+      {faqs?.length > 0 && (
+        <div className="mt2">
           <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
         </div>
-      ) : null}
+      )}
 
-      {loading ? (
+      {loading && (
         <div
           className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-          style={{ opacity: loading ? 1 : 0 }}
+          style={{ opacity: 1 }}
         >
           {lang.loading}
         </div>
-      ) : null}
+      )}
     </>
   );
 }
@@ -283,42 +311,45 @@ export async function getServerSideProps(context) {
 
   const { locale } = context;
   const route = routes.vehiclesWeArmor;
-
   const englishType = context.query.type;
   const localizedType = route.getLocalizedType(englishType, locale);
+  const { make: queryMake, q: queryQ } = context.query;
 
-  // const category = context.query.type;
-  const queryMake = context.query.make;
-
+  let pageSize = 12;
+  let searchQuery = null;
   let query = `filters[category][slug][$eq]=${localizedType}`;
-  const q = context.query.q;
-  if (q) {
-    query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
+
+  if (queryMake) {
+    query += `&filters[make][slug][$eqi]=${queryMake}`;
+  }
+  if (queryQ) {
+    query += `&filters[slug][$notNull]=true`;
+    pageSize = 100;
+    searchQuery = true;
   }
 
-  // Fetching Vehicles
   const vehicles = await getPageData({
     route: route.collectionSingle,
     params: query,
+    populate: 'featuredImage, make',
+    fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
+    pageSize,
     sort: 'order',
-    pageSize: 100,
-    populate: 'featuredImage, make, category',
     locale,
   });
 
   const filteredVehicles = {
     ...vehicles,
-    data: vehicles.data?.filter((vehicle) => {
-      if (!q) return true;
-
-      const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
-      const slug = vehicle.attributes.slug.toLowerCase().replace(/[-\s]/g, '');
-
+    data: vehicles.data.filter((vehicle) => {
+      if (!queryQ) return true;
+      const searchTerms = String(queryQ).toLowerCase().replace(/[-\s]/g, '');
+      const slug = String(vehicle.attributes.slug || '')
+        .toLowerCase()
+        .replace(/[-\s]/g, '');
       return slug.includes(searchTerms);
     }),
   };
 
-  // Fetching Types and Makes for the Filters
   const [type, make] = await Promise.all([
     getPageData({
       route: 'categories',
@@ -328,20 +359,18 @@ export async function getServerSideProps(context) {
       populate:
         'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo.metaImage, seo.metaSocial, faqs_vehicles_we_armor, inventory_vehicles',
       locale,
-    }).then((res) => res.data),
+    }).then((res) => res.data || []),
     getPageData({
       route: 'makes',
-      sort: 'title',
-      pageSize: 100,
-      fields: 'fields[0]=title&fields[1]=slug',
-      populate: 'vehicles_we_armors.category, vehicles_we_armors',
-    }).then((res) => res.data),
+      custom:
+        'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
+    }).then((res) => res.data || []),
   ]);
 
-  let filters = {};
-  if (type && make) {
-    filters = { type, make };
-  }
+  const filters = { type: type || [], make: make || [] };
+  const categoryData = type?.find(
+    (item) => item.attributes.slug === context.query.type
+  );
 
   const makeMetaTitle = queryMake
     ? ` ${queryMake
@@ -350,20 +379,14 @@ export async function getServerSideProps(context) {
         .join(' ')}`
     : '';
 
-  const categoryData = type?.find(
-    (item) => item.attributes.slug === context.query.type
-  );
-
-  // All languages urls
-  let correctEnglishType;
-  let correctSpanishType;
+  // Language URLs logic
+  let correctEnglishType, correctSpanishType;
 
   if (locale === 'en') {
     correctEnglishType = context.query.type;
     correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
   } else {
     const types = route.types || {};
-
     for (const [engType, translations] of Object.entries(types)) {
       if (
         translations &&
@@ -375,11 +398,7 @@ export async function getServerSideProps(context) {
         break;
       }
     }
-
-    if (!correctEnglishType) {
-      correctEnglishType = englishType;
-    }
-
+    correctEnglishType = correctEnglishType || englishType;
     correctSpanishType = context.query.type;
   }
 
@@ -392,18 +411,15 @@ export async function getServerSideProps(context) {
     ...(categoryData?.attributes.seo || {}),
     languageUrls,
     metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring®`,
-    // thumbnail: categoryData.attributes.allBanner.media.data.attributes ?? null,
   };
 
-  // Modify meta description if queryMake exists
+  // Update meta description for make-specific pages
   if (queryMake && seoData?.metaDescription) {
-    // Format the make
     const formattedMake = queryMake
       .split('-')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
-    // Special case handling
     const specialReplacements = {
       'armored-vans-and-buses': /Vans\s*(?:&|and)\s*Buses/i,
       'armored-cash-in-transit-cit': /cash[-\s]in[-\s]transit/i,
@@ -418,7 +434,6 @@ export async function getServerSideProps(context) {
         (match) => `${formattedMake} ${match}`
       );
     } else {
-      // Default replacement logic
       const vehicleTypeRaw = context.query.type
         .split('-')
         .slice(1)
@@ -452,19 +467,17 @@ export async function getServerSideProps(context) {
     seoData.metaDescription = updatedDescription;
   }
 
-  if (!vehicles || !vehicles.data || vehicles.data.length === 0) {
-    return {
-      notFound: true,
-    };
+  if (!vehicles?.data?.length) {
+    return { notFound: true };
   }
-  // console.log('Fetched data:', JSON.stringify(vehicles, null, 2));
 
   return {
     props: {
       vehicles: filteredVehicles,
       filters,
-      query: localizedType,
       seoData,
+      query: localizedType,
+      searchQuery,
       locale,
     },
   };
