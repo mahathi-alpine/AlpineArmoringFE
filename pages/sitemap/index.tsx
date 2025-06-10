@@ -785,11 +785,9 @@ export async function getStaticProps({ locale = 'en' }) {
           ? 'Mapa completo del sitio web de Alpine Armoring incluyendo todos los vehículos blindados, inventario, publicaciones de blog, artículos de noticias y ubicaciones que servimos.'
           : 'Complete sitemap for Alpine Armoring website including all armored vehicles, inventory, blog posts, news articles, and locations we serve.',
       // canonicalURL: locale === 'es' ? '/es/sitemap' : '/sitemap',
+      canonicalURL: false,
+      languageUrls: false,
       metaRobots: 'noindex, follow',
-      languageUrls: {
-        en: '/sitemap',
-        es: '/es/sitemap',
-      },
     };
 
     return {
@@ -810,11 +808,8 @@ export async function getStaticProps({ locale = 'en' }) {
         locale === 'es'
           ? 'Mapa completo del sitio web de Alpine Armoring.'
           : 'Complete sitemap for Alpine Armoring website.',
-      // canonicalURL: locale === 'es' ? '/es/sitemap' : '/sitemap',
-      languageUrls: {
-        en: '/sitemap',
-        es: '/es/sitemap',
-      },
+      canonicalURL: false,
+      languageUrls: null,
     };
 
     return {

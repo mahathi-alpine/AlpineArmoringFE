@@ -57,7 +57,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
-  const languageUrls = seoProps?.languageUrls || {};
+  // const languageUrls = seoProps?.languageUrls || {};
 
   const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
   const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
@@ -167,16 +167,22 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   // Build hreflang URLs with query parameters
   const buildHreflangUrls = () => {
-    const hreflangUrls = {};
+    // Check if languageUrls is explicitly set to false
+    if (seoProps?.languageUrls === false) {
+      return {};
+    }
 
-    const defaultPath = sanitizeUrl(languageUrls['en'] || '/');
+    const hreflangUrls = {};
+    const languageUrlsToUse = seoProps?.languageUrls || {};
+
+    const defaultPath = sanitizeUrl(languageUrlsToUse['en'] || '/');
     const normalizedDefaultPath = normalizeUrl(defaultPath);
     hreflangUrls['x-default'] =
       normalizedDefaultPath === '/'
         ? `${baseUrlDefault}${queryString}`
         : `${baseUrlDefault}${normalizedDefaultPath}${queryString}`;
 
-    Object.entries(languageUrls).forEach(([locale, path]) => {
+    Object.entries(languageUrlsToUse).forEach(([locale, path]) => {
       const sanitizedPath = sanitizeUrl(path);
       const normalizedPath = normalizeUrl(sanitizedPath);
       hreflangUrls[locale] =
@@ -192,7 +198,12 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   // Canonical URL construction
   let canonicalUrl;
-  if (seoProps?.canonicalURL) {
+  let shouldRenderCanonical = true;
+
+  // Check if canonicalURL is explicitly set to false
+  if (seoProps?.canonicalURL === false) {
+    shouldRenderCanonical = false;
+  } else if (seoProps?.canonicalURL) {
     const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
     canonicalUrl = isFullUrl(seoProps.canonicalURL)
       ? seoProps.canonicalURL
@@ -253,7 +264,9 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   }
 
   // Clean up any double slashes (except after protocol)
-  canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
+  if (canonicalUrl) {
+    canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
+  }
 
   return (
     <Head>
@@ -311,10 +324,11 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
         content="bCcF8Vxq5RVDB8JW0bfGQynjo9U6f5oQEwQVbobmyjE"
       />
 
-      {/* Hreflang tags with query parameters */}
-      {Object.entries(hreflangUrls).map(([hreflang, url]) => (
-        <link key={hreflang} rel="alternate" hrefLang={hreflang} href={url} />
-      ))}
+      {/* Hreflang tags - only render if languageUrls is not false */}
+      {seoProps?.languageUrls !== false &&
+        Object.entries(hreflangUrls).map(([hreflang, url]) => (
+          <link key={hreflang} rel="alternate" hrefLang={hreflang} href={url} />
+        ))}
 
       {/* Open Graph / Facebook */}
       <meta
@@ -341,8 +355,10 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       />
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
-      {/* Canonical URL */}
-      <link rel="canonical" href={canonicalUrl} data-seo-component="true" />
+      {/* Canonical URL - only render if not explicitly set to false */}
+      {shouldRenderCanonical && canonicalUrl && (
+        <link rel="canonical" href={canonicalUrl} data-seo-component="true" />
+      )}
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.png" />
