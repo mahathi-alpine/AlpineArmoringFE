@@ -16,7 +16,7 @@ function Inventory(props) {
   const { lang } = useLocale();
   const router = useRouter();
 
-  const currentCategory = props.filters.type?.find(
+  const currentCategory = props.filters?.type?.find(
     (item) => item.attributes.slug === props.query
   );
   const topBanner = currentCategory?.attributes.allBanner;
@@ -322,159 +322,172 @@ export async function getServerSideProps(context) {
     searchQuery = true;
   }
 
-  const vehicles = await getPageData({
-    route: route.collectionSingle,
-    params: query,
-    populate: 'featuredImage, make',
-    fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
-    pageSize,
-    sort: 'order',
-    locale,
-  });
-
-  const filteredVehicles = {
-    ...vehicles,
-    data: vehicles.data.filter((vehicle) => {
-      if (!queryQ) return true;
-      const searchTerms = String(queryQ).toLowerCase().replace(/[-\s]/g, '');
-      const slug = String(vehicle.attributes.slug || '')
-        .toLowerCase()
-        .replace(/[-\s]/g, '');
-      return slug.includes(searchTerms);
-    }),
-  };
-
-  const [type, make] = await Promise.all([
-    getPageData({
-      route: 'categories',
+  try {
+    const vehicles = await getPageData({
+      route: route.collectionSingle,
+      params: query,
+      populate: 'featuredImage, make',
+      fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
+      pageSize,
       sort: 'order',
-      fields:
-        'fields[0]=title&fields[1]=slug&fields[2]=bottomText&fields[3]=heading',
-      populate:
-        'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo.metaImage, seo.metaSocial, faqs_vehicles_we_armor, inventory_vehicles',
       locale,
-    }).then((res) => res.data || []),
-    getPageData({
-      route: 'makes',
-      custom:
-        'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
-    }).then((res) => res.data || []),
-  ]);
+    });
 
-  const filters = { type: type || [], make: make || [] };
-  const categoryData = type?.find(
-    (item) => item.attributes.slug === context.query.type
-  );
-
-  const makeMetaTitle = queryMake
-    ? ` ${queryMake
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')}`
-    : '';
-
-  // Language URLs logic
-  let correctEnglishType, correctSpanishType;
-
-  if (locale === 'en') {
-    correctEnglishType = context.query.type;
-    correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
-  } else {
-    const types = route.types || {};
-    for (const [engType, translations] of Object.entries(types)) {
-      if (
-        translations &&
-        typeof translations === 'object' &&
-        'es' in translations &&
-        translations.es === context.query.type
-      ) {
-        correctEnglishType = engType;
-        break;
-      }
-    }
-    correctEnglishType = correctEnglishType || englishType;
-    correctSpanishType = context.query.type;
-  }
-
-  const languageUrls = {
-    en: `${route.paths.en}/type/${correctEnglishType}`,
-    es: `/${locale === 'en' ? 'es' : locale}${route.paths.es}/tipo/${correctSpanishType}`,
-  };
-
-  const seoData = {
-    ...(categoryData?.attributes.seo || {}),
-    languageUrls,
-    metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring®`,
-  };
-
-  // Update meta description for make-specific pages
-  if (queryMake && seoData?.metaDescription) {
-    const formattedMake = queryMake
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-
-    const specialReplacements = {
-      'armored-vans-and-buses': /Vans\s*(?:&|and)\s*Buses/i,
-      'armored-cash-in-transit-cit': /cash[-\s]in[-\s]transit/i,
+    const filteredVehicles = {
+      ...vehicles,
+      data: vehicles.data.filter((vehicle) => {
+        if (!queryQ) return true;
+        const searchTerms = String(queryQ).toLowerCase().replace(/[-\s]/g, '');
+        const slug = String(vehicle.attributes.slug || '')
+          .toLowerCase()
+          .replace(/[-\s]/g, '');
+        return slug.includes(searchTerms);
+      }),
     };
 
-    const specialPattern = specialReplacements[context.query.type];
-    let updatedDescription = seoData.metaDescription;
+    const [type, make] = await Promise.all([
+      getPageData({
+        route: 'categories',
+        sort: 'order',
+        fields:
+          'fields[0]=title&fields[1]=slug&fields[2]=bottomText&fields[3]=heading',
+        populate:
+          'allBanner.media, allBanner.imageMobile, allBanner.mediaMP4, seo.metaImage, seo.metaSocial, faqs_vehicles_we_armor, inventory_vehicles',
+        locale,
+      })
+        .then((res) => res?.data || [])
+        .catch(() => []),
+      getPageData({
+        route: 'makes',
+        custom:
+          'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
+      })
+        .then((res) => res?.data || [])
+        .catch(() => []),
+    ]);
 
-    if (specialPattern) {
-      updatedDescription = updatedDescription.replace(
-        specialPattern,
-        (match) => `${formattedMake} ${match}`
-      );
+    const filters = {
+      type: Array.isArray(type) ? type : [],
+      make: Array.isArray(make) ? make : [],
+    };
+
+    const categoryData = type?.find(
+      (item) => item.attributes.slug === context.query.type
+    );
+
+    const makeMetaTitle = queryMake
+      ? ` ${queryMake
+          .split('-')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')}`
+      : '';
+
+    // Language URLs logic
+    let correctEnglishType, correctSpanishType;
+
+    if (locale === 'en') {
+      correctEnglishType = context.query.type;
+      correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
     } else {
-      const vehicleTypeRaw = context.query.type
-        .split('-')
-        .slice(1)
-        .map(
-          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-        )
-        .join('\\s*');
-
-      const vehicleTypeRegexWithArmored = new RegExp(
-        `(Armored\\s*${vehicleTypeRaw})\\b`,
-        'i'
-      );
-      const vehicleTypeRegexWithoutArmored = new RegExp(
-        `(${vehicleTypeRaw})\\b`,
-        'i'
-      );
-
-      updatedDescription = updatedDescription.replace(
-        vehicleTypeRegexWithArmored,
-        (match) => `${formattedMake} ${match}`
-      );
-
-      if (updatedDescription === seoData.metaDescription) {
-        updatedDescription = updatedDescription.replace(
-          vehicleTypeRegexWithoutArmored,
-          (match) => `${formattedMake} ${match}`
-        );
+      const types = route.types || {};
+      for (const [engType, translations] of Object.entries(types)) {
+        if (
+          translations &&
+          typeof translations === 'object' &&
+          'es' in translations &&
+          translations.es === context.query.type
+        ) {
+          correctEnglishType = engType;
+          break;
+        }
       }
+      correctEnglishType = correctEnglishType || englishType;
+      correctSpanishType = context.query.type;
     }
 
-    seoData.metaDescription = updatedDescription;
-  }
+    const languageUrls = {
+      en: `${route.paths.en}/type/${correctEnglishType}`,
+      es: `/${locale === 'en' ? 'es' : locale}${route.paths.es}/tipo/${correctSpanishType}`,
+    };
 
-  if (!vehicles?.data?.length) {
+    const seoData = {
+      ...(categoryData?.attributes.seo || {}),
+      languageUrls,
+      metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring®`,
+    };
+
+    // Update meta description for make-specific pages
+    if (queryMake && seoData?.metaDescription) {
+      const formattedMake = queryMake
+        .split('-')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+      const specialReplacements = {
+        'armored-vans-and-buses': /Vans\s*(?:&|and)\s*Buses/i,
+        'armored-cash-in-transit-cit': /cash[-\s]in[-\s]transit/i,
+      };
+
+      const specialPattern = specialReplacements[context.query.type];
+      let updatedDescription = seoData.metaDescription;
+
+      if (specialPattern) {
+        updatedDescription = updatedDescription.replace(
+          specialPattern,
+          (match) => `${formattedMake} ${match}`
+        );
+      } else {
+        const vehicleTypeRaw = context.query.type
+          .split('-')
+          .slice(1)
+          .map(
+            (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+          )
+          .join('\\s*');
+
+        const vehicleTypeRegexWithArmored = new RegExp(
+          `(Armored\\s*${vehicleTypeRaw})\\b`,
+          'i'
+        );
+        const vehicleTypeRegexWithoutArmored = new RegExp(
+          `(${vehicleTypeRaw})\\b`,
+          'i'
+        );
+
+        updatedDescription = updatedDescription.replace(
+          vehicleTypeRegexWithArmored,
+          (match) => `${formattedMake} ${match}`
+        );
+
+        if (updatedDescription === seoData.metaDescription) {
+          updatedDescription = updatedDescription.replace(
+            vehicleTypeRegexWithoutArmored,
+            (match) => `${formattedMake} ${match}`
+          );
+        }
+      }
+
+      seoData.metaDescription = updatedDescription;
+    }
+
+    if (!vehicles?.data?.length) {
+      return { notFound: true };
+    }
+
+    return {
+      props: {
+        vehicles: filteredVehicles,
+        filters,
+        seoData,
+        query: localizedType,
+        searchQuery,
+        locale,
+      },
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps:', error);
     return { notFound: true };
   }
-
-  return {
-    props: {
-      vehicles: filteredVehicles,
-      filters,
-      seoData,
-      query: localizedType,
-      searchQuery,
-      locale,
-    },
-  };
 }
 
 export default Inventory;
