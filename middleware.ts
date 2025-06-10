@@ -263,6 +263,23 @@ export function middleware(request: NextRequest) {
   const { pathname, searchParams } = url;
   const locale = request.nextUrl.locale || 'en';
 
+  // Redirect all /knowledge-base/[slug] URLs to /faqs/[slug]
+  if (pathname.startsWith('/knowledge-base/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace('/knowledge-base/', '/faqs/');
+
+    const response = NextResponse.redirect(url, { status: 308 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
+  // Add noindex to /knowledge-base URLs (in case some still exist)
+  if (pathname.startsWith('/knowledge-base')) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
   if (pathname === '/sitemap' || pathname.endsWith('/sitemap')) {
     const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, follow');
@@ -523,7 +540,9 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith('/media/ballistic-chart/') ||
     pathname.startsWith('/media/documents/') ||
-    pathname.startsWith('/news/clients/')
+    pathname.startsWith('/media/img/') ||
+    pathname.startsWith('/news/clients/') ||
+    pathname.startsWith('/images/')
   ) {
     const url = request.nextUrl.clone();
     url.pathname = '/all-downloads';
