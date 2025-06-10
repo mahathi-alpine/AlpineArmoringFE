@@ -93,26 +93,22 @@ function Inventory(props) {
   useEffect(() => {
     if (props.searchQuery) return;
 
-    const targets = document.querySelectorAll('.observe');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.toggle('in-view', entry.isIntersecting);
-          observer.unobserve(entry.target);
-
-          if (entry.target.classList.contains('bottomObserver')) {
-            fetchMoreItems();
-          }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchMoreItems();
         }
-      });
-    });
+      },
+      {
+        rootMargin: '0px 0px 20%',
+        threshold: 0,
+      }
+    );
 
-    targets.forEach((item) => observer.observe(item));
+    const target = document.querySelector('.bottomObserver');
+    if (target) observer.observe(target);
 
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [fetchMoreItems, props.searchQuery]);
 
   const categoryTitle = currentCategory?.attributes.title || '';
@@ -273,9 +269,7 @@ function Inventory(props) {
         </div>
       </div>
 
-      {hasMore && !props.searchQuery && (
-        <div className="observe bottomObserver"></div>
-      )}
+      {hasMore && !props.searchQuery && <div className="bottomObserver"></div>}
 
       {bottomText && (
         <div className="container_small">

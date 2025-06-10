@@ -220,9 +220,7 @@ function VehicleWeArmor(props) {
         </div>
       </div>
 
-      {hasMore && !searchQuery && (
-        <div className="observe bottomObserver"></div>
-      )}
+      {hasMore && !searchQuery && <div className="bottomObserver"></div>}
 
       {bottomText && (
         <div className="container_small">
