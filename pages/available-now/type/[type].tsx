@@ -11,11 +11,43 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import Button from 'components/global/button/Button';
 import Accordion from 'components/global/accordion/Accordion';
-
 import CustomMarkdown from 'components/CustomMarkdown';
+
+const isValidCategorySlug = (slug, locale = 'en') => {
+  const validSlugs = {
+    en: [
+      'special-of-the-month',
+      'armored-suvs',
+      'armored-sedans',
+      'armored-pickup-trucks',
+      'armored-law-enforcement',
+      'armored-specialty-vehicles',
+      'armored-pre-owned',
+      'armored-rental',
+      // 'armored-vans-and-buses',
+      // 'armored-cash-in-transit-cit',
+    ],
+    es: [
+      'especial-del-mes',
+      'suvs-blindados',
+      'sedanes-blindados',
+      'camionetas-blindadas',
+      'fuerzas-del-orden-blindadas',
+      'vehiculos-blindados-especiales',
+      'blindados-pre-usados',
+      'alquiler-blindados',
+    ],
+  };
+
+  return validSlugs[locale]?.includes(slug) || false;
+};
 
 const getFallbackData = (locale = 'en', categorySlug = '') => {
   const lang = getLocaleStrings(locale);
+
+  if (!isValidCategorySlug(categorySlug, locale)) {
+    return null;
+  }
 
   const categoryTitle = categorySlug
     .split('-')
@@ -488,6 +520,10 @@ export async function getServerSideProps(context) {
 
     // Return fallback data instead of crashing
     const fallbackData = getFallbackData(locale, context.query.type || '');
+
+    if (!fallbackData) {
+      return { notFound: true };
+    }
 
     return {
       props: {

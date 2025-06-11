@@ -12,7 +12,36 @@ import styles from '/components/listing/Listing.module.scss';
 import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
+const isValidCategorySlug = (slug, locale = 'en') => {
+  const validSlugs = {
+    en: [
+      'armored-suvs',
+      'armored-sedans',
+      'armored-pickup-trucks',
+      'armored-law-enforcement',
+      'armored-cash-in-transit-cit',
+      'armored-specialty-vehicles',
+      'armored-vans-and-buses',
+    ],
+    es: [
+      'suvs-blindados',
+      'sedanes-blindados',
+      'camionetas-blindadas',
+      'fuerzas-del-orden-blindadas',
+      'vehiculos-blindados-especiales',
+      'transporte-blindado-valores-cit',
+      'furgonetas-y-autobuses-blindados',
+    ],
+  };
+
+  return validSlugs[locale]?.includes(slug) || false;
+};
+
 const getFallbackData = (locale = 'en', categorySlug = '') => {
+  if (!isValidCategorySlug(categorySlug, locale)) {
+    return null;
+  }
+
   const categoryTitle = categorySlug
     .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -580,6 +609,10 @@ export async function getServerSideProps(context) {
 
     // Return fallback data instead of 404
     const fallbackData = getFallbackData(locale, englishType || '');
+
+    if (!fallbackData) {
+      return { notFound: true };
+    }
 
     return {
       props: {
