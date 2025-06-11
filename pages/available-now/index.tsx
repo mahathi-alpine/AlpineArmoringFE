@@ -1,6 +1,6 @@
 import React from 'react';
 import { getPageData } from 'hooks/api';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import routes from 'routes';
@@ -12,6 +12,7 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
 import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
+import Content from 'components/global/content/Content';
 
 const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
@@ -30,6 +31,7 @@ const getFallbackData = (locale = 'en') => ({
     },
     banner: null,
     bottomText: null,
+    bottomTextDynamic: null,
     faqs: [],
   },
   vehicles: { data: [], meta: { pagination: { total: 0 } } },
@@ -41,13 +43,16 @@ const getFallbackData = (locale = 'en') => ({
 function Inventory(props) {
   const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
+  const router = useRouter();
+
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
+  const bottomTextContent = {
+    dynamicZone: pageData?.bottomTextDynamic || [],
+  };
   const faqs = pageData?.faqs;
 
-  const router = useRouter();
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
-
   const [allFetchedVehicles, setAllFetchedVehicles] = useState(vehicles.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
     searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
@@ -193,6 +198,12 @@ function Inventory(props) {
     return () => observer.disconnect();
   }, [handleIntersection, searchQuery]);
 
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
+  const contentRef = useRef(null);
+  const toggleContent = () => {
+    setIsContentExpanded(!isContentExpanded);
+  };
+
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -248,7 +259,7 @@ function Inventory(props) {
   };
 
   if (!displayedVehicles) return null;
-  console.log(filters.type);
+
   return (
     <>
       <Head>
@@ -309,26 +320,53 @@ function Inventory(props) {
 
         <div className={`observe bottomObserver`}></div>
 
-        {bottomText ? (
+        {/* <div
+          className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
+          style={{ opacity: loading ? 1 : 0 }}
+        >
+          {lang.loading}
+        </div> */}
+
+        {bottomText && !bottomTextContent && (
           <div className={`container_small`}>
             <div className={`${styles.listing_bottomText}`}>
               <CustomMarkdown>{bottomText}</CustomMarkdown>
             </div>
           </div>
-        ) : null}
+        )}
+
+        {bottomTextContent.dynamicZone.length > 0 && (
+          <div className={`${styles.listing_bottomContent} static`}>
+            <div
+              ref={contentRef}
+              className={`${styles.listing_content_preview} container_small`}
+              style={{
+                maxHeight: isContentExpanded
+                  ? `${contentRef.current?.scrollHeight}px`
+                  : '260px',
+              }}
+            >
+              <Content data={bottomTextContent} />
+            </div>
+
+            {!isContentExpanded && (
+              <div className={`${styles.listing_content_overlay}`}></div>
+            )}
+
+            <button
+              className={`${styles.listing_more}`}
+              onClick={toggleContent}
+            >
+              {isContentExpanded ? 'Read Less' : 'Read More'}
+            </button>
+          </div>
+        )}
 
         {faqs?.length > 0 ? (
-          <div className={`mt2`}>
+          <div className={`${styles.listing_faqs}`}>
             <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
           </div>
         ) : null}
-      </div>
-
-      <div
-        className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-        style={{ opacity: loading ? 1 : 0 }}
-      >
-        {lang.loading}
       </div>
 
       <div className="shape-before shape-before-white"></div>

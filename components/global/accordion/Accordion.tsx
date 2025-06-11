@@ -1,11 +1,12 @@
 import styles from './Accordion.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import useLocale from 'hooks/useLocale';
 import Button from 'components/global/button/Button';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 const Accordion = ({ items, title = '', button = false }) => {
   const { lang } = useLocale();
+  const contentRef = useRef(null);
 
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -23,7 +24,16 @@ const Accordion = ({ items, title = '', button = false }) => {
             className={`${styles.accordion_item_heading}`}
             onClick={() => handleTitleClick(index)}
           >
-            <div className={`${styles.accordion_item_heading_title}`}>
+            <div
+              className={`
+              ${styles.accordion_item_heading_title}
+              ${
+                activeIndex === index
+                  ? styles['accordion_item_heading_title--active']
+                  : ''
+              }
+            `}
+            >
               {item.attributes?.title || item?.title}
             </div>
 
@@ -36,10 +46,14 @@ const Accordion = ({ items, title = '', button = false }) => {
 
           {item.attributes?.text || item?.text ? (
             <div
-              style={{
-                maxHeight: activeIndex === index ? '300px' : '0',
-              }}
+              ref={contentRef}
               className={`${styles.accordion_item_content}`}
+              style={{
+                maxHeight:
+                  activeIndex === index
+                    ? `${contentRef.current?.scrollHeight + 40}px`
+                    : '0',
+              }}
             >
               <div className={`${styles.accordion_item_content_text}`}>
                 <CustomMarkdown>

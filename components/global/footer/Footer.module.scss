@@ -18,6 +18,10 @@
 
   &_topPadding0 {
     padding-top: 0;
+
+    @include breakpoint(large) {
+      margin-top: rem(-30);
+    }
   }
 
   &_dark {
