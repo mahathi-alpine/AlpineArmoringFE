@@ -15,19 +15,73 @@ import Accordion from 'components/global/accordion/Accordion';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 const getFallbackData = (locale = 'en', categorySlug = '') => {
+  const lang = getLocaleStrings(locale);
+
+  const categoryTitle = categorySlug
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  const getBannerTitle = (categorySlug) => {
+    const typeMap = {
+      'armored-suvs': 'Armored SUVs for Sale',
+      'armored-sedans': 'Armored Sedans for Sale',
+      'armored-pickup-trucks': 'Armored Pickup Trucks for Sale',
+      'armored-vans-and-buses': 'Armored Vans & Buses for Sale',
+      'armored-cash-in-transit-cit': 'Armored Cash-in-Transit for Sale',
+      'armored-swat-trucks': 'Armored SWAT Trucks for Sale',
+      'armored-limousines': 'Armored Limousines for Sale',
+      'armored-specialty-vehicles': 'Armored Specialty Vehicles for Sale',
+    };
+
+    // Return specific title if found, otherwise generate generic one
+    return typeMap[categorySlug] || `Armored ${categoryTitle} for Sale`;
+  };
+
   return {
     vehicles: { data: [] },
-    filters: { type: [] },
+    filters: {
+      type: [
+        {
+          attributes: {
+            slug: categorySlug,
+            title: categorySlug
+              .split('-')
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' '),
+            inventoryBanner: {
+              title: getBannerTitle(categorySlug),
+              subtitle: lang.availableForImmediateShipping,
+              media: {
+                data: {
+                  attributes: {
+                    mime: 'video/webm',
+                    url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+                  },
+                },
+              },
+              mediaMP4: {
+                data: {
+                  attributes: {
+                    mime: 'video/mp4',
+                    url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+                  },
+                },
+              },
+            },
+            bottomText: null,
+          },
+        },
+      ],
+    },
     query: categorySlug,
+    searchQuery: null,
     seoData: {
-      metaTitle:
-        locale === 'en'
-          ? 'Armored Vehicles For Sale: Bulletproof Cars, SUVs, Trucks | Alpine Armoring®'
-          : 'Vehículos blindados en venta | Alpine Blindaje Vehículos a prueba de balas',
+      metaTitle: `${getBannerTitle(categorySlug)} | Alpine Armoring`,
       metaDescription:
         locale === 'en'
-          ? 'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks with top-level protection that are completed and available for immediate shipping.'
-          : 'Vehículos blindados en venta por Alpine Armoring. Encuentre todoterrenos, camiones, furgonetas, autobuses y sedanes blindados con protección de alto nivel. Envío mundial disponible.',
+          ? `Discover Alpine Armoring's ${getBannerTitle(categorySlug)}, offering advanced protection and luxury. Perfect for personal, corporate, and government security solutions.`
+          : `Explore los ${getBannerTitle(categorySlug)} En venta de Alpine Armoring con protección y tecnología avanzadas, perfectos para necesidades de seguridad personales, empresariales o gubernamentales.`,
       languageUrls: {
         en: `/available-now/type/${categorySlug}`,
         es: `/es/disponible-ahora/tipo/${categorySlug}`,
@@ -209,7 +263,8 @@ function Inventory(props) {
             container`}
         >
           {!currentPath.includes(lang.armoredRentalURL) &&
-          props.filters?.type.length > 0 ? (
+          props.filters?.type.length > 0 &&
+          vehiclesData.length > 0 ? (
             <div className={`${styles.listing_wrap_filtered}`}>
               <Filters props={props.filters} />
             </div>

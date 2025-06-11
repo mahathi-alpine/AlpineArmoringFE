@@ -13,6 +13,60 @@ import { useEffect, useState, useCallback } from 'react';
 import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
+const getFallbackData = (locale = 'en') => {
+  const lang = getLocaleStrings(locale);
+
+  return {
+    pageData: {
+      seo: {
+        metaTitle: `${lang.vehiclesWeArmor} | Alpine Armoring`,
+        metaDescription:
+          locale === 'en'
+            ? 'Explore the wide range of vehicles Alpine Armoring customizes, from SUVs to luxury cars, providing top-tier armoring solutions for security and protection.'
+            : 'Explore la amplia gama de vehículos que Alpine Armoring personaliza, desde todoterrenos a coches de lujo, proporcionando soluciones de blindaje de primer nivel para la seguridad y la protección.',
+        languageUrls: routes.vehiclesWeArmor.getIndexLanguageUrls(locale),
+      },
+      banner: {
+        title:
+          'Armored <strong>SUVs, Sedans, Pickup trucks, CITs, SWAT trucks, PPVs</strong> for preorder',
+        imageMobile: {
+          data: {
+            attributes: {
+              mime: 'image/jpeg',
+              url: 'https://d102sycao8uwt8.cloudfront.net/mobile_armored_all_vehicles_bulletproof_25af983bd4.jpg',
+              alternativeText:
+                'A lineup of eight armored or heavily modified trucks and SUVs from Alpine Armoring is displayed on a black surface with a white patterned background. The vehicles vary in size, color, and modifications, including police, military, and utility models.',
+            },
+          },
+        },
+        media: {
+          data: {
+            attributes: {
+              mime: 'image/jpeg',
+              url: 'https://d102sycao8uwt8.cloudfront.net/Vehicles_We_Armor_All_64d38daf3b.jpg',
+              alternativeText:
+                'A lineup of eight armored or heavily modified trucks and SUVs from Alpine Armoring is displayed on a black surface with a white patterned background. The vehicles vary in size, color, and modifications, including police, military, and utility models.',
+            },
+          },
+        },
+      },
+      bottomText: null,
+      faqs: [],
+    },
+    vehicles: { data: [] },
+    filters: { type: [], make: [] },
+    searchQuery: null,
+    seoData: {
+      metaTitle: `${lang.vehiclesWeArmor} | Alpine Armoring`,
+      metaDescription:
+        locale === 'en'
+          ? 'Explore the wide range of vehicles Alpine Armoring customizes, from SUVs to luxury cars, providing top-tier armoring solutions for security and protection.'
+          : 'Explore la amplia gama de vehículos que Alpine Armoring personaliza, desde todoterrenos a coches de lujo, proporcionando soluciones de blindaje de primer nivel para la seguridad y la protección.',
+      languageUrls: routes.vehiclesWeArmor.getIndexLanguageUrls(locale),
+    },
+    isOffline: true,
+  };
+};
 function VehicleWeArmor(props) {
   const router = useRouter();
   const { lang } = useLocale();
@@ -197,14 +251,20 @@ function VehicleWeArmor(props) {
 
         {topBanner && <Banner props={topBanner} shape="white" small />}
 
-        <div className={`${styles.listing_all_filters} container`}>
-          {filters.type && <Filters props={filters} plain />}
-        </div>
+        {filters.type && vehiclesData?.length > 1 && (
+          <div className={`${styles.listing_all_filters} container`}>
+            <Filters props={filters} plain />
+          </div>
+        )}
 
         <div className={`${styles.listing_wrap} container`}>
           {vehiclesData?.length < 1 ? (
             <div className={`${styles.listing_empty}`}>
-              <h2>{lang.noVehiclesFound}</h2>
+              {props.isOffline ? (
+                <p>{lang.inventorySystemDown}</p>
+              ) : (
+                <h2>{lang.noVehiclesFound}</h2>
+              )}
             </div>
           ) : (
             <div className={`${styles.listing_list}`}>
@@ -236,11 +296,11 @@ function VehicleWeArmor(props) {
         </div>
       )}
 
-      {loading && (
+      {/* {loading && (
         <div className={`${styles.listing_loading}`} style={{ opacity: 1 }}>
           {lang.loading}
         </div>
-      )}
+      )} */}
     </>
   );
 }
@@ -290,19 +350,24 @@ export async function getServerSideProps(context) {
       locale,
     });
 
+    if (!vehicles || !vehicles.data) {
+      throw new Error('Invalid vehicles data received from Strapi');
+    }
+
     const filteredVehicles = {
       ...vehicles,
-      data: vehicles.data.filter((vehicle) => {
-        if (!context.query.q) return true;
+      data:
+        vehicles.data.filter((vehicle) => {
+          if (!context.query.q) return true;
 
-        const searchTerms = String(context.query.q || '')
-          .toLowerCase()
-          .replace(/[-\s]/g, '');
-        const slug = String(vehicle.attributes.slug || '')
-          .toLowerCase()
-          .replace(/[-\s]/g, '');
-        return slug.includes(searchTerms);
-      }),
+          const searchTerms = String(context.query.q || '')
+            .toLowerCase()
+            .replace(/[-\s]/g, '');
+          const slug = String(vehicle.attributes.slug || '')
+            .toLowerCase()
+            .replace(/[-\s]/g, '');
+          return slug.includes(searchTerms);
+        }) || [],
     };
 
     const [type, make] = await Promise.all([
@@ -318,7 +383,7 @@ export async function getServerSideProps(context) {
           ? 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[faqs]=*&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug'
           : 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
         locale,
-      }).then((res) => res.data || []),
+      }).then((res) => res?.data || []),
     ]);
 
     const filters = {
@@ -354,9 +419,16 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error('Error in getServerSideProps:', error);
-    return { notFound: true };
+    console.error('Strapi connection failed:', error);
+
+    const fallbackData = getFallbackData(locale);
+
+    return {
+      props: {
+        ...fallbackData,
+        locale,
+      },
+    };
   }
 }
-
 export default VehicleWeArmor;

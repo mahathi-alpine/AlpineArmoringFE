@@ -29,7 +29,27 @@ const getFallbackData = (locale = 'en') => ({
           ? 'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks with top-level protection that are completed and available for immediate shipping.'
           : 'Vehículos blindados en venta por Alpine Armoring. Encuentre todoterrenos, camiones, furgonetas, autobuses y sedanes blindados con protección de alto nivel. Envío mundial disponible.',
     },
-    banner: null,
+    banner: {
+      title: 'Armored Vehicles for Sale',
+      subtitle:
+        '(SUVs, Sedans, Vans, and Trucks) that are <b>completed and available for immediate shipping</b>',
+      media: {
+        data: {
+          attributes: {
+            mime: 'video/webm',
+            url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+          },
+        },
+      },
+      mediaMP4: {
+        data: {
+          attributes: {
+            mime: 'video/mp4',
+            url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+          },
+        },
+      },
+    },
     bottomText: null,
     bottomTextDynamic: null,
     faqs: [],
@@ -41,6 +61,7 @@ const getFallbackData = (locale = 'en') => ({
 });
 
 function Inventory(props) {
+  console.log(props);
   const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();

@@ -12,6 +12,83 @@ import styles from '/components/listing/Listing.module.scss';
 import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 
+const getFallbackData = (locale = 'en', categorySlug = '') => {
+  const categoryTitle = categorySlug
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  const getBannerTitle = (categorySlug) => {
+    const typeMap = {
+      'armored-suvs': 'Armored SUVs',
+      'armored-sedans': 'Armored Sedans',
+      'armored-pickup-trucks': 'Armored Pickup Trucks',
+      'armored-vans-and-buses': 'Armored Vans & Buses',
+      'armored-cash-in-transit-cit': 'Armored Cash-in-Transit',
+      'armored-swat-trucks': 'Armored SWAT Trucks',
+      'armored-limousines': 'Armored Limousines',
+      'armored-specialty-vehicles': 'Armored Specialty Vehicles',
+    };
+
+    // Return specific title if found, otherwise generate generic one
+    return typeMap[categorySlug] || `Armored ${categoryTitle}`;
+  };
+
+  return {
+    vehicles: { data: [] },
+    filters: {
+      type: [
+        {
+          attributes: {
+            slug: categorySlug,
+            title: categorySlug
+              .split('-')
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' '),
+            allBanner: {
+              title: getBannerTitle(categorySlug),
+              imageMobile: {
+                data: {
+                  attributes: {
+                    mime: 'image/jpeg',
+                    url: 'https://d102sycao8uwt8.cloudfront.net/mobile_armored_all_vehicles_bulletproof_25af983bd4.jpg',
+                    alternativeText:
+                      'A lineup of eight armored or heavily modified trucks and SUVs from Alpine Armoring is displayed on a black surface with a white patterned background. The vehicles vary in size, color, and modifications, including police, military, and utility models.',
+                  },
+                },
+              },
+              media: {
+                data: {
+                  attributes: {
+                    mime: 'image/jpeg',
+                    url: 'https://d102sycao8uwt8.cloudfront.net/Vehicles_We_Armor_All_64d38daf3b.jpg',
+                    alternativeText:
+                      'A lineup of eight armored or heavily modified trucks and SUVs from Alpine Armoring is displayed on a black surface with a white patterned background. The vehicles vary in size, color, and modifications, including police, military, and utility models.',
+                  },
+                },
+              },
+            },
+            bottomText: null,
+            faqs_vehicles_we_armor: [],
+          },
+        },
+      ],
+      make: [],
+    },
+    query: categorySlug,
+    searchQuery: null,
+    seoData: {
+      metaTitle: `${getBannerTitle(categorySlug)} | Alpine Armoring`,
+      metaDescription:
+        locale === 'en'
+          ? `Discover Alpine Armoring's ${getBannerTitle(categorySlug)}, offering advanced protection and luxury. Perfect for personal, corporate, and government security solutions.`
+          : `Descubra las ${getBannerTitle(categorySlug)} de Alpine Armoring, que ofrecen protección avanzada y lujo. Perfectos para soluciones de seguridad personales, corporativas y gubernamentales.`,
+      languageUrls: routes.vehiclesWeArmor.getIndexLanguageUrls(locale),
+    },
+    isOffline: true, // Flag to indicate fallback mode
+  };
+};
+
 function Inventory(props) {
   const { lang } = useLocale();
   const router = useRouter();
@@ -240,15 +317,18 @@ function Inventory(props) {
 
         {topBanner && <Banner props={topBanner} shape="white" small />}
 
-        <p className={`${styles.listing_heading} center container`}>
-          {lang.exploreDifferentModels} <strong>{formatMakeName(make)}</strong>
-          {categoryTitle
-            ? ' ' + categoryTitle.replace('Armored', '').trim()
-            : ''}{' '}
-          {lang.weArmor}
-        </p>
+        {vehiclesData?.length > 1 && (
+          <p className={`${styles.listing_heading} center container`}>
+            {lang.exploreDifferentModels}{' '}
+            <strong>{formatMakeName(make)}</strong>
+            {categoryTitle
+              ? ' ' + categoryTitle.replace('Armored', '').trim()
+              : ''}{' '}
+            {lang.weArmor}
+          </p>
+        )}
 
-        {props.filters?.type && (
+        {props.filters.type && vehiclesData?.length > 1 && (
           <div className={`${styles.listing_all_filters} container`}>
             <Filters props={props.filters} plain />
           </div>
@@ -263,7 +343,11 @@ function Inventory(props) {
             </div>
           ) : (
             <div className={`${styles.listing_empty}`}>
-              {lang.noVehiclesFound}
+              {props.isOffline ? (
+                <p>{lang.inventorySystemDown}</p>
+              ) : (
+                <h2>{lang.noVehiclesFound}</h2>
+              )}
             </div>
           )}
         </div>
@@ -333,16 +417,23 @@ export async function getServerSideProps(context) {
       locale,
     });
 
+    if (!vehicles || !vehicles.data) {
+      throw new Error('Invalid vehicles data received from Strapi');
+    }
+
     const filteredVehicles = {
       ...vehicles,
-      data: vehicles.data.filter((vehicle) => {
-        if (!queryQ) return true;
-        const searchTerms = String(queryQ).toLowerCase().replace(/[-\s]/g, '');
-        const slug = String(vehicle.attributes.slug || '')
-          .toLowerCase()
-          .replace(/[-\s]/g, '');
-        return slug.includes(searchTerms);
-      }),
+      data:
+        vehicles.data.filter((vehicle) => {
+          if (!queryQ) return true;
+          const searchTerms = String(queryQ)
+            .toLowerCase()
+            .replace(/[-\s]/g, '');
+          const slug = String(vehicle.attributes.slug || '')
+            .toLowerCase()
+            .replace(/[-\s]/g, '');
+          return slug.includes(searchTerms);
+        }) || [],
     };
 
     const [type, make] = await Promise.all([
@@ -485,8 +576,17 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error('Error in getServerSideProps:', error);
-    return { notFound: true };
+    console.error('Strapi connection failed:', error);
+
+    // Return fallback data instead of 404
+    const fallbackData = getFallbackData(locale, englishType || '');
+
+    return {
+      props: {
+        ...fallbackData,
+        locale,
+      },
+    };
   }
 }
 
