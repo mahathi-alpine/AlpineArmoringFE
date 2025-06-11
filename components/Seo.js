@@ -55,9 +55,42 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     setSeoProps(props);
   }, [props]);
 
+  // Check if URL contains noindex query parameters
+  const hasNoIndexParams = () => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return (
+        params.has('vehicles_we_armor') ||
+        params.has('vehiculos_que_blindamos') ||
+        params.has('source')
+      );
+    } else {
+      // Server-side: check router.query first, then fallback to parsing asPath
+      const { vehicles_we_armor, vehiculos_que_blindamos, source } =
+        router.query;
+      let hasParams = !!(
+        vehicles_we_armor ||
+        vehiculos_que_blindamos ||
+        source
+      );
+
+      // Fallback: parse from asPath if query is empty
+      if (!hasParams && router.asPath.includes('?')) {
+        const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
+        hasParams =
+          urlParams.has('vehicles_we_armor') ||
+          urlParams.has('vehiculos_que_blindamos') ||
+          urlParams.has('source');
+      }
+
+      return hasParams;
+    }
+  };
+
+  const shouldNoIndex = hasNoIndexParams();
+
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
-  // const languageUrls = seoProps?.languageUrls || {};
 
   const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
   const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
@@ -98,9 +131,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     if (params.has('make')) {
       allowedParams.set('make', params.get('make'));
     }
-    // if (params.has('type')) {
-    //   allowedParams.set('type', params.get('type'));
-    // }
 
     const cleanQuery = allowedParams.toString();
     return cleanQuery ? `${path}?${cleanQuery}` : path;
@@ -114,9 +144,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       if (params.has('make')) {
         allowedParams.set('make', params.get('make'));
       }
-      // if (params.has('type')) {
-      //   allowedParams.set('type', params.get('type'));
-      // }
 
       const cleanQuery = allowedParams.toString();
       return cleanQuery ? `?${cleanQuery}` : '';
@@ -130,9 +157,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
         if (params.has('make')) {
           allowedParams.set('make', params.get('make'));
         }
-        // if (params.has('type')) {
-        //   allowedParams.set('type', params.get('type'));
-        // }
 
         const cleanQuery = allowedParams.toString();
         return cleanQuery ? `?${cleanQuery}` : '';
@@ -165,8 +189,13 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Get query string for hreflang URLs
   const queryString = getCurrentQueryString();
 
-  // Build hreflang URLs with query parameters
+  // Build hreflang URLs with query parameters - but skip if shouldNoIndex
   const buildHreflangUrls = () => {
+    // Don't build hreflang URLs if page should be noindex
+    if (shouldNoIndex) {
+      return {};
+    }
+
     // Check if languageUrls is explicitly set to false
     if (seoProps?.languageUrls === false) {
       return {};
@@ -196,12 +225,12 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   const hreflangUrls = buildHreflangUrls();
 
-  // Canonical URL construction
+  // Canonical URL construction - skip if shouldNoIndex
   let canonicalUrl;
-  let shouldRenderCanonical = true;
+  let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
 
   // Check if canonicalURL is explicitly set to false
-  if (seoProps?.canonicalURL === false) {
+  if (seoProps?.canonicalURL === false || shouldNoIndex) {
     shouldRenderCanonical = false;
   } else if (seoProps?.canonicalURL) {
     const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
@@ -324,8 +353,9 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
         content="bCcF8Vxq5RVDB8JW0bfGQynjo9U6f5oQEwQVbobmyjE"
       />
 
-      {/* Hreflang tags - only render if languageUrls is not false */}
-      {seoProps?.languageUrls !== false &&
+      {/* Hreflang tags - only render if not noindex and languageUrls is not false */}
+      {!shouldNoIndex &&
+        seoProps?.languageUrls !== false &&
         Object.entries(hreflangUrls).map(([hreflang, url]) => (
           <link key={hreflang} rel="alternate" hrefLang={hreflang} href={url} />
         ))}
@@ -355,7 +385,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       />
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
-      {/* Canonical URL - only render if not explicitly set to false */}
+      {/* Canonical URL - only render if not noindex and not explicitly set to false */}
       {shouldRenderCanonical && canonicalUrl && (
         <link rel="canonical" href={canonicalUrl} data-seo-component="true" />
       )}
