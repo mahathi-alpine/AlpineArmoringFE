@@ -1,60 +1,59 @@
-.author{
-    padding-top: rem(24);
+.author {
+  padding-top: rem(24);
 
+  @include breakpoint(large) {
+    padding-top: rem(64);
+    padding-bottom: rem(100);
+  }
+
+  &_list {
+    @include breakpoint(medium) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
     @include breakpoint(large) {
-        padding-top: rem(64);
-        padding-bottom: rem(100);
+      gap: 64px;
+    }
+  }
+
+  &_item {
+    margin-bottom: rem(48);
+
+    @include breakpoint(medium) {
+      width: calc(50% - 8px);
+      margin-bottom: 0;
+    }
+    @include breakpoint(large) {
+      width: calc(50% - 32px);
+    }
+  }
+
+  &_text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    line-clamp: 8;
+    -webkit-box-orient: vertical;
+
+    p:first-child {
+      font-size: rem(16);
+      @include breakpoint(large) {
+        font-size: rem(20);
+      }
     }
 
-    &_list{
-        @include breakpoint(medium) {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        @include breakpoint(large) {
-            gap: 64px;
-        }
+    &_more {
+      display: block;
+      margin-top: 16px;
+      font-weight: var(--font-medium);
+      font-size: rem(13);
+      transition: color 0.25s ease-in-out;
+
+      &:hover {
+        color: var(--color-primary);
+      }
     }
-
-    &_item{
-        margin-bottom: rem(48);
-
-        @include breakpoint(medium) {
-            width: calc(50% - 8px);
-            margin-bottom: 0;
-    
-        }
-        @include breakpoint(large) {
-            width: calc(50% - 32px);
-        }
-    }
-
-    &_text{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 8;
-        line-clamp: 8;
-        -webkit-box-orient: vertical;
-
-        p:first-child{
-            font-size: rem(16);
-            @include breakpoint(large) {
-                font-size: rem(20);
-            }
-        }
-
-        &_more{
-            display: block;
-            margin-top: 16px;
-            font-weight: var(--font-medium);
-            font-size: rem(13);
-            transition: color 0.25s ease-in-out;
-
-            &:hover{
-                color: var(--color-primary);
-            }
-        }
-    }
+  }
 }
