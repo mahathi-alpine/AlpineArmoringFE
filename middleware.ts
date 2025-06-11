@@ -418,11 +418,34 @@ export function middleware(request: NextRequest) {
     ? `${pathWithLocale}?${normalizedSearch}`
     : pathWithLocale;
 
-  // Check redirects with multiple lookup strategies
   let redirectTo = redirectMap.get(fullPathWithLocale);
 
+  if (!redirectTo && searchParams.get('utm_source') === 'chatgpt.com') {
+    redirectTo = redirectMap.get(pathWithLocale);
+
+    if (!redirectTo && locale !== 'en') {
+      redirectTo = redirectMap.get(pathname);
+    }
+
+    if (redirectTo) {
+      const url = request.nextUrl.clone();
+
+      if (redirectTo.includes('?')) {
+        const [newPathname, newSearch] = redirectTo.split('?');
+        url.pathname = newPathname;
+        url.search = `?${newSearch}&utm_source=chatgpt.com`;
+      } else {
+        url.pathname = redirectTo;
+        url.search = '?utm_source=chatgpt.com';
+      }
+
+      const response = NextResponse.redirect(url, { status: 308 });
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      return response;
+    }
+  }
+
   if (!redirectTo) {
-    // Try with original search params format
     const fullPathWithOriginalSearch = searchParams.toString()
       ? `${pathWithLocale}?${searchParams.toString()}`
       : pathWithLocale;
@@ -430,7 +453,6 @@ export function middleware(request: NextRequest) {
   }
 
   if (!redirectTo) {
-    // Try with decoded path
     const decodedPathWithLocale = safeDecodeURIComponent(pathWithLocale);
     const decodedSearch = safeDecodeURIComponent(normalizedSearch);
     const decodedFullPath = decodedSearch
