@@ -14,6 +14,29 @@ import Accordion from 'components/global/accordion/Accordion';
 
 import CustomMarkdown from 'components/CustomMarkdown';
 
+const getFallbackData = (locale = 'en', categorySlug = '') => {
+  return {
+    vehicles: { data: [] },
+    filters: { type: [] },
+    query: categorySlug,
+    seoData: {
+      metaTitle:
+        locale === 'en'
+          ? 'Armored Vehicles For Sale: Bulletproof Cars, SUVs, Trucks | Alpine Armoring®'
+          : 'Vehículos blindados en venta | Alpine Blindaje Vehículos a prueba de balas',
+      metaDescription:
+        locale === 'en'
+          ? 'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks with top-level protection that are completed and available for immediate shipping.'
+          : 'Vehículos blindados en venta por Alpine Armoring. Encuentre todoterrenos, camiones, furgonetas, autobuses y sedanes blindados con protección de alto nivel. Envío mundial disponible.',
+      languageUrls: {
+        en: `/available-now/type/${categorySlug}`,
+        es: `/es/disponible-ahora/tipo/${categorySlug}`,
+      },
+    },
+    isOffline: true,
+  };
+};
+
 function Inventory(props) {
   const { lang } = useLocale();
 
@@ -186,28 +209,36 @@ function Inventory(props) {
             container`}
         >
           {!currentPath.includes(lang.armoredRentalURL) &&
-          props.filters?.type ? (
+          props.filters?.type.length > 0 ? (
             <div className={`${styles.listing_wrap_filtered}`}>
               <Filters props={props.filters} />
             </div>
           ) : null}
 
-          {vehiclesData && vehiclesData.length > 0 ? (
-            <div className={`${styles.listing_list}`}>
-              {vehiclesData.reduce((acc, item, index) => {
-                if (item.attributes.ownPage !== false) {
-                  acc[index] = (
-                    <InventoryItem key={item.id} props={item} index={index} />
-                  );
-                }
-                return acc;
-              }, [])}
-            </div>
-          ) : (
-            <div className={`${styles.listing_list_error}`}>
-              {lang.noVehiclesFound}
-            </div>
-          )}
+          <div className={`${styles.listing_wrap_shown}`}>
+            {vehiclesData && vehiclesData.length > 0 ? (
+              <div className={`${styles.listing_list}`}>
+                {vehiclesData.reduce((acc, item, index) => {
+                  if (item.attributes.ownPage !== false) {
+                    acc[index] = (
+                      <InventoryItem key={item.id} props={item} index={index} />
+                    );
+                  }
+                  return acc;
+                }, [])}
+              </div>
+            ) : (
+              <div className={`${styles.listing_list_error}`}>
+                {props.isOffline ? (
+                  <>
+                    <p>{lang.inventorySystemDown}</p>
+                  </>
+                ) : (
+                  <h2>{lang.noVehiclesFound}</h2>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className={`observe bottomObserver`}></div>
@@ -249,146 +280,167 @@ export async function getServerSideProps(context) {
   const lang = getLocaleStrings(locale);
   const route = routes.inventory;
 
-  const englishType = context.query.type;
-  const localizedType = route.getLocalizedType(englishType, locale);
+  try {
+    const englishType = context.query.type;
+    const localizedType = route.getLocalizedType(englishType, locale);
 
-  // const category = context.query.type;
-  let query = `filters[categories][slug][$eq]=${localizedType}`;
-  const q = context.query.q;
-  if (q) {
-    query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
-  }
+    // const category = context.query.type;
+    let query = `filters[categories][slug][$eq]=${localizedType}`;
+    const q = context.query.q;
+    if (q) {
+      query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
+    }
 
-  const vehicles = await getPageData({
-    route: route.collectionSingle,
-    params: query,
-    sort: 'order',
-    populate: 'featuredImage',
-    fields:
-      'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans',
-    pageSize: 100,
-    locale,
-  });
+    const vehicles = await getPageData({
+      route: route.collectionSingle,
+      params: query,
+      sort: 'order',
+      populate: 'featuredImage',
+      fields:
+        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans',
+      pageSize: 100,
+      locale,
+    });
 
-  const filteredVehicles = {
-    ...vehicles,
-    data: vehicles.data?.filter((vehicle) => {
-      if (vehicle.attributes.hide === true) return false;
-      if (!q) return true;
+    if (!vehicles || !vehicles.data) {
+      throw new Error('Invalid vehicles data received from Strapi');
+    }
 
-      const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
-      const slug = vehicle.attributes.slug.toLowerCase().replace(/[-\s]/g, '');
+    const filteredVehicles = {
+      ...vehicles,
+      data:
+        vehicles.data?.filter((vehicle) => {
+          if (vehicle.attributes.hide === true) return false;
+          if (!q) return true;
 
-      return slug.includes(searchTerms);
-    }),
-  };
+          const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
+          const slug = vehicle.attributes.slug
+            .toLowerCase()
+            .replace(/[-\s]/g, '');
 
-  // Fetching Types for the Filters
-  const type = await getPageData({
-    route: 'categories',
-    custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&fields[2]=bottomTextInventory&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats&populate[faqs_stock][fields][0]=title&populate[faqs_stock][fields][1]=text`,
-    locale,
-  }).then((response) => response.data);
+          return slug.includes(searchTerms);
+        }) || [],
+    };
 
-  const filters = type ? { type } : {};
+    // Fetching Types for the Filters
+    const type = await getPageData({
+      route: 'categories',
+      custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&fields[2]=bottomTextInventory&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats&populate[faqs_stock][fields][0]=title&populate[faqs_stock][fields][1]=text`,
+      locale,
+    }).then((response) => response?.data || []);
 
-  let seoData = filters.type?.find(
-    (item) => item.attributes.slug === context.query.type
-  );
+    const filters = type ? { type } : {};
 
-  // All languages urls
-  let correctEnglishType;
-  let correctSpanishType;
+    let seoData = filters.type?.find(
+      (item) => item.attributes.slug === context.query.type
+    );
 
-  if (locale === 'en') {
-    correctEnglishType = context.query.type;
-    correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
-  } else {
-    const types = route.types || {};
+    // All languages urls
+    let correctEnglishType;
+    let correctSpanishType;
 
-    for (const [engType, translations] of Object.entries(types)) {
-      if (
-        translations &&
-        typeof translations === 'object' &&
-        'es' in translations &&
-        translations.es === context.query.type
-      ) {
-        correctEnglishType = engType;
-        break;
+    if (locale === 'en') {
+      correctEnglishType = context.query.type;
+      correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
+    } else {
+      const types = route.types || {};
+
+      for (const [engType, translations] of Object.entries(types)) {
+        if (
+          translations &&
+          typeof translations === 'object' &&
+          'es' in translations &&
+          translations.es === context.query.type
+        ) {
+          correctEnglishType = engType;
+          break;
+        }
       }
+
+      if (!correctEnglishType) {
+        correctEnglishType = englishType;
+      }
+
+      correctSpanishType = context.query.type;
     }
 
-    if (!correctEnglishType) {
-      correctEnglishType = englishType;
-    }
+    const languageUrls = {
+      en: `${route.paths.en}/type/${correctEnglishType}`,
+      es: `/${locale === 'en' ? 'es' : locale}${route.paths.es}/tipo/${correctSpanishType}`,
+    };
 
-    correctSpanishType = context.query.type;
-  }
+    seoData = {
+      ...(seoData?.attributes?.seo || {}),
+      languageUrls,
+    };
 
-  const languageUrls = {
-    en: `${route.paths.en}/type/${correctEnglishType}`,
-    es: `/${locale === 'en' ? 'es' : locale}${route.paths.es}/tipo/${correctSpanishType}`,
-  };
+    if (seoData) {
+      // Modify meta title
+      seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== lang.armoredRentalURL && context.query.type !== lang.preOwnedURL ? ` ${lang.forSale}` : ''} | Alpine Armoring`;
 
-  seoData = {
-    ...(seoData?.attributes?.seo || {}),
-    languageUrls,
-  };
+      // Modify meta description only when not armored-rental
+      if (
+        context.query.type &&
+        context.query.type !== lang.armoredRentalURL &&
+        context.query.type !== lang.preOwnedURL
+      ) {
+        const vehicleTypeRaw = context.query.type
+          .split('-')
+          .slice(1) // Remove the 'armored' part
+          .map(
+            (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+          )
+          .join('\\s*');
 
-  if (seoData) {
-    // Modify meta title
-    seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== lang.armoredRentalURL && context.query.type !== lang.preOwnedURL ? ` ${lang.forSale}` : ''} | Alpine Armoring`;
+        // Create regexes to match with and without 'armored'
+        const vehicleTypeRegexWithArmored = new RegExp(
+          `(${lang.armored}\\s*${vehicleTypeRaw})\\b`,
+          'i'
+        );
+        const vehicleTypeRegexWithoutArmored = new RegExp(
+          `(${vehicleTypeRaw})\\b`,
+          'i'
+        );
 
-    // Modify meta description only when not armored-rental
-    if (
-      context.query.type &&
-      context.query.type !== lang.armoredRentalURL &&
-      context.query.type !== lang.preOwnedURL
-    ) {
-      const vehicleTypeRaw = context.query.type
-        .split('-')
-        .slice(1) // Remove the 'armored' part
-        .map(
-          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-        )
-        .join('\\s*');
-
-      // Create regexes to match with and without 'armored'
-      const vehicleTypeRegexWithArmored = new RegExp(
-        `(${lang.armored}\\s*${vehicleTypeRaw})\\b`,
-        'i'
-      );
-      const vehicleTypeRegexWithoutArmored = new RegExp(
-        `(${vehicleTypeRaw})\\b`,
-        'i'
-      );
-
-      // Replace with 'for sale', first with 'armored' version, then without
-      let updatedDescription = seoData?.metaDescription?.replace(
-        vehicleTypeRegexWithArmored,
-        (match) => `${match} ${lang.forSale}`
-      );
-
-      if (updatedDescription === seoData?.metaDescription) {
-        updatedDescription = updatedDescription?.replace(
-          vehicleTypeRegexWithoutArmored,
+        // Replace with 'for sale', first with 'armored' version, then without
+        let updatedDescription = seoData?.metaDescription?.replace(
+          vehicleTypeRegexWithArmored,
           (match) => `${match} ${lang.forSale}`
         );
+
+        if (updatedDescription === seoData?.metaDescription) {
+          updatedDescription = updatedDescription?.replace(
+            vehicleTypeRegexWithoutArmored,
+            (match) => `${match} ${lang.forSale}`
+          );
+        }
+
+        seoData.metaDescription = updatedDescription;
       }
-
-      seoData.metaDescription = updatedDescription;
     }
-  }
 
-  return {
-    props: {
-      vehicles: filteredVehicles,
-      filters,
-      query: context.query.type,
-      seoData,
-      locale,
-    },
-  };
+    return {
+      props: {
+        vehicles: filteredVehicles,
+        filters,
+        query: context.query.type,
+        seoData,
+        locale,
+      },
+    };
+  } catch (error) {
+    console.error('Strapi connection failed:', error);
+
+    // Return fallback data instead of crashing
+    const fallbackData = getFallbackData(locale, context.query.type || '');
+
+    return {
+      props: {
+        ...fallbackData,
+        locale,
+      },
+    };
+  }
 }
 
 export default Inventory;

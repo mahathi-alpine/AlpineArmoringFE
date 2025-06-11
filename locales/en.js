@@ -322,4 +322,6 @@ export default {
   readyToShipNow: 'Ready-to-ship now',
   viewAllQuestions: 'View All Questions',
   articles: 'Articles',
+  inventorySystemDown:
+    'Our inventory system is currently down for maintenance. Please try again later.',
 };

@@ -16,6 +16,28 @@ import Accordion from 'components/global/accordion/Accordion';
 const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
 
+const getFallbackData = (locale = 'en') => ({
+  pageData: {
+    seo: {
+      metaTitle:
+        locale === 'en'
+          ? 'Armored Vehicles For Sale: Bulletproof Cars, SUVs, Trucks | Alpine Armoring®'
+          : 'Vehículos blindados en venta | Alpine Blindaje Vehículos a prueba de balas',
+      metaDescription:
+        locale === 'en'
+          ? 'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks with top-level protection that are completed and available for immediate shipping.'
+          : 'Vehículos blindados en venta por Alpine Armoring. Encuentre todoterrenos, camiones, furgonetas, autobuses y sedanes blindados con protección de alto nivel. Envío mundial disponible.',
+    },
+    banner: null,
+    bottomText: null,
+    faqs: [],
+  },
+  vehicles: { data: [], meta: { pagination: { total: 0 } } },
+  filters: {},
+  searchQuery: null,
+  isOffline: true,
+});
+
 function Inventory(props) {
   const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
@@ -226,7 +248,7 @@ function Inventory(props) {
   };
 
   if (!displayedVehicles) return null;
-
+  console.log(filters.type);
   return (
     <>
       <Head>
@@ -263,7 +285,13 @@ function Inventory(props) {
           <div className={`${styles.listing_wrap_shown}`}>
             {!displayedVehicles.length ? (
               <div className={`${styles.listing_list_error}`}>
-                <h2>{lang.noVehiclesFound}</h2>
+                {props.isOffline ? (
+                  <>
+                    <p>{lang.inventorySystemDown}</p>
+                  </>
+                ) : (
+                  <h2>{lang.noVehiclesFound}</h2>
+                )}
               </div>
             ) : (
               <div className={`${styles.listing_list}`}>
@@ -393,8 +421,20 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
+    console.error('Strapi connection failed:', error);
+
+    // Return fallback data instead of 404
+    const fallbackData = getFallbackData(locale);
+
     return {
-      notFound: true,
+      props: {
+        ...fallbackData,
+        seoData: {
+          ...fallbackData.pageData.seo,
+          languageUrls: route.getIndexLanguageUrls(locale),
+        },
+        locale,
+      },
     };
   }
 }

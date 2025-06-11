@@ -325,4 +325,6 @@ export default {
   readyToShipNow: 'Listo para enviar ahora',
   viewAllQuestions: 'Ver todas las preguntas',
   articles: 'Artículos',
+  inventorySystemDown:
+    'Nuestro sistema de inventario está inactivo por mantenimiento. Inténtelo de nuevo más tarde.',
 };

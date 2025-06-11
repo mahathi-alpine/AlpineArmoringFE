@@ -56,12 +56,13 @@
         gap: 50px;
         margin-top: -15px;
         max-width: 2050px;
+        min-height: 20vH;
       }
     }
 
     &_rental {
       @include breakpoint(large) {
-        max-width: 2200px;
+        max-width: 1657px;
       }
     }
   }
@@ -85,7 +86,7 @@
 
     &_error {
       text-align: center;
-      margin-top: rem(32);
+      margin: 90px 0 30px;
       font-weight: var(--font-medium);
       @include breakpoint(large) {
         flex: 1;
