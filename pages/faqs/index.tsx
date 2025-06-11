@@ -162,7 +162,7 @@ function KnowledgeBase(props) {
                 </Link>
 
                 <div className={styles.knowledgeBase_category_count}>
-                  {category.posts.length} Articles
+                  {category.posts.length} {lang.articles}
                 </div>
 
                 <ul className={styles.knowledgeBase_list}>
@@ -184,7 +184,7 @@ function KnowledgeBase(props) {
                   href={`${lang.faqsURL}/${category.attributes?.slug || ''}`}
                   className={styles.knowledgeBase_category_all}
                 >
-                  View All Questions
+                  {lang.viewAllQuestions}
                   <svg
                     width="16"
                     height="11"

@@ -320,4 +320,6 @@ export default {
   allFaqs: 'All FAQs',
   explore: 'Explore',
   readyToShipNow: 'Ready-to-ship now',
+  viewAllQuestions: 'View All Questions',
+  articles: 'Articles',
 };

@@ -118,7 +118,9 @@ function CategoryPage(props) {
           <h1 className={`${styles.categoryPage_title} c-title mt2`}>
             {lang.footerFaqsTitle}
             <strong>-{category.title}-</strong>
-            <small>({posts.length} articles)</small>
+            <small>
+              ({posts.length} {lang.articles.toLowerCase()})
+            </small>
           </h1>
 
           <div className={`b-breadcrumbs`}>

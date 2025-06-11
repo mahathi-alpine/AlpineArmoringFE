@@ -323,4 +323,6 @@ export default {
   allFaqs: 'Todas Preguntas Frecuentes',
   explore: 'explorar',
   readyToShipNow: 'Listo para enviar ahora',
+  viewAllQuestions: 'Ver todas las preguntas',
+  articles: 'Artículos',
 };
