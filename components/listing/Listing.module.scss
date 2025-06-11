@@ -103,7 +103,7 @@
     overflow: hidden;
     transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   &_content_overlay {
     position: absolute;
     bottom: 0;
@@ -115,7 +115,7 @@
     z-index: 1;
   }
 
-  &_more {    
+  &_more {
     display: block;
     margin: 20px auto 0;
     padding: 8px 16px;
@@ -124,16 +124,18 @@
     background: transparent;
     cursor: pointer;
     font-weight: var(--font-medium);
-    transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    transition:
+      color 0.2s ease-in-out,
+      border-color 0.2s ease-in-out;
     position: relative;
     z-index: 2;
-    
+
     &:hover {
       border-bottom-color: var(--color-primary);
       color: var(--color-primary);
     }
   }
-  &_bottomContent{
+  &_bottomContent {
     position: relative;
     margin-top: 20px;
   }
@@ -223,7 +225,7 @@
     }
   }
 
-  &_faqs{
+  &_faqs {
     margin: rem(80) 0;
 
     @include breakpoint(large) {
