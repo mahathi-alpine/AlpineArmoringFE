@@ -347,7 +347,7 @@ function Inventory(props) {
           {lang.loading}
         </div> */}
 
-        {bottomText && !bottomTextContent && (
+        {bottomText && bottomTextContent.dynamicZone.length == 0 && (
           <div className={`container_small`}>
             <div className={`${styles.listing_bottomText}`}>
               <CustomMarkdown>{bottomText}</CustomMarkdown>

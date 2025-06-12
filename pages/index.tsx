@@ -1,5 +1,4 @@
 import { getPageData } from 'hooks/api';
-// import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
@@ -11,6 +10,7 @@ import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/homepage/tab-section/TabSection';
 import News from 'components/global/news/News';
 import Partners from 'components/homepage/partners/Partners';
+// import dynamic from 'next/dynamic';
 // const VideosPopup = dynamic(
 //   () => import('components/global/videos-popup/VideosPopup')
 // );
@@ -19,31 +19,6 @@ function Home({ homepageData, categories }) {
   const { lang } = useLocale();
   const data = homepageData.data?.attributes;
 
-  // const getLocalBusinessStructuredData = () => {
-  //   const structuredData = {
-  //     '@context': 'https://schema.org',
-  //     '@type': 'LocalBusiness',
-  //     image:
-  //       'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fmedium_About_us_hompage_thumbnail_1_ea1c33f592.JPG&w=640&q=100',
-  //     url: 'https://www.alpineco.com',
-  //     logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
-  //     name: 'Alpine Armoring',
-  //     description:
-  //       'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
-  //     email: 'sales@alpineco.com',
-  //     telephone: '+1 703 471 0002',
-  //     address: {
-  //       '@type': 'PostalAddress',
-  //       streetAddress: '4170 Lafayette Center Drive #100',
-  //       addressLocality: 'Chantilly',
-  //       addressCountry: 'US',
-  //       addressRegion: 'Virginia',
-  //       postalCode: '20151',
-  //     },
-  //   };
-
-  //   return JSON.stringify(structuredData);
-  // };
   const getOrganizationStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -104,8 +79,9 @@ function Home({ homepageData, categories }) {
   const hpMiddleText = data?.hpMiddleText;
   const tabSectionData = data?.tabSection;
   const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
-  // const ballistingTestings = data?.ballistingTestingsMedia;
   const partners = data?.industryPartners;
+  // const ballistingTestings = data?.ballistingTestingsMedia;
+
   const news =
     data?.news?.data?.map((item) => ({
       ...item,
