@@ -1,5 +1,5 @@
 import '/styles/globals.scss';
-import LogRocket from 'logrocket';
+// import LogRocket from 'logrocket';
 import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -16,23 +16,23 @@ export default function App({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
-  useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      process.env.NODE_ENV === 'production'
-    ) {
-      const disableLogging =
-        localStorage.getItem('disable_logrocket') === 'true';
+  // useEffect(() => {
+  //   if (
+  //     typeof window !== 'undefined' &&
+  //     process.env.NODE_ENV === 'production'
+  //   ) {
+  //     const disableLogging =
+  //       localStorage.getItem('disable_logrocket') === 'true';
 
-      try {
-        if (!disableLogging) {
-          LogRocket.init('md2s86/alpine');
-        }
-      } catch (error) {
-        console.error('LogRocket initialization failed:', error);
-      }
-    }
-  }, []);
+  //     try {
+  //       if (!disableLogging) {
+  //         LogRocket.init('md2s86/alpine');
+  //       }
+  //     } catch (error) {
+  //       console.error('LogRocket initialization failed:', error);
+  //     }
+  //   }
+  // }, []);
 
   // Update language when route changes
   useEffect(() => {
