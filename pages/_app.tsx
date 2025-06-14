@@ -84,19 +84,22 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const handleRouteChange = (url) => {
-  //     if (url.includes('disponible-ahora')) {
-  //       window.location.href = url;
-  //       return;
-  //     }
-  //   };
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (
+        url === '/es/disponible-ahora' ||
+        url.startsWith('/es/disponible-ahora/tipo/')
+      ) {
+        window.location.href = url;
+        return;
+      }
+    };
 
-  //   router.events.on('routeChangeStart', handleRouteChange);
-  //   return () => {
-  //     router.events.off('routeChangeStart', handleRouteChange);
-  //   };
-  // }, [router]);
+    router.events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router]);
 
   useEffect(() => {
     document.documentElement.lang = currentLanguage || 'en-us';
