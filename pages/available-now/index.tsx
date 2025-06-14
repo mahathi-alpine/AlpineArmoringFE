@@ -62,21 +62,42 @@ const getFallbackData = (locale = 'en') => ({
 function Inventory(props) {
   const { lang } = useLocale();
   const {
-    pageData,
-    vehicles = { data: [] },
-    filters = {},
+    // pageData,
+    // vehicles = { data: [] },
+    // filters = {},
     searchQuery,
   } = props;
   const router = useRouter();
 
+  const [localeData, setLocaleData] = useState(props);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isLoadingLocale, setIsLoadingLocale] = useState(false);
   useEffect(() => {
-    console.log(props.locale);
-    console.log(router.locale);
-    if (props.locale && router.locale !== props.locale) {
-      console.log('1');
-      router.reload();
-    }
-  }, [router.locale, props.locale]);
+    const fetchLocaleData = async () => {
+      if (router.locale !== props.locale && router.isReady) {
+        setIsLoadingLocale(true);
+
+        try {
+          // Fetch new data for the current locale
+          const response = await fetch(
+            `/api/inventory-data?locale=${router.locale}`
+          );
+          const newData = await response.json();
+
+          setLocaleData(newData);
+        } catch (error) {
+          console.error('Failed to fetch locale data:', error);
+          // Fallback to page reload
+          router.reload();
+        } finally {
+          setIsLoadingLocale(false);
+        }
+      }
+    };
+
+    fetchLocaleData();
+  }, [router.locale, router.isReady, props.locale]);
+  const { pageData, vehicles, filters } = localeData;
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
