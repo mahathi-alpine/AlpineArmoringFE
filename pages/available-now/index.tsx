@@ -29,14 +29,9 @@ const getFallbackData = (locale = 'en') => ({
           : 'Vehículos blindados en venta por Alpine Armoring. Encuentre todoterrenos, camiones, furgonetas, autobuses y sedanes blindados con protección de alto nivel. Envío mundial disponible.',
     },
     banner: {
-      title:
-        locale === 'en'
-          ? 'Armored Vehicles for Sale'
-          : 'Vehículos Blindados en Venta',
+      title: 'Armored Vehicles for Sale',
       subtitle:
-        locale === 'en'
-          ? '(SUVs, Sedans, Vans, and Trucks) that are <b>completed and available for immediate shipping</b>'
-          : '(SUVs, Sedanes, Camionetas y Camiones) que están <b>completados y disponibles para envío inmediato</b>',
+        '(SUVs, Sedans, Vans, and Trucks) that are <b>completed and available for immediate shipping</b>',
       media: {
         data: {
           attributes: {
@@ -66,147 +61,40 @@ const getFallbackData = (locale = 'en') => ({
 
 function Inventory(props) {
   const { lang } = useLocale();
+  const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();
 
-  // State for managing locale-specific data
-  const [currentData, setCurrentData] = useState({
-    pageData: props.pageData,
-    vehicles: props.vehicles,
-    filters: props.filters,
-  });
-
-  const [isHydrated, setIsHydrated] = useState(false);
-  const [isRefetching, setIsRefetching] = useState(false);
-
-  // Set hydrated to true after component mounts
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
-
-  // Handle locale changes by refetching data ONLY when changing from build locale
-  useEffect(() => {
-    if (!router.isReady || !isHydrated) return;
-
-    // Only refetch if we're switching to a different locale than what was built
-    // AND we're not on the default locale (English)
-    if (props.locale !== router.locale && router.locale !== 'en') {
-      const fetchLocaleData = async () => {
-        setIsRefetching(true);
-        // Set global loading state
-        if (typeof window !== 'undefined' && window.setInventoryLoading) {
-          window.setInventoryLoading(true);
-        }
-        try {
-          const route = routes.inventory;
-
-          // Fetch page data for new locale
-          let pageData = await getPageData({
-            route: route.collection,
-            locale: router.locale,
-          });
-          pageData =
-            pageData.data?.attributes ||
-            getFallbackData(router.locale).pageData;
-
-          // Fetch vehicles for new locale
-          const vehicles = await getPageData({
-            route: route.collectionSingle,
-            params: '',
-            sort: 'order',
-            populate: 'featuredImage',
-            fields:
-              'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-            pageSize: 100,
-            locale: router.locale,
-          });
-
-          // Get filter data for new locale
-          const type = await getPageData({
-            route: 'categories',
-            custom:
-              "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
-            locale: router.locale,
-          }).then((response) => response.data);
-
-          const filters = type ? { type } : {};
-
-          // Update state with new data
-          setCurrentData({
-            pageData,
-            vehicles,
-            filters,
-          });
-        } catch (error) {
-          console.error('Error fetching locale data:', error);
-          // Use fallback data if fetch fails
-          const fallbackData = getFallbackData(router.locale);
-          setCurrentData({
-            pageData: fallbackData.pageData,
-            vehicles: fallbackData.vehicles,
-            filters: fallbackData.filters,
-          });
-        } finally {
-          setIsRefetching(false);
-          // Clear global loading state
-          if (typeof window !== 'undefined' && window.setInventoryLoading) {
-            window.setInventoryLoading(false);
-          }
-        }
-      };
-
-      fetchLocaleData();
-    } else {
-      // Use props data if locale matches or if we're on English
-      setCurrentData({
-        pageData: props.pageData,
-        vehicles: props.vehicles,
-        filters: props.filters,
-      });
-    }
-  }, [router.locale, router.isReady, isHydrated, props.locale]);
-
-  const { pageData, vehicles, filters } = currentData;
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
   const bottomTextContent = {
     dynamicZone: pageData?.bottomTextDynamic || [],
   };
-
-  const faqs = pageData?.faqs || [];
+  const faqs = pageData?.faqs;
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  // Ensure vehicles data exists and has the expected structure
-  const vehiclesData = vehicles?.data || [];
-  const [allVehicles, setAllVehicles] = useState(vehiclesData);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehiclesData);
+  const [allVehicles] = useState(vehicles.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
-    props.searchQuery ? vehiclesData : vehiclesData.slice(0, ITEMS_TO_DISPLAY)
+    searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
-
-  // Update vehicles when data changes
-  useEffect(() => {
-    const newVehiclesData = vehicles?.data || [];
-    setAllVehicles(newVehiclesData);
-    setFilteredVehicles(newVehiclesData);
-    setDisplayedVehicles(newVehiclesData.slice(0, ITEMS_TO_DISPLAY));
-    setVisibleCount(ITEMS_TO_DISPLAY);
-  }, [vehicles]);
+  // const [loading, setLoading] = useState(false);
 
   // Handle client-side filtering for search and category filters
   useEffect(() => {
-    if (!router.isReady || !isHydrated) return;
+    if (!router.isReady) return;
 
-    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes?.hide);
+    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
 
     // Apply search filter
     if (q && typeof q === 'string') {
       const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
       filtered = filtered.filter((vehicle) => {
-        const slug =
-          vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
+        const slug = vehicle.attributes.slug
+          .toLowerCase()
+          .replace(/[-\s]/g, '');
         return slug.includes(searchTerms);
       });
     }
@@ -220,8 +108,9 @@ function Inventory(props) {
       if (typeof categorySlug === 'string') {
         const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
         filtered = filtered.filter((vehicle) => {
-          const slug =
-            vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
+          const slug = vehicle.attributes.slug
+            .toLowerCase()
+            .replace(/[-\s]/g, '');
           return slug.includes(searchTerms);
         });
       }
@@ -244,17 +133,19 @@ function Inventory(props) {
     vehiculos_que_blindamos,
     router.isReady,
     allVehicles,
-    isHydrated,
   ]);
 
   // Handle infinite scroll
   const handleIntersection = useCallback(async () => {
-    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
+    // if (loading) return;
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) return; // No infinite scroll for filtered results
 
     const nextBatchStart = displayedVehicles.length;
     const remainingItems = filteredVehicles.length - nextBatchStart;
 
     if (remainingItems > 0) {
+      // setLoading(true);
+
       const itemsToAdd = Math.min(remainingItems, ITEMS_TO_DISPLAY);
       const nextBatch = filteredVehicles.slice(
         nextBatchStart,
@@ -263,6 +154,7 @@ function Inventory(props) {
 
       setDisplayedVehicles((prev) => [...prev, ...nextBatch]);
       setVisibleCount((prev) => prev + itemsToAdd);
+      // setLoading(false);
     }
   }, [
     filteredVehicles,
@@ -274,8 +166,7 @@ function Inventory(props) {
 
   // Intersection observer
   useEffect(() => {
-    if (!isHydrated || q || vehicles_we_armor || vehiculos_que_blindamos)
-      return;
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -298,13 +189,7 @@ function Inventory(props) {
     if (target) observer.observe(target);
 
     return () => observer.disconnect();
-  }, [
-    handleIntersection,
-    q,
-    vehicles_we_armor,
-    vehiculos_que_blindamos,
-    isHydrated,
-  ]);
+  }, [handleIntersection, q, vehicles_we_armor, vehiculos_que_blindamos]);
 
   const [isContentExpanded, setIsContentExpanded] = useState(false);
   const contentRef = useRef(null);
@@ -337,6 +222,7 @@ function Inventory(props) {
   // FAQ structured data
   const getFAQStructuredData = () => {
     if (!faqs || !Array.isArray(faqs)) {
+      console.error('FAQs is not an array:', faqs);
       return null;
     }
 
@@ -364,16 +250,6 @@ function Inventory(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  // Only show minimal loading during hydration - no full loader
-  if (!isHydrated) {
-    return null; // Or return a very minimal placeholder
-  }
-
-  // Don't render anything if we're refetching - let the app-level loader handle it
-  if (isRefetching) {
-    return null;
-  }
 
   if (!displayedVehicles) return null;
 
@@ -439,6 +315,13 @@ function Inventory(props) {
         {!q && !vehicles_we_armor && !vehiculos_que_blindamos && (
           <div className={`observe bottomObserver`}></div>
         )}
+
+        {/* <div
+          className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
+          style={{ opacity: 0 }}
+        >
+          {lang.loading}
+        </div> */}
 
         {bottomText && bottomTextContent.dynamicZone.length == 0 && (
           <div className={`container_small`}>
