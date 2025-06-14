@@ -84,26 +84,19 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      if (url.includes('disponible-ahora')) {
-        window.location.href = url;
-        return;
-        // const currentLocale = router.locale;
-        // const targetLocale = url.startsWith('/es') ? 'es' : 'en';
+  // useEffect(() => {
+  //   const handleRouteChange = (url) => {
+  //     if (url.includes('disponible-ahora')) {
+  //       window.location.href = url;
+  //       return;
+  //     }
+  //   };
 
-        // if (currentLocale !== targetLocale) {
-        //   window.location.href = url;
-        //   return;
-        // }
-      }
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router]);
+  //   router.events.on('routeChangeStart', handleRouteChange);
+  //   return () => {
+  //     router.events.off('routeChangeStart', handleRouteChange);
+  //   };
+  // }, [router]);
 
   useEffect(() => {
     document.documentElement.lang = currentLanguage || 'en-us';

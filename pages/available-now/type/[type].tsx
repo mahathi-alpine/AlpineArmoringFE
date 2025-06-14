@@ -129,7 +129,7 @@ function Inventory(props) {
   const topBanner = currentCategory?.attributes.inventoryBanner;
   const bottomText = currentCategory?.attributes.bottomTextInventory;
   let faqs = currentCategory?.attributes.faqs_stock;
-  faqs = faqs?.length == 0 ? props.pageData?.faqs : faqs;
+  faqs = faqs?.length == 0 ? props?.pageData?.faqs : faqs;
 
   const categoryTitle = currentCategory?.attributes.title;
   const categorySlug = currentCategory?.attributes.slug;
@@ -138,17 +138,19 @@ function Inventory(props) {
   const currentPath = router.asPath;
 
   // Static data - all vehicles for this category are pre-loaded
-  const [allVehicles, setAllVehicles] = useState(props.vehicles.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(props.vehicles.data);
+  const [allVehicles, setAllVehicles] = useState(props?.vehicles?.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(
+    props?.vehicles?.data
+  );
   const [itemsToRender, setItemsToRender] = useState(6);
   // const [loading, setLoading] = useState(false);
 
   // Update vehicles when props change (category switch)
   useEffect(() => {
-    setAllVehicles(props.vehicles.data);
-    setFilteredVehicles(props.vehicles.data);
+    setAllVehicles(props?.vehicles?.data);
+    setFilteredVehicles(props?.vehicles?.data);
     setItemsToRender(6); // Reset pagination
-  }, [props.vehicles.data]);
+  }, [props?.vehicles?.data]);
 
   // Handle client-side search filtering
   useEffect(() => {
