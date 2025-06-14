@@ -14,7 +14,6 @@ import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
 
-const ITEMS_PER_PAGE = 16;
 const ITEMS_TO_DISPLAY = 6;
 
 const getFallbackData = (locale = 'en') => ({
@@ -61,6 +60,7 @@ const getFallbackData = (locale = 'en') => ({
 });
 
 function Inventory(props) {
+  console.log(props);
   const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();
@@ -73,127 +73,101 @@ function Inventory(props) {
   const faqs = pageData?.faqs;
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
-  const [allFetchedVehicles, setAllFetchedVehicles] = useState(vehicles.data);
+
+  const [allVehicles] = useState(vehicles.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
     searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  // const [loading, setLoading] = useState(false);
 
-  const totalItems = vehicles.meta.pagination.total;
-
-  const fetchMoreFromStrapi = async () => {
-    const route = routes.inventory;
-    const locale = router.locale || 'en';
-
-    try {
-      setLoading(true);
-      const nextPage = currentPage + 1;
-
-      const query =
-        vehicles_we_armor || vehiculos_que_blindamos
-          ? `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor || vehiculos_que_blindamos}`
-          : '';
-
-      const newVehicles = await getPageData({
-        route: route.collectionSingle,
-        params:
-          query +
-          `&pagination[page]=${nextPage}&pagination[pageSize]=${ITEMS_PER_PAGE}`,
-        sort: 'order',
-        populate: 'featuredImage',
-        fields:
-          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-        locale,
-      });
-
-      const updatedVehicles = [...allFetchedVehicles, ...newVehicles.data];
-      setAllFetchedVehicles(updatedVehicles);
-      setCurrentPage(nextPage);
-
-      const newHasMore = updatedVehicles.length < totalItems;
-      setHasMore(newHasMore);
-
-      if (!newHasMore) {
-        const visibleVehicles = updatedVehicles.filter(
-          (vehicle) => !vehicle.attributes.hide
-        );
-        const remainingToDisplay =
-          visibleVehicles.length - displayedVehicles.length;
-        if (remainingToDisplay > 0) {
-          setVisibleCount(visibleVehicles.length);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching more vehicles:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleIntersection = useCallback(async () => {
-    if (loading) return;
-
-    const visibleVehicles = allFetchedVehicles.filter(
-      (vehicle) => !vehicle.attributes.hide
-    );
-    const nextBatchStart = displayedVehicles.length;
-    const remainingItems = visibleVehicles.length - nextBatchStart;
-
-    if (remainingItems > 0) {
-      if (remainingItems <= ITEMS_TO_DISPLAY) {
-        setVisibleCount((prevCount) => prevCount + remainingItems);
-      } else {
-        setVisibleCount((prevCount) => prevCount + ITEMS_TO_DISPLAY);
-      }
-
-      if (hasMore && allFetchedVehicles.length < totalItems) {
-        await fetchMoreFromStrapi();
-      }
-    }
-  }, [
-    loading,
-    allFetchedVehicles,
-    displayedVehicles.length,
-    hasMore,
-    totalItems,
-  ]);
-
-  // Reset state when search query or filter changes
+  // Handle client-side filtering for search and category filters
   useEffect(() => {
-    if (searchQuery) {
-      setDisplayedVehicles(vehicles.data);
+    if (!router.isReady) return;
+
+    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
+
+    // Apply search filter
+    if (q && typeof q === 'string') {
+      const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
+      filtered = filtered.filter((vehicle) => {
+        const slug = vehicle.attributes.slug
+          .toLowerCase()
+          .replace(/[-\s]/g, '');
+        return slug.includes(searchTerms);
+      });
+    }
+
+    // Apply vehicles_we_armor filter
+    if (
+      (vehicles_we_armor && typeof vehicles_we_armor === 'string') ||
+      (vehiculos_que_blindamos && typeof vehiculos_que_blindamos === 'string')
+    ) {
+      const categorySlug = vehicles_we_armor || vehiculos_que_blindamos;
+      if (typeof categorySlug === 'string') {
+        const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
+        filtered = filtered.filter((vehicle) => {
+          const slug = vehicle.attributes.slug
+            .toLowerCase()
+            .replace(/[-\s]/g, '');
+          return slug.includes(searchTerms);
+        });
+      }
+    }
+
+    setFilteredVehicles(filtered);
+
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) {
+      // Show all results for search/filter
+      setDisplayedVehicles(filtered);
+      setVisibleCount(filtered.length);
     } else {
-      setAllFetchedVehicles(vehicles.data);
-      setDisplayedVehicles(vehicles.data.slice(0, ITEMS_TO_DISPLAY));
+      // Reset to initial display for main page
+      setDisplayedVehicles(filtered.slice(0, ITEMS_TO_DISPLAY));
       setVisibleCount(ITEMS_TO_DISPLAY);
-      setCurrentPage(1);
-      setHasMore(true);
     }
   }, [
     q,
     vehicles_we_armor,
     vehiculos_que_blindamos,
-    vehicles.data,
-    searchQuery,
+    router.isReady,
+    allVehicles,
   ]);
 
-  // Update displayed vehicles when not in search mode
-  useEffect(() => {
-    if (!searchQuery) {
-      const visibleVehicles = allFetchedVehicles.filter(
-        (vehicle) => !vehicle.attributes.hide
-      );
-      const nextBatch = visibleVehicles.slice(0, visibleCount);
-      setDisplayedVehicles(nextBatch);
-    }
-  }, [allFetchedVehicles, visibleCount, searchQuery]);
+  // Handle infinite scroll
+  const handleIntersection = useCallback(async () => {
+    // if (loading) return;
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) return; // No infinite scroll for filtered results
 
-  // Set up intersection observer
+    const nextBatchStart = displayedVehicles.length;
+    const remainingItems = filteredVehicles.length - nextBatchStart;
+
+    if (remainingItems > 0) {
+      // setLoading(true);
+
+      const itemsToAdd = Math.min(remainingItems, ITEMS_TO_DISPLAY);
+      const nextBatch = filteredVehicles.slice(
+        nextBatchStart,
+        nextBatchStart + itemsToAdd
+      );
+
+      setDisplayedVehicles((prev) => [...prev, ...nextBatch]);
+      setVisibleCount((prev) => prev + itemsToAdd);
+      // setLoading(false);
+    }
+  }, [
+    filteredVehicles,
+    displayedVehicles.length,
+    q,
+    vehicles_we_armor,
+    vehiculos_que_blindamos,
+  ]);
+
+  // Intersection observer
   useEffect(() => {
-    if (searchQuery) return;
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -216,7 +190,7 @@ function Inventory(props) {
     if (target) observer.observe(target);
 
     return () => observer.disconnect();
-  }, [handleIntersection, searchQuery]);
+  }, [handleIntersection, q, vehicles_we_armor, vehiculos_que_blindamos]);
 
   const [isContentExpanded, setIsContentExpanded] = useState(false);
   const contentRef = useRef(null);
@@ -338,11 +312,14 @@ function Inventory(props) {
           </div>
         </div>
 
-        <div className={`observe bottomObserver`}></div>
+        {/* Only show intersection observer for infinite scroll when not filtering */}
+        {!q && !vehicles_we_armor && !vehiculos_que_blindamos && (
+          <div className={`observe bottomObserver`}></div>
+        )}
 
         {/* <div
           className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-          style={{ opacity: loading ? 1 : 0 }}
+          style={{ opacity: 0 }}
         >
           {lang.loading}
         </div> */}
@@ -394,16 +371,7 @@ function Inventory(props) {
   );
 }
 
-// export const config = {
-//   unstable_runtimeJS: false,
-// };
-
-export async function getServerSideProps(context) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
-  );
-
+export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const route = routes.inventory;
 
@@ -414,46 +382,19 @@ export async function getServerSideProps(context) {
     });
     pageData = pageData.data?.attributes || null;
 
-    const { vehicles_we_armor, q, vehiculos_que_blindamos } = context.query;
-    let query = '';
-    let pageSize = 16;
-    let searchQuery = null;
-
-    if (vehicles_we_armor || vehiculos_que_blindamos) {
-      query += `filters[vehicles_we_armor][slug][$eq]=${vehicles_we_armor || vehiculos_que_blindamos}`;
-    }
-    if (q) {
-      query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
-      pageSize = 100;
-      searchQuery = true;
-    }
-
+    // Fetch ALL vehicles at build time
     const vehicles = await getPageData({
       route: route.collectionSingle,
-      params: query,
+      params: '',
       sort: 'order',
       populate: 'featuredImage',
       fields:
         'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-      pageSize: pageSize,
+      pageSize: 100,
       locale,
     });
 
-    const filteredVehicles = {
-      ...vehicles,
-      data: vehicles.data.filter((vehicle) => {
-        if (vehicle.attributes.hide === true) return false;
-        if (!q) return true;
-
-        const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
-        const slug = vehicle.attributes.slug
-          .toLowerCase()
-          .replace(/[-\s]/g, '');
-
-        return slug.includes(searchTerms);
-      }),
-    };
-
+    // Get filter data
     const type = await getPageData({
       route: 'categories',
       custom:
@@ -471,12 +412,13 @@ export async function getServerSideProps(context) {
     return {
       props: {
         pageData,
-        vehicles: filteredVehicles,
+        vehicles,
         filters,
         seoData,
-        searchQuery,
+        searchQuery: null,
         locale,
       },
+      revalidate: 21600, // Revalidate every 6 hours
     };
   } catch (error) {
     console.error('Strapi connection failed:', error);
@@ -493,6 +435,8 @@ export async function getServerSideProps(context) {
         },
         locale,
       },
+      // Still revalidate even with fallback data
+      revalidate: 21600,
     };
   }
 }

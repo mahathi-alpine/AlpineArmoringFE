@@ -64,7 +64,6 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
       'armored-specialty-vehicles': 'Armored Specialty Vehicles for Sale',
     };
 
-    // Return specific title if found, otherwise generate generic one
     return typeMap[categorySlug] || `Armored ${categoryTitle} for Sale`;
   };
 
@@ -131,44 +130,85 @@ function Inventory(props) {
   const bottomText = currentCategory?.attributes.bottomTextInventory;
   let faqs = currentCategory?.attributes.faqs_stock;
   faqs = faqs.length == 0 ? props.pageData.faqs : faqs;
-  console.log(faqs);
 
   const categoryTitle = currentCategory?.attributes.title;
   const categorySlug = currentCategory?.attributes.slug;
 
   const router = useRouter();
   const currentPath = router.asPath;
-  const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
+
+  // Static data - all vehicles for this category are pre-loaded
+  const [allVehicles, setAllVehicles] = useState(props.vehicles.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
   // const [loading, setLoading] = useState(false);
 
+  // Update vehicles when props change (category switch)
   useEffect(() => {
-    setVehiclesData(props.vehicles.data);
-  }, [router.query, props.vehicles.data]);
+    setAllVehicles(props.vehicles.data);
+    setFilteredVehicles(props.vehicles.data);
+    setItemsToRender(6); // Reset pagination
+  }, [props.vehicles.data]);
+
+  // Handle client-side search filtering
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const { q: searchQuery } = router.query;
+    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
+
+    // Apply search filter if present
+    if (searchQuery && typeof searchQuery === 'string') {
+      const searchTerms = searchQuery.toLowerCase().replace(/[-\s]/g, '');
+      filtered = filtered.filter((vehicle) => {
+        const slug = vehicle.attributes.slug
+          .toLowerCase()
+          .replace(/[-\s]/g, '');
+        return slug.includes(searchTerms);
+      });
+    }
+
+    setFilteredVehicles(filtered);
+
+    // Reset pagination when search changes
+    if (searchQuery) {
+      setItemsToRender(filtered.length); // Show all search results
+    } else {
+      setItemsToRender(6); // Reset to initial amount
+    }
+  }, [router.query.q, router.isReady, allVehicles]);
 
   const fetchMoreItems = useCallback(() => {
-    if (itemsToRender < vehiclesData?.length) {
+    if (itemsToRender < (filteredVehicles?.length || 0)) {
       // setLoading(true);
-      setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
+      setItemsToRender((prevItemsToRender) =>
+        Math.min(prevItemsToRender + 6, filteredVehicles?.length || 0)
+      );
       // setLoading(false);
     }
-  }, [itemsToRender, vehiclesData]);
+  }, [itemsToRender, filteredVehicles]);
 
   useEffect(() => {
     const targets = document.querySelectorAll('.observe');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.toggle('in-view', entry.isIntersecting);
-          observer.unobserve(entry.target);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            observer.unobserve(entry.target);
 
-          if (entry.target.classList.contains('bottomObserver')) {
-            fetchMoreItems();
+            if (entry.target.classList.contains('bottomObserver')) {
+              fetchMoreItems();
+            }
           }
-        }
-      });
-    });
+        });
+      },
+      {
+        rootMargin: '0px 0px 20%',
+        threshold: 0,
+      }
+    );
 
     targets.forEach((item) => observer.observe(item));
 
@@ -238,6 +278,9 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
+  // Get vehicles to display based on current pagination
+  const vehiclesToDisplay = filteredVehicles.slice(0, itemsToRender);
+
   return (
     <>
       <Head>
@@ -296,16 +339,16 @@ function Inventory(props) {
         >
           {!currentPath.includes(lang.armoredRentalURL) &&
           props.filters?.type.length > 0 &&
-          vehiclesData.length > 0 ? (
+          filteredVehicles.length > 0 ? (
             <div className={`${styles.listing_wrap_filtered}`}>
               <Filters props={props.filters} />
             </div>
           ) : null}
 
           <div className={`${styles.listing_wrap_shown}`}>
-            {vehiclesData && vehiclesData.length > 0 ? (
+            {vehiclesToDisplay && vehiclesToDisplay.length > 0 ? (
               <div className={`${styles.listing_list}`}>
-                {vehiclesData.reduce((acc, item, index) => {
+                {vehiclesToDisplay.reduce((acc, item, index) => {
                   if (item.attributes.ownPage !== false) {
                     acc[index] = (
                       <InventoryItem key={item.id} props={item} index={index} />
@@ -328,7 +371,10 @@ function Inventory(props) {
           </div>
         </div>
 
-        <div className={`observe bottomObserver`}></div>
+        {/* Only show intersection observer if there are more items to load */}
+        {itemsToRender < filteredVehicles.length && (
+          <div className={`observe bottomObserver`}></div>
+        )}
 
         {bottomText ? (
           <div className={`container_small`}>
@@ -357,12 +403,8 @@ function Inventory(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
-  );
-
+// Convert to static generation with ISR
+export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const lang = getLocaleStrings(locale);
   const route = routes.inventory;
@@ -376,19 +418,13 @@ export async function getServerSideProps(context) {
     });
     pageData = pageData.data?.attributes || null;
 
-    const englishType = context.query.type;
+    const englishType = context.params.type;
     const localizedType = route.getLocalizedType(englishType, locale);
 
-    // const category = context.query.type;
-    let query = `filters[categories][slug][$eq]=${localizedType}`;
-    const q = context.query.q;
-    if (q) {
-      query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
-    }
-
+    // Fetch vehicles for this specific category
     const vehicles = await getPageData({
       route: route.collectionSingle,
-      params: query,
+      params: `filters[categories][slug][$eq]=${localizedType}`,
       sort: 'order',
       populate: 'featuredImage',
       fields:
@@ -401,20 +437,12 @@ export async function getServerSideProps(context) {
       throw new Error('Invalid vehicles data received from Strapi');
     }
 
+    // Filter out hidden vehicles at build time
     const filteredVehicles = {
       ...vehicles,
       data:
-        vehicles.data?.filter((vehicle) => {
-          if (vehicle.attributes.hide === true) return false;
-          if (!q) return true;
-
-          const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
-          const slug = vehicle.attributes.slug
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
-
-          return slug.includes(searchTerms);
-        }) || [],
+        vehicles.data?.filter((vehicle) => vehicle.attributes.hide !== true) ||
+        [],
     };
 
     // Fetching Types for the Filters
@@ -427,7 +455,7 @@ export async function getServerSideProps(context) {
     const filters = type ? { type } : {};
 
     let seoData = filters.type?.find(
-      (item) => item.attributes.slug === context.query.type
+      (item) => item.attributes.slug === context.params.type
     );
 
     // All languages urls
@@ -435,7 +463,7 @@ export async function getServerSideProps(context) {
     let correctSpanishType;
 
     if (locale === 'en') {
-      correctEnglishType = context.query.type;
+      correctEnglishType = context.params.type;
       correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
     } else {
       const types = route.types || {};
@@ -445,7 +473,7 @@ export async function getServerSideProps(context) {
           translations &&
           typeof translations === 'object' &&
           'es' in translations &&
-          translations.es === context.query.type
+          translations.es === context.params.type
         ) {
           correctEnglishType = engType;
           break;
@@ -456,7 +484,7 @@ export async function getServerSideProps(context) {
         correctEnglishType = englishType;
       }
 
-      correctSpanishType = context.query.type;
+      correctSpanishType = context.params.type;
     }
 
     const languageUrls = {
@@ -471,15 +499,15 @@ export async function getServerSideProps(context) {
 
     if (seoData) {
       // Modify meta title
-      seoData.metaTitle = `${seoData.metaTitle}${context.query.type !== lang.armoredRentalURL && context.query.type !== lang.preOwnedURL ? ` ${lang.forSale}` : ''} | Alpine Armoring`;
+      seoData.metaTitle = `${seoData.metaTitle}${context.params.type !== lang.armoredRentalURL && context.params.type !== lang.preOwnedURL ? ` ${lang.forSale}` : ''} | Alpine Armoring`;
 
       // Modify meta description only when not armored-rental
       if (
-        context.query.type &&
-        context.query.type !== lang.armoredRentalURL &&
-        context.query.type !== lang.preOwnedURL
+        context.params.type &&
+        context.params.type !== lang.armoredRentalURL &&
+        context.params.type !== lang.preOwnedURL
       ) {
-        const vehicleTypeRaw = context.query.type
+        const vehicleTypeRaw = context.params.type
           .split('-')
           .slice(1) // Remove the 'armored' part
           .map(
@@ -519,16 +547,17 @@ export async function getServerSideProps(context) {
         pageData,
         vehicles: filteredVehicles,
         filters,
-        query: context.query.type,
+        query: context.params.type,
         seoData,
         locale,
       },
+      revalidate: 21600, // Revalidate every 6 hours
     };
   } catch (error) {
     console.error('Strapi connection failed:', error);
 
     // Return fallback data instead of crashing
-    const fallbackData = getFallbackData(locale, context.query.type || '');
+    const fallbackData = getFallbackData(locale, context.params.type || '');
 
     if (!fallbackData) {
       return { notFound: true };
@@ -539,8 +568,55 @@ export async function getServerSideProps(context) {
         ...fallbackData,
         locale,
       },
+      revalidate: 21600, // Still revalidate even with fallback data
     };
   }
+}
+
+// Generate static paths for all category pages
+export async function getStaticPaths() {
+  const locales = ['en', 'es'];
+  const paths = [];
+
+  const categorySlugs = {
+    en: [
+      'special-of-the-month',
+      'armored-suvs',
+      'armored-sedans',
+      'armored-pickup-trucks',
+      'armored-law-enforcement',
+      'armored-specialty-vehicles',
+      'armored-pre-owned',
+      'armored-rental',
+    ],
+    es: [
+      'especial-del-mes',
+      'suvs-blindados',
+      'sedanes-blindados',
+      'camionetas-blindadas',
+      'fuerzas-del-orden-blindadas',
+      'vehiculos-blindados-especiales',
+      'blindados-pre-usados',
+      'alquiler-blindados',
+    ],
+  };
+
+  // Generate paths for each locale and category
+  for (const locale of locales) {
+    const slugs = categorySlugs[locale] || [];
+    for (const slug of slugs) {
+      paths.push({
+        params: { type: slug },
+        locale,
+      });
+    }
+  }
+
+  return {
+    paths,
+    // Enable ISR for new categories that might be added
+    fallback: 'blocking',
+  };
 }
 
 export default Inventory;
