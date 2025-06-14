@@ -15,14 +15,6 @@ export default function App({ Component, pageProps }) {
   const [currentSeoData, setCurrentSeoData] = useState(pageProps.seoData);
   const [isLoading, setIsLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
-  const [isInventoryRefetching, setIsInventoryRefetching] = useState(false);
-
-  // Create a function to expose inventory loading state
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.setInventoryLoading = setIsInventoryRefetching;
-    }
-  }, []);
 
   // useEffect(() => {
   //   if (
@@ -114,7 +106,7 @@ export default function App({ Component, pageProps }) {
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
       )} */}
       <Layout seoData={currentSeoData}>
-        {isLoading || isInventoryRefetching ? <Loader /> : null}
+        {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
         <CookieConsent />
       </Layout>

@@ -69,6 +69,15 @@ function Inventory(props) {
   } = props;
   const router = useRouter();
 
+  useEffect(() => {
+    console.log(props.locale);
+    console.log(router.locale);
+    if (props.locale && router.locale !== props.locale) {
+      console.log('1');
+      router.reload();
+    }
+  }, [router.locale, props.locale]);
+
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
   const bottomTextContent = {
