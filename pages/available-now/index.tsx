@@ -61,43 +61,57 @@ const getFallbackData = (locale = 'en') => ({
 
 function Inventory(props) {
   const { lang } = useLocale();
-  const {
-    // pageData,
-    // vehicles = { data: [] },
-    // filters = {},
-    searchQuery,
-  } = props;
+  // const {
+  //   pageData,
+  //   vehicles = { data: [] },
+  //   filters = {},
+  //   searchQuery,
+  // } = props;
   const router = useRouter();
 
   const [localeData, setLocaleData] = useState(props);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoadingLocale, setIsLoadingLocale] = useState(false);
+
+  // Only fetch new data if we switched languages client-side
+  // and the props don't match the current locale
   useEffect(() => {
-    const fetchLocaleData = async () => {
-      if (router.locale !== props.locale && router.isReady) {
+    const needsLocaleUpdate =
+      router.isReady &&
+      router.locale &&
+      props.locale &&
+      router.locale !== props.locale;
+
+    if (needsLocaleUpdate) {
+      const fetchLocaleData = async () => {
         setIsLoadingLocale(true);
 
         try {
-          // Fetch new data for the current locale
           const response = await fetch(
             `/api/inventory-data?locale=${router.locale}`
           );
-          const newData = await response.json();
+          if (!response.ok) throw new Error('Failed to fetch');
 
+          const newData = await response.json();
           setLocaleData(newData);
         } catch (error) {
           console.error('Failed to fetch locale data:', error);
-          // Fallback to page reload
-          router.reload();
+          // Fallback to page reload on error
+          window.location.reload();
         } finally {
           setIsLoadingLocale(false);
         }
-      }
-    };
+      };
 
-    fetchLocaleData();
-  }, [router.locale, router.isReady, props.locale]);
-  const { pageData, vehicles, filters } = localeData;
+      fetchLocaleData();
+    } else {
+      // Use the static props as-is (for direct navigation or initial load)
+      setLocaleData(props);
+    }
+  }, [router.locale, router.isReady, props.locale, props]);
+
+  // Use localeData instead of props directly
+  const { pageData, vehicles, filters, searchQuery } = localeData;
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -239,6 +253,14 @@ function Inventory(props) {
 
   if (!router.isReady || !lang) {
     return <div>Loading...</div>;
+  }
+
+  if (isLoadingLocale) {
+    return (
+      <div className="loading-container">
+        <p>Loading...</p>
+      </div>
+    );
   }
 
   const getBreadcrumbStructuredData = () => {
