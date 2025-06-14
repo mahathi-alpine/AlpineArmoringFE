@@ -60,3 +60,8 @@ export interface NavigationProps {
 //   url: string,
 //   objectID: string
 // }
+declare global {
+  interface Window {
+    setInventoryLoading?: (loading: boolean) => void;
+  }
+}

@@ -75,22 +75,27 @@ function Inventory(props) {
     filters: props.filters,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [isRefetching, setIsRefetching] = useState(false);
 
   // Set hydrated to true after component mounts
   useEffect(() => {
     setIsHydrated(true);
   }, []);
 
-  // Handle locale changes by refetching data
+  // Handle locale changes by refetching data ONLY when changing from build locale
   useEffect(() => {
     if (!router.isReady || !isHydrated) return;
 
-    // If we're on a different locale than what the props were built for
-    if (props.locale !== router.locale) {
+    // Only refetch if we're switching to a different locale than what was built
+    // AND we're not on the default locale (English)
+    if (props.locale !== router.locale && router.locale !== 'en') {
       const fetchLocaleData = async () => {
-        setIsLoading(true);
+        setIsRefetching(true);
+        // Set global loading state
+        if (typeof window !== 'undefined' && window.setInventoryLoading) {
+          window.setInventoryLoading(true);
+        }
         try {
           const route = routes.inventory;
 
@@ -141,13 +146,17 @@ function Inventory(props) {
             filters: fallbackData.filters,
           });
         } finally {
-          setIsLoading(false);
+          setIsRefetching(false);
+          // Clear global loading state
+          if (typeof window !== 'undefined' && window.setInventoryLoading) {
+            window.setInventoryLoading(false);
+          }
         }
       };
 
       fetchLocaleData();
     } else {
-      // Use props data if locale matches
+      // Use props data if locale matches or if we're on English
       setCurrentData({
         pageData: props.pageData,
         vehicles: props.vehicles,
@@ -356,17 +365,14 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
-  // Show loading state during hydration or data fetch
-  if (!isHydrated || isLoading) {
-    return (
-      <div className={`${styles.listing} background-dark`}>
-        <div className="container">
-          <div style={{ padding: '2rem', textAlign: 'center' }}>
-            {isLoading ? 'Loading...' : 'Initializing...'}
-          </div>
-        </div>
-      </div>
-    );
+  // Only show minimal loading during hydration - no full loader
+  if (!isHydrated) {
+    return null; // Or return a very minimal placeholder
+  }
+
+  // Don't render anything if we're refetching - let the app-level loader handle it
+  if (isRefetching) {
+    return null;
   }
 
   if (!displayedVehicles) return null;
