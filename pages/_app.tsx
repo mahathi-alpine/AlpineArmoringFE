@@ -85,6 +85,26 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url.includes('disponible-ahora')) {
+        console.log('test');
+        const currentLocale = router.locale;
+        const targetLocale = url.startsWith('/es') ? 'es' : 'en';
+
+        if (currentLocale !== targetLocale) {
+          window.location.href = url;
+          return;
+        }
+      }
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router]);
+
+  useEffect(() => {
     document.documentElement.lang = currentLanguage || 'en-us';
 
     const bodyElement = document.body;
