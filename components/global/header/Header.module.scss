@@ -73,6 +73,10 @@
     backdrop-filter: none;
   }
 
+  &_navOpen {
+    background: transparent !important;
+  }
+
   &_navOpen,
   &_searchOpen {
     @include breakpoint('medium') {

@@ -241,7 +241,7 @@
         grid-auto-flow: column;
         align-items: center;
         gap: 8px;
-        font-weight: var(--font-medium);
+        // font-weight: var(--font-medium);
         transition:
           color 0.3s ease,
           transform 0.3s ease;
@@ -255,7 +255,7 @@
           }
         }
 
-        &:hover {
+        &:hover:not(div) {
           color: var(--color-primary);
           transform: translateY(-3px);
 

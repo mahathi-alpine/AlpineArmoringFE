@@ -82,9 +82,9 @@ const Footer = (props) => {
               </p>
             </div>
 
-            {['/about-us', '/available-now', '/locations-we-serve'].includes(
-              router.pathname
-            ) && (
+            {(['/about-us', '/locations-we-serve'].includes(router.pathname) ||
+              router.pathname === '/available-now' ||
+              router.pathname.startsWith('/available-now/type/')) && (
               <div className={styles.footer_image}>
                 <Image
                   src="/assets/armored-vehicles.png"

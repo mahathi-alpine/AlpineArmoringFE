@@ -63,6 +63,10 @@
     &_rental {
       @include breakpoint(large) {
         max-width: 1657px;
+
+        .listing_wrap_shown{
+          margin-left: 0;
+        }
       }
     }
   }
@@ -140,25 +144,28 @@
     margin-top: 20px;
   }
 
-  // &_bottomText {
-  //   padding: 20px 0;
-  //   font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
-  //   // font-size: clamp(0.875rem, 0.8295rem + 0.1942vw, 1.0625rem);
+  &_bottomText {
+    padding: rem(36) 0 rem(60) 0;
+    font-size: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
 
-  //   p {
-  //     margin-bottom: 10px;
+    @include breakpoint(large) {
+      padding: rem(60) 0 rem(120) 0;
+    }
 
-  //     &:last-child {
-  //       margin-bottom: 0;
-  //     }
-  //   }
+    p {
+      margin-bottom: 10px;
 
-  //   a {
-  //     color: var(--color-primary);
-  //     font-weight: var(--font-medium);
-  //     text-decoration: underline;
-  //   }
-  // }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+      text-decoration: underline;
+    }
+  }
 
   &_empty {
     text-align: center;
@@ -227,10 +234,10 @@
   }
 
   &_faqs {
-    margin: rem(80) 0;
+    margin: 0 0 rem(80) 0;
 
     @include breakpoint(large) {
-      margin: rem(100) 0 rem(180) 0;
+      margin: 0 0 rem(180) 0;
     }
   }
 }

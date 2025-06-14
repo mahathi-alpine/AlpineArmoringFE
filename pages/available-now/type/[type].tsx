@@ -24,8 +24,6 @@ const isValidCategorySlug = (slug, locale = 'en') => {
       'armored-specialty-vehicles',
       'armored-pre-owned',
       'armored-rental',
-      // 'armored-vans-and-buses',
-      // 'armored-cash-in-transit-cit',
     ],
     es: [
       'especial-del-mes',
@@ -131,7 +129,9 @@ function Inventory(props) {
   );
   const topBanner = currentCategory?.attributes.inventoryBanner;
   const bottomText = currentCategory?.attributes.bottomTextInventory;
-  const faqs = currentCategory?.attributes.faqs_stock;
+  let faqs = currentCategory?.attributes.faqs_stock;
+  faqs = faqs.length == 0 ? props.pageData.faqs : faqs;
+  console.log(faqs);
 
   const categoryTitle = currentCategory?.attributes.title;
   const categorySlug = currentCategory?.attributes.slug;
@@ -140,7 +140,7 @@ function Inventory(props) {
   const currentPath = router.asPath;
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
   const [itemsToRender, setItemsToRender] = useState(6);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setVehiclesData(props.vehicles.data);
@@ -148,9 +148,9 @@ function Inventory(props) {
 
   const fetchMoreItems = useCallback(() => {
     if (itemsToRender < vehiclesData?.length) {
-      setLoading(true);
+      // setLoading(true);
       setItemsToRender((prevItemsToRender) => prevItemsToRender + 6);
-      setLoading(false);
+      // setLoading(false);
     }
   }, [itemsToRender, vehiclesData]);
 
@@ -339,18 +339,18 @@ function Inventory(props) {
         ) : null}
 
         {faqs?.length > 0 ? (
-          <div className={`mt2`}>
+          <div className={`${styles.listing_faqs}`}>
             <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
           </div>
         ) : null}
       </div>
 
-      <div
+      {/* <div
         className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
         style={{ opacity: loading ? 1 : 0 }}
       >
         {lang.loading}
-      </div>
+      </div> */}
 
       <div className="shape-before shape-before-white"></div>
     </>
@@ -368,6 +368,14 @@ export async function getServerSideProps(context) {
   const route = routes.inventory;
 
   try {
+    let pageData = await getPageData({
+      route: route.collection,
+      populate: 'faqs',
+      fields: '',
+      locale,
+    });
+    pageData = pageData.data?.attributes || null;
+
     const englishType = context.query.type;
     const localizedType = route.getLocalizedType(englishType, locale);
 
@@ -508,6 +516,7 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
+        pageData,
         vehicles: filteredVehicles,
         filters,
         query: context.query.type,
