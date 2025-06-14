@@ -129,7 +129,7 @@ function Inventory(props) {
   const topBanner = currentCategory?.attributes.inventoryBanner;
   const bottomText = currentCategory?.attributes.bottomTextInventory;
   let faqs = currentCategory?.attributes.faqs_stock;
-  faqs = faqs.length == 0 ? props.pageData.faqs : faqs;
+  faqs = faqs?.length == 0 ? props.pageData?.faqs : faqs;
 
   const categoryTitle = currentCategory?.attributes.title;
   const categorySlug = currentCategory?.attributes.slug;
