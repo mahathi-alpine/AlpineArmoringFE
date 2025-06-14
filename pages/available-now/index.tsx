@@ -61,7 +61,12 @@ const getFallbackData = (locale = 'en') => ({
 
 function Inventory(props) {
   const { lang } = useLocale();
-  const { pageData, vehicles, filters, searchQuery } = props;
+  const {
+    pageData,
+    vehicles = { data: [] },
+    filters = {},
+    searchQuery,
+  } = props;
   const router = useRouter();
 
   const topBanner = pageData?.banner;
@@ -73,8 +78,10 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles] = useState(vehicles.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
+  const vehiclesData = vehicles?.data || [];
+
+  const [allVehicles] = useState(vehiclesData);
+  const [filteredVehicles, setFilteredVehicles] = useState(vehiclesData);
   const [displayedVehicles, setDisplayedVehicles] = useState(
     searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
   );
@@ -85,6 +92,8 @@ function Inventory(props) {
   // Handle client-side filtering for search and category filters
   useEffect(() => {
     if (!router.isReady) return;
+
+    if (!router.locale) return;
 
     let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
 
@@ -131,6 +140,7 @@ function Inventory(props) {
     q,
     vehicles_we_armor,
     vehiculos_que_blindamos,
+    router.locale,
     router.isReady,
     allVehicles,
   ]);
@@ -196,6 +206,10 @@ function Inventory(props) {
   const toggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
   };
+
+  if (!router.isReady || !lang) {
+    return <div>Loading...</div>;
+  }
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -379,7 +393,8 @@ export async function getStaticProps(context) {
       route: route.collection,
       locale,
     });
-    pageData = pageData.data?.attributes || null;
+
+    pageData = pageData?.data?.attributes || getFallbackData(locale).pageData;
 
     // Fetch ALL vehicles at build time
     const vehicles = await getPageData({
@@ -392,6 +407,10 @@ export async function getStaticProps(context) {
       pageSize: 100,
       locale,
     });
+
+    const vehiclesData = vehicles?.data
+      ? vehicles
+      : { data: [], meta: { pagination: { total: 0 } } };
 
     // Get filter data
     const type = await getPageData({
@@ -411,7 +430,7 @@ export async function getStaticProps(context) {
     return {
       props: {
         pageData,
-        vehicles,
+        vehicles: vehiclesData,
         filters,
         seoData,
         searchQuery: null,
