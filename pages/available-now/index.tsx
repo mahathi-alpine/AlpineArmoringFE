@@ -73,10 +73,10 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles] = useState(vehicles.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
+  const [allVehicles] = useState(vehicles?.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicles?.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
-    searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
+    searchQuery ? vehicles?.data : vehicles?.data.slice(0, ITEMS_TO_DISPLAY)
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);

@@ -87,16 +87,15 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
       if (url.includes('disponible-ahora')) {
-        const currentLocale = router.locale;
-        const targetLocale = url.startsWith('/es') ? 'es' : 'en';
-        console.log(currentLocale);
-        console.log(targetLocale);
+        window.location.href = url;
+        return;
+        // const currentLocale = router.locale;
+        // const targetLocale = url.startsWith('/es') ? 'es' : 'en';
 
-        if (currentLocale !== targetLocale) {
-          console.log('works');
-          window.location.href = url;
-          return;
-        }
+        // if (currentLocale !== targetLocale) {
+        //   window.location.href = url;
+        //   return;
+        // }
       }
     };
 
