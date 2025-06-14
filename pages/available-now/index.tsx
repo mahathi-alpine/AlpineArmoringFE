@@ -60,7 +60,6 @@ const getFallbackData = (locale = 'en') => ({
 });
 
 function Inventory(props) {
-  console.log(props);
   const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();

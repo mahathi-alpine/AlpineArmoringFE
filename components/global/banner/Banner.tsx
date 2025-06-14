@@ -1,6 +1,6 @@
 import styles from './Banner.module.scss';
 import { BannerProps } from 'types';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import useLocale from 'hooks/useLocale';
@@ -17,6 +17,13 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoMP4 = props.mediaMP4?.data;
   const { lang } = useLocale();
+
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  useEffect(() => {
+    if (bannerImage?.url) {
+      setIsImageLoaded(false);
+    }
+  }, [bannerImage?.url]);
 
   // Special uppercase cases
   const specialUppercaseCases = ['bmw', 'cuda', 'gmc', 'mastiff', 'pointer'];
@@ -119,6 +126,11 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
           priority
           width={2200}
           height={500}
+          onLoad={() => setIsImageLoaded(true)}
+          style={{
+            opacity: isImageLoaded ? 1 : 0,
+            transition: 'opacity 0.2s ease-in-out',
+          }}
         />
         {bannerImageMobile && (
           <Image
@@ -129,6 +141,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
             height={250}
             className={`${styles.banner_media} ${styles.banner_media_mobile}`}
             priority
+            onLoad={() => setIsImageLoaded(true)}
           />
         )}
       </>
