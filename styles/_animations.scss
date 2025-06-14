@@ -47,7 +47,7 @@
   }
   &.in-view {
     span {
-      animation: appear-text 0.0001s 0.5s linear forwards;
+      animation: fadeIn 0.0001s 0.5s linear forwards;
     }
     &:after {
       animation: rev-block 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
@@ -67,15 +67,6 @@
   100% {
     left: 100%;
     width: 0%;
-  }
-}
-
-@keyframes appear-text {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 
@@ -104,4 +95,9 @@
   .text {
     padding: 6px 0 6px 10px;
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

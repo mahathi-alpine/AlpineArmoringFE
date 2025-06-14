@@ -18,11 +18,15 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   const videoMP4 = props.mediaMP4?.data;
   const { lang } = useLocale();
 
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [imageKey, setImageKey] = useState(0);
+
   useEffect(() => {
-    if (bannerImage?.url) {
-      setIsImageLoaded(false);
+    if (isInitialLoad) {
+      setIsInitialLoad(false);
+      return;
     }
+    setImageKey((prev) => prev + 1);
   }, [bannerImage?.url]);
 
   // Special uppercase cases
@@ -117,6 +121,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     mediaElement = (
       <>
         <Image
+          key={`banner-${imageKey}`}
           src={bannerImage.url}
           alt={bannerImage?.alternativeText || 'Alpine Armoring'}
           sizes={
@@ -126,14 +131,13 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
           priority
           width={2200}
           height={500}
-          onLoad={() => setIsImageLoaded(true)}
           style={{
-            opacity: isImageLoaded ? 1 : 0,
-            transition: 'opacity 0.2s ease-in-out',
+            animation: imageKey > 0 ? 'fadeIn 0.4s ease-in-out' : 'none',
           }}
         />
         {bannerImageMobile && (
           <Image
+            key={`bannerMobile-${imageKey}`}
             src={bannerImageMobile.url}
             alt={bannerImageMobile?.alternativeText || 'Alpine Armoring'}
             sizes="(max-width: 767px) 100vw, 1vw"
@@ -141,7 +145,9 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
             height={250}
             className={`${styles.banner_media} ${styles.banner_media_mobile}`}
             priority
-            onLoad={() => setIsImageLoaded(true)}
+            style={{
+              animation: imageKey > 0 ? 'fadeIn 0.4s ease-in-out' : 'none',
+            }}
           />
         )}
       </>

@@ -69,7 +69,8 @@ function Inventory(props) {
   const bottomTextContent = {
     dynamicZone: pageData?.bottomTextDynamic || [],
   };
-  const faqs = pageData?.faqs;
+
+  const faqs = pageData?.faqs || [];
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
