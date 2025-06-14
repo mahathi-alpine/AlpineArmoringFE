@@ -61,42 +61,77 @@ const getFallbackData = (locale = 'en') => ({
 
 function Inventory(props) {
   const { lang } = useLocale();
-  const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();
+
+  // Safely destructure props with fallbacks
+  const safeProps = {
+    pageData: props?.pageData || {},
+    vehicles: props?.vehicles || {
+      data: [],
+      meta: { pagination: { total: 0 } },
+    },
+    filters: props?.filters || {},
+    searchQuery: props?.searchQuery || null,
+    isOffline: props?.isOffline || false,
+  };
+
+  const { pageData, vehicles, filters, searchQuery } = safeProps;
+
+  // Ensure vehicles.data is always an array
+  const safeVehiclesData = Array.isArray(vehicles?.data) ? vehicles.data : [];
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
   const bottomTextContent = {
-    dynamicZone: pageData?.bottomTextDynamic || [],
+    dynamicZone: Array.isArray(pageData?.bottomTextDynamic)
+      ? pageData.bottomTextDynamic
+      : [],
   };
 
-  const faqs = pageData?.faqs || [];
+  const faqs = Array.isArray(pageData?.faqs) ? pageData.faqs : [];
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles] = useState(vehicles.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
+  const [allVehicles, setAllVehicles] = useState(safeVehiclesData);
+  const [filteredVehicles, setFilteredVehicles] = useState(safeVehiclesData);
   const [displayedVehicles, setDisplayedVehicles] = useState(
-    searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
+    searchQuery ? safeVehiclesData : safeVehiclesData.slice(0, ITEMS_TO_DISPLAY)
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
-  // const [loading, setLoading] = useState(false);
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
+  const contentRef = useRef(null);
+
+  // Update state when props change (important for language switching)
+  useEffect(() => {
+    const newVehiclesData = Array.isArray(vehicles?.data) ? vehicles.data : [];
+    setAllVehicles(newVehiclesData);
+    setFilteredVehicles(newVehiclesData);
+    setDisplayedVehicles(
+      searchQuery ? newVehiclesData : newVehiclesData.slice(0, ITEMS_TO_DISPLAY)
+    );
+    setVisibleCount(ITEMS_TO_DISPLAY);
+  }, [vehicles, searchQuery]);
 
   // Handle client-side filtering for search and category filters
   useEffect(() => {
     if (!router.isReady) return;
+    if (!Array.isArray(allVehicles)) return;
 
-    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
+    let filtered = allVehicles.filter((vehicle) => {
+      // Ensure vehicle has proper structure
+      if (!vehicle?.attributes) return false;
+      return !vehicle.attributes.hide;
+    });
 
     // Apply search filter
     if (q && typeof q === 'string') {
       const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
       filtered = filtered.filter((vehicle) => {
-        const slug = vehicle.attributes.slug
-          .toLowerCase()
-          .replace(/[-\s]/g, '');
-        return slug.includes(searchTerms);
+        const slug = vehicle?.attributes?.slug;
+        if (!slug || typeof slug !== 'string') return false;
+        const normalizedSlug = slug.toLowerCase().replace(/[-\s]/g, '');
+        return normalizedSlug.includes(searchTerms);
       });
     }
 
@@ -109,10 +144,10 @@ function Inventory(props) {
       if (typeof categorySlug === 'string') {
         const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
         filtered = filtered.filter((vehicle) => {
-          const slug = vehicle.attributes.slug
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
-          return slug.includes(searchTerms);
+          const slug = vehicle?.attributes?.slug;
+          if (!slug || typeof slug !== 'string') return false;
+          const normalizedSlug = slug.toLowerCase().replace(/[-\s]/g, '');
+          return normalizedSlug.includes(searchTerms);
         });
       }
     }
@@ -138,15 +173,12 @@ function Inventory(props) {
 
   // Handle infinite scroll
   const handleIntersection = useCallback(async () => {
-    // if (loading) return;
     if (q || vehicles_we_armor || vehiculos_que_blindamos) return; // No infinite scroll for filtered results
 
     const nextBatchStart = displayedVehicles.length;
     const remainingItems = filteredVehicles.length - nextBatchStart;
 
     if (remainingItems > 0) {
-      // setLoading(true);
-
       const itemsToAdd = Math.min(remainingItems, ITEMS_TO_DISPLAY);
       const nextBatch = filteredVehicles.slice(
         nextBatchStart,
@@ -155,7 +187,6 @@ function Inventory(props) {
 
       setDisplayedVehicles((prev) => [...prev, ...nextBatch]);
       setVisibleCount((prev) => prev + itemsToAdd);
-      // setLoading(false);
     }
   }, [
     filteredVehicles,
@@ -192,13 +223,16 @@ function Inventory(props) {
     return () => observer.disconnect();
   }, [handleIntersection, q, vehicles_we_armor, vehiculos_que_blindamos]);
 
-  const [isContentExpanded, setIsContentExpanded] = useState(false);
-  const contentRef = useRef(null);
   const toggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
   };
 
   const getBreadcrumbStructuredData = () => {
+    // Add safety checks for lang and router
+    const homeName = lang?.home || 'Home';
+    const availableNowTitle = lang?.availableNowTitle || 'Available Now';
+    const currentLocale = router?.locale || 'en';
+
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -206,14 +240,14 @@ function Inventory(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          name: homeName,
+          item: `https://www.alpineco.com${currentLocale === 'en' ? '' : `/${currentLocale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+          name: availableNowTitle,
+          item: `https://www.alpineco.com${currentLocale === 'en' ? '' : `/${currentLocale}`}${routes?.inventory?.paths?.[currentLocale] || '/inventory'}`,
         },
       ],
     };
@@ -222,9 +256,8 @@ function Inventory(props) {
 
   // FAQ structured data
   const getFAQStructuredData = () => {
-    if (!faqs || !Array.isArray(faqs)) {
-      console.error('FAQs is not an array:', faqs);
-      return null;
+    if (!Array.isArray(faqs) || faqs.length === 0) {
+      return JSON.stringify({});
     }
 
     const structuredData = {
@@ -234,9 +267,12 @@ function Inventory(props) {
         const title =
           faq?.attributes?.title ||
           faq?.title ||
-          `${lang.frequentlyAskedQuestions} ${index + 1}`;
+          `${lang?.frequentlyAskedQuestions || 'FAQ'} ${index + 1}`;
         const text =
-          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
+          faq?.attributes?.text ||
+          faq?.text ||
+          lang?.noAnswerProvided ||
+          'No answer provided';
 
         return {
           '@type': 'Question',
@@ -252,7 +288,16 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
-  if (!displayedVehicles) return null;
+  // Early return for loading state
+  if (!router.isReady) {
+    return (
+      <div className={`${styles.listing} background-dark`}>
+        <div className="container">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -273,9 +318,9 @@ function Inventory(props) {
 
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
-          <Link href="/">{lang.home}</Link>
+          <Link href="/">{lang?.home || 'Home'}</Link>
           <span>&gt;</span>
-          {lang.availableNowTitle}
+          {lang?.availableNowTitle || 'Available Now'}
         </div>
 
         {topBanner && <Banner props={topBanner} shape="dark" />}
@@ -284,29 +329,41 @@ function Inventory(props) {
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
           <div className={`${styles.listing_wrap_filtered}`}>
-            {filters.type && <Filters props={filters} />}
+            {filters?.type && <Filters props={filters} />}
           </div>
 
           <div className={`${styles.listing_wrap_shown}`}>
-            {!displayedVehicles.length ? (
+            {!Array.isArray(displayedVehicles) ||
+            displayedVehicles.length === 0 ? (
               <div className={`${styles.listing_list_error}`}>
-                {props.isOffline ? (
+                {safeProps.isOffline ? (
                   <>
-                    <p>{lang.inventorySystemDown}</p>
+                    <p>
+                      {lang?.inventorySystemDown ||
+                        'Inventory system is temporarily down'}
+                    </p>
                   </>
                 ) : (
-                  <h2>{lang.noVehiclesFound}</h2>
+                  <h2>{lang?.noVehiclesFound || 'No vehicles found'}</h2>
                 )}
               </div>
             ) : (
               <div className={`${styles.listing_list}`}>
-                {displayedVehicles.map((item, index) => (
-                  <InventoryItem
-                    key={item.id || index}
-                    props={item}
-                    index={index}
-                  />
-                ))}
+                {displayedVehicles.map((item, index) => {
+                  // Ensure item has proper structure before rendering
+                  if (!item?.id && !item?.attributes) {
+                    console.warn('Invalid vehicle item:', item);
+                    return null;
+                  }
+
+                  return (
+                    <InventoryItem
+                      key={item.id || `vehicle-${index}`}
+                      props={item}
+                      index={index}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>
@@ -317,14 +374,7 @@ function Inventory(props) {
           <div className={`observe bottomObserver`}></div>
         )}
 
-        {/* <div
-          className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-          style={{ opacity: 0 }}
-        >
-          {lang.loading}
-        </div> */}
-
-        {bottomText && bottomTextContent.dynamicZone.length == 0 && (
+        {bottomText && bottomTextContent.dynamicZone.length === 0 && (
           <div className={`container_small`}>
             <div className={`${styles.listing_bottomText}`}>
               <CustomMarkdown>{bottomText}</CustomMarkdown>
@@ -361,7 +411,12 @@ function Inventory(props) {
 
         {faqs?.length > 0 ? (
           <div className={`${styles.listing_faqs}`}>
-            <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
+            <Accordion
+              items={faqs}
+              title={
+                lang?.frequentlyAskedQuestions || 'Frequently Asked Questions'
+              }
+            />
           </div>
         ) : null}
       </div>
@@ -375,55 +430,131 @@ export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const route = routes.inventory;
 
+  console.log(`Building inventory page for locale: ${locale}`);
+
   try {
-    let pageData = await getPageData({
-      route: route.collection,
-      locale,
-    });
-    pageData = pageData.data?.attributes || null;
+    let pageData = null;
+    let vehicles = { data: [], meta: { pagination: { total: 0 } } };
+    let filters = {};
 
-    // Fetch ALL vehicles at build time
-    const vehicles = await getPageData({
-      route: route.collectionSingle,
-      params: '',
-      sort: 'order',
-      populate: 'featuredImage',
-      fields:
-        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-      pageSize: 100,
-      locale,
-    });
+    // Fetch page data with error handling
+    try {
+      const pageDataResponse = await getPageData({
+        route: route.collection,
+        locale,
+      });
+      pageData = pageDataResponse?.data?.attributes || null;
+    } catch (pageError) {
+      console.warn(
+        `Failed to fetch page data for locale ${locale}:`,
+        pageError
+      );
+    }
 
-    // Get filter data
-    const type = await getPageData({
-      route: 'categories',
-      custom:
-        "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
-      locale,
-    }).then((response) => response.data);
+    // Fetch vehicles with error handling
+    try {
+      const vehiclesResponse = await getPageData({
+        route: route.collectionSingle,
+        params: '',
+        sort: 'order',
+        populate: 'featuredImage',
+        fields:
+          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+        pageSize: 100,
+        locale,
+      });
 
-    const filters = type ? { type } : {};
+      // Validate vehicles response structure
+      if (vehiclesResponse && Array.isArray(vehiclesResponse.data)) {
+        vehicles = vehiclesResponse;
+      } else {
+        console.warn(
+          `Invalid vehicles response structure for locale ${locale}:`,
+          vehiclesResponse
+        );
+      }
+    } catch (vehiclesError) {
+      console.warn(
+        `Failed to fetch vehicles for locale ${locale}:`,
+        vehiclesError
+      );
+    }
+
+    // Get filter data with error handling
+    try {
+      const typeResponse = await getPageData({
+        route: 'categories',
+        custom:
+          "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
+        locale,
+      });
+
+      const type = typeResponse?.data;
+      if (type) {
+        filters = { type };
+      }
+    } catch (filtersError) {
+      console.warn(
+        `Failed to fetch filters for locale ${locale}:`,
+        filtersError
+      );
+    }
+
+    // If we have no data at all, use fallback
+    if (!pageData && (!vehicles.data || vehicles.data.length === 0)) {
+      console.log(`Using fallback data for locale ${locale}`);
+      const fallbackData = getFallbackData(locale);
+
+      return {
+        props: {
+          ...fallbackData,
+          seoData: {
+            ...fallbackData.pageData.seo,
+            languageUrls: route.getIndexLanguageUrls(locale),
+          },
+          locale,
+        },
+        revalidate: 21600,
+      };
+    }
+
+    // Merge with fallback for missing pieces
+    const fallbackData = getFallbackData(locale);
+    const mergedPageData = pageData
+      ? {
+          ...fallbackData.pageData,
+          ...pageData,
+          seo: {
+            ...fallbackData.pageData.seo,
+            ...(pageData.seo || {}),
+          },
+        }
+      : fallbackData.pageData;
 
     const seoData = {
-      ...(pageData?.seo || {}),
+      ...(mergedPageData.seo || {}),
       languageUrls: route.getIndexLanguageUrls(locale),
     };
 
     return {
       props: {
-        pageData,
-        vehicles,
-        filters,
-        seoData,
+        pageData: mergedPageData,
+        vehicles: vehicles,
+        filters: filters,
+        seoData: seoData,
         searchQuery: null,
-        locale,
+        locale: locale,
+        isOffline: false,
       },
-      revalidate: 21600, // Revalidate every 6 hours
+      revalidate: 21600,
     };
   } catch (error) {
-    console.error('Strapi connection failed:', error);
+    console.error(
+      `Critical error building inventory page for locale ${locale}:`,
+      error
+    );
 
-    // Return fallback data instead of 404
+    // Return fallback data for any critical errors
     const fallbackData = getFallbackData(locale);
 
     return {
@@ -433,9 +564,8 @@ export async function getStaticProps(context) {
           ...fallbackData.pageData.seo,
           languageUrls: route.getIndexLanguageUrls(locale),
         },
-        locale,
+        locale: locale,
       },
-      // Still revalidate even with fallback data
       revalidate: 21600,
     };
   }
