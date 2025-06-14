@@ -61,57 +61,8 @@ const getFallbackData = (locale = 'en') => ({
 
 function Inventory(props) {
   const { lang } = useLocale();
-  // const {
-  //   pageData,
-  //   vehicles = { data: [] },
-  //   filters = {},
-  //   searchQuery,
-  // } = props;
+  const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();
-
-  const [localeData, setLocaleData] = useState(props);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoadingLocale, setIsLoadingLocale] = useState(false);
-
-  // Only fetch new data if we switched languages client-side
-  // and the props don't match the current locale
-  useEffect(() => {
-    const needsLocaleUpdate =
-      router.isReady &&
-      router.locale &&
-      props.locale &&
-      router.locale !== props.locale;
-
-    if (needsLocaleUpdate) {
-      const fetchLocaleData = async () => {
-        setIsLoadingLocale(true);
-
-        try {
-          const response = await fetch(
-            `/api/inventory-data?locale=${router.locale}`
-          );
-          if (!response.ok) throw new Error('Failed to fetch');
-
-          const newData = await response.json();
-          setLocaleData(newData);
-        } catch (error) {
-          console.error('Failed to fetch locale data:', error);
-          // Fallback to page reload on error
-          window.location.reload();
-        } finally {
-          setIsLoadingLocale(false);
-        }
-      };
-
-      fetchLocaleData();
-    } else {
-      // Use the static props as-is (for direct navigation or initial load)
-      setLocaleData(props);
-    }
-  }, [router.locale, router.isReady, props.locale, props]);
-
-  // Use localeData instead of props directly
-  const { pageData, vehicles, filters, searchQuery } = localeData;
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -122,10 +73,8 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const vehiclesData = vehicles?.data || [];
-
-  const [allVehicles] = useState(vehiclesData);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehiclesData);
+  const [allVehicles] = useState(vehicles.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
     searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
   );
@@ -136,8 +85,6 @@ function Inventory(props) {
   // Handle client-side filtering for search and category filters
   useEffect(() => {
     if (!router.isReady) return;
-
-    if (!router.locale) return;
 
     let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
 
@@ -184,7 +131,6 @@ function Inventory(props) {
     q,
     vehicles_we_armor,
     vehiculos_que_blindamos,
-    router.locale,
     router.isReady,
     allVehicles,
   ]);
@@ -251,16 +197,8 @@ function Inventory(props) {
     setIsContentExpanded(!isContentExpanded);
   };
 
-  if (!router.isReady || !lang) {
+  if (!router.isReady || !pageData) {
     return <div>Loading...</div>;
-  }
-
-  if (isLoadingLocale) {
-    return (
-      <div className="loading-container">
-        <p>Loading...</p>
-      </div>
-    );
   }
 
   const getBreadcrumbStructuredData = () => {
@@ -445,8 +383,7 @@ export async function getStaticProps(context) {
       route: route.collection,
       locale,
     });
-
-    pageData = pageData?.data?.attributes || getFallbackData(locale).pageData;
+    pageData = pageData.data?.attributes || null;
 
     // Fetch ALL vehicles at build time
     const vehicles = await getPageData({
@@ -459,10 +396,6 @@ export async function getStaticProps(context) {
       pageSize: 100,
       locale,
     });
-
-    const vehiclesData = vehicles?.data
-      ? vehicles
-      : { data: [], meta: { pagination: { total: 0 } } };
 
     // Get filter data
     const type = await getPageData({
@@ -482,7 +415,7 @@ export async function getStaticProps(context) {
     return {
       props: {
         pageData,
-        vehicles: vehiclesData,
+        vehicles,
         filters,
         seoData,
         searchQuery: null,

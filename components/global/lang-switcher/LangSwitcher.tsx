@@ -171,7 +171,8 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
         const newPath = `${translatedBasePath}/${translatedTypePath}/${translatedTypeValue}${queryString}`;
 
-        await router.push(newPath, undefined, { locale: langCode });
+        // await router.push(newPath, undefined, { locale: langCode });
+        window.location.href = `/${langCode}${newPath}`;
         return;
       }
     }
@@ -204,7 +205,8 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         }
 
         const fullPath = `${translatedBasePath}/${localizedSlug}${queryStr}`;
-        await router.push(fullPath, undefined, { locale: langCode });
+        // await router.push(fullPath, undefined, { locale: langCode });
+        window.location.href = `/${langCode}${fullPath}`;
       } else {
         router.push(
           {
@@ -227,9 +229,10 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         const translatedPath = sanitizePath(
           normalizeUrl(routeTranslations[currentRoute[0]][langCode])
         );
-        await router.push(`${translatedPath}${queryString}`, undefined, {
-          locale: langCode,
-        });
+        // await router.push(`${translatedPath}${queryString}`, undefined, {
+        //   locale: langCode,
+        // });
+        window.location.href = `/${langCode}${translatedPath}${queryString}`;
       } else {
         await router.push(
           {
