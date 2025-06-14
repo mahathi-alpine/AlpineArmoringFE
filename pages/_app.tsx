@@ -87,11 +87,13 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
       if (url.includes('disponible-ahora')) {
-        console.log('test');
         const currentLocale = router.locale;
         const targetLocale = url.startsWith('/es') ? 'es' : 'en';
+        console.log(currentLocale);
+        console.log(targetLocale);
 
         if (currentLocale !== targetLocale) {
+          console.log('works');
           window.location.href = url;
           return;
         }
