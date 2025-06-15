@@ -95,11 +95,27 @@ export default function withLocaleRefetch(
 
     // Handle locale changes and swap cached data
     useEffect(() => {
+      console.log('[LocaleRefetch] useEffect triggered:', {
+        'router.isReady': router.isReady,
+        'router.locale': router.locale,
+        isDefaultLanguage: isDefaultLanguage,
+        'fetchedLocales[router.locale]': fetchedLocales[router.locale],
+        'has localeData': !!localeData[router.locale],
+        'options.onlyNonDefaultLocale': options.onlyNonDefaultLocale,
+      });
+
       // Don't do anything if router isn't ready
-      if (!router.isReady) return;
+      if (!router.isReady) {
+        console.log('[LocaleRefetch] Router not ready, returning');
+        return;
+      }
 
       // If we've already fetched this locale, just swap to the cached data
       if (fetchedLocales[router.locale] && localeData[router.locale]) {
+        console.log(
+          '[LocaleRefetch] Using cached data for locale:',
+          router.locale
+        );
         // Update stateData with the cached data for this locale
         setStateData(localeData[router.locale]);
         return;
@@ -107,6 +123,23 @@ export default function withLocaleRefetch(
 
       // Skip refetching for default locale if option is enabled
       if (options.onlyNonDefaultLocale && isDefaultLanguage) {
+        console.log('[LocaleRefetch] Skipping refetch for default locale');
+        return;
+      }
+
+      // For non-default locales, always refetch if we don't have data
+      const shouldRefetch = !isDefaultLanguage || !options.onlyNonDefaultLocale;
+
+      if (shouldRefetch) {
+        console.log(
+          '[LocaleRefetch] Should refetch data for locale:',
+          router.locale
+        );
+      } else {
+        console.log(
+          '[LocaleRefetch] Skipping refetch for locale:',
+          router.locale
+        );
         return;
       }
 
