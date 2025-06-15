@@ -1,33 +1,18 @@
 export async function fetchAPI(path) {
   const requestUrl = `${process.env.NEXT_PUBLIC_API_URL}${path}`;
 
-  console.log('🐛 API Request:', requestUrl);
+  // console.log(requestUrl);
 
   try {
     const [response] = await Promise.all([fetch(requestUrl)]);
-
-    console.log(
-      '🐛 API Response Status:',
-      response.status,
-      response.statusText
-    );
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     } else {
       const data = await response.json();
-
-      console.log('🐛 API Response Data:', {
-        hasData: !!data,
-        dataKeys: data ? Object.keys(data) : [],
-        dataType: Array.isArray(data?.data) ? 'array' : typeof data?.data,
-        dataLength: Array.isArray(data?.data) ? data.data.length : 'not array',
-      });
-
       return data;
     }
   } catch (error) {
-    console.error('🐛 API Error:', error);
+    // console.error('Error fetching data:', error);
     return {
       props: {
         error: error.message,
@@ -77,25 +62,11 @@ export async function getPageData({
     ? `/${route}?${custom}${localeQuery}`
     : `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}${localeQuery}`;
 
-  console.log('🐛 getPageData called:', {
-    route,
-    locale,
-    finalQuery: query,
-    environment: process.env.NODE_ENV,
-  });
-
+  // console.log(`Fetching ${route} with params:`, params, 'locale:', locale);
   const pagesData = await fetchAPI(`/api${query}`);
-
-  console.log('🐛 getPageData result:', {
-    hasResult: !!pagesData,
-    resultType: typeof pagesData,
-    isNull: pagesData === null,
-    isEmpty: Array.isArray(pagesData) && pagesData.length === 0,
-    hasError: !!pagesData?.props?.error,
-  });
+  // console.log('API response:', pagesData);
 
   if (pagesData == null || pagesData.length === 0) {
-    console.log('🐛 No data returned from API');
     return null;
   }
 

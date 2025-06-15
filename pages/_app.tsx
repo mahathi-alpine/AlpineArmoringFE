@@ -102,7 +102,11 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      if (url.startsWith('/es/disponible-ahora/tipo/')) {
+      if (
+        url === '/es/disponible-ahora' ||
+        url.startsWith('/es/disponible-ahora/tipo/')
+      ) {
+        console.log('1');
         window.location.href = url;
         return;
       }

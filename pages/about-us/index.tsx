@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { getPageData } from 'hooks/api';
+import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import routes from 'routes';
 import styles from './About.module.scss';
@@ -28,17 +29,6 @@ function About(props) {
   const boxes = props?.pageData?.boxes;
   const certificate1 = props?.pageData?.certificate1?.data?.attributes;
   const certificate2 = props?.pageData?.certificate2?.data?.attributes;
-
-  // Debug logging for production
-  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-    console.log('🐛 About component props:', {
-      hasPageData: !!props.pageData,
-      hasSeoData: !!props.seoData,
-      locale: props.locale,
-      pageDataKeys: props.pageData ? Object.keys(props.pageData) : [],
-      seoDataKeys: props.seoData ? Object.keys(props.seoData) : [],
-    });
-  }
 
   // Animations
   useAnimationObserver({
@@ -102,18 +92,6 @@ function About(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  // Show loading or error state if no data
-  if (!props.pageData) {
-    return (
-      <div className={`${styles.about}`}>
-        <div style={{ padding: '2rem', textAlign: 'center' }}>
-          <h1>Loading...</h1>
-          <p>Page data not available. Check console for debugging info.</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -302,54 +280,36 @@ function About(props) {
 }
 
 export async function getStaticProps({ locale = 'en' }) {
-  console.log('🐛 getStaticProps called with locale:', locale);
-
   const route = routes.about;
 
-  try {
-    let pageData = await getPageData({
-      route: route.collection,
+  let pageData = await getPageData({
+    route: route.collection,
+    populate: 'deep',
+    locale,
+  });
+  pageData = pageData.data?.attributes || null;
+
+  const seoData = {
+    ...(pageData?.seo || {}),
+    languageUrls: route.getIndexLanguageUrls(locale),
+  };
+
+  return {
+    props: { pageData, seoData, locale },
+  };
+}
+
+export default withLocaleRefetch(
+  About,
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.about.collection,
       populate: 'deep',
       locale,
     });
-
-    console.log('🐛 API response received:', {
-      hasData: !!pageData,
-      dataStructure: pageData ? Object.keys(pageData) : [],
-      attributesExists: !!pageData?.data?.attributes,
-      locale,
-    });
-
-    pageData = pageData?.data?.attributes || null;
-
-    const seoData = {
-      ...(pageData?.seo || {}),
-      languageUrls: route.getIndexLanguageUrls(locale),
-    };
-
-    console.log('🐛 Final props prepared:', {
-      hasPageData: !!pageData,
-      hasSeoData: !!seoData,
-      locale,
-    });
-
-    return {
-      props: { pageData, seoData, locale },
-      revalidate: 3600, // Add revalidation for ISR
-    };
-  } catch (error) {
-    console.error('🐛 Error in getStaticProps:', error);
-
-    return {
-      props: {
-        pageData: null,
-        seoData: null,
-        locale,
-        error: error.message,
-      },
-      revalidate: 60, // Shorter revalidation on error
-    };
+    return data.data?.attributes || null;
+  },
+  {
+    routeName: 'about',
   }
-}
-
-export default About;
+);
