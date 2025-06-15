@@ -8,6 +8,7 @@
     z-index: 50;
     max-width: 27rem;
     margin-left: auto;
+    color: var(--color-dark);
 
     @include breakpoint(medium) {
       right: 20px;

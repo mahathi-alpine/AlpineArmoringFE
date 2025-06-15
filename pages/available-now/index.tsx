@@ -71,6 +71,7 @@ function Inventory(props) {
 
   const { currentData, isLoading, error } = useLanguageData();
 
+  // Use current data with fallback to props
   const pageData = currentData?.pageData || props.pageData;
   const vehicles = currentData?.vehicles || props.vehicles;
   const filters = currentData?.filters || props.filters;
@@ -85,39 +86,35 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles] = useState(vehicles?.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles?.data);
-  const [displayedVehicles, setDisplayedVehicles] = useState(
-    searchQuery ? vehicles?.data : vehicles?.data?.slice(0, ITEMS_TO_DISPLAY)
-  );
+  // Use state that updates with context data changes
+  const [allVehicles, setAllVehicles] = useState([]);
+  const [filteredVehicles, setFilteredVehicles] = useState([]);
+  const [displayedVehicles, setDisplayedVehicles] = useState([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
 
-  // Update local state when context data changes
+  // Update allVehicles when vehicles data changes (from context or props)
   useEffect(() => {
-    if (currentData?.vehicles?.data) {
-      const newVehicles = currentData.vehicles.data;
-      setFilteredVehicles(newVehicles);
-      setDisplayedVehicles(
-        searchQuery ? newVehicles : newVehicles.slice(0, ITEMS_TO_DISPLAY)
-      );
-    }
-  }, [currentData, searchQuery]);
+    const vehicleData = vehicles?.data || [];
+    setAllVehicles(vehicleData);
+    setFilteredVehicles(vehicleData);
+    setDisplayedVehicles(
+      searchQuery ? vehicleData : vehicleData.slice(0, ITEMS_TO_DISPLAY)
+    );
+  }, [vehicles, searchQuery]);
 
   // Handle client-side filtering for search and category filters
   useEffect(() => {
-    if (!router.isReady) return;
+    if (!router.isReady || !allVehicles.length) return;
 
-    let filtered =
-      allVehicles?.filter((vehicle) => !vehicle.attributes.hide) || [];
+    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes?.hide);
 
     // Apply search filter
     if (q && typeof q === 'string') {
       const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
       filtered = filtered.filter((vehicle) => {
-        const slug = vehicle.attributes.slug
-          .toLowerCase()
-          .replace(/[-\s]/g, '');
+        const slug =
+          vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
         return slug.includes(searchTerms);
       });
     }
@@ -131,9 +128,8 @@ function Inventory(props) {
       if (typeof categorySlug === 'string') {
         const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
         filtered = filtered.filter((vehicle) => {
-          const slug = vehicle.attributes.slug
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
+          const slug =
+            vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
           return slug.includes(searchTerms);
         });
       }
@@ -217,7 +213,7 @@ function Inventory(props) {
   };
 
   // Show loading state from context
-  if (isLoading || !router.isReady || !pageData) {
+  if (isLoading || !router.isReady) {
     return <Loader />;
   }
 
@@ -230,6 +226,11 @@ function Inventory(props) {
         </div>
       </div>
     );
+  }
+
+  // FIX: Add safety check for pageData
+  if (!pageData) {
+    return <Loader />;
   }
 
   const getBreadcrumbStructuredData = () => {
@@ -257,7 +258,6 @@ function Inventory(props) {
   // FAQ structured data
   const getFAQStructuredData = () => {
     if (!faqs || !Array.isArray(faqs)) {
-      console.error('FAQs is not an array:', faqs);
       return null;
     }
 
@@ -285,8 +285,6 @@ function Inventory(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  if (!displayedVehicles) return null;
 
   return (
     <>
@@ -318,11 +316,11 @@ function Inventory(props) {
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
           <div className={`${styles.listing_wrap_filtered}`}>
-            {filters.type && <Filters props={filters} />}
+            {filters?.type && <Filters props={filters} />}
           </div>
 
           <div className={`${styles.listing_wrap_shown}`}>
-            {!displayedVehicles.length ? (
+            {!displayedVehicles?.length ? (
               <div className={`${styles.listing_list_error}`}>
                 {props.isOffline ? (
                   <>
