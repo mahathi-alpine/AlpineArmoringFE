@@ -166,8 +166,26 @@ export default function withLocaleRefetch(
         return;
       }
 
+      // Check if we have valid data in current state - if not, we need to fetch regardless
+      const hasValidStateData =
+        stateData &&
+        Object.keys(stateData).length > 0 &&
+        (typeof fetchConfig === 'object'
+          ? Object.keys(fetchConfig).some(
+              (key) =>
+                stateData[key] && (key !== 'vehicles' || stateData[key]?.data)
+            )
+          : stateData.pageData);
+
+      console.log('HOC: Has valid state data?', hasValidStateData);
+      console.log('HOC: Current stateData keys:', Object.keys(stateData || {}));
+
       // If we've already fetched this locale, just swap to the cached data
-      if (fetchedLocales[router.locale] && localeData[router.locale]) {
+      if (
+        fetchedLocales[router.locale] &&
+        localeData[router.locale] &&
+        hasValidStateData
+      ) {
         console.log('HOC: Using cached data for locale:', router.locale);
         console.log(
           'HOC: Cached data keys:',
@@ -179,13 +197,25 @@ export default function withLocaleRefetch(
         return;
       }
 
-      // Skip refetching for default locale if option is enabled
-      if (options.onlyNonDefaultLocale && isDefaultLanguage) {
-        console.log('HOC: Skipping refetch for default locale');
+      // Skip refetching for default locale if option is enabled AND we have valid data
+      if (
+        options.onlyNonDefaultLocale &&
+        isDefaultLanguage &&
+        hasValidStateData
+      ) {
+        console.log(
+          'HOC: Skipping refetch for default locale - has valid data'
+        );
         return;
       }
 
-      console.log('HOC: Need to fetch data for locale:', router.locale);
+      console.log(
+        'HOC: Need to fetch data for locale:',
+        router.locale,
+        '(hasValidData:',
+        hasValidStateData,
+        ')'
+      );
       // For non-default locales that haven't been fetched yet,
       // we need to fetch the data
       const refetchData = async () => {
@@ -290,7 +320,116 @@ export default function withLocaleRefetch(
       fetchedLocales,
       localeData,
       isDefaultLanguage,
+      stateData, // Add stateData to dependencies so effect runs when state data changes
     ]);
+
+    // Emergency effect: If we detect that we have no valid data at all, fetch immediately
+    useEffect(() => {
+      if (!router.isReady) return;
+
+      const hasAnyValidData =
+        stateData &&
+        Object.keys(stateData).length > 0 &&
+        (typeof fetchConfig === 'object'
+          ? Object.keys(fetchConfig).some(
+              (key) =>
+                stateData[key] && (key !== 'vehicles' || stateData[key]?.data)
+            )
+          : stateData.pageData);
+
+      console.log('=== HOC EMERGENCY DATA CHECK ===');
+      console.log('HOC: Emergency check - has valid data?', hasAnyValidData);
+      console.log('HOC: Current locale:', router.locale);
+      console.log(
+        'HOC: Is fetching in progress?',
+        fetchedLocales[router.locale]
+      );
+
+      // If we have no valid data and haven't started fetching for this locale, fetch now
+      if (!hasAnyValidData && !fetchedLocales[router.locale]) {
+        console.log(
+          'HOC: EMERGENCY FETCH - No valid data detected, fetching immediately'
+        );
+
+        const emergencyFetch = async () => {
+          const newData = {};
+
+          try {
+            // Handle single data source
+            if (typeof fetchConfig === 'function') {
+              console.log('HOC: Emergency fetching single data source...');
+              newData['pageData'] = await fetchConfig(router.locale);
+              console.log(
+                'HOC: Emergency single data source result:',
+                !!newData['pageData']
+              );
+            }
+            // Handle multiple data sources
+            else if (typeof fetchConfig === 'object') {
+              console.log('HOC: Emergency fetching multiple data sources...');
+              for (const [key, fetcher] of Object.entries(fetchConfig)) {
+                console.log(`HOC: Emergency fetching ${key}...`);
+                newData[key] = await fetcher(router.locale);
+                console.log(`HOC: Emergency ${key} result:`, !!newData[key]);
+                if (key === 'vehicles' && newData[key]) {
+                  console.log(
+                    `HOC: Emergency ${key}.data:`,
+                    !!newData[key]?.data
+                  );
+                  console.log(
+                    `HOC: Emergency ${key}.data length:`,
+                    newData[key]?.data?.length
+                  );
+                }
+              }
+            }
+
+            // Update SEO data if enabled
+            if (options.includeSeo && options.routeName) {
+              try {
+                console.log('HOC: Emergency updating SEO data...');
+                const route = routes[options.routeName];
+                if (route) {
+                  const pageData = newData['pageData'];
+                  newData['seoData'] = {
+                    ...(pageData?.seo || {}),
+                    languageUrls: route.getIndexLanguageUrls(router.locale),
+                  };
+                  console.log('HOC: Emergency SEO data updated');
+                }
+              } catch (error) {
+                console.error('[LocaleRefetch] Emergency SEO error:', error);
+              }
+            }
+
+            console.log(
+              'HOC: Emergency setting new state data with keys:',
+              Object.keys(newData)
+            );
+            // Update the state with new data
+            setStateData(newData);
+
+            // Cache the data for this locale
+            setLocaleData((prev) => ({
+              ...prev,
+              [router.locale]: newData,
+            }));
+
+            // Update tracking of which locales we've fetched
+            setFetchedLocales((prev) => ({
+              ...prev,
+              [router.locale]: true,
+            }));
+
+            console.log('HOC: Emergency fetch completed successfully');
+          } catch (error) {
+            console.error('[LocaleRefetch] Emergency fetch error:', error);
+          }
+        };
+
+        emergencyFetch();
+      }
+    }, [router.isReady, router.locale, stateData, fetchedLocales]);
 
     // Create new props by combining original props with updated state data
     // Make sure we always have valid data by using props as fallback
@@ -303,10 +442,27 @@ export default function withLocaleRefetch(
     if (typeof fetchConfig === 'object') {
       Object.keys(fetchConfig).forEach((key) => {
         if (!updatedProps[key]) {
+          console.warn(
+            `HOC: Missing ${key} in updatedProps, falling back to props`
+          );
           updatedProps[key] = props[key];
         }
       });
     }
+
+    console.log('=== HOC FINAL PROPS DEBUG ===');
+    console.log('HOC: Final props keys:', Object.keys(updatedProps));
+    console.log('HOC: Final vehicles exists?', !!updatedProps.vehicles);
+    console.log(
+      'HOC: Final vehicles.data exists?',
+      !!updatedProps.vehicles?.data
+    );
+    console.log(
+      'HOC: Final vehicles.data length:',
+      updatedProps.vehicles?.data?.length
+    );
+    console.log('HOC: Final pageData exists?', !!updatedProps.pageData);
+    console.log('=== HOC RENDERING COMPONENT ===');
 
     return <Component {...updatedProps} />;
   };
