@@ -13,7 +13,6 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
-import withLocaleRefetch from 'components/withLocaleRefetch';
 
 const ITEMS_TO_DISPLAY = 6;
 
@@ -62,50 +61,25 @@ const getFallbackData = (locale = 'en') => ({
 
 function Inventory(props) {
   const { lang } = useLocale();
-
-  console.log('=== INVENTORY DEBUG START ===');
-  console.log('Full props:', props);
-  console.log('props.pageData:', props.pageData);
-  console.log('props.vehicles:', props.vehicles);
-  console.log('props.vehicles?.data:', props.vehicles?.data);
-  console.log('props.filters:', props.filters);
-  console.log('props.searchQuery:', props.searchQuery);
-  console.log('props.isOffline:', props.isOffline);
-  console.log('Current router.locale:', useRouter().locale);
-  console.log('Current router.isReady:', useRouter().isReady);
-  console.log('=== INVENTORY DEBUG END ===');
-
   const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();
-
-  if (!vehicles) {
-    console.error('VEHICLES IS UNDEFINED!');
-    // return <div>Loading...</div>;
-  }
-  if (!vehicles.data) {
-    console.error('VEHICLES.DATA IS UNDEFINED!', vehicles);
-    // return <div>Loading...</div>;
-  }
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
   const bottomTextContent = {
     dynamicZone: pageData?.bottomTextDynamic || [],
   };
-
-  const faqs = pageData?.faqs || [];
+  const faqs = pageData?.faqs;
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles] = useState(vehicles.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
+  const [allVehicles] = useState(vehicles?.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicles?.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
-    searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
+    searchQuery ? vehicles?.data : vehicles?.data.slice(0, ITEMS_TO_DISPLAY)
   );
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
-
   // const [loading, setLoading] = useState(false);
 
   // Handle client-side filtering for search and category filters
@@ -222,6 +196,10 @@ function Inventory(props) {
   const toggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
   };
+
+  if (!router.isReady || !pageData) {
+    return <div>Loading...</div>;
+  }
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -460,76 +438,10 @@ export async function getStaticProps(context) {
         },
         locale,
       },
-      revalidate: 21600, // Still revalidate even with fallback data
+      // Still revalidate even with fallback data
+      revalidate: 21600,
     };
   }
 }
 
-// Apply the withLocaleRefetch HOC
-export default withLocaleRefetch(
-  Inventory,
-  {
-    pageData: async (locale) => {
-      console.log('=== HOC DEBUG: Fetching pageData for locale:', locale);
-      try {
-        const data = await getPageData({
-          route: routes.inventory.collection,
-          locale,
-        });
-        console.log('HOC DEBUG: pageData result:', data);
-        const result = data.data?.attributes || null;
-        console.log('HOC DEBUG: pageData processed result:', result);
-        return result;
-      } catch (error) {
-        console.error('HOC DEBUG: pageData fetch error:', error);
-        throw error;
-      }
-    },
-    vehicles: async (locale) => {
-      console.log('=== HOC DEBUG: Fetching vehicles for locale:', locale);
-      try {
-        const data = await getPageData({
-          route: routes.inventory.collectionSingle,
-          params: '',
-          sort: 'order',
-          populate: 'featuredImage',
-          fields:
-            'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-          pageSize: 100,
-          locale,
-        });
-        console.log('HOC DEBUG: vehicles result:', data);
-        console.log('HOC DEBUG: vehicles.data exists?', !!data?.data);
-        console.log('HOC DEBUG: vehicles.data length:', data?.data?.length);
-        return data;
-      } catch (error) {
-        console.error('HOC DEBUG: vehicles fetch error:', error);
-        throw error;
-      }
-    },
-    filters: async (locale) => {
-      console.log('=== HOC DEBUG: Fetching filters for locale:', locale);
-      try {
-        const type = await getPageData({
-          route: 'categories',
-          custom:
-            "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
-          locale,
-        }).then((response) => {
-          console.log('HOC DEBUG: categories response:', response);
-          return response.data;
-        });
-
-        const result = type ? { type } : {};
-        console.log('HOC DEBUG: filters processed result:', result);
-        return result;
-      } catch (error) {
-        console.error('HOC DEBUG: filters fetch error:', error);
-        throw error;
-      }
-    },
-  },
-  {
-    routeName: 'inventory',
-  }
-);
+export default Inventory;

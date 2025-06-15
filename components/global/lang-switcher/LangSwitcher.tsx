@@ -171,7 +171,8 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
         const newPath = `${translatedBasePath}/${translatedTypePath}/${translatedTypeValue}${queryString}`;
 
-        await router.push(newPath, undefined, { locale: langCode });
+        // Force page reload by using window.location instead of router.push
+        window.location.href = `/${langCode}${newPath}`;
         return;
       }
     }
@@ -204,16 +205,16 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         }
 
         const fullPath = `${translatedBasePath}/${localizedSlug}${queryStr}`;
-        await router.push(fullPath, undefined, { locale: langCode });
+        // Force page reload by using window.location instead of router.push
+        window.location.href = `/${langCode}${fullPath}`;
       } else {
-        router.push(
-          {
-            pathname,
-            query: { ...query, slug: localizedSlug },
-          },
-          undefined,
-          { locale: langCode }
-        );
+        // Construct the URL manually and force reload
+        const newQuery = { ...query, slug: localizedSlug };
+        const queryStr = new URLSearchParams(
+          newQuery as Record<string, string>
+        ).toString();
+        const fullUrl = `/${langCode}${pathname}${queryStr ? '?' + queryStr : ''}`;
+        window.location.href = fullUrl;
       }
     } else {
       const currentRoute = Object.entries(routeTranslations).find(
@@ -227,18 +228,11 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         const translatedPath = sanitizePath(
           normalizeUrl(routeTranslations[currentRoute[0]][langCode])
         );
-        await router.push(`${translatedPath}${queryString}`, undefined, {
-          locale: langCode,
-        });
+        // Force page reload by using window.location instead of router.push
+        window.location.href = `/${langCode}${translatedPath}${queryString}`;
       } else {
-        await router.push(
-          {
-            pathname,
-            search: queryString,
-          },
-          undefined,
-          { locale: langCode }
-        );
+        // Force page reload for fallback case
+        window.location.href = `/${langCode}${pathname}${queryString}`;
       }
     }
   };
