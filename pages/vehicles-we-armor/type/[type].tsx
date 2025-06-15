@@ -357,7 +357,7 @@ function Inventory(props) {
           </p>
         )}
 
-        {props.filters.type && vehiclesData?.length > 0 && (
+        {props.filters.type && (
           <div className={`${styles.listing_all_filters} container`}>
             <Filters props={props.filters} plain />
           </div>
