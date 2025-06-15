@@ -106,7 +106,6 @@ export default function App({ Component, pageProps }) {
         url === '/es/disponible-ahora' ||
         url.startsWith('/es/disponible-ahora/tipo/')
       ) {
-        console.log('1');
         window.location.href = url;
         return;
       }

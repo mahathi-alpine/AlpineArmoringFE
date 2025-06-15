@@ -314,7 +314,7 @@
     justify-content: center;
     align-items: center;
 
-    & > a:last-child {
+    & > button:last-child {
       margin-top: 8px;
       @media (min-width: 508px) {
         margin-top: 0;
@@ -344,6 +344,58 @@
         font-size: rem(12);
         font-weight: var(--font-medium);
         margin-right: 3px;
+      }
+    }
+  }
+
+  &_passwordPopup{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: rem(24);
+    font-weight: var(--font-medium);
+    font-size: rem(15);
+    z-index: 2;
+    cursor: pointer;
+
+    &_text{
+      position: relative;
+      text-align: center;
+
+      &:before{
+        content: "";
+        position: absolute;
+        bottom: -7px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: #fff;
+        transform-origin: left center;
+        transform: scaleX(0);
+        transition: transform 0.3s, color 0.25s linear;
+      }
+    }
+
+    &_icon{
+      display: flex;
+      gap: 10px;
+
+      svg{
+        width: 30px;
+        height: 30px;
+        margin-left: 8px;
+        transform: rotate(0deg);
+        transition: transform 0.3s cubic-bezier(0.4, 0.64, 0.68, 1);
+      }
+    }
+
+    &:hover{
+      .inventory_passwordPopup_text:before{
+        transform: scaleX(1);
+      }
+      svg{
+        transform: rotate(45deg);
       }
     }
   }

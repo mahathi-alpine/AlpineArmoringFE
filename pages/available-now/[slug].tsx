@@ -108,6 +108,8 @@ function InventoryVehicle(props) {
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
 
+  const mediaPassword = data.mediaPassword;
+
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
   const category = data?.categories?.data[0]?.attributes?.title;
@@ -360,6 +362,14 @@ function InventoryVehicle(props) {
     return JSON.stringify(structuredData);
   };
 
+  const handlePdfClick = (mediaData, password = null) => {
+    const pdfData = {
+      ...mediaData,
+      password: password,
+    };
+    togglePDFPopup(pdfData);
+  };
+
   if (!data) {
     console.error('Missing or malformed data structure');
     return null;
@@ -567,17 +577,59 @@ function InventoryVehicle(props) {
                 })}
               </ul>
 
+              {mediaPassword ? (
+                <div
+                  onClick={() =>
+                    handlePdfClick(
+                      mediaPassword.media.data.attributes,
+                      mediaPassword.password
+                    )
+                  }
+                  className={`${styles.inventory_passwordPopup}`}
+                >
+                  <span className={`${styles.inventory_passwordPopup_text}`}>
+                    <span>{mediaPassword.text}</span>
+                    {/* <br />
+                    Brochure */}
+                  </span>
+                  <div className={`${styles.inventory_passwordPopup_icon}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <circle
+                        cx="10"
+                        cy="10"
+                        r="8"
+                        stroke="currentColor"
+                      ></circle>
+                      <path
+                        stroke="currentColor"
+                        d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              ) : null}
+
               {data?.OEMWindowSticker?.data || data?.OEMArmoringSpecs?.data ? (
                 <div className={`${styles.inventory_pdfs}`}>
                   {data?.OEMWindowSticker?.data ? (
                     <Button
-                      href={data.OEMWindowSticker.data.attributes?.url.replace(
-                        /\.ai$/,
-                        '.pdf'
-                      )}
+                      // href={data.OEMWindowSticker.data.attributes?.url.replace(
+                      //   /\.ai$/,
+                      //   '.pdf'
+                      // )}
+                      onClick={() =>
+                        togglePDFPopup(data.OEMWindowSticker.data.attributes)
+                      }
                       iconComponent={PDFIcon}
                       className={`${styles.inventory_pdfs_button} icon rounded`}
-                      target
+                      // target
+                      button
                     >
                       <strong>{lang.oem}</strong> {lang.windowSticker}
                     </Button>
