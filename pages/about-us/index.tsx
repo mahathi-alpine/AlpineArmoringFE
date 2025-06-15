@@ -6,15 +6,17 @@ import {
   withLanguageContext,
 } from 'components/LanguageContext';
 import useAnimationObserver from 'hooks/useAnimationObserver';
+import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 import styles from './About.module.scss';
+
+import Loader from 'components/global/loader/Loader';
 import Banner from 'components/global/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
 import FillingText from 'components/global/filling-text/FillingText';
 import Autoplay from 'components/global/carousel/Autoplay';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Counter from 'components/global/counter/Counter';
-import useLocale from 'hooks/useLocale';
 import 'yet-another-react-lightbox/styles.css';
 
 import dynamic from 'next/dynamic';
@@ -28,14 +30,18 @@ const GlobeComponent = dynamic(() => import('components/global/globe/Globe'), {
 });
 
 function About(props) {
-  const { currentData, isLoading, error } = useLanguageData();
+  const { lang } = useLocale();
 
+  const { currentData, isLoading, error } = useLanguageData();
   const pageData = currentData || props.pageData;
 
-  const { lang } = useLocale();
+  const banner = pageData?.banner;
+  const mainText = pageData?.text;
+  const timeline = pageData?.timeline;
   const boxes = pageData?.boxes;
   const certificate1 = pageData?.certificate1?.data?.attributes;
   const certificate2 = pageData?.certificate2?.data?.attributes;
+  const quote = pageData?.quote;
 
   // Animations
   useAnimationObserver({
@@ -101,17 +107,15 @@ function About(props) {
   };
 
   if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div>Loading...</div>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error) {
     return (
       <div className="error-container">
-        <div>Error loading content: {error}</div>
+        <div>
+          {lang.inventorySystemDown}: <br /> {error}
+        </div>
       </div>
     );
   }
@@ -127,24 +131,20 @@ function About(props) {
       </Head>
 
       <div className={`${styles.about}`}>
-        {props.pageData?.banner ? (
-          <Banner props={props.pageData.banner} shape="white" />
-        ) : null}
+        {banner ? <Banner props={banner} shape="white" /> : null}
 
-        {props.pageData?.text ? (
+        {mainText ? (
           <div
             className={`${styles.about_text} observe fade-in container_small`}
           >
-            <CustomMarkdown>{props.pageData.text}</CustomMarkdown>
+            <CustomMarkdown>{mainText}</CustomMarkdown>
           </div>
         ) : null}
 
-        {props.pageData?.timeline1?.filter(
-          (item) => item.image?.data?.length > 0
-        ).length > 0 ? (
+        {timeline?.filter((item) => item.image?.data?.length > 0).length > 0 ? (
           <div className={`${styles.timeline_gallery}`}>
             <Autoplay
-              slides={props.pageData?.timeline1
+              slides={timeline
                 .filter((item) => item.image?.data?.length > 0)
                 .map((item) => ({
                   image: item.image?.data[0],
@@ -286,9 +286,9 @@ function About(props) {
           pdfUrl={currentPdfUrl}
         />
 
-        {props.pageData?.quote ? (
+        {quote ? (
           <div className={`${styles.about_quote}`}>
-            <FillingText data={props.pageData?.quote} dark />
+            <FillingText data={quote} dark />
           </div>
         ) : null}
 

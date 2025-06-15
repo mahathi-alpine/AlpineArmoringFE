@@ -1,24 +1,37 @@
 import styles from './Contact.module.scss';
-import withLocaleRefetch from 'components/withLocaleRefetch';
+import {
+  useLanguageData,
+  withLanguageContext,
+} from 'components/LanguageContext';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import Head from 'next/head';
 import { getPageData } from 'hooks/api';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
+
+import Loader from 'components/global/loader/Loader';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
 import Image from 'next/image';
 import CustomMarkdown from 'components/CustomMarkdown';
-
 import useLightbox from 'components/global/lightbox/useLightbox';
 import NextJsImage from 'components/global/lightbox/NextJsImage';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 function Contact(props) {
-  const { openLightbox, renderLightbox } = useLightbox();
   const { lang } = useLocale();
-  const faqs = props?.pageData?.fa_qs;
+
+  const { currentData, isLoading, error } = useLanguageData();
+  const pageData = currentData || props.pageData;
+
+  const banner = pageData?.banner;
+  const salesInfo = pageData?.salesInfo;
+  const partsInfo = pageData?.partsInfo;
+  const mapImage = pageData?.mapImage;
+  const faqs = pageData?.fa_qs;
+
+  const { openLightbox, renderLightbox } = useLightbox();
 
   type CustomSlide = {
     src: string;
@@ -32,7 +45,7 @@ function Contact(props) {
 
   // Animations
   useAnimationObserver({
-    dependencies: [props.pageData],
+    dependencies: [pageData],
   });
 
   const getOrganizationStructuredData = () => {
@@ -81,6 +94,20 @@ function Contact(props) {
     return JSON.stringify(structuredData);
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <div>
+          {lang.inventorySystemDown}: <br /> {error}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -99,9 +126,7 @@ function Contact(props) {
       </Head>
 
       <div className={`${styles.contact}`}>
-        {props.pageData?.banner ? (
-          <Banner props={props.pageData.banner} shape="white" />
-        ) : null}
+        {banner ? <Banner props={banner} shape="white" /> : null}
         <div className={`${styles.contact_main} container_small`}>
           <div className={`${styles.contact_main_left}`}>
             <Form />
@@ -113,8 +138,8 @@ function Contact(props) {
                 <h2 className={`${styles.contact_main_right_title}`}>
                   {lang.salesInquiries}
                 </h2>
-                {props.pageData?.salesInfo ? (
-                  <CustomMarkdown>{props.pageData.salesInfo}</CustomMarkdown>
+                {salesInfo ? (
+                  <CustomMarkdown>{salesInfo}</CustomMarkdown>
                 ) : null}
               </div>
               <div className={`${styles.contact_main_right_column}`}>
@@ -125,17 +150,17 @@ function Contact(props) {
                     }}
                   />
                 </h2>
-                {props.pageData?.partsInfo ? (
-                  <CustomMarkdown>{props.pageData.partsInfo}</CustomMarkdown>
+                {partsInfo ? (
+                  <CustomMarkdown>{partsInfo}</CustomMarkdown>
                 ) : null}
               </div>
             </div>
 
-            {props.pageData?.mapImage?.data && (
+            {mapImage?.data && (
               <>
                 <div className={styles.contact_map}>
                   <Image
-                    src={props.pageData?.mapImage.data.attributes.url}
+                    src={mapImage.data.attributes.url}
                     alt={'Alpine Armoring Location'}
                     fill
                     onClick={() => {
@@ -147,7 +172,7 @@ function Contact(props) {
                 {renderLightbox({
                   slides: [
                     {
-                      src: props.pageData?.mapImage.data.attributes.url,
+                      src: mapImage.data.attributes.url,
                       width: 874,
                       height: 295,
                       alt: 'Alpine Armoring Location',
@@ -194,19 +219,15 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(
+export default withLanguageContext(
   Contact,
-  {
-    pageData: async (locale) => {
-      const data = await getPageData({
-        route: routes.contact.collection,
-        populate: 'deep',
-        locale,
-      });
-      return data.data?.attributes || null;
-    },
+  async (locale) => {
+    const data = await getPageData({
+      route: routes.contact.collection,
+      populate: 'deep',
+      locale,
+    });
+    return data.data?.attributes || null;
   },
-  {
-    routeName: 'contact',
-  }
+  'contact'
 );
