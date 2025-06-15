@@ -64,21 +64,105 @@ function Inventory(props) {
   const { lang } = useLocale();
   const router = useRouter();
 
+  // ALL HOOKS MUST BE DECLARED FIRST - NO EARLY RETURNS BEFORE THIS POINT
+
   // State to track if we're client-side and need to fetch data
   const [isClientSide, setIsClientSide] = useState(false);
   const [clientData, setClientData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Detect if we're on client-side and props are missing
-  useEffect(() => {
-    setIsClientSide(true);
+  // These states need to be declared with fallback values to avoid hook order issues
+  const [allVehicles, setAllVehicles] = useState([]);
+  const [filteredVehicles, setFilteredVehicles] = useState([]);
+  const [displayedVehicles, setDisplayedVehicles] = useState([]);
 
-    // If we're client-side and essential props are missing, fetch them
-    if (router.isReady && (!props.vehicles || !props.vehicles.data)) {
-      console.log('Client-side navigation detected, fetching data...');
-      fetchClientSideData();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
+  const contentRef = useRef(null);
+
+  // Determine which data to use
+  const effectiveProps = React.useMemo(() => {
+    console.log('=== EFFECTIVE PROPS SELECTION START ===');
+    console.log('Router locale:', router.locale);
+    console.log('Is default language (en)?', router.locale === 'en');
+    console.log('Original props:', props);
+    console.log('Original props.vehicles:', props.vehicles);
+    console.log('Original props.vehicles?.data:', props.vehicles?.data);
+    console.log(
+      'Original props.vehicles?.data is array?',
+      Array.isArray(props.vehicles?.data)
+    );
+
+    // For default language (en), always use the original props
+    if (router.locale === 'en') {
+      console.log('Using original props for default language (en)');
+      return props;
     }
-  }, [router.isReady, props.vehicles]);
+
+    console.log('Client data:', clientData);
+    console.log('Client data vehicles:', clientData?.vehicles);
+    console.log('Client data vehicles.data:', clientData?.vehicles?.data);
+    console.log(
+      'Client data vehicles.data is array?',
+      Array.isArray(clientData?.vehicles?.data)
+    );
+
+    // For non-default languages, if we have valid props from SSG, use them
+    if (props.vehicles?.data && Array.isArray(props.vehicles.data)) {
+      console.log('Using original props - has valid vehicles.data');
+      console.log('Original props vehicles count:', props.vehicles.data.length);
+      return props;
+    }
+
+    // If we have client-side data, use it
+    if (clientData?.vehicles?.data) {
+      console.log('Using client data - has vehicles.data');
+      console.log(
+        'Client data vehicles count:',
+        clientData.vehicles.data.length
+      );
+      console.log(
+        'Client data is array check:',
+        Array.isArray(clientData.vehicles.data)
+      );
+      return clientData;
+    }
+
+    // Fallback to default data
+    console.log('Using fallback data');
+    const fallback = getFallbackData(router.locale || 'en');
+    console.log('Fallback data:', fallback);
+    return fallback;
+  }, [props, clientData, router.locale]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { pageData, vehicles, filters, searchQuery } = effectiveProps;
+
+  // Add comprehensive vehicles debugging
+  console.log('=== FINAL VEHICLES DEBUG START ===');
+  console.log('Effective props:', effectiveProps);
+  console.log('Destructured vehicles:', vehicles);
+  console.log('Vehicles type:', typeof vehicles);
+  console.log('Vehicles is null?', vehicles === null);
+  console.log('Vehicles is undefined?', vehicles === undefined);
+  console.log('Vehicles keys:', vehicles ? Object.keys(vehicles) : 'no keys');
+  console.log('Vehicles.data:', vehicles?.data);
+  console.log('Vehicles.data type:', typeof vehicles?.data);
+  console.log('Vehicles.data is array?', Array.isArray(vehicles?.data));
+  console.log('Vehicles.data length:', vehicles?.data?.length);
+  console.log('Vehicles.meta:', vehicles?.meta);
+
+  if (vehicles?.data && Array.isArray(vehicles.data)) {
+    console.log('First 3 vehicles:', vehicles.data.slice(0, 3));
+    console.log('Vehicle structure sample:', vehicles.data[0]);
+    console.log('Vehicle attributes sample:', vehicles.data[0]?.attributes);
+  } else {
+    console.log('Vehicles.data is not a valid array!');
+  }
+
+  console.log('AllVehicles state will be:', vehicles.data);
+  console.log('=== FINAL VEHICLES DEBUG END ===');
 
   const fetchClientSideData = async () => {
     if (isLoading) return;
@@ -86,95 +170,131 @@ function Inventory(props) {
     setIsLoading(true);
     const locale = router.locale || 'en';
 
+    console.log('=== FETCH CLIENT SIDE DATA START ===');
+    console.log('Current locale:', locale);
+    console.log('Router locale:', router.locale);
+    console.log('Routes inventory:', routes.inventory);
+
     try {
-      // Fetch the same data as in getStaticProps
-      const [pageDataResult, vehiclesResult, filtersResult] = await Promise.all(
-        [
-          getPageData({
-            route: routes.inventory.collection,
-            locale,
-          }).then((data) => data.data?.attributes || null),
+      // Fetch pageData
+      console.log('Fetching pageData...');
+      const pageDataResult = await getPageData({
+        route: routes.inventory.collection,
+        locale,
+      }).then((data) => {
+        console.log('PageData raw response:', data);
+        const result = data.data?.attributes || null;
+        console.log('PageData processed:', result);
+        return result;
+      });
 
-          getPageData({
-            route: routes.inventory.collectionSingle,
-            params: '',
-            sort: 'order',
-            populate: 'featuredImage',
-            fields:
-              'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-            pageSize: 100,
-            locale,
-          }),
+      // Fetch vehicles
+      console.log('Fetching vehicles...');
+      console.log('Vehicle route:', routes.inventory.collectionSingle);
+      const vehiclesResult = await getPageData({
+        route: routes.inventory.collectionSingle,
+        params: '',
+        sort: 'order',
+        populate: 'featuredImage',
+        fields:
+          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+        pageSize: 100,
+        locale,
+      });
 
-          getPageData({
-            route: 'categories',
-            custom:
-              "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
-            locale,
-          }).then((response) => (response.data ? { type: response.data } : {})),
-        ]
+      console.log('Vehicles raw response:', vehiclesResult);
+      console.log('Vehicles data exists?', !!vehiclesResult?.data);
+      console.log('Vehicles data type:', typeof vehiclesResult?.data);
+      console.log(
+        'Vehicles data is array?',
+        Array.isArray(vehiclesResult?.data)
       );
+      console.log('Vehicles data length:', vehiclesResult?.data?.length);
+      console.log('First vehicle:', vehiclesResult?.data?.[0]);
+      console.log('Vehicles meta:', vehiclesResult?.meta);
 
-      setClientData({
+      // Fetch filters
+      console.log('Fetching filters...');
+      const filtersResult = await getPageData({
+        route: 'categories',
+        custom:
+          "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
+        locale,
+      }).then((response) => {
+        console.log('Filters raw response:', response);
+        const result = response.data ? { type: response.data } : {};
+        console.log('Filters processed:', result);
+        return result;
+      });
+
+      const finalData = {
         pageData: pageDataResult,
         vehicles: vehiclesResult,
         filters: filtersResult,
         searchQuery: null,
         isOffline: false,
-      });
+      };
+
+      console.log('Final client data structure:', finalData);
+      console.log('Final vehicles structure:', finalData.vehicles);
+      console.log('Final vehicles.data:', finalData.vehicles?.data);
+
+      setClientData(finalData);
 
       console.log('Client-side data fetched successfully');
     } catch (error) {
       console.error('Failed to fetch client-side data:', error);
+      console.error('Error details:', error.message);
+      console.error('Error stack:', error.stack);
       // Use fallback data on error
-      setClientData(getFallbackData(locale));
+      const fallbackData = getFallbackData(locale);
+      console.log('Using fallback data:', fallbackData);
+      setClientData(fallbackData);
     } finally {
       setIsLoading(false);
     }
+    console.log('=== FETCH CLIENT SIDE DATA END ===');
   };
 
-  // Determine which data to use
-  const effectiveProps = React.useMemo(() => {
-    // If we have valid props from SSG, use them
-    if (props.vehicles?.data && Array.isArray(props.vehicles.data)) {
-      return props;
+  // Detect if we're on client-side and props are missing
+  useEffect(() => {
+    setIsClientSide(true);
+
+    // Only fetch client-side data for non-default languages (not 'en')
+    // If we're client-side, not on default language, and essential props are missing, fetch them
+    if (
+      router.isReady &&
+      router.locale !== 'en' &&
+      (!props.vehicles || !props.vehicles.data)
+    ) {
+      console.log(
+        'Client-side navigation detected for non-default language, fetching data...'
+      );
+      fetchClientSideData();
     }
+  }, [router.isReady, router.locale, props.vehicles]);
 
-    // If we have client-side data, use it
-    if (clientData?.vehicles?.data) {
-      return clientData;
+  // Update allVehicles when effectiveProps change
+  useEffect(() => {
+    if (vehicles?.data && Array.isArray(vehicles.data)) {
+      console.log('Setting allVehicles to:', vehicles.data);
+      setAllVehicles(vehicles.data);
+    } else {
+      console.log('Setting allVehicles to empty array');
+      setAllVehicles([]);
     }
-
-    // Fallback to default data
-    return getFallbackData(router.locale || 'en');
-  }, [props, clientData, router.locale]);
-
-  const { pageData, vehicles, filters, searchQuery } = effectiveProps;
-
-  const topBanner = pageData?.banner;
-  const bottomText = pageData?.bottomText;
-  const bottomTextContent = {
-    dynamicZone: pageData?.bottomTextDynamic || [],
-  };
-
-  const faqs = pageData?.faqs || [];
+  }, [vehicles]);
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
-
-  const [allVehicles] = useState(vehicles.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
-  const [displayedVehicles, setDisplayedVehicles] = useState(
-    searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
 
   // Handle client-side filtering for search and category filters
   useEffect(() => {
     if (!router.isReady) return;
 
     let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
+
+    console.log('Filtering - allVehicles count:', allVehicles.length);
+    console.log('Filtering - after hide filter:', filtered.length);
 
     // Apply search filter
     if (q && typeof q === 'string') {
@@ -185,6 +305,7 @@ function Inventory(props) {
           .replace(/[-\s]/g, '');
         return slug.includes(searchTerms);
       });
+      console.log('Filtering - after search filter:', filtered.length);
     }
 
     // Apply vehicles_we_armor filter
@@ -201,6 +322,7 @@ function Inventory(props) {
             .replace(/[-\s]/g, '');
           return slug.includes(searchTerms);
         });
+        console.log('Filtering - after category filter:', filtered.length);
       }
     }
 
@@ -215,6 +337,13 @@ function Inventory(props) {
       setDisplayedVehicles(filtered.slice(0, ITEMS_TO_DISPLAY));
       setVisibleCount(ITEMS_TO_DISPLAY);
     }
+
+    console.log(
+      'Final displayed vehicles count:',
+      q || vehicles_we_armor || vehiculos_que_blindamos
+        ? filtered.length
+        : Math.min(filtered.length, ITEMS_TO_DISPLAY)
+    );
   }, [
     q,
     vehicles_we_armor,
@@ -275,42 +404,9 @@ function Inventory(props) {
     return () => observer.disconnect();
   }, [handleIntersection, q, vehicles_we_armor, vehiculos_que_blindamos]);
 
-  const [isContentExpanded, setIsContentExpanded] = useState(false);
-  const contentRef = useRef(null);
   const toggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
   };
-
-  // Show loading state if we're fetching client-side data
-  if (isClientSide && isLoading) {
-    return (
-      <div className={`${styles.listing} background-dark`}>
-        <div
-          className="container"
-          style={{ padding: '2rem', textAlign: 'center' }}
-        >
-          <p>Loading inventory...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Safety check - this should now rarely be needed
-  if (!vehicles?.data || !Array.isArray(vehicles.data)) {
-    console.warn('Vehicles data is still not available, using empty state');
-    return (
-      <div className={`${styles.listing} background-dark`}>
-        <div className="container">
-          <div className={`${styles.listing_list_error}`}>
-            <p>
-              Unable to load inventory at this time. Please try refreshing the
-              page.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -336,6 +432,8 @@ function Inventory(props) {
 
   // FAQ structured data
   const getFAQStructuredData = () => {
+    const faqs = pageData?.faqs || [];
+
     if (!faqs || !Array.isArray(faqs)) {
       console.error('FAQs is not an array:', faqs);
       return null;
@@ -365,6 +463,53 @@ function Inventory(props) {
 
     return JSON.stringify(structuredData);
   };
+
+  // NOW we can do conditional rendering after all hooks are declared
+
+  // Show loading state if we're fetching client-side data
+  if (isClientSide && isLoading) {
+    return (
+      <div className={`${styles.listing} background-dark`}>
+        <div
+          className="container"
+          style={{ padding: '2rem', textAlign: 'center' }}
+        >
+          <p>Loading inventory...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Safety check - this should now rarely be needed
+  if (!vehicles?.data || !Array.isArray(vehicles.data)) {
+    console.error('=== SAFETY CHECK TRIGGERED ===');
+    console.error('Vehicles:', vehicles);
+    console.error('Vehicles.data:', vehicles?.data);
+    console.error('Is array?', Array.isArray(vehicles?.data));
+    console.error('Length:', vehicles?.data?.length);
+    console.error('Effective props that caused this:', effectiveProps);
+
+    return (
+      <div className={`${styles.listing} background-dark`}>
+        <div className="container">
+          <div className={`${styles.listing_list_error}`}>
+            <p>
+              Unable to load inventory at this time. Please try refreshing the
+              page.
+            </p>
+            <p>Debug: vehicles={JSON.stringify(vehicles)}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const topBanner = pageData?.banner;
+  const bottomText = pageData?.bottomText;
+  const bottomTextContent = {
+    dynamicZone: pageData?.bottomTextDynamic || [],
+  };
+  const faqs = pageData?.faqs || [];
 
   return (
     <>
