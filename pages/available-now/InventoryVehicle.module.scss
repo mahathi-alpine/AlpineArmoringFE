@@ -348,7 +348,7 @@
     }
   }
 
-  &_passwordPopup{
+  &_passwordPopup {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -359,12 +359,12 @@
     z-index: 2;
     cursor: pointer;
 
-    &_text{
+    &_text {
       position: relative;
       text-align: center;
 
-      &:before{
-        content: "";
+      &:before {
+        content: '';
         position: absolute;
         bottom: -7px;
         left: 0;
@@ -373,15 +373,17 @@
         background: #fff;
         transform-origin: left center;
         transform: scaleX(0);
-        transition: transform 0.3s, color 0.25s linear;
+        transition:
+          transform 0.3s,
+          color 0.25s linear;
       }
     }
 
-    &_icon{
+    &_icon {
       display: flex;
       gap: 10px;
 
-      svg{
+      svg {
         width: 30px;
         height: 30px;
         margin-left: 8px;
@@ -390,11 +392,11 @@
       }
     }
 
-    &:hover{
-      .inventory_passwordPopup_text:before{
+    &:hover {
+      .inventory_passwordPopup_text:before {
         transform: scaleX(1);
       }
-      svg{
+      svg {
         transform: rotate(45deg);
       }
     }
