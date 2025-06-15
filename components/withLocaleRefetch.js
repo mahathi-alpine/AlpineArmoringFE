@@ -325,7 +325,13 @@ export default function withLocaleRefetch(
 
     // Emergency effect: If we detect that we have no valid data at all, fetch immediately
     useEffect(() => {
-      if (!router.isReady) return;
+      console.log('=== HOC EMERGENCY DATA CHECK ===');
+      console.log('HOC: Router ready for emergency check?', router.isReady);
+
+      if (!router.isReady) {
+        console.log('HOC: Router not ready for emergency check');
+        return;
+      }
 
       const hasAnyValidData =
         stateData &&
@@ -337,9 +343,14 @@ export default function withLocaleRefetch(
             )
           : stateData.pageData);
 
-      console.log('=== HOC EMERGENCY DATA CHECK ===');
       console.log('HOC: Emergency check - has valid data?', hasAnyValidData);
+      console.log('HOC: Emergency check - stateData:', stateData);
+      console.log(
+        'HOC: Emergency check - stateData keys:',
+        Object.keys(stateData || {})
+      );
       console.log('HOC: Current locale:', router.locale);
+      console.log('HOC: fetchedLocales:', fetchedLocales);
       console.log(
         'HOC: Is fetching in progress?',
         fetchedLocales[router.locale]
@@ -350,6 +361,12 @@ export default function withLocaleRefetch(
         console.log(
           'HOC: EMERGENCY FETCH - No valid data detected, fetching immediately'
         );
+
+        // Mark as fetching immediately to prevent multiple fetches
+        setFetchedLocales((prev) => ({
+          ...prev,
+          [router.locale]: true,
+        }));
 
         const emergencyFetch = async () => {
           const newData = {};
@@ -415,21 +432,27 @@ export default function withLocaleRefetch(
               [router.locale]: newData,
             }));
 
-            // Update tracking of which locales we've fetched
-            setFetchedLocales((prev) => ({
-              ...prev,
-              [router.locale]: true,
-            }));
-
             console.log('HOC: Emergency fetch completed successfully');
           } catch (error) {
             console.error('[LocaleRefetch] Emergency fetch error:', error);
+            // Reset fetchedLocales on error so we can try again
+            setFetchedLocales((prev) => ({
+              ...prev,
+              [router.locale]: false,
+            }));
           }
         };
 
         emergencyFetch();
+      } else {
+        console.log(
+          'HOC: Emergency fetch not needed - hasValidData:',
+          hasAnyValidData,
+          'alreadyFetching:',
+          fetchedLocales[router.locale]
+        );
       }
-    }, [router.isReady, router.locale, stateData, fetchedLocales]);
+    }, [router.isReady, router.locale]);
 
     // Create new props by combining original props with updated state data
     // Make sure we always have valid data by using props as fallback
@@ -462,6 +485,22 @@ export default function withLocaleRefetch(
       updatedProps.vehicles?.data?.length
     );
     console.log('HOC: Final pageData exists?', !!updatedProps.pageData);
+
+    // If we still don't have critical data, show loading state instead of crashing
+    const hasRequiredData =
+      typeof fetchConfig === 'object'
+        ? Object.keys(fetchConfig).every(
+            (key) =>
+              updatedProps[key] &&
+              (key !== 'vehicles' || updatedProps[key]?.data)
+          )
+        : updatedProps.pageData;
+
+    if (!hasRequiredData && router.isReady) {
+      console.log('HOC: Still missing required data, showing loading state');
+      return <div>Loading...</div>;
+    }
+
     console.log('=== HOC RENDERING COMPONENT ===');
 
     return <Component {...updatedProps} />;
