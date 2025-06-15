@@ -312,8 +312,6 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
-  console.log(vehiclesData);
-
   return (
     <>
       <Head>
