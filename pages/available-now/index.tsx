@@ -57,35 +57,99 @@ const getFallbackData = (locale = 'en') => ({
   vehicles: { data: [], meta: { pagination: { total: 0 } } },
   filters: {},
   searchQuery: null,
-  isOffline: true,
+  isOffline: false,
 });
 
 function Inventory(props) {
   const { lang } = useLocale();
-
-  console.log('=== INVENTORY DEBUG START ===');
-  console.log('Full props:', props);
-  console.log('props.pageData:', props.pageData);
-  console.log('props.vehicles:', props.vehicles);
-  console.log('props.vehicles?.data:', props.vehicles?.data);
-  console.log('props.filters:', props.filters);
-  console.log('props.searchQuery:', props.searchQuery);
-  console.log('props.isOffline:', props.isOffline);
-  console.log('Current router.locale:', useRouter().locale);
-  console.log('Current router.isReady:', useRouter().isReady);
-  console.log('=== INVENTORY DEBUG END ===');
-
-  const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();
 
-  if (!vehicles) {
-    console.error('VEHICLES IS UNDEFINED!');
-    // return <div>Loading...</div>;
-  }
-  if (!vehicles.data) {
-    console.error('VEHICLES.DATA IS UNDEFINED!', vehicles);
-    // return <div>Loading...</div>;
-  }
+  // State to track if we're client-side and need to fetch data
+  const [isClientSide, setIsClientSide] = useState(false);
+  const [clientData, setClientData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Detect if we're on client-side and props are missing
+  useEffect(() => {
+    setIsClientSide(true);
+
+    // If we're client-side and essential props are missing, fetch them
+    if (router.isReady && (!props.vehicles || !props.vehicles.data)) {
+      console.log('Client-side navigation detected, fetching data...');
+      fetchClientSideData();
+    }
+  }, [router.isReady, props.vehicles]);
+
+  const fetchClientSideData = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+    const locale = router.locale || 'en';
+
+    try {
+      // Fetch the same data as in getStaticProps
+      const [pageDataResult, vehiclesResult, filtersResult] = await Promise.all(
+        [
+          getPageData({
+            route: routes.inventory.collection,
+            locale,
+          }).then((data) => data.data?.attributes || null),
+
+          getPageData({
+            route: routes.inventory.collectionSingle,
+            params: '',
+            sort: 'order',
+            populate: 'featuredImage',
+            fields:
+              'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+            pageSize: 100,
+            locale,
+          }),
+
+          getPageData({
+            route: 'categories',
+            custom:
+              "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
+            locale,
+          }).then((response) => (response.data ? { type: response.data } : {})),
+        ]
+      );
+
+      setClientData({
+        pageData: pageDataResult,
+        vehicles: vehiclesResult,
+        filters: filtersResult,
+        searchQuery: null,
+        isOffline: false,
+      });
+
+      console.log('Client-side data fetched successfully');
+    } catch (error) {
+      console.error('Failed to fetch client-side data:', error);
+      // Use fallback data on error
+      setClientData(getFallbackData(locale));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Determine which data to use
+  const effectiveProps = React.useMemo(() => {
+    // If we have valid props from SSG, use them
+    if (props.vehicles?.data && Array.isArray(props.vehicles.data)) {
+      return props;
+    }
+
+    // If we have client-side data, use it
+    if (clientData?.vehicles?.data) {
+      return clientData;
+    }
+
+    // Fallback to default data
+    return getFallbackData(router.locale || 'en');
+  }, [props, clientData, router.locale]);
+
+  const { pageData, vehicles, filters, searchQuery } = effectiveProps;
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -105,8 +169,6 @@ function Inventory(props) {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
-
-  // const [loading, setLoading] = useState(false);
 
   // Handle client-side filtering for search and category filters
   useEffect(() => {
@@ -163,15 +225,12 @@ function Inventory(props) {
 
   // Handle infinite scroll
   const handleIntersection = useCallback(async () => {
-    // if (loading) return;
     if (q || vehicles_we_armor || vehiculos_que_blindamos) return; // No infinite scroll for filtered results
 
     const nextBatchStart = displayedVehicles.length;
     const remainingItems = filteredVehicles.length - nextBatchStart;
 
     if (remainingItems > 0) {
-      // setLoading(true);
-
       const itemsToAdd = Math.min(remainingItems, ITEMS_TO_DISPLAY);
       const nextBatch = filteredVehicles.slice(
         nextBatchStart,
@@ -180,7 +239,6 @@ function Inventory(props) {
 
       setDisplayedVehicles((prev) => [...prev, ...nextBatch]);
       setVisibleCount((prev) => prev + itemsToAdd);
-      // setLoading(false);
     }
   }, [
     filteredVehicles,
@@ -222,6 +280,37 @@ function Inventory(props) {
   const toggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
   };
+
+  // Show loading state if we're fetching client-side data
+  if (isClientSide && isLoading) {
+    return (
+      <div className={`${styles.listing} background-dark`}>
+        <div
+          className="container"
+          style={{ padding: '2rem', textAlign: 'center' }}
+        >
+          <p>Loading inventory...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Safety check - this should now rarely be needed
+  if (!vehicles?.data || !Array.isArray(vehicles.data)) {
+    console.warn('Vehicles data is still not available, using empty state');
+    return (
+      <div className={`${styles.listing} background-dark`}>
+        <div className="container">
+          <div className={`${styles.listing_list_error}`}>
+            <p>
+              Unable to load inventory at this time. Please try refreshing the
+              page.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -277,8 +366,6 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
-  if (!displayedVehicles) return null;
-
   return (
     <>
       <Head>
@@ -315,7 +402,7 @@ function Inventory(props) {
           <div className={`${styles.listing_wrap_shown}`}>
             {!displayedVehicles.length ? (
               <div className={`${styles.listing_list_error}`}>
-                {props.isOffline ? (
+                {effectiveProps.isOffline ? (
                   <>
                     <p>{lang.inventorySystemDown}</p>
                   </>
@@ -341,13 +428,6 @@ function Inventory(props) {
         {!q && !vehicles_we_armor && !vehiculos_que_blindamos && (
           <div className={`observe bottomObserver`}></div>
         )}
-
-        {/* <div
-          className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-          style={{ opacity: 0 }}
-        >
-          {lang.loading}
-        </div> */}
 
         {bottomText && bottomTextContent.dynamicZone.length == 0 && (
           <div className={`container_small`}>
@@ -465,71 +545,5 @@ export async function getStaticProps(context) {
   }
 }
 
-// Apply the withLocaleRefetch HOC
-export default withLocaleRefetch(
-  Inventory,
-  {
-    pageData: async (locale) => {
-      console.log('=== HOC DEBUG: Fetching pageData for locale:', locale);
-      try {
-        const data = await getPageData({
-          route: routes.inventory.collection,
-          locale,
-        });
-        console.log('HOC DEBUG: pageData result:', data);
-        const result = data.data?.attributes || null;
-        console.log('HOC DEBUG: pageData processed result:', result);
-        return result;
-      } catch (error) {
-        console.error('HOC DEBUG: pageData fetch error:', error);
-        throw error;
-      }
-    },
-    vehicles: async (locale) => {
-      console.log('=== HOC DEBUG: Fetching vehicles for locale:', locale);
-      try {
-        const data = await getPageData({
-          route: routes.inventory.collectionSingle,
-          params: '',
-          sort: 'order',
-          populate: 'featuredImage',
-          fields:
-            'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-          pageSize: 100,
-          locale,
-        });
-        console.log('HOC DEBUG: vehicles result:', data);
-        console.log('HOC DEBUG: vehicles.data exists?', !!data?.data);
-        console.log('HOC DEBUG: vehicles.data length:', data?.data?.length);
-        return data;
-      } catch (error) {
-        console.error('HOC DEBUG: vehicles fetch error:', error);
-        throw error;
-      }
-    },
-    filters: async (locale) => {
-      console.log('=== HOC DEBUG: Fetching filters for locale:', locale);
-      try {
-        const type = await getPageData({
-          route: 'categories',
-          custom:
-            "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
-          locale,
-        }).then((response) => {
-          console.log('HOC DEBUG: categories response:', response);
-          return response.data;
-        });
-
-        const result = type ? { type } : {};
-        console.log('HOC DEBUG: filters processed result:', result);
-        return result;
-      } catch (error) {
-        console.error('HOC DEBUG: filters fetch error:', error);
-        throw error;
-      }
-    },
-  },
-  {
-    routeName: 'inventory',
-  }
-);
+// Simplified HOC usage - remove the complex data fetching since we handle it in the component
+export default withLocaleRefetch(Inventory, {}, { routeName: 'inventory' });
