@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import styles from './LangSwitcher.module.scss';
 import { routeTranslations } from 'hooks/routes';
 import useLocale from 'hooks/useLocale';
@@ -27,12 +28,28 @@ const sanitizePath = (path: string): string => {
 export const LanguageSwitcher = ({ className }: { className?: string }) => {
   const { lang } = useLocale();
   const router = useRouter();
-  const { pathname, query, asPath } = router;
+  const { pathname, query, asPath, locale } = router;
 
-  const languages = router.locales.map((locale) => ({
-    code: locale,
-    label: locale.toUpperCase(),
-  }));
+  // Debug logging
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      console.log('🐛 LangSwitcher Debug:', {
+        currentLocale: locale,
+        pathname,
+        asPath,
+        query,
+        routerLocales: router.locales,
+        defaultLocale: router.defaultLocale,
+        routerReady: router.isReady,
+      });
+    }
+  }, [locale, pathname, asPath, query, router.isReady]);
+
+  const languages =
+    router.locales?.map((locale) => ({
+      code: locale,
+      label: locale.toUpperCase(),
+    })) || [];
 
   const currentLanguage =
     languages.find((lang) => lang.code === router.locale) || languages[0];
@@ -65,33 +82,38 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/knowledge-bases?pagination[limit]=-1&populate=localizations`;
     }
 
-    const response = await fetch(apiUrl);
-    const data = await response.json();
+    if (!apiUrl) return {};
 
-    const slugMappings = {};
-    if (data?.data) {
-      data.data.forEach((item) => {
-        if (item?.attributes) {
-          const enSlug = item.attributes.slug;
-          const esSlug =
-            item.attributes.localizations?.data?.[0]?.attributes?.slug;
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
 
-          if (enSlug && esSlug) {
-            slugMappings[enSlug] = esSlug;
-            slugMappings[esSlug] = enSlug;
+      const slugMappings = {};
+      if (data?.data) {
+        data.data.forEach((item) => {
+          if (item?.attributes) {
+            const enSlug = item.attributes.slug;
+            const esSlug =
+              item.attributes.localizations?.data?.[0]?.attributes?.slug;
+
+            if (enSlug && esSlug) {
+              slugMappings[enSlug] = esSlug;
+              slugMappings[esSlug] = enSlug;
+            }
           }
-        }
-      });
-    }
+        });
+      }
 
-    return slugMappings;
+      return slugMappings;
+    } catch (error) {
+      console.error('🐛 Error fetching localized slugs:', error);
+      return {};
+    }
   }
 
   // Helper to extract and preserve query parameters
   const extractQueryParams = (path) => {
-    // First sanitize the path to remove any domain duplications
     const sanitizedPath = sanitizePath(normalizeUrl(path));
-
     const [pathPart, queryPart] = sanitizedPath.split('?');
     if (!queryPart) return { path: pathPart, queryString: '' };
 
@@ -102,28 +124,41 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
   };
 
   const normalizePath = (path) => {
-    // First sanitize to remove domain duplications
     const sanitized = sanitizePath(path);
-
-    // Then remove domain if present in the path
-    const domainRegex = new RegExp(
-      `^(https?://)?(www\\.)?${window.location.hostname.replace('.', '\\.')}`,
-      'i'
-    );
-    return sanitized.replace(domainRegex, '');
+    if (typeof window !== 'undefined') {
+      const domainRegex = new RegExp(
+        `^(https?://)?(www\\.)?${window.location.hostname.replace('.', '\\.')}`,
+        'i'
+      );
+      return sanitized.replace(domainRegex, '');
+    }
+    return sanitized;
   };
 
   const normalizeUrl = (url) => {
     if (!url) return '';
-    // Remove any protocol and domain part if present
     return url.replace(/^(https?:\/\/)?(www\.)?alpineco\.com/i, '');
   };
 
   const switchLanguage = async (langCode) => {
-    const { path: rawPath, queryString } = extractQueryParams(asPath);
+    console.log('🐛 Switching language to:', langCode);
 
-    // Additional sanitization step
+    // Wait for router to be ready
+    if (!router.isReady) {
+      console.log('🐛 Router not ready, waiting...');
+      return;
+    }
+
+    const { path: rawPath, queryString } = extractQueryParams(asPath);
     const cleanPath = sanitizePath(normalizePath(rawPath));
+
+    console.log('🐛 Switch language debug:', {
+      rawPath,
+      cleanPath,
+      queryString,
+      currentLocale: locale,
+      targetLocale: langCode,
+    });
 
     const hasTypeParameter = cleanPath.includes(lang.type);
 
@@ -170,14 +205,23 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         const translatedTypeValue = routeConfig.types[typeKey][langCode];
 
         const newPath = `${translatedBasePath}/${translatedTypePath}/${translatedTypeValue}${queryString}`;
+        const finalUrl = langCode === 'en' ? newPath : `/${langCode}${newPath}`;
 
-        // Force page reload by using window.location instead of router.push
-        window.location.href = `/${langCode}${newPath}`;
+        console.log('🐛 Type page redirect:', finalUrl);
+
+        // Try using router.push first, fallback to window.location
+        try {
+          await router.push(finalUrl, finalUrl, { locale: langCode });
+        } catch (error) {
+          console.log('🐛 Router.push failed, using window.location');
+          window.location.href = finalUrl;
+        }
         return;
       }
     }
 
     if (query.slug) {
+      console.log('🐛 Handling slug-based page');
       const slugMappings = await getLocalizedSlugs();
       const localizedSlug = slugMappings[query.slug as string] || query.slug;
 
@@ -205,18 +249,36 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         }
 
         const fullPath = `${translatedBasePath}/${localizedSlug}${queryStr}`;
-        // Force page reload by using window.location instead of router.push
-        window.location.href = `/${langCode}${fullPath}`;
+        const finalUrl =
+          langCode === 'en' ? fullPath : `/${langCode}${fullPath}`;
+
+        console.log('🐛 Slug page redirect:', finalUrl);
+
+        // Try using router.push first, fallback to window.location
+        try {
+          await router.push(finalUrl, finalUrl, { locale: langCode });
+        } catch (error) {
+          console.log('🐛 Router.push failed, using window.location');
+          window.location.href = finalUrl;
+        }
       } else {
-        // Construct the URL manually and force reload
         const newQuery = { ...query, slug: localizedSlug };
         const queryStr = new URLSearchParams(
           newQuery as Record<string, string>
         ).toString();
         const fullUrl = `/${langCode}${pathname}${queryStr ? '?' + queryStr : ''}`;
-        window.location.href = fullUrl;
+
+        console.log('🐛 Fallback slug redirect:', fullUrl);
+
+        try {
+          await router.push(fullUrl, fullUrl, { locale: langCode });
+        } catch (error) {
+          console.log('🐛 Router.push failed, using window.location');
+          window.location.href = fullUrl;
+        }
       }
     } else {
+      console.log('🐛 Handling static page');
       const currentRoute = Object.entries(routeTranslations).find(
         ([, paths]) => {
           const pathToCheck = cleanPath.replace(/^\/[a-z]{2}\//, '/');
@@ -228,11 +290,31 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         const translatedPath = sanitizePath(
           normalizeUrl(routeTranslations[currentRoute[0]][langCode])
         );
-        // Force page reload by using window.location instead of router.push
-        window.location.href = `/${langCode}${translatedPath}${queryString}`;
+        const finalUrl =
+          langCode === 'en'
+            ? `${translatedPath}${queryString}`
+            : `/${langCode}${translatedPath}${queryString}`;
+
+        console.log('🐛 Static page redirect:', finalUrl);
+
+        // Try using router.push first, fallback to window.location
+        try {
+          await router.push(finalUrl, finalUrl, { locale: langCode });
+        } catch (error) {
+          console.log('🐛 Router.push failed, using window.location');
+          window.location.href = finalUrl;
+        }
       } else {
-        // Force page reload for fallback case
-        window.location.href = `/${langCode}${pathname}${queryString}`;
+        const finalUrl = `/${langCode}${pathname}${queryString}`;
+
+        console.log('🐛 Fallback static redirect:', finalUrl);
+
+        try {
+          await router.push(finalUrl, finalUrl, { locale: langCode });
+        } catch (error) {
+          console.log('🐛 Router.push failed, using window.location');
+          window.location.href = finalUrl;
+        }
       }
     }
   };
@@ -240,9 +322,9 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
   return (
     <div className={`${className} ${styles.langSwitcher}`}>
       <button
-        className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${currentLanguage.label}`]}`}
+        className={`${styles.langSwitcher_flag} ${styles[`langSwitcher_flag_${currentLanguage?.label || 'EN'}`]}`}
       >
-        <span>{currentLanguage.label}</span>
+        <span>{currentLanguage?.label || 'EN'}</span>
       </button>
 
       <ul className={styles.langSwitcher_wrap}>
