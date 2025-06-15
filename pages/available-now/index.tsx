@@ -80,8 +80,10 @@ function Inventory(props) {
   const [displayedVehicles, setDisplayedVehicles] = useState(
     searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
   );
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
+
   // const [loading, setLoading] = useState(false);
 
   // Handle client-side filtering for search and category filters
@@ -436,8 +438,7 @@ export async function getStaticProps(context) {
         },
         locale,
       },
-      // Still revalidate even with fallback data
-      revalidate: 21600,
+      revalidate: 21600, // Still revalidate even with fallback data
     };
   }
 }

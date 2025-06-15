@@ -85,20 +85,6 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
-      if (url.startsWith('/es/disponible-ahora/tipo/')) {
-        window.location.href = url;
-        return;
-      }
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router]);
-
-  useEffect(() => {
     document.documentElement.lang = currentLanguage || 'en-us';
 
     const bodyElement = document.body;
@@ -113,6 +99,20 @@ export default function App({ Component, pageProps }) {
       bodyElement.classList.add('lang-en');
     }
   }, [currentLanguage]);
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url.startsWith('/es/disponible-ahora/tipo/')) {
+        window.location.href = url;
+        return;
+      }
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router]);
 
   return (
     <>

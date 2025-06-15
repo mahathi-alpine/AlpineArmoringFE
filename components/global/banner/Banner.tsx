@@ -178,6 +178,15 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     );
   }
 
+  // const [isClient, setIsClient] = useState(false)
+
+  // useEffect(() => {
+  //   setIsClient(true)
+  // }, [])
+
+  const availableNowPath = `/${lang.availableNowURL}`.replace('//', '/');
+  const vehiclesArmorPath = `${lang.vehiclesWeArmorURL}`.replace('//', '/');
+
   return (
     <div
       className={`
@@ -189,8 +198,10 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
 
-        {currentRoute.startsWith('/' + lang.availableNowURL) ||
-        currentRoute.startsWith(lang.vehiclesWeArmorURL) ? (
+        {/* {currentRoute.startsWith('/' + lang.availableNowURL) ||
+        currentRoute.startsWith(lang.vehiclesWeArmorURL) ? ( */}
+        {/* {isClient && (currentRoute.startsWith(`/${lang.availableNowURL}`) || currentRoute.startsWith(lang.vehiclesWeArmorURL)) && ( */}
+        {(availableNowPath || vehiclesArmorPath) && (
           <div className={`${styles.banner_content}`}>
             <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
@@ -214,7 +225,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
               ) : null}
             </div>
           </div>
-        ) : null}
+        )}
       </div>
 
       {shape ? (
@@ -223,9 +234,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
         />
       ) : null}
 
-      {bannerTitle &&
-      !currentRoute.startsWith('/' + lang.availableNowURL) &&
-      !currentRoute.startsWith(lang.vehiclesWeArmorURL) ? (
+      {bannerTitle && !availableNowPath && !vehiclesArmorPath && (
         <>
           <h1
             className={`
@@ -250,7 +259,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
             ></h2>
           ) : null}
         </>
-      ) : null}
+      )}
     </div>
   );
 };
