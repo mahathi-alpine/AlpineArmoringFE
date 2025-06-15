@@ -13,6 +13,7 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import CustomMarkdown from 'components/CustomMarkdown';
 import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
+import withLocaleRefetch from 'components/withLocaleRefetch';
 
 const ITEMS_TO_DISPLAY = 6;
 
@@ -69,14 +70,15 @@ function Inventory(props) {
   const bottomTextContent = {
     dynamicZone: pageData?.bottomTextDynamic || [],
   };
-  const faqs = pageData?.faqs;
+
+  const faqs = pageData?.faqs || [];
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles] = useState(vehicles?.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles?.data);
+  const [allVehicles] = useState(vehicles.data);
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicles.data);
   const [displayedVehicles, setDisplayedVehicles] = useState(
-    searchQuery ? vehicles?.data : vehicles?.data.slice(0, ITEMS_TO_DISPLAY)
+    searchQuery ? vehicles.data : vehicles.data.slice(0, ITEMS_TO_DISPLAY)
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
@@ -196,10 +198,6 @@ function Inventory(props) {
   const toggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
   };
-
-  if (!router.isReady || !pageData) {
-    return <div>Loading...</div>;
-  }
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -444,4 +442,42 @@ export async function getStaticProps(context) {
   }
 }
 
-export default Inventory;
+// Apply the withLocaleRefetch HOC
+export default withLocaleRefetch(
+  Inventory,
+  {
+    pageData: async (locale) => {
+      const data = await getPageData({
+        route: routes.inventory.collection,
+        locale,
+      });
+      return data.data?.attributes || null;
+    },
+    vehicles: async (locale) => {
+      const data = await getPageData({
+        route: routes.inventory.collectionSingle,
+        params: '',
+        sort: 'order',
+        populate: 'featuredImage',
+        fields:
+          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+        pageSize: 100,
+        locale,
+      });
+      return data;
+    },
+    filters: async (locale) => {
+      const type = await getPageData({
+        route: 'categories',
+        custom:
+          "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
+        locale,
+      }).then((response) => response.data);
+
+      return type ? { type } : {};
+    },
+  },
+  {
+    routeName: 'inventory',
+  }
+);
