@@ -184,8 +184,41 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   //   setIsClient(true)
   // }, [])
 
-  const availableNowPath = `/${lang.availableNowURL}`.replace('//', '/');
-  const vehiclesArmorPath = `${lang.vehiclesWeArmorURL}`.replace('//', '/');
+  // Check if current language is not the default (en)
+  const isNonDefaultLanguage = router.locale !== 'en';
+
+  const [showSpecialBanner, setShowSpecialBanner] = useState(false);
+  const [showRegularBanner, setShowRegularBanner] = useState(true);
+
+  useEffect(() => {
+    // Only use this logic for non-default languages
+    if (isNonDefaultLanguage) {
+      const shouldShowSpecial =
+        currentRoute.startsWith(`/${lang.availableNowURL}`) ||
+        currentRoute.startsWith(`/${lang.vehiclesWeArmorURL}`);
+      setShowSpecialBanner(shouldShowSpecial);
+
+      const shouldShowRegular =
+        !currentRoute.startsWith(`/${lang.availableNowURL}`) &&
+        !currentRoute.startsWith(`/${lang.vehiclesWeArmorURL}`);
+      setShowRegularBanner(shouldShowRegular);
+    } else {
+      // For default language (en), use original logic
+      setShowSpecialBanner(
+        currentRoute.startsWith('/' + lang.availableNowURL) ||
+          currentRoute.startsWith(lang.vehiclesWeArmorURL)
+      );
+      setShowRegularBanner(
+        !currentRoute.startsWith('/' + lang.availableNowURL) &&
+          !currentRoute.startsWith(lang.vehiclesWeArmorURL)
+      );
+    }
+  }, [
+    currentRoute,
+    lang.availableNowURL,
+    lang.vehiclesWeArmorURL,
+    isNonDefaultLanguage,
+  ]);
 
   return (
     <div
@@ -201,7 +234,8 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
         {/* {currentRoute.startsWith('/' + lang.availableNowURL) ||
         currentRoute.startsWith(lang.vehiclesWeArmorURL) ? ( */}
         {/* {isClient && (currentRoute.startsWith(`/${lang.availableNowURL}`) || currentRoute.startsWith(lang.vehiclesWeArmorURL)) && ( */}
-        {(availableNowPath || vehiclesArmorPath) && (
+        {/* {(currentRoute.startsWith(availableNowPath) || currentRoute.startsWith(vehiclesArmorPath)) && ( */}
+        {showSpecialBanner && (
           <div className={`${styles.banner_content}`}>
             <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
@@ -234,7 +268,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
         />
       ) : null}
 
-      {bannerTitle && !availableNowPath && !vehiclesArmorPath && (
+      {bannerTitle && showRegularBanner && (
         <>
           <h1
             className={`
@@ -249,12 +283,12 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
                   ? styles.banner_heading_margin
                   : ''
               }
-              observe fade-in-scale`}
+              ${!isNonDefaultLanguage ? 'observe fade-in-scale' : ''}`}
             dangerouslySetInnerHTML={{ __html: bannerTitle }}
           ></h1>
           {bannerSubitle ? (
             <h2
-              className={`${styles.banner_subheading} observe fade-in-scale`}
+              className={`${styles.banner_subheading} ${!isNonDefaultLanguage ? 'observe fade-in-scale' : ''}`}
               dangerouslySetInnerHTML={{ __html: bannerSubitle }}
             ></h2>
           ) : null}
