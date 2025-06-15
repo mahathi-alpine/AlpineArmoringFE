@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { getPageData } from 'hooks/api';
-import withLocaleRefetch from 'components/withLocaleRefetch';
+import {
+  useLanguageData,
+  withLanguageContext,
+} from 'components/LanguageContext';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import routes from 'routes';
 import styles from './About.module.scss';
@@ -25,14 +28,18 @@ const GlobeComponent = dynamic(() => import('components/global/globe/Globe'), {
 });
 
 function About(props) {
+  const { currentData, isLoading, error } = useLanguageData();
+
+  const pageData = currentData || props.pageData;
+
   const { lang } = useLocale();
-  const boxes = props?.pageData?.boxes;
-  const certificate1 = props?.pageData?.certificate1?.data?.attributes;
-  const certificate2 = props?.pageData?.certificate2?.data?.attributes;
+  const boxes = pageData?.boxes;
+  const certificate1 = pageData?.certificate1?.data?.attributes;
+  const certificate2 = pageData?.certificate2?.data?.attributes;
 
   // Animations
   useAnimationObserver({
-    dependencies: [props.pageData],
+    dependencies: [pageData],
   });
 
   const [isPDFPopupOpen, setPDFPopupOpen] = useState(false);
@@ -92,6 +99,22 @@ function About(props) {
 
     return JSON.stringify(structuredData);
   };
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <div>Error loading content: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -299,7 +322,7 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(
+export default withLanguageContext(
   About,
   async (locale) => {
     const data = await getPageData({
@@ -309,7 +332,5 @@ export default withLocaleRefetch(
     });
     return data.data?.attributes || null;
   },
-  {
-    routeName: 'about',
-  }
+  'about'
 );
