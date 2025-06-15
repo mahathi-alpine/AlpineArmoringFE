@@ -4,9 +4,15 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import routes from 'routes';
+import {
+  useLanguageData,
+  withLanguageContext,
+} from 'components/LanguageContext';
 import Head from 'next/head';
 import styles from '/components/listing/Listing.module.scss';
 import useLocale from 'hooks/useLocale';
+
+import Loader from 'components/global/loader/Loader';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
@@ -61,8 +67,15 @@ const getFallbackData = (locale = 'en') => ({
 
 function Inventory(props) {
   const { lang } = useLocale();
-  const { pageData, vehicles, filters, searchQuery } = props;
   const router = useRouter();
+
+  const { currentData, isLoading, error } = useLanguageData();
+
+  // Use current data with fallback to props
+  const pageData = currentData?.pageData || props.pageData;
+  const vehicles = currentData?.vehicles || props.vehicles;
+  const filters = currentData?.filters || props.filters;
+  const searchQuery = currentData?.searchQuery || props.searchQuery;
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -73,28 +86,35 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles] = useState(vehicles?.data);
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles?.data);
-  const [displayedVehicles, setDisplayedVehicles] = useState(
-    searchQuery ? vehicles?.data : vehicles?.data?.slice(0, ITEMS_TO_DISPLAY)
-  );
+  // Use state that updates with context data changes
+  const [allVehicles, setAllVehicles] = useState([]);
+  const [filteredVehicles, setFilteredVehicles] = useState([]);
+  const [displayedVehicles, setDisplayedVehicles] = useState([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
-  // const [loading, setLoading] = useState(false);
+
+  // Update allVehicles when vehicles data changes (from context or props)
+  useEffect(() => {
+    const vehicleData = vehicles?.data || [];
+    setAllVehicles(vehicleData);
+    setFilteredVehicles(vehicleData);
+    setDisplayedVehicles(
+      searchQuery ? vehicleData : vehicleData.slice(0, ITEMS_TO_DISPLAY)
+    );
+  }, [vehicles, searchQuery]);
 
   // Handle client-side filtering for search and category filters
   useEffect(() => {
-    if (!router.isReady) return;
+    if (!router.isReady || !allVehicles.length) return;
 
-    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes.hide);
+    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes?.hide);
 
     // Apply search filter
     if (q && typeof q === 'string') {
       const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
       filtered = filtered.filter((vehicle) => {
-        const slug = vehicle.attributes.slug
-          .toLowerCase()
-          .replace(/[-\s]/g, '');
+        const slug =
+          vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
         return slug.includes(searchTerms);
       });
     }
@@ -108,9 +128,8 @@ function Inventory(props) {
       if (typeof categorySlug === 'string') {
         const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
         filtered = filtered.filter((vehicle) => {
-          const slug = vehicle.attributes.slug
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
+          const slug =
+            vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
           return slug.includes(searchTerms);
         });
       }
@@ -137,15 +156,12 @@ function Inventory(props) {
 
   // Handle infinite scroll
   const handleIntersection = useCallback(async () => {
-    // if (loading) return;
-    if (q || vehicles_we_armor || vehiculos_que_blindamos) return; // No infinite scroll for filtered results
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
 
     const nextBatchStart = displayedVehicles.length;
     const remainingItems = filteredVehicles.length - nextBatchStart;
 
     if (remainingItems > 0) {
-      // setLoading(true);
-
       const itemsToAdd = Math.min(remainingItems, ITEMS_TO_DISPLAY);
       const nextBatch = filteredVehicles.slice(
         nextBatchStart,
@@ -154,7 +170,6 @@ function Inventory(props) {
 
       setDisplayedVehicles((prev) => [...prev, ...nextBatch]);
       setVisibleCount((prev) => prev + itemsToAdd);
-      // setLoading(false);
     }
   }, [
     filteredVehicles,
@@ -197,8 +212,25 @@ function Inventory(props) {
     setIsContentExpanded(!isContentExpanded);
   };
 
-  if (!router.isReady || !pageData) {
-    return <div>Loading...</div>;
+  // Show loading state from context
+  if (isLoading || !router.isReady) {
+    return <Loader />;
+  }
+
+  // Show error state from context
+  if (error) {
+    return (
+      <div className="error-container">
+        <div>
+          {lang.inventorySystemDown}: <br /> {error}
+        </div>
+      </div>
+    );
+  }
+
+  // FIX: Add safety check for pageData
+  if (!pageData) {
+    return <Loader />;
   }
 
   const getBreadcrumbStructuredData = () => {
@@ -226,7 +258,6 @@ function Inventory(props) {
   // FAQ structured data
   const getFAQStructuredData = () => {
     if (!faqs || !Array.isArray(faqs)) {
-      console.error('FAQs is not an array:', faqs);
       return null;
     }
 
@@ -254,8 +285,6 @@ function Inventory(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  if (!displayedVehicles) return null;
 
   return (
     <>
@@ -287,11 +316,11 @@ function Inventory(props) {
           className={`${styles.listing_wrap} ${styles.listing_wrap_inventory} container`}
         >
           <div className={`${styles.listing_wrap_filtered}`}>
-            {filters.type && <Filters props={filters} />}
+            {filters?.type && <Filters props={filters} />}
           </div>
 
           <div className={`${styles.listing_wrap_shown}`}>
-            {!displayedVehicles.length ? (
+            {!displayedVehicles?.length ? (
               <div className={`${styles.listing_list_error}`}>
                 {props.isOffline ? (
                   <>
@@ -319,13 +348,6 @@ function Inventory(props) {
         {!q && !vehicles_we_armor && !vehiculos_que_blindamos && (
           <div className={`observe bottomObserver`}></div>
         )}
-
-        {/* <div
-          className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-          style={{ opacity: 0 }}
-        >
-          {lang.loading}
-        </div> */}
 
         {bottomText && bottomTextContent.dynamicZone.length == 0 && (
           <div className={`container_small`}>
@@ -374,6 +396,7 @@ function Inventory(props) {
   );
 }
 
+// Keep your existing getStaticProps unchanged
 export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const route = routes.inventory;
@@ -444,4 +467,52 @@ export async function getStaticProps(context) {
   }
 }
 
-export default Inventory;
+// Wrap the component with Language Context
+export default withLanguageContext(
+  Inventory,
+  async (locale) => {
+    const route = routes.inventory;
+
+    try {
+      // Fetch page data
+      let pageData = await getPageData({
+        route: route.collection,
+        locale,
+      });
+      pageData = pageData.data?.attributes || null;
+
+      // Fetch vehicles
+      const vehicles = await getPageData({
+        route: route.collectionSingle,
+        params: '',
+        sort: 'order',
+        populate: 'featuredImage',
+        fields:
+          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+        pageSize: 100,
+        locale,
+      });
+
+      // Get filter data
+      const type = await getPageData({
+        route: 'categories',
+        custom:
+          "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
+        locale,
+      }).then((response) => response.data);
+
+      const filters = type ? { type } : {};
+
+      return {
+        pageData,
+        vehicles,
+        filters,
+        searchQuery: null,
+      };
+    } catch (error) {
+      console.error('Error fetching inventory data:', error);
+      return getFallbackData(locale);
+    }
+  },
+  'inventory'
+);
