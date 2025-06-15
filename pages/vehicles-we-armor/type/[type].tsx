@@ -346,7 +346,7 @@ function Inventory(props) {
 
         {topBanner && <Banner props={topBanner} shape="white" small />}
 
-        {vehiclesData?.length > 1 && (
+        {vehiclesData?.length > 0 && (
           <p className={`${styles.listing_heading} center container`}>
             {lang.exploreDifferentModels}{' '}
             <strong>{formatMakeName(make)}</strong>
@@ -357,7 +357,7 @@ function Inventory(props) {
           </p>
         )}
 
-        {props.filters.type && vehiclesData?.length > 1 && (
+        {props.filters.type && vehiclesData?.length > 0 && (
           <div className={`${styles.listing_all_filters} container`}>
             <Filters props={props.filters} plain />
           </div>

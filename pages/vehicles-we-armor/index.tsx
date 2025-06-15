@@ -251,7 +251,7 @@ function VehicleWeArmor(props) {
 
         {topBanner && <Banner props={topBanner} shape="white" small />}
 
-        {filters.type && vehiclesData?.length > 1 && (
+        {filters.type && vehiclesData?.length > 0 && (
           <div className={`${styles.listing_all_filters} container`}>
             <Filters props={filters} plain />
           </div>
