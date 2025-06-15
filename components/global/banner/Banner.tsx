@@ -195,12 +195,12 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     if (isNonDefaultLanguage) {
       const shouldShowSpecial =
         currentRoute.startsWith(`/${lang.availableNowURL}`) ||
-        currentRoute.startsWith(`/${lang.vehiclesWeArmorURL}`);
+        currentRoute.startsWith(`${lang.vehiclesWeArmorURL}`);
       setShowSpecialBanner(shouldShowSpecial);
 
       const shouldShowRegular =
         !currentRoute.startsWith(`/${lang.availableNowURL}`) &&
-        !currentRoute.startsWith(`/${lang.vehiclesWeArmorURL}`);
+        !currentRoute.startsWith(`${lang.vehiclesWeArmorURL}`);
       setShowRegularBanner(shouldShowRegular);
     } else {
       // For default language (en), use original logic
