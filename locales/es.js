@@ -328,4 +328,5 @@ export default {
   inventorySystemDown:
     'Nuestro sistema de inventario está inactivo por mantenimiento. Inténtelo de nuevo más tarde.',
   availableForImmediateShipping: 'Disponible para envío inmediato',
+  authors: 'Autores',
 };

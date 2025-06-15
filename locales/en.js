@@ -325,4 +325,5 @@ export default {
   inventorySystemDown:
     'Our inventory system is currently down for maintenance. Please try again later.',
   availableForImmediateShipping: 'Available for immediate shipping',
+  authors: 'Authors',
 };

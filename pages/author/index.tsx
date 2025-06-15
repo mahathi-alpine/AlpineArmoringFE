@@ -1,15 +1,18 @@
 import { getPageData } from 'hooks/api';
 import withLocaleRefetch from 'components/withLocaleRefetch';
 import routes from 'routes';
+import useLocale from 'hooks/useLocale';
 import Link from 'next/link';
 import CustomMarkdown from 'components/CustomMarkdown';
 import LinkedinIcon from 'components/icons/Linkedin';
 import styles from './author.module.scss';
 
 function Author(props) {
+  const { lang } = useLocale();
+
   return (
     <div className={`${styles.author} container_small`}>
-      <h1 className="c-title">Authors</h1>
+      <h1 className="c-title">{lang.authors}</h1>
 
       <ul className={`${styles.author_list}`}>
         {props.pageData?.map((item, i) => (
