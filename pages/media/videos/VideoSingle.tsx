@@ -55,6 +55,7 @@ const VideoSingle: FC<VideoSingleProps> = ({
           {props ? (
             <p className={`${styles.video_location}`}>
               {props.attributes.location}
+              {props.attributes.year ? ` | ${props.attributes.year}` : ''}
             </p>
           ) : null}
         </div>
