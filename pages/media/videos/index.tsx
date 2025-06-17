@@ -120,6 +120,7 @@ export async function getStaticProps({ locale = 'en' }) {
   let videos = await getPageData({
     route: route.collectionSingle,
     sort: 'order',
+    sortType: 'desc',
     pageSize: 1000,
     populate: 'deep',
     locale,
@@ -151,6 +152,7 @@ export default withLocaleRefetch(
       const data = await getPageData({
         route: routes.videos.collectionSingle,
         sort: 'order',
+        sortType: 'desc',
         pageSize: 1000,
         populate: 'deep',
         locale,
