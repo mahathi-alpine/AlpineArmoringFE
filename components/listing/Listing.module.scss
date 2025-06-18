@@ -150,12 +150,15 @@
       margin: 20px auto 120px auto;
     }
 
-    p, ul, ol{
+    p,
+    ul,
+    ol {
       @include breakpoint(large) {
         font-size: 16px;
       }
 
-      strong, b {
+      strong,
+      b {
         font-weight: var(--font-demi);
       }
     }
