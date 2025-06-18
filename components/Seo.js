@@ -313,7 +313,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
             background-size: 30px !important;
           }
           .static a {
-            color: var(--color-primaryLight);
+            color: var(--color-primaryLight) !important;
           }
           .navigation_submenu{
             background-color: rgba(23, 23, 23, 0.8) !important;
