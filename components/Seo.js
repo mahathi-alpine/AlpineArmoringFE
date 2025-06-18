@@ -312,6 +312,9 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
             background: #101010 url(/assets/noise4.png) !important;
             background-size: 30px !important;
           }
+          .static a {
+            color: var(--color-primaryLight);
+          }
           .navigation_submenu{
             background-color: rgba(23, 23, 23, 0.8) !important;
             backdrop-filter: blur(10px) !important;

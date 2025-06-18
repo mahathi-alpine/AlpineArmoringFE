@@ -365,7 +365,7 @@ function Inventory(props) {
               style={{
                 maxHeight: isContentExpanded
                   ? `${contentRef.current?.scrollHeight}px`
-                  : '260px',
+                  : '265px',
               }}
             >
               <Content data={bottomTextContent} />

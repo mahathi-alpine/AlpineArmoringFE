@@ -209,8 +209,7 @@
 
       strong,
       b {
-        color: var(--color-primary);
-        font-weight: var(--font-demi);
+        color: var(--color-primaryLight);
       }
 
       @supports not (aspect-ratio: 16 / 9) {
@@ -224,14 +223,18 @@
     }
 
     h1 {
-      font-size: clamp(1rem, 0.9393rem + 0.2589vw, 1.25rem);
+      font-size: clamp(1.125rem, 0.9733rem + 0.6472vw, 1.75rem);
+
+      .banner_small & {
+        font-size: clamp(1rem, 0.9393rem + 0.2589vw, 1.25rem);
+      }
     }
 
     h2 {
       margin-top: 8px;
       font-size: clamp(0.75rem, 0.659rem + 0.3883vw, 1.125rem);
-      color: var(--color-primary);
-      font-weight: var(--font-demi);
+      color: var(--color-primaryLight);
+      font-weight: var(--font-medium);
     }
   }
 
