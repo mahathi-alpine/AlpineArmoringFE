@@ -35,9 +35,14 @@ const getFallbackData = (locale = 'en') => ({
           : 'Vehículos blindados en venta por Alpine Armoring. Encuentre todoterrenos, camiones, furgonetas, autobuses y sedanes blindados con protección de alto nivel. Envío mundial disponible.',
     },
     banner: {
-      title: 'Armored Vehicles for Sale',
+      title:
+        locale === 'en'
+          ? 'Armored Vehicles for Sale'
+          : 'Vehículos blindados en venta',
       subtitle:
-        '(SUVs, Sedans, Vans, and Trucks) that are <b>completed and available for immediate shipping</b>',
+        locale === 'en'
+          ? '(SUVs, Sedans, Vans, and Trucks) that are <b>completed and available for immediate shipping</b>'
+          : '(SUVs, Sedanes, Furgonetas y Camiones) que están <b>completados y disponibles para envío inmediato</b>',
       media: {
         data: {
           attributes: {
@@ -71,31 +76,25 @@ function Inventory(props) {
 
   const { currentData, isLoading, error } = useLanguageData();
 
-  // FIXED: Prioritize currentData and improve data selection logic
+  // FIXED: Always prioritize currentData over props
+  // The debug logs show currentData has the right structure when it exists
   let pageData, vehicles, filters, searchQuery;
 
-  // The key insight from the debug logs: currentData exists and has the right structure,
-  // but our detection logic was wrong. Let's be more aggressive about using currentData.
-  if (currentData && typeof currentData === 'object') {
+  if (currentData && Object.keys(currentData).length > 0) {
     if (currentData.pageData) {
-      // Context has full inventory structure
+      // Full inventory structure from context
       pageData = currentData.pageData;
       vehicles = currentData.vehicles;
       filters = currentData.filters;
       searchQuery = currentData.searchQuery;
-    } else if (
-      currentData.banner ||
-      currentData.seo ||
-      currentData.createdAt ||
-      currentData.updatedAt
-    ) {
-      // Context has direct page data structure (from CMS)
+    } else if (currentData.banner || currentData.seo || currentData.updatedAt) {
+      // Direct page data from context
       pageData = currentData;
       vehicles = props.vehicles || { data: [] };
       filters = props.filters || {};
       searchQuery = props.searchQuery || null;
     } else {
-      // Fallback to props if currentData structure is unknown
+      // Unknown currentData structure, use props with fallback
       pageData = props.pageData;
       vehicles = props.vehicles;
       filters = props.filters;
@@ -109,10 +108,10 @@ function Inventory(props) {
     searchQuery = props.searchQuery;
   }
 
-  // ADDITIONAL SAFETY: If we still don't have pageData, try to use fallback
-  if (!pageData && router.locale) {
+  // CRITICAL FIX: If we still don't have data, use fallback based on current locale
+  if (!pageData || !vehicles || Object.keys(props).length === 0) {
     const fallback = getFallbackData(router.locale);
-    pageData = fallback.pageData;
+    pageData = pageData || fallback.pageData;
     vehicles = vehicles || fallback.vehicles;
     filters = filters || fallback.filters;
     searchQuery = searchQuery || fallback.searchQuery;
@@ -252,8 +251,6 @@ function Inventory(props) {
       </div>
     );
   }
-
-  // REMOVED: The "No page data available" check since we now have better fallbacks
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -416,9 +413,22 @@ function Inventory(props) {
   );
 }
 
+// CRITICAL: Add getStaticPaths to ensure Spanish pages are built
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: {}, locale: 'en' },
+      { params: {}, locale: 'es' },
+    ],
+    fallback: false, // Set to false to ensure all pages are pre-built
+  };
+}
+
 export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const route = routes.inventory;
+
+  console.log(`[getStaticProps] Building inventory for locale: ${locale}`);
 
   try {
     let pageData = await getPageData({
@@ -452,6 +462,13 @@ export async function getStaticProps(context) {
       languageUrls: route.getIndexLanguageUrls(locale),
     };
 
+    console.log(`[getStaticProps] Success for ${locale}:`, {
+      hasPageData: !!pageData,
+      vehicleCount: vehicles?.data?.length || 0,
+      hasFilters: !!filters,
+      pageTitle: pageData?.banner?.title,
+    });
+
     return {
       props: {
         pageData,
@@ -464,7 +481,11 @@ export async function getStaticProps(context) {
       revalidate: 21600,
     };
   } catch (error) {
+    console.error(`[getStaticProps] Error for ${locale}:`, error);
+
     const fallbackData = getFallbackData(locale);
+
+    console.log(`[getStaticProps] Using fallback for ${locale}`);
 
     return {
       props: {
@@ -483,6 +504,10 @@ export async function getStaticProps(context) {
 export default withLanguageContext(
   Inventory,
   async (locale) => {
+    console.log(
+      `[withLanguageContext fetchFunction] Called for locale: ${locale}`
+    );
+
     const route = routes.inventory;
 
     try {
@@ -512,13 +537,28 @@ export default withLanguageContext(
 
       const filters = type ? { type } : {};
 
-      return {
+      const result = {
         pageData,
         vehicles,
         filters,
         searchQuery: null,
       };
+
+      console.log(
+        `[withLanguageContext fetchFunction] Success for ${locale}:`,
+        {
+          hasPageData: !!pageData,
+          vehicleCount: vehicles?.data?.length || 0,
+          hasFilters: !!filters,
+        }
+      );
+
+      return result;
     } catch (error) {
+      console.error(
+        `[withLanguageContext fetchFunction] Error for ${locale}:`,
+        error
+      );
       return getFallbackData(locale);
     }
   },
