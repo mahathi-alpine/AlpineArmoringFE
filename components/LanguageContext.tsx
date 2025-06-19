@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  useRef,
 } from 'react';
 import { useRouter } from 'next/router';
 
@@ -28,16 +29,26 @@ export const LanguageProvider: React.FC<{
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Cache to store data for each locale
-  const [localeCache, setLocaleCache] = useState<Record<string, any>>({
+  const cacheRef = useRef<Record<string, any>>({
     [router.locale || 'en']: initialData,
   });
 
+  useEffect(() => {
+    setCurrentData(initialData);
+
+    if (router.locale) {
+      cacheRef.current[router.locale] = initialData;
+    }
+  }, [initialData, router.locale]);
+
   const refetchData = useCallback(
     async (locale: string) => {
-      // If we have cached data for this locale, use it immediately
-      if (localeCache[locale]) {
-        setCurrentData(localeCache[locale]);
+      if (locale === router.locale && initialData) {
+        return;
+      }
+
+      if (cacheRef.current[locale]) {
+        setCurrentData(cacheRef.current[locale]);
         return;
       }
 
@@ -46,30 +57,24 @@ export const LanguageProvider: React.FC<{
 
       try {
         const newData = await fetchFunction(locale);
-
-        // Cache the new data
-        setLocaleCache((prev) => ({
-          ...prev,
-          [locale]: newData,
-        }));
-
+        cacheRef.current[locale] = newData;
         setCurrentData(newData);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch data');
-        console.error('Error refetching data:', err);
+        const errorMessage =
+          err instanceof Error ? err.message : 'Failed to fetch data';
+        setError(errorMessage);
       } finally {
         setIsLoading(false);
       }
     },
-    [fetchFunction, localeCache]
+    [fetchFunction, router.locale, initialData]
   );
 
-  // Listen for locale changes
   useEffect(() => {
-    if (router.locale && router.isReady) {
+    if (router.locale) {
       refetchData(router.locale);
     }
-  }, [router.locale, router.isReady, refetchData]);
+  }, [router.locale, refetchData]);
 
   return (
     <LanguageContext.Provider value={{ currentData, isLoading, error }}>
@@ -94,7 +99,7 @@ export function withLanguageContext<T extends Record<string, any>>(
   return function WrappedComponent(props: T) {
     return (
       <LanguageProvider
-        initialData={props.pageData}
+        initialData={props.pageData || props} // Handle both structures: direct pageData or full props
         fetchFunction={fetchFunction}
         routeName={routeName}
       >

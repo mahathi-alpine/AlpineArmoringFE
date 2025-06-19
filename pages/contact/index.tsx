@@ -108,6 +108,14 @@ function Contact(props) {
     );
   }
 
+  if (!pageData) {
+    return (
+      <div className="error-container">
+        <div>No page data available</div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>

@@ -71,7 +71,6 @@ function Inventory(props) {
 
   const { currentData, isLoading, error } = useLanguageData();
 
-  // Use current data with fallback to props
   const pageData = currentData?.pageData || props.pageData;
   const vehicles = currentData?.vehicles || props.vehicles;
   const filters = currentData?.filters || props.filters;
@@ -86,14 +85,12 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  // Use state that updates with context data changes
   const [allVehicles, setAllVehicles] = useState([]);
   const [filteredVehicles, setFilteredVehicles] = useState([]);
   const [displayedVehicles, setDisplayedVehicles] = useState([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
 
-  // Update allVehicles when vehicles data changes (from context or props)
   useEffect(() => {
     const vehicleData = vehicles?.data || [];
     setAllVehicles(vehicleData);
@@ -103,13 +100,11 @@ function Inventory(props) {
     );
   }, [vehicles, searchQuery]);
 
-  // Handle client-side filtering for search and category filters
   useEffect(() => {
-    if (!router.isReady || !allVehicles.length) return;
+    if (!allVehicles.length) return;
 
     let filtered = allVehicles.filter((vehicle) => !vehicle.attributes?.hide);
 
-    // Apply search filter
     if (q && typeof q === 'string') {
       const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
       filtered = filtered.filter((vehicle) => {
@@ -119,7 +114,6 @@ function Inventory(props) {
       });
     }
 
-    // Apply vehicles_we_armor filter
     if (
       (vehicles_we_armor && typeof vehicles_we_armor === 'string') ||
       (vehiculos_que_blindamos && typeof vehiculos_que_blindamos === 'string')
@@ -138,23 +132,14 @@ function Inventory(props) {
     setFilteredVehicles(filtered);
 
     if (q || vehicles_we_armor || vehiculos_que_blindamos) {
-      // Show all results for search/filter
       setDisplayedVehicles(filtered);
       setVisibleCount(filtered.length);
     } else {
-      // Reset to initial display for main page
       setDisplayedVehicles(filtered.slice(0, ITEMS_TO_DISPLAY));
       setVisibleCount(ITEMS_TO_DISPLAY);
     }
-  }, [
-    q,
-    vehicles_we_armor,
-    vehiculos_que_blindamos,
-    router.isReady,
-    allVehicles,
-  ]);
+  }, [q, vehicles_we_armor, vehiculos_que_blindamos, allVehicles]);
 
-  // Handle infinite scroll
   const handleIntersection = useCallback(async () => {
     if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
 
@@ -179,7 +164,6 @@ function Inventory(props) {
     vehiculos_que_blindamos,
   ]);
 
-  // Intersection observer
   useEffect(() => {
     if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
 
@@ -212,12 +196,10 @@ function Inventory(props) {
     setIsContentExpanded(!isContentExpanded);
   };
 
-  // Show loading state from context
-  if (isLoading || !router.isReady) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  // Show error state from context
   if (error) {
     return (
       <div className="error-container">
@@ -228,9 +210,12 @@ function Inventory(props) {
     );
   }
 
-  // FIX: Add safety check for pageData
   if (!pageData) {
-    return <Loader />;
+    return (
+      <div className="error-container">
+        <div>No page data available</div>
+      </div>
+    );
   }
 
   const getBreadcrumbStructuredData = () => {
@@ -255,7 +240,6 @@ function Inventory(props) {
     return JSON.stringify(structuredData);
   };
 
-  // FAQ structured data
   const getFAQStructuredData = () => {
     if (!faqs || !Array.isArray(faqs)) {
       return null;
@@ -344,7 +328,6 @@ function Inventory(props) {
           </div>
         </div>
 
-        {/* Only show intersection observer for infinite scroll when not filtering */}
         {!q && !vehicles_we_armor && !vehiculos_que_blindamos && (
           <div className={`observe bottomObserver`}></div>
         )}
@@ -396,7 +379,6 @@ function Inventory(props) {
   );
 }
 
-// Keep your existing getStaticProps unchanged
 export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const route = routes.inventory;
@@ -408,7 +390,6 @@ export async function getStaticProps(context) {
     });
     pageData = pageData.data?.attributes || null;
 
-    // Fetch ALL vehicles at build time
     const vehicles = await getPageData({
       route: route.collectionSingle,
       params: '',
@@ -420,7 +401,6 @@ export async function getStaticProps(context) {
       locale,
     });
 
-    // Get filter data
     const type = await getPageData({
       route: 'categories',
       custom:
@@ -444,12 +424,9 @@ export async function getStaticProps(context) {
         searchQuery: null,
         locale,
       },
-      revalidate: 21600, // Revalidate every 6 hours
+      revalidate: 21600,
     };
   } catch (error) {
-    console.error('Strapi connection failed:', error);
-
-    // Return fallback data instead of 404
     const fallbackData = getFallbackData(locale);
 
     return {
@@ -461,27 +438,23 @@ export async function getStaticProps(context) {
         },
         locale,
       },
-      // Still revalidate even with fallback data
       revalidate: 21600,
     };
   }
 }
 
-// Wrap the component with Language Context
 export default withLanguageContext(
   Inventory,
   async (locale) => {
     const route = routes.inventory;
 
     try {
-      // Fetch page data
       let pageData = await getPageData({
         route: route.collection,
         locale,
       });
       pageData = pageData.data?.attributes || null;
 
-      // Fetch vehicles
       const vehicles = await getPageData({
         route: route.collectionSingle,
         params: '',
@@ -493,7 +466,6 @@ export default withLanguageContext(
         locale,
       });
 
-      // Get filter data
       const type = await getPageData({
         route: 'categories',
         custom:
@@ -510,7 +482,6 @@ export default withLanguageContext(
         searchQuery: null,
       };
     } catch (error) {
-      console.error('Error fetching inventory data:', error);
       return getFallbackData(locale);
     }
   },
