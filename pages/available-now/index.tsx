@@ -35,14 +35,9 @@ const getFallbackData = (locale = 'en') => ({
           : 'Vehículos blindados en venta por Alpine Armoring. Encuentre todoterrenos, camiones, furgonetas, autobuses y sedanes blindados con protección de alto nivel. Envío mundial disponible.',
     },
     banner: {
-      title:
-        locale === 'en'
-          ? 'Armored Vehicles for Sale'
-          : 'Vehículos blindados en venta',
+      title: 'Armored Vehicles for Sale',
       subtitle:
-        locale === 'en'
-          ? '(SUVs, Sedans, Vans, and Trucks) that are <b>completed and available for immediate shipping</b>'
-          : '(SUVs, Sedanes, Furgonetas y Camiones) que están <b>completados y disponibles para envío inmediato</b>',
+        '(SUVs, Sedans, Vans, and Trucks) that are <b>completed and available for immediate shipping</b>',
       media: {
         data: {
           attributes: {
@@ -67,7 +62,7 @@ const getFallbackData = (locale = 'en') => ({
   vehicles: { data: [], meta: { pagination: { total: 0 } } },
   filters: {},
   searchQuery: null,
-  isOffline: false,
+  isOffline: true,
 });
 
 function Inventory(props) {
@@ -76,53 +71,10 @@ function Inventory(props) {
 
   const { currentData, isLoading, error } = useLanguageData();
 
-  // CRITICAL FIX: Handle the case where props are empty (production Spanish pages)
-  const hasValidProps =
-    props && Object.keys(props).length > 0 && props.pageData;
-
-  // If we don't have valid props, immediately use fallback + context data
-  const fallbackData = getFallbackData(router.locale);
-
-  let pageData, vehicles, filters, searchQuery;
-
-  if (currentData && Object.keys(currentData).length > 0) {
-    // We have context data - prioritize it
-    if (currentData.pageData) {
-      // Full inventory structure from context
-      pageData = currentData.pageData;
-      vehicles = currentData.vehicles;
-      filters = currentData.filters;
-      searchQuery = currentData.searchQuery;
-    } else if (currentData.banner || currentData.seo || currentData.updatedAt) {
-      // Direct page data from context
-      pageData = currentData;
-      vehicles = hasValidProps ? props.vehicles : fallbackData.vehicles;
-      filters = hasValidProps ? props.filters : fallbackData.filters;
-      searchQuery = hasValidProps
-        ? props.searchQuery
-        : fallbackData.searchQuery;
-    } else {
-      // Unknown currentData structure
-      pageData = hasValidProps ? props.pageData : fallbackData.pageData;
-      vehicles = hasValidProps ? props.vehicles : fallbackData.vehicles;
-      filters = hasValidProps ? props.filters : fallbackData.filters;
-      searchQuery = hasValidProps
-        ? props.searchQuery
-        : fallbackData.searchQuery;
-    }
-  } else if (hasValidProps) {
-    // No context data but we have valid props
-    pageData = props.pageData;
-    vehicles = props.vehicles;
-    filters = props.filters;
-    searchQuery = props.searchQuery;
-  } else {
-    // No context data AND no valid props - use fallback
-    pageData = fallbackData.pageData;
-    vehicles = fallbackData.vehicles;
-    filters = fallbackData.filters;
-    searchQuery = fallbackData.searchQuery;
-  }
+  const pageData = currentData?.pageData || props.pageData;
+  const vehicles = currentData?.vehicles || props.vehicles;
+  const filters = currentData?.filters || props.filters;
+  const searchQuery = currentData?.searchQuery || props.searchQuery;
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -244,18 +196,24 @@ function Inventory(props) {
     setIsContentExpanded(!isContentExpanded);
   };
 
-  // Show loading only if context is actively loading AND we don't have any fallback data
-  if (isLoading && !hasValidProps && !pageData) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  if (error && !hasValidProps && !pageData) {
+  if (error) {
     return (
       <div className="error-container">
         <div>
-          {lang?.inventorySystemDown || 'System temporarily unavailable'}:{' '}
-          <br /> {error}
+          {lang.inventorySystemDown}: <br /> {error}
         </div>
+      </div>
+    );
+  }
+
+  if (!pageData) {
+    return (
+      <div className="error-container">
+        <div>No page data available</div>
       </div>
     );
   }
@@ -268,14 +226,14 @@ function Inventory(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: lang?.home || 'Home',
+          name: lang.home,
           item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: lang?.availableNowTitle || 'Available Now',
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes?.inventory?.paths?.[router.locale] || '/available-now'}`,
+          name: lang.availableNowTitle,
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
         },
       ],
     };
@@ -294,12 +252,9 @@ function Inventory(props) {
         const title =
           faq?.attributes?.title ||
           faq?.title ||
-          `${lang?.frequentlyAskedQuestions || 'FAQ'} ${index + 1}`;
+          `${lang.frequentlyAskedQuestions} ${index + 1}`;
         const text =
-          faq?.attributes?.text ||
-          faq?.text ||
-          lang?.noAnswerProvided ||
-          'No answer provided';
+          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
 
         return {
           '@type': 'Question',
@@ -334,9 +289,9 @@ function Inventory(props) {
 
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
-          <Link href="/">{lang?.home || 'Home'}</Link>
+          <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          {lang?.availableNowTitle || 'Available Now'}
+          {lang.availableNowTitle}
         </div>
 
         {topBanner && <Banner props={topBanner} shape="dark" />}
@@ -351,13 +306,12 @@ function Inventory(props) {
           <div className={`${styles.listing_wrap_shown}`}>
             {!displayedVehicles?.length ? (
               <div className={`${styles.listing_list_error}`}>
-                <h2>{lang?.noVehiclesFound || 'Loading vehicles...'}</h2>
-                {!hasValidProps && (
-                  <p>
-                    {router.locale === 'es'
-                      ? 'Cargando vehículos desde el servidor...'
-                      : 'Loading vehicles from server...'}
-                  </p>
+                {props.isOffline ? (
+                  <>
+                    <p>{lang.inventorySystemDown}</p>
+                  </>
+                ) : (
+                  <h2>{lang.noVehiclesFound}</h2>
                 )}
               </div>
             ) : (
@@ -415,10 +369,7 @@ function Inventory(props) {
 
         {faqs?.length > 0 ? (
           <div className={`${styles.listing_faqs}`}>
-            <Accordion
-              items={faqs}
-              title={lang?.frequentlyAskedQuestions || 'FAQ'}
-            />
+            <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
           </div>
         ) : null}
       </div>
@@ -431,8 +382,6 @@ function Inventory(props) {
 export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const route = routes.inventory;
-
-  console.log(`[getStaticProps] Building inventory for locale: ${locale}`);
 
   try {
     let pageData = await getPageData({
@@ -466,19 +415,11 @@ export async function getStaticProps(context) {
       languageUrls: route.getIndexLanguageUrls(locale),
     };
 
-    console.log(`[getStaticProps] Success for ${locale}:`, {
-      hasPageData: !!pageData,
-      vehicleCount: vehicles?.data?.length || 0,
-      hasFilters: !!filters,
-      pageTitle: pageData?.banner?.title,
-    });
-
-    // IMPORTANT: Always return valid data, even if API fails
     return {
       props: {
-        pageData: pageData || getFallbackData(locale).pageData,
-        vehicles: vehicles || getFallbackData(locale).vehicles,
-        filters: filters || getFallbackData(locale).filters,
+        pageData,
+        vehicles,
+        filters,
         seoData,
         searchQuery: null,
         locale,
@@ -486,11 +427,7 @@ export async function getStaticProps(context) {
       revalidate: 21600,
     };
   } catch (error) {
-    console.error(`[getStaticProps] Error for ${locale}:`, error);
-
     const fallbackData = getFallbackData(locale);
-
-    console.log(`[getStaticProps] Using fallback for ${locale}`);
 
     return {
       props: {
@@ -509,10 +446,6 @@ export async function getStaticProps(context) {
 export default withLanguageContext(
   Inventory,
   async (locale) => {
-    console.log(
-      `[withLanguageContext fetchFunction] Called for locale: ${locale}`
-    );
-
     const route = routes.inventory;
 
     try {
@@ -542,30 +475,13 @@ export default withLanguageContext(
 
       const filters = type ? { type } : {};
 
-      const result = {
+      return {
         pageData,
         vehicles,
         filters,
         searchQuery: null,
       };
-
-      console.log(
-        `[withLanguageContext fetchFunction] Success for ${locale}:`,
-        {
-          hasPageData: !!pageData,
-          vehicleCount: vehicles?.data?.length || 0,
-          hasFilters: !!filters,
-        }
-      );
-
-      return result;
     } catch (error) {
-      console.error(
-        `[withLanguageContext fetchFunction] Error for ${locale}:`,
-        error
-      );
-
-      // IMPORTANT: Return fallback data instead of null
       return getFallbackData(locale);
     }
   },
