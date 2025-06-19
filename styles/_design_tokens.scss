@@ -101,7 +101,7 @@ small {
     font-size: clamp(1.5rem, 1.318rem + 0.7767vw, 2.25rem);
 
     @include breakpoint(large) {
-      margin: rem(58) 0 rem(18);
+      margin: rem(50) 0 rem(18);
     }
   }
   h3 {
@@ -109,7 +109,7 @@ small {
     font-size: clamp(1.25rem, 1.159rem + 0.3883vw, 1.625rem);
 
     @include breakpoint(large) {
-      margin: rem(48) 0 rem(18);
+      margin: rem(40) 0 rem(18);
     }
   }
   h4 {

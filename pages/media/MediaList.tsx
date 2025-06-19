@@ -139,6 +139,41 @@ function MediaList({ props, itemType }) {
   const [imageSrcs, setGallery] = useState('');
   const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
 
+  // Auto-open lightbox based on query parameter
+  useEffect(() => {
+    const { video } = router.query;
+
+    if (video && props && itemType === 'video') {
+      // Find the video with matching URLExternal
+      const targetVideo = props.find(
+        (item) => item.attributes.URLExternal === video
+      );
+
+      if (targetVideo) {
+        handleLightboxOpen(
+          targetVideo.attributes.title,
+          targetVideo.attributes.location,
+          'video',
+          targetVideo.attributes.URLExternal,
+          null,
+          targetVideo.attributes.date,
+          targetVideo.attributes.year
+        );
+
+        // // Remove the query parameter from URL without page reload
+        // const { video: _, ...restQuery } = router.query;
+        // router.replace(
+        //   {
+        //     pathname: router.pathname,
+        //     query: restQuery,
+        //   },
+        //   undefined,
+        //   { shallow: true }
+        // );
+      }
+    }
+  }, [router.query, props, itemType]);
+
   const handleLightboxOpen = (
     title,
     location,

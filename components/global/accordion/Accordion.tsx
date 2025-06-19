@@ -6,7 +6,8 @@ import CustomMarkdown from 'components/CustomMarkdown';
 
 const Accordion = ({ items, title = '', button = false }) => {
   const { lang } = useLocale();
-  const contentRef = useRef(null);
+  // Create an array of refs, one for each item
+  const contentRefs = useRef([]);
 
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -46,12 +47,12 @@ const Accordion = ({ items, title = '', button = false }) => {
 
           {item.attributes?.text || item?.text ? (
             <div
-              ref={contentRef}
+              ref={(el) => (contentRefs.current[index] = el)}
               className={`${styles.accordion_item_content}`}
               style={{
                 maxHeight:
                   activeIndex === index
-                    ? `${contentRef.current?.scrollHeight + 40}px`
+                    ? `${contentRefs.current[index]?.scrollHeight}px`
                     : '0',
               }}
             >
