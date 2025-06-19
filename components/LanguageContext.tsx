@@ -99,7 +99,7 @@ export function withLanguageContext<T extends Record<string, any>>(
   return function WrappedComponent(props: T) {
     return (
       <LanguageProvider
-        initialData={props.pageData || props} // Handle both structures: direct pageData or full props
+        initialData={props}
         fetchFunction={fetchFunction}
         routeName={routeName}
       >
