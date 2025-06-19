@@ -71,10 +71,30 @@ function Inventory(props) {
 
   const { currentData, isLoading, error } = useLanguageData();
 
-  const pageData = currentData?.pageData || props.pageData;
-  const vehicles = currentData?.vehicles || props.vehicles;
-  const filters = currentData?.filters || props.filters;
-  const searchQuery = currentData?.searchQuery || props.searchQuery;
+  // FIXED: Better data selection logic for production
+  // The context returns the fetched data structure, but we need to handle
+  // the case where context data might not be available yet
+  let pageData, vehicles, filters, searchQuery;
+
+  if (currentData && currentData.pageData) {
+    // Context has full data structure (like from inventory fetch)
+    pageData = currentData.pageData;
+    vehicles = currentData.vehicles;
+    filters = currentData.filters;
+    searchQuery = currentData.searchQuery;
+  } else if (currentData) {
+    // Context has direct page data (like from contact fetch)
+    pageData = currentData;
+    vehicles = props.vehicles;
+    filters = props.filters;
+    searchQuery = props.searchQuery;
+  } else {
+    // Fallback to props (initial load or when context hasn't loaded yet)
+    pageData = props.pageData;
+    vehicles = props.vehicles;
+    filters = props.filters;
+    searchQuery = props.searchQuery;
+  }
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -204,7 +224,8 @@ function Inventory(props) {
     return (
       <div className="error-container">
         <div>
-          {lang.inventorySystemDown}: <br /> {error}
+          {lang?.inventorySystemDown || 'System temporarily unavailable'}:{' '}
+          <br /> {error}
         </div>
       </div>
     );
@@ -226,14 +247,14 @@ function Inventory(props) {
         {
           '@type': 'ListItem',
           position: 1,
-          name: lang.home,
+          name: lang?.home || 'Home',
           item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+          name: lang?.availableNowTitle || 'Available Now',
+          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes?.inventory?.paths?.[router.locale] || '/available-now'}`,
         },
       ],
     };
@@ -252,9 +273,12 @@ function Inventory(props) {
         const title =
           faq?.attributes?.title ||
           faq?.title ||
-          `${lang.frequentlyAskedQuestions} ${index + 1}`;
+          `${lang?.frequentlyAskedQuestions || 'FAQ'} ${index + 1}`;
         const text =
-          faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
+          faq?.attributes?.text ||
+          faq?.text ||
+          lang?.noAnswerProvided ||
+          'No answer provided';
 
         return {
           '@type': 'Question',
@@ -289,9 +313,9 @@ function Inventory(props) {
 
       <div className={`${styles.listing} background-dark`}>
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
-          <Link href="/">{lang.home}</Link>
+          <Link href="/">{lang?.home || 'Home'}</Link>
           <span>&gt;</span>
-          {lang.availableNowTitle}
+          {lang?.availableNowTitle || 'Available Now'}
         </div>
 
         {topBanner && <Banner props={topBanner} shape="dark" />}
@@ -308,10 +332,13 @@ function Inventory(props) {
               <div className={`${styles.listing_list_error}`}>
                 {props.isOffline ? (
                   <>
-                    <p>{lang.inventorySystemDown}</p>
+                    <p>
+                      {lang?.inventorySystemDown ||
+                        'System temporarily unavailable'}
+                    </p>
                   </>
                 ) : (
-                  <h2>{lang.noVehiclesFound}</h2>
+                  <h2>{lang?.noVehiclesFound || 'No vehicles found'}</h2>
                 )}
               </div>
             ) : (
@@ -369,7 +396,10 @@ function Inventory(props) {
 
         {faqs?.length > 0 ? (
           <div className={`${styles.listing_faqs}`}>
-            <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
+            <Accordion
+              items={faqs}
+              title={lang?.frequentlyAskedQuestions || 'FAQ'}
+            />
           </div>
         ) : null}
       </div>
