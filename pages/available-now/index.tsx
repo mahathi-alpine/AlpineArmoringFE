@@ -67,7 +67,7 @@ const getFallbackData = (locale = 'en') => ({
   vehicles: { data: [], meta: { pagination: { total: 0 } } },
   filters: {},
   searchQuery: null,
-  isOffline: true,
+  isOffline: false,
 });
 
 function Inventory(props) {
@@ -76,11 +76,17 @@ function Inventory(props) {
 
   const { currentData, isLoading, error } = useLanguageData();
 
-  // FIXED: Always prioritize currentData over props
-  // The debug logs show currentData has the right structure when it exists
+  // CRITICAL FIX: Handle the case where props are empty (production Spanish pages)
+  const hasValidProps =
+    props && Object.keys(props).length > 0 && props.pageData;
+
+  // If we don't have valid props, immediately use fallback + context data
+  const fallbackData = getFallbackData(router.locale);
+
   let pageData, vehicles, filters, searchQuery;
 
   if (currentData && Object.keys(currentData).length > 0) {
+    // We have context data - prioritize it
     if (currentData.pageData) {
       // Full inventory structure from context
       pageData = currentData.pageData;
@@ -90,31 +96,32 @@ function Inventory(props) {
     } else if (currentData.banner || currentData.seo || currentData.updatedAt) {
       // Direct page data from context
       pageData = currentData;
-      vehicles = props.vehicles || { data: [] };
-      filters = props.filters || {};
-      searchQuery = props.searchQuery || null;
+      vehicles = hasValidProps ? props.vehicles : fallbackData.vehicles;
+      filters = hasValidProps ? props.filters : fallbackData.filters;
+      searchQuery = hasValidProps
+        ? props.searchQuery
+        : fallbackData.searchQuery;
     } else {
-      // Unknown currentData structure, use props with fallback
-      pageData = props.pageData;
-      vehicles = props.vehicles;
-      filters = props.filters;
-      searchQuery = props.searchQuery;
+      // Unknown currentData structure
+      pageData = hasValidProps ? props.pageData : fallbackData.pageData;
+      vehicles = hasValidProps ? props.vehicles : fallbackData.vehicles;
+      filters = hasValidProps ? props.filters : fallbackData.filters;
+      searchQuery = hasValidProps
+        ? props.searchQuery
+        : fallbackData.searchQuery;
     }
-  } else {
-    // No currentData, use props
+  } else if (hasValidProps) {
+    // No context data but we have valid props
     pageData = props.pageData;
     vehicles = props.vehicles;
     filters = props.filters;
     searchQuery = props.searchQuery;
-  }
-
-  // CRITICAL FIX: If we still don't have data, use fallback based on current locale
-  if (!pageData || !vehicles || Object.keys(props).length === 0) {
-    const fallback = getFallbackData(router.locale);
-    pageData = pageData || fallback.pageData;
-    vehicles = vehicles || fallback.vehicles;
-    filters = filters || fallback.filters;
-    searchQuery = searchQuery || fallback.searchQuery;
+  } else {
+    // No context data AND no valid props - use fallback
+    pageData = fallbackData.pageData;
+    vehicles = fallbackData.vehicles;
+    filters = fallbackData.filters;
+    searchQuery = fallbackData.searchQuery;
   }
 
   const topBanner = pageData?.banner;
@@ -237,11 +244,12 @@ function Inventory(props) {
     setIsContentExpanded(!isContentExpanded);
   };
 
-  if (isLoading) {
+  // Show loading only if context is actively loading AND we don't have any fallback data
+  if (isLoading && !hasValidProps && !pageData) {
     return <Loader />;
   }
 
-  if (error) {
+  if (error && !hasValidProps && !pageData) {
     return (
       <div className="error-container">
         <div>
@@ -344,6 +352,13 @@ function Inventory(props) {
             {!displayedVehicles?.length ? (
               <div className={`${styles.listing_list_error}`}>
                 <h2>{lang?.noVehiclesFound || 'Loading vehicles...'}</h2>
+                {!hasValidProps && (
+                  <p>
+                    {router.locale === 'es'
+                      ? 'Cargando vehículos desde el servidor...'
+                      : 'Loading vehicles from server...'}
+                  </p>
+                )}
               </div>
             ) : (
               <div className={`${styles.listing_list}`}>
@@ -413,17 +428,6 @@ function Inventory(props) {
   );
 }
 
-// CRITICAL: Add getStaticPaths to ensure Spanish pages are built
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: {}, locale: 'en' },
-      { params: {}, locale: 'es' },
-    ],
-    fallback: false, // Set to false to ensure all pages are pre-built
-  };
-}
-
 export async function getStaticProps(context) {
   const locale = context.locale || 'en';
   const route = routes.inventory;
@@ -469,11 +473,12 @@ export async function getStaticProps(context) {
       pageTitle: pageData?.banner?.title,
     });
 
+    // IMPORTANT: Always return valid data, even if API fails
     return {
       props: {
-        pageData,
-        vehicles,
-        filters,
+        pageData: pageData || getFallbackData(locale).pageData,
+        vehicles: vehicles || getFallbackData(locale).vehicles,
+        filters: filters || getFallbackData(locale).filters,
         seoData,
         searchQuery: null,
         locale,
@@ -559,6 +564,8 @@ export default withLanguageContext(
         `[withLanguageContext fetchFunction] Error for ${locale}:`,
         error
       );
+
+      // IMPORTANT: Return fallback data instead of null
       return getFallbackData(locale);
     }
   },
