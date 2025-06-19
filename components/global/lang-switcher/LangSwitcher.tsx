@@ -62,8 +62,32 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
     } else if (pathname.includes('news')) {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/blogs?pagination[limit]=-1&populate=localizations`;
     } else if (pathname.includes('faqs')) {
-      apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/knowledge-bases?pagination[limit]=-1&populate=localizations`;
+      // Check if it's a category or a knowledge base item
+      const currentSlug = router.query.slug as string;
+
+      // First try knowledge base categories
+      const categoryApiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/knowledge-base-categories?pagination[limit]=-1&populate=localizations`;
+      const categoryResponse = await fetch(categoryApiUrl);
+      const categoryData = await categoryResponse.json();
+
+      // Check if current slug exists in categories
+      const categoryExists = categoryData?.data?.some(
+        (item) =>
+          item?.attributes?.slug === currentSlug ||
+          item?.attributes?.localizations?.data?.[0]?.attributes?.slug ===
+            currentSlug
+      );
+
+      if (categoryExists) {
+        // It's a category, use the category API
+        apiUrl = categoryApiUrl;
+      } else {
+        // It's a knowledge base item, use the original API
+        apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/knowledge-bases?pagination[limit]=-1&populate=localizations`;
+      }
     }
+
+    if (!apiUrl) return {};
 
     const response = await fetch(apiUrl);
     const data = await response.json();
