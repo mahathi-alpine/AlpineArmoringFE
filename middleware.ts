@@ -1,58 +1,58 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { redirectUrls } from './redirectUrls';
-import routes from './routes';
+// import routes from './routes';
 
 const redirectMap = new Map(redirectUrls);
 
-const isDuplicateDomain = (pathname: string): boolean => {
-  const lowerPathname = pathname.toLowerCase();
+// const isDuplicateDomain = (pathname: string): boolean => {
+//   const lowerPathname = pathname.toLowerCase();
 
-  // Check for various patterns of domain duplication
-  const duplicatePatterns = [
-    /\/www\.alpineco\.com\/www\.alpineco\.com/,
-    /\/alpineco\.com\/alpineco\.com/,
-    /\/www\.alpineco\.com\/alpineco\.com/,
-    /\/alpineco\.com\/www\.alpineco\.com/,
-    /^\/www\.alpineco\.com\//,
-    /^\/alpineco\.com\//,
-    // Handle encoded versions
-    /\/www%2Ealpineco%2Ecom/,
-    /\/alpineco%2Ecom/,
-    // Handle multiple slashes that might indicate domain issues
-    /\/\/+www\.alpineco\.com/,
-    /\/\/+alpineco\.com/,
-  ];
+//   // Check for various patterns of domain duplication
+//   const duplicatePatterns = [
+//     /\/www\.alpineco\.com\/www\.alpineco\.com/,
+//     /\/alpineco\.com\/alpineco\.com/,
+//     /\/www\.alpineco\.com\/alpineco\.com/,
+//     /\/alpineco\.com\/www\.alpineco\.com/,
+//     /^\/www\.alpineco\.com\//,
+//     /^\/alpineco\.com\//,
+//     // Handle encoded versions
+//     /\/www%2Ealpineco%2Ecom/,
+//     /\/alpineco%2Ecom/,
+//     // Handle multiple slashes that might indicate domain issues
+//     /\/\/+www\.alpineco\.com/,
+//     /\/\/+alpineco\.com/,
+//   ];
 
-  return duplicatePatterns.some((pattern) => pattern.test(lowerPathname));
-};
+//   return duplicatePatterns.some((pattern) => pattern.test(lowerPathname));
+// };
 
-const cleanDuplicateDomain = (pathname: string): string => {
-  let cleanedPath = pathname;
+// const cleanDuplicateDomain = (pathname: string): string => {
+//   let cleanedPath = pathname;
 
-  // Remove all variations of duplicate domains
-  cleanedPath = cleanedPath
-    // Remove duplicate domain patterns
-    .replace(
-      /^(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)/i,
-      '/'
-    )
-    .replace(/^(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)/i, '/')
-    // Handle encoded versions
-    .replace(/\/www%2Ealpineco%2Ecom/gi, '')
-    .replace(/\/alpineco%2Ecom/gi, '')
-    // Clean up multiple slashes
-    .replace(/\/+/g, '/')
-    // Ensure we start with a slash
-    .replace(/^(?!\/)/, '/');
+//   // Remove all variations of duplicate domains
+//   cleanedPath = cleanedPath
+//     // Remove duplicate domain patterns
+//     .replace(
+//       /^(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)/i,
+//       '/'
+//     )
+//     .replace(/^(\/+)(www\.alpineco\.com|alpineco\.com)(\/+)/i, '/')
+//     // Handle encoded versions
+//     .replace(/\/www%2Ealpineco%2Ecom/gi, '')
+//     .replace(/\/alpineco%2Ecom/gi, '')
+//     // Clean up multiple slashes
+//     .replace(/\/+/g, '/')
+//     // Ensure we start with a slash
+//     .replace(/^(?!\/)/, '/');
 
-  // If we end up with just slashes, return root
-  if (cleanedPath === '/' || cleanedPath === '') {
-    return '/';
-  }
+//   // If we end up with just slashes, return root
+//   if (cleanedPath === '/' || cleanedPath === '') {
+//     return '/';
+//   }
 
-  return cleanedPath;
-};
+//   return cleanedPath;
+// };
 
 type BlockedPattern = {
   pattern: string;
@@ -124,99 +124,99 @@ function normalizeUrl(url: string): string {
 }
 
 // Function to check if a locale/path combination is valid and get the correct path if needed
-function validateLocalePath(
-  locale: string,
-  pathname: string
-): { isValid: boolean; correctPath?: string } {
-  pathname = normalizeUrl(pathname);
+// function validateLocalePath(
+//   locale: string,
+//   pathname: string
+// ): { isValid: boolean; correctPath?: string } {
+//   pathname = normalizeUrl(pathname);
 
-  // Skip check for default locale (en)
-  if (locale === 'en') return { isValid: true };
+//   // Skip check for default locale (en)
+//   if (locale === 'en') return { isValid: true };
 
-  // For mixed paths like /es/vehicles-we-armor/tipo/suvs-blindados
-  const pathSegments = pathname.split('/').filter((segment) => segment);
-  let hasInvalidSegment = false;
-  let correctPathSegments: string[] = [];
-  let matchedRouteConfig = null;
+//   // For mixed paths like /es/vehicles-we-armor/tipo/suvs-blindados
+//   const pathSegments = pathname.split('/').filter((segment) => segment);
+//   let hasInvalidSegment = false;
+//   let correctPathSegments: string[] = [];
+//   let matchedRouteConfig = null;
 
-  // First, check if the first path segment matches any English routes
-  for (const [, routeConfig] of Object.entries(routes)) {
-    const englishPath = routeConfig.paths['en'].replace(/^\//, ''); // Remove leading slash
-    const localizedPath = routeConfig.paths[locale].replace(/^\//, ''); // Remove leading slash
+//   // First, check if the first path segment matches any English routes
+//   for (const [, routeConfig] of Object.entries(routes)) {
+//     const englishPath = routeConfig.paths['en'].replace(/^\//, ''); // Remove leading slash
+//     const localizedPath = routeConfig.paths[locale].replace(/^\//, ''); // Remove leading slash
 
-    // If the first segment matches an English path but we're in a non-English locale
-    if (pathSegments[0] === englishPath && englishPath !== localizedPath) {
-      hasInvalidSegment = true;
-      correctPathSegments.push(localizedPath);
-      matchedRouteConfig = routeConfig;
-      break;
-    }
-  }
+//     // If the first segment matches an English path but we're in a non-English locale
+//     if (pathSegments[0] === englishPath && englishPath !== localizedPath) {
+//       hasInvalidSegment = true;
+//       correctPathSegments.push(localizedPath);
+//       matchedRouteConfig = routeConfig;
+//       break;
+//     }
+//   }
 
-  // If we found a route with an English path in a non-English locale
-  if (hasInvalidSegment && matchedRouteConfig) {
-    // Process the rest of the path for the special cases (type paths)
-    if (
-      pathSegments.length > 1 &&
-      matchedRouteConfig.typePath &&
-      matchedRouteConfig.types
-    ) {
-      const englishTypePath = matchedRouteConfig.typePath['en'];
-      const localizedTypePath = matchedRouteConfig.typePath[locale];
+//   // If we found a route with an English path in a non-English locale
+//   if (hasInvalidSegment && matchedRouteConfig) {
+//     // Process the rest of the path for the special cases (type paths)
+//     if (
+//       pathSegments.length > 1 &&
+//       matchedRouteConfig.typePath &&
+//       matchedRouteConfig.types
+//     ) {
+//       const englishTypePath = matchedRouteConfig.typePath['en'];
+//       const localizedTypePath = matchedRouteConfig.typePath[locale];
 
-      // If the second segment matches the English type path
-      if (
-        pathSegments[1] === englishTypePath &&
-        englishTypePath !== localizedTypePath
-      ) {
-        correctPathSegments.push(localizedTypePath);
+//       // If the second segment matches the English type path
+//       if (
+//         pathSegments[1] === englishTypePath &&
+//         englishTypePath !== localizedTypePath
+//       ) {
+//         correctPathSegments.push(localizedTypePath);
 
-        // Add the remaining segments (the type value and anything after)
-        if (pathSegments.length > 2) {
-          // For the type value, check if we need to translate it
-          const typeSlug = pathSegments[2];
-          let localizedTypeSlug = typeSlug;
+//         // Add the remaining segments (the type value and anything after)
+//         if (pathSegments.length > 2) {
+//           // For the type value, check if we need to translate it
+//           const typeSlug = pathSegments[2];
+//           let localizedTypeSlug = typeSlug;
 
-          // Try to find a matching type and get its localized version
-          for (const [, typeValues] of Object.entries(
-            matchedRouteConfig.types
-          )) {
-            if (typeValues['en'] === typeSlug) {
-              localizedTypeSlug = typeValues[locale] || typeSlug;
-              break;
-            }
-          }
+//           // Try to find a matching type and get its localized version
+//           for (const [, typeValues] of Object.entries(
+//             matchedRouteConfig.types
+//           )) {
+//             if (typeValues['en'] === typeSlug) {
+//               localizedTypeSlug = typeValues[locale] || typeSlug;
+//               break;
+//             }
+//           }
 
-          correctPathSegments.push(localizedTypeSlug);
+//           correctPathSegments.push(localizedTypeSlug);
 
-          // Add any remaining segments
-          if (pathSegments.length > 3) {
-            correctPathSegments = [
-              ...correctPathSegments,
-              ...pathSegments.slice(3),
-            ];
-          }
-        }
-      } else {
-        // Just add the remaining segments as is
-        correctPathSegments = [
-          ...correctPathSegments,
-          ...pathSegments.slice(1),
-        ];
-      }
-    } else {
-      // Just add the remaining segments as is
-      correctPathSegments = [...correctPathSegments, ...pathSegments.slice(1)];
-    }
+//           // Add any remaining segments
+//           if (pathSegments.length > 3) {
+//             correctPathSegments = [
+//               ...correctPathSegments,
+//               ...pathSegments.slice(3),
+//             ];
+//           }
+//         }
+//       } else {
+//         // Just add the remaining segments as is
+//         correctPathSegments = [
+//           ...correctPathSegments,
+//           ...pathSegments.slice(1),
+//         ];
+//       }
+//     } else {
+//       // Just add the remaining segments as is
+//       correctPathSegments = [...correctPathSegments, ...pathSegments.slice(1)];
+//     }
 
-    return {
-      isValid: false,
-      correctPath: '/' + correctPathSegments.join('/'),
-    };
-  }
+//     return {
+//       isValid: false,
+//       correctPath: '/' + correctPathSegments.join('/'),
+//     };
+//   }
 
-  return { isValid: true };
-}
+//   return { isValid: true };
+// }
 
 // Function to check and correct 'suv-blindados' to 'suvs-blindados' in URLs
 function correctSuvBlindadosPath(pathname: string): string | null {
@@ -297,55 +297,55 @@ export function middleware(request: NextRequest) {
   }
 
   // Check for invalid locale/path combinations and get correct path if needed
-  const { isValid, correctPath } = validateLocalePath(locale, pathname);
+  // const { isValid, correctPath } = validateLocalePath(locale, pathname);
 
-  if (!isValid) {
-    if (correctPath) {
-      const url = request.nextUrl.clone();
-      url.pathname = correctPath;
+  // if (!isValid) {
+  //   if (correctPath) {
+  //     const url = request.nextUrl.clone();
+  //     url.pathname = correctPath;
 
-      const response = NextResponse.redirect(url, { status: 307 });
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-      return response;
-    }
+  //     const response = NextResponse.redirect(url, { status: 307 });
+  //     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  //     return response;
+  //   }
 
-    // Fallback: redirect to English version if we don't have a correct path
-    const url = request.nextUrl.clone();
-    url.pathname = pathname;
+  //   // Fallback: redirect to English version if we don't have a correct path
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = pathname;
 
-    const originalPathname = request.nextUrl.pathname;
-    if (isDuplicateDomain(originalPathname)) {
-      const correctedPath = cleanDuplicateDomain(originalPathname);
-      // Log detailed information about the source
-      const logData = {
-        timestamp: new Date().toISOString(),
-        originalUrl: originalPathname,
-        correctedUrl: correctedPath,
-        fullUrl: request.url,
-        userAgent: request.headers.get('user-agent') || 'unknown',
-        referer: request.headers.get('referer') || 'direct',
-        ip:
-          request.headers.get('x-forwarded-for') ||
-          request.headers.get('x-real-ip') ||
-          'unknown',
-        country: request.headers.get('cf-ipcountry') || 'unknown',
-        isBot: /bot|crawler|spider|scraper/i.test(
-          request.headers.get('user-agent') || ''
-        ),
-        searchParams: Object.fromEntries(
-          request.nextUrl.searchParams.entries()
-        ),
-      };
+  //   const originalPathname = request.nextUrl.pathname;
+  //   if (isDuplicateDomain(originalPathname)) {
+  //     const correctedPath = cleanDuplicateDomain(originalPathname);
+  //     // Log detailed information about the source
+  //     const logData = {
+  //       timestamp: new Date().toISOString(),
+  //       originalUrl: originalPathname,
+  //       correctedUrl: correctedPath,
+  //       fullUrl: request.url,
+  //       userAgent: request.headers.get('user-agent') || 'unknown',
+  //       referer: request.headers.get('referer') || 'direct',
+  //       ip:
+  //         request.headers.get('x-forwarded-for') ||
+  //         request.headers.get('x-real-ip') ||
+  //         'unknown',
+  //       country: request.headers.get('cf-ipcountry') || 'unknown',
+  //       isBot: /bot|crawler|spider|scraper/i.test(
+  //         request.headers.get('user-agent') || ''
+  //       ),
+  //       searchParams: Object.fromEntries(
+  //         request.nextUrl.searchParams.entries()
+  //       ),
+  //     };
 
-      // Log to console (will appear in Vercel logs)
-      console.log('🔍 DUPLICATE_DOMAIN_SOURCE:', JSON.stringify(logData));
-    }
-    url.locale = 'en';
+  //     // Log to console (will appear in Vercel logs)
+  //     console.log('🔍 DUPLICATE_DOMAIN_SOURCE:', JSON.stringify(logData));
+  //   }
+  //   url.locale = 'en';
 
-    const response = NextResponse.redirect(url, { status: 307 });
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-    return response;
-  }
+  //   const response = NextResponse.redirect(url, { status: 307 });
+  //   response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  //   return response;
+  // }
 
   // Handle special case for path segments embedded in query parameters
   if (
