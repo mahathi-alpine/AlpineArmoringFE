@@ -244,9 +244,19 @@ export function middleware(request: NextRequest) {
     url.pathname = '/about-us';
     return NextResponse.rewrite(url);
   }
-  if (request.nextUrl.pathname.startsWith('/disponible-ahora')) {
+  if (request.nextUrl.pathname === '/disponible-ahora') {
     const url = request.nextUrl.clone();
     url.pathname = '/available-now';
+    return NextResponse.rewrite(url);
+  }
+  if (request.nextUrl.pathname === '/disponible-ahora/tipo/suvs-blindados') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/available-now/type/armored-suvs';
+    return NextResponse.rewrite(url);
+  }
+  if (request.nextUrl.pathname === '/disponible-ahora/tipo/sedanes-blindados') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/available-now/type/armored-sedans';
     return NextResponse.rewrite(url);
   }
 
