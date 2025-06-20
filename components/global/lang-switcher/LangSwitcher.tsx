@@ -159,11 +159,11 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
     const hasTypeParameter = cleanPath.includes(lang.type);
 
-    if (pathname === '/contact') {
-      const translatedPath = langCode === 'es' ? '/contacto' : '/contact';
-      await router.push(translatedPath, undefined, { locale: langCode });
-      return;
-    }
+    // if (pathname === '/contact') {
+    //   const translatedPath = langCode === 'es' ? '/contacto' : '/contact';
+    //   await router.push(translatedPath, undefined, { locale: langCode });
+    //   return;
+    // }
 
     if (hasTypeParameter) {
       const segments = cleanPath.split('/').filter((segment) => segment);
