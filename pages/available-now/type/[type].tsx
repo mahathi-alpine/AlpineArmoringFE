@@ -13,13 +13,6 @@ import Button from 'components/global/button/Button';
 import Accordion from 'components/global/accordion/Accordion';
 import CustomMarkdown from 'components/CustomMarkdown';
 
-// Import the Language Context components
-import {
-  useLanguageData,
-  withLanguageContext,
-} from 'components/LanguageContext';
-import Loader from 'components/global/loader/Loader';
-
 const isValidCategorySlug = (slug, locale = 'en') => {
   const validSlugs = {
     en: [
@@ -131,14 +124,11 @@ function Inventory(props) {
   const { lang } = useLocale();
   const router = useRouter();
 
-  // Use the Language Context to get current data
-  const { currentData, isLoading, error } = useLanguageData();
-
   // Use context data if available, fallback to props
-  const vehicles = currentData?.vehicles || props.vehicles;
-  const filters = currentData?.filters || props.filters;
-  const query = currentData?.query || props.query;
-  const pageData = currentData?.pageData || props.pageData;
+  const vehicles = props.vehicles;
+  const filters = props.filters;
+  const query = props.query;
+  const pageData = props.pageData;
 
   const currentCategory = filters?.type?.find(
     (item) => item.attributes.slug === query
@@ -233,27 +223,6 @@ function Inventory(props) {
       observer.disconnect();
     };
   }, [itemsToRender, fetchMoreItems]);
-
-  // Show loading state from context
-  if (isLoading || !router.isReady) {
-    return <Loader />;
-  }
-
-  // Show error state from context
-  if (error) {
-    return (
-      <div className="error-container">
-        <div>
-          {lang.inventorySystemDown}: <br /> {error}
-        </div>
-      </div>
-    );
-  }
-
-  // Add safety check for required data
-  if (!filters?.type || !categoryTitle) {
-    return <Loader />;
-  }
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -655,95 +624,4 @@ export async function getStaticPaths() {
   };
 }
 
-// Wrap the component with Language Context
-export default withLanguageContext(
-  Inventory,
-  async (locale) => {
-    const route = routes.inventory;
-    // const lang = getLocaleStrings(locale);
-
-    try {
-      // Get the current type from the router (this will be available in the context)
-      const router =
-        typeof window !== 'undefined' ? window.location.pathname : '';
-      const typeMatch =
-        router.match(/\/type\/([^/]+)/) || router.match(/\/tipo\/([^/]+)/);
-      const currentType = typeMatch ? typeMatch[1] : '';
-
-      if (!currentType) {
-        // Fallback: try to get from query params or other sources
-        return getFallbackData(locale, '');
-      }
-
-      // Convert to English type for API call
-      let englishType = currentType;
-      if (locale === 'es') {
-        const types = route.types || {};
-        for (const [engType, translations] of Object.entries(types)) {
-          if (
-            translations &&
-            typeof translations === 'object' &&
-            'es' in translations &&
-            translations.es === currentType
-          ) {
-            englishType = engType;
-            break;
-          }
-        }
-      }
-
-      const localizedType = route.getLocalizedType(englishType, locale);
-
-      // Fetch page data
-      let pageData = await getPageData({
-        route: route.collection,
-        populate: 'faqs',
-        fields: '',
-        locale,
-      });
-      pageData = pageData.data?.attributes || null;
-
-      // Fetch vehicles for this specific category
-      const vehicles = await getPageData({
-        route: route.collectionSingle,
-        params: `filters[categories][slug][$eq]=${localizedType}`,
-        sort: 'order',
-        populate: 'featuredImage',
-        fields:
-          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans',
-        pageSize: 100,
-        locale,
-      });
-
-      // Filter out hidden vehicles
-      const filteredVehicles = {
-        ...vehicles,
-        data:
-          vehicles?.data?.filter(
-            (vehicle) => vehicle.attributes.hide !== true
-          ) || [],
-      };
-
-      // Fetch filter data
-      const type = await getPageData({
-        route: 'categories',
-        custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&fields[2]=bottomTextInventory&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats&populate[faqs_stock][fields][0]=title&populate[faqs_stock][fields][1]=text`,
-        locale,
-      }).then((response) => response?.data || []);
-
-      const filters = type ? { type } : {};
-
-      return {
-        pageData,
-        vehicles: filteredVehicles,
-        filters,
-        query: currentType,
-        searchQuery: null,
-      };
-    } catch (error) {
-      console.error('Error fetching inventory type data:', error);
-      return getFallbackData(locale, '');
-    }
-  },
-  'inventory'
-);
+export default Inventory;
