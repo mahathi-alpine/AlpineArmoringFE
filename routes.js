@@ -116,7 +116,7 @@ const routes = {
     collection: 'contact-page',
     paths: {
       en: '/contact',
-      es: '/contact',
+      es: '/contacto',
     },
     usesStaticProps: true,
   },
