@@ -179,8 +179,7 @@ function Contact(props) {
   );
 }
 
-export async function getStaticProps(context) {
-  const { locale = 'en' } = context;
+export async function getStaticProps({ locale = 'en' }) {
   const route = routes.contact;
 
   let pageData = await getPageData({

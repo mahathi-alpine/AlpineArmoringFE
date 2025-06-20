@@ -1,16 +1,11 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { getPageData } from 'hooks/api';
-import {
-  useLanguageData,
-  withLanguageContext,
-} from 'components/LanguageContext';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 import styles from './About.module.scss';
 
-import Loader from 'components/global/loader/Loader';
 import Banner from 'components/global/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
 import FillingText from 'components/global/filling-text/FillingText';
@@ -32,8 +27,7 @@ const GlobeComponent = dynamic(() => import('components/global/globe/Globe'), {
 function About(props) {
   const { lang } = useLocale();
 
-  const { currentData, isLoading, error } = useLanguageData();
-  const pageData = currentData || props.pageData;
+  const pageData = props.pageData;
 
   const banner = pageData?.banner;
   const mainText = pageData?.text;
@@ -105,28 +99,6 @@ function About(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return (
-      <div className="error-container">
-        <div>
-          {lang.inventorySystemDown}: <br /> {error}
-        </div>
-      </div>
-    );
-  }
-
-  if (!pageData) {
-    return (
-      <div className="error-container">
-        <div>No page data available</div>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -310,7 +282,8 @@ function About(props) {
   );
 }
 
-export async function getStaticProps({ locale = 'en' }) {
+export async function getStaticProps(context) {
+  const { locale = 'en' } = context;
   const route = routes.about;
 
   let pageData = await getPageData({
@@ -330,15 +303,4 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLanguageContext(
-  About,
-  async (locale) => {
-    const data = await getPageData({
-      route: routes.about.collection,
-      populate: 'deep',
-      locale,
-    });
-    return data.data?.attributes || null;
-  },
-  'about'
-);
+export default About;
