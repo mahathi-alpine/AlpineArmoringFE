@@ -55,6 +55,7 @@ const routes = {
       en: '/about-us',
       es: '/hacerca-de-nosotros',
     },
+    usesStaticProps: true,
   },
   allDownloads: {
     collection: 'all-download',
