@@ -102,6 +102,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // SPECIAL: Handle Spanish contact route - rewrite /contacto to /contact
+  // This allows Spanish users to see /contacto but internally uses /contact
+  if (pathname === '/contacto') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/contact';
+    return NextResponse.rewrite(url);
+  }
+
   const lowerPathname = pathname.toLowerCase();
   const hasDuplicateDomain =
     lowerPathname.includes('www.alpineco.com/www.alpineco.com') ||

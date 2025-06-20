@@ -116,7 +116,7 @@ const routes = {
     collection: 'contact-page',
     paths: {
       en: '/contact',
-      es: '/contacto',
+      es: '/contact', // Use same base path - i18n handles the locale
     },
     // CRITICAL: Mark as using getStaticProps to exclude from rewrites
     usesStaticProps: true,
