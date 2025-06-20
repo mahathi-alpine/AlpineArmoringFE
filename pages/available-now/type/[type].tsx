@@ -552,7 +552,7 @@ export async function getStaticProps(context) {
         pageData,
         vehicles: filteredVehicles,
         filters,
-        query: context.params.type,
+        query: localizedType,
         seoData,
         locale,
       },
