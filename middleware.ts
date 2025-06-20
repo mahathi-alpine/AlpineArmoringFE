@@ -241,6 +241,118 @@ export function middleware(request: NextRequest) {
   url.pathname = normalizeUrl(url.pathname);
   const normalizedPathname = url.pathname;
 
+  // Redirect /media URLs to /all-downloads
+  if (
+    normalizedPathname.startsWith('/media/ballistic-chart/') ||
+    normalizedPathname.startsWith('/media/documents/') ||
+    normalizedPathname.startsWith('/media/img/') ||
+    normalizedPathname.startsWith('/news/clients/') ||
+    normalizedPathname.startsWith('/images/')
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/all-downloads';
+    const response = NextResponse.redirect(url, { status: 308 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
+  // Normalize the search params by replacing + with %20
+  const normalizedSearch = searchParams.toString().replace(/\+/g, '%20');
+
+  // Create paths for redirect lookup - include locale in the lookup
+  const pathWithLocale =
+    locale !== 'en' ? `/${locale}${normalizedPathname}` : normalizedPathname;
+  const fullPathWithLocale = normalizedSearch
+    ? `${pathWithLocale}?${normalizedSearch}`
+    : pathWithLocale;
+
+  let redirectTo = redirectMap.get(fullPathWithLocale);
+
+  if (!redirectTo && searchParams.get('utm_source') === 'chatgpt.com') {
+    redirectTo = redirectMap.get(pathWithLocale);
+
+    if (!redirectTo && locale !== 'en') {
+      redirectTo = redirectMap.get(normalizedPathname);
+    }
+
+    if (redirectTo) {
+      const url = request.nextUrl.clone();
+
+      if (redirectTo.includes('?')) {
+        const [newPathname, newSearch] = redirectTo.split('?');
+        url.pathname = newPathname;
+        url.search = `?${newSearch}&utm_source=chatgpt.com`;
+      } else {
+        url.pathname = redirectTo;
+        url.search = '?utm_source=chatgpt.com';
+      }
+
+      const response = NextResponse.redirect(url, { status: 308 });
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      return response;
+    }
+  }
+
+  if (!redirectTo) {
+    const fullPathWithOriginalSearch = searchParams.toString()
+      ? `${pathWithLocale}?${searchParams.toString()}`
+      : pathWithLocale;
+    redirectTo = redirectMap.get(fullPathWithOriginalSearch);
+  }
+
+  if (!redirectTo) {
+    const decodedPathWithLocale = safeDecodeURIComponent(pathWithLocale);
+    const decodedSearch = safeDecodeURIComponent(normalizedSearch);
+    const decodedFullPath = decodedSearch
+      ? `${decodedPathWithLocale}?${decodedSearch}`
+      : decodedPathWithLocale;
+
+    redirectTo = redirectMap.get(decodedFullPath);
+  }
+
+  // Handle parentheses encoding differences
+  if (
+    !redirectTo &&
+    (normalizedSearch.includes('%28') || normalizedSearch.includes('%29'))
+  ) {
+    for (const [key, value] of redirectMap.entries()) {
+      // Skip keys that don't match the path or don't include parentheses
+      if (
+        !key.startsWith(pathWithLocale) ||
+        (!key.includes('(') && !key.includes(')'))
+      ) {
+        continue;
+      }
+
+      // Normalize the redirect key by encoding parentheses
+      const normalizedKey = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
+
+      // Check if our normalized path matches the normalized key
+      if (fullPathWithLocale === normalizedKey) {
+        redirectTo = value;
+        break;
+      }
+    }
+  }
+
+  if (redirectTo) {
+    const url = request.nextUrl.clone();
+
+    // Handle the redirect URL properly by parsing it
+    if (redirectTo.includes('?')) {
+      const [newPathname, newSearch] = redirectTo.split('?');
+      url.pathname = newPathname;
+      url.search = `?${newSearch}`;
+    } else {
+      url.pathname = redirectTo;
+      url.search = '';
+    }
+
+    const response = NextResponse.redirect(url, { status: 308 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
   // Check search params FIRST before any rewrites
   const vehiclesWeArmorParam =
     searchParams.has('vehicles_we_armor') ||
@@ -420,122 +532,10 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Normalize the search params by replacing + with %20
-  const normalizedSearch = searchParams.toString().replace(/\+/g, '%20');
-
-  // Create paths for redirect lookup - include locale in the lookup
-  const pathWithLocale =
-    locale !== 'en' ? `/${locale}${normalizedPathname}` : normalizedPathname;
-  const fullPathWithLocale = normalizedSearch
-    ? `${pathWithLocale}?${normalizedSearch}`
-    : pathWithLocale;
-
-  let redirectTo = redirectMap.get(fullPathWithLocale);
-
-  if (!redirectTo && searchParams.get('utm_source') === 'chatgpt.com') {
-    redirectTo = redirectMap.get(pathWithLocale);
-
-    if (!redirectTo && locale !== 'en') {
-      redirectTo = redirectMap.get(normalizedPathname);
-    }
-
-    if (redirectTo) {
-      const url = request.nextUrl.clone();
-
-      if (redirectTo.includes('?')) {
-        const [newPathname, newSearch] = redirectTo.split('?');
-        url.pathname = newPathname;
-        url.search = `?${newSearch}&utm_source=chatgpt.com`;
-      } else {
-        url.pathname = redirectTo;
-        url.search = '?utm_source=chatgpt.com';
-      }
-
-      const response = NextResponse.redirect(url, { status: 308 });
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-      return response;
-    }
-  }
-
-  if (!redirectTo) {
-    const fullPathWithOriginalSearch = searchParams.toString()
-      ? `${pathWithLocale}?${searchParams.toString()}`
-      : pathWithLocale;
-    redirectTo = redirectMap.get(fullPathWithOriginalSearch);
-  }
-
-  if (!redirectTo) {
-    const decodedPathWithLocale = safeDecodeURIComponent(pathWithLocale);
-    const decodedSearch = safeDecodeURIComponent(normalizedSearch);
-    const decodedFullPath = decodedSearch
-      ? `${decodedPathWithLocale}?${decodedSearch}`
-      : decodedPathWithLocale;
-
-    redirectTo = redirectMap.get(decodedFullPath);
-  }
-
-  // Handle parentheses encoding differences
-  if (
-    !redirectTo &&
-    (normalizedSearch.includes('%28') || normalizedSearch.includes('%29'))
-  ) {
-    for (const [key, value] of redirectMap.entries()) {
-      // Skip keys that don't match the path or don't include parentheses
-      if (
-        !key.startsWith(pathWithLocale) ||
-        (!key.includes('(') && !key.includes(')'))
-      ) {
-        continue;
-      }
-
-      // Normalize the redirect key by encoding parentheses
-      const normalizedKey = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
-
-      // Check if our normalized path matches the normalized key
-      if (fullPathWithLocale === normalizedKey) {
-        redirectTo = value;
-        break;
-      }
-    }
-  }
-
-  if (redirectTo) {
-    const url = request.nextUrl.clone();
-
-    // Handle the redirect URL properly by parsing it
-    if (redirectTo.includes('?')) {
-      const [newPathname, newSearch] = redirectTo.split('?');
-      url.pathname = newPathname;
-      url.search = `?${newSearch}`;
-    } else {
-      url.pathname = redirectTo;
-      url.search = '';
-    }
-
-    const response = NextResponse.redirect(url, { status: 308 });
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-    return response;
-  }
-
   // Redirect /stock URLs to /available-now
   if (normalizedPathname.startsWith('/stock')) {
     const url = request.nextUrl.clone();
     url.pathname = '/available-now';
-    const response = NextResponse.redirect(url, { status: 308 });
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-    return response;
-  }
-
-  // Redirect /media URLs to /all-downloads
-  if (
-    normalizedPathname.startsWith('/media/ballistic-chart/') ||
-    normalizedPathname.startsWith('/media/documents/') ||
-    normalizedPathname.startsWith('/media/img/') ||
-    normalizedPathname.startsWith('/news/clients/') ||
-    normalizedPathname.startsWith('/images/')
-  ) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/all-downloads';
     const response = NextResponse.redirect(url, { status: 308 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
