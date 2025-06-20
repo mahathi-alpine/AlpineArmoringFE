@@ -4,6 +4,8 @@ import Head from 'next/head';
 import { getPageData } from 'hooks/api';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
@@ -16,8 +18,69 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 
 function Contact(props) {
   const { lang } = useLocale();
+  const router = useRouter();
+  const [pageData, setPageData] = useState(props.pageData);
+  const [loading, setLoading] = useState(false);
 
-  const pageData = props.pageData;
+  // Debug logging for contact pages only
+  useEffect(() => {
+    const currentPath = router.asPath;
+    if (currentPath.includes('/contact') || currentPath.includes('/contacto')) {
+      console.log('=== CONTACT PAGE DEBUG ===');
+      console.log('Current locale:', router.locale);
+      console.log('Current path:', currentPath);
+      console.log('Props pageData exists:', !!props.pageData);
+      console.log('State pageData exists:', !!pageData);
+      console.log('Props:', props);
+      console.log('========================');
+    }
+  }, [router.locale, router.asPath, props.pageData, pageData]);
+
+  // Handle client-side locale changes
+  useEffect(() => {
+    const handleLocaleChange = async () => {
+      const currentPath = router.asPath;
+      if (
+        !currentPath.includes('/contact') &&
+        !currentPath.includes('/contacto')
+      ) {
+        return; // Only handle contact pages
+      }
+
+      // If we don't have pageData for current locale, fetch it
+      if (!pageData && !loading) {
+        console.log('Fetching data for locale:', router.locale);
+        setLoading(true);
+
+        try {
+          const route = routes.contact;
+          let newPageData = await getPageData({
+            route: route.collection,
+            populate: 'deep',
+            locale: router.locale,
+          });
+          newPageData = newPageData?.data?.attributes || null;
+
+          console.log('Fetched new pageData:', !!newPageData);
+          setPageData(newPageData);
+        } catch (error) {
+          console.error('Error fetching page data:', error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    handleLocaleChange();
+  }, [router.locale, pageData, loading]);
+
+  // Reset pageData when props change (for SSR navigation)
+  useEffect(() => {
+    if (props.pageData !== pageData) {
+      console.log('Updating pageData from props');
+      setPageData(props.pageData);
+    }
+  }, [props.pageData]);
 
   const banner = pageData?.banner;
   const salesInfo = pageData?.salesInfo;
@@ -87,6 +150,17 @@ function Contact(props) {
 
     return JSON.stringify(structuredData);
   };
+
+  // Show loading state while fetching data
+  if (loading) {
+    return (
+      <div className={`${styles.contact}`}>
+        <div className="container_small">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -179,7 +253,21 @@ function Contact(props) {
   );
 }
 
+// This is the key fix: Generate static paths for all locales
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: {}, locale: 'en' },
+      { params: {}, locale: 'es' },
+    ],
+    fallback: false, // or 'blocking' if you want to support more locales dynamically
+  };
+}
+
 export async function getStaticProps({ locale = 'en' }) {
+  console.log('=== getStaticProps called ===');
+  console.log('Locale:', locale);
+
   const route = routes.contact;
 
   let pageData = await getPageData({
@@ -187,15 +275,22 @@ export async function getStaticProps({ locale = 'en' }) {
     populate: 'deep',
     locale,
   });
-  pageData = pageData.data?.attributes || null;
+
+  console.log('API response exists:', !!pageData);
+  pageData = pageData?.data?.attributes || null;
 
   const seoData = {
     ...(pageData?.seo || {}),
     languageUrls: route.getIndexLanguageUrls(locale),
   };
 
+  console.log('Returning props for locale:', locale);
+  console.log('=========================');
+
   return {
     props: { pageData, seoData, locale },
+    // Optional: Add revalidation for ISR
+    revalidate: 3600, // Revalidate every hour
   };
 }
 
