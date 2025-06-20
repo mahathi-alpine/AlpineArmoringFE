@@ -46,7 +46,7 @@ const routes = {
     collection: 'homepage',
     paths: {
       en: '/',
-      es: '/es',
+      es: '/',
     },
   },
   about: {
@@ -118,6 +118,8 @@ const routes = {
       en: '/contact',
       es: '/contacto',
     },
+    // CRITICAL: Mark as using getStaticProps to exclude from rewrites
+    usesStaticProps: true,
   },
   designAndEngineering: {
     collection: 'design-and-engineering',
@@ -235,7 +237,14 @@ const utils = {
       : `/${locale}${basePath}/${slug}`;
   },
 
-  getRewrites: (paths, typePath) => {
+  // UPDATED: Exclude routes that use getStaticProps
+  getRewrites: (paths, typePath, usesStaticProps = false) => {
+    // Don't create rewrites for pages using getStaticProps
+    if (usesStaticProps) {
+      console.log('Skipping rewrites for getStaticProps route');
+      return [];
+    }
+
     return Object.entries(paths)
       .filter(([locale]) => locale !== 'en')
       .flatMap(([locale, path]) => {
@@ -295,7 +304,8 @@ Object.entries(routes).forEach(([key, config]) => {
     ...config,
     getLocalizedPath: (locale, slug) =>
       utils.getLocalizedPath(config.paths, locale, slug),
-    getRewrites: () => utils.getRewrites(config.paths, config.typePath),
+    getRewrites: () =>
+      utils.getRewrites(config.paths, config.typePath, config.usesStaticProps),
     getLanguageUrls: (currentPage, locale) =>
       utils.getLanguageUrls(routes[key], currentPage, locale),
     getIndexLanguageUrls: (locale) =>

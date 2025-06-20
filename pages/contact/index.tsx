@@ -283,14 +283,14 @@ function Contact(props) {
   );
 }
 
-// Keep getStaticProps - Next.js will automatically generate for each locale
+// IMPORTANT: This will be called for BOTH locales during build
 export async function getStaticProps(context) {
   const { locale = 'en' } = context;
 
   console.log('=== getStaticProps called ===');
-  console.log('Full context:', JSON.stringify(context, null, 2));
   console.log('Locale from context:', locale);
-  console.log('Building static page for locale:', locale);
+  console.log('Building contact page for locale:', locale);
+  console.log('Context keys:', Object.keys(context));
 
   const route = routes.contact;
 
@@ -302,21 +302,14 @@ export async function getStaticProps(context) {
       locale,
     });
 
-    console.log('Raw API response:', pageData ? 'exists' : 'null');
-    console.log(
-      'API response structure:',
-      pageData ? Object.keys(pageData) : 'null'
-    );
+    console.log('Raw API response exists:', !!pageData);
 
     // Extract the actual page data
     pageData = pageData?.data?.attributes || null;
 
-    console.log('Processed pageData exists:', !!pageData);
-    if (pageData) {
-      console.log('PageData keys:', Object.keys(pageData));
-    }
+    console.log('Processed pageData exists for', locale, ':', !!pageData);
   } catch (error) {
-    console.error('Error in getStaticProps:', error);
+    console.error('Error in getStaticProps for', locale, ':', error);
     pageData = null;
   }
 
@@ -325,18 +318,15 @@ export async function getStaticProps(context) {
     languageUrls: route.getIndexLanguageUrls(locale),
   };
 
-  console.log('Final props being returned:');
-  console.log('- pageData exists:', !!pageData);
-  console.log('- seoData exists:', !!seoData);
-  console.log('- locale:', locale);
-  console.log('=========================');
+  console.log('Returning props for locale:', locale);
+  console.log('=== End getStaticProps ===');
 
   // Always return valid props, even if pageData is null
   return {
     props: {
       pageData: pageData || null,
       seoData: seoData || {},
-      locale: locale || 'en',
+      locale: locale,
     },
     // Add revalidation to enable ISR
     revalidate: 3600, // Revalidate every hour
