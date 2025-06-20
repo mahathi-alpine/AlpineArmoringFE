@@ -118,7 +118,7 @@ const routes = {
       en: '/contact',
       es: '/contacto',
     },
-    usesStaticProps: true,
+    // usesStaticProps: true,
   },
   designAndEngineering: {
     collection: 'design-and-engineering',
@@ -236,10 +236,10 @@ const utils = {
       : `/${locale}${basePath}/${slug}`;
   },
 
-  getRewrites: (paths, typePath, usesStaticProps = false) => {
-    if (usesStaticProps) {
-      return [];
-    }
+  getRewrites: (paths, typePath) => {
+    // if (usesStaticProps) {
+    //   return [];
+    // }
 
     return Object.entries(paths)
       .filter(([locale]) => locale !== 'en')

@@ -4,13 +4,6 @@ import { routeTranslations } from 'hooks/routes';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 
-// const routeTranslations = {
-//   '/contact': {
-//     en: '/contact',
-//     es: '/contacto',
-//   },
-// };
-
 const sanitizePath = (path: string): string => {
   if (!path) return '';
 
