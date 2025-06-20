@@ -129,7 +129,7 @@ function Inventory(props) {
   const filters = props.filters;
   const query = props.query;
   const pageData = props.pageData;
-
+  console.log(props);
   const currentCategory = filters?.type?.find(
     (item) => item.attributes.slug === query
   );
