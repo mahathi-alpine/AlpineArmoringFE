@@ -3,6 +3,7 @@ const routes = require('./routes');
 module.exports = {
   reactStrictMode: true,
   trailingSlash: false,
+
   async rewrites() {
     const hardcodedRewrites = [
       {
@@ -12,6 +13,7 @@ module.exports = {
     ];
 
     const routeRewrites = Object.values(routes)
+      .filter((route) => !route.usesStaticProps)
       .map((route) => route.getRewrites())
       .flat();
 

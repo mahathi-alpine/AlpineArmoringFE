@@ -239,6 +239,11 @@ export function middleware(request: NextRequest) {
     url.pathname = '/contact';
     return NextResponse.rewrite(url);
   }
+  if (request.nextUrl.pathname === '/hacerca-de-nosotros') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/about-us';
+    return NextResponse.rewrite(url);
+  }
 
   const url = request.nextUrl.clone();
 
