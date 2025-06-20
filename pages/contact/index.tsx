@@ -284,38 +284,60 @@ function Contact(props) {
 }
 
 // Keep getStaticProps - Next.js will automatically generate for each locale
-export async function getStaticProps({ locale = 'en' }) {
+export async function getStaticProps(context) {
+  const { locale = 'en' } = context;
+
   console.log('=== getStaticProps called ===');
-  console.log('Locale:', locale);
-  console.log('Building static page for:', locale);
+  console.log('Full context:', JSON.stringify(context, null, 2));
+  console.log('Locale from context:', locale);
+  console.log('Building static page for locale:', locale);
 
   const route = routes.contact;
 
-  let pageData = await getPageData({
-    route: route.collection,
-    populate: 'deep',
-    locale,
-  });
+  let pageData;
+  try {
+    pageData = await getPageData({
+      route: route.collection,
+      populate: 'deep',
+      locale,
+    });
 
-  console.log('API response exists:', !!pageData);
-  console.log(
-    'API response structure:',
-    pageData ? Object.keys(pageData) : 'null'
-  );
+    console.log('Raw API response:', pageData ? 'exists' : 'null');
+    console.log(
+      'API response structure:',
+      pageData ? Object.keys(pageData) : 'null'
+    );
 
-  pageData = pageData?.data?.attributes || null;
+    // Extract the actual page data
+    pageData = pageData?.data?.attributes || null;
+
+    console.log('Processed pageData exists:', !!pageData);
+    if (pageData) {
+      console.log('PageData keys:', Object.keys(pageData));
+    }
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    pageData = null;
+  }
 
   const seoData = {
     ...(pageData?.seo || {}),
     languageUrls: route.getIndexLanguageUrls(locale),
   };
 
-  console.log('Returning props for locale:', locale);
-  console.log('PageData exists:', !!pageData);
+  console.log('Final props being returned:');
+  console.log('- pageData exists:', !!pageData);
+  console.log('- seoData exists:', !!seoData);
+  console.log('- locale:', locale);
   console.log('=========================');
 
+  // Always return valid props, even if pageData is null
   return {
-    props: { pageData, seoData, locale },
+    props: {
+      pageData: pageData || null,
+      seoData: seoData || {},
+      locale: locale || 'en',
+    },
     // Add revalidation to enable ISR
     revalidate: 3600, // Revalidate every hour
   };
