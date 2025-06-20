@@ -238,6 +238,9 @@ export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
   const locale = request.nextUrl.locale || 'en';
 
+  url.pathname = normalizeUrl(url.pathname);
+  const normalizedPathname = url.pathname;
+
   // Check search params FIRST before any rewrites
   const vehiclesWeArmorParam =
     searchParams.has('vehicles_we_armor') ||
@@ -272,6 +275,16 @@ export function middleware(request: NextRequest) {
     hasChryslerMake
   ) {
     const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
+  // Check for and correct 'suv-blindados' to 'suvs-blindados' in URLs
+  const correctedSuvPath = correctSuvBlindadosPath(normalizedPathname);
+  if (correctedSuvPath) {
+    const url = request.nextUrl.clone();
+    url.pathname = correctedSuvPath;
+    const response = NextResponse.redirect(url, { status: 307 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
@@ -326,22 +339,12 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  url.pathname = normalizeUrl(url.pathname);
-  const normalizedPathname = url.pathname;
-
-  // Redirect all /knowledge-base/[slug] URLs to /faqs/[slug]
-  if (normalizedPathname.startsWith('/knowledge-base/')) {
+  // Redirect all /knowledge-base URLs to /faqs
+  if (normalizedPathname.startsWith('/knowledge-base')) {
     const url = request.nextUrl.clone();
-    url.pathname = normalizedPathname.replace('/knowledge-base/', '/faqs/');
+    url.pathname = normalizedPathname.replace('/knowledge-base', '/faqs');
 
     const response = NextResponse.redirect(url, { status: 308 });
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-    return response;
-  }
-
-  // Add noindex to /knowledge-base URLs (in case some still exist)
-  if (normalizedPathname.startsWith('/knowledge-base')) {
-    const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
@@ -352,16 +355,6 @@ export function middleware(request: NextRequest) {
   ) {
     const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, follow');
-    return response;
-  }
-
-  // Check for and correct 'suv-blindados' to 'suvs-blindados' in URLs
-  const correctedSuvPath = correctSuvBlindadosPath(normalizedPathname);
-  if (correctedSuvPath) {
-    const url = request.nextUrl.clone();
-    url.pathname = correctedSuvPath;
-    const response = NextResponse.redirect(url, { status: 307 });
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
 
