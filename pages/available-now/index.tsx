@@ -4,15 +4,10 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import routes from 'routes';
-import {
-  useLanguageData,
-  withLanguageContext,
-} from 'components/LanguageContext';
 import Head from 'next/head';
 import styles from '/components/listing/Listing.module.scss';
 import useLocale from 'hooks/useLocale';
 
-import Loader from 'components/global/loader/Loader';
 import Banner from 'components/global/banner/Banner';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item/ListingItem';
@@ -69,12 +64,10 @@ function Inventory(props) {
   const { lang } = useLocale();
   const router = useRouter();
 
-  const { currentData, isLoading, error } = useLanguageData();
-
-  const pageData = currentData?.pageData || props.pageData;
-  const vehicles = currentData?.vehicles || props.vehicles;
-  const filters = currentData?.filters || props.filters;
-  const searchQuery = currentData?.searchQuery || props.searchQuery;
+  const pageData = props.pageData;
+  const vehicles = props.vehicles;
+  const filters = props.filters;
+  const searchQuery = props.searchQuery;
 
   const topBanner = pageData?.banner;
   const bottomText = pageData?.bottomText;
@@ -195,20 +188,6 @@ function Inventory(props) {
   const toggleContent = () => {
     setIsContentExpanded(!isContentExpanded);
   };
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return (
-      <div className="error-container">
-        <div>
-          {lang.inventorySystemDown}: <br /> {error}
-        </div>
-      </div>
-    );
-  }
 
   if (!pageData) {
     return (
@@ -443,47 +422,4 @@ export async function getStaticProps(context) {
   }
 }
 
-export default withLanguageContext(
-  Inventory,
-  async (locale) => {
-    const route = routes.inventory;
-
-    try {
-      let pageData = await getPageData({
-        route: route.collection,
-        locale,
-      });
-      pageData = pageData.data?.attributes || null;
-
-      const vehicles = await getPageData({
-        route: route.collectionSingle,
-        params: '',
-        sort: 'order',
-        populate: 'featuredImage',
-        fields:
-          'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
-        pageSize: 100,
-        locale,
-      });
-
-      const type = await getPageData({
-        route: 'categories',
-        custom:
-          "populate[inventory_vehicles][fields][0]=''&sort=order:asc&fields[0]=title&fields[1]=slug",
-        locale,
-      }).then((response) => response.data);
-
-      const filters = type ? { type } : {};
-
-      return {
-        pageData,
-        vehicles,
-        filters,
-        searchQuery: null,
-      };
-    } catch (error) {
-      return getFallbackData(locale);
-    }
-  },
-  'inventory'
-);
+export default Inventory;

@@ -234,6 +234,40 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
+  if (request.nextUrl.pathname === '/contacto') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/contact';
+    return NextResponse.rewrite(url);
+  }
+  if (request.nextUrl.pathname === '/hacerca-de-nosotros') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/about-us';
+    return NextResponse.rewrite(url);
+  }
+  if (request.nextUrl.pathname === '/disponible-ahora') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/available-now';
+    return NextResponse.rewrite(url);
+  }
+  // if (request.nextUrl.pathname === '/disponible-ahora/tipo/suvs-blindados') {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = '/available-now/type/armored-suvs';
+  //   return NextResponse.rewrite(url);
+  // }
+  // if (request.nextUrl.pathname === '/disponible-ahora/tipo/sedanes-blindados') {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = '/available-now/type/armored-sedans';
+  //   return NextResponse.rewrite(url);
+  // }
+  if (request.nextUrl.pathname.startsWith('/disponible-ahora/tipo/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = request.nextUrl.pathname.replace(
+      '/disponible-ahora/tipo/',
+      '/available-now/type/'
+    );
+    return NextResponse.rewrite(url);
+  }
+
   const url = request.nextUrl.clone();
 
   const lowerPathname = request.nextUrl.pathname.toLowerCase();
