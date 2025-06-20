@@ -105,7 +105,8 @@ export default function App({ Component, pageProps }) {
       if (
         // url === '/es/disponible-ahora' ||
         // url.startsWith('/es/disponible-ahora/tipo/')
-        url.startsWith('/es/')
+        url.startsWith('/es/') &&
+        url != '/es/contacto'
       ) {
         window.location.href = url;
         return;
