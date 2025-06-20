@@ -1,15 +1,10 @@
 import styles from './Contact.module.scss';
-// import {
-//   useLanguageData,
-//   withLanguageContext,
-// } from 'components/LanguageContext';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import Head from 'next/head';
 import { getPageData } from 'hooks/api';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 
-// import Loader from 'components/global/loader/Loader';
 import Banner from 'components/global/banner/Banner';
 import Form from 'components/global/form/Form';
 import Accordion from 'components/global/accordion/Accordion';
@@ -22,7 +17,6 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 function Contact(props) {
   const { lang } = useLocale();
 
-  // const { currentData, isLoading, error } = useLanguageData();
   const pageData = props.pageData;
 
   const banner = pageData?.banner;
@@ -93,28 +87,6 @@ function Contact(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-
-  // if (error) {
-  //   return (
-  //     <div className="error-container">
-  //       <div>
-  //         {lang.inventorySystemDown}: <br /> {error}
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // if (!pageData) {
-  //   return (
-  //     <div className="error-container">
-  //       <div>No page data available</div>
-  //     </div>
-  //   );
-  // }
 
   return (
     <>
@@ -228,16 +200,3 @@ export async function getStaticProps({ locale = 'en' }) {
 }
 
 export default Contact;
-
-// export default withLanguageContext(
-//   Contact,
-//   async (locale) => {
-//     const data = await getPageData({
-//       route: routes.contact.collection,
-//       populate: 'deep',
-//       locale,
-//     });
-//     return data.data?.attributes || null;
-//   },
-//   'contact'
-// );
