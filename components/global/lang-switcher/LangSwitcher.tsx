@@ -1,16 +1,15 @@
 import { useRouter } from 'next/router';
 import styles from './LangSwitcher.module.scss';
-// import { routeTranslations } from 'hooks/routes';
+import { routeTranslations } from 'hooks/routes';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 
-const routeTranslations = {
-  '/contact': {
-    en: '/contact',
-    es: '/contacto', // Spanish users see /contacto, but it internally maps to /contact
-  },
-  // ... other routes
-};
+// const routeTranslations = {
+//   '/contact': {
+//     en: '/contact',
+//     es: '/contacto',
+//   },
+// };
 
 const sanitizePath = (path: string): string => {
   if (!path) return '';
@@ -158,12 +157,6 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
     const cleanPath = sanitizePath(normalizePath(rawPath));
 
     const hasTypeParameter = cleanPath.includes(lang.type);
-
-    // if (pathname === '/contact') {
-    //   const translatedPath = langCode === 'es' ? '/contacto' : '/contact';
-    //   await router.push(translatedPath, undefined, { locale: langCode });
-    //   return;
-    // }
 
     if (hasTypeParameter) {
       const segments = cleanPath.split('/').filter((segment) => segment);
