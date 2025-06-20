@@ -234,43 +234,77 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  if (request.nextUrl.pathname === '/contacto') {
+  const url = request.nextUrl.clone();
+  const { pathname, searchParams } = request.nextUrl;
+  const locale = request.nextUrl.locale || 'en';
+
+  // Check search params FIRST before any rewrites
+  const vehiclesWeArmorParam =
+    searchParams.has('vehicles_we_armor') ||
+    searchParams.has('vehiculos_que_blindamos');
+
+  const nxtParam =
+    searchParams.has('nxtPslug') ||
+    searchParams.has('nxtPtype') ||
+    searchParams.has('type') ||
+    searchParams.has('slug') ||
+    searchParams.has('r') ||
+    searchParams.has('app') ||
+    searchParams.has('nextInternalLocale');
+
+  const contactPageParams = ['name', 'id', 'names'].some((param) =>
+    searchParams.has(param)
+  );
+
+  const hasChryslerMake = searchParams.get('make') === 'chrysler';
+
+  // Check for blocked conditions BEFORE rewrites
+  if (
+    pathname.startsWith('/inventory') ||
+    pathname.startsWith('/vehicles-we-armor/inventory') ||
+    vehiclesWeArmorParam ||
+    searchParams.has('type') ||
+    searchParams.has('q') ||
+    searchParams.has('brand') ||
+    (pathname === '/contact' && contactPageParams) ||
+    isUrlBlocked(pathname, searchParams) ||
+    nxtParam ||
+    hasChryslerMake
+  ) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
+  // Do the rewrites (after checking search params)
+  if (pathname === '/contacto') {
     const url = request.nextUrl.clone();
     url.pathname = '/contact';
     return NextResponse.rewrite(url);
   }
-  if (request.nextUrl.pathname === '/hacerca-de-nosotros') {
+
+  if (pathname === '/hacerca-de-nosotros') {
     const url = request.nextUrl.clone();
     url.pathname = '/about-us';
     return NextResponse.rewrite(url);
   }
-  if (request.nextUrl.pathname === '/disponible-ahora') {
+
+  if (pathname === '/disponible-ahora') {
     const url = request.nextUrl.clone();
     url.pathname = '/available-now';
     return NextResponse.rewrite(url);
   }
-  // if (request.nextUrl.pathname === '/disponible-ahora/tipo/suvs-blindados') {
-  //   const url = request.nextUrl.clone();
-  //   url.pathname = '/available-now/type/armored-suvs';
-  //   return NextResponse.rewrite(url);
-  // }
-  // if (request.nextUrl.pathname === '/disponible-ahora/tipo/sedanes-blindados') {
-  //   const url = request.nextUrl.clone();
-  //   url.pathname = '/available-now/type/armored-sedans';
-  //   return NextResponse.rewrite(url);
-  // }
-  if (request.nextUrl.pathname.startsWith('/disponible-ahora/tipo/')) {
+
+  if (pathname.startsWith('/disponible-ahora/tipo/')) {
     const url = request.nextUrl.clone();
-    url.pathname = request.nextUrl.pathname.replace(
+    url.pathname = pathname.replace(
       '/disponible-ahora/tipo/',
       '/available-now/type/'
     );
     return NextResponse.rewrite(url);
   }
 
-  const url = request.nextUrl.clone();
-
-  const lowerPathname = request.nextUrl.pathname.toLowerCase();
+  const lowerPathname = pathname.toLowerCase();
   const hasDuplicateDomain =
     lowerPathname.includes('www.alpineco.com/www.alpineco.com') ||
     lowerPathname.includes('alpineco.com/alpineco.com') ||
@@ -280,7 +314,7 @@ export function middleware(request: NextRequest) {
     lowerPathname.match(/^\/alpineco\.com/);
 
   if (hasDuplicateDomain) {
-    const correctedPath = request.nextUrl.pathname
+    const correctedPath = pathname
       .replace(/^(\/)(www\.alpineco\.com|alpineco\.com)(\/.*)$/i, '$1$3')
       .replace(/\/{2,}/g, '/');
 
@@ -293,14 +327,12 @@ export function middleware(request: NextRequest) {
   }
 
   url.pathname = normalizeUrl(url.pathname);
-
-  const { pathname, searchParams } = url;
-  const locale = request.nextUrl.locale || 'en';
+  const normalizedPathname = url.pathname;
 
   // Redirect all /knowledge-base/[slug] URLs to /faqs/[slug]
-  if (pathname.startsWith('/knowledge-base/')) {
+  if (normalizedPathname.startsWith('/knowledge-base/')) {
     const url = request.nextUrl.clone();
-    url.pathname = pathname.replace('/knowledge-base/', '/faqs/');
+    url.pathname = normalizedPathname.replace('/knowledge-base/', '/faqs/');
 
     const response = NextResponse.redirect(url, { status: 308 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
@@ -308,20 +340,23 @@ export function middleware(request: NextRequest) {
   }
 
   // Add noindex to /knowledge-base URLs (in case some still exist)
-  if (pathname.startsWith('/knowledge-base')) {
+  if (normalizedPathname.startsWith('/knowledge-base')) {
     const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }
 
-  if (pathname === '/sitemap' || pathname.endsWith('/sitemap')) {
+  if (
+    normalizedPathname === '/sitemap' ||
+    normalizedPathname.endsWith('/sitemap')
+  ) {
     const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, follow');
     return response;
   }
 
   // Check for and correct 'suv-blindados' to 'suvs-blindados' in URLs
-  const correctedSuvPath = correctSuvBlindadosPath(pathname);
+  const correctedSuvPath = correctSuvBlindadosPath(normalizedPathname);
   if (correctedSuvPath) {
     const url = request.nextUrl.clone();
     url.pathname = correctedSuvPath;
@@ -330,61 +365,10 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Check for invalid locale/path combinations and get correct path if needed
-  // const { isValid, correctPath } = validateLocalePath(locale, pathname);
-
-  // if (!isValid) {
-  //   if (correctPath) {
-  //     const url = request.nextUrl.clone();
-  //     url.pathname = correctPath;
-
-  //     const response = NextResponse.redirect(url, { status: 307 });
-  //     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-  //     return response;
-  //   }
-
-  //   // Fallback: redirect to English version if we don't have a correct path
-  //   const url = request.nextUrl.clone();
-  //   url.pathname = pathname;
-
-  //   const originalPathname = request.nextUrl.pathname;
-  //   if (isDuplicateDomain(originalPathname)) {
-  //     const correctedPath = cleanDuplicateDomain(originalPathname);
-  //     // Log detailed information about the source
-  //     const logData = {
-  //       timestamp: new Date().toISOString(),
-  //       originalUrl: originalPathname,
-  //       correctedUrl: correctedPath,
-  //       fullUrl: request.url,
-  //       userAgent: request.headers.get('user-agent') || 'unknown',
-  //       referer: request.headers.get('referer') || 'direct',
-  //       ip:
-  //         request.headers.get('x-forwarded-for') ||
-  //         request.headers.get('x-real-ip') ||
-  //         'unknown',
-  //       country: request.headers.get('cf-ipcountry') || 'unknown',
-  //       isBot: /bot|crawler|spider|scraper/i.test(
-  //         request.headers.get('user-agent') || ''
-  //       ),
-  //       searchParams: Object.fromEntries(
-  //         request.nextUrl.searchParams.entries()
-  //       ),
-  //     };
-
-  //     // Log to console (will appear in Vercel logs)
-  //     console.log('🔍 DUPLICATE_DOMAIN_SOURCE:', JSON.stringify(logData));
-  //   }
-  //   url.locale = 'en';
-
-  //   const response = NextResponse.redirect(url, { status: 307 });
-  //   response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-  //   return response;
-  // }
-
   // Handle special case for path segments embedded in query parameters
   if (
-    (pathname === '/vehicles-we-armor' ||
-      pathname.startsWith('/available-now/type/')) &&
+    (normalizedPathname === '/vehicles-we-armor' ||
+      normalizedPathname.startsWith('/available-now/type/')) &&
     searchParams.has('make')
   ) {
     const makeValue = searchParams.get('make') || '';
@@ -420,7 +404,7 @@ export function middleware(request: NextRequest) {
 
         // Determine the base path
         let basePath = '';
-        if (pathname === '/vehicles-we-armor') {
+        if (normalizedPathname === '/vehicles-we-armor') {
           basePath = '/vehicles-we-armor/type/';
         } else {
           // Handle the case where we're already in /available-now/type/
@@ -447,7 +431,8 @@ export function middleware(request: NextRequest) {
   const normalizedSearch = searchParams.toString().replace(/\+/g, '%20');
 
   // Create paths for redirect lookup - include locale in the lookup
-  const pathWithLocale = locale !== 'en' ? `/${locale}${pathname}` : pathname;
+  const pathWithLocale =
+    locale !== 'en' ? `/${locale}${normalizedPathname}` : normalizedPathname;
   const fullPathWithLocale = normalizedSearch
     ? `${pathWithLocale}?${normalizedSearch}`
     : pathWithLocale;
@@ -458,7 +443,7 @@ export function middleware(request: NextRequest) {
     redirectTo = redirectMap.get(pathWithLocale);
 
     if (!redirectTo && locale !== 'en') {
-      redirectTo = redirectMap.get(pathname);
+      redirectTo = redirectMap.get(normalizedPathname);
     }
 
     if (redirectTo) {
@@ -521,13 +506,6 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // const locale = request.nextUrl.locale || '';
-  // if (locale === 'es') {
-  //   const response = NextResponse.next();
-  //   response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-  //   return response;
-  // }
-
   if (redirectTo) {
     const url = request.nextUrl.clone();
 
@@ -546,45 +524,8 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Check for blocked conditions
-  const vehiclesWeArmorParam =
-    searchParams.has('vehicles_we_armor') ||
-    searchParams.has('vehiculos_que_blindamos');
-
-  const nxtParam =
-    searchParams.has('nxtPslug') ||
-    searchParams.has('nxtPtype') ||
-    searchParams.has('type') ||
-    searchParams.has('slug') ||
-    searchParams.has('r') ||
-    searchParams.has('app') ||
-    searchParams.has('nextInternalLocale');
-
-  const contactPageParams = ['name', 'id', 'names'].some((param) =>
-    searchParams.has(param)
-  );
-
-  const hasChryslerMake = searchParams.get('make') === 'chrysler';
-
-  if (
-    pathname.startsWith('/inventory') ||
-    pathname.startsWith('/vehicles-we-armor/inventory') ||
-    vehiclesWeArmorParam ||
-    searchParams.has('type') ||
-    searchParams.has('q') ||
-    searchParams.has('brand') ||
-    (pathname === '/contact' && contactPageParams) ||
-    isUrlBlocked(pathname, searchParams) ||
-    nxtParam ||
-    hasChryslerMake
-  ) {
-    const response = NextResponse.next();
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-    return response;
-  }
-
   // Redirect /stock URLs to /available-now
-  if (pathname.startsWith('/stock')) {
+  if (normalizedPathname.startsWith('/stock')) {
     const url = request.nextUrl.clone();
     url.pathname = '/available-now';
     const response = NextResponse.redirect(url, { status: 308 });
@@ -594,11 +535,11 @@ export function middleware(request: NextRequest) {
 
   // Redirect /media URLs to /all-downloads
   if (
-    pathname.startsWith('/media/ballistic-chart/') ||
-    pathname.startsWith('/media/documents/') ||
-    pathname.startsWith('/media/img/') ||
-    pathname.startsWith('/news/clients/') ||
-    pathname.startsWith('/images/')
+    normalizedPathname.startsWith('/media/ballistic-chart/') ||
+    normalizedPathname.startsWith('/media/documents/') ||
+    normalizedPathname.startsWith('/media/img/') ||
+    normalizedPathname.startsWith('/news/clients/') ||
+    normalizedPathname.startsWith('/images/')
   ) {
     const url = request.nextUrl.clone();
     url.pathname = '/all-downloads';
