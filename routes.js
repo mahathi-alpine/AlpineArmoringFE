@@ -46,7 +46,7 @@ const routes = {
     collection: 'homepage',
     paths: {
       en: '/',
-      es: '/',
+      es: '/es',
     },
   },
   about: {
@@ -116,9 +116,8 @@ const routes = {
     collection: 'contact-page',
     paths: {
       en: '/contact',
-      es: '/contact', // Use same base path - i18n handles the locale
+      es: '/contact',
     },
-    // CRITICAL: Mark as using getStaticProps to exclude from rewrites
     usesStaticProps: true,
   },
   designAndEngineering: {
@@ -237,11 +236,8 @@ const utils = {
       : `/${locale}${basePath}/${slug}`;
   },
 
-  // UPDATED: Exclude routes that use getStaticProps
   getRewrites: (paths, typePath, usesStaticProps = false) => {
-    // Don't create rewrites for pages using getStaticProps
     if (usesStaticProps) {
-      console.log('Skipping rewrites for getStaticProps route');
       return [];
     }
 
@@ -304,8 +300,7 @@ Object.entries(routes).forEach(([key, config]) => {
     ...config,
     getLocalizedPath: (locale, slug) =>
       utils.getLocalizedPath(config.paths, locale, slug),
-    getRewrites: () =>
-      utils.getRewrites(config.paths, config.typePath, config.usesStaticProps),
+    getRewrites: () => utils.getRewrites(config.paths, config.typePath),
     getLanguageUrls: (currentPage, locale) =>
       utils.getLanguageUrls(routes[key], currentPage, locale),
     getIndexLanguageUrls: (locale) =>

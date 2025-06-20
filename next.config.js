@@ -15,14 +15,6 @@ module.exports = {
       .map((route) => route.getRewrites())
       .flat();
 
-    console.log('=== REWRITES DEBUG ===');
-    console.log(
-      'Total rewrites:',
-      [...hardcodedRewrites, ...routeRewrites].length
-    );
-    console.log('Route rewrites for contact:', routes.contact.getRewrites());
-    console.log('======================');
-
     return [...hardcodedRewrites, ...routeRewrites];
   },
   i18n: {
