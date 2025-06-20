@@ -100,23 +100,23 @@ export default function App({ Component, pageProps }) {
     }
   }, [currentLanguage]);
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      if (
-        url.startsWith('/es/') &&
-        url != '/es/contacto' &&
-        url != '/es/hacerca-de-nosotros'
-      ) {
-        window.location.href = url;
-        return;
-      }
-    };
+  // useEffect(() => {
+  //   const handleRouteChange = (url) => {
+  //     if (
+  //       url.startsWith('/es/') &&
+  //       url != '/es/contacto' &&
+  //       url != '/es/hacerca-de-nosotros'
+  //     ) {
+  //       window.location.href = url;
+  //       return;
+  //     }
+  //   };
 
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router]);
+  //   router.events.on('routeChangeStart', handleRouteChange);
+  //   return () => {
+  //     router.events.off('routeChangeStart', handleRouteChange);
+  //   };
+  // }, [router]);
 
   return (
     <>

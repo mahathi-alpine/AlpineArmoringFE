@@ -244,6 +244,11 @@ export function middleware(request: NextRequest) {
     url.pathname = '/about-us';
     return NextResponse.rewrite(url);
   }
+  if (request.nextUrl.pathname.startsWith('/disponible-ahora')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/available-now';
+    return NextResponse.rewrite(url);
+  }
 
   const url = request.nextUrl.clone();
 

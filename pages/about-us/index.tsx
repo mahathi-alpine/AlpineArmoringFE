@@ -282,8 +282,7 @@ function About(props) {
   );
 }
 
-export async function getStaticProps(context) {
-  const { locale = 'en' } = context;
+export async function getStaticProps({ locale = 'en' }) {
   const route = routes.about;
 
   let pageData = await getPageData({
