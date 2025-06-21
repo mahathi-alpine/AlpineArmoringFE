@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { getPageData } from 'hooks/api';
+import useAnimationObserver from 'hooks/useAnimationObserver';
 import Banner from 'components/global/banner/Banner';
 import BlogList from 'components/global/news/News';
 import styles from './News.module.scss';
@@ -8,32 +8,11 @@ import routes from 'routes';
 function Blog(props) {
   const banner = props?.pageData?.banner;
   const posts = props?.posts;
+
   // Animations
-  useEffect(() => {
-    const targets = document.querySelectorAll('.observe');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      }
-    );
-
-    targets.forEach((item) => observer.observe(item));
-
-    return () => {
-      targets.forEach((item) => observer.unobserve(item));
-      observer.disconnect();
-    };
-  }, []);
+  useAnimationObserver({
+    dependencies: [props.pageData],
+  });
 
   return (
     <>
@@ -65,7 +44,7 @@ export async function getStaticProps({ locale = 'en' }) {
       'fields[0]=publishedAt&fields[1]=locale&fields[2]=title&fields[3]=slug&fields[4]=excerpt&fields[5]=title&fields[6]=date',
     sort: 'date',
     sortType: 'desc',
-    pageSize: 200,
+    pageSize: 50,
     locale,
   });
   posts = posts?.data || null;

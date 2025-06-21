@@ -24,7 +24,6 @@ const GlobeComponent = dynamic(() => import('components/global/globe/Globe'), {
 });
 
 function About(props) {
-  console.log(props);
   const { lang } = useLocale();
 
   const pageData = props.pageData;
