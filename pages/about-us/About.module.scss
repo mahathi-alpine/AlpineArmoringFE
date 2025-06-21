@@ -3,11 +3,11 @@
     margin: rem(8) auto rem(24) auto;
     font-size: rem(15);
     font-weight: var(--font-regular);
-    
+
     @include breakpoint(medium) {
       margin: rem(24) auto rem(24) auto;
     }
-    
+
     @include breakpoint(large) {
       margin: 0 auto rem(100) auto;
       font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
@@ -100,7 +100,7 @@
         font-size: rem(14);
         font-weight: var(--font-regular);
         color: rgba(250, 250, 250, 0.9);
-        
+
         @include breakpoint(medium) {
           font-size: rem(15);
         }
