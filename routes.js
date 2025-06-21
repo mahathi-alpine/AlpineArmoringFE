@@ -63,6 +63,7 @@ const routes = {
       en: '/all-downloads',
       es: '/todas-las-descargas',
     },
+    usesStaticProps: true,
   },
   author: {
     collection: 'authors',

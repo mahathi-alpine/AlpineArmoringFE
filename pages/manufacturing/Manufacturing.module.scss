@@ -17,7 +17,7 @@
   &_title {
     margin-bottom: rem(16);
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: var(--color-primaryLight);
     font-weight: var(--font-demi);
     white-space: pre-wrap;
     font-size: rem(20);
@@ -60,14 +60,14 @@
     }
 
     a {
-      color: var(--color-primary);
+      color: var(--color-primaryLight);
       font-weight: var(--font-medium);
       text-decoration: underline;
     }
   }
 
   &_quote {
-    border-left: 2px solid var(--color-primary);
+    border-left: 2px solid var(--color-primaryLight);
     padding: rem(8) 0 rem(8) rem(16);
     margin: rem(24) 0 rem(24) 0;
     font-size: rem(14);
@@ -88,7 +88,7 @@
     }
 
     a {
-      color: var(--color-primary);
+      color: var(--color-primaryLight);
       font-weight: var(--font-medium);
     }
   }
@@ -145,7 +145,7 @@
     }
 
     a {
-      color: var(--color-primary);
+      color: var(--color-primaryLight);
       font-weight: var(--font-medium);
       text-decoration: underline;
     }

@@ -1,5 +1,4 @@
 import { getPageData } from 'hooks/api';
-import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import { useMemo } from 'react';
 import useLocale from 'hooks/useLocale';
@@ -180,17 +179,4 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(
-  Downloads,
-  async (locale) => {
-    const data = await getPageData({
-      route: routes.allDownloads.collection,
-      populate: 'deep',
-      locale,
-    });
-    return data.data?.attributes || null;
-  },
-  {
-    routeName: 'allDownloads',
-  }
-);
+export default Downloads;

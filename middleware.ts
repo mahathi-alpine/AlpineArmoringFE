@@ -429,6 +429,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  if (pathname === '/todas-las-descargas') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/all-downloads';
+    return NextResponse.rewrite(url);
+  }
+
   const lowerPathname = pathname.toLowerCase();
   const hasDuplicateDomain =
     lowerPathname.includes('www.alpineco.com/www.alpineco.com') ||

@@ -380,6 +380,10 @@ export async function getStaticProps(context) {
       locale,
     });
 
+    if (!vehicles || !vehicles.data) {
+      throw new Error('Invalid vehicles data received from Strapi');
+    }
+
     const type = await getPageData({
       route: 'categories',
       custom:
