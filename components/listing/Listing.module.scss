@@ -51,6 +51,8 @@
 
     &_inventory {
       margin-top: -20px;
+      margin-bottom: rem(80);
+
       @include breakpoint(large) {
         display: flex;
         gap: 50px;
@@ -142,13 +144,16 @@
   }
   &_bottomContent {
     position: relative;
-    margin-top: 20px;
     margin-bottom: 80px;
 
     @include breakpoint(large) {
       width: 87%;
       max-width: 1440px;
-      margin: 20px auto 120px auto;
+      margin: 0 auto 120px auto;
+    }
+
+    h2:first-child{
+      margin-top: 0;
     }
 
     p,

@@ -154,6 +154,7 @@ export default {
   rejectAll: 'Reject All',
   noOneProtectsBetter: 'no one protects you better',
   seeAllNews: 'See All News',
+  seeAllBlogs: 'See All Blogs',
   searchPlaceholder: 'Search...',
   noResultsFound: 'No results found!',
   shareCopyLink: 'Copy Link',

@@ -3,12 +3,14 @@
     margin: rem(8) auto rem(24) auto;
     font-size: rem(15);
     font-weight: var(--font-regular);
+    
     @include breakpoint(medium) {
       margin: rem(24) auto rem(24) auto;
     }
+    
     @include breakpoint(large) {
       margin: 0 auto rem(100) auto;
-      font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
+      font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
     }
 
     p {
@@ -98,6 +100,7 @@
         font-size: rem(14);
         font-weight: var(--font-regular);
         color: rgba(250, 250, 250, 0.9);
+        
         @include breakpoint(medium) {
           font-size: rem(15);
         }
@@ -219,11 +222,16 @@
   }
 
   &_quote {
-    @include breakpoint(untilLarge) {
-      margin-top: -30px;
+    margin: 40px auto;
+    font-size: clamp(1.25rem, 1.0833rem + 0.3472vw, 1.5rem);
+    text-align: center;
+
+    @include breakpoint(small) {
+      font-size: 15px;
     }
+
     @include breakpoint(large) {
-      padding: 40px 0;
+      margin: 100px auto;
     }
   }
 }
@@ -244,6 +252,7 @@
   transition: color 0.25s linear;
   text-wrap: nowrap;
   text-transform: uppercase;
+  font-size: 13px;
 }
 
 .certificate_container .certificate_text:before {
@@ -266,7 +275,7 @@
 }
 
 .certificate_container .view_certificates {
-  font-size: 19px;
+  font-size: 17.5px;
   font-weight: 400;
 }
 

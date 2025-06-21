@@ -8,7 +8,6 @@ import styles from './About.module.scss';
 
 import Banner from 'components/global/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
-import FillingText from 'components/global/filling-text/FillingText';
 import Autoplay from 'components/global/carousel/Autoplay';
 import Gallery from 'components/global/carousel/CarouselCurved';
 import Counter from 'components/global/counter/Counter';
@@ -25,13 +24,14 @@ const GlobeComponent = dynamic(() => import('components/global/globe/Globe'), {
 });
 
 function About(props) {
+  console.log(props);
   const { lang } = useLocale();
 
   const pageData = props.pageData;
 
   const banner = pageData?.banner;
   const mainText = pageData?.text;
-  const timeline = pageData?.timeline;
+  const timeline = pageData?.timeline1;
   const boxes = pageData?.boxes;
   const certificate1 = pageData?.certificate1?.data?.attributes;
   const certificate2 = pageData?.certificate2?.data?.attributes;
@@ -267,8 +267,9 @@ function About(props) {
         />
 
         {quote ? (
-          <div className={`${styles.about_quote}`}>
-            <FillingText data={quote} dark />
+          <div className={`${styles.about_quote} container_small`}>
+            {/* <FillingText data={quote} dark /> */}
+            <CustomMarkdown>{quote}</CustomMarkdown>
           </div>
         ) : null}
 

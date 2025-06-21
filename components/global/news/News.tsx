@@ -163,7 +163,7 @@ const Blog = ({
               href={`${type ? `${lang.blogsURL}` : `${lang.newsURL}`}`}
               className={`${styles.news_button_link} rounded primary`}
             >
-              {lang.seeAllNews}
+              {lang.seeAllBlogs}
             </Button>
           </div>
         ) : null}

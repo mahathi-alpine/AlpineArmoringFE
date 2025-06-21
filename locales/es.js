@@ -156,6 +156,7 @@ export default {
   rejectAll: 'Rechazar todo',
   noOneProtectsBetter: 'nadie te protege mejor',
   seeAllNews: 'Ver todas las noticias',
+  seeAllBlogs: 'Ver todos los blogs',
   searchPlaceholder: 'Buscar...',
   noResultsFound: '¡No se encontraron resultados!',
   shareCopyLink: 'Copiar enlace',

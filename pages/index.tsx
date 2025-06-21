@@ -145,6 +145,7 @@ function Home({ homepageData, categories }) {
           limit="3"
           subtitle={lang.hpLatestNews}
           customClass="newsHomepage"
+          type="blogs"
         />
       ) : null}
 

@@ -19,7 +19,7 @@
   }
 
   @include breakpoint(large) {
-    margin-bottom: 70px;
+    margin-bottom: 80px;
     --slide-size: 28%;
     --slide-spacing: 24px;
 
@@ -30,7 +30,6 @@
 
   @include breakpoint(huge) {
     margin-top: -40px;
-    margin-bottom: 60px;
 
     .carouselCurved_wrapper_squared & {
       --slide-size: 20%;
