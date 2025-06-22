@@ -1,7 +1,6 @@
 .about {
   &_text {
-    margin: rem(8) auto rem(24) auto;
-    font-size: rem(15);
+    margin: rem(8) auto rem(48) auto;
     font-weight: var(--font-regular);
 
     @include breakpoint(medium) {
@@ -10,11 +9,15 @@
 
     @include breakpoint(large) {
       margin: 0 auto rem(100) auto;
-      font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
     }
 
     p {
       margin-bottom: rem(32);
+      font-size: rem(15);
+
+      @include breakpoint(large) {
+        font-size: clamp(1.125rem, 0.875rem + 0.3125vw, 1.25rem);
+      }
 
       &:last-child {
         margin-bottom: 0;
@@ -175,7 +178,7 @@
   }
 
   .counter_grid {
-    margin: 60px auto 80px auto;
+    margin: 100px auto 100px auto;
     padding: 0 24px;
     max-width: 450px;
 

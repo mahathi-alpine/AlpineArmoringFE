@@ -7,6 +7,7 @@ import routes from 'routes';
 import styles from './About.module.scss';
 
 import Banner from 'components/global/banner/Banner';
+import Content from 'components/global/content/Content';
 import CustomMarkdown from 'components/CustomMarkdown';
 import Autoplay from 'components/global/carousel/Autoplay';
 import Gallery from 'components/global/carousel/CarouselCurved';
@@ -29,7 +30,9 @@ function About(props) {
   const pageData = props.pageData;
 
   const banner = pageData?.banner;
-  const mainText = pageData?.text;
+  const topText = {
+    dynamicZone: pageData?.dynamicZone || [],
+  };
   const timeline = pageData?.timeline1;
   const boxes = pageData?.boxes;
   const certificate1 = pageData?.certificate1?.data?.attributes;
@@ -112,13 +115,9 @@ function About(props) {
       <div className={`${styles.about}`}>
         {banner ? <Banner props={banner} shape="white" /> : null}
 
-        {mainText ? (
-          <div
-            className={`${styles.about_text} observe fade-in container_small`}
-          >
-            <CustomMarkdown>{mainText}</CustomMarkdown>
-          </div>
-        ) : null}
+        <div className={`${styles.about_text} static container_small`}>
+          <Content data={topText} />
+        </div>
 
         {timeline?.filter((item) => item.image?.data?.length > 0).length > 0 ? (
           <div className={`${styles.timeline_gallery}`}>

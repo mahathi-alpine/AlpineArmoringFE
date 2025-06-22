@@ -13,6 +13,18 @@ function Content(props) {
               <CustomMarkdown key={index}>{component.Content}</CustomMarkdown>
             );
           }
+          case 'slices.two-columns-text': {
+            return (
+              <div className={`twoColumnsText`} key={index}>
+                <div>
+                  <CustomMarkdown>{component.leftText}</CustomMarkdown>
+                </div>
+                <div>
+                  <CustomMarkdown>{component.rightText}</CustomMarkdown>
+                </div>
+              </div>
+            );
+          }
           case 'slices.two-images': {
             return (
               <div className="twoImages" key={index}>
