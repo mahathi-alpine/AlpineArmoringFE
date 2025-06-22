@@ -1,5 +1,5 @@
 let lastDeployTime = 0;
-const DEPLOY_COOLDOWN = 3000;
+const DEPLOY_COOLDOWN = 5000;
 
 export default async function handler(req, res) {
   if (process.env.NODE_ENV !== 'production') {
@@ -42,6 +42,8 @@ export default async function handler(req, res) {
     'swat-listing-model',
     'swat-news-testimonial',
   ];
+
+  console.log(model);
 
   if (excludedCollections.includes(model)) {
     return res.status(200).json({
