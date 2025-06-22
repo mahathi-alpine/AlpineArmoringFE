@@ -313,7 +313,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
             background-size: 30px !important;
           }
           .static a,
-          .b-breadcrumbs {
+          .b-breadcrumbs{
             color: var(--color-primaryLight) !important;
           }
           .navigation_submenu{

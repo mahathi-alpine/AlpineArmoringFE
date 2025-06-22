@@ -52,9 +52,14 @@
       font-size: rem(17);
       color: var(--color-primary);
       font-weight: var(--font-medium);
+
       @include breakpoint(large) {
         font-size: rem(20);
       }
+
+      .footer_dark & {
+        color: var(--color-primaryLight);
+      }   
     }
   }
 
@@ -125,8 +130,17 @@
         @include breakpoint(medium) {
           &:hover {
             color: var(--color-primary);
+
+            .footer_dark & {
+              color: var(--color-primaryLight);
+            }
+
             svg path {
               fill: var(--color-primary);
+
+              .footer_dark & {
+                fill: var(--color-primaryLight);
+              }
             }
           }
           svg path {
@@ -193,6 +207,10 @@
           transform: scaleX(0);
           transform-origin: left;
           transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+
+          .footer_dark & {
+            background: var(--color-primaryLight);
+          }
         }
 
         &:hover {
@@ -273,22 +291,39 @@
           ):not(.footer_socials_item_x):hover {
           svg path {
             fill: var(--color-primary);
+
+            .footer_dark & {
+              fill: var(--color-primaryLight);
+            }
           }
         }
         &_tiktok:hover {
           svg rect {
             fill: var(--color-primary);
+
+            .footer_dark & {
+              fill: var(--color-primaryLight);
+            }
           }
         }
         &_threads:hover {
           svg circle {
             fill: var(--color-primary);
+
+            .footer_dark & {
+              fill: var(--color-primaryLight);
+            }
           }
         }
         &_x:hover {
           svg path:first-child {
             fill: var(--color-primary);
             stroke: var(--color-primary);
+
+            .footer_dark & {
+              fill: var(--color-primaryLight);
+              stroke: var(--color-primaryLight);
+            }
           }
         }
       }
@@ -346,6 +381,10 @@
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+
+            .footer_dark & {
+              background: var(--color-primaryLight);
+            }
           }
 
           &:hover {

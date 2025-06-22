@@ -24,7 +24,7 @@
     &_description {
       display: flex;
       margin-bottom: rem(16);
-      color: var(--color-primary);
+      color: var(--color-primaryLight);
       font-weight: var(--font-medium);
       font-size: rem(12);
       font-size: clamp(0.75rem, 0.7197rem + 0.1294vw, 0.875rem);
@@ -42,7 +42,7 @@
         width: 20px;
         margin-right: 8px;
         path {
-          fill: var(--color-primary);
+          fill: var(--color-primaryLight);
         }
       }
     }
@@ -445,7 +445,7 @@
     }
 
     a {
-      color: var(--color-primary);
+      color: var(--color-primaryLight);
       font-weight: var(--font-medium);
       text-decoration: underline;
     }

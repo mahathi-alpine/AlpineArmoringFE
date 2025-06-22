@@ -98,6 +98,7 @@ const routes = {
       en: '/ballistic-testing',
       es: '/pruebas-balisticas',
     },
+    usesStaticProps: true,
   },
   becomeDealer: {
     collection: 'become-a-dealer',

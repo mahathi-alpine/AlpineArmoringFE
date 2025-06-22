@@ -542,11 +542,13 @@
     overflow: hidden;
     margin-right: 10px;
     flex-shrink: 0;
+
     @include breakpoint(large) {
       width: rem(22);
       height: rem(22);
     }
   }
+  
   &:after {
     position: absolute;
     content: '\2713';

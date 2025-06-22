@@ -1,5 +1,4 @@
 import styles from './Testing.module.scss';
-import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import { getPageData } from 'hooks/api';
 import { useState, useRef } from 'react';
@@ -609,17 +608,4 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(
-  Testing,
-  async (locale) => {
-    const data = await getPageData({
-      route: routes.ballisticTesting.collection,
-      populate: 'deep',
-      locale,
-    });
-    return data.data?.attributes || null;
-  },
-  {
-    routeName: 'ballisticTesting',
-  }
-);
+export default Testing;

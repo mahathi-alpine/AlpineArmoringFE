@@ -101,7 +101,7 @@
 
       &_inner {
         overflow: hidden;
-        max-height: 20px;
+        max-height: 21px;
         transition: max-height 0.6s ease;
         @include breakpoint(large) {
           max-height: 24px;
@@ -128,17 +128,6 @@
       }
       @include breakpoint(large) {
         font-size: rem(20);
-      }
-    }
-
-    &_main {
-      @include breakpoint(small) {
-        .categories_item_content {
-          padding-bottom: 12px;
-        }
-        // .categories_item_buttons {
-        //   display: none;
-        // }
       }
     }
 
