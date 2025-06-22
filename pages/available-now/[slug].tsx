@@ -169,11 +169,28 @@ function InventoryVehicle(props) {
       description:
         props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
       url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
-      brand: {
-        '@type': 'Brand',
-        name: `Alpine Armoring® ${lang.armoredVehicles}`,
+      manufacturer: {
+        '@type': 'Organization',
+        name: `Alpine Armoring`,
       },
       sku: `Alpine-${data?.slug}`,
+      vehicleConfiguration:
+        data?.categories?.data[0]?.attributes.title || 'SUV',
+      bodyType: data?.categories?.data[0]?.attributes.title || 'SUV',
+      modelDate: data?.year || '2024',
+      vehicleTransmission: data?.trans || '6-Speed Automatic',
+      driveWheelConfiguration: data?.driveTrain || '4WD',
+      color: data?.color_ext || 'Raptor Black',
+      vehicleInteriorColor: data?.color_int || 'Gray',
+      vehicleEngine: {
+        '@type': 'EngineSpecification',
+        name: data?.engine,
+        // "enginePower": {
+        //   "@type": "QuantitativeValue",
+        //   "value": 330,
+        //   "unitCode": "BHP"
+        // },
+      },
       offers: {
         '@type': 'AggregateOffer',
         url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
@@ -207,38 +224,8 @@ function InventoryVehicle(props) {
         },
         {
           '@type': 'PropertyValue',
-          name: lang.enginePower,
-          value: data?.engine,
-        },
-        {
-          '@type': 'PropertyValue',
-          name: lang.trans,
-          value: data?.trans,
-        },
-        {
-          '@type': 'PropertyValue',
-          name: lang.year,
-          value: data?.year,
-        },
-        {
-          '@type': 'PropertyValue',
           name: lang.miles,
           value: data?.miles,
-        },
-        {
-          '@type': 'PropertyValue',
-          name: lang.drivetrain,
-          value: data?.driveTrain,
-        },
-        {
-          '@type': 'PropertyValue',
-          name: lang.colorExt,
-          value: data?.color_ext,
-        },
-        {
-          '@type': 'PropertyValue',
-          name: lang.colorInt,
-          value: data?.color_int,
         },
         {
           '@type': 'PropertyValue',

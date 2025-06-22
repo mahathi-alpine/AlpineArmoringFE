@@ -197,22 +197,80 @@ function Inventory(props) {
     );
   }
 
-  const getBreadcrumbStructuredData = () => {
+  const getCollectionPageStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
+      '@graph': [
         {
-          '@type': 'ListItem',
-          position: 1,
-          name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          '@type': ['CollectionPage'],
+          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
+          url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
+          name: 'Armored Vehicles For Sale: Bulletproof Cars, SUVs, Trucks | Alpine Armoring®',
+          description:
+            'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks that are completed and available for immediate shipping.',
+          isPartOf: {
+            '@id': `https://www.alpineco.com/#website`,
+          },
+          inLanguage: 'en',
+          primaryImageOfPage: {
+            '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+          },
+          image: {
+            '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+          },
+          breadcrumb: {
+            '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
+          },
+          thumbnailUrl:
+            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100',
         },
         {
-          '@type': 'ListItem',
-          position: 2,
-          name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+          '@type': 'ImageObject',
+          inLanguage: 'en',
+          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+          url: 'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100',
+          contentUrl:
+            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100',
+          width: 2200,
+          height: 1200,
+          caption:
+            'Alpine Armoring armored vehicles inventory - bulletproof cars and trucks available for sale',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: lang.home,
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: lang.availableNowTitle,
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+            },
+          ],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://www.alpineco.com/#website',
+          url: 'https://www.alpineco.com',
+          name: 'Alpine Armoring',
+          description: 'Alpine Armoring - Armored Vehicle Manufacturer',
+          potentialAction: [
+            {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: 'https://www.alpineco.com/?s={search_term_string}',
+              },
+              'query-input': 'required name=search_term_string',
+            },
+          ],
+          inLanguage: 'en',
         },
       ],
     };
@@ -254,8 +312,10 @@ function Inventory(props) {
       <Head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
-          key="breadcrumb-jsonld"
+          dangerouslySetInnerHTML={{
+            __html: getCollectionPageStructuredData(),
+          }}
+          key="collectionPage-jsonld"
         />
         {faqs?.length > 0 && (
           <script
