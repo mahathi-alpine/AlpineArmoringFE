@@ -261,10 +261,10 @@ small {
     }
   }
 
-  .twoColumnsText{
+  .twoColumnsText {
     margin: 32px auto;
 
-    div:first-child{
+    div:first-child {
       margin-bottom: rem(24);
     }
 
@@ -275,11 +275,11 @@ small {
       gap: 50px;
       margin: 50px auto;
 
-      div:first-child{
+      div:first-child {
         margin-bottom: 0;
         max-width: 520px;
       }
-      div:nth-child(2){
+      div:nth-child(2) {
         max-width: 750px;
       }
     }
@@ -287,24 +287,24 @@ small {
     @include breakpoint(huge) {
       gap: 100px;
 
-      div:nth-child(2){
+      div:nth-child(2) {
         max-width: 950px;
       }
     }
 
-    h2{
+    h2 {
       margin: 0;
       font-size: 20px;
       font-weight: var(--font-medium);
       text-transform: uppercase;
-      
+
       @include breakpoint(large) {
         font-size: 30px;
         text-align: center;
       }
     }
 
-    p{
+    p {
       font-size: rem(15);
 
       @include breakpoint(large) {
