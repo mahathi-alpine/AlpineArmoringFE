@@ -13,6 +13,25 @@ import SocialShare from 'components/global/social-share/SocialShare';
 import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
 
+const getWordCount = (content, dynamicZone) => {
+  let totalText = content || '';
+
+  if (dynamicZone && Array.isArray(dynamicZone)) {
+    dynamicZone.forEach((zone) => {
+      if (zone.Content) totalText += ' ' + zone.Content;
+      if (zone.content) totalText += ' ' + zone.content;
+      if (zone.text) totalText += ' ' + zone.text;
+    });
+  }
+
+  const plainText = totalText.replace(/<[^>]*>/g, '').replace(/[^\w\s]/g, '');
+
+  return plainText
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word.length > 0).length;
+};
+
 const calculateReadTime = () => {
   if (typeof window === 'undefined') return '1 min';
 
@@ -31,7 +50,7 @@ const calculateReadTime = () => {
   return `${minutes} min`;
 };
 
-function BlogSingle(props) {
+function NewsSingle(props) {
   const { lang } = useLocale();
   const router = useRouter();
   const [readTime, setReadTime] = useState('1 min');
@@ -79,6 +98,38 @@ function BlogSingle(props) {
     .replace(/\//g, '/');
 
   const content = data.content;
+
+  const getBlogPostingtructuredData = () => {
+    if (!data?.title || !data?.slug) return '{}';
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
+      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
+      headline: data.title,
+      description: data?.excerpt || `${data.title} | Alpine Armoring`,
+      image: data.thumbnail.data.attributes.url,
+      datePublished: data.publishedAt,
+      dateModified: data.updatedAt,
+      author: {
+        '@type': 'Person',
+        name: data.authors.data?.attributes.Name || 'Dan Diana',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Alpine Armoring',
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
+      },
+      // "articleSection": "Category Name",
+      wordCount: props.wordCount || 1500,
+      inLanguage: `${router.locale === 'en' ? 'en' : `${router.locale}`}`,
+    };
+    return JSON.stringify(structuredData);
+  };
 
   const getBreadcrumbStructuredData = () => {
     if (!data?.title || !data?.slug) return '{}';
@@ -144,6 +195,11 @@ function BlogSingle(props) {
   return (
     <>
       <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getBlogPostingtructuredData() }}
+          key="blogPosting-jsonld"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
@@ -278,14 +334,55 @@ function BlogSingle(props) {
     </>
   );
 }
+export async function getStaticPaths({ locales }) {
+  try {
+    const route = routes.blog;
 
-export async function getServerSideProps({ params, locale }) {
+    const paths = [];
+
+    for (const locale of locales) {
+      const data = await getPageData({
+        route: route.collectionSingle,
+        params: '',
+        fields: 'fields[0]=slug',
+        pageSize: 100,
+        locale,
+      });
+
+      if (data?.data) {
+        data.data.forEach((post) => {
+          paths.push({
+            params: { slug: post.attributes.slug },
+            locale,
+          });
+        });
+      }
+    }
+
+    return {
+      paths,
+      fallback: 'blocking', // Generate new pages on-demand
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
+}
+
+export async function getStaticProps({ params, locale, preview = false }) {
   try {
     const route = routes.news;
 
+    const apiParams = preview
+      ? `filters[slug][$eq]=${params.slug}&publicationState=preview`
+      : `filters[slug][$eq]=${params.slug}`;
+
     const data = await getPageData({
       route: route.collectionSingle,
-      params: `filters[slug][$eq]=${params.slug}`,
+      params: apiParams,
       populate: 'deep',
       locale,
     });
@@ -293,6 +390,7 @@ export async function getServerSideProps({ params, locale }) {
     if (!data || !data.data || data.data.length === 0) {
       return {
         notFound: true,
+        revalidate: 60,
       };
     }
 
@@ -311,15 +409,28 @@ export async function getServerSideProps({ params, locale }) {
       languageUrls: route.getLanguageUrls(currentPage, locale),
     };
 
+    const wordCount = getWordCount(
+      currentPage?.content,
+      currentPage?.blogDynamic
+    );
+
     return {
-      props: { data, seoData, locale },
+      props: {
+        data,
+        seoData,
+        locale,
+        preview,
+        wordCount,
+      },
+      revalidate: preview ? 1 : 7200,
     };
   } catch (error) {
-    console.error('Error in getServerSideProps:', error);
+    console.error('Error in getStaticProps:', error);
     return {
       notFound: true,
+      revalidate: 60,
     };
   }
 }
 
-export default BlogSingle;
+export default NewsSingle;

@@ -63,58 +63,59 @@ function KnowledgeBase(props) {
       '@graph': [
         {
           '@type': 'CollectionPage',
-          '@id': `https://alpineco.com/faqs`,
-          url: `https://alpineco.com/faqs`,
+          '@id': `https://www.alpineco.com/faqs`,
+          url: `https://www.alpineco.com/faqs`,
           name: 'Frequently Asked Questions - Alpine Armoring',
           isPartOf: {
-            '@id': `https://alpineco.com/#website`,
+            '@id': `https://www.alpineco.com/#website`,
           },
           primaryImageOfPage: {
-            '@id': `https://alpineco.com/faqs/#primaryimage`,
+            '@id': `https://www.alpineco.com/faqs/#primaryimage`,
           },
           image: {
-            '@id': `https://alpineco.com/faqs/#primaryimage`,
+            '@id': `https://www.alpineco.com/faqs/#primaryimage`,
           },
           thumbnailUrl:
-            'https://alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100',
+            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100',
           description:
             "Alpine Armoring FAQs - Find answers to frequently asked questions about Alpine Armoring's products and services.",
           breadcrumb: {
-            '@id': `https://alpineco.com/faqs/#breadcrumb`,
+            '@id': `https://www.alpineco.com/faqs/#breadcrumb`,
           },
           inLanguage: 'en',
         },
         {
           '@type': 'ImageObject',
           inLanguage: 'en',
-          '@id': `https://alpineco.com/faqs/#primaryimage`,
-          url: `https://alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
-          contentUrl: `https://alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
+          '@id': `https://www.alpineco.com/faqs/#primaryimage`,
+          url: `https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
+          contentUrl: `https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
           width: 2560,
           height: 1920,
           caption: 'Alpine Armoring FAQs',
         },
         {
           '@type': 'BreadcrumbList',
-          '@id': `https://alpineco.com/faqs/#breadcrumb`,
+          '@id': `https://www.alpineco.com/faqs/#breadcrumb`,
           itemListElement: [
             {
               '@type': 'ListItem',
               position: 1,
               name: lang.home,
-              item: `https://alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
             },
             {
               '@type': 'ListItem',
               position: 2,
               name: lang.footerFaqsTitle,
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.faqsURL || '/faqs'}`,
             },
           ],
         },
         {
           '@type': 'WebSite',
-          '@id': `https://alpineco.com/#website`,
-          url: `https://alpineco.com/`,
+          '@id': `https://www.alpineco.com/#website`,
+          url: `https://www.alpineco.com/`,
           name: 'Alpine Armoring',
           description:
             "Alpine Armoring FAQs - Find answers to frequently asked questions about Alpine Armoring's products and services.",

@@ -1,12 +1,16 @@
-import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import { getPageData } from 'hooks/api';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import routes from 'routes';
+import useLocale from 'hooks/useLocale';
 import Banner from 'components/global/banner/Banner';
-import BlogList from 'components/global/news/News';
+import NewsList from 'components/global/news/News';
 import styles from './News.module.scss';
 
-function Blog(props) {
+function News(props) {
+  const { lang } = useLocale();
+  const router = useRouter();
   const banner = props?.pageData?.banner;
   const posts = props?.posts;
 
@@ -15,13 +19,81 @@ function Blog(props) {
     dependencies: [props.pageData],
   });
 
+  const getCollectionPageStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': ['WebPage', 'CollectionPage'],
+          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
+          url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
+          name: 'Armored Vehicle News & Updates | Alpine Armoring',
+          description:
+            'Stay informed with the latest news, updates, and industry insights from Alpine Armoring, a leader in armored vehicle innovation and security solutions.',
+          isPartOf: { '@id': 'https://www.alpineco.com/#website' },
+          datePublished: props?.pageData?.createdAt,
+          dateModified: props?.pageData?.updatedAt,
+          inLanguage: 'en',
+          thumbnailUrl:
+            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fpress_room_banner_top_45fd354bd3.jpg&w=2200&q=100',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: lang.home,
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: lang?.news || 'News',
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
+            },
+          ],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://www.alpineco.com/#website',
+          url: 'https://www.alpineco.com',
+          name: 'Alpine Armoring',
+          description: 'Alpine Armoring - Armored Vehicle Manufacturer',
+          potentialAction: [
+            {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: 'https://www.alpineco.com/?s={search_term_string}',
+              },
+              'query-input': 'required name=search_term_string',
+            },
+          ],
+          inLanguage: 'en',
+        },
+      ],
+    };
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: getCollectionPageStructuredData(),
+          }}
+          key="collectionPage-jsonld"
+        />
+      </Head>
+
       {banner ? <Banner props={banner} shape="white" /> : null}
 
       {posts ? (
         <div className={`${styles.news}`}>
-          <BlogList featured props={posts} />
+          <NewsList featured props={posts} />
         </div>
       ) : null}
     </>
@@ -60,32 +132,4 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(
-  Blog,
-  {
-    pageData: async (locale) => {
-      const data = await getPageData({
-        route: routes.news.collection,
-        populate: 'deep',
-        locale,
-      });
-      return data.data?.attributes || null;
-    },
-    posts: async (locale) => {
-      const data = await getPageData({
-        route: routes.news.collectionSingle,
-        populate: 'thumbnail',
-        fields:
-          'fields[0]=publishedAt&fields[1]=locale&fields[2]=title&fields[3]=slug&fields[4]=excerpt&fields[5]=title&fields[6]=date',
-        sort: 'date',
-        sortType: 'desc',
-        pageSize: 200,
-        locale,
-      });
-      return data?.data || null;
-    },
-  },
-  {
-    routeName: 'news',
-  }
-);
+export default News;

@@ -13,6 +13,25 @@ import SocialShare from 'components/global/social-share/SocialShare';
 import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
 
+const getWordCount = (content, dynamicZone) => {
+  let totalText = content || '';
+
+  if (dynamicZone && Array.isArray(dynamicZone)) {
+    dynamicZone.forEach((zone) => {
+      if (zone.Content) totalText += ' ' + zone.Content;
+      if (zone.content) totalText += ' ' + zone.content;
+      if (zone.text) totalText += ' ' + zone.text;
+    });
+  }
+
+  const plainText = totalText.replace(/<[^>]*>/g, '').replace(/[^\w\s]/g, '');
+
+  return plainText
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word.length > 0).length;
+};
+
 const calculateReadTime = () => {
   if (typeof window === 'undefined') return '1 min';
 
@@ -32,6 +51,7 @@ const calculateReadTime = () => {
 };
 
 function BlogSingle(props) {
+  console.log(props);
   const { lang } = useLocale();
   const router = useRouter();
   const { preview = false } = props;
@@ -52,16 +72,6 @@ function BlogSingle(props) {
     }
   }, []);
 
-  if (!data) {
-    return (
-      <div className={`${styles.blogSingle}`}>
-        <div className={`${styles.blogSingle_inner} container_small`}>
-          <p>Blog post not found</p>
-        </div>
-      </div>
-    );
-  }
-
   const date = data?.updatedAt ? new Date(data.updatedAt) : new Date();
 
   const contentData = {
@@ -80,6 +90,38 @@ function BlogSingle(props) {
     .replace(/\//g, '/');
 
   const content = data.content;
+
+  const getBlogPostingtructuredData = () => {
+    if (!data?.title || !data?.slug) return '{}';
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}/${data.slug}`,
+      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}/${data.slug}`,
+      headline: data.title,
+      description: data?.excerpt || `${data.title} | Alpine Armoring`,
+      image: data.thumbnail.data.attributes.url,
+      datePublished: data.publishedAt,
+      dateModified: data.updatedAt,
+      author: {
+        '@type': 'Person',
+        name: data.authors.data?.attributes.Name || 'Dan Diana',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Alpine Armoring',
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}/${data.slug}`,
+      },
+      // "articleSection": "Category Name",
+      wordCount: props.wordCount || 1500,
+      inLanguage: `${router.locale === 'en' ? 'en' : `${router.locale}`}`,
+    };
+    return JSON.stringify(structuredData);
+  };
 
   const getBreadcrumbStructuredData = () => {
     if (!data?.title || !data?.slug) return '{}';
@@ -142,9 +184,24 @@ function BlogSingle(props) {
     return JSON.stringify(structuredData);
   };
 
+  if (!data) {
+    return (
+      <div className={`${styles.blogSingle}`}>
+        <div className={`${styles.blogSingle_inner} container_small`}>
+          <p>Blog post not found</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getBlogPostingtructuredData() }}
+          key="blogPosting-jsonld"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
@@ -376,12 +433,18 @@ export async function getStaticProps({ params, locale, preview = false }) {
       languageUrls: route.getLanguageUrls(currentPage, locale),
     };
 
+    const wordCount = getWordCount(
+      currentPage?.content,
+      currentPage?.blogDynamic
+    );
+
     return {
       props: {
         data,
         seoData,
         locale,
         preview,
+        wordCount,
       },
       revalidate: preview ? 1 : 7200,
     };
@@ -393,48 +456,5 @@ export async function getStaticProps({ params, locale, preview = false }) {
     };
   }
 }
-
-// export async function getServerSideProps({ params, locale }) {
-//   try {
-//     const route = routes.blog;
-
-//     const data = await getPageData({
-//       route: route.collectionSingle,
-//       params: `filters[slug][$eq]=${params.slug}`,
-//       populate: 'deep',
-//       locale,
-//     });
-
-//     if (!data || !data.data || data.data.length === 0) {
-//       return {
-//         notFound: true,
-//       };
-//     }
-
-//     const currentPage = data.data[0]?.attributes;
-
-//     const seoData = {
-//       ...(currentPage?.seo ?? {}),
-//       metaTitle: currentPage?.seo?.metaTitle
-//         ? `${currentPage.seo.metaTitle} | Alpine Armoring® USA`
-//         : currentPage?.title || 'Alpine Armoring',
-//       metaDescription:
-//         currentPage?.seo?.metaDescription ||
-//         currentPage?.excerpt ||
-//         'Alpine Armoring',
-//       thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
-//       languageUrls: route.getLanguageUrls(currentPage, locale),
-//     };
-
-//     return {
-//       props: { data, seoData, locale },
-//     };
-//   } catch (error) {
-//     console.error('Error in getServerSideProps:', error);
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
 
 export default BlogSingle;

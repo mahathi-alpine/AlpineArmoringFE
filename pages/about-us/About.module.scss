@@ -4,7 +4,7 @@
     font-weight: var(--font-regular);
 
     @include breakpoint(medium) {
-      margin: rem(24) auto rem(24) auto;
+      margin: rem(8) auto rem(60) auto;
     }
 
     @include breakpoint(large) {
@@ -209,10 +209,6 @@
       margin-bottom: 10px;
       letter-spacing: -0.7px;
       text-align: center;
-
-      @include breakpoint(large) {
-        margin-bottom: 24px;
-      }
     }
 
     &:last-child {

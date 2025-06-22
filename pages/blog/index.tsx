@@ -1,4 +1,7 @@
 import { getPageData } from 'hooks/api';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import Banner from 'components/global/banner/Banner';
 import BlogList from 'components/global/news/News';
@@ -6,6 +9,8 @@ import styles from './News.module.scss';
 import routes from 'routes';
 
 function Blog(props) {
+  const { lang } = useLocale();
+  const router = useRouter();
   const banner = props?.pageData?.banner;
   const posts = props?.posts;
 
@@ -14,8 +19,78 @@ function Blog(props) {
     dependencies: [props.pageData],
   });
 
+  const getCollectionPageStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': ['WebPage', 'CollectionPage'],
+          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}`,
+          url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}`,
+          name: 'Armored Vehicles Blog | Bulletproof Cars & Security Insights - Alpine Armoring',
+          description:
+            'Expert insights on armored vehicles, bulletproof cars, and armoring technology. Get the latest industry news, reviews, and security solutions from leading professionals.',
+          isPartOf: {
+            '@id': `https://www.alpineco.com/#website`,
+          },
+          datePublished: props?.pageData?.createdAt,
+          dateModified: props?.pageData?.updatedAt,
+          inLanguage: 'en',
+          thumbnailUrl:
+            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fblog_banner_top_a20093f7c5.jpg&w=2200&q=100',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: lang.home,
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: lang?.blog || 'Blog',
+              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}`,
+            },
+          ],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://www.alpineco.com/#website',
+          url: 'https://www.alpineco.com',
+          name: 'Alpine Armoring',
+          description: 'Alpine Armoring - Armored Vehicle Manufacturer',
+          potentialAction: [
+            {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: 'https://www.alpineco.com/?s={search_term_string}',
+              },
+              'query-input': 'required name=search_term_string',
+            },
+          ],
+          inLanguage: 'en',
+        },
+      ],
+    };
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: getCollectionPageStructuredData(),
+          }}
+          key="collectionPage-jsonld"
+        />
+      </Head>
+
       {banner ? <Banner props={banner} shape="white" /> : null}
 
       {posts ? (
