@@ -336,7 +336,7 @@ function NewsSingle(props) {
 }
 export async function getStaticPaths({ locales }) {
   try {
-    const route = routes.blog;
+    const route = routes.news;
 
     const paths = [];
 

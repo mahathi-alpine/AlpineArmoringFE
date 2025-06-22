@@ -425,6 +425,11 @@ export function middleware(request: NextRequest) {
     url.pathname = '/news';
     return NextResponse.rewrite(url);
   }
+  if (pathname.startsWith('/noticias/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace('/noticias/', '/news/');
+    return NextResponse.rewrite(url);
+  }
 
   if (pathname.startsWith('/disponible-ahora/tipo/')) {
     const url = request.nextUrl.clone();
