@@ -420,6 +420,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  if (pathname === '/noticias') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/news';
+    return NextResponse.rewrite(url);
+  }
+
   if (pathname.startsWith('/disponible-ahora/tipo/')) {
     const url = request.nextUrl.clone();
     url.pathname = pathname.replace(

@@ -113,6 +113,7 @@ const routes = {
       en: '/blog',
       es: '/blog',
     },
+    usesStaticProps: true,
   },
   contact: {
     collection: 'contact-page',
@@ -174,6 +175,7 @@ const routes = {
       en: '/news',
       es: '/noticias',
     },
+    usesStaticProps: true,
   },
   privacyPolicy: {
     collection: 'privacy-policy',

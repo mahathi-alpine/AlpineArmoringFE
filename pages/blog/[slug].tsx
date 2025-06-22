@@ -51,7 +51,6 @@ const calculateReadTime = () => {
 };
 
 function BlogSingle(props) {
-  console.log(props);
   const { lang } = useLocale();
   const router = useRouter();
   const { preview = false } = props;
