@@ -53,47 +53,20 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
-  }, [props, router.asPath]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  console.log('a');
+  }, [props]);
 
   // Check if URL contains noindex query parameters
   const hasNoIndexParams = () => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      return (
-        params.has('vehicles_we_armor') ||
-        params.has('vehiculos_que_blindamos') ||
-        params.has('source')
-      );
-    } else {
-      // Server-side: check router.query first, then fallback to parsing asPath
-      const { vehicles_we_armor, vehiculos_que_blindamos, source } =
-        router.query;
-      let hasParams = !!(
-        vehicles_we_armor ||
-        vehiculos_que_blindamos ||
-        source
-      );
-
-      // Fallback: parse from asPath if query is empty
-      if (!hasParams && router.asPath.includes('?')) {
-        const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
-        hasParams =
-          urlParams.has('vehicles_we_armor') ||
-          urlParams.has('vehiculos_que_blindamos') ||
-          urlParams.has('source');
-      }
-
-      return hasParams;
-    }
+    return (
+      router.asPath.includes('vehicles_we_armor=') ||
+      router.asPath.includes('vehiculos_que_blindamos=') ||
+      router.asPath.includes('source=')
+    );
   };
 
   const shouldNoIndex = hasNoIndexParams();
+  let shouldRenderCanonical =
+    !shouldNoIndex && seoProps?.canonicalURL !== false;
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
@@ -233,7 +206,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   // Canonical URL construction - skip if shouldNoIndex
   let canonicalUrl;
-  let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
 
   // Check if canonicalURL is explicitly set to false
   if (seoProps?.canonicalURL === false || shouldNoIndex) {
@@ -396,7 +368,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
       {/* Canonical URL - only render if not noindex and not explicitly set to false */}
-      {mounted && shouldRenderCanonical && canonicalUrl && (
+      {shouldRenderCanonical && canonicalUrl && (
         <link rel="canonical" href={canonicalUrl} data-seo-component="true" />
       )}
 
