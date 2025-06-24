@@ -1,5 +1,5 @@
 // import Head from 'next/head';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Seo from '../components/Seo';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
@@ -118,6 +118,26 @@ const Layout = ({ children, seoData }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
+  const hasNoIndexParams = !!(
+    router.query.vehicles_we_armor ||
+    router.query.vehiculos_que_blindamos ||
+    router.query.source ||
+    router.asPath.includes('vehicles_we_armor=') ||
+    router.asPath.includes('vehiculos_que_blindamos=') ||
+    router.asPath.includes('source=')
+  );
+  // Modify SEO data to disable canonical and hreflang for noindex pages
+  const modifiedSeoData = useMemo(() => {
+    if (hasNoIndexParams && seoData) {
+      return {
+        ...seoData,
+        canonicalURL: false,
+        languageUrls: false,
+      };
+    }
+    return seoData;
+  }, [seoData, hasNoIndexParams]);
+
   return (
     <>
       <Script
@@ -164,7 +184,7 @@ const Layout = ({ children, seoData }) => {
         />
       </noscript>
 
-      {seoData && (
+      {modifiedSeoData && (
         <Seo
           props={seoData}
           isDarkMode={isDarkMode}
