@@ -118,17 +118,51 @@ const Layout = ({ children, seoData }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
-  const hasNoIndexParams = !!(
-    router.query.vehicles_we_armor ||
-    router.query.vehiculos_que_blindamos ||
-    router.query.source ||
-    router.asPath.includes('vehicles_we_armor=') ||
-    router.asPath.includes('vehiculos_que_blindamos=') ||
-    router.asPath.includes('source=')
-  );
+  const hasNoIndexParams = useMemo(() => {
+    // Method 1: Check router.query
+    const fromQuery = !!(
+      router.query.vehicles_we_armor ||
+      router.query.vehiculos_que_blindamos ||
+      router.query.source
+    );
+
+    // Method 2: Check router.asPath
+    const fromAsPath = !!(
+      router.asPath.includes('vehicles_we_armor=') ||
+      router.asPath.includes('vehiculos_que_blindamos=') ||
+      router.asPath.includes('source=')
+    );
+
+    // Method 3: Client-side window check (as fallback)
+    let fromWindow = false;
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      fromWindow = !!(
+        params.has('vehicles_we_armor') ||
+        params.has('vehiculos_que_blindamos') ||
+        params.has('source')
+      );
+    }
+
+    const result = fromQuery || fromAsPath || fromWindow;
+
+    // Debug logging
+    console.log('LAYOUT DETECTION:', {
+      fromQuery,
+      fromAsPath,
+      fromWindow,
+      final: result,
+      query: router.query,
+      asPath: router.asPath,
+    });
+
+    return result;
+  }, [router.query, router.asPath]);
+
   // Modify SEO data to disable canonical and hreflang for noindex pages
   const modifiedSeoData = useMemo(() => {
     if (hasNoIndexParams && seoData) {
+      console.log('🚫 DISABLING CANONICAL for noindex page');
       return {
         ...seoData,
         canonicalURL: false,
