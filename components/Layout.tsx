@@ -118,18 +118,6 @@ const Layout = ({ children, seoData }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
-  const testSeoData = router.asPath.includes('vehicles_we_armor=')
-    ? { ...seoData, canonicalURL: false }
-    : seoData;
-
-  console.log('🧪 LAYOUT TEST:');
-  console.log(
-    'asPath includes vehicles_we_armor:',
-    router.asPath.includes('vehicles_we_armor=')
-  );
-  console.log('original seoData.canonicalURL:', seoData?.canonicalURL);
-  console.log('testSeoData.canonicalURL:', testSeoData?.canonicalURL);
-
   return (
     <>
       <Script
@@ -178,7 +166,7 @@ const Layout = ({ children, seoData }) => {
 
       {seoData && (
         <Seo
-          props={testSeoData}
+          props={seoData}
           isDarkMode={isDarkMode}
           isPadding0={isPadding0}
           isHomepage={isHomepage}
