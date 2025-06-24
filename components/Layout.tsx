@@ -54,6 +54,7 @@ const termina = localFont({
 const Layout = ({ children, seoData }) => {
   const router = useRouter();
   const { lang } = useLocale();
+  const [shouldDisableCanonical, setShouldDisableCanonical] = useState(false);
 
   const pathsDarkMode = [
     '/available-now',
@@ -117,6 +118,29 @@ const Layout = ({ children, seoData }) => {
     openSearchPopup(false);
     setNavOpen(false);
   }, [router.pathname]);
+  useEffect(() => {
+    // Check if we should disable canonical based on URL parameters
+    const hasNoIndexParams = !!(
+      router.asPath.includes('vehicles_we_armor=') ||
+      router.asPath.includes('vehiculos_que_blindamos=') ||
+      router.asPath.includes('source=') ||
+      router.query.vehicles_we_armor ||
+      router.query.vehiculos_que_blindamos ||
+      router.query.source
+    );
+
+    setShouldDisableCanonical(hasNoIndexParams);
+  }, [router.asPath, router.query]);
+
+  // Modify SEO data if we should disable canonical
+  const finalSeoData =
+    shouldDisableCanonical && seoData
+      ? {
+          ...seoData,
+          canonicalURL: false,
+          languageUrls: false,
+        }
+      : seoData;
 
   return (
     <>
@@ -164,9 +188,9 @@ const Layout = ({ children, seoData }) => {
         />
       </noscript>
 
-      {seoData && (
+      {finalSeoData && (
         <Seo
-          props={seoData}
+          props={finalSeoData}
           isDarkMode={isDarkMode}
           isPadding0={isPadding0}
           isHomepage={isHomepage}

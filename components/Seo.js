@@ -50,33 +50,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
 
-  const forceDisableCanonical = !!(
-    router.asPath.includes('vehicles_we_armor=') ||
-    router.asPath.includes('vehiculos_que_blindamos=') ||
-    router.asPath.includes('source=')
-  );
-
-  // Override seoProps if we need to disable canonical
-  const finalSeoProps = forceDisableCanonical
-    ? {
-        ...seoProps,
-        canonicalURL: false,
-        languageUrls: false,
-      }
-    : seoProps;
-
-  useEffect(() => {
-    const updatedProps = forceDisableCanonical
-      ? {
-          ...props,
-          canonicalURL: false,
-          languageUrls: false,
-        }
-      : props;
-
-    setSeoProps(updatedProps);
-  }, [props, forceDisableCanonical]);
-
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
@@ -257,12 +230,12 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
 
   // Check if canonicalURL is explicitly set to false
-  if (finalSeoProps?.canonicalURL === false || shouldNoIndex) {
+  if (seoProps?.canonicalURL === false || shouldNoIndex) {
     shouldRenderCanonical = false;
-  } else if (finalSeoProps?.canonicalURL) {
-    const cleanCanonical = sanitizeUrl(finalSeoProps.canonicalURL);
-    canonicalUrl = isFullUrl(finalSeoProps.canonicalURL)
-      ? finalSeoProps.canonicalURL
+  } else if (seoProps?.canonicalURL) {
+    const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
+    canonicalUrl = isFullUrl(seoProps.canonicalURL)
+      ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
   } else {
     let pathForCanonical;
@@ -284,11 +257,8 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
       pathForCanonical = pathWithoutLocale;
     } else {
-      if (
-        finalSeoProps?.languageUrls &&
-        finalSeoProps.languageUrls[router.locale]
-      ) {
-        const localeUrl = finalSeoProps.languageUrls[router.locale];
+      if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
+        const localeUrl = seoProps.languageUrls[router.locale];
         const cleanLocaleUrl = keepOnlyAllowedParams(localeUrl);
 
         // Sanitize the locale URL
