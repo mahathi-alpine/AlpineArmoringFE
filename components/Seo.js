@@ -62,22 +62,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     console.log('📝 SEO PROPS UPDATED TO:', props?.canonicalURL);
   }, [props]);
 
-  // Check if canonicalURL is explicitly set to false
-  if (seoProps?.canonicalURL === false || shouldNoIndex) {
-    shouldRenderCanonical = false;
-    console.log('✅ Setting shouldRenderCanonical to FALSE');
-  } else if (seoProps?.canonicalURL) {
-    console.log('📍 Using custom canonicalURL:', seoProps.canonicalURL);
-    // ... existing logic
-  } else {
-    console.log('🏗️ Building canonical from path');
-    // ... existing logic
-  }
-
-  console.log('🎯 FINAL DECISION:');
-  console.log('shouldRenderCanonical:', shouldRenderCanonical);
-  console.log('canonicalUrl:', canonicalUrl);
-
   // Check if URL contains noindex query parameters
   const hasNoIndexParams = () => {
     if (typeof window !== 'undefined') {
@@ -111,8 +95,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   };
 
   const shouldNoIndex = hasNoIndexParams();
-
-  // ... rest of your existing code ...
 
   // ADD MORE DEBUGGING BEFORE THE CANONICAL LOGIC
   console.log('🎯 CANONICAL DECISION:');
@@ -263,13 +245,16 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Check if canonicalURL is explicitly set to false
   if (seoProps?.canonicalURL === false || shouldNoIndex) {
     shouldRenderCanonical = false;
+    console.log('✅ Setting shouldRenderCanonical to FALSE');
   } else if (seoProps?.canonicalURL) {
+    console.log('📍 Using custom canonicalURL:', seoProps.canonicalURL);
     const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
     canonicalUrl = isFullUrl(seoProps.canonicalURL)
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
   } else {
     let pathForCanonical;
+    console.log('🏗️ Building canonical from path');
 
     if (typeof window !== 'undefined') {
       const actualPath = window.location.pathname + window.location.search;
@@ -323,6 +308,9 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       normalizedPath === '/' ? baseUrl : `${baseUrl}${normalizedPath}`;
   }
 
+  console.log('🎯 FINAL DECISION:');
+  console.log('shouldRenderCanonical:', shouldRenderCanonical);
+  console.log('canonicalUrl:', canonicalUrl);
   // Clean up any double slashes (except after protocol)
   if (canonicalUrl) {
     canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
