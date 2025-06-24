@@ -50,10 +50,33 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
 
+  // ADD THIS DEBUGGING RIGHT AT THE START
+  console.log('🔍 SEO COMPONENT RECEIVED:');
+  console.log('props.canonicalURL:', props?.canonicalURL);
+  console.log('seoProps.canonicalURL:', seoProps?.canonicalURL);
+  console.log('router.asPath:', router.asPath);
+
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
+    console.log('📝 SEO PROPS UPDATED TO:', props?.canonicalURL);
   }, [props]);
+
+  // Check if canonicalURL is explicitly set to false
+  if (seoProps?.canonicalURL === false || shouldNoIndex) {
+    shouldRenderCanonical = false;
+    console.log('✅ Setting shouldRenderCanonical to FALSE');
+  } else if (seoProps?.canonicalURL) {
+    console.log('📍 Using custom canonicalURL:', seoProps.canonicalURL);
+    // ... existing logic
+  } else {
+    console.log('🏗️ Building canonical from path');
+    // ... existing logic
+  }
+
+  console.log('🎯 FINAL DECISION:');
+  console.log('shouldRenderCanonical:', shouldRenderCanonical);
+  console.log('canonicalUrl:', canonicalUrl);
 
   // Check if URL contains noindex query parameters
   const hasNoIndexParams = () => {
@@ -88,6 +111,14 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   };
 
   const shouldNoIndex = hasNoIndexParams();
+
+  // ... rest of your existing code ...
+
+  // ADD MORE DEBUGGING BEFORE THE CANONICAL LOGIC
+  console.log('🎯 CANONICAL DECISION:');
+  console.log('shouldNoIndex:', shouldNoIndex);
+  console.log('seoProps?.canonicalURL:', seoProps?.canonicalURL);
+  console.log('shouldRenderCanonical before checks:', !shouldNoIndex);
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
@@ -227,68 +258,69 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   // Canonical URL construction - skip if shouldNoIndex
   let canonicalUrl;
-  let shouldRenderCanonical;
+  let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
 
   // Check if canonicalURL is explicitly set to false
   if (seoProps?.canonicalURL === false || shouldNoIndex) {
     shouldRenderCanonical = false;
+  } else if (seoProps?.canonicalURL) {
+    const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
+    canonicalUrl = isFullUrl(seoProps.canonicalURL)
+      ? seoProps.canonicalURL
+      : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
   } else {
-    shouldRenderCanonical = true; // Default to true if not explicitly disabled
+    let pathForCanonical;
 
-    if (seoProps?.canonicalURL) {
-      const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
-      canonicalUrl = isFullUrl(seoProps.canonicalURL)
-        ? seoProps.canonicalURL
-        : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
+    if (typeof window !== 'undefined') {
+      const actualPath = window.location.pathname + window.location.search;
+      const cleanPath = keepOnlyAllowedParams(actualPath);
+
+      // Sanitize the path to remove any domain duplications
+      const sanitizedPath = sanitizeUrl(cleanPath);
+
+      const pathWithoutLocale =
+        router.locale !== 'en'
+          ? sanitizedPath.replace(
+              new RegExp(`^/${router.locale}(/|$)`),
+              '$1'
+            ) || '/'
+          : sanitizedPath;
+
+      pathForCanonical = pathWithoutLocale;
     } else {
-      let pathForCanonical;
+      if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
+        const localeUrl = seoProps.languageUrls[router.locale];
+        const cleanLocaleUrl = keepOnlyAllowedParams(localeUrl);
 
-      if (typeof window !== 'undefined') {
-        const actualPath = window.location.pathname + window.location.search;
-        const cleanPath = keepOnlyAllowedParams(actualPath);
-        const sanitizedPath = sanitizeUrl(cleanPath);
+        // Sanitize the locale URL
+        const sanitizedLocaleUrl = sanitizeUrl(cleanLocaleUrl);
 
         const pathWithoutLocale =
           router.locale !== 'en'
-            ? sanitizedPath.replace(
+            ? sanitizedLocaleUrl.replace(
                 new RegExp(`^/${router.locale}(/|$)`),
                 '$1'
               ) || '/'
-            : sanitizedPath;
+            : sanitizedLocaleUrl;
 
-        pathForCanonical = pathWithoutLocale;
+        const queryFromAsPath = router.asPath.includes('?')
+          ? '?' + router.asPath.split('?')[1]
+          : '';
+
+        const cleanQueryFromAsPath = keepOnlyAllowedParams(queryFromAsPath);
+
+        pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
       } else {
-        if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
-          const localeUrl = seoProps.languageUrls[router.locale];
-          const cleanLocaleUrl = keepOnlyAllowedParams(localeUrl);
-          const sanitizedLocaleUrl = sanitizeUrl(cleanLocaleUrl);
-
-          const pathWithoutLocale =
-            router.locale !== 'en'
-              ? sanitizedLocaleUrl.replace(
-                  new RegExp(`^/${router.locale}(/|$)`),
-                  '$1'
-                ) || '/'
-              : sanitizedLocaleUrl;
-
-          const queryFromAsPath = router.asPath.includes('?')
-            ? '?' + router.asPath.split('?')[1]
-            : '';
-
-          const cleanQueryFromAsPath = keepOnlyAllowedParams(queryFromAsPath);
-          pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
-        } else {
-          const serverPath = keepOnlyAllowedParams(router.asPath);
-          const sanitizedServerPath = sanitizeUrl(serverPath);
-          const [pathOnly, queryOnly] = sanitizedServerPath.split('?');
-          pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
-        }
+        const serverPath = keepOnlyAllowedParams(router.asPath);
+        const sanitizedServerPath = sanitizeUrl(serverPath);
+        const [pathOnly, queryOnly] = sanitizedServerPath.split('?');
+        pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
       }
-
-      const normalizedPath = normalizeUrl(pathForCanonical);
-      canonicalUrl =
-        normalizedPath === '/' ? baseUrl : `${baseUrl}${normalizedPath}`;
     }
+
+    const normalizedPath = normalizeUrl(pathForCanonical);
+    canonicalUrl =
+      normalizedPath === '/' ? baseUrl : `${baseUrl}${normalizedPath}`;
   }
 
   // Clean up any double slashes (except after protocol)
