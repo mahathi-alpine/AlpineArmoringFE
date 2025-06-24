@@ -53,25 +53,16 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
-  }, [props]);
+  }, [props, router.asPath]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  console.log('a');
 
   // Check if URL contains noindex query parameters
   const hasNoIndexParams = () => {
-    // Always check router.asPath first (works on both server and client)
-    if (
-      router.asPath.includes('vehicles_we_armor=') ||
-      router.asPath.includes('vehiculos_que_blindamos=') ||
-      router.asPath.includes('source=')
-    ) {
-      return true;
-    }
-
-    // Fallback to router.query
-    const { vehicles_we_armor, vehiculos_que_blindamos, source } = router.query;
-    if (vehicles_we_armor || vehiculos_que_blindamos || source) {
-      return true;
-    }
-
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       return (
@@ -405,7 +396,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       {twitterMetaImg && <meta name="twitter:image" content={twitterMetaImg} />}
 
       {/* Canonical URL - only render if not noindex and not explicitly set to false */}
-      {shouldRenderCanonical && canonicalUrl && (
+      {mounted && shouldRenderCanonical && canonicalUrl && (
         <link rel="canonical" href={canonicalUrl} data-seo-component="true" />
       )}
 
