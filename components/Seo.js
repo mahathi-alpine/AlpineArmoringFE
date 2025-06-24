@@ -57,6 +57,21 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   // Check if URL contains noindex query parameters
   const hasNoIndexParams = () => {
+    // Always check router.asPath first (works on both server and client)
+    if (
+      router.asPath.includes('vehicles_we_armor=') ||
+      router.asPath.includes('vehiculos_que_blindamos=') ||
+      router.asPath.includes('source=')
+    ) {
+      return true;
+    }
+
+    // Fallback to router.query
+    const { vehicles_we_armor, vehiculos_que_blindamos, source } = router.query;
+    if (vehicles_we_armor || vehiculos_que_blindamos || source) {
+      return true;
+    }
+
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       return (
@@ -88,40 +103,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   };
 
   const shouldNoIndex = hasNoIndexParams();
-
-  console.log('=== SEO DEBUG ===');
-  console.log('Server side?', typeof window === 'undefined');
-  console.log('router.asPath:', router.asPath);
-  console.log('router.query:', router.query);
-  console.log('shouldNoIndex:', shouldNoIndex);
-
-  if (typeof window !== 'undefined') {
-    console.log('window.location.search:', window.location.search);
-    console.log(
-      'URLSearchParams from window:',
-      new URLSearchParams(window.location.search).has('vehicles_we_armor')
-    );
-  } else {
-    console.log('Server-side query check');
-    if (router.asPath.includes('?')) {
-      const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
-      console.log(
-        'Server URLSearchParams has vehicles_we_armor:',
-        urlParams.has('vehicles_we_armor')
-      );
-    }
-  }
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-  const finalShouldNoIndex = isClient ? hasNoIndexParams() : shouldNoIndex;
-  const shouldRenderCanonical2 =
-    !finalShouldNoIndex && seoProps?.canonicalURL !== false;
-
-  console.log('finalShouldNoIndex:', finalShouldNoIndex);
-  console.log('shouldRenderCanonical:', shouldRenderCanonical2);
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
