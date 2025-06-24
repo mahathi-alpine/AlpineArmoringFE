@@ -43,7 +43,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
             }`}
             alt={
               data.featuredImage.data.attributes.alternativeText ||
-              data.title + ' Alpine Armoring'
+              data.title + ' for sale | Alpine Armoring'
             }
             width={500}
             height={385}

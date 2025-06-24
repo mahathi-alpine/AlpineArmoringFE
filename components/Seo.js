@@ -88,6 +88,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   };
 
   const shouldNoIndex = hasNoIndexParams();
+  console.log(shouldNoIndex);
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
