@@ -50,10 +50,41 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
 
+  // ADD THIS DEBUGGING RIGHT AT THE START
+  console.log('🔍 SEO COMPONENT RECEIVED:');
+  console.log('props.canonicalURL:', props?.canonicalURL);
+  console.log('seoProps.canonicalURL:', seoProps?.canonicalURL);
+  console.log('router.asPath:', router.asPath);
+
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
+    console.log('📝 SEO PROPS UPDATED TO:', props?.canonicalURL);
   }, [props]);
+
+  // ... rest of your existing code ...
+
+  // ADD MORE DEBUGGING BEFORE THE CANONICAL LOGIC
+  console.log('🎯 CANONICAL DECISION:');
+  console.log('shouldNoIndex:', shouldNoIndex);
+  console.log('seoProps?.canonicalURL:', seoProps?.canonicalURL);
+  console.log('shouldRenderCanonical before checks:', !shouldNoIndex);
+
+  // Check if canonicalURL is explicitly set to false
+  if (seoProps?.canonicalURL === false || shouldNoIndex) {
+    shouldRenderCanonical = false;
+    console.log('✅ Setting shouldRenderCanonical to FALSE');
+  } else if (seoProps?.canonicalURL) {
+    console.log('📍 Using custom canonicalURL:', seoProps.canonicalURL);
+    // ... existing logic
+  } else {
+    console.log('🏗️ Building canonical from path');
+    // ... existing logic
+  }
+
+  console.log('🎯 FINAL DECISION:');
+  console.log('shouldRenderCanonical:', shouldRenderCanonical);
+  console.log('canonicalUrl:', canonicalUrl);
 
   // Check if URL contains noindex query parameters
   const hasNoIndexParams = () => {

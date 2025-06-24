@@ -118,7 +118,17 @@ const Layout = ({ children, seoData }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
-  const shouldDisableCanonical = router.asPath.includes('vehicles_we_armor=');
+  const testSeoData = router.asPath.includes('vehicles_we_armor=')
+    ? { ...seoData, canonicalURL: false }
+    : seoData;
+
+  console.log('🧪 LAYOUT TEST:');
+  console.log(
+    'asPath includes vehicles_we_armor:',
+    router.asPath.includes('vehicles_we_armor=')
+  );
+  console.log('original seoData.canonicalURL:', seoData?.canonicalURL);
+  console.log('testSeoData.canonicalURL:', testSeoData?.canonicalURL);
 
   return (
     <>
@@ -168,11 +178,7 @@ const Layout = ({ children, seoData }) => {
 
       {seoData && (
         <Seo
-          props={{
-            ...seoData,
-            canonicalURL: shouldDisableCanonical ? false : seoData.canonicalURL,
-            languageUrls: shouldDisableCanonical ? false : seoData.languageUrls,
-          }}
+          props={testSeoData}
           isDarkMode={isDarkMode}
           isPadding0={isPadding0}
           isHomepage={isHomepage}
