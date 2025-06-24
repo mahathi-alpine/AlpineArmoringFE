@@ -1,5 +1,5 @@
 // import Head from 'next/head';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Seo from '../components/Seo';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
@@ -118,59 +118,7 @@ const Layout = ({ children, seoData }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
-  const hasNoIndexParams = useMemo(() => {
-    // Method 1: Check router.query
-    const fromQuery = !!(
-      router.query.vehicles_we_armor ||
-      router.query.vehiculos_que_blindamos ||
-      router.query.source
-    );
-
-    // Method 2: Check router.asPath
-    const fromAsPath = !!(
-      router.asPath.includes('vehicles_we_armor=') ||
-      router.asPath.includes('vehiculos_que_blindamos=') ||
-      router.asPath.includes('source=')
-    );
-
-    // Method 3: Client-side window check (as fallback)
-    let fromWindow = false;
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      fromWindow = !!(
-        params.has('vehicles_we_armor') ||
-        params.has('vehiculos_que_blindamos') ||
-        params.has('source')
-      );
-    }
-
-    const result = fromQuery || fromAsPath || fromWindow;
-
-    // Debug logging
-    console.log('LAYOUT DETECTION:', {
-      fromQuery,
-      fromAsPath,
-      fromWindow,
-      final: result,
-      query: router.query,
-      asPath: router.asPath,
-    });
-
-    return result;
-  }, [router.query, router.asPath]);
-
-  // Modify SEO data to disable canonical and hreflang for noindex pages
-  const modifiedSeoData = useMemo(() => {
-    if (hasNoIndexParams && seoData) {
-      console.log('🚫 DISABLING CANONICAL for noindex page');
-      return {
-        ...seoData,
-        canonicalURL: false,
-        languageUrls: false,
-      };
-    }
-    return seoData;
-  }, [seoData, hasNoIndexParams]);
+  const shouldDisableCanonical = router.asPath.includes('vehicles_we_armor=');
 
   return (
     <>
@@ -218,9 +166,13 @@ const Layout = ({ children, seoData }) => {
         />
       </noscript>
 
-      {modifiedSeoData && (
+      {seoData && (
         <Seo
-          props={seoData}
+          props={{
+            ...seoData,
+            canonicalURL: shouldDisableCanonical ? false : seoData.canonicalURL,
+            languageUrls: shouldDisableCanonical ? false : seoData.languageUrls,
+          }}
           isDarkMode={isDarkMode}
           isPadding0={isPadding0}
           isHomepage={isHomepage}
