@@ -88,7 +88,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   };
 
   const shouldNoIndex = hasNoIndexParams();
-  console.log(shouldNoIndex);
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
@@ -229,15 +228,18 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Canonical URL construction - skip if shouldNoIndex
   let canonicalUrl;
   let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
+  console.log(shouldRenderCanonical);
 
   // Check if canonicalURL is explicitly set to false
   if (seoProps?.canonicalURL === false || shouldNoIndex) {
     shouldRenderCanonical = false;
+    console.log('NE');
   } else if (seoProps?.canonicalURL) {
     const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
     canonicalUrl = isFullUrl(seoProps.canonicalURL)
       ? seoProps.canonicalURL
       : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
+    console.log('DA');
   } else {
     let pathForCanonical;
 
@@ -257,6 +259,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
           : sanitizedPath;
 
       pathForCanonical = pathWithoutLocale;
+      console.log('1');
     } else {
       if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
         const localeUrl = seoProps.languageUrls[router.locale];
@@ -280,11 +283,13 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
         const cleanQueryFromAsPath = keepOnlyAllowedParams(queryFromAsPath);
 
         pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
+        console.log('2');
       } else {
         const serverPath = keepOnlyAllowedParams(router.asPath);
         const sanitizedServerPath = sanitizeUrl(serverPath);
         const [pathOnly, queryOnly] = sanitizedServerPath.split('?');
         pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
+        console.log('3');
       }
     }
 
@@ -295,6 +300,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   // Clean up any double slashes (except after protocol)
   if (canonicalUrl) {
+    console.log('4');
     canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
   }
 
