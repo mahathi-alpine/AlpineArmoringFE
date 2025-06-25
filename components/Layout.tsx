@@ -6,6 +6,9 @@ import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import useLocale from 'hooks/useLocale';
+const ClientOnlySeo = dynamic(() => import('../components/Seo'), {
+  ssr: false,
+});
 
 import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
@@ -108,6 +111,8 @@ const Layout = ({ children }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
+  const isInventoryPage = router.pathname.startsWith('/available-now');
+
   return (
     <>
       <Script
@@ -154,7 +159,7 @@ const Layout = ({ children }) => {
         />
       </noscript>
 
-      <Seo />
+      {isInventoryPage ? <ClientOnlySeo /> : <Seo />}
 
       <div className={termina.className}>
         <Header
