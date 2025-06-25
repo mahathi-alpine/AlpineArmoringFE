@@ -1,9 +1,6 @@
 // import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import Seo from '../components/Seo';
-const ClientOnlySeo = dynamic(() => import('../components/Seo'), {
-  ssr: false,
-});
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
@@ -53,6 +50,42 @@ const termina = localFont({
   ],
   preload: true,
 });
+const CanonicalRemover = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const hasNoIndexParams = !!(
+      router.asPath.includes('vehicles_we_armor=') ||
+      router.asPath.includes('vehiculos_que_blindamos=') ||
+      router.asPath.includes('source=')
+    );
+
+    if (hasNoIndexParams) {
+      // Remove canonical links after component mounts
+      setTimeout(() => {
+        const canonicalLinks = document.querySelectorAll(
+          'link[rel="canonical"]'
+        );
+        canonicalLinks.forEach((link) => {
+          const linkElement = link as HTMLLinkElement;
+          console.log('🗑️ Removing canonical link:', linkElement.href);
+          linkElement.remove();
+        });
+
+        const hreflangLinks = document.querySelectorAll(
+          'link[rel="alternate"][hreflang]'
+        );
+        hreflangLinks.forEach((link) => {
+          const linkElement = link as HTMLLinkElement;
+          console.log('🗑️ Removing hreflang link:', linkElement.href);
+          linkElement.remove();
+        });
+      }, 100); // Small delay to ensure DOM is ready
+    }
+  }, [router.asPath]);
+
+  return null;
+};
 
 const Layout = ({ children, seoData }) => {
   const router = useRouter();
@@ -121,12 +154,6 @@ const Layout = ({ children, seoData }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
-  const noSEO = !!(
-    router.asPath.includes('vehicles_we_armor=') ||
-    router.asPath.includes('vehiculos_que_blindamos=') ||
-    router.asPath.includes('source=')
-  );
-  console.log('noSEO ' + noSEO);
   return (
     <>
       <Script
@@ -173,25 +200,16 @@ const Layout = ({ children, seoData }) => {
         />
       </noscript>
 
-      {noSEO ? (
-        <ClientOnlySeo
+      {seoData && (
+        <Seo
           props={seoData}
           isDarkMode={isDarkMode}
           isPadding0={isPadding0}
           isHomepage={isHomepage}
           isHeaderGray={isHeaderGray}
         />
-      ) : (
-        seoData && (
-          <Seo
-            props={seoData}
-            isDarkMode={isDarkMode}
-            isPadding0={isPadding0}
-            isHomepage={isHomepage}
-            isHeaderGray={isHeaderGray}
-          />
-        )
       )}
+      <CanonicalRemover />
 
       <div className={termina.className}>
         <Header
