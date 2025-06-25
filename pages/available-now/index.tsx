@@ -76,7 +76,7 @@ function Inventory(props) {
   };
   const faqs = pageData?.faqs;
 
-  const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
+  const { q } = router.query;
 
   const [allVehicles, setAllVehicles] = useState([]);
   const [filteredVehicles, setFilteredVehicles] = useState([]);
@@ -107,34 +107,19 @@ function Inventory(props) {
       });
     }
 
-    if (
-      (vehicles_we_armor && typeof vehicles_we_armor === 'string') ||
-      (vehiculos_que_blindamos && typeof vehiculos_que_blindamos === 'string')
-    ) {
-      const categorySlug = vehicles_we_armor || vehiculos_que_blindamos;
-      if (typeof categorySlug === 'string') {
-        const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
-        filtered = filtered.filter((vehicle) => {
-          const slug =
-            vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
-          return slug.includes(searchTerms);
-        });
-      }
-    }
-
     setFilteredVehicles(filtered);
 
-    if (q || vehicles_we_armor || vehiculos_que_blindamos) {
+    if (q) {
       setDisplayedVehicles(filtered);
       setVisibleCount(filtered.length);
     } else {
       setDisplayedVehicles(filtered.slice(0, ITEMS_TO_DISPLAY));
       setVisibleCount(ITEMS_TO_DISPLAY);
     }
-  }, [q, vehicles_we_armor, vehiculos_que_blindamos, allVehicles]);
+  }, [q, allVehicles]);
 
   const handleIntersection = useCallback(async () => {
-    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
+    if (q) return;
 
     const nextBatchStart = displayedVehicles.length;
     const remainingItems = filteredVehicles.length - nextBatchStart;
@@ -149,16 +134,10 @@ function Inventory(props) {
       setDisplayedVehicles((prev) => [...prev, ...nextBatch]);
       setVisibleCount((prev) => prev + itemsToAdd);
     }
-  }, [
-    filteredVehicles,
-    displayedVehicles.length,
-    q,
-    vehicles_we_armor,
-    vehiculos_que_blindamos,
-  ]);
+  }, [filteredVehicles, displayedVehicles.length, q]);
 
   useEffect(() => {
-    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
+    if (q) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -181,7 +160,7 @@ function Inventory(props) {
     if (target) observer.observe(target);
 
     return () => observer.disconnect();
-  }, [handleIntersection, q, vehicles_we_armor, vehiculos_que_blindamos]);
+  }, [handleIntersection, q]);
 
   const [isContentExpanded, setIsContentExpanded] = useState(false);
   const contentRef = useRef(null);
@@ -367,9 +346,7 @@ function Inventory(props) {
           </div>
         </div>
 
-        {!q && !vehicles_we_armor && !vehiculos_que_blindamos && (
-          <div className={`observe bottomObserver`}></div>
-        )}
+        {!q && <div className={`observe bottomObserver`}></div>}
 
         {bottomText && bottomTextContent.dynamicZone.length == 0 && (
           <div className={`container_small`}>

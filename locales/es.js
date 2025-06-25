@@ -25,7 +25,7 @@ export default {
   contactURL: '/contacto',
   downloadsURL: '/todas-las-descargas',
   privacyPolicyURL: '/politica-de-privacidad',
-  vehiclesWeArmorStock: '/disponible-ahora/?vehiculos_que_blindamos=',
+  vehiclesWeArmorStock: '/disponible-ahora/vehiculos_que_blindamos/',
   blogsURL: '/blog',
 
   // availableNowTitle: 'Disponible ahora',

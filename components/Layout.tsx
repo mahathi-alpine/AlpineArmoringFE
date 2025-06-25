@@ -50,42 +50,6 @@ const termina = localFont({
   ],
   preload: true,
 });
-const CanonicalRemover = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const hasNoIndexParams = !!(
-      router.asPath.includes('vehicles_we_armor=') ||
-      router.asPath.includes('vehiculos_que_blindamos=') ||
-      router.asPath.includes('source=')
-    );
-
-    if (hasNoIndexParams) {
-      // Remove canonical links after component mounts
-      setTimeout(() => {
-        const canonicalLinks = document.querySelectorAll(
-          'link[rel="canonical"]'
-        );
-        canonicalLinks.forEach((link) => {
-          const linkElement = link as HTMLLinkElement;
-          console.log('🗑️ Removing canonical link:', linkElement.href);
-          linkElement.remove();
-        });
-
-        const hreflangLinks = document.querySelectorAll(
-          'link[rel="alternate"][hreflang]'
-        );
-        hreflangLinks.forEach((link) => {
-          const linkElement = link as HTMLLinkElement;
-          console.log('🗑️ Removing hreflang link:', linkElement.href);
-          linkElement.remove();
-        });
-      }, 100); // Small delay to ensure DOM is ready
-    }
-  }, [router.asPath]);
-
-  return null;
-};
 
 const Layout = ({ children, seoData }) => {
   const router = useRouter();
@@ -209,7 +173,6 @@ const Layout = ({ children, seoData }) => {
           isHeaderGray={isHeaderGray}
         />
       )}
-      <CanonicalRemover />
 
       <div className={termina.className}>
         <Header

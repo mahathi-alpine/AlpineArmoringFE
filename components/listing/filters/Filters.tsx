@@ -258,8 +258,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const cleanBaseUrl = getBaseUrl();
 
     const newQuery = { ...router.query };
-    delete newQuery['vehicles_we_armor'];
-    delete newQuery['vehiculos_que_blindamos'];
     delete newQuery.q;
     delete newQuery.nextInternalLocale;
     delete newQuery['nxtPtype'];
@@ -357,8 +355,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const queryParams = new URLSearchParams(currentQuery || '');
 
     // Remove Next.js internal parameters and filter-specific params
-    queryParams.delete('vehicles_we_armor');
-    queryParams.delete('vehiculos_que_blindamos');
     queryParams.delete('type');
     queryParams.delete('tipo');
     queryParams.delete('q');
@@ -567,11 +563,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
                         const currentQueryString =
                           router.asPath.split('?')[1] || '';
-                        const newUrl = constructFilterUrl(
+                        let newUrl = constructFilterUrl(
                           baseUrl,
                           item.attributes.slug,
                           currentQueryString
                         );
+                        newUrl = newUrl.startsWith('//')
+                          ? newUrl.substring(1)
+                          : newUrl;
 
                         return baseUrl.endsWith('/' + lang.availableNowURL) &&
                           item.attributes.inventory_vehicles?.data.length <

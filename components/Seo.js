@@ -49,46 +49,11 @@ const isFullUrl = (url) => {
 const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
-  let shouldRenderCanonical = false;
 
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
   }, [props]);
-
-  // Check if URL contains noindex query parameters
-  const hasNoIndexParams = () => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      return (
-        params.has('vehicles_we_armor') ||
-        params.has('vehiculos_que_blindamos') ||
-        params.has('source')
-      );
-    } else {
-      // Server-side: check router.query first, then fallback to parsing asPath
-      const { vehicles_we_armor, vehiculos_que_blindamos, source } =
-        router.query;
-      let hasParams = !!(
-        vehicles_we_armor ||
-        vehiculos_que_blindamos ||
-        source
-      );
-
-      // Fallback: parse from asPath if query is empty
-      if (!hasParams && router.asPath.includes('?')) {
-        const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
-        hasParams =
-          urlParams.has('vehicles_we_armor') ||
-          urlParams.has('vehiculos_que_blindamos') ||
-          urlParams.has('source');
-      }
-
-      return hasParams;
-    }
-  };
-
-  const shouldNoIndex = hasNoIndexParams();
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
@@ -190,13 +155,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Get query string for hreflang URLs
   const queryString = getCurrentQueryString();
 
-  // Build hreflang URLs with query parameters - but skip if shouldNoIndex
   const buildHreflangUrls = () => {
-    // Don't build hreflang URLs if page should be noindex
-    if (shouldNoIndex) {
-      return {};
-    }
-
     // Check if languageUrls is explicitly set to false
     if (seoProps?.languageUrls === false) {
       return {};
@@ -226,86 +185,76 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   const hreflangUrls = buildHreflangUrls();
 
-  // Canonical URL construction - skip if shouldNoIndex
   let canonicalUrl;
+  let shouldRenderCanonical = true;
 
   // Check if canonicalURL is explicitly set to false
-  if (seoProps?.canonicalURL === false || shouldNoIndex) {
+  if (seoProps?.canonicalURL === false) {
     shouldRenderCanonical = false;
+  } else if (seoProps?.canonicalURL) {
+    const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
+    canonicalUrl = isFullUrl(seoProps.canonicalURL)
+      ? seoProps.canonicalURL
+      : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
   } else {
-    shouldRenderCanonical = true;
+    let pathForCanonical;
 
-    if (seoProps?.canonicalURL) {
-      const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
-      canonicalUrl = isFullUrl(seoProps.canonicalURL)
-        ? seoProps.canonicalURL
-        : `${baseUrl}${normalizeUrl(cleanCanonical)}`;
+    if (typeof window !== 'undefined') {
+      const actualPath = window.location.pathname + window.location.search;
+      const cleanPath = keepOnlyAllowedParams(actualPath);
+
+      // Sanitize the path to remove any domain duplications
+      const sanitizedPath = sanitizeUrl(cleanPath);
+
+      const pathWithoutLocale =
+        router.locale !== 'en'
+          ? sanitizedPath.replace(
+              new RegExp(`^/${router.locale}(/|$)`),
+              '$1'
+            ) || '/'
+          : sanitizedPath;
+
+      pathForCanonical = pathWithoutLocale;
     } else {
-      let pathForCanonical;
+      if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
+        const localeUrl = seoProps.languageUrls[router.locale];
+        const cleanLocaleUrl = keepOnlyAllowedParams(localeUrl);
 
-      if (typeof window !== 'undefined') {
-        const actualPath = window.location.pathname + window.location.search;
-        const cleanPath = keepOnlyAllowedParams(actualPath);
-
-        // Sanitize the path to remove any domain duplications
-        const sanitizedPath = sanitizeUrl(cleanPath);
+        // Sanitize the locale URL
+        const sanitizedLocaleUrl = sanitizeUrl(cleanLocaleUrl);
 
         const pathWithoutLocale =
           router.locale !== 'en'
-            ? sanitizedPath.replace(
+            ? sanitizedLocaleUrl.replace(
                 new RegExp(`^/${router.locale}(/|$)`),
                 '$1'
               ) || '/'
-            : sanitizedPath;
+            : sanitizedLocaleUrl;
 
-        pathForCanonical = pathWithoutLocale;
+        const queryFromAsPath = router.asPath.includes('?')
+          ? '?' + router.asPath.split('?')[1]
+          : '';
+
+        const cleanQueryFromAsPath = keepOnlyAllowedParams(queryFromAsPath);
+
+        pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
       } else {
-        if (seoProps?.languageUrls && seoProps.languageUrls[router.locale]) {
-          const localeUrl = seoProps.languageUrls[router.locale];
-          const cleanLocaleUrl = keepOnlyAllowedParams(localeUrl);
-
-          // Sanitize the locale URL
-          const sanitizedLocaleUrl = sanitizeUrl(cleanLocaleUrl);
-
-          const pathWithoutLocale =
-            router.locale !== 'en'
-              ? sanitizedLocaleUrl.replace(
-                  new RegExp(`^/${router.locale}(/|$)`),
-                  '$1'
-                ) || '/'
-              : sanitizedLocaleUrl;
-
-          const queryFromAsPath = router.asPath.includes('?')
-            ? '?' + router.asPath.split('?')[1]
-            : '';
-
-          const cleanQueryFromAsPath = keepOnlyAllowedParams(queryFromAsPath);
-
-          pathForCanonical = pathWithoutLocale + cleanQueryFromAsPath;
-        } else {
-          const serverPath = keepOnlyAllowedParams(router.asPath);
-          const sanitizedServerPath = sanitizeUrl(serverPath);
-          const [pathOnly, queryOnly] = sanitizedServerPath.split('?');
-          pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
-        }
+        const serverPath = keepOnlyAllowedParams(router.asPath);
+        const sanitizedServerPath = sanitizeUrl(serverPath);
+        const [pathOnly, queryOnly] = sanitizedServerPath.split('?');
+        pathForCanonical = queryOnly ? `${pathOnly}?${queryOnly}` : pathOnly;
       }
-
-      const normalizedPath = normalizeUrl(pathForCanonical);
-      canonicalUrl =
-        normalizedPath === '/' ? baseUrl : `${baseUrl}${normalizedPath}`;
     }
+
+    const normalizedPath = normalizeUrl(pathForCanonical);
+    canonicalUrl =
+      normalizedPath === '/' ? baseUrl : `${baseUrl}${normalizedPath}`;
   }
 
   // Clean up any double slashes (except after protocol)
   if (canonicalUrl) {
     canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
   }
-  console.log(
-    'shouldRenderCanonical:',
-    shouldRenderCanonical,
-    'shouldNoIndex:',
-    shouldNoIndex
-  );
 
   return (
     <Head>
@@ -368,8 +317,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       />
 
       {/* Hreflang tags - only render if not noindex and languageUrls is not false */}
-      {!shouldNoIndex &&
-        seoProps?.languageUrls !== false &&
+      {seoProps?.languageUrls !== false &&
         Object.entries(hreflangUrls).map(([hreflang, url]) => (
           <link key={hreflang} rel="alternate" hrefLang={hreflang} href={url} />
         ))}
