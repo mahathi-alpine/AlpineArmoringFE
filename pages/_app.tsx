@@ -12,7 +12,6 @@ import CookieConsent from 'components/global/cookie-consent/CookieConsent';
 export default function App({ Component, pageProps }) {
   const { lang } = useLocale();
   const router = useRouter();
-  const [currentSeoData, setCurrentSeoData] = useState(pageProps.seoData);
   const [isLoading, setIsLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
@@ -38,13 +37,6 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     setCurrentLanguage(router.locale);
   }, [router.locale]);
-
-  // Update SEO data when pageProps changes (including after locale changes)
-  useEffect(() => {
-    if (pageProps.seoData) {
-      setCurrentSeoData(pageProps.seoData);
-    }
-  }, [pageProps.seoData]);
 
   if (typeof window !== 'undefined') {
     if (!window.ResizeObserver) install();
@@ -123,7 +115,7 @@ export default function App({ Component, pageProps }) {
       {/* {currentSeoData && (
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
       )} */}
-      <Layout seoData={currentSeoData}>
+      <Layout>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
         <CookieConsent />

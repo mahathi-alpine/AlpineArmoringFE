@@ -51,7 +51,7 @@ const termina = localFont({
   preload: true,
 });
 
-const Layout = ({ children, seoData }) => {
+const Layout = ({ children }) => {
   const router = useRouter();
   const { lang } = useLocale();
 
@@ -63,12 +63,6 @@ const Layout = ({ children, seoData }) => {
     '/ballistic-testing',
   ];
   const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
-  const pathsPadding0 = [
-    '/news/',
-    '/blog/',
-    '/ballistic-testing',
-    '/locations-we-serve',
-  ];
   const footerPadding0 = ['/available-now'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
@@ -89,10 +83,6 @@ const Layout = ({ children, seoData }) => {
   const pathsHeaderTransparent = ['/ballistic-testing'];
   const isHeaderGray = pathsHeaderTransparent.some(
     (path) => router.pathname.startsWith(path) || isHomepage
-  );
-
-  const isPadding0 = pathsPadding0.some((path) =>
-    router.pathname.startsWith(path)
   );
 
   const [isNavOpen, setNavOpen] = useState(false);
@@ -164,15 +154,7 @@ const Layout = ({ children, seoData }) => {
         />
       </noscript>
 
-      {seoData && (
-        <Seo
-          props={seoData}
-          isDarkMode={isDarkMode}
-          isPadding0={isPadding0}
-          isHomepage={isHomepage}
-          isHeaderGray={isHeaderGray}
-        />
-      )}
+      <Seo />
 
       <div className={termina.className}>
         <Header
