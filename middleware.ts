@@ -386,7 +386,9 @@ export function middleware(request: NextRequest) {
     nxtParam ||
     hasChryslerMake
   ) {
-    const response = NextResponse.next();
+    const url = request.nextUrl.clone();
+    url.searchParams.set('__nocanonical', '1');
+    const response = NextResponse.rewrite(url);
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;
   }

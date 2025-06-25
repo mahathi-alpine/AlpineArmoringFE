@@ -50,6 +50,12 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
 
+  const middlewareDisableCanonical = !!(
+    router.query.__nocanonical ||
+    (typeof window !== 'undefined' &&
+      new URLSearchParams(window.location.search).has('__nocanonical'))
+  );
+
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
     setSeoProps(props);
@@ -65,7 +71,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
         params.has('source')
       );
     } else {
-      // Server-side: check router.query first, then fallback to parsing asPath
       const { vehicles_we_armor, vehiculos_que_blindamos, source } =
         router.query;
       let hasParams = !!(
@@ -74,7 +79,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
         source
       );
 
-      // Fallback: parse from asPath if query is empty
       if (!hasParams && router.asPath.includes('?')) {
         const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
         hasParams =
@@ -82,12 +86,11 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
           urlParams.has('vehiculos_que_blindamos') ||
           urlParams.has('source');
       }
-
       return hasParams;
     }
   };
 
-  const shouldNoIndex = hasNoIndexParams();
+  const shouldNoIndex = middlewareDisableCanonical || hasNoIndexParams();
 
   const baseUrlDefault = `https://www.alpineco.com`;
   const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
