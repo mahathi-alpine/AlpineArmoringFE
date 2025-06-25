@@ -49,6 +49,7 @@ const isFullUrl = (url) => {
 const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
+  let shouldRenderCanonical = false;
 
   // Update seoProps when props change (including after locale refetch)
   useEffect(() => {
@@ -227,7 +228,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   // Canonical URL construction - skip if shouldNoIndex
   let canonicalUrl;
-  let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
+  shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
 
   // Check if canonicalURL is explicitly set to false
   if (seoProps?.canonicalURL === false || shouldNoIndex) {
