@@ -1,14 +1,14 @@
 // import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import Seo from '../components/Seo';
+const ClientOnlySeo = dynamic(() => import('../components/Seo'), {
+  ssr: false,
+});
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import useLocale from 'hooks/useLocale';
-const ClientOnlySeo = dynamic(() => import('../components/Seo'), {
-  ssr: false,
-});
 
 import Header from './global/header/Header';
 import Footer from './global/footer/Footer';
@@ -54,7 +54,7 @@ const termina = localFont({
   preload: true,
 });
 
-const Layout = ({ children }) => {
+const Layout = ({ children, seoData }) => {
   const router = useRouter();
   const { lang } = useLocale();
 
@@ -66,6 +66,12 @@ const Layout = ({ children }) => {
     '/ballistic-testing',
   ];
   const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];
+  const pathsPadding0 = [
+    '/news/',
+    '/blog/',
+    '/ballistic-testing',
+    '/locations-we-serve',
+  ];
   const footerPadding0 = ['/available-now'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
@@ -86,6 +92,10 @@ const Layout = ({ children }) => {
   const pathsHeaderTransparent = ['/ballistic-testing'];
   const isHeaderGray = pathsHeaderTransparent.some(
     (path) => router.pathname.startsWith(path) || isHomepage
+  );
+
+  const isPadding0 = pathsPadding0.some((path) =>
+    router.pathname.startsWith(path)
   );
 
   const [isNavOpen, setNavOpen] = useState(false);
@@ -111,7 +121,11 @@ const Layout = ({ children }) => {
     setNavOpen(false);
   }, [router.pathname]);
 
-  const isInventoryPage = router.pathname.startsWith('/available-now');
+  const noSEO = !!(
+    router.asPath.includes('vehicles_we_armor=') ||
+    router.asPath.includes('vehiculos_que_blindamos=') ||
+    router.asPath.includes('source=')
+  );
 
   return (
     <>
@@ -159,7 +173,25 @@ const Layout = ({ children }) => {
         />
       </noscript>
 
-      {isInventoryPage ? <ClientOnlySeo /> : <Seo />}
+      {noSEO ? (
+        <ClientOnlySeo
+          props={seoData}
+          isDarkMode={isDarkMode}
+          isPadding0={isPadding0}
+          isHomepage={isHomepage}
+          isHeaderGray={isHeaderGray}
+        />
+      ) : (
+        seoData && (
+          <Seo
+            props={seoData}
+            isDarkMode={isDarkMode}
+            isPadding0={isPadding0}
+            isHomepage={isHomepage}
+            isHeaderGray={isHeaderGray}
+          />
+        )
+      )}
 
       <div className={termina.className}>
         <Header
