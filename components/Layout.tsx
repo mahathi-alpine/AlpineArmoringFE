@@ -126,7 +126,7 @@ const Layout = ({ children, seoData }) => {
     router.asPath.includes('vehiculos_que_blindamos=') ||
     router.asPath.includes('source=')
   );
-
+  console.log('noSEO ' + noSEO);
   return (
     <>
       <Script
