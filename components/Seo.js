@@ -296,7 +296,8 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   if (canonicalUrl) {
     canonicalUrl = canonicalUrl.replace(/([^:])\/+/g, '$1/');
   }
-
+  console.log(shouldRenderCanonical);
+  console.log(canonicalUrl);
   return (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
