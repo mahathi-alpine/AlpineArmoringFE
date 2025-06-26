@@ -1,5 +1,6 @@
 import styles from './Banner.module.scss';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Button from 'components/global/button/Button';
 import TabSlider from 'components/global/tab-slider/TabSlider';
 import { useIsMobile } from 'hooks/useIsMobile';
@@ -18,6 +19,7 @@ const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
 const Banner = (props) => {
   const { lang } = useLocale();
   const data = props.props;
+  const router = useRouter();
 
   const hasNullFlag = (inventory) =>
     inventory.some(
@@ -154,9 +156,13 @@ const Banner = (props) => {
 
             {data.inventory?.length > 0 && hasNullFlag(data.inventory) && (
               <Button
-                href={`${lang.vehiclesWeArmorStock}${data.slug}`}
+                onClick={() => {
+                  router.push(`${lang.vehiclesWeArmorStock}${data.slug}`);
+                }}
+                button
+                // href={`${lang.vehiclesWeArmorStock}${data.slug}`}
                 className={`${styles.banner_buttons_item} shiny`}
-                nofollow={true}
+                // nofollow={true}
               >
                 {lang.viewInStockAvailability}
               </Button>

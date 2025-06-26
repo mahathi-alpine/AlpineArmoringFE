@@ -55,6 +55,39 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     setSeoProps(props);
   }, [props]);
 
+  const hasNoIndexParams = () => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return (
+        params.has('vehicles_we_armor') ||
+        params.has('vehiculos_que_blindamos') ||
+        params.has('source')
+      );
+    } else {
+      // Server-side: check router.query first, then fallback to parsing asPath
+      const { vehicles_we_armor, vehiculos_que_blindamos, source } =
+        router.query;
+      let hasParams = !!(
+        vehicles_we_armor ||
+        vehiculos_que_blindamos ||
+        source
+      );
+
+      // Fallback: parse from asPath if query is empty
+      if (!hasParams && router.asPath.includes('?')) {
+        const urlParams = new URLSearchParams(router.asPath.split('?')[1]);
+        hasParams =
+          urlParams.has('vehicles_we_armor') ||
+          urlParams.has('vehiculos_que_blindamos') ||
+          urlParams.has('source');
+      }
+
+      return hasParams;
+    }
+  };
+
+  const shouldNoIndex = hasNoIndexParams();
+
   const baseUrlDefault = process.env.NEXT_PUBLIC_URL;
   const baseUrl = `${baseUrlDefault}${router.locale !== 'en' ? `/${router.locale}` : ''}`;
 
@@ -156,6 +189,10 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const queryString = getCurrentQueryString();
 
   const buildHreflangUrls = () => {
+    // Don't build hreflang URLs if page should be noindex
+    if (shouldNoIndex) {
+      return {};
+    }
     // Check if languageUrls is explicitly set to false
     if (seoProps?.languageUrls === false) {
       return {};
@@ -186,10 +223,10 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   const hreflangUrls = buildHreflangUrls();
 
   let canonicalUrl;
-  let shouldRenderCanonical = true;
+  let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
 
   // Check if canonicalURL is explicitly set to false
-  if (seoProps?.canonicalURL === false) {
+  if (seoProps?.canonicalURL === false || shouldNoIndex) {
     shouldRenderCanonical = false;
   } else if (seoProps?.canonicalURL) {
     const cleanCanonical = sanitizeUrl(seoProps.canonicalURL);
@@ -317,7 +354,8 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       />
 
       {/* Hreflang tags - only render if not noindex and languageUrls is not false */}
-      {seoProps?.languageUrls !== false &&
+      {!shouldNoIndex &&
+        seoProps?.languageUrls !== false &&
         Object.entries(hreflangUrls).map(([hreflang, url]) => (
           <link key={hreflang} rel="alternate" hrefLang={hreflang} href={url} />
         ))}

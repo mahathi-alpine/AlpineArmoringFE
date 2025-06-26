@@ -76,7 +76,7 @@ function Inventory(props) {
   };
   const faqs = pageData?.faqs;
 
-  const { q } = router.query;
+  const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
   const [allVehicles, setAllVehicles] = useState([]);
   const [filteredVehicles, setFilteredVehicles] = useState([]);
@@ -107,19 +107,38 @@ function Inventory(props) {
       });
     }
 
+    if (
+      (vehicles_we_armor && typeof vehicles_we_armor === 'string') ||
+      (vehiculos_que_blindamos && typeof vehiculos_que_blindamos === 'string')
+    ) {
+      const categorySlug = vehicles_we_armor || vehiculos_que_blindamos;
+      if (typeof categorySlug === 'string') {
+        const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
+        filtered = filtered.filter((vehicle) => {
+          const vehiclesWeArmorArray =
+            vehicle.attributes?.vehicles_we_armor?.data || [];
+          return vehiclesWeArmorArray.some((item) => {
+            const slug =
+              item.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
+            return slug.includes(searchTerms);
+          });
+        });
+      }
+    }
+
     setFilteredVehicles(filtered);
 
-    if (q) {
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) {
       setDisplayedVehicles(filtered);
       setVisibleCount(filtered.length);
     } else {
       setDisplayedVehicles(filtered.slice(0, ITEMS_TO_DISPLAY));
       setVisibleCount(ITEMS_TO_DISPLAY);
     }
-  }, [q, allVehicles]);
+  }, [q, vehicles_we_armor, vehiculos_que_blindamos, allVehicles]);
 
   const handleIntersection = useCallback(async () => {
-    if (q) return;
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
 
     const nextBatchStart = displayedVehicles.length;
     const remainingItems = filteredVehicles.length - nextBatchStart;
@@ -134,10 +153,16 @@ function Inventory(props) {
       setDisplayedVehicles((prev) => [...prev, ...nextBatch]);
       setVisibleCount((prev) => prev + itemsToAdd);
     }
-  }, [filteredVehicles, displayedVehicles.length, q]);
+  }, [
+    filteredVehicles,
+    displayedVehicles.length,
+    q,
+    vehicles_we_armor,
+    vehiculos_que_blindamos,
+  ]);
 
   useEffect(() => {
-    if (q) return;
+    if (q || vehicles_we_armor || vehiculos_que_blindamos) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -160,7 +185,7 @@ function Inventory(props) {
     if (target) observer.observe(target);
 
     return () => observer.disconnect();
-  }, [handleIntersection, q]);
+  }, [handleIntersection, q, vehicles_we_armor, vehiculos_que_blindamos]);
 
   const [isContentExpanded, setIsContentExpanded] = useState(false);
   const contentRef = useRef(null);
@@ -344,7 +369,9 @@ function Inventory(props) {
           </div>
         </div>
 
-        {!q && <div className={`observe bottomObserver`}></div>}
+        {!q && !vehicles_we_armor && !vehiculos_que_blindamos && (
+          <div className={`observe bottomObserver`}></div>
+        )}
 
         {bottomText && bottomTextContent.dynamicZone.length == 0 && (
           <div className={`container_small`}>
@@ -408,7 +435,7 @@ export async function getStaticProps(context) {
       route: route.collectionSingle,
       params: '',
       sort: 'order',
-      populate: 'featuredImage',
+      populate: 'featuredImage, vehicles_we_armor',
       fields:
         'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
       pageSize: 100,

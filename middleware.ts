@@ -373,8 +373,8 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
-    pathname.startsWith('/available-now/vehicles_we_armor') ||
-    pathname.startsWith('/disponible-ahora/vehiculos_que_blindamos') ||
+    searchParams.has('vehicles_we_armor') ||
+    searchParams.has('vehiculos_que_blindamos') ||
     searchParams.has('type') ||
     searchParams.has('q') ||
     searchParams.has('brand') ||
