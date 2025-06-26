@@ -156,7 +156,8 @@ small {
       margin-bottom: 0;
     }
   }
-  a, .URLRouter {
+  a,
+  .URLRouter {
     color: var(--color-primary);
     font-weight: var(--font-medium);
     text-decoration: underline;
