@@ -149,6 +149,29 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
     // Additional sanitization step
     const cleanPath = sanitizePath(normalizePath(rawPath));
 
+    // Check for nested available-now/vehicles_we_armor structure
+    const isNestedInventoryPage =
+      cleanPath.includes('vehicles_we_armor') &&
+      (cleanPath.includes('available-now') ||
+        cleanPath.includes('disponible-ahora'));
+
+    if (isNestedInventoryPage && query.slug) {
+      // Handle the nested structure: /available-now/vehicles_we_armor/[slug]
+      const slugMappings = await getLocalizedSlugs();
+      const localizedSlug = slugMappings[query.slug as string] || query.slug;
+
+      // Get the translated paths
+      const inventoryBasePath = routes.inventory.paths[langCode];
+      const vehiclesWeArmorPath =
+        langCode === 'en' ? 'vehicles_we_armor' : 'vehiculos_que_blindamos';
+
+      // Construct the new path
+      const newPath = `${inventoryBasePath}/${vehiclesWeArmorPath}/${localizedSlug}${queryString}`;
+
+      await router.push(newPath, undefined, { locale: langCode });
+      return;
+    }
+
     const hasTypeParameter = cleanPath.includes(lang.type);
 
     if (hasTypeParameter) {

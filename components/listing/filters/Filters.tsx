@@ -179,10 +179,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const getBaseUrl = () => {
     if (router.locale === 'en') {
-      // English pages
       if (
         router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]'
+        router.pathname === '/available-now/type/[type]' ||
+        router.pathname === '/available-now/vehicles_we_armor/[slug]'
       ) {
         return '/available-now';
       }
@@ -193,18 +193,18 @@ const Filters = ({ props, plain }: FiltersProps) => {
         return '/vehicles-we-armor';
       }
     } else {
-      // Non-English pages
       if (
         router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]'
+        router.pathname === '/available-now/type/[type]' ||
+        router.pathname === '/available-now/vehicles_we_armor/[slug]'
       ) {
-        return `/${router.locale}/${lang.availableNowURL}`; // /es/disponible-ahora
+        return `/${router.locale}/${lang.availableNowURL}`;
       }
       if (
         router.pathname === '/vehicles-we-armor' ||
         router.pathname === '/vehicles-we-armor/type/[type]'
       ) {
-        return `/${router.locale}${lang.vehiclesWeArmorURL}`; // /es/vehiculos-que-blindamos
+        return `/${router.locale}${lang.vehiclesWeArmorURL}`;
       }
     }
 
