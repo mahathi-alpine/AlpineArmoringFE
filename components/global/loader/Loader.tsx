@@ -9,6 +9,7 @@ const Default = () => {
           alt="Alpine loading gif"
           width={120}
           height={120}
+          unoptimized
         />
       </div>
     </div>

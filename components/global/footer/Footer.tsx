@@ -91,6 +91,7 @@ const Footer = (props) => {
                   alt="armored vehicles"
                   fill
                   objectPosition="right"
+                  unoptimized
                 />
               </div>
             )}

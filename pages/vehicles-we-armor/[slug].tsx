@@ -163,7 +163,7 @@ function Vehicle(props) {
       image: data?.featuredImage?.data?.attributes?.url,
       description:
         props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
-      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
       brand: {
         '@type': 'Brand',
         name: `Alpine Armoring® ${lang.armoredVehicles}`,
@@ -171,7 +171,7 @@ function Vehicle(props) {
       sku: `Alpine-${data?.slug}`,
       offers: {
         '@type': 'AggregateOffer',
-        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
+        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
         priceCurrency: 'USD',
         lowPrice: '50000',
         highPrice: '200000',
@@ -204,25 +204,25 @@ function Vehicle(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Vehicles we armor',
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
         },
         // {
         //   '@type': 'ListItem',
         //   position: 3,
         //   name: category,
-        //   item: `https://www.alpineco.com/vehicles-we-armor/type/${categorySlug}`,
+        //   item: `${process.env.NEXT_PUBLIC_URL}/vehicles-we-armor/type/${categorySlug}`,
         // },
         {
           '@type': 'ListItem',
           position: 3,
           name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
         },
       ],
     };

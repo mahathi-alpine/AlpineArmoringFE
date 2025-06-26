@@ -29,6 +29,7 @@ const BallisticChartBottomHeading = (props) => {
           width="384"
           height="229"
           className={`${styles.ballistic_bottom_top_logo}`}
+          unoptimized
         ></Image>
         <div className={`${styles.ballistic_bottom_top_content}`}>
           <h2

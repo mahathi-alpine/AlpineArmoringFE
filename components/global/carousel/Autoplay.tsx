@@ -197,6 +197,7 @@ const Autoplay: React.FC<AutoplayProps> = ({
                       alt={lang.alpineShield}
                       fill
                       className={styles.carouselCurved_shield}
+                      unoptimized
                     />
                   </div>
                 )}

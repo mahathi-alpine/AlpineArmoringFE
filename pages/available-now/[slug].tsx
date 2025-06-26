@@ -168,7 +168,7 @@ function InventoryVehicle(props) {
       image: data?.featuredImage?.data?.attributes?.url,
       description:
         props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
-      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
       manufacturer: {
         '@type': 'Organization',
         name: `Alpine Armoring`,
@@ -193,7 +193,7 @@ function InventoryVehicle(props) {
       },
       offers: {
         '@type': 'AggregateOffer',
-        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
+        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
         priceCurrency: 'USD',
         lowPrice: '50000',
         highPrice: '200000',
@@ -275,19 +275,19 @@ function InventoryVehicle(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
         },
       ],
     };

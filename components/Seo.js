@@ -55,8 +55,8 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     setSeoProps(props);
   }, [props]);
 
-  const baseUrlDefault = `https://www.alpineco.com`;
-  const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
+  const baseUrlDefault = process.env.NEXT_PUBLIC_URL;
+  const baseUrl = `${baseUrlDefault}${router.locale !== 'en' ? `/${router.locale}` : ''}`;
 
   const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
   const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
@@ -65,7 +65,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     seoProps?.metaImage?.data?.attributes.url ||
     seoProps?.thumbnail?.formats?.large?.url ||
     seoProps?.thumbnail?.url ||
-    'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png';
+    `${baseUrlDefault}/assets/Alpine-Armoring-Armored-Vehicles.png`;
 
   // Facebook social meta
   const facebookMeta =

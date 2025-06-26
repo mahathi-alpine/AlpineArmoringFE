@@ -571,5 +571,6 @@ export const config = {
     '/sitemap',
     '/((?!_next/static|_next/image|favicon.ico|api|sitemap.xml|robots|manifest|sw.js).*)',
     '/www.alpineco.com/:path*',
+    '/alpine-armoring-fe-kappa.vercel.app/:path*',
   ],
 };

@@ -103,7 +103,6 @@ const Header = ({
                 alt="armored vehicles"
                 width={125}
                 height={42}
-                quality={100}
                 priority
                 unoptimized
                 className={`${styles.header_logo_gold} header_logo_gold`}

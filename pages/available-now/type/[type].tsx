@@ -232,19 +232,19 @@ function Inventory(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: categoryTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}/${lang.type}/${categorySlug}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}/${lang.type}/${categorySlug}`,
         },
       ],
     };
