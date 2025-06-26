@@ -181,8 +181,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     if (router.locale === 'en') {
       if (
         router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]' ||
-        router.pathname === '/available-now/vehicles_we_armor/[slug]'
+        router.pathname === '/available-now/type/[type]'
       ) {
         return '/available-now';
       }
@@ -195,8 +194,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
     } else {
       if (
         router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]' ||
-        router.pathname === '/available-now/vehicles_we_armor/[slug]'
+        router.pathname === '/available-now/type/[type]'
       ) {
         return `/${router.locale}/${lang.availableNowURL}`;
       }
@@ -258,6 +256,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const cleanBaseUrl = getBaseUrl();
 
     const newQuery = { ...router.query };
+    delete newQuery['vehicles_we_armor'];
+    delete newQuery['vehiculos_que_blindamos'];
     delete newQuery.q;
     delete newQuery.nextInternalLocale;
     delete newQuery['nxtPtype'];
@@ -355,6 +355,8 @@ const Filters = ({ props, plain }: FiltersProps) => {
     const queryParams = new URLSearchParams(currentQuery || '');
 
     // Remove Next.js internal parameters and filter-specific params
+    queryParams.delete('vehicles_we_armor');
+    queryParams.delete('vehiculos_que_blindamos');
     queryParams.delete('type');
     queryParams.delete('tipo');
     queryParams.delete('q');

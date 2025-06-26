@@ -3,8 +3,6 @@ Disallow: /stock/
 Disallow: /stock
 Disallow: /inventory/
 Disallow: /inventory
-Disallow: /available-now/vehicles_we_armor/
-Disallow: /disponible-ahora/vehiculos_que_blindamos/
 Disallow: /vehicles-we-armor/inventory/
 Disallow: /vehicles-we-armor/inventory
 Disallow: /media/documents/

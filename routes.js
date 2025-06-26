@@ -83,10 +83,10 @@ const routes = {
       en: 'type',
       es: 'tipo',
     },
-    nestedPath: {
-      en: 'vehicles_we_armor',
-      es: 'vehiculos_que_blindamos',
-    },
+    // nestedPath: {
+    //   en: 'vehicles_we_armor',
+    //   es: 'vehiculos_que_blindamos',
+    // },
     types: vehicleTypes,
   },
   ballisticChart: {
@@ -245,7 +245,8 @@ const utils = {
       : `/${locale}${basePath}/${slug}`;
   },
 
-  getRewrites: (paths, typePath, nestedPath) => {
+  // getRewrites: (paths, typePath, nestedPath) => {
+  getRewrites: (paths, typePath) => {
     return Object.entries(paths)
       .filter(([locale]) => locale !== 'en')
       .flatMap(([locale, path]) => {
@@ -268,12 +269,12 @@ const utils = {
         }
 
         // Add nested path rewrites
-        if (nestedPath && nestedPath[locale]) {
-          rewrites.push({
-            source: `${path}/${nestedPath[locale]}/:slug`,
-            destination: `${paths.en}/${nestedPath.en}/:slug`,
-          });
-        }
+        // if (nestedPath && nestedPath[locale]) {
+        //   rewrites.push({
+        //     source: `${path}/${nestedPath[locale]}/:slug`,
+        //     destination: `${paths.en}/${nestedPath.en}/:slug`,
+        //   });
+        // }
 
         return rewrites;
       });
@@ -313,8 +314,9 @@ Object.entries(routes).forEach(([key, config]) => {
     ...config,
     getLocalizedPath: (locale, slug) =>
       utils.getLocalizedPath(config.paths, locale, slug),
-    getRewrites: () =>
-      utils.getRewrites(config.paths, config.typePath, config.nestedPath),
+    // getRewrites: () =>
+    //   utils.getRewrites(config.paths, config.typePath, config.nestedPath),
+    getRewrites: () => utils.getRewrites(config.paths, config.typePath),
     getLanguageUrls: (currentPage, locale) =>
       utils.getLanguageUrls(routes[key], currentPage, locale),
     getIndexLanguageUrls: (locale) =>
@@ -323,10 +325,10 @@ Object.entries(routes).forEach(([key, config]) => {
       if (!config.types?.[type]) return type;
       return config.types[type][locale] || type;
     },
-    getLocalizedNestedPath: (locale) => {
-      if (!config.nestedPath) return null;
-      return config.nestedPath[locale] || config.nestedPath.en;
-    },
+    // getLocalizedNestedPath: (locale) => {
+    //   if (!config.nestedPath) return null;
+    //   return config.nestedPath[locale] || config.nestedPath.en;
+    // },
   };
 });
 
