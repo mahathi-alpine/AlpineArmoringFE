@@ -71,7 +71,7 @@ function VehicleWeArmor(props) {
   const router = useRouter();
   const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
-  const topBanner = pageData?.banner;
+  const topBanner = { ...pageData?.banner, inventory: true };
   const bottomText = pageData?.bottomText;
 
   const faqs = (() => {

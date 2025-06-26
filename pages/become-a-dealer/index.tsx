@@ -1,11 +1,15 @@
 import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
+import { useRouter } from 'next/router';
+import useLocale from 'hooks/useLocale';
 import { getPageData } from 'hooks/api';
 import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import CustomMarkdown from 'components/CustomMarkdown';
 
 function Dealer(props) {
+  const router = useRouter();
+  const { lang } = useLocale();
   const banner = props?.pageData?.banner;
   const text = props?.pageData?.text;
 
@@ -21,6 +25,18 @@ function Dealer(props) {
       {text ? (
         <div className={`static container_small`}>
           <CustomMarkdown>{text}</CustomMarkdown>
+          <p>
+            {lang.ifInterestedPlease}&nbsp;
+            <span
+              onClick={() => {
+                router.push(`/contact?source=become-a-dealer`);
+              }}
+              className="URLRouter"
+            >
+              {lang.contact}
+            </span>{' '}
+            {lang.us}.
+          </p>
         </div>
       ) : null}
     </>

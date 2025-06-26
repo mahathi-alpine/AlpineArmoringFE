@@ -69,7 +69,7 @@ function Inventory(props) {
   const filters = props.filters;
   const searchQuery = props.searchQuery;
 
-  const topBanner = pageData?.banner;
+  const topBanner = { ...pageData?.banner, inventory: true };
   const bottomText = pageData?.bottomText;
   const bottomTextContent = {
     dynamicZone: pageData?.bottomTextDynamic || [],
@@ -78,9 +78,15 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles, setAllVehicles] = useState([]);
-  const [filteredVehicles, setFilteredVehicles] = useState([]);
-  const [displayedVehicles, setDisplayedVehicles] = useState([]);
+  const [allVehicles, setAllVehicles] = useState(vehicles?.data || []);
+  const [filteredVehicles, setFilteredVehicles] = useState(
+    vehicles?.data || []
+  );
+  const [displayedVehicles, setDisplayedVehicles] = useState(
+    searchQuery
+      ? vehicles?.data || []
+      : (vehicles?.data || []).slice(0, ITEMS_TO_DISPLAY)
+  );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
 

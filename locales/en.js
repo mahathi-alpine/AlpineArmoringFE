@@ -327,4 +327,6 @@ export default {
     'Our inventory system is currently down for maintenance. Please try again later.',
   availableForImmediateShipping: 'Available for immediate shipping',
   authors: 'Authors',
+  ifInterestedPlease: 'If interested, please',
+  us: 'us',
 };

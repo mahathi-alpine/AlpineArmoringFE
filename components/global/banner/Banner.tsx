@@ -7,8 +7,6 @@ import useLocale from 'hooks/useLocale';
 
 const TopBanner = ({ props, shape, small }: BannerProps) => {
   const router = useRouter();
-  const currentRoute = router.asPath;
-
   const bannerImage = props.media.data?.attributes;
   const bannerImageMobile = props.imageMobile?.data?.attributes;
   const bannerMimeType = props.media.data?.attributes.mime;
@@ -18,14 +16,9 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   const videoMP4 = props.mediaMP4?.data;
   const { lang } = useLocale();
 
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [imageKey, setImageKey] = useState(0);
 
   useEffect(() => {
-    if (isInitialLoad) {
-      setIsInitialLoad(false);
-      return;
-    }
     setImageKey((prev) => prev + 1);
   }, [bannerImage?.url]);
 
@@ -183,59 +176,18 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   // useEffect(() => {
   //   setIsClient(true)
   // }, [])
-
-  // Check if current language is not the default (en)
-  const isNonDefaultLanguage = router.locale !== 'en';
-
-  const [showSpecialBanner, setShowSpecialBanner] = useState(false);
-  const [showRegularBanner, setShowRegularBanner] = useState(true);
-
-  useEffect(() => {
-    // Only use this logic for non-default languages
-    if (isNonDefaultLanguage) {
-      const shouldShowSpecial =
-        currentRoute.startsWith(`/${lang.availableNowURL}`) ||
-        currentRoute.startsWith(`${lang.vehiclesWeArmorURL}`);
-      setShowSpecialBanner(shouldShowSpecial);
-
-      const shouldShowRegular =
-        !currentRoute.startsWith(`/${lang.availableNowURL}`) &&
-        !currentRoute.startsWith(`${lang.vehiclesWeArmorURL}`);
-      setShowRegularBanner(shouldShowRegular);
-    } else {
-      // For default language (en), use original logic
-      setShowSpecialBanner(
-        currentRoute.startsWith('/' + lang.availableNowURL) ||
-          currentRoute.startsWith(lang.vehiclesWeArmorURL)
-      );
-      setShowRegularBanner(
-        !currentRoute.startsWith('/' + lang.availableNowURL) &&
-          !currentRoute.startsWith(lang.vehiclesWeArmorURL)
-      );
-    }
-  }, [
-    currentRoute,
-    lang.availableNowURL,
-    lang.vehiclesWeArmorURL,
-    isNonDefaultLanguage,
-  ]);
-
   return (
     <div
       className={`
       ${styles.banner}
       ${small ? styles.banner_small : ''}
-      ${currentRoute.startsWith(lang.ballisticTestingURL) || currentRoute.startsWith('/ballistic-testing') ? styles.banner_full : ''}
+      ${props.ballisticTesting ? styles.banner_full : ''}
     `}
     >
       <div className={`${styles.banner_inner}`}>
         {mediaElement}
 
-        {/* {currentRoute.startsWith('/' + lang.availableNowURL) ||
-        currentRoute.startsWith(lang.vehiclesWeArmorURL) ? ( */}
-        {/* {isClient && (currentRoute.startsWith(`/${lang.availableNowURL}`) || currentRoute.startsWith(lang.vehiclesWeArmorURL)) && ( */}
-        {/* {(currentRoute.startsWith(availableNowPath) || currentRoute.startsWith(vehiclesArmorPath)) && ( */}
-        {showSpecialBanner && (
+        {props.inventory && (
           <div className={`${styles.banner_content}`}>
             <div className={`${styles.banner_text}`}>
               {bannerTitle ? (
@@ -268,7 +220,7 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
         />
       ) : null}
 
-      {bannerTitle && showRegularBanner && (
+      {bannerTitle && !props.inventory && (
         <>
           <h1
             className={`
@@ -283,12 +235,13 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
                   ? styles.banner_heading_margin
                   : ''
               }
-              ${!isNonDefaultLanguage ? 'observe fade-in-scale' : ''}`}
+              observe fade-in-scale
+            `}
             dangerouslySetInnerHTML={{ __html: bannerTitle }}
           ></h1>
           {bannerSubitle ? (
             <h2
-              className={`${styles.banner_subheading} ${!isNonDefaultLanguage ? 'observe fade-in-scale' : ''}`}
+              className={`${styles.banner_subheading} observe fade-in-scale`}
               dangerouslySetInnerHTML={{ __html: bannerSubitle }}
             ></h2>
           ) : null}

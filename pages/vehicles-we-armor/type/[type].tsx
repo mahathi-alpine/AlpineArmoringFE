@@ -125,7 +125,10 @@ function Inventory(props) {
   const currentCategory = props.filters?.type?.find(
     (item) => item.attributes.slug === props.query
   );
-  const topBanner = currentCategory?.attributes.allBanner;
+  const topBanner = {
+    ...currentCategory?.attributes.allBanner,
+    inventory: true,
+  };
   const bottomText = currentCategory?.attributes.bottomText;
   const faqs = currentCategory?.attributes.faqs_vehicles_we_armor;
 
@@ -311,9 +314,6 @@ function Inventory(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  console.log(props);
-  console.log(vehiclesData);
 
   return (
     <>

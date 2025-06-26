@@ -156,10 +156,11 @@ small {
       margin-bottom: 0;
     }
   }
-  a {
+  a, .URLRouter {
     color: var(--color-primary);
     font-weight: var(--font-medium);
     text-decoration: underline;
+    cursor: pointer;
   }
   // .text-wrap {
   //   margin-bottom: rem(24);
