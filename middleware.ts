@@ -72,6 +72,10 @@ const blockedPatterns: BlockedPattern[] = [
     exact: true,
   },
   {
+    pattern: '/vehiculos-vendidos',
+    exact: true,
+  },
+  {
     pattern: '/blog/alpine-armoring-featured-on-the-drive-com',
     exact: true,
   },
