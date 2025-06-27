@@ -101,12 +101,22 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/:path*',
+        source:
+          '/:path*\\.(jpg|jpeg|png|gif|webp|avif|svg|ico|mp4|webm|mov|woff|woff2|ttf|otf)$',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=2592000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://alpinetesting.cloudflex-ha.com',
+            value: process.env.NEXT_PUBLIC_API_URL,
           },
           {
             key: 'Access-Control-Allow-Methods',
@@ -115,7 +125,7 @@ module.exports = {
           {
             key: 'Access-Control-Allow-Headers',
             value:
-              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, x-strapi-secret',
           },
         ],
       },
