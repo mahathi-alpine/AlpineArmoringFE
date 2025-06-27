@@ -229,7 +229,7 @@ const additionalUrls = {
 };
 
 const config = {
-  baseUrl: 'https://www.alpineco.com',
+  baseUrl: process.env.NEXT_PUBLIC_URL,
   languages: ['en', 'es'],
   defaultLanguage: 'en',
   defaultPriority: '0.5',

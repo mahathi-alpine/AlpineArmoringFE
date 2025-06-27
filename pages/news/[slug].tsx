@@ -105,8 +105,8 @@ function NewsSingle(props) {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
-      '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
-      url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
+      '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
       headline: data.title,
       description: data?.excerpt || `${data.title} | Alpine Armoring`,
       image: data.thumbnail.data.attributes.url,
@@ -122,7 +122,7 @@ function NewsSingle(props) {
       },
       mainEntityOfPage: {
         '@type': 'WebPage',
-        url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
+        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
       },
       // "articleSection": "Category Name",
       wordCount: props.wordCount || 1500,
@@ -142,19 +142,19 @@ function NewsSingle(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang?.home || 'Home',
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang?.news || 'News',
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: data.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
         },
       ],
     };

@@ -17,8 +17,8 @@ const NavigationItem = ({
         width={imageWidth}
         height={imageHeight}
         className="large-only"
-        quality={100}
         priority
+        unoptimized
       />
     )}
   </div>

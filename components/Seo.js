@@ -55,7 +55,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     setSeoProps(props);
   }, [props]);
 
-  // Check if URL contains noindex query parameters
   const hasNoIndexParams = () => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -89,8 +88,8 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   const shouldNoIndex = hasNoIndexParams();
 
-  const baseUrlDefault = `https://www.alpineco.com`;
-  const baseUrl = `https://www.alpineco.com${router.locale !== 'en' ? `/${router.locale}` : ''}`;
+  const baseUrlDefault = process.env.NEXT_PUBLIC_URL;
+  const baseUrl = `${baseUrlDefault}${router.locale !== 'en' ? `/${router.locale}` : ''}`;
 
   const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
   const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
@@ -99,7 +98,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     seoProps?.metaImage?.data?.attributes.url ||
     seoProps?.thumbnail?.formats?.large?.url ||
     seoProps?.thumbnail?.url ||
-    'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png';
+    `${baseUrlDefault}/assets/Alpine-Armoring-Armored-Vehicles.png`;
 
   // Facebook social meta
   const facebookMeta =
@@ -189,13 +188,11 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
   // Get query string for hreflang URLs
   const queryString = getCurrentQueryString();
 
-  // Build hreflang URLs with query parameters - but skip if shouldNoIndex
   const buildHreflangUrls = () => {
     // Don't build hreflang URLs if page should be noindex
     if (shouldNoIndex) {
       return {};
     }
-
     // Check if languageUrls is explicitly set to false
     if (seoProps?.languageUrls === false) {
       return {};
@@ -225,7 +222,6 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
 
   const hreflangUrls = buildHreflangUrls();
 
-  // Canonical URL construction - skip if shouldNoIndex
   let canonicalUrl;
   let shouldRenderCanonical = !shouldNoIndex; // Don't render canonical if noindex
 

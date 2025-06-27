@@ -88,7 +88,7 @@ function Media(props) {
           name: 'Alpine Armoring',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
+            url: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Armored-Vehicles.png`,
           },
         },
         ...(attributes.location && {

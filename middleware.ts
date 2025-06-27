@@ -72,6 +72,10 @@ const blockedPatterns: BlockedPattern[] = [
     exact: true,
   },
   {
+    pattern: '/vehiculos-vendidos',
+    exact: true,
+  },
+  {
     pattern: '/blog/alpine-armoring-featured-on-the-drive-com',
     exact: true,
   },
@@ -354,10 +358,6 @@ export function middleware(request: NextRequest) {
   }
 
   // Check search params FIRST before any rewrites
-  const vehiclesWeArmorParam =
-    searchParams.has('vehicles_we_armor') ||
-    searchParams.has('vehiculos_que_blindamos');
-
   const nxtParam =
     searchParams.has('nxtPslug') ||
     searchParams.has('nxtPtype') ||
@@ -377,7 +377,8 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith('/inventory') ||
     pathname.startsWith('/vehicles-we-armor/inventory') ||
-    vehiclesWeArmorParam ||
+    searchParams.has('vehicles_we_armor') ||
+    searchParams.has('vehiculos_que_blindamos') ||
     searchParams.has('type') ||
     searchParams.has('q') ||
     searchParams.has('brand') ||
@@ -574,5 +575,6 @@ export const config = {
     '/sitemap',
     '/((?!_next/static|_next/image|favicon.ico|api|sitemap.xml|robots|manifest|sw.js).*)',
     '/www.alpineco.com/:path*',
+    '/alpine-armoring-fe-kappa.vercel.app/:path*',
   ],
 };

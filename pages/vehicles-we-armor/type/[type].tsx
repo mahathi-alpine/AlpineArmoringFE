@@ -125,7 +125,10 @@ function Inventory(props) {
   const currentCategory = props.filters?.type?.find(
     (item) => item.attributes.slug === props.query
   );
-  const topBanner = currentCategory?.attributes.allBanner;
+  const topBanner = {
+    ...currentCategory?.attributes.allBanner,
+    inventory: true,
+  };
   const bottomText = currentCategory?.attributes.bottomText;
   const faqs = currentCategory?.attributes.faqs_vehicles_we_armor;
 
@@ -264,19 +267,19 @@ function Inventory(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang.vehiclesWeArmor,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: categoryTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.vehiclesWeArmor.paths[router.locale]}/${lang.type}/${categorySlug}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.vehiclesWeArmor.paths[router.locale]}/${lang.type}/${categorySlug}`,
         },
       ],
     };
@@ -286,7 +289,7 @@ function Inventory(props) {
         '@type': 'ListItem',
         position: 4,
         name: make,
-        item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.vehiclesWeArmor.paths[router.locale]}/${lang.type}/${categorySlug}?make=${make}`,
+        item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.vehiclesWeArmor.paths[router.locale]}/${lang.type}/${categorySlug}?make=${make}`,
       });
     }
 
@@ -311,9 +314,6 @@ function Inventory(props) {
 
     return JSON.stringify(structuredData);
   };
-
-  console.log(props);
-  console.log(vehiclesData);
 
   return (
     <>

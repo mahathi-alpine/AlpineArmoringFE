@@ -123,19 +123,19 @@ function InventoryVehicle(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang.rentalVehicles,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.rentalVehiclesURL}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.rentalVehiclesURL}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.rentalVehiclesURL}/${data?.slug}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.rentalVehiclesURL}/${data?.slug}`,
         },
       ],
     };

@@ -53,34 +53,21 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const paths = [lang.availableNowURL, lang.vehiclesWeArmorURL];
 
-    const handleChangeStart = (url: string) => {
-      const isTargetPath = paths.some((path) => {
-        const regex = new RegExp(path.replace('[slug]', '.*'));
-        return regex.test(url);
-      });
-
+    const handleStart = (url: string) => {
+      const isTargetPath = paths.some((path) => url.includes(path));
       setIsLoading(isTargetPath);
     };
 
-    const handleChangeEnd = (url: string) => {
-      const isTargetPath = paths.some((path) => {
-        const regex = new RegExp(path.replace('[slug]', '.*'));
-        return regex.test(url);
-      });
+    const handleEnd = () => setIsLoading(false);
 
-      if (isTargetPath) {
-        setIsLoading(false);
-      }
-    };
-
-    Router.events.on('routeChangeStart', handleChangeStart);
-    Router.events.on('routeChangeComplete', handleChangeEnd);
-    Router.events.on('routeChangeError', handleChangeEnd);
+    Router.events.on('routeChangeStart', handleStart);
+    Router.events.on('routeChangeComplete', handleEnd);
+    Router.events.on('routeChangeError', handleEnd);
 
     return () => {
-      Router.events.off('routeChangeStart', handleChangeStart);
-      Router.events.off('routeChangeComplete', handleChangeEnd);
-      Router.events.off('routeChangeError', handleChangeEnd);
+      Router.events.off('routeChangeStart', handleStart);
+      Router.events.off('routeChangeComplete', handleEnd);
+      Router.events.off('routeChangeError', handleEnd);
     };
   }, []);
 

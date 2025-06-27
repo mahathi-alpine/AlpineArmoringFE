@@ -24,8 +24,8 @@ function Home({ homepageData, categories }) {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'Alpine Armoring',
-      url: 'https://www.alpineco.com',
-      logo: 'https://www.alpineco.com/assets/Alpine-Armoring-Armored-Vehicles.png',
+      url: process.env.NEXT_PUBLIC_URL,
+      logo: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Armored-Vehicles.png`,
       description:
         'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
       foundingDate: '1993',

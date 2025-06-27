@@ -25,6 +25,7 @@ const BallisticChartChosen = ({ items, onClose }) => {
                 width="60"
                 height="90"
                 className={`${styles.ballistic_chosen_list_left_logo}`}
+                unoptimized
               ></Image>
             </div>
 
@@ -84,6 +85,7 @@ const BallisticChartChosen = ({ items, onClose }) => {
                 alt=""
                 width="264"
                 height="71"
+                unoptimized
               ></Image>
 
               {items[0].name.map((listItem, spanIndex) => (
@@ -99,6 +101,7 @@ const BallisticChartChosen = ({ items, onClose }) => {
                 alt=""
                 width="100"
                 height="40"
+                unoptimized
               ></Image>
 
               <span>{items[1].name}</span>

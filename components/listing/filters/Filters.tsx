@@ -179,7 +179,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const getBaseUrl = () => {
     if (router.locale === 'en') {
-      // English pages
       if (
         router.pathname === '/available-now' ||
         router.pathname === '/available-now/type/[type]'
@@ -193,18 +192,17 @@ const Filters = ({ props, plain }: FiltersProps) => {
         return '/vehicles-we-armor';
       }
     } else {
-      // Non-English pages
       if (
         router.pathname === '/available-now' ||
         router.pathname === '/available-now/type/[type]'
       ) {
-        return `/${router.locale}/${lang.availableNowURL}`; // /es/disponible-ahora
+        return `/${router.locale}/${lang.availableNowURL}`;
       }
       if (
         router.pathname === '/vehicles-we-armor' ||
         router.pathname === '/vehicles-we-armor/type/[type]'
       ) {
-        return `/${router.locale}${lang.vehiclesWeArmorURL}`; // /es/vehiculos-que-blindamos
+        return `/${router.locale}${lang.vehiclesWeArmorURL}`;
       }
     }
 
@@ -567,11 +565,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
                         const currentQueryString =
                           router.asPath.split('?')[1] || '';
-                        const newUrl = constructFilterUrl(
+                        let newUrl = constructFilterUrl(
                           baseUrl,
                           item.attributes.slug,
                           currentQueryString
                         );
+                        newUrl = newUrl.startsWith('//')
+                          ? newUrl.substring(1)
+                          : newUrl;
 
                         return baseUrl.endsWith('/' + lang.availableNowURL) &&
                           item.attributes.inventory_vehicles?.data.length <

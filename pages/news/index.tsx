@@ -25,17 +25,16 @@ function News(props) {
       '@graph': [
         {
           '@type': ['WebPage', 'CollectionPage'],
-          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
-          url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
+          url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
           name: 'Armored Vehicle News & Updates | Alpine Armoring',
           description:
             'Stay informed with the latest news, updates, and industry insights from Alpine Armoring, a leader in armored vehicle innovation and security solutions.',
-          isPartOf: { '@id': 'https://www.alpineco.com/#website' },
+          isPartOf: { '@id': `${process.env.NEXT_PUBLIC_URL}/#website` },
           datePublished: props?.pageData?.createdAt,
           dateModified: props?.pageData?.updatedAt,
           inLanguage: 'en',
-          thumbnailUrl:
-            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fpress_room_banner_top_45fd354bd3.jpg&w=2200&q=100',
+          thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fpress_room_banner_top_45fd354bd3.jpg&w=2200&q=100`,
         },
         {
           '@type': 'BreadcrumbList',
@@ -44,20 +43,20 @@ function News(props) {
               '@type': 'ListItem',
               position: 1,
               name: lang.home,
-              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+              item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
             },
             {
               '@type': 'ListItem',
               position: 2,
               name: lang?.news || 'News',
-              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
+              item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}`,
             },
           ],
         },
         {
           '@type': 'WebSite',
-          '@id': 'https://www.alpineco.com/#website',
-          url: 'https://www.alpineco.com',
+          '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
+          url: process.env.NEXT_PUBLIC_URL,
           name: 'Alpine Armoring',
           description: 'Alpine Armoring - Armored Vehicle Manufacturer',
           potentialAction: [
@@ -65,7 +64,7 @@ function News(props) {
               '@type': 'SearchAction',
               target: {
                 '@type': 'EntryPoint',
-                urlTemplate: 'https://www.alpineco.com/?s={search_term_string}',
+                urlTemplate: `${process.env.NEXT_PUBLIC_URL}/?s={search_term_string}`,
               },
               'query-input': 'required name=search_term_string',
             },

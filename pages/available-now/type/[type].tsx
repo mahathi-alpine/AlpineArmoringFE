@@ -124,7 +124,6 @@ function Inventory(props) {
   const { lang } = useLocale();
   const router = useRouter();
 
-  // Use context data if available, fallback to props
   const vehicles = props.vehicles;
   const filters = props.filters;
   const query = props.query;
@@ -132,7 +131,10 @@ function Inventory(props) {
   const currentCategory = filters?.type?.find(
     (item) => item.attributes.slug === query
   );
-  const topBanner = currentCategory?.attributes.inventoryBanner;
+  const topBanner = {
+    ...currentCategory?.attributes.inventoryBanner,
+    inventory: true,
+  };
   const bottomText = currentCategory?.attributes.bottomTextInventory;
   let faqs = currentCategory?.attributes.faqs_stock;
   faqs = faqs?.length == 0 ? pageData?.faqs : faqs;
@@ -143,8 +145,10 @@ function Inventory(props) {
   const currentPath = router.asPath;
 
   // Static data - all vehicles for this category are pre-loaded
-  const [allVehicles, setAllVehicles] = useState([]);
-  const [filteredVehicles, setFilteredVehicles] = useState([]);
+  const [allVehicles, setAllVehicles] = useState(vehicles?.data || []);
+  const [filteredVehicles, setFilteredVehicles] = useState(
+    vehicles?.data || []
+  );
   const [itemsToRender, setItemsToRender] = useState(6);
   // const [loading, setLoading] = useState(false);
 
@@ -232,19 +236,19 @@ function Inventory(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang.availableNowTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: categoryTitle,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}/${lang.type}/${categorySlug}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}/${lang.type}/${categorySlug}`,
         },
       ],
     };

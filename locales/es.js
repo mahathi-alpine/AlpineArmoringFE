@@ -330,4 +330,6 @@ export default {
     'Nuestro sistema de inventario está inactivo por mantenimiento. Inténtelo de nuevo más tarde.',
   availableForImmediateShipping: 'Disponible para envío inmediato',
   authors: 'Autores',
+  ifInterestedPlease: 'Si está interesado, póngase en',
+  us: 'con nosotros',
 };

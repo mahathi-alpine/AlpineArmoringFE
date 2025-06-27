@@ -17,6 +17,7 @@ import ArrowIcon from 'components/icons/Arrow';
 
 function Testing(props) {
   const { lang } = useLocale();
+  const topBanner = { ...props?.pageData?.banner, ballisticTesting: true };
   const title = props?.pageData?.mainTitle;
   const heading = props?.pageData?.heading;
   const videos = props?.pageData?.section3Video?.data;
@@ -127,9 +128,7 @@ function Testing(props) {
   return (
     <>
       <div className={`${styles.testing} background-dark`}>
-        {props.pageData?.banner ? (
-          <Banner props={props.pageData?.banner} shape="dark" />
-        ) : null}
+        {topBanner && <Banner props={topBanner} shape="dark" />}
 
         {lang.ballisticCertifications ? (
           <TabSlider

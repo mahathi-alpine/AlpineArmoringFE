@@ -69,7 +69,7 @@ function Inventory(props) {
   const filters = props.filters;
   const searchQuery = props.searchQuery;
 
-  const topBanner = pageData?.banner;
+  const topBanner = { ...pageData?.banner, inventory: true };
   const bottomText = pageData?.bottomText;
   const bottomTextContent = {
     dynamicZone: pageData?.bottomTextDynamic || [],
@@ -78,9 +78,15 @@ function Inventory(props) {
 
   const { q, vehicles_we_armor, vehiculos_que_blindamos } = router.query;
 
-  const [allVehicles, setAllVehicles] = useState([]);
-  const [filteredVehicles, setFilteredVehicles] = useState([]);
-  const [displayedVehicles, setDisplayedVehicles] = useState([]);
+  const [allVehicles, setAllVehicles] = useState(vehicles?.data || []);
+  const [filteredVehicles, setFilteredVehicles] = useState(
+    vehicles?.data || []
+  );
+  const [displayedVehicles, setDisplayedVehicles] = useState(
+    searchQuery
+      ? vehicles?.data || []
+      : (vehicles?.data || []).slice(0, ITEMS_TO_DISPLAY)
+  );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleCount, setVisibleCount] = useState(ITEMS_TO_DISPLAY);
 
@@ -115,9 +121,13 @@ function Inventory(props) {
       if (typeof categorySlug === 'string') {
         const searchTerms = categorySlug.toLowerCase().replace(/[-\s]/g, '');
         filtered = filtered.filter((vehicle) => {
-          const slug =
-            vehicle.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
-          return slug.includes(searchTerms);
+          const vehiclesWeArmorArray =
+            vehicle.attributes?.vehicles_we_armor?.data || [];
+          return vehiclesWeArmorArray.some((item) => {
+            const slug =
+              item.attributes?.slug?.toLowerCase().replace(/[-\s]/g, '') || '';
+            return slug.includes(searchTerms);
+          });
         });
       }
     }
@@ -203,34 +213,32 @@ function Inventory(props) {
       '@graph': [
         {
           '@type': ['CollectionPage'],
-          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
-          url: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
+          url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
           name: 'Armored Vehicles For Sale: Bulletproof Cars, SUVs, Trucks | Alpine Armoring®',
           description:
             'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks that are completed and available for immediate shipping.',
           isPartOf: {
-            '@id': `https://www.alpineco.com/#website`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
           },
           inLanguage: 'en',
           primaryImageOfPage: {
-            '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
           },
           image: {
-            '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
           },
           breadcrumb: {
-            '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
           },
-          thumbnailUrl:
-            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100',
+          thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
         },
         {
           '@type': 'ImageObject',
           inLanguage: 'en',
-          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
-          url: 'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100',
-          contentUrl:
-            'https://www.alpineco.com/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100',
+          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+          url: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
+          contentUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
           width: 2200,
           height: 1200,
           caption:
@@ -238,26 +246,26 @@ function Inventory(props) {
         },
         {
           '@type': 'BreadcrumbList',
-          '@id': `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
           itemListElement: [
             {
               '@type': 'ListItem',
               position: 1,
               name: lang.home,
-              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+              item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
             },
             {
               '@type': 'ListItem',
               position: 2,
               name: lang.availableNowTitle,
-              item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+              item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
             },
           ],
         },
         {
           '@type': 'WebSite',
-          '@id': 'https://www.alpineco.com/#website',
-          url: 'https://www.alpineco.com',
+          '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
+          url: process.env.NEXT_PUBLIC_URL,
           name: 'Alpine Armoring',
           description: 'Alpine Armoring - Armored Vehicle Manufacturer',
           potentialAction: [
@@ -265,7 +273,7 @@ function Inventory(props) {
               '@type': 'SearchAction',
               target: {
                 '@type': 'EntryPoint',
-                urlTemplate: 'https://www.alpineco.com/?s={search_term_string}',
+                urlTemplate: `${process.env.NEXT_PUBLIC_URL}/?s={search_term_string}`,
               },
               'query-input': 'required name=search_term_string',
             },
@@ -433,7 +441,7 @@ export async function getStaticProps(context) {
       route: route.collectionSingle,
       params: '',
       sort: 'order',
-      populate: 'featuredImage',
+      populate: 'featuredImage, vehicles_we_armor',
       fields:
         'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
       pageSize: 100,

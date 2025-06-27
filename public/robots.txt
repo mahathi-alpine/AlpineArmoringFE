@@ -18,10 +18,8 @@ Disallow: /*?*slug=*
 Disallow: /*?*app=*
 Disallow: /*?*nextInternalLocale=*
 Disallow: /*?*make=chrysler
-Disallow: /contact?name=*
-Disallow: /contact?id=*
-Disallow: /contact?names=*
-Disallow: /contact?source=become-a-dealer
+Disallow: /contact?*
+Disallow: /contacto?*
 Disallow: /_next/image
 Disallow: /api/
 Disallow: /api

@@ -11,7 +11,7 @@ const TableRow = ({ item, index, onRowSelect, styles }) => (
           width={264}
           height={71}
           priority
-          quality={100}
+          unoptimized
         />
       </div>
     </div>
@@ -60,7 +60,7 @@ const TableRow = ({ item, index, onRowSelect, styles }) => (
         alt={`Bullet Level ${index + 1}`}
         width={232}
         height={56}
-        quality={100}
+        unoptimized
         priority
       />
     </div>

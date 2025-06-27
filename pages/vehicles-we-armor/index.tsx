@@ -71,7 +71,7 @@ function VehicleWeArmor(props) {
   const router = useRouter();
   const { lang } = useLocale();
   const { pageData, vehicles, filters, searchQuery } = props;
-  const topBanner = pageData?.banner;
+  const topBanner = { ...pageData?.banner, inventory: true };
   const bottomText = pageData?.bottomText;
 
   const faqs = (() => {
@@ -184,13 +184,13 @@ function VehicleWeArmor(props) {
           '@type': 'ListItem',
           position: 1,
           name: lang.home,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: lang.vehiclesWeArmor,
-          item: `https://www.alpineco.com${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
         },
       ],
     };
