@@ -1,5 +1,5 @@
 import styles from './VideoScale.module.scss';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export function animateVideo(entry) {
   const { bottom } = entry.getBoundingClientRect();
@@ -8,92 +8,104 @@ export function animateVideo(entry) {
 
   scale = scale < 0.8 ? 0.8 : scale > 1 ? 1 : scale;
   video.style.transform = `scale(${scale})`;
-
-  // Text transformation
-  // let textTrans = bottom - window.innerHeight;
-  // const headerLeft = entry.querySelector('.videoScale_header_left');
-  // const headerRight = entry.querySelector('.videoScale_header_right');
-
-  // textTrans = textTrans < 0 ? 0 : textTrans;
-  // headerLeft.style.transform = `translateX(${-textTrans}px)`;
-  // headerRight.style.transform = `translateX(${textTrans}px)`;
 }
 
-// const VideoScale = ({ videoWebm, videoMP4, text1 = '', text2 = '' }) => {
 const VideoScale = ({ videoWebm, videoMP4 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // function isSafari() {
-  //   const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
-
-  //   const isNotChrome =
-  //     navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
-
-  //   const isNotFirefox =
-  //     navigator.userAgent.toLowerCase().indexOf('firefox') === -1;
-
-  //   return isSafari && isNotChrome && isNotFirefox;
-  // }
-
-  // useEffect(() => {
-  //   if (isSafari() && videoMP4) {
-  //     const videoElement = videoRef.current;
-  //     if (videoElement) {
-  //       const webmSource = videoElement.querySelector(
-  //         'source[type="video/webm"]'
-  //       );
-  //       if (webmSource) {
-  //         webmSource.setAttribute('src', videoMP4.url);
-  //         webmSource.setAttribute('type', 'video/mp4');
-  //         videoElement.load();
-  //       }
-  //     }
-  //   }
-  // }, []);
+  const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const lazyLoadObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !shouldLoadVideo) {
+            setShouldLoadVideo(true);
+            lazyLoadObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        rootMargin: '200px 0px 200px 0px',
+        threshold: 0,
+      }
+    );
+
+    lazyLoadObserver.observe(container);
+
+    return () => {
+      lazyLoadObserver.disconnect();
+    };
+  }, [shouldLoadVideo]);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+
     const videoElement = videoRef.current;
     if (videoElement) {
       const handleEnded = () => {
-        videoRef.current.play();
+        if (videoRef.current) {
+          videoRef.current.play();
+        }
+      };
+
+      const handleLoadedData = () => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(console.error);
+        }
       };
 
       videoElement.addEventListener('ended', handleEnded);
+      videoElement.addEventListener('loadeddata', handleLoadedData);
 
       return () => {
         videoElement.removeEventListener('ended', handleEnded);
+        videoElement.removeEventListener('loadeddata', handleLoadedData);
       };
     }
-  }, []);
+  }, [shouldLoadVideo]);
 
   return (
-    <section className={`${styles.videoScale} observe videoScaleContainer`}>
+    <section
+      ref={containerRef}
+      className={`${styles.videoScale} observe videoScaleContainer`}
+    >
       <div className={`${styles.videoScale_shim}`}></div>
       <div className={`${styles.videoScale_sticky}`}>
-        <video
-          ref={videoRef}
-          className={`${styles.videoScale_video} videoScaleVideo`}
-          // loop={true}
-          autoPlay={true}
-          muted={true}
-          playsInline={true}
-          preload="metadata"
-        >
-          {videoWebm ? (
-            <source
-              src={`${videoWebm.url}`}
-              type={`${videoWebm.mime}`}
-            ></source>
-          ) : null}
-          {videoMP4 ? (
-            <source src={`${videoMP4.url}`} type={`${videoMP4.mime}`}></source>
-          ) : null}
-        </video>
-
-        {/* <div className={`${styles.videoScale_overlay}`}>
-          <h2 className="videoScale_header_left">{text1}</h2>
-          <h2 className="videoScale_header_right">{text2}</h2>
-        </div> */}
+        {shouldLoadVideo ? (
+          <video
+            ref={videoRef}
+            className={`${styles.videoScale_video} videoScaleVideo`}
+            muted={true}
+            playsInline={true}
+            loop={true}
+            preload="metadata"
+          >
+            {videoWebm ? (
+              <source src={`${videoWebm.url}`} type={`${videoWebm.mime}`} />
+            ) : null}
+            {videoMP4 ? (
+              <source src={`${videoMP4.url}`} type={`${videoMP4.mime}`} />
+            ) : null}
+          </video>
+        ) : (
+          <div
+            className={`${styles.videoScale_video} ${styles.videoScale_placeholder}`}
+            style={{
+              backgroundColor: '#000',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              fontSize: '14px',
+            }}
+          >
+            Loading video...
+          </div>
+        )}
       </div>
     </section>
   );

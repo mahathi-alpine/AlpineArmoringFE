@@ -29,7 +29,7 @@ function Dealer(props) {
             {lang.ifInterestedPlease}&nbsp;
             <span
               onClick={() => {
-                router.push(`/contact?source=become-a-dealer`);
+                router.push(`${lang.contactURL}?source=become-a-dealer`);
               }}
               className="URLRouter"
             >
