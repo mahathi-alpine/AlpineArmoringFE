@@ -120,23 +120,6 @@ const Layout = ({ children, seoData }) => {
 
   return (
     <>
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-1066421391"
-        strategy="afterInteractive"
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-1066421391');
-          `,
-        }}
-      />
-
       {/* Google Tag Manager */}
       <Script
         id="gtm"

@@ -19,36 +19,28 @@ module.exports = {
 
     return [...hardcodedRewrites, ...routeRewrites];
   },
+
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',
     localeDetection: false,
   },
-  // outputStrictMode: true,
-  // eslint: {
-  //   ignoreDuringBuilds: true,
-  // },
-  // async redirects() {
-  //   return await fetchRedirects();
-  // },
+
   sassOptions: {
     logger: {
       warn: (message) => {
-        // Ignore specific deprecation warnings
         if (message.includes('Deprecation') || message.includes('deprecat')) {
           return;
         }
-        // console.warn(message);
       },
     },
-    quietDeps: true, // Suppress dependency deprecation warnings
+    quietDeps: true,
     prependData: `@use './styles/_mixins.scss' as *;`,
   },
 
   images: {
     unoptimized: true,
-    // contentDispositionType: 'inline',
-    minimumCacheTTL: 60 * 60 * 24 * 30,
+    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year cache for images
     deviceSizes: [384, 640, 750, 828, 1080, 1200, 1920, 2200],
     imageSizes: [],
     formats: ['image/webp', 'image/avif'],
@@ -85,23 +77,84 @@ module.exports = {
       },
     ],
   },
+
   experimental: {
     largePageDataBytes: 800 * 1000,
-    // staleTimes: {
-    //   dynamic: 30,
-    //   static: 180,
-    // },
   },
-  // poweredByHeader: false,
-  // compress: true,
-  // swcMinify: true,
-  // bundlePagesRouterDependencies: true,
-  // serverExternalPackages: ['pdfjs-dist'],
-  // productionBrowserSourceMaps: true,
+
   async headers() {
     return [
+      // Cache static assets aggressively
       {
-        source: '/:path*',
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // 1 year
+          },
+        ],
+      },
+      {
+        source: '/videos/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // 1 year
+          },
+        ],
+      },
+      {
+        source: '/assets/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // 1 year
+          },
+        ],
+      },
+      // Cache all static files with common extensions
+      {
+        source: '/:path*\\.(jpg|jpeg|png|gif|webp|avif|svg|ico|mp4|webm|mov)$',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // 1 year
+          },
+        ],
+      },
+      // Cache CSS and JS files
+      {
+        source: '/:path*\\.(css|js|woff|woff2|ttf|otf)$',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // 1 year
+          },
+        ],
+      },
+      // Cache _next/static files (Next.js built assets)
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // 1 year
+          },
+        ],
+      },
+      // Shorter cache for HTML pages
+      {
+        source: '/:path*\\.(html)$',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, must-revalidate', // 1 hour
+          },
+        ],
+      },
+      // Your existing CORS headers for API routes
+      {
+        source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
