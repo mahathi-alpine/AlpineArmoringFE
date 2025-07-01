@@ -27,6 +27,7 @@ export default {
   privacyPolicyURL: '/politica-de-privacidad',
   vehiclesWeArmorStock: '/disponible-ahora/?vehiculos_que_blindamos=',
   blogsURL: '/blog',
+  armoredRentalsURL: '/alquiler-de-vehiculos-blindados',
 
   // availableNowTitle: 'Disponible ahora',
   availableNowTitle: 'Vehículos blindados en venta',

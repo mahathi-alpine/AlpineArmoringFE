@@ -6,7 +6,6 @@ import CustomMarkdown from 'components/CustomMarkdown';
 
 const Accordion = ({ items, title = '', button = false }) => {
   const { lang } = useLocale();
-  // Create an array of refs, one for each item
   const contentRefs = useRef([]);
 
   const [activeIndex, setActiveIndex] = useState(null);

@@ -431,7 +431,16 @@ export function middleware(request: NextRequest) {
     url.pathname = pathname.replace('/noticias/', '/news/');
     return NextResponse.rewrite(url);
   }
-
+  if (pathname === '/tabla-balistica') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/ballistic-chart';
+    return NextResponse.rewrite(url);
+  }
+  if (pathname === '/pruebas-balisticas') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/ballistic-testing';
+    return NextResponse.rewrite(url);
+  }
   if (pathname.startsWith('/disponible-ahora/tipo/')) {
     const url = request.nextUrl.clone();
     url.pathname = pathname.replace(
@@ -444,12 +453,6 @@ export function middleware(request: NextRequest) {
   if (pathname === '/todas-las-descargas') {
     const url = request.nextUrl.clone();
     url.pathname = '/all-downloads';
-    return NextResponse.rewrite(url);
-  }
-
-  if (pathname === '/pruebas-balisticas') {
-    const url = request.nextUrl.clone();
-    url.pathname = '/ballistic-testing';
     return NextResponse.rewrite(url);
   }
 

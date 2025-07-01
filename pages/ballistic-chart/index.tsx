@@ -1,5 +1,4 @@
 import { getPageData } from 'hooks/api';
-import withLocaleRefetch from 'components/withLocaleRefetch';
 import useAnimationObserver from 'hooks/useAnimationObserver';
 import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
@@ -51,17 +50,4 @@ export async function getStaticProps({ locale = 'en' }) {
   };
 }
 
-export default withLocaleRefetch(
-  Ballistic,
-  async (locale) => {
-    const data = await getPageData({
-      route: routes.ballisticChart.collection,
-      populate: 'deep',
-      locale,
-    });
-    return data.data?.attributes || null;
-  },
-  {
-    routeName: 'ballisticChart',
-  }
-);
+export default Ballistic;

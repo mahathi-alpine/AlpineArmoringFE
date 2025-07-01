@@ -1,5 +1,5 @@
 let lastDeployTime = 0;
-const DEPLOY_COOLDOWN = 5000;
+const DEPLOY_COOLDOWN = 10000;
 
 export default async function handler(req, res) {
   if (process.env.NODE_ENV !== 'production') {

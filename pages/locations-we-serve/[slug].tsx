@@ -117,6 +117,7 @@ export async function getServerSideProps(context) {
 
     seoData.thumbnail =
       data?.data?.[0]?.attributes?.thumbnail?.data.attributes ?? null;
+
     seoData.languageUrls = route.getLanguageUrls(
       data?.data?.[0]?.attributes,
       locale

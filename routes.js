@@ -95,6 +95,7 @@ const routes = {
       en: '/ballistic-chart',
       es: '/tabla-balistica',
     },
+    usesStaticProps: true,
   },
   ballisticTesting: {
     collection: 'ballistic-testing',
