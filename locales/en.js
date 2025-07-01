@@ -27,6 +27,7 @@ export default {
   privacyPolicyURL: '/privacy-policy',
   vehiclesWeArmorStock: '/available-now/?vehicles_we_armor=',
   blogsURL: '/blog',
+  armoredRentalsURL: '/armored-rentals',
 
   // availableNowTitle: 'Available Now',
   availableNowTitle: 'Armored Vehicles for Sale',
