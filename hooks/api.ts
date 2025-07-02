@@ -25,7 +25,7 @@ interface PageDataProps {
   route?: string;
   params?: string;
   slug?: string;
-  sort?: string;
+  sort?: string | string[];
   sortType?: string;
   populate?: string;
   fields?: string;
@@ -49,7 +49,18 @@ export async function getPageData({
   custom,
   locale = 'en',
 }: PageDataProps) {
-  const sortQuery = sort ? `&sort=${sort}:${sortType}` : '';
+  let sortQuery = '';
+  if (sort) {
+    if (Array.isArray(sort)) {
+      const sortParams = sort.map(
+        (field, index) => `sort[${index}]=${field}:${sortType}`
+      );
+      sortQuery = '&' + sortParams.join('&');
+    } else {
+      sortQuery = `&sort=${sort}:${sortType}`;
+    }
+  }
+
   const paramsQuery = params ? params : '';
   const populateQuery = populate ? 'populate=' + populate : '';
   const fieldsQuery = fields ? '&' + fields : '';

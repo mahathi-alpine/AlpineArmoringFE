@@ -433,16 +433,34 @@ export async function getStaticProps(context) {
     const vehicles = await getPageData({
       route: route.collectionSingle,
       params: `filters[categories][slug][$eq]=${localizedType}`,
-      sort: 'order',
       populate: 'featuredImage',
       fields:
-        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans',
+        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans&fields[12]=order&fields[13]=orderCategory',
+      // sort: ['orderCategory', 'order'],
       pageSize: 100,
       locale,
     });
 
     if (!vehicles || !vehicles.data) {
       throw new Error('Invalid vehicles data received from Strapi');
+    }
+
+    if (vehicles.data) {
+      vehicles.data.sort((a, b) => {
+        const aSort =
+          a.attributes.orderCategory !== null &&
+          a.attributes.orderCategory !== undefined
+            ? a.attributes.orderCategory
+            : (a.attributes.order ?? 999);
+
+        const bSort =
+          b.attributes.orderCategory !== null &&
+          b.attributes.orderCategory !== undefined
+            ? b.attributes.orderCategory
+            : (b.attributes.order ?? 999);
+
+        return aSort - bSort;
+      });
     }
 
     // Filter out hidden vehicles at build time
