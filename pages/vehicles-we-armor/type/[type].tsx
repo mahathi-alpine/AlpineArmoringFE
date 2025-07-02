@@ -158,12 +158,29 @@ function Inventory(props) {
         route: routes.vehiclesWeArmor.collectionSingle,
         params: query + `&pagination[page]=${nextPage}&pagination[pageSize]=12`,
         populate: 'featuredImage, make',
-        fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
-        sort: 'order',
+        fields:
+          'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=orderCategory',
+        // sort: ['orderCategory', 'order'],
         locale: router.locale,
       });
 
       if (newVehicles?.data) {
+        newVehicles.data.sort((a, b) => {
+          const aSort =
+            a.attributes.orderCategory !== null &&
+            a.attributes.orderCategory !== undefined
+              ? a.attributes.orderCategory
+              : (a.attributes.order ?? 999);
+
+          const bSort =
+            b.attributes.orderCategory !== null &&
+            b.attributes.orderCategory !== undefined
+              ? b.attributes.orderCategory
+              : (b.attributes.order ?? 999);
+
+          return aSort - bSort;
+        });
+
         setVehiclesData((prev) => [...prev, ...newVehicles.data]);
         setCurrentPage(nextPage);
         setHasMore(newVehicles.data.length === 12);
@@ -443,14 +460,33 @@ export async function getServerSideProps(context) {
       route: route.collectionSingle,
       params: query,
       populate: 'featuredImage, make',
-      fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
+      fields:
+        'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=orderCategory',
       pageSize,
-      sort: 'order',
+      // sort: ['orderCategory', 'order'],
       locale,
     });
 
     if (!vehicles || !vehicles.data) {
       throw new Error('Invalid vehicles data received from Strapi');
+    }
+
+    if (vehicles.data) {
+      vehicles.data.sort((a, b) => {
+        const aSort =
+          a.attributes.orderCategory !== null &&
+          a.attributes.orderCategory !== undefined
+            ? a.attributes.orderCategory
+            : (a.attributes.order ?? 999);
+
+        const bSort =
+          b.attributes.orderCategory !== null &&
+          b.attributes.orderCategory !== undefined
+            ? b.attributes.orderCategory
+            : (b.attributes.order ?? 999);
+
+        return aSort - bSort;
+      });
     }
 
     const filteredVehicles = {
