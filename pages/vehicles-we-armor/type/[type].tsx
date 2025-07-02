@@ -1,5 +1,5 @@
 import { getPageData } from 'hooks/api';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
@@ -133,109 +133,14 @@ function Inventory(props) {
   const faqs = currentCategory?.attributes.faqs_vehicles_we_armor;
 
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(
-    !props.searchQuery && props.vehicles.data.length === 12
-  );
 
-  const fetchMoreItems = useCallback(async () => {
-    if (loading || !hasMore || props.searchQuery) return;
-
-    setLoading(true);
-    const nextPage = currentPage + 1;
-
-    try {
-      let query = `filters[category][slug][$eq]=${props.query}`;
-      if (router.query.make) {
-        query += `&filters[make][slug][$eqi]=${router.query.make}`;
-      }
-      if (router.query.q) {
-        query += `&filters[slug][$notNull]=true`;
-      }
-
-      const newVehicles = await getPageData({
-        route: routes.vehiclesWeArmor.collectionSingle,
-        params: query + `&pagination[page]=${nextPage}&pagination[pageSize]=12`,
-        populate: 'featuredImage, make',
-        fields:
-          'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=orderCategory',
-        // sort: ['orderCategory', 'order'],
-        locale: router.locale,
-      });
-
-      if (newVehicles?.data) {
-        newVehicles.data.sort((a, b) => {
-          const aSort =
-            a.attributes.orderCategory !== null &&
-            a.attributes.orderCategory !== undefined
-              ? a.attributes.orderCategory
-              : (a.attributes.order ?? 999);
-
-          const bSort =
-            b.attributes.orderCategory !== null &&
-            b.attributes.orderCategory !== undefined
-              ? b.attributes.orderCategory
-              : (b.attributes.order ?? 999);
-
-          return aSort - bSort;
-        });
-
-        setVehiclesData((prev) => [...prev, ...newVehicles.data]);
-        setCurrentPage(nextPage);
-        setHasMore(newVehicles.data.length === 12);
-      } else {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error('Error fetching more vehicles:', error);
-      setHasMore(false);
-    } finally {
-      setLoading(false);
-    }
-  }, [
-    loading,
-    hasMore,
-    currentPage,
-    router.query,
-    router.locale,
-    props.query,
-    props.searchQuery,
-  ]);
-
-  // Reset state when filters change
   useEffect(() => {
     if (props.searchQuery) {
       setVehiclesData(props.vehicles.data);
-      setHasMore(false);
     } else {
       setVehiclesData(props.vehicles.data);
-      setHasMore(props.vehicles.data.length === 12);
     }
-    setCurrentPage(1);
   }, [router.query, props.vehicles.data, props.searchQuery]);
-
-  // Intersection Observer for infinite scroll
-  useEffect(() => {
-    if (props.searchQuery) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchMoreItems();
-        }
-      },
-      {
-        rootMargin: '0px 0px 20%',
-        threshold: 0,
-      }
-    );
-
-    const target = document.querySelector('.bottomObserver');
-    if (target) observer.observe(target);
-
-    return () => observer.disconnect();
-  }, [fetchMoreItems, props.searchQuery]);
 
   const categoryTitle = currentCategory?.attributes.title || '';
   const categorySlug = currentCategory?.attributes.slug || '';
@@ -402,8 +307,6 @@ function Inventory(props) {
         </div>
       </div>
 
-      {hasMore && !props.searchQuery && <div className="bottomObserver"></div>}
-
       {bottomText && (
         <div className="container_small">
           <div className={`${styles.listing_bottomText} darkColor`}>
@@ -415,15 +318,6 @@ function Inventory(props) {
       {faqs?.length > 0 && (
         <div className="mt2">
           <Accordion items={faqs} title={lang.frequentlyAskedQuestions} />
-        </div>
-      )}
-
-      {loading && (
-        <div
-          className={`${styles.listing_loading} ${styles.listing_loading_stock}`}
-          style={{ opacity: 1 }}
-        >
-          {lang.loading}
         </div>
       )}
     </>
@@ -442,7 +336,6 @@ export async function getServerSideProps(context) {
   const localizedType = route.getLocalizedType(englishType, locale);
   const { make: queryMake, q: queryQ } = context.query;
 
-  let pageSize = 12;
   let searchQuery = null;
   let query = `filters[category][slug][$eq]=${localizedType}`;
 
@@ -451,7 +344,6 @@ export async function getServerSideProps(context) {
   }
   if (queryQ) {
     query += `&filters[slug][$notNull]=true`;
-    pageSize = 100;
     searchQuery = true;
   }
 
@@ -462,7 +354,7 @@ export async function getServerSideProps(context) {
       populate: 'featuredImage, make',
       fields:
         'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=orderCategory',
-      pageSize,
+      pageSize: 100,
       // sort: ['orderCategory', 'order'],
       locale,
     });
