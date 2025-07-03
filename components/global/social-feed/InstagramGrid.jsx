@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Script from 'next/script';
 import InstagramEmbed from './InstagramEmbed';
 
-function InstagramGrid ({ posts = [] }) {
+function InstagramGrid({ posts = [] }) {
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
   const handleScriptLoad = () => {
@@ -24,12 +24,14 @@ function InstagramGrid ({ posts = [] }) {
 
   return (
     <div className="instagram-grid">
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-        gap: '20px',
-        padding: '20px',
-      }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '20px',
+          padding: '20px',
+        }}
+      >
         {posts.map((post, index) => (
           <InstagramEmbed
             key={`${post.url}-${index}`}
@@ -39,7 +41,7 @@ function InstagramGrid ({ posts = [] }) {
           />
         ))}
       </div>
-      
+
       <Script
         src="//www.instagram.com/embed.js"
         strategy="lazyOnload"
@@ -47,6 +49,6 @@ function InstagramGrid ({ posts = [] }) {
       />
     </div>
   );
-};
+}
 
 export default InstagramGrid;

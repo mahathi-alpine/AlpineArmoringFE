@@ -32,9 +32,8 @@ const InstagramEmbed = ({ url, width = 540, hideCaption = false }) => {
           width: '-webkit-calc(100% - 2px)',
           width: 'calc(100% - 2px)',
         }}
-      >
-      </blockquote>
-      
+      ></blockquote>
+
       <Script
         src="//www.instagram.com/embed.js"
         strategy="lazyOnload"
