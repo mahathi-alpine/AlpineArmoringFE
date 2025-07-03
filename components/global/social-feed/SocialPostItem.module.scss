@@ -1,0 +1,227 @@
+// components/SocialFeed/SocialPostItem.module.scss
+.socialPost {
+  flex: 1 1 calc(33.333% - 14px);
+  min-width: 280px;
+  max-width: calc(33.333% - 14px);
+
+  @media (max-width: 768px) {
+    flex: 1 1 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    min-width: calc(50% - 8px);
+  }
+
+  &_container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &_thumbnail {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    cursor: pointer;
+    overflow: hidden;
+    background: #f0f0f0;
+  }
+
+  &_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    opacity: 0;
+
+    &.loaded {
+      opacity: 1;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &_playOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    .socialPost_thumbnail:hover & {
+      opacity: 1;
+    }
+  }
+
+  &_videoPlayOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    cursor: pointer;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    padding: 8px;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    pointer-events: auto;
+
+    &:hover {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    &:active {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    @media (max-width: 768px) {
+      opacity: 0.9;
+    }
+  }
+
+  &_instagramPlayOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    padding: 8px;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      opacity: 0.9;
+    }
+  }
+
+  &_playIcon {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &_platform {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    padding: 6px 10px;
+  }
+
+  &_platformIcon {
+    font-size: 14px;
+  }
+
+  &_player {
+    width: 100%;
+    height: 500px;
+    background: #000;
+
+    iframe {
+      // position: relative;
+      // top: -55px;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    &_instagram{
+      // iframe {
+        position: relative;
+        // top: -55px;
+        // height: 555px;
+      // }
+    }
+  }
+
+  &_video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
+    border-radius: 12px 12px 0 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &_info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 10px 20px;
+    display: none;
+  }
+
+  &_stats {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      gap: 10px;
+    }
+  }
+
+  &_stat {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    @media (max-width: 768px) {
+      font-size: 11px;
+    }
+  }
+
+  &_caption {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+}

@@ -10,15 +10,112 @@ import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/homepage/tab-section/TabSection';
 import News from 'components/global/news/News';
 import Partners from 'components/homepage/partners/Partners';
-// import dynamic from 'next/dynamic';
-// const VideosPopup = dynamic(
-//   () => import('components/global/videos-popup/VideosPopup')
-// );
+import SocialFeed from 'components/global/social-feed/SocialFeed';
+import InstagramGrid from 'components/global/social-feed/InstagramGrid';
+
+const mockSocialPosts = [
+  {
+    platform: 'instagram',
+    type: 'reel',
+    postId: 'C3JKnuAPbJZ',
+    thumbnail:
+      'https://d102sycao8uwt8.cloudfront.net/medium_ballistic_bullet_chart_1_82702aa765.jpg',
+    caption: 'Amazing sunset drive through the mountains',
+    likes: '12K',
+    views: '45K',
+    comments: '234',
+  },
+  {
+    platform: 'youtube',
+    type: 'youtube_short',
+    postId: 'N61agu84CrE',
+    thumbnail:
+      'https://via.placeholder.com/400x400/FF0000/FFFFFF?text=YouTube+Short',
+    caption: 'Quick car review in under 60 seconds',
+    likes: '8.5K',
+    views: '156K',
+    comments: '432',
+  },
+  {
+    platform: 'tiktok',
+    type: 'tiktok',
+    postId: '7333732078158269742',
+    username: 'alpinearmoring',
+    fullUrl: 'https://www.tiktok.com/@alpinearmoring/video/7333732078158269742',
+    thumbnail:
+      'https://via.placeholder.com/400x400/000000/FFFFFF?text=TikTok+Video',
+    caption: 'POV: You find the perfect parking spot',
+    likes: '25K',
+    views: '1.2M',
+    comments: '876',
+  },
+  {
+    platform: 'instagram',
+    type: 'reel',
+    postId: 'DLaehL-RUWB',
+    thumbnail:
+      'https://d102sycao8uwt8.cloudfront.net/medium_ballistic_bullet_chart_1_82702aa765.jpg',
+    caption: 'Amazing sunset drive through the mountains',
+    likes: '12K',
+    views: '45K',
+    comments: '234',
+  },
+  {
+    platform: 'youtube',
+    type: 'youtube_video',
+    postId: 'VIDEO123',
+    thumbnail:
+      'https://via.placeholder.com/400x400/FF0000/FFFFFF?text=YouTube+Video',
+    caption: 'Full detailed review of the latest electric vehicle',
+    likes: '15K',
+    views: '234K',
+    comments: '1.2K',
+  },
+  {
+    platform: 'instagram',
+    type: 'reel',
+    postId: 'GHI789',
+    thumbnail:
+      'https://via.placeholder.com/400x400/FF6B6B/FFFFFF?text=Another+Reel',
+    caption: 'Behind the scenes of our latest photoshoot',
+    likes: '7.8K',
+    views: '89K',
+    comments: '456',
+  },
+  // Add more mock posts for testing pagination
+  {
+    platform: 'tiktok',
+    type: 'tiktok',
+    postId: '7987654321',
+    thumbnail:
+      'https://via.placeholder.com/400x400/000000/FFFFFF?text=TikTok+2',
+    caption: 'When the beat drops perfectly with the acceleration',
+    likes: '45K',
+    views: '2.1M',
+    comments: '1.5K',
+  },
+  {
+    platform: 'youtube',
+    type: 'youtube_short',
+    postId: 'SHORT789',
+    thumbnail:
+      'https://via.placeholder.com/400x400/FF0000/FFFFFF?text=YT+Short+2',
+    caption: 'This modification changed everything',
+    likes: '12K',
+    views: '178K',
+    comments: '678',
+  },
+];
 
 function Home({ homepageData, categories }) {
+  const instagramPosts = [
+    { url: 'https://www.instagram.com/p/C3JKnuAPbJZ/' },
+    { url: 'https://www.instagram.com/p/DLaehL-RUWB/' },
+  ];
+
   const { lang } = useLocale();
   const data = homepageData.data?.attributes;
-
+  const socialPosts = data.socialPostsData || mockSocialPosts;
   const getOrganizationStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -150,6 +247,9 @@ function Home({ homepageData, categories }) {
       ) : null}
 
       {partners ? <Partners props={partners} /> : null}
+
+      <InstagramGrid posts={instagramPosts} />
+      <SocialFeed socialPosts={socialPosts} />
     </>
   );
 }
@@ -167,7 +267,7 @@ export async function getStaticProps({ locale = 'en' }) {
     // custom:
     //   'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
     custom:
-      'populate=image&sort=orderAlternative:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
+      'populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
     locale,
   });
 

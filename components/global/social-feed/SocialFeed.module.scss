@@ -1,0 +1,52 @@
+// components/SocialFeed/SocialFeed.module.scss
+.socialFeed {
+  width: 100%;
+  // max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  &_grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &_loadMore {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  &_loadMoreButton {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    @media (max-width: 768px) {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+}
