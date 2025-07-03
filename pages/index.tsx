@@ -167,7 +167,7 @@ export async function getStaticProps({ locale = 'en' }) {
     // custom:
     //   'populate[inventory_vehicles][fields]=title&populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
     custom:
-      'populate=image&sort=orderAlternative:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
+      'populate=image&sort=order:asc&fields[0]=slug&fields[1]=title&fields[2]=order',
     locale,
   });
 
