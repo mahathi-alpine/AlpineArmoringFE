@@ -155,40 +155,79 @@ function Vehicle(props) {
   };
 
   // Product structured data
+  // const getProductStructuredData = () => {
+  //   return {
+  //     '@context': 'https://schema.org/',
+  //     '@type': ['Product'],
+  //     name: data?.title?.replace('\n', ' '),
+  //     image: data?.featuredImage?.data?.attributes?.url,
+  //     description:
+  //       props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
+  //     url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
+  //     brand: {
+  //       '@type': 'Brand',
+  //       name: `Alpine Armoring® ${lang.armoredVehicles}`,
+  //     },
+  //     sku: `Alpine-${data?.slug}`,
+  //     offers: {
+  //       '@type': 'AggregateOffer',
+  //       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
+  //       priceCurrency: 'USD',
+  //       lowPrice: '50000',
+  //       highPrice: '200000',
+  //       offerCount: '1',
+  //       availability: 'https://schema.org/InStock',
+  //       // itemCondition: 'https://schema.org/NewCondition',
+  //       seller: {
+  //         '@type': 'Organization',
+  //         name: 'Alpine Armoring',
+  //       },
+  //       description: 'Price available upon request. Contact us for details.',
+  //     },
+  //     additionalProperty: [
+  //       {
+  //         '@type': 'PropertyValue',
+  //         name: lang.offeredAtProtectionLevels,
+  //         value: data.protectionLevel || 'A4, A6, A9, A11',
+  //       },
+  //     ],
+  //   };
+  // };
   const getProductStructuredData = () => {
     return {
       '@context': 'https://schema.org/',
-      '@type': ['Product'],
-      name: data?.title?.replace('\n', ' '),
-      image: data?.featuredImage?.data?.attributes?.url,
+      '@type': 'Service',
+      name: `${data?.title?.replace('\n', ' ')} ${lang.armoringService || 'Armoring Service'}`,
       description:
-        props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
+        props.seoData?.metaDescription ||
+        `Professional armoring service for ${data?.title?.replace('\n', ' ')}`,
       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
+      provider: {
+        '@type': 'Organization',
+        name: 'Alpine Armoring',
+        url: process.env.NEXT_PUBLIC_URL,
+      },
+      serviceType: 'Vehicle Armoring',
+      category: 'Automotive Security Services',
+      image: data?.featuredImage?.data?.attributes?.url,
+      areaServed: {
+        '@type': 'Place',
+        name: 'Worldwide',
+      },
       brand: {
         '@type': 'Brand',
         name: `Alpine Armoring® ${lang.armoredVehicles}`,
-      },
-      sku: `Alpine-${data?.slug}`,
-      offers: {
-        '@type': 'AggregateOffer',
-        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
-        priceCurrency: 'USD',
-        lowPrice: '50000',
-        highPrice: '200000',
-        offerCount: '1',
-        availability: 'https://schema.org/InStock',
-        // itemCondition: 'https://schema.org/NewCondition',
-        seller: {
-          '@type': 'Organization',
-          name: 'Alpine Armoring',
-        },
-        description: 'Price available upon request. Contact us for details.',
       },
       additionalProperty: [
         {
           '@type': 'PropertyValue',
           name: lang.offeredAtProtectionLevels,
           value: data.protectionLevel || 'A4, A6, A9, A11',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Vehicle Model',
+          value: data?.title?.replace('\n', ' '),
         },
       ],
     };
