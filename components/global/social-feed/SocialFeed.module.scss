@@ -1,5 +1,5 @@
-.social_feed{
-  &_wrap{
+.social_feed {
+  &_wrap {
     @include breakpoint(large) {
       display: flex;
       flex-wrap: wrap;
@@ -15,7 +15,7 @@
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
-  
+
   .loading_spinner {
     width: 50px;
     height: 50px;
@@ -40,7 +40,7 @@
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
-  
+
   p {
     font-size: 1.1rem;
     color: #dc3545;
@@ -73,7 +73,7 @@
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
-  
+
   p {
     font-size: 1.2rem;
     color: #666;
@@ -82,6 +82,10 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
