@@ -1,5 +1,6 @@
 import { getPageData } from 'hooks/api';
 import Head from 'next/head';
+import { useState } from 'react';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 import useAnimationObserver from 'hooks/useAnimationObserver';
@@ -11,111 +12,100 @@ import TabSection from 'components/homepage/tab-section/TabSection';
 import News from 'components/global/news/News';
 import Partners from 'components/homepage/partners/Partners';
 import SocialFeed from 'components/global/social-feed/SocialFeed';
-import InstagramGrid from 'components/global/social-feed/InstagramGrid';
 
-const mockSocialPosts = [
+const videoData = [
   {
-    platform: 'instagram',
-    type: 'reel',
-    postId: 'C3JKnuAPbJZ',
-    thumbnail:
-      'https://d102sycao8uwt8.cloudfront.net/medium_ballistic_bullet_chart_1_82702aa765.jpg',
-    caption: 'Amazing sunset drive through the mountains',
-    likes: '12K',
-    views: '45K',
-    comments: '234',
+    id: '1',
+    attributes: {
+      title: 'Building Modern Web Apps with Next.js',
+      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+      thumbnailImage:
+        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+      description:
+        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+      duration: '15:42',
+      uploadDate: '2024-01-15',
+      author: 'TechChannel',
+    },
   },
   {
-    platform: 'youtube',
-    type: 'youtube_short',
-    postId: 'N61agu84CrE',
-    thumbnail:
-      'https://via.placeholder.com/400x400/FF0000/FFFFFF?text=YouTube+Short',
-    caption: 'Quick car review in under 60 seconds',
-    likes: '8.5K',
-    views: '156K',
-    comments: '432',
+    id: '2',
+    attributes: {
+      title: 'Custom Video Upload Demo',
+      videoFile:
+        'https://d102sycao8uwt8.cloudfront.net/Alpine_Armoring_homepage_video_6_16_25_7c8ebcf56e.webm', // Direct file path
+      thumbnailImage:
+        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+      description:
+        'This is a demo of a manually uploaded video file with custom thumbnail support.',
+      duration: '10:34',
+      uploadDate: '2024-01-10',
+      author: 'VideoCreator',
+    },
   },
   {
-    platform: 'tiktok',
-    type: 'tiktok',
-    postId: '7333732078158269742',
-    username: 'alpinearmoring',
-    fullUrl: 'https://www.tiktok.com/@alpinearmoring/video/7333732078158269742',
-    thumbnail:
-      'https://via.placeholder.com/400x400/000000/FFFFFF?text=TikTok+Video',
-    caption: 'POV: You find the perfect parking spot',
-    likes: '25K',
-    views: '1.2M',
-    comments: '876',
+    id: '1',
+    attributes: {
+      title: 'Building Modern Web Apps with Next.js',
+      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+      thumbnailImage:
+        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+      description:
+        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+      duration: '15:42',
+      uploadDate: '2024-01-15',
+      author: 'TechChannel',
+    },
   },
   {
-    platform: 'instagram',
-    type: 'reel',
-    postId: 'DLaehL-RUWB',
-    thumbnail:
-      'https://d102sycao8uwt8.cloudfront.net/medium_ballistic_bullet_chart_1_82702aa765.jpg',
-    caption: 'Amazing sunset drive through the mountains',
-    likes: '12K',
-    views: '45K',
-    comments: '234',
+    id: '1',
+    attributes: {
+      title: 'Building Modern Web Apps with Next.js',
+      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+      thumbnailImage:
+        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+      description:
+        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+      duration: '15:42',
+      uploadDate: '2024-01-15',
+      author: 'TechChannel',
+    },
   },
   {
-    platform: 'youtube',
-    type: 'youtube_video',
-    postId: 'VIDEO123',
-    thumbnail:
-      'https://via.placeholder.com/400x400/FF0000/FFFFFF?text=YouTube+Video',
-    caption: 'Full detailed review of the latest electric vehicle',
-    likes: '15K',
-    views: '234K',
-    comments: '1.2K',
+    id: '1',
+    attributes: {
+      title: 'Building Modern Web Apps with Next.js',
+      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+      thumbnailImage:
+        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+      description:
+        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+      duration: '15:42',
+      uploadDate: '2024-01-15',
+      author: 'TechChannel',
+    },
   },
   {
-    platform: 'instagram',
-    type: 'reel',
-    postId: 'GHI789',
-    thumbnail:
-      'https://via.placeholder.com/400x400/FF6B6B/FFFFFF?text=Another+Reel',
-    caption: 'Behind the scenes of our latest photoshoot',
-    likes: '7.8K',
-    views: '89K',
-    comments: '456',
+    id: '1',
+    attributes: {
+      title: 'Building Modern Web Apps with Next.js',
+      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+      thumbnailImage:
+        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+      description:
+        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+      duration: '15:42',
+      uploadDate: '2024-01-15',
+      author: 'TechChannel',
+    },
   },
-  // Add more mock posts for testing pagination
-  {
-    platform: 'tiktok',
-    type: 'tiktok',
-    postId: '7987654321',
-    thumbnail:
-      'https://via.placeholder.com/400x400/000000/FFFFFF?text=TikTok+2',
-    caption: 'When the beat drops perfectly with the acceleration',
-    likes: '45K',
-    views: '2.1M',
-    comments: '1.5K',
-  },
-  {
-    platform: 'youtube',
-    type: 'youtube_short',
-    postId: 'SHORT789',
-    thumbnail:
-      'https://via.placeholder.com/400x400/FF0000/FFFFFF?text=YT+Short+2',
-    caption: 'This modification changed everything',
-    likes: '12K',
-    views: '178K',
-    comments: '678',
-  },
+  // Add more videos...
 ];
 
 function Home({ homepageData, categories }) {
-  const instagramPosts = [
-    { url: 'https://www.instagram.com/p/C3JKnuAPbJZ/' },
-    { url: 'https://www.instagram.com/p/DLaehL-RUWB/' },
-  ];
-
   const { lang } = useLocale();
   const data = homepageData.data?.attributes;
-  const socialPosts = data.socialPostsData || mockSocialPosts;
+
   const getOrganizationStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
@@ -198,6 +188,14 @@ function Home({ homepageData, categories }) {
     dependencies: [homepageData, categories],
   });
 
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  const handleVideoSelect = (video) => {
+    setSelectedVideo(video);
+    console.log('Selected video:', video);
+    console.log(selectedVideo);
+  };
+
   return (
     <>
       <Head>
@@ -248,8 +246,7 @@ function Home({ homepageData, categories }) {
 
       {partners ? <Partners props={partners} /> : null}
 
-      <InstagramGrid posts={instagramPosts} />
-      <SocialFeed socialPosts={socialPosts} />
+      <SocialFeed videos={videoData} onVideoSelect={handleVideoSelect} />
     </>
   );
 }
