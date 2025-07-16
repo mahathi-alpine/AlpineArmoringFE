@@ -676,7 +676,13 @@ function InventoryVehicle(props) {
   );
 }
 
-export async function getServerSideProps({ params, locale }) {
+export async function getServerSideProps({
+  params,
+  locale,
+}: {
+  params: { slug: string };
+  locale: string;
+}) {
   const route = routes.inventory;
 
   try {
@@ -702,10 +708,26 @@ export async function getServerSideProps({ params, locale }) {
 
     const currentPage = data?.data?.[0]?.attributes;
 
+    const buildVehicleLanguageUrls = (
+      vehicleSlug: string
+    ): { [key: string]: string } => {
+      if (!vehicleSlug) {
+        console.error('vehicleSlug is undefined');
+        return {};
+      }
+
+      const languageUrls: { [key: string]: string } = {};
+
+      languageUrls.en = `/available-now/${vehicleSlug}`;
+      languageUrls.es = `/disponible-ahora/${vehicleSlug}`;
+
+      return languageUrls;
+    };
+
     const seoData = {
       ...(currentPage?.seo ?? {}),
       thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
-      languageUrls: route.getLanguageUrls(currentPage, locale),
+      languageUrls: buildVehicleLanguageUrls(params.slug),
     };
 
     return {

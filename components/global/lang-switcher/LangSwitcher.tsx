@@ -163,6 +163,28 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       return;
     }
 
+    const isIndividualVehiclePage =
+      (cleanPath.includes('/available-now/') &&
+        !cleanPath.includes('/available-now/type/')) ||
+      (cleanPath.includes('/disponible-ahora/') &&
+        !cleanPath.includes('/disponible-ahora/tipo/'));
+
+    if (isIndividualVehiclePage) {
+      const segments = cleanPath.split('/').filter((segment) => segment);
+      const vehicleSlug = segments[segments.length - 1];
+
+      const newPath =
+        langCode === 'es'
+          ? `/disponible-ahora/${vehicleSlug}`
+          : `/available-now/${vehicleSlug}`;
+
+      await router.push(`${newPath}${queryString}`, undefined, {
+        locale: langCode,
+      });
+
+      return;
+    }
+
     // Handle category pages with type parameter
     const hasTypeParameter = cleanPath.includes(lang.type);
     if (hasTypeParameter) {

@@ -514,8 +514,8 @@ export async function getStaticProps(context) {
     }
 
     const languageUrls = {
-      en: `${route.paths.en}/type/${correctEnglishType}`,
-      es: `/${locale === 'en' ? 'es' : locale}${route.paths.es}/tipo/${correctSpanishType}`,
+      en: `/available-now/type/${correctEnglishType}`,
+      es: `/es/disponible-ahora/tipo/${correctSpanishType}`,
     };
 
     seoData = {

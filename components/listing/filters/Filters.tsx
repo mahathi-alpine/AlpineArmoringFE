@@ -133,18 +133,21 @@ const Filters = ({ props, plain }: FiltersProps) => {
     setFiltersOpen(false);
     document.body.classList.remove('no-scroll');
 
-    const cleanBaseUrl = getBaseUrl();
+    const baseUrl =
+      router.locale === 'es'
+        ? '/vehiculos-blindados-en-venta'
+        : '/armored-vehicles-for-sale';
 
     const newQuery: { q?: string } = {};
 
     if (!query || query.trim().length === 0) {
-      router.push(cleanBaseUrl, cleanBaseUrl, { locale: false });
+      router.push(baseUrl, baseUrl, { locale: false });
     } else {
       newQuery.q = query;
 
       router.push(
         {
-          pathname: cleanBaseUrl,
+          pathname: baseUrl,
           query: newQuery,
         },
         undefined,
@@ -211,10 +214,18 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const baseUrl = getBaseUrl();
   const currentSlug = router.asPath.split('/').pop()?.split('?')[0] || '';
 
+  console.log(lang.armoredVehiclesForSaleURL);
   const handleClearFilters = () => {
     setQuery('');
     activeFilterTitles.make = lang.select;
-    router.push(baseUrl, undefined, { scroll: false });
+
+    router.push(
+      baseUrl === '/available-now' || baseUrl === '/es/disponible-ahora'
+        ? `${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.armoredVehiclesForSaleURL}`
+        : baseUrl,
+      undefined,
+      { scroll: false }
+    );
   };
 
   useEffect(() => {

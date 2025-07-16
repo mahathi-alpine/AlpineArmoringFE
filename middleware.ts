@@ -420,6 +420,14 @@ export function middleware(request: NextRequest) {
     url.pathname = '/armored-vehicles-for-sale';
     return NextResponse.rewrite(url);
   }
+  if (
+    pathname.startsWith('/disponible-ahora/') &&
+    !pathname.includes('/tipo/')
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace('/disponible-ahora/', '/available-now/');
+    return NextResponse.rewrite(url);
+  }
   if (pathname.startsWith('/disponible-ahora/tipo/')) {
     const url = request.nextUrl.clone();
     url.pathname = pathname.replace(
