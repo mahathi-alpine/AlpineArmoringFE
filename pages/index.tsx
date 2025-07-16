@@ -1,6 +1,6 @@
 import { getPageData } from 'hooks/api';
 import Head from 'next/head';
-import { useState } from 'react';
+// import { useState } from 'react';
 import useLocale from 'hooks/useLocale';
 import routes from 'routes';
 import useAnimationObserver from 'hooks/useAnimationObserver';
@@ -11,96 +11,95 @@ import Categories from 'components/homepage/categories/Categories';
 import TabSection from 'components/homepage/tab-section/TabSection';
 import News from 'components/global/news/News';
 import Partners from 'components/homepage/partners/Partners';
-import SocialFeed from 'components/global/social-feed/SocialFeed';
+// import SocialFeed from 'components/global/social-feed/SocialFeed';
 
-const videoData = [
-  {
-    id: '1',
-    attributes: {
-      title: 'Building Modern Web Apps with Next.js',
-      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
-      thumbnailImage:
-        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
-      description:
-        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
-      duration: '15:42',
-      uploadDate: '2024-01-15',
-      author: 'TechChannel',
-    },
-  },
-  {
-    id: '2',
-    attributes: {
-      title: 'Custom Video Upload Demo',
-      videoFile:
-        'https://d102sycao8uwt8.cloudfront.net/Alpine_Armoring_homepage_video_6_16_25_7c8ebcf56e.webm', // Direct file path
-      thumbnailImage:
-        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
-      description:
-        'This is a demo of a manually uploaded video file with custom thumbnail support.',
-      duration: '10:34',
-      uploadDate: '2024-01-10',
-      author: 'VideoCreator',
-    },
-  },
-  {
-    id: '1',
-    attributes: {
-      title: 'Building Modern Web Apps with Next.js',
-      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
-      thumbnailImage:
-        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
-      description:
-        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
-      duration: '15:42',
-      uploadDate: '2024-01-15',
-      author: 'TechChannel',
-    },
-  },
-  {
-    id: '1',
-    attributes: {
-      title: 'Building Modern Web Apps with Next.js',
-      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
-      thumbnailImage:
-        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
-      description:
-        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
-      duration: '15:42',
-      uploadDate: '2024-01-15',
-      author: 'TechChannel',
-    },
-  },
-  {
-    id: '1',
-    attributes: {
-      title: 'Building Modern Web Apps with Next.js',
-      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
-      thumbnailImage:
-        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
-      description:
-        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
-      duration: '15:42',
-      uploadDate: '2024-01-15',
-      author: 'TechChannel',
-    },
-  },
-  {
-    id: '1',
-    attributes: {
-      title: 'Building Modern Web Apps with Next.js',
-      URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
-      thumbnailImage:
-        'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
-      description:
-        'Learn how to build scalable web applications using Next.js framework with modern best practices.',
-      duration: '15:42',
-      uploadDate: '2024-01-15',
-      author: 'TechChannel',
-    },
-  },
-  // Add more videos...
-];
+// const videoData = [
+//   {
+//     id: '1',
+//     attributes: {
+//       title: 'Building Modern Web Apps with Next.js',
+//       URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+//       thumbnailImage:
+//         'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+//       description:
+//         'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+//       duration: '15:42',
+//       uploadDate: '2024-01-15',
+//       author: 'TechChannel',
+//     },
+//   },
+//   {
+//     id: '2',
+//     attributes: {
+//       title: 'Custom Video Upload Demo',
+//       videoFile:
+//         'https://d102sycao8uwt8.cloudfront.net/Alpine_Armoring_homepage_video_6_16_25_7c8ebcf56e.webm', // Direct file path
+//       thumbnailImage:
+//         'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+//       description:
+//         'This is a demo of a manually uploaded video file with custom thumbnail support.',
+//       duration: '10:34',
+//       uploadDate: '2024-01-10',
+//       author: 'VideoCreator',
+//     },
+//   },
+//   {
+//     id: '1',
+//     attributes: {
+//       title: 'Building Modern Web Apps with Next.js',
+//       URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+//       thumbnailImage:
+//         'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+//       description:
+//         'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+//       duration: '15:42',
+//       uploadDate: '2024-01-15',
+//       author: 'TechChannel',
+//     },
+//   },
+//   {
+//     id: '1',
+//     attributes: {
+//       title: 'Building Modern Web Apps with Next.js',
+//       URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+//       thumbnailImage:
+//         'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+//       description:
+//         'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+//       duration: '15:42',
+//       uploadDate: '2024-01-15',
+//       author: 'TechChannel',
+//     },
+//   },
+//   {
+//     id: '1',
+//     attributes: {
+//       title: 'Building Modern Web Apps with Next.js',
+//       URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+//       thumbnailImage:
+//         'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+//       description:
+//         'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+//       duration: '15:42',
+//       uploadDate: '2024-01-15',
+//       author: 'TechChannel',
+//     },
+//   },
+//   {
+//     id: '1',
+//     attributes: {
+//       title: 'Building Modern Web Apps with Next.js',
+//       URLExternal: 'dQw4w9WgXcQ', // YouTube video ID
+//       thumbnailImage:
+//         'https://d102sycao8uwt8.cloudfront.net/large_ballistic_bullet_chart_1_82702aa765.jpg',
+//       description:
+//         'Learn how to build scalable web applications using Next.js framework with modern best practices.',
+//       duration: '15:42',
+//       uploadDate: '2024-01-15',
+//       author: 'TechChannel',
+//     },
+//   },
+// ];
 
 function Home({ homepageData, categories }) {
   const { lang } = useLocale();
@@ -188,13 +187,13 @@ function Home({ homepageData, categories }) {
     dependencies: [homepageData, categories],
   });
 
-  const [selectedVideo, setSelectedVideo] = useState(null);
+  // const [selectedVideo, setSelectedVideo] = useState(null);
 
-  const handleVideoSelect = (video) => {
-    setSelectedVideo(video);
-    console.log('Selected video:', video);
-    console.log(selectedVideo);
-  };
+  // const handleVideoSelect = (video) => {
+  //   setSelectedVideo(video);
+  //   console.log('Selected video:', video);
+  //   console.log(selectedVideo);
+  // };
 
   return (
     <>
@@ -246,7 +245,7 @@ function Home({ homepageData, categories }) {
 
       {partners ? <Partners props={partners} /> : null}
 
-      <SocialFeed videos={videoData} onVideoSelect={handleVideoSelect} />
+      {/* <SocialFeed videos={videoData} onVideoSelect={handleVideoSelect} /> */}
     </>
   );
 }
