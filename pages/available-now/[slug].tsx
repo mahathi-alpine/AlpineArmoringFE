@@ -281,7 +281,7 @@ function InventoryVehicle(props) {
           '@type': 'ListItem',
           position: 2,
           name: lang.availableNowTitle,
-          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.armoredVehiclesForSaleURL}`,
         },
         {
           '@type': 'ListItem',
@@ -401,7 +401,7 @@ function InventoryVehicle(props) {
             <div className={`b-breadcrumbs`}>
               <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
-              <Link href={`/${lang.availableNowURL}`}>
+              <Link href={`/${lang.armoredVehiclesForSaleURL}`}>
                 {lang.availableNowTitle}
               </Link>
               <span>&gt;</span>

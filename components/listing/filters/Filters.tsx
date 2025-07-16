@@ -179,10 +179,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const getBaseUrl = () => {
     if (router.locale === 'en') {
-      if (
-        router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]'
-      ) {
+      if (router.pathname === '/armored-vehicles-for-sale') {
+        return '/available-now';
+      }
+      if (router.pathname === '/available-now/type/[type]') {
         return '/available-now';
       }
       if (
@@ -192,10 +192,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
         return '/vehicles-we-armor';
       }
     } else {
-      if (
-        router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]'
-      ) {
+      if (router.pathname === '/armored-vehicles-for-sale') {
+        return `/${router.locale}/${lang.availableNowURL}`;
+      }
+      if (router.pathname === '/available-now/type/[type]') {
         return `/${router.locale}/${lang.availableNowURL}`;
       }
       if (
@@ -534,9 +534,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 <div className={`${styles.filters_item_wrap}`}>
                   {filter == 'type' && (
                     <Link
-                      href={baseUrl}
+                      href={
+                        baseUrl === '/available-now' ||
+                        baseUrl === '/es/disponible-ahora'
+                          ? `/${lang.armoredVehiclesForSaleURL}`
+                          : baseUrl
+                      }
                       className={`${styles.checkbox_link} ${
-                        lang.availableNowURL === currentSlug
+                        lang.armoredVehiclesForSaleURL === currentSlug
                           ? styles.selected_filter
                           : ''
                       }`}

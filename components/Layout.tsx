@@ -57,6 +57,7 @@ const Layout = ({ children, seoData }) => {
 
   const pathsDarkMode = [
     '/available-now',
+    '/armored-vehicles-for-sale',
     '/rental-vehicles',
     '/manufacturing',
     '/sold-vehicles',
@@ -69,7 +70,7 @@ const Layout = ({ children, seoData }) => {
     '/ballistic-testing',
     '/locations-we-serve',
   ];
-  const footerPadding0 = ['/available-now'];
+  const footerPadding0 = ['/available-now', '/armored-vehicles-for-sale'];
 
   const isDarkMode = pathsDarkMode.some((path) =>
     router.pathname.startsWith(path)

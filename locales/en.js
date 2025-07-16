@@ -1,5 +1,6 @@
 export default {
   availableNowURL: 'available-now',
+  armoredVehiclesForSaleURL: 'armored-vehicles-for-sale',
   vehiclesWeArmorURL: '/vehicles-we-armor',
   type: 'type',
   suvsURL: 'armored-suvs',
@@ -25,7 +26,7 @@ export default {
   contactURL: '/contact',
   downloadsURL: '/all-downloads',
   privacyPolicyURL: '/privacy-policy',
-  vehiclesWeArmorStock: '/available-now/?vehicles_we_armor=',
+  vehiclesWeArmorStock: '/armored-vehicles-for-sale?vehicles_we_armor=',
   blogsURL: '/blog',
   armoredRentalsURL: '/armored-rentals',
 

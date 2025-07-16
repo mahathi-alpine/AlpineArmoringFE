@@ -158,7 +158,7 @@ function InventoryVehicle(props) {
             <div className={`b-breadcrumbs`}>
               <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
-              <Link href={`/${lang.availableNowURL}`}>
+              <Link href={`/${lang.armoredVehiclesForSaleURL}`}>
                 {lang.availableNowTitle}
               </Link>
               <span>&gt;</span>

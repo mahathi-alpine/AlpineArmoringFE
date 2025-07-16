@@ -51,7 +51,11 @@ export default function App({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    const paths = [lang.availableNowURL, lang.vehiclesWeArmorURL];
+    const paths = [
+      lang.availableNowURL,
+      lang.vehiclesWeArmorURL,
+      lang.armoredVehiclesForSaleURL,
+    ];
 
     const handleStart = (url: string) => {
       const isTargetPath = paths.some((path) => url.includes(path));

@@ -415,9 +415,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  if (pathname === '/disponible-ahora') {
+  if (pathname === '/vehiculos-blindados-en-venta') {
     const url = request.nextUrl.clone();
-    url.pathname = '/available-now';
+    url.pathname = '/armored-vehicles-for-sale';
+    return NextResponse.rewrite(url);
+  }
+  if (pathname.startsWith('/disponible-ahora/tipo/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(
+      '/disponible-ahora/tipo/',
+      '/available-now/type/'
+    );
     return NextResponse.rewrite(url);
   }
 
@@ -439,14 +447,6 @@ export function middleware(request: NextRequest) {
   if (pathname === '/pruebas-balisticas') {
     const url = request.nextUrl.clone();
     url.pathname = '/ballistic-testing';
-    return NextResponse.rewrite(url);
-  }
-  if (pathname.startsWith('/disponible-ahora/tipo/')) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname.replace(
-      '/disponible-ahora/tipo/',
-      '/available-now/type/'
-    );
     return NextResponse.rewrite(url);
   }
 
@@ -562,7 +562,7 @@ export function middleware(request: NextRequest) {
   // Redirect /stock URLs to /available-now
   if (normalizedPathname.startsWith('/stock')) {
     const url = request.nextUrl.clone();
-    url.pathname = '/available-now';
+    url.pathname = '/armored-vehicles-for-sale';
     const response = NextResponse.redirect(url, { status: 308 });
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return response;

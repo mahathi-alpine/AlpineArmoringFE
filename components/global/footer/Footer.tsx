@@ -33,7 +33,10 @@ const Footer = (props) => {
     { path: lang.contactURL, text: lang.footerContactTitle },
   ];
   const links2 = [
-    { path: '/' + lang.availableNowURL, text: lang.availableNowTitle },
+    {
+      path: '/' + lang.armoredVehiclesForSaleURL,
+      text: lang.availableNowTitle,
+    },
     {
       path: `${lang.vehiclesWeArmorURL}/${lang.type}/${lang.pickupTrucksURL}`,
       text: lang.footerPickupTrucksTitle,
@@ -83,7 +86,7 @@ const Footer = (props) => {
             </div>
 
             {(['/about-us', '/locations-we-serve'].includes(router.pathname) ||
-              router.pathname === '/available-now' ||
+              router.pathname === '/armored-vehicles-for-sale' ||
               router.pathname.startsWith('/available-now/type/')) && (
               <div className={styles.footer_image}>
                 <Image
