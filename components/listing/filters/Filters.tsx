@@ -214,7 +214,6 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const baseUrl = getBaseUrl();
   const currentSlug = router.asPath.split('/').pop()?.split('?')[0] || '';
 
-  console.log(lang.armoredVehiclesForSaleURL);
   const handleClearFilters = () => {
     setQuery('');
     activeFilterTitles.make = lang.select;

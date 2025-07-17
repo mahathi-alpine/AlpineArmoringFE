@@ -719,7 +719,7 @@ export async function getServerSideProps({
       const languageUrls: { [key: string]: string } = {};
 
       languageUrls.en = `/available-now/${vehicleSlug}`;
-      languageUrls.es = `/disponible-ahora/${vehicleSlug}`;
+      languageUrls.es = `/es/disponible-ahora/${vehicleSlug}`;
 
       return languageUrls;
     };
