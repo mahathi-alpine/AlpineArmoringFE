@@ -709,17 +709,40 @@ export async function getServerSideProps({
     const currentPage = data?.data?.[0]?.attributes;
 
     const buildVehicleLanguageUrls = (
-      vehicleSlug: string
+      currentPage,
+      currentLocale
     ): { [key: string]: string } => {
-      if (!vehicleSlug) {
-        console.error('vehicleSlug is undefined');
+      if (!currentPage?.slug) {
+        console.error('currentPage or slug is undefined');
         return {};
       }
 
       const languageUrls: { [key: string]: string } = {};
 
-      languageUrls.en = `/available-now/${vehicleSlug}`;
-      languageUrls.es = `/es/disponible-ahora/${vehicleSlug}`;
+      // Set the URL for the current locale
+      const basePaths = {
+        en: '/available-now',
+        es: '/disponible-ahora',
+      };
+
+      // Add current locale URL
+      languageUrls[currentLocale] =
+        currentLocale === 'en'
+          ? `${basePaths[currentLocale]}/${currentPage.slug}`
+          : `/es${basePaths[currentLocale]}/${currentPage.slug}`;
+
+      // Add URLs for localized versions
+      if (currentPage.localizations?.data) {
+        currentPage.localizations.data.forEach((localization) => {
+          const localeCode = localization.attributes.locale;
+          const localizedSlug = localization.attributes.slug;
+
+          languageUrls[localeCode] =
+            localeCode === 'en'
+              ? `${basePaths[localeCode]}/${localizedSlug}`
+              : `/${localeCode}${basePaths[localeCode]}/${localizedSlug}`;
+        });
+      }
 
       return languageUrls;
     };
@@ -727,7 +750,7 @@ export async function getServerSideProps({
     const seoData = {
       ...(currentPage?.seo ?? {}),
       thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
-      languageUrls: buildVehicleLanguageUrls(params.slug),
+      languageUrls: buildVehicleLanguageUrls(currentPage, locale),
     };
 
     return {
