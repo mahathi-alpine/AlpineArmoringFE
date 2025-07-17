@@ -29,6 +29,7 @@ interface PageDataProps {
   sortType?: string;
   populate?: string;
   fields?: string;
+  filters?: string;
   limit?: number;
   page?: number;
   pageSize?: number;
@@ -44,6 +45,7 @@ export async function getPageData({
   populate,
   limit,
   fields,
+  filters,
   page,
   pageSize,
   custom,
@@ -64,6 +66,7 @@ export async function getPageData({
   const paramsQuery = params ? params : '';
   const populateQuery = populate ? 'populate=' + populate : '';
   const fieldsQuery = fields ? '&' + fields : '';
+  const filtersQuery = filters ? '&' + filters : '';
   const limitQuery = limit ? '&' + limit : '';
   const pageQuery = page ? '&pagination[page]=' + page : '';
   const pageSizeQuery = pageSize ? '&pagination[pageSize]=' + pageSize : '';
@@ -71,9 +74,10 @@ export async function getPageData({
 
   const query = custom
     ? `/${route}?${custom}${localeQuery}`
-    : `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${limitQuery}${pageQuery}${pageSizeQuery}${localeQuery}`;
+    : `/${route}?${paramsQuery}&${populateQuery}${sortQuery}${fieldsQuery}${filtersQuery}${limitQuery}${pageQuery}${pageSizeQuery}${localeQuery}`;
 
   // console.log(`Fetching ${route} with params:`, params, 'locale:', locale);
+  // console.log('Full API URL:', `/api${query}`);
   const pagesData = await fetchAPI(`/api${query}`);
   // console.log('API response:', pagesData);
 
