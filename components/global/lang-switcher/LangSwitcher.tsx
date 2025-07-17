@@ -173,10 +173,17 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       const segments = cleanPath.split('/').filter((segment) => segment);
       const vehicleSlug = segments[segments.length - 1];
 
+      // Check if we have a slug parameter in the query (from dynamic routing)
+      const currentSlug = (query.slug as string) || vehicleSlug;
+
+      // Get translated slug if available
+      const slugMappings = await getLocalizedSlugs();
+      const localizedSlug = slugMappings[currentSlug] || currentSlug;
+
       const newPath =
         langCode === 'es'
-          ? `/disponible-ahora/${vehicleSlug}`
-          : `/available-now/${vehicleSlug}`;
+          ? `/es/disponible-ahora/${localizedSlug}`
+          : `/available-now/${localizedSlug}`;
 
       await router.push(`${newPath}${queryString}`, undefined, {
         locale: langCode,
