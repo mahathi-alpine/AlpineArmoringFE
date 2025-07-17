@@ -4,6 +4,7 @@ Disallow: /stock
 Disallow: /inventory/
 Disallow: /inventory
 Disallow: /available-now
+Allow: /available-now/
 Disallow: /vehicles-we-armor/inventory/
 Disallow: /vehicles-we-armor/inventory
 Disallow: /media/documents/

@@ -577,7 +577,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Redirect /available-now URLs to /armored-vehicles-for-sale
-  if (normalizedPathname == '/available-now') {
+  if (normalizedPathname === '/available-now') {
     const url = request.nextUrl.clone();
     url.pathname = '/armored-vehicles-for-sale';
     const response = NextResponse.redirect(url, { status: 308 });
