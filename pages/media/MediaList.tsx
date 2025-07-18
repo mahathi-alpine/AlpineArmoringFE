@@ -211,6 +211,13 @@ function MediaList({ props, itemType }) {
       {sortedCategories.map((category, index) => {
         const itemsInCategory = categoryMap.get(category);
 
+        // Sort items by year in descending order (newest first)
+        const sortedItemsInCategory = [...itemsInCategory].sort((a, b) => {
+          const yearA = parseInt(a.attributes.year) || 0;
+          const yearB = parseInt(b.attributes.year) || 0;
+          return yearB - yearA; // Descending order (newest first)
+        });
+
         const prevButtonDisabled = prevBtnDisabledStates[index]
           ? `${styles.mediaList_list_slider_arrow_disabled}`
           : '';
@@ -228,7 +235,7 @@ function MediaList({ props, itemType }) {
 
             <div className={`${styles.mediaList_list_slider} embla`}>
               <div className={`${styles.mediaList_list_slider_inner}`}>
-                {itemsInCategory.map((item, index) =>
+                {sortedItemsInCategory.map((item, index) =>
                   itemType === 'video' ? (
                     <VideoSingle
                       props={item}
