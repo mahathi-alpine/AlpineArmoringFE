@@ -444,8 +444,8 @@ export async function getStaticProps(context) {
       populate: 'featuredImage, vehicles_we_armor',
       fields:
         'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label',
-      // Add server-side filter to exclude hidden vehicles
-      filters: 'filters[hide][$null]=true',
+      filters:
+        'filters[$or][0][hide][$null]=true&filters[$or][1][hide][$eq]=false',
       pageSize: 100,
       locale,
     });
