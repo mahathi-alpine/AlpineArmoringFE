@@ -281,7 +281,7 @@ function InventoryVehicle(props) {
           '@type': 'ListItem',
           position: 2,
           name: lang.availableNowTitle,
-          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}`,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.armoredVehiclesForSaleURL}`,
         },
         {
           '@type': 'ListItem',
@@ -401,7 +401,7 @@ function InventoryVehicle(props) {
             <div className={`b-breadcrumbs`}>
               <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
-              <Link href={`/${lang.availableNowURL}`}>
+              <Link href={`/${lang.armoredVehiclesForSaleURL}`}>
                 {lang.availableNowTitle}
               </Link>
               <span>&gt;</span>
@@ -676,7 +676,13 @@ function InventoryVehicle(props) {
   );
 }
 
-export async function getServerSideProps({ params, locale }) {
+export async function getServerSideProps({
+  params,
+  locale,
+}: {
+  params: { slug: string };
+  locale: string;
+}) {
   const route = routes.inventory;
 
   try {
@@ -702,10 +708,49 @@ export async function getServerSideProps({ params, locale }) {
 
     const currentPage = data?.data?.[0]?.attributes;
 
+    const buildVehicleLanguageUrls = (
+      currentPage,
+      currentLocale
+    ): { [key: string]: string } => {
+      if (!currentPage?.slug) {
+        console.error('currentPage or slug is undefined');
+        return {};
+      }
+
+      const languageUrls: { [key: string]: string } = {};
+
+      // Set the URL for the current locale
+      const basePaths = {
+        en: '/available-now',
+        es: '/disponible-ahora',
+      };
+
+      // Add current locale URL
+      languageUrls[currentLocale] =
+        currentLocale === 'en'
+          ? `${basePaths[currentLocale]}/${currentPage.slug}`
+          : `/es${basePaths[currentLocale]}/${currentPage.slug}`;
+
+      // Add URLs for localized versions
+      if (currentPage.localizations?.data) {
+        currentPage.localizations.data.forEach((localization) => {
+          const localeCode = localization.attributes.locale;
+          const localizedSlug = localization.attributes.slug;
+
+          languageUrls[localeCode] =
+            localeCode === 'en'
+              ? `${basePaths[localeCode]}/${localizedSlug}`
+              : `/${localeCode}${basePaths[localeCode]}/${localizedSlug}`;
+        });
+      }
+
+      return languageUrls;
+    };
+
     const seoData = {
       ...(currentPage?.seo ?? {}),
       thumbnail: currentPage?.thumbnail?.data?.attributes ?? null,
-      languageUrls: route.getLanguageUrls(currentPage, locale),
+      languageUrls: buildVehicleLanguageUrls(currentPage, locale),
     };
 
     return {

@@ -29,7 +29,10 @@ const NavigationPopup = ({ isNavOpen, setNavOpen }: NavigationProps) => {
   >(null);
 
   const links = [
-    { path: '/' + lang.availableNowURL, text: lang.availableNowTitle },
+    {
+      path: '/' + lang.armoredVehiclesForSaleURL,
+      text: lang.availableNowTitle,
+    },
     {
       text: lang.vehiclesWeArmor,
       submenu: [

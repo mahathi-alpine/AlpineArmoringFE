@@ -133,18 +133,21 @@ const Filters = ({ props, plain }: FiltersProps) => {
     setFiltersOpen(false);
     document.body.classList.remove('no-scroll');
 
-    const cleanBaseUrl = getBaseUrl();
+    const baseUrl =
+      router.locale === 'es'
+        ? '/es/vehiculos-blindados-en-venta'
+        : '/armored-vehicles-for-sale';
 
     const newQuery: { q?: string } = {};
 
     if (!query || query.trim().length === 0) {
-      router.push(cleanBaseUrl, cleanBaseUrl, { locale: false });
+      router.push(baseUrl, baseUrl, { locale: false });
     } else {
       newQuery.q = query;
 
       router.push(
         {
-          pathname: cleanBaseUrl,
+          pathname: baseUrl,
           query: newQuery,
         },
         undefined,
@@ -179,10 +182,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const getBaseUrl = () => {
     if (router.locale === 'en') {
-      if (
-        router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]'
-      ) {
+      if (router.pathname === '/armored-vehicles-for-sale') {
+        return '/available-now';
+      }
+      if (router.pathname === '/available-now/type/[type]') {
         return '/available-now';
       }
       if (
@@ -192,10 +195,10 @@ const Filters = ({ props, plain }: FiltersProps) => {
         return '/vehicles-we-armor';
       }
     } else {
-      if (
-        router.pathname === '/available-now' ||
-        router.pathname === '/available-now/type/[type]'
-      ) {
+      if (router.pathname === '/armored-vehicles-for-sale') {
+        return `/${router.locale}/${lang.availableNowURL}`;
+      }
+      if (router.pathname === '/available-now/type/[type]') {
         return `/${router.locale}/${lang.availableNowURL}`;
       }
       if (
@@ -214,7 +217,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const handleClearFilters = () => {
     setQuery('');
     activeFilterTitles.make = lang.select;
-    router.push(baseUrl, undefined, { scroll: false });
+
+    router.push(
+      baseUrl === '/available-now' || baseUrl === '/es/disponible-ahora'
+        ? `${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.armoredVehiclesForSaleURL}`
+        : baseUrl,
+      undefined,
+      { scroll: false }
+    );
   };
 
   useEffect(() => {
@@ -534,9 +544,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 <div className={`${styles.filters_item_wrap}`}>
                   {filter == 'type' && (
                     <Link
-                      href={baseUrl}
+                      href={
+                        baseUrl === '/available-now' ||
+                        baseUrl === '/es/disponible-ahora'
+                          ? `/${lang.armoredVehiclesForSaleURL}`
+                          : baseUrl
+                      }
                       className={`${styles.checkbox_link} ${
-                        lang.availableNowURL === currentSlug
+                        lang.armoredVehiclesForSaleURL === currentSlug
                           ? styles.selected_filter
                           : ''
                       }`}

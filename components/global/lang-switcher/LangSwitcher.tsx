@@ -49,6 +49,7 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
       apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/vehicles-we-armors?pagination[limit]=-1&populate=localizations`;
     } else if (
       pathname.includes('available-now') ||
+      pathname.includes('armored-vehicles-for-sale') ||
       pathname.includes('rental-vehicles') ||
       pathname.includes('vehiculos-de-renta')
     ) {
@@ -145,16 +146,59 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
   const switchLanguage = async (langCode) => {
     const { path: rawPath, queryString } = extractQueryParams(asPath);
-
-    // Additional sanitization step
     const cleanPath = sanitizePath(normalizePath(rawPath));
 
-    const hasTypeParameter = cleanPath.includes(lang.type);
+    // Handle main listing page
+    if (
+      cleanPath.includes('/armored-vehicles-for-sale') ||
+      cleanPath.includes('/vehiculos-blindados-en-venta')
+    ) {
+      const newPath =
+        langCode === 'es'
+          ? '/vehiculos-blindados-en-venta'
+          : '/armored-vehicles-for-sale';
+      await router.push(`${newPath}${queryString}`, undefined, {
+        locale: langCode,
+      });
+      return;
+    }
 
+    const isIndividualVehiclePage =
+      (cleanPath.includes('/available-now/') &&
+        !cleanPath.includes('/available-now/type/')) ||
+      (cleanPath.includes('/disponible-ahora/') &&
+        !cleanPath.includes('/disponible-ahora/tipo/'));
+
+    if (isIndividualVehiclePage) {
+      const segments = cleanPath.split('/').filter((segment) => segment);
+      const vehicleSlug = segments[segments.length - 1];
+
+      // Check if we have a slug parameter in the query (from dynamic routing)
+      const currentSlug = (query.slug as string) || vehicleSlug;
+
+      // Get translated slug if available
+      const slugMappings = await getLocalizedSlugs();
+      const localizedSlug = slugMappings[currentSlug] || currentSlug;
+
+      const newPath =
+        langCode === 'es'
+          ? `/es/disponible-ahora/${localizedSlug}`
+          : `/available-now/${localizedSlug}`;
+
+      await router.push(`${newPath}${queryString}`, undefined, {
+        locale: langCode,
+      });
+
+      return;
+    }
+
+    // Handle category pages with type parameter
+    const hasTypeParameter = cleanPath.includes(lang.type);
     if (hasTypeParameter) {
       const segments = cleanPath.split('/').filter((segment) => segment);
-
-      const isInventoryPage = segments.some((s) => s === lang.availableNowURL);
+      const isInventoryPage = segments.some(
+        (s) => s === 'available-now' || s === 'disponible-ahora'
+      );
       const isVehiclesWeArmorPage = segments.some(
         (s) => s === lang.vehiclesWeArmorURL.replace(/^\//, '')
       );
@@ -165,41 +209,51 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
 
         if (!routeConfig) return;
 
+        // Find type slug
         const typePathIndex = segments.findIndex(
-          (s) => s === routeConfig.typePath.en || s === routeConfig.typePath.es
+          (s) =>
+            s === 'type' ||
+            s === 'tipo' ||
+            s === routeConfig.typePath.en ||
+            s === routeConfig.typePath.es
         );
-
         if (typePathIndex === -1 || typePathIndex + 1 >= segments.length)
           return;
 
         const currentTypeValue = segments[typePathIndex + 1];
-
-        let typeKey = null;
-        for (const key in routeConfig.types) {
-          if (
+        const typeKey = Object.keys(routeConfig.types).find(
+          (key) =>
             routeConfig.types[key].en === currentTypeValue ||
             routeConfig.types[key].es === currentTypeValue
-          ) {
-            typeKey = key;
-            break;
-          }
-        }
+        );
 
         if (!typeKey) return;
 
-        const translatedBasePath = sanitizePath(
-          normalizeUrl(routeConfig.paths[langCode])
-        );
-        const translatedTypePath = routeConfig.typePath[langCode];
-        const translatedTypeValue = routeConfig.types[typeKey][langCode];
+        // Build new path
+        let newPath;
+        if (isInventoryPage) {
+          // Use old available-now structure for inventory categories
+          const basePath =
+            langCode === 'es' ? '/disponible-ahora' : '/available-now';
+          const typePath = langCode === 'es' ? 'tipo' : 'type';
+          newPath = `${basePath}/${typePath}/${routeConfig.types[typeKey][langCode]}`;
+        } else {
+          // Use routes config for vehicles-we-armor
+          const translatedBasePath = sanitizePath(
+            normalizeUrl(routeConfig.paths[langCode])
+          );
+          const translatedTypePath = routeConfig.typePath[langCode];
+          newPath = `${translatedBasePath}/${translatedTypePath}/${routeConfig.types[typeKey][langCode]}`;
+        }
 
-        const newPath = `${translatedBasePath}/${translatedTypePath}/${translatedTypeValue}${queryString}`;
-
-        await router.push(newPath, undefined, { locale: langCode });
+        await router.push(`${newPath}${queryString}`, undefined, {
+          locale: langCode,
+        });
         return;
       }
     }
 
+    // Handle slug-based pages
     if (query.slug) {
       const slugMappings = await getLocalizedSlugs();
       const localizedSlug = slugMappings[query.slug as string] || query.slug;
@@ -240,6 +294,7 @@ export const LanguageSwitcher = ({ className }: { className?: string }) => {
         );
       }
     } else {
+      // Handle other route translations
       const currentRoute = Object.entries(routeTranslations).find(
         ([, paths]) => {
           const pathToCheck = cleanPath.replace(/^\/[a-z]{2}\//, '/');

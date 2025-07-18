@@ -1,5 +1,6 @@
 export default {
   availableNowURL: 'disponible-ahora',
+  armoredVehiclesForSaleURL: 'vehiculos-blindados-en-venta',
   vehiclesWeArmorURL: '/vehiculos-que-blindamos',
   type: 'tipo',
   suvsURL: 'suvs-blindados',
@@ -25,7 +26,7 @@ export default {
   contactURL: '/contacto',
   downloadsURL: '/todas-las-descargas',
   privacyPolicyURL: '/politica-de-privacidad',
-  vehiclesWeArmorStock: '/disponible-ahora/?vehiculos_que_blindamos=',
+  vehiclesWeArmorStock: '/disponible-ahora?vehiculos_que_blindamos=',
   blogsURL: '/blog',
   armoredRentalsURL: '/alquiler-de-vehiculos-blindados',
 

@@ -76,8 +76,25 @@ const routes = {
     collection: 'list-inventory',
     collectionSingle: 'inventories',
     paths: {
+      en: '/armored-vehicles-for-sale',
+      es: '/vehiculos-blindados-en-venta',
+    },
+    categoryBasePaths: {
       en: '/available-now',
       es: '/disponible-ahora',
+    },
+    typePath: {
+      en: 'type',
+      es: 'tipo',
+    },
+    types: vehicleTypes,
+  },
+  vehiclesWeArmor: {
+    collection: 'list-vehicles-we-armor',
+    collectionSingle: 'vehicles-we-armors',
+    paths: {
+      en: '/vehicles-we-armor',
+      es: '/vehiculos-que-blindamos',
     },
     typePath: {
       en: 'type',
@@ -210,19 +227,6 @@ const routes = {
       en: '/sold-vehicles',
       es: '/vehiculos-vendidos',
     },
-  },
-  vehiclesWeArmor: {
-    collection: 'list-vehicles-we-armor',
-    collectionSingle: 'vehicles-we-armors',
-    paths: {
-      en: '/vehicles-we-armor',
-      es: '/vehiculos-que-blindamos',
-    },
-    typePath: {
-      en: 'type',
-      es: 'tipo',
-    },
-    types: vehicleTypes,
   },
   faqs: {
     collection: 'faq',

@@ -102,7 +102,7 @@ function Inventory(props) {
   useEffect(() => {
     if (!allVehicles.length) return;
 
-    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes?.hide);
+    let filtered = allVehicles;
 
     if (q && typeof q === 'string') {
       const searchTerms = q.toLowerCase().replace(/[-\s]/g, '');
@@ -213,8 +213,8 @@ function Inventory(props) {
       '@graph': [
         {
           '@type': ['CollectionPage'],
-          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
-          url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}`,
+          url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}`,
           name: 'Armored Vehicles For Sale: Bulletproof Cars, SUVs, Trucks | Alpine Armoring®',
           description:
             'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks that are completed and available for immediate shipping.',
@@ -223,20 +223,20 @@ function Inventory(props) {
           },
           inLanguage: 'en',
           primaryImageOfPage: {
-            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
           },
           image: {
-            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
           },
           breadcrumb: {
-            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#breadcrumb`,
           },
           thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
         },
         {
           '@type': 'ImageObject',
           inLanguage: 'en',
-          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#primaryimage`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
           url: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
           contentUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
           width: 2200,
@@ -246,7 +246,7 @@ function Inventory(props) {
         },
         {
           '@type': 'BreadcrumbList',
-          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.availableNowURL || '/inventory'}#breadcrumb`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#breadcrumb`,
           itemListElement: [
             {
               '@type': 'ListItem',
@@ -443,7 +443,9 @@ export async function getStaticProps(context) {
       sort: 'order',
       populate: 'featuredImage, vehicles_we_armor',
       fields:
-        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=hide',
+        'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label',
+      // Add server-side filter to exclude hidden vehicles
+      filters: 'filters[hide][$null]=true',
       pageSize: 100,
       locale,
     });

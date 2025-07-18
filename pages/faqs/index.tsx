@@ -63,30 +63,30 @@ function KnowledgeBase(props) {
       '@graph': [
         {
           '@type': 'CollectionPage',
-          '@id': `${process.env.NEXT_PUBLIC_URL}/faqs`,
-          url: `${process.env.NEXT_PUBLIC_URL}/faqs`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}`,
+          url: `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}`,
           name: 'Frequently Asked Questions - Alpine Armoring',
           isPartOf: {
             '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
           },
           primaryImageOfPage: {
-            '@id': `${process.env.NEXT_PUBLIC_URL}/faqs/#primaryimage`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}/#primaryimage`,
           },
           image: {
-            '@id': `${process.env.NEXT_PUBLIC_URL}/faqs/#primaryimage`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}/#primaryimage`,
           },
           thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
           description:
             "Alpine Armoring FAQs - Find answers to frequently asked questions about Alpine Armoring's products and services.",
           breadcrumb: {
-            '@id': `${process.env.NEXT_PUBLIC_URL}/faqs/#breadcrumb`,
+            '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}/#breadcrumb`,
           },
           inLanguage: 'en',
         },
         {
           '@type': 'ImageObject',
           inLanguage: 'en',
-          '@id': `${process.env.NEXT_PUBLIC_URL}/faqs/#primaryimage`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}/#primaryimage`,
           url: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
           contentUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
           width: 2560,
@@ -95,7 +95,7 @@ function KnowledgeBase(props) {
         },
         {
           '@type': 'BreadcrumbList',
-          '@id': `${process.env.NEXT_PUBLIC_URL}/faqs/#breadcrumb`,
+          '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}/#breadcrumb`,
           itemListElement: [
             {
               '@type': 'ListItem',

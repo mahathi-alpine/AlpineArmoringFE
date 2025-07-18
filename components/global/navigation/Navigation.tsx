@@ -11,9 +11,9 @@ const Navigation = ({ isNavOpen }: NavigationProps) => {
 
   const links = [
     {
-      path: '/' + lang.availableNowURL,
+      path: '/' + lang.armoredVehiclesForSaleURL,
       text: lang.availableNowTitle,
-      pathname: '/available-now',
+      pathname: '/armored-vehicles-for-sale',
     },
     {
       text: lang.vehiclesWeArmor,

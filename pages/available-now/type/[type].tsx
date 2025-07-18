@@ -310,7 +310,7 @@ function Inventory(props) {
         <div className={`b-breadcrumbs b-breadcrumbs-list container`}>
           <Link href="/">{lang.home}</Link>
           <span>&gt;</span>
-          <Link href={`/${lang.availableNowURL}`}>
+          <Link href={`/${lang.armoredVehiclesForSaleURL}`}>
             {lang.availableNowTitle}
           </Link>
           <span>&gt;</span>
@@ -514,8 +514,8 @@ export async function getStaticProps(context) {
     }
 
     const languageUrls = {
-      en: `${route.paths.en}/type/${correctEnglishType}`,
-      es: `/${locale === 'en' ? 'es' : locale}${route.paths.es}/tipo/${correctSpanishType}`,
+      en: `/available-now/type/${correctEnglishType}`,
+      es: `/es/disponible-ahora/tipo/${correctSpanishType}`,
     };
 
     seoData = {

@@ -143,7 +143,7 @@ const Categories = ({ props, allVehiclesImage }) => {
 
               <div className={`${styles.categories_item_buttons}`}>
                 <Button
-                  href={'/' + lang.availableNowURL}
+                  href={'/' + lang.armoredVehiclesForSaleURL}
                   className="primary shiny"
                 >
                   {lang.explore}&nbsp;{lang.allArmoredVehiclesForSale}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import styles from './CookieConsent.module.scss';
-import Script from 'next/script';
+// import Script from 'next/script';
 import useLocale from 'hooks/useLocale';
 
 // Extend Window interface to include gtag and dataLayer
@@ -82,7 +82,7 @@ const CookieConsent = () => {
   return (
     <>
       {/* Conditional Google Analytics Script */}
-      {consent === 'accepted' && (
+      {/* {consent === 'accepted' && (
         <>
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=G-HQE6WWZ9E4"
@@ -101,7 +101,7 @@ const CookieConsent = () => {
             }}
           />
         </>
-      )}
+      )} */}
 
       {/* Consent Popup */}
       {shouldShowConsent && (

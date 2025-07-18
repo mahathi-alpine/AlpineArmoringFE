@@ -19,7 +19,7 @@ const additionalUrls = {
       changefreq: 'monthly',
     },
     {
-      loc: '/available-now',
+      loc: '/armored-vehicles-for-sale',
       priority: '0.9',
       changefreq: 'monthly',
     },
@@ -131,7 +131,7 @@ const additionalUrls = {
       changefreq: 'monthly',
     },
     {
-      loc: '/es/disponible-ahora',
+      loc: '/es/vehiculos-blindados-en-venta',
       priority: '0.5',
       changefreq: 'monthly',
     },
