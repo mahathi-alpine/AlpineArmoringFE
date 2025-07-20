@@ -373,10 +373,19 @@ export function middleware(request: NextRequest) {
 
   const hasChryslerMake = searchParams.get('make') === 'chrysler';
 
+  // Redirect /vehicles-we-armor/inventory URLs to /vehicles-we-armor
+  if (normalizedPathname.startsWith('/vehicles-we-armor/inventory')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/vehicles-we-armor';
+    url.search = '';
+    const response = NextResponse.redirect(url, { status: 308 });
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
+
   // Check for blocked conditions BEFORE rewrites
   if (
     pathname.startsWith('/inventory') ||
-    pathname.startsWith('/vehicles-we-armor/inventory') ||
     searchParams.has('vehicles_we_armor') ||
     searchParams.has('vehiculos_que_blindamos') ||
     searchParams.has('type') ||
