@@ -368,6 +368,7 @@ function Inventory(props) {
                     key={item.id || index}
                     props={item}
                     index={index}
+                    locale={router.locale}
                   />
                 ))}
               </div>

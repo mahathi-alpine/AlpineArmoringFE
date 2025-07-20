@@ -142,9 +142,6 @@ function Inventory(props) {
   const categoryTitle = currentCategory?.attributes.title;
   const categorySlug = currentCategory?.attributes.slug;
 
-  const currentPath = router.asPath;
-
-  // Static data - all vehicles for this category are pre-loaded
   const [allVehicles, setAllVehicles] = useState(vehicles?.data || []);
   const [filteredVehicles, setFilteredVehicles] = useState(
     vehicles?.data || []
@@ -289,6 +286,8 @@ function Inventory(props) {
   // Get vehicles to display based on current pagination
   const vehiclesToDisplay = filteredVehicles.slice(0, itemsToRender);
 
+  const isRental = query === 'alquiler-blindados' || query === 'armored-rental';
+
   return (
     <>
       <Head>
@@ -319,7 +318,7 @@ function Inventory(props) {
 
         {topBanner ? <Banner props={topBanner} shape="dark" /> : null}
 
-        {currentPath.includes(lang.armoredRentalURL) ? (
+        {isRental ? (
           <div className={`${styles.listing_rentalsCTA}`}>
             <Button
               href="https://www.armoredautos.com/armored-rentals?ref=mainWebsite"
@@ -336,16 +335,10 @@ function Inventory(props) {
           className={`
             ${styles.listing_wrap} 
             ${styles.listing_wrap_inventory} 
-            ${
-              currentPath.includes(
-                `/${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`
-              )
-                ? styles.listing_wrap_rental
-                : ''
-            }
+            ${isRental ? styles.listing_wrap_rental : ''}
             container`}
         >
-          {!currentPath.includes(lang.armoredRentalURL) &&
+          {!isRental &&
           filters?.type?.length > 0 &&
           filteredVehicles.length > 0 ? (
             <div className={`${styles.listing_wrap_filtered}`}>
@@ -359,7 +352,13 @@ function Inventory(props) {
                 {vehiclesToDisplay.reduce((acc, item, index) => {
                   if (item.attributes?.ownPage !== false) {
                     acc[index] = (
-                      <InventoryItem key={item.id} props={item} index={index} />
+                      <InventoryItem
+                        key={item.id}
+                        props={item}
+                        index={index}
+                        isRental={isRental}
+                        locale={router.locale}
+                      />
                     );
                   }
                   return acc;

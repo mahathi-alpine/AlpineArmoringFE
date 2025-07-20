@@ -1,23 +1,27 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ListingItem.module.scss';
-import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
 
 interface InventoryItemProps {
   props: any;
   index: number;
+  isRental?: boolean;
+  locale?: string;
 }
 
-const InventoryItem = ({ props, index }: InventoryItemProps) => {
+const InventoryItem = ({
+  props,
+  index,
+  isRental = false,
+  locale,
+}: InventoryItemProps) => {
   const { lang } = useLocale();
   const data = props.attributes;
-  const router = useRouter();
-  const currentPath = router.asPath;
 
-  const linkHref = currentPath.includes(lang.armoredRentalURL)
-    ? `${lang.rentalVehiclesURL}/${data.slug}`
-    : `/${lang.availableNowURL}/${data.slug}`;
+  const linkHref = isRental
+    ? `${locale === 'en' ? '' : `/${locale}`}${lang.rentalVehiclesURL}/${data.slug}`
+    : `${locale === 'en' ? '' : `/${locale}`}/${lang.availableNowURL}/${data.slug}`;
 
   return (
     <Link
@@ -25,13 +29,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
       className={`
         ${styles.inventory_item} 
         ${data.flag == 'sold' ? styles.inventory_item_sold : ''}
-        ${
-          currentPath.includes(
-            `/${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`
-          )
-            ? styles.inventory_item_rental
-            : ''
-        }
+        ${isRental ? styles.inventory_item_rental : ''}
       `}
     >
       <div className={`${styles.inventory_item_image}`}>
@@ -104,7 +102,7 @@ const InventoryItem = ({ props, index }: InventoryItemProps) => {
 
         <ul className={`${styles.inventory_item_info}`}>
           {(() => {
-            const fieldsToDisplay = currentPath.includes(lang.armoredRentalURL)
+            const fieldsToDisplay = isRental
               ? [
                   { key: 'rentalsVehicleID', label: lang.vehicleID },
                   { key: 'engine', label: lang.engine },
