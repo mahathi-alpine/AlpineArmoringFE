@@ -3,7 +3,7 @@ function generateVehicleUrls() {
     'audi',
     'bentley',
     'bmw',
-    'boxer',
+    // 'boxer',
     'bulldog',
     'cadillac',
     'chevrolet',
@@ -45,7 +45,7 @@ function generateVehicleUrls() {
       'pit-bull',
       'cuda',
       'cyclone',
-      'boxer',
+      // 'boxer',
     ],
     'armored-pickup-trucks': [
       'chevrolet',

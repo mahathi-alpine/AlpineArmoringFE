@@ -68,13 +68,23 @@ const Filters = ({ props, plain }: FiltersProps) => {
   const filterMakesByType = useMemo(() => {
     const currentTypeSlug = router.query.type as string;
 
-    if (!currentTypeSlug || !props.make) return props.make;
+    if (!props.make) return props.make;
+
+    if (!currentTypeSlug) {
+      return props.make.filter((make) => {
+        return make.attributes.vehicles_we_armors?.data?.length > 0;
+      });
+    }
 
     const englishTypeSlug =
       localizedToEnglishMap[currentTypeSlug] || currentTypeSlug;
 
     return props.make.filter((make) => {
-      return make.attributes.vehicles_we_armors?.data.some((vehicleArmor) =>
+      if (!make.attributes.vehicles_we_armors?.data?.length) {
+        return false;
+      }
+
+      return make.attributes.vehicles_we_armors.data.some((vehicleArmor) =>
         vehicleArmor.attributes.category?.data.some((item) => {
           const catSlug = item.attributes?.slug;
           return catSlug === englishTypeSlug || catSlug === currentTypeSlug;

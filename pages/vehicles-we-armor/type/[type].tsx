@@ -521,8 +521,19 @@ export async function getServerSideProps(context) {
       seoData.metaDescription = updatedDescription;
     }
 
-    if (!vehicles?.data?.length) {
-      return { notFound: true };
+    if (!vehicles || vehicles.data === undefined) {
+      const fallbackData = getFallbackData(locale, englishType || '');
+
+      if (!fallbackData) {
+        return { notFound: true };
+      }
+
+      return {
+        props: {
+          ...fallbackData,
+          locale,
+        },
+      };
     }
 
     return {

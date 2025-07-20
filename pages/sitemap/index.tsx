@@ -448,7 +448,7 @@ export async function getStaticProps({ locale = 'en' }) {
       'audi',
       'bentley',
       'bmw',
-      'boxer',
+      // 'boxer',
       'bulldog',
       'cadillac',
       'chevrolet',
@@ -490,7 +490,7 @@ export async function getStaticProps({ locale = 'en' }) {
         'pit-bull',
         'cuda',
         'cyclone',
-        'boxer',
+        // 'boxer',
       ],
       'Pickup Trucks': [
         'chevrolet',
