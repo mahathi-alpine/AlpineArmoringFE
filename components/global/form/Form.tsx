@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useLocale from 'hooks/useLocale';
+import useGoogleAdsTracking from 'hooks/useGoogleAdsTracking';
 import styles from './Form.module.scss';
 import Button from 'components/global/button/Button';
 import Dropdown from 'components/global/form/Dropdown';
@@ -20,6 +21,7 @@ const Form = () => {
 
   const router = useRouter();
   const { lang } = useLocale();
+  const { getTrackingData } = useGoogleAdsTracking();
 
   useEffect(() => {
     if (router.asPath.includes('rental-vehicles')) {
@@ -399,6 +401,8 @@ const Form = () => {
     if (!hasError) {
       const sanitizedMessage = sanitizeInput(message);
 
+      const trackingData = getTrackingData();
+
       const submitBtn = document.querySelector('.submitButton');
       submitBtn.classList.add('submiting');
       submitBtn.innerHTML = '';
@@ -422,8 +426,10 @@ const Form = () => {
                 country: country,
                 state: country === 'United States' ? state : '',
                 message: sanitizedMessage,
-                route: window.location.origin + router.asPath,
+                // route: window.location.origin + router.asPath,
+                route: window.location.href,
                 date: Date.now(),
+                trackingData: trackingData,
               },
             }),
           }
@@ -453,8 +459,6 @@ const Form = () => {
 
         // Show success message to user
       } catch (error) {
-        // console.error('Error:', error);
-        // Handle error
         submitBtn.classList.remove('submiting');
         submitBtn.innerHTML = lang.error;
         submitBtn.classList.add('error');

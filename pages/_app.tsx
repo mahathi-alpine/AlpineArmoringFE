@@ -3,6 +3,7 @@ import '/styles/globals.scss';
 import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import GoogleAdsTracking from 'components/GoogleAdsTracking';
 import Layout from '../components/Layout';
 // import Seo from '../components/Seo';
 import useLocale from 'hooks/useLocale';
@@ -114,6 +115,7 @@ export default function App({ Component, pageProps }) {
       {/* {currentSeoData && (
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
       )} */}
+      <GoogleAdsTracking />
       <Layout seoData={currentSeoData}>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
