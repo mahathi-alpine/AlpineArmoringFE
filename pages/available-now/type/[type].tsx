@@ -1,6 +1,6 @@
 import { getPageData } from 'hooks/api';
 import { useRouter } from 'next/router';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import styles from '/components/listing/Listing.module.scss';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import InventoryItem from 'components/listing/listing-item/ListingItem';
 import Button from 'components/global/button/Button';
 import Accordion from 'components/global/accordion/Accordion';
 import CustomMarkdown from 'components/CustomMarkdown';
+import Content from 'components/global/content/Content';
 
 const isValidCategorySlug = (slug, locale = 'en') => {
   const validSlugs = {
@@ -99,6 +100,7 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
               },
             },
             bottomText: null,
+            bottomTextDynamic: null,
           },
         },
       ],
@@ -136,6 +138,9 @@ function Inventory(props) {
     inventory: true,
   };
   const bottomText = currentCategory?.attributes.bottomTextInventory;
+  const bottomTextContent = {
+    dynamicZone: currentCategory?.attributes?.bottomTextDynamic || [],
+  };
   let faqs = currentCategory?.attributes.faqs_stock;
   faqs = faqs?.length == 0 ? pageData?.faqs : faqs;
 
@@ -223,6 +228,12 @@ function Inventory(props) {
       observer.disconnect();
     };
   }, [itemsToRender, fetchMoreItems]);
+
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
+  const contentRef = useRef(null);
+  const toggleContent = () => {
+    setIsContentExpanded(!isContentExpanded);
+  };
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -383,13 +394,40 @@ function Inventory(props) {
           <div className={`observe bottomObserver`}></div>
         )}
 
-        {bottomText ? (
+        {bottomText && bottomTextContent.dynamicZone.length == 0 && (
           <div className={`container_small`}>
             <div className={`${styles.listing_bottomText}`}>
               <CustomMarkdown>{bottomText}</CustomMarkdown>
             </div>
           </div>
-        ) : null}
+        )}
+
+        {bottomTextContent.dynamicZone.length > 0 && (
+          <div className={`${styles.listing_bottomContent} static`}>
+            <div
+              ref={contentRef}
+              className={`${styles.listing_content_preview} container_small`}
+              style={{
+                maxHeight: isContentExpanded
+                  ? `${contentRef.current?.scrollHeight}px`
+                  : '265px',
+              }}
+            >
+              <Content data={bottomTextContent} />
+            </div>
+
+            {!isContentExpanded && (
+              <div className={`${styles.listing_content_overlay}`}></div>
+            )}
+
+            <button
+              className={`${styles.listing_more}`}
+              onClick={toggleContent}
+            >
+              {isContentExpanded ? 'Read Less' : 'Read More'}
+            </button>
+          </div>
+        )}
 
         {faqs?.length > 0 ? (
           <div className={`${styles.listing_faqs}`}>
@@ -473,7 +511,7 @@ export async function getStaticProps(context) {
     // Fetching Types for the Filters
     const type = await getPageData({
       route: 'categories',
-      custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&fields[2]=bottomTextInventory&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats&populate[faqs_stock][fields][0]=title&populate[faqs_stock][fields][1]=text`,
+      custom: `populate[inventory_vehicles][fields][0]=''&populate[inventoryBanner][populate][media][fields][0]=url&populate[inventoryBanner][populate][media][fields][1]=mime&populate[inventoryBanner][populate][media][fields][2]=alternativeText&populate[inventoryBanner][populate][media][fields][3]=width&populate[inventoryBanner][populate][media][fields][4]=height&populate[inventoryBanner][populate][media][fields][5]=formats&populate[inventoryBanner][populate][mediaMP4][fields][0]=url&populate[inventoryBanner][populate][mediaMP4][fields][1]=mime&populate[seo][populate][metaImage][fields][0]=url&populate[seo][populate][metaSocial][fields][0]=url&sort=order:asc&fields[0]=title&fields[1]=slug&fields[2]=bottomTextInventory&populate[inventoryBanner][populate][imageMobile][fields][0]=url&populate[inventoryBanner][populate][imageMobile][fields][1]=mime&populate[inventoryBanner][populate][imageMobile][fields][2]=alternativeText&populate[inventoryBanner][populate][imageMobile][fields][3]=width&populate[inventoryBanner][populate][imageMobile][fields][4]=height&populate[inventoryBanner][populate][imageMobile][fields][5]=formats&populate[faqs_stock][fields][0]=title&populate[faqs_stock][fields][1]=text&populate[bottomTextDynamic]=*`,
       locale,
     }).then((response) => response?.data || []);
 
