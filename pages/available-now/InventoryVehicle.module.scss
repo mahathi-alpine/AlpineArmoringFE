@@ -319,13 +319,16 @@
     font-size: rem(15);
 
     @include breakpoint(large) {
-      margin-top: rem(24);
-      position: static;
+      position: absolute;
+      bottom: 22px;
+      right: 0;
+      left: auto;
+      margin: 0;
       justify-content: space-around;
     }
 
     @include breakpoint(huge) {
-      width: calc(100% - 168px);
+      right: 168px;
     }
 
     &_button {
