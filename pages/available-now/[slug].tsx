@@ -636,7 +636,7 @@ function InventoryVehicle(props) {
                 })}
               </ul>
 
-              {mediaPassword.media.data ? (
+              {mediaPassword?.media.data ? (
                 <div
                   onClick={() =>
                     handlePdfClick(
