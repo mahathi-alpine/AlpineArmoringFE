@@ -5,9 +5,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import routes from 'routes';
 import { useRouter } from 'next/router';
-const DownloadIcon = dynamic(() => import('components/icons/Download'));
 const InfoIcon = dynamic(() => import('components/icons/Info'));
-const PDFIcon = dynamic(() => import('components/icons/PDF2'));
 const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
@@ -489,6 +487,80 @@ function InventoryVehicle(props) {
                 ) : null}
               </div>
 
+              {data?.OEMWindowSticker?.data || data?.OEMArmoringSpecs?.data ? (
+                <div className={`${styles.inventory_pdfs}`}>
+                  {data?.OEMWindowSticker?.data ? (
+                    <div
+                      className={`${styles.inventory_pdfs_button}`}
+                      onClick={() =>
+                        togglePDFPopup(data.OEMWindowSticker.data.attributes)
+                      }
+                    >
+                      <span
+                        className={`${styles.inventory_pdfs_button_text} text-cta-regular`}
+                      >
+                        <strong>{lang.oem}</strong> {lang.windowSticker}
+                      </span>
+                      <div className={`${styles.inventory_pdfs_button_icon}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          fill="none"
+                          viewBox="0 0 20 20"
+                        >
+                          <circle
+                            cx="10"
+                            cy="10"
+                            r="8"
+                            stroke="currentColor"
+                          ></circle>
+                          <path
+                            stroke="currentColor"
+                            d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {data?.OEMArmoringSpecs?.data ? (
+                    <div
+                      className={`${styles.inventory_pdfs_button}`}
+                      onClick={() =>
+                        togglePDFPopup(data.OEMArmoringSpecs.data.attributes)
+                      }
+                    >
+                      <span
+                        className={`${styles.inventory_pdfs_button_text} text-cta-regular`}
+                      >
+                        {lang.armoringSpecs}
+                      </span>
+                      <div className={`${styles.inventory_pdfs_button_icon}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          fill="none"
+                          viewBox="0 0 20 20"
+                        >
+                          <circle
+                            cx="10"
+                            cy="10"
+                            r="8"
+                            stroke="currentColor"
+                          ></circle>
+                          <path
+                            stroke="currentColor"
+                            d="M7.714 12.286 12 8m0 0H7m5 0v5"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
               <div className={`${styles.inventory_cta_wrap}`}>
                 <Button
                   onClick={scroll}
@@ -564,7 +636,7 @@ function InventoryVehicle(props) {
                 })}
               </ul>
 
-              {mediaPassword ? (
+              {mediaPassword.media.data ? (
                 <div
                   onClick={() =>
                     handlePdfClick(
@@ -575,9 +647,7 @@ function InventoryVehicle(props) {
                   className={`${styles.inventory_passwordPopup}`}
                 >
                   <span className={`${styles.inventory_passwordPopup_text}`}>
-                    <span>{mediaPassword.text}</span>
-                    {/* <br />
-                    Brochure */}
+                    <span>{mediaPassword.text || 'Brochure'}</span>
                   </span>
                   <div className={`${styles.inventory_passwordPopup_icon}`}>
                     <svg
@@ -599,41 +669,6 @@ function InventoryVehicle(props) {
                       ></path>
                     </svg>
                   </div>
-                </div>
-              ) : null}
-
-              {data?.OEMWindowSticker?.data || data?.OEMArmoringSpecs?.data ? (
-                <div className={`${styles.inventory_pdfs}`}>
-                  {data?.OEMWindowSticker?.data ? (
-                    <Button
-                      // href={data.OEMWindowSticker.data.attributes?.url.replace(
-                      //   /\.ai$/,
-                      //   '.pdf'
-                      // )}
-                      onClick={() =>
-                        togglePDFPopup(data.OEMWindowSticker.data.attributes)
-                      }
-                      iconComponent={PDFIcon}
-                      className={`${styles.inventory_pdfs_button} icon rounded`}
-                      // target
-                      button
-                    >
-                      <strong>{lang.oem}</strong> {lang.windowSticker}
-                    </Button>
-                  ) : null}
-
-                  {data?.OEMArmoringSpecs?.data ? (
-                    <Button
-                      onClick={() =>
-                        togglePDFPopup(data.OEMArmoringSpecs.data.attributes)
-                      }
-                      iconComponent={DownloadIcon}
-                      className={`${styles.inventory_pdfs_button} icon rounded`}
-                      button
-                    >
-                      {lang.armoringSpecs}
-                    </Button>
-                  ) : null}
                 </div>
               ) : null}
             </div>
