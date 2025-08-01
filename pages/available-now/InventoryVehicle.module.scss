@@ -347,11 +347,11 @@
         }
 
         .inventory_pdfs_button_icon svg {
-          transform: rotate(45deg);        
-        }        
+          transform: rotate(45deg);
+        }
       }
 
-      &_text{
+      &_text {
         position: relative;
         text-wrap: nowrap;
         font-weight: var(--font-medium);
@@ -373,23 +373,23 @@
         }
       }
 
-      &_icon{
+      &_icon {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-left: 10px;  
+        margin-left: 10px;
 
         svg {
           transform: rotate(0deg);
           transition: transform 0.3s cubic-bezier(0.4, 0.64, 0.68, 1);
-          
-          path, circle {
+
+          path,
+          circle {
             stroke-width: 1.5;
             transition: stroke 0.25s linear;
-          }  
+          }
         }
       }
-      
     }
   }
 
