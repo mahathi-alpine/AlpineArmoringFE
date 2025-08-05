@@ -319,7 +319,6 @@
     font-size: rem(15);
 
     @include breakpoint(large) {
-      position: absolute;
       bottom: 22px;
       right: 0;
       left: auto;
