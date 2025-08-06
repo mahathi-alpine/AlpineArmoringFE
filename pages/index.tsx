@@ -8,6 +8,7 @@ import useAnimationObserver from 'hooks/useAnimationObserver';
 import HpBanner from 'components/homepage/hp-banner/HpBanner';
 import FillingText from 'components/global/filling-text/FillingText';
 import Categories from 'components/homepage/categories/Categories';
+import Event from 'components/global/event/Event';
 import TabSection from 'components/homepage/tab-section/TabSection';
 import News from 'components/global/news/News';
 import Partners from 'components/homepage/partners/Partners';
@@ -166,6 +167,7 @@ function Home({ homepageData, categories }) {
   const tabSectionData = data?.tabSection;
   const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
   const partners = data?.industryPartners;
+  const event = data?.event;
   // const ballistingTestings = data?.ballistingTestingsMedia;
 
   const news =
@@ -216,6 +218,8 @@ function Home({ homepageData, categories }) {
             allVehiclesImage={allVehiclesImage}
           />
         )}
+
+        <Event data={event} />
 
         {hpMiddleText ? (
           <FillingText className="padding hpBottomText" data={hpMiddleText} />
