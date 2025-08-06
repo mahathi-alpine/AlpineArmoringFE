@@ -207,10 +207,10 @@ function Home({ homepageData, categories }) {
         />
       </Head>
 
-      {topBanner ? <HpBanner props={topBanner} /> : null}
+      {topBanner && <HpBanner props={topBanner} />}
 
       <div className="background-dark">
-        {quote ? <FillingText className={`padding pt-2`} data={quote} /> : null}
+        {quote && <FillingText className={`padding pt-2`} data={quote} />}
 
         {categoriesData && (
           <Categories
@@ -219,13 +219,13 @@ function Home({ homepageData, categories }) {
           />
         )}
 
-        <Event data={event} />
+        {event && <Event data={event} />}
 
-        {hpMiddleText ? (
+        {hpMiddleText && (
           <FillingText className="padding hpBottomText" data={hpMiddleText} />
-        ) : null}
+        )}
 
-        {tabSectionData ? <TabSection props={tabSectionData} /> : null}
+        {tabSectionData && <TabSection props={tabSectionData} />}
 
         {/* {ballistingTestings && !data?.disableCoolVideos ? (
           <div className={`observe fade-in-up`}>
@@ -236,7 +236,7 @@ function Home({ homepageData, categories }) {
         <div className="shape-after shape-after-white"></div>
       </div>
 
-      {posts.length ? (
+      {posts.length && (
         <News
           props={posts}
           button
@@ -245,9 +245,9 @@ function Home({ homepageData, categories }) {
           customClass="newsHomepage"
           type="blogs"
         />
-      ) : null}
+      )}
 
-      {partners ? <Partners props={partners} /> : null}
+      {partners && <Partners props={partners} />}
 
       {/* <SocialFeed videos={videoData} onVideoSelect={handleVideoSelect} /> */}
     </>
