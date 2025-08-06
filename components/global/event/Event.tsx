@@ -13,9 +13,13 @@ const Event = (props) => {
       )}
       <div className={`${styles.event_inner}`}>
         <div className={`${styles.event_image}`}>
-          {data.media && (
+          {data.media.data && (
             <Image
-              src={data.media.data[0].attributes.formats.medium.url}
+              src={
+                data.media.data.attributes?.formats.medium.url ||
+                data.media.data.attributes?.formats.large.url ||
+                data.media.data.attributes?.url
+              }
               alt="Alpine Armoring IACP"
               width={700}
               height={300}
@@ -24,11 +28,13 @@ const Event = (props) => {
         </div>
         <div className={`${styles.event_content}`}>
           <div className={`${styles.event_info}`}>
-            <p>{data.date}</p>
-            <p>{data.location}</p>
+            {data.date && <p>{data.date}</p>}
+            {data.location && <p>{data.location}</p>}
           </div>
 
-          <h3 className={`${styles.event_title}`}>{data.title}</h3>
+          {data.title && (
+            <h3 className={`${styles.event_title}`}>{data.title}</h3>
+          )}
           <CustomMarkdown>{data.description}</CustomMarkdown>
 
           {data.url && (
