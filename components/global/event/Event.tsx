@@ -5,7 +5,7 @@ import CustomMarkdown from 'components/CustomMarkdown';
 
 const Event = (props) => {
   const data = props.data;
-  console.log(data);
+
   return (
     <div className={`${styles.event}`}>
       <div className={`${styles.event_ribbon}`}>{data.ribbon}</div>
