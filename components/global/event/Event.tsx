@@ -16,8 +16,8 @@ const Event = (props) => {
           {data.media.data && (
             <Image
               src={
-                data.media.data.attributes?.formats.medium.url ||
-                data.media.data.attributes?.formats.large.url ||
+                data.media.data.attributes?.formats?.medium?.url ||
+                data.media.data.attributes?.formats?.large?.url ||
                 data.media.data.attributes?.url
               }
               alt="Alpine Armoring IACP"
