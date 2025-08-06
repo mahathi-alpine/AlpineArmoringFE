@@ -65,11 +65,11 @@
 
   &_title {
     margin: rem(20) 0;
-    font-size: rem(30);
+    font-size: rem(27);
     font-weight: var(--font-medium);
 
     @include breakpoint(large) {
-      font-size: rem(45);
+      font-size: rem(40);
     }
   }
 
