@@ -8,7 +8,9 @@ const Event = (props) => {
 
   return (
     <div className={`${styles.event}`}>
-      <div className={`${styles.event_ribbon}`}>{data.ribbon}</div>
+      {data.ribbon && (
+        <div className={`${styles.event_ribbon}`}>{data.ribbon}</div>
+      )}
       <div className={`${styles.event_inner}`}>
         <div className={`${styles.event_image}`}>
           {data.media && (
