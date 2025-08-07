@@ -99,7 +99,7 @@ const Header = ({
           <Link href={'/'} aria-label="Alpine Armoring Logo">
             {isDarkMode || isHeaderGray ? (
               <Image
-                src="/assets/Alpine-Armoring-Armored-Vehicles.png"
+                src="/assets/Alpine-Logo.png"
                 alt="Alpine Armoring Armored Vehicles"
                 width={125}
                 height={42}

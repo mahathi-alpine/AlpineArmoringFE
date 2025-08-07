@@ -58,7 +58,7 @@ function About(props) {
       '@type': 'Organization',
       name: 'Alpine Armoring',
       url: process.env.NEXT_PUBLIC_URL,
-      logo: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Armored-Vehicles.png`,
+      logo: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Logo.png`,
       description:
         'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
       foundingDate: '1993',

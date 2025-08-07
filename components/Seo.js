@@ -98,7 +98,7 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
     seoProps?.metaImage?.data?.attributes.url ||
     seoProps?.thumbnail?.formats?.large?.url ||
     seoProps?.thumbnail?.url ||
-    `${baseUrlDefault}/assets/Alpine-Armoring-Armored-Vehicles.png`;
+    `${baseUrlDefault}/assets/Alpine-Logo.png`;
 
   // Facebook social meta
   const facebookMeta =
