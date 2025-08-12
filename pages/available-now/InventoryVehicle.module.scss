@@ -309,7 +309,7 @@
 
   &_pdfs {
     position: absolute;
-    bottom: -40px;
+    bottom: -70px;
     left: 0;
     right: 0;
     display: flex;
@@ -320,10 +320,8 @@
 
     @include breakpoint(large) {
       bottom: 22px;
-      right: 0;
-      left: auto;
+      justify-content: unset;
       margin: 0;
-      justify-content: space-around;
     }
 
     @include breakpoint(huge) {
@@ -337,6 +335,15 @@
       justify-content: center;
       text-decoration: none;
       position: relative;
+
+      &:last-child{
+        margin-top: 10px;
+
+        @include breakpoint(large) {
+          margin-top: 0;
+          margin-left: auto;
+        }
+      }
 
       @include breakpoint(large) {
         font-size: 15px;
@@ -458,8 +465,14 @@
   }
 
   &_description {
-    padding-top: rem(100);
+    padding-top: rem(50);
     font-size: rem(14);
+
+    &_pdfs{
+      @include breakpoint(small) {
+        padding-top: rem(100);
+      }
+    }
 
     @include breakpoint(large) {
       font-size: rem(17);

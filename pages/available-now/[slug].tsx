@@ -681,11 +681,25 @@ function InventoryVehicle(props) {
           pdfUrl={currentPdfUrl}
         />
 
-        {mainText ? (
-          <div className={`${styles.inventory_description} container_small`}>
-            <CustomMarkdown>{mainText}</CustomMarkdown>
-          </div>
-        ) : null}
+        {mainText
+          ? (() => {
+              const hasWindowSticker = data?.OEMWindowSticker?.data;
+              const hasArmoringSpecs = data?.OEMArmoringSpecs?.data;
+
+              let pdfClass = '';
+              if (hasWindowSticker || hasArmoringSpecs) {
+                pdfClass = styles.inventory_description_pdfs;
+              }
+
+              return (
+                <div
+                  className={`${styles.inventory_description} ${pdfClass} container_small`}
+                >
+                  <CustomMarkdown>{mainText}</CustomMarkdown>
+                </div>
+              );
+            })()
+          : null}
 
         {videoWebm || videoMP4 ? (
           <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
