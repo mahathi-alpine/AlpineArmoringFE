@@ -336,7 +336,7 @@
       text-decoration: none;
       position: relative;
 
-      &:last-child{
+      &:last-child {
         margin-top: 10px;
 
         @include breakpoint(large) {
@@ -468,7 +468,7 @@
     padding-top: rem(50);
     font-size: rem(14);
 
-    &_pdfs{
+    &_pdfs {
       @include breakpoint(small) {
         padding-top: rem(100);
       }
