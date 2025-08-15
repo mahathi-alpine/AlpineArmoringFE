@@ -148,7 +148,7 @@ export default {
   moreFAQ: 'More FAQs',
   locationsWeServe: 'Locations We Serve',
   armored: 'Armored',
-  forPreorder: 'for preorder',
+  forPreorder: 'For Pre-Order',
   alpineShield: 'Alpine Shield',
   cookieTitle: 'We value your privacy',
   cookieText: `We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.`,

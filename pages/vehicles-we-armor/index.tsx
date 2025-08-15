@@ -28,7 +28,7 @@ const getFallbackData = (locale = 'en') => {
       },
       banner: {
         title:
-          'Armored <strong>SUVs, Sedans, Pickup trucks, CITs, SWAT trucks, PPVs</strong> for preorder',
+          'Armored <strong>SUVs, Sedans, Pickup trucks, CITs, SWAT trucks, PPVs</strong> For Pre-Order',
         imageMobile: {
           data: {
             attributes: {
