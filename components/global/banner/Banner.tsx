@@ -29,6 +29,9 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     if (make.toLowerCase() === 'pit-bull') {
       return 'Pit-Bull';
     }
+    if (make.toLowerCase() === 'mastiff') {
+      return 'MASTIFF®';
+    }
 
     return make
       .toString()
