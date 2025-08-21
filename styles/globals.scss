@@ -1043,7 +1043,7 @@ $shapeColor: var(--color-background);
   font-size: 20px;
 }
 
-.markdownImageHoverPopup{
+.markdownImageHoverPopup {
   position: fixed;
   z-index: 3;
   pointer-events: none;
@@ -1054,7 +1054,7 @@ $shapeColor: var(--color-background);
   @include breakpoint(small) {
     transform: translate(-10%, -50%);
 
-    button{
+    button {
       position: absolute;
       top: 4px;
       right: 4px;
@@ -1069,32 +1069,31 @@ $shapeColor: var(--color-background);
       display: flex;
       align-items: center;
       justify-content: center;
-
     }
   }
 
-  &_trigger{
+  &_trigger {
     position: relative;
     cursor: help;
     color: var(--color-primaryLight);
     font-weight: var(--font-medium);
     text-decoration: underline;
-    
+
     &:hover {
-      .markdownImageHoverPopup_icon{
+      .markdownImageHoverPopup_icon {
         opacity: 1;
       }
-    }  
+    }
   }
 
-  &_icon{
+  &_icon {
     display: inline-block;
     margin-left: 8px;
     vertical-align: middle;
     width: 20px;
   }
 
-  img{    
+  img {
     width: 100%;
     height: auto;
     border-radius: 4px;
