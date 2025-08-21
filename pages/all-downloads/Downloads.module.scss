@@ -2,6 +2,7 @@
   @include breakpoint(large) {
     display: flex;
     flex-wrap: wrap;
+    max-width: 1740px;
 
     &_column {
       width: 50%;
@@ -23,15 +24,16 @@
   }
 
   ul {
-    list-style-type: disc;
     padding-left: 16px;
     margin-left: 5px;
   }
 
   li {
+    position: relative;
     font-weight: var(--font-medium);
     margin-bottom: 10px;
     font-size: clamp(0.75rem, 0.7197rem + 0.1294vw, 0.875rem);
+    line-height: 1.5;
     transition:
       color 0.2s ease-in-out,
       transform 0.2s ease-in-out;
@@ -39,6 +41,15 @@
     &:hover {
       color: var(--color-primary);
       transform: translateX(5px);
+    }
+    
+    &::before {
+      content: "\2022";
+      font-weight: bold;
+      font-size: 17px;
+      position: absolute;
+      left: -16px;
+      top: -4px;
     }
 
     button {

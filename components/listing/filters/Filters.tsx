@@ -145,8 +145,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     const baseUrl =
       router.locale === 'es'
-        ? '/es/vehiculos-blindados-en-venta'
-        : '/armored-vehicles-for-sale';
+        ? router.pathname === '/vehicles-we-armor'
+          ? '/es/vehiculos-que-blindamos'
+          : '/es/vehiculos-blindados-en-venta'
+        : router.pathname === '/vehicles-we-armor'
+          ? '/vehicles-we-armor'
+          : '/armored-vehicles-for-sale';
 
     const newQuery: { q?: string } = {};
 
