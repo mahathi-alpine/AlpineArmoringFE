@@ -1,8 +1,26 @@
-import { useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import Image from 'next/image';
 
 export default function CustomMarkdown({ children }) {
+  const [hoveredImage, setHoveredImage] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+  const checkIntervalRef = useRef(null);
+
+  // Detect if device is mobile
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
   const openPopupWindow = useCallback((url) => {
     const width = Math.min(1500, window.innerWidth * 0.8);
     const height = Math.min(1000, window.innerHeight * 0.8);
@@ -17,6 +35,82 @@ export default function CustomMarkdown({ children }) {
     );
   }, []);
 
+  const handleMouseMove = (e) => {
+    setMousePosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const checkHoverState = useCallback(() => {
+    const triggers = document.querySelectorAll(
+      '.markdownImageHoverPopup_trigger:hover'
+    );
+    if (triggers.length === 0) {
+      setHoveredImage(null);
+      if (checkIntervalRef.current) {
+        clearInterval(checkIntervalRef.current);
+        checkIntervalRef.current = null;
+      }
+    }
+  }, []);
+
+  const handleMouseEnter = useCallback(
+    (imageUrl, e) => {
+      if (isMobile) return; // Skip hover on mobile
+
+      setHoveredImage(imageUrl);
+      handleMouseMove(e);
+
+      if (checkIntervalRef.current) {
+        clearInterval(checkIntervalRef.current);
+      }
+      checkIntervalRef.current = setInterval(checkHoverState, 100);
+    },
+    [checkHoverState, isMobile]
+  );
+
+  const handleClick = useCallback(
+    (imageUrl, e) => {
+      if (!isMobile) return; // Only handle clicks on mobile
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (hoveredImage === imageUrl) {
+        // If same image is clicked, hide it
+        setHoveredImage(null);
+      } else {
+        // Show the clicked image
+        setHoveredImage(imageUrl);
+        handleMouseMove(e);
+      }
+    },
+    [isMobile, hoveredImage]
+  );
+
+  // Close image on outside click (mobile)
+  useEffect(() => {
+    if (!isMobile || !hoveredImage) return;
+
+    const handleOutsideClick = (e) => {
+      if (
+        !e.target.closest('.markdownImageHoverPopup_trigger') &&
+        !e.target.closest('.markdownImageHoverPopup')
+      ) {
+        setHoveredImage(null);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, [isMobile, hoveredImage]);
+
+  useEffect(() => {
+    return () => {
+      if (checkIntervalRef.current) {
+        clearInterval(checkIntervalRef.current);
+      }
+    };
+  }, []);
+
   const components = {
     a: ({ href, children, ...props }) => {
       const isExternal =
@@ -24,6 +118,41 @@ export default function CustomMarkdown({ children }) {
         (href.startsWith('http') ||
           href.startsWith('www') ||
           href.startsWith('//'));
+
+      const isImageLink = href && href.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+
+      if (isImageLink) {
+        return (
+          <span
+            className="markdownImageHoverPopup_trigger"
+            onMouseEnter={(e) => handleMouseEnter(href, e)}
+            onMouseMove={handleMouseMove}
+            onClick={(e) => handleClick(href, e)}
+            style={{ cursor: isMobile ? 'pointer' : 'help' }}
+          >
+            {children}
+            <svg
+              className="markdownImageHoverPopup_icon"
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+              height="100%"
+              width="100%"
+              preserveAspectRatio="xMidYMid meet"
+              focusable="false"
+            >
+              <path
+                fill="white"
+                data-name="Pfad 7209"
+                d="M14.8 9.65h2.63v2.63H14.8Zm0 5.25h2.63v7.86H14.8Z"
+              ></path>
+              <path
+                d="M16 31.85A15.85 15.85 0 1 1 31.85 16 15.86 15.86 0 0 1 16 31.85Zm0-30.59A14.75 14.75 0 1 0 30.76 16 14.76 14.76 0 0 0 16 1.26Z"
+                fill="white"
+              ></path>
+            </svg>
+          </span>
+        );
+      }
 
       if (isExternal) {
         return (
@@ -49,7 +178,6 @@ export default function CustomMarkdown({ children }) {
         );
       }
 
-      // For internal links, use default behavior
       return (
         <a href={href} {...props}>
           {children}
@@ -61,8 +189,28 @@ export default function CustomMarkdown({ children }) {
   if (!children) return null;
 
   return (
-    <ReactMarkdown rehypePlugins={[rehypeRaw]} components={components}>
-      {children}
-    </ReactMarkdown>
+    <>
+      {hoveredImage && (
+        <span
+          className="markdownImageHoverPopup"
+          style={{
+            left: isMobile ? '20%' : mousePosition.x + 10,
+            top: isMobile ? '50%' : mousePosition.y - 100,
+          }}
+        >
+          <Image
+            src={hoveredImage}
+            alt="Alpine Armoring"
+            width={isMobile ? 350 : 700}
+            height={isMobile ? 350 : 700}
+          />
+          {isMobile && <button onClick={() => setHoveredImage(null)}>×</button>}
+        </span>
+      )}
+
+      <ReactMarkdown rehypePlugins={[rehypeRaw]} components={components}>
+        {children}
+      </ReactMarkdown>
+    </>
   );
 }

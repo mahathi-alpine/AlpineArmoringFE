@@ -1042,3 +1042,62 @@ $shapeColor: var(--color-background);
   padding: 50px 0;
   font-size: 20px;
 }
+
+.markdownImageHoverPopup{
+  position: fixed;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  max-width: 700px;
+
+  @include breakpoint(small) {
+    transform: translate(-10%, -50%);
+
+    button{
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+  }
+
+  &_trigger{
+    position: relative;
+    cursor: help;
+    color: var(--color-primaryLight);
+    font-weight: var(--font-medium);
+    text-decoration: underline;
+    
+    &:hover {
+      .markdownImageHoverPopup_icon{
+        opacity: 1;
+      }
+    }  
+  }
+
+  &_icon{
+    display: inline-block;
+    margin-left: 8px;
+    vertical-align: middle;
+    width: 20px;
+  }
+
+  img{    
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+  }
+}

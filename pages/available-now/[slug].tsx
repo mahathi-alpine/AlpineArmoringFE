@@ -15,7 +15,9 @@ import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 import LightboxCustom from 'components/global/lightbox/LightboxCustom';
 import PlayIcon from 'components/icons/Play2';
+import VehicleDetailsList from './VehicleDetailsList';
 import InquiryForm from 'components/global/form/InquiryForm';
+import Content from 'components/global/content/Content';
 import VideoScale, {
   animateVideo,
 } from 'components/global/video-scale/VideoScale';
@@ -110,6 +112,9 @@ function InventoryVehicle(props) {
 
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
+  const contentData = {
+    dynamicZone: data?.blogDynamic || [],
+  };
   const category = data?.categories?.data[0]?.attributes?.title;
   const categorySlug = data?.categories?.data[0]?.attributes?.slug;
 
@@ -124,25 +129,24 @@ function InventoryVehicle(props) {
     thumbs: true,
   };
 
-  const vehicleDetailsMain = {
-    [lang.level]: 'armor_level',
-    [lang.VIN]: 'VIN',
-    [lang.vehicleID]: 'vehicleID',
-    [lang.enginePower]: 'engine',
-    [lang.trans]: 'trans',
-    // Power: 'power',
-    [lang.year]: 'year',
-    [lang.miles]: 'miles',
-    [lang.drivetrain]: 'driveTrain',
-    [lang.colorExt]: 'color_ext',
-    [lang.colorInt]: 'color_int',
-    [lang.trim]: 'trim',
-    [lang.wheels]: 'wheels',
-    [lang.height]: 'height',
-    [lang.length]: 'length',
-    [lang.width]: 'width',
-    [lang.wheelbase]: 'wheelbase',
-    [lang.weightArmored]: 'weight',
+  const vehicleDetailsData = {
+    armor_level: data?.armor_level,
+    VIN: data?.VIN,
+    vehicleID: data?.vehicleID,
+    engine: data?.engine,
+    trans: data?.trans,
+    year: data?.year,
+    miles: data?.miles,
+    driveTrain: data?.driveTrain,
+    color_ext: data?.color_ext,
+    color_int: data?.color_int,
+    trim: data?.trim,
+    wheels: data?.wheels,
+    height: data?.height,
+    length: data?.length,
+    width: data?.width,
+    wheelbase: data?.wheelbase,
+    weight: data?.weight,
   };
 
   const formData = {
@@ -578,63 +582,7 @@ function InventoryVehicle(props) {
             </div>
 
             <div className={`${styles.inventory_details}`}>
-              <ul className={`${styles.inventory_details_list}`}>
-                {Object.entries(vehicleDetailsMain).map(([key, value]) => {
-                  let dimensionValue = null;
-
-                  if (
-                    data &&
-                    data[value] != null &&
-                    data[value] != '' &&
-                    data[value] != ' '
-                  ) {
-                    if (key === lang.weightArmored) {
-                      // Apply thousands separator to the pounds value if it's in the thousands
-                      const poundsValue =
-                        parseInt(data[value]) >= 1000
-                          ? parseInt(data[value]).toLocaleString()
-                          : parseInt(data[value]);
-                      // Convert pounds to kilograms and round to the nearest whole number
-                      const weightInKg = Math.round(data[value] * 0.45359237);
-                      // Apply thousands separator to the kilograms value if it's in the thousands
-                      const kilogramsValue =
-                        weightInKg >= 1000
-                          ? weightInKg.toLocaleString()
-                          : weightInKg;
-                      dimensionValue = `${poundsValue} lbs (${kilogramsValue} kg)`;
-                    } else if (
-                      [
-                        lang.height,
-                        lang.length,
-                        lang.width,
-                        lang.wheelbase,
-                      ].includes(key)
-                    ) {
-                      // Convert inches to centimeters
-                      dimensionValue = `${data[value]} in. (${Math.round(
-                        data[value] * 2.54
-                      )} cm)`;
-                    } else {
-                      dimensionValue = data[value];
-                    }
-                  }
-
-                  return (
-                    data &&
-                    data[value] != null &&
-                    data[value] != '' &&
-                    data[value] != ' ' && (
-                      <li
-                        key={key}
-                        className={`${styles.inventory_details_list_item}`}
-                      >
-                        {`${key}:`}
-                        <span>{dimensionValue}</span>
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
+              <VehicleDetailsList vehicleDetails={vehicleDetailsData} />
 
               {mediaPassword?.media.data ? (
                 <div
@@ -696,6 +644,7 @@ function InventoryVehicle(props) {
                   className={`${styles.inventory_description} ${pdfClass} container_small`}
                 >
                   <CustomMarkdown>{mainText}</CustomMarkdown>
+                  <Content data={contentData} />
                 </div>
               );
             })()
