@@ -42,9 +42,9 @@
       color: var(--color-primary);
       transform: translateX(5px);
     }
-    
+
     &::before {
-      content: "\2022";
+      content: '\2022';
       font-weight: bold;
       font-size: 17px;
       position: absolute;
