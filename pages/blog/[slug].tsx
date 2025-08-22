@@ -100,7 +100,7 @@ function BlogSingle(props) {
       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}/${data.slug}`,
       headline: data.title,
       description: data?.excerpt || `${data.title} | Alpine Armoring`,
-      image: data.thumbnail.data.attributes.url,
+      image: data.thumbnail.data?.attributes.url,
       datePublished: data.publishedAt,
       dateModified: data.updatedAt,
       author: {

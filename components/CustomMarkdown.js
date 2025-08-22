@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 
 export default function CustomMarkdown({ children }) {
@@ -208,7 +209,10 @@ export default function CustomMarkdown({ children }) {
         </span>
       )}
 
-      <ReactMarkdown rehypePlugins={[rehypeRaw]} components={components}>
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw, remarkGfm]}
+        components={components}
+      >
         {children}
       </ReactMarkdown>
     </>

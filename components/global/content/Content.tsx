@@ -7,6 +7,10 @@ function Content(props) {
   return (
     <>
       {dynamicZone?.map((component, index) => {
+        const classes = component.class
+          ? component.class.split(' ').join(' ')
+          : '';
+
         switch (component.__component) {
           case 'slices.text': {
             return (
@@ -108,6 +112,7 @@ function Content(props) {
                       component.media.data?.attributes.height
                     }
                     quality={100}
+                    className={`${classes}`}
                   />
                 );
               }
