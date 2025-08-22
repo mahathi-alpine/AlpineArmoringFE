@@ -182,7 +182,7 @@ function Home({ homepageData, categories }) {
       category: lang.blog.toLowerCase(),
     })) || [];
 
-  const posts = blogs.concat(news);
+  const posts = news.concat(blogs);
 
   // Animations
   useAnimationObserver({
@@ -240,7 +240,7 @@ function Home({ homepageData, categories }) {
         <News
           props={posts}
           button
-          limit="3"
+          limit="4"
           subtitle={lang.hpLatestNews}
           customClass="newsHomepage"
           type="blogs"
