@@ -16,7 +16,8 @@ export interface VehicleDetailsConfig {
     currentPage: any,
     currentLocale: string
   ) => { [key: string]: string };
-  canonicalUrlPath: string;
+  canonicalUrlPath?: string;
+  thumbnailSource?: 'thumbnail' | 'featuredImage';
 }
 
 export const getVehicleDetailsServerSideProps = async (
@@ -46,14 +47,18 @@ export const getVehicleDetailsServerSideProps = async (
 
     const currentPage = data?.data?.[0]?.attributes;
 
+    const thumbnailPath =
+      config.thumbnailSource === 'featuredImage'
+        ? currentPage?.featuredImage?.data?.attributes
+        : currentPage?.thumbnail?.data?.attributes;
+
     const seoData = {
       ...(currentPage?.seo ?? {}),
-      thumbnail:
-        currentPage?.featuredImage?.data?.attributes ??
-        currentPage?.thumbnail?.data?.attributes ??
-        null,
+      thumbnail: thumbnailPath ?? null,
       languageUrls: config.languageUrlBuilder(currentPage, locale),
-      canonicalURL: `${config.canonicalUrlPath}/${currentPage.slug}`,
+      ...(config.canonicalUrlPath && {
+        canonicalURL: `${config.canonicalUrlPath}/${currentPage.slug}`,
+      }),
     };
 
     // Apply SEO transformations if provided

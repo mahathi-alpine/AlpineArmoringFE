@@ -24,6 +24,7 @@ export async function getServerSideProps({ params, locale }) {
       languageUrlBuilder: buildRentalVehicleLanguageUrls,
       canonicalUrlPath:
         routes.rentalVehicles.paths[locale] || routes.rentalVehicles.paths.en,
+      thumbnailSource: 'featuredImage',
     }
   );
 }

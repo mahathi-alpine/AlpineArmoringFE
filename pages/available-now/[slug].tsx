@@ -21,7 +21,7 @@ export async function getServerSideProps({
     {
       route: routes.inventory,
       languageUrlBuilder: buildVehicleLanguageUrls,
-      canonicalUrlPath: '/available-now',
+      thumbnailSource: 'featuredImage',
     }
   );
 }
