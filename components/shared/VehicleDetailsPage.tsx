@@ -23,9 +23,7 @@ const LightboxCustom = dynamic(
   () => import('components/global/lightbox/LightboxCustom')
 );
 const PlayIcon = dynamic(() => import('components/icons/Play2'));
-const VehicleDetailsList = dynamic(
-  () => import('pages/available-now/VehicleDetailsList')
-);
+const VehicleDetailsList = dynamic(() => import('./VehicleDetailsList'));
 const InquiryForm = dynamic(() => import('components/global/form/InquiryForm'));
 const Content = dynamic(() => import('components/global/content/Content'));
 const Accordion = dynamic(
