@@ -1,4 +1,5 @@
-export default {
+const enLocale = {
+  // English locale strings
   availableNowURL: 'available-now',
   armoredVehiclesForSaleURL: 'armored-vehicles-for-sale',
   vehiclesWeArmorURL: '/vehicles-we-armor',
@@ -268,7 +269,6 @@ export default {
   news: 'News',
   rentalVehiclesURL: '/rental-vehicles',
   rental: 'Rental',
-  armoredSmall: 'armored',
   groundShipping: 'Ground Shipping',
   oceanShipping: 'Ocean Shipping',
   airCargoShipping: 'Air Cargo Shipping',
@@ -331,4 +331,7 @@ export default {
   authors: 'Authors',
   ifInterestedPlease: 'If interested, please',
   us: 'us',
+  bulletproof: 'bulletproof',
 };
+
+export default enLocale;
