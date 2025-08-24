@@ -23,7 +23,7 @@ const getFallbackData = (locale = 'en') => ({
       metaTitle:
         locale === 'en'
           ? 'Armored Vehicles For Sale: Bulletproof Cars, SUVs, Trucks | Alpine Armoring®'
-          : 'Vehículos blindados en venta | Alpine Blindaje Vehículos a prueba de balas',
+          : 'Vehículos blindados a la venta: Autos, SUV y camionetas blindados | Alpine Armoring®',
       metaDescription:
         locale === 'en'
           ? 'Armored vehicles for sale by Alpine Armoring. Find bulletproof SUVs, sedans, vans, and trucks with top-level protection that are completed and available for immediate shipping.'

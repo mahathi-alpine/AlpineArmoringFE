@@ -1,4 +1,5 @@
-export default {
+const esLocale = {
+  // Spanish locale strings
   availableNowURL: 'disponible-ahora',
   armoredVehiclesForSaleURL: 'vehiculos-blindados-en-venta',
   vehiclesWeArmorURL: '/vehiculos-que-blindamos',
@@ -271,7 +272,6 @@ export default {
   news: 'Noticias',
   rentalVehiclesURL: '/vehiculos-de-renta',
   rental: 'Renta',
-  armoredSmall: 'Blindado',
   groundShipping: 'Envío terrestre',
   oceanShipping: 'Envío marítimo',
   airCargoShipping: 'Envío de carga aérea',
@@ -335,4 +335,7 @@ export default {
   authors: 'Autores',
   ifInterestedPlease: 'Si está interesado, póngase en',
   us: 'con nosotros',
+  bulletproof: 'a prueba de balas',
 };
+
+export default esLocale;

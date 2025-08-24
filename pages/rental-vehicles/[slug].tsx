@@ -19,12 +19,20 @@ export async function getServerSideProps({ params, locale }) {
       route: routes.inventory,
       seoTransformations: {
         titlePrefix: lang.rental,
-        descriptionReplacement: { from: 'armored', to: 'rental armored' },
+        descriptionReplacements: [
+          {
+            from: lang.armored.toLowerCase(),
+            to: lang.rental.toLowerCase() + ' ' + lang.armored.toLowerCase(),
+          },
+          {
+            from: lang.bulletproof,
+            to: lang.rental.toLowerCase() + ' ' + lang.bulletproof,
+          },
+        ],
       },
       languageUrlBuilder: buildRentalVehicleLanguageUrls,
       canonicalUrlPath:
         routes.rentalVehicles.paths[locale] || routes.rentalVehicles.paths.en,
-      thumbnailSource: 'featuredImage',
     }
   );
 }
