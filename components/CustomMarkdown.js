@@ -146,10 +146,6 @@ export default function CustomMarkdown({ children }) {
                 data-name="Pfad 7209"
                 d="M14.8 9.65h2.63v2.63H14.8Zm0 5.25h2.63v7.86H14.8Z"
               ></path>
-              <path
-                d="M16 31.85A15.85 15.85 0 1 1 31.85 16 15.86 15.86 0 0 1 16 31.85Zm0-30.59A14.75 14.75 0 1 0 30.76 16 14.76 14.76 0 0 0 16 1.26Z"
-                fill="white"
-              ></path>
             </svg>
           </span>
         );

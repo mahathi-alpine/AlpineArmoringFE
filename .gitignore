@@ -37,3 +37,4 @@ tsconfig.tsbuildinfo
 
 sitemap.xml
 redirectUrls.ts
+settings.local.json

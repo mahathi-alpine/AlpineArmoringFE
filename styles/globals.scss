@@ -1075,9 +1075,9 @@ $shapeColor: var(--color-background);
   &_trigger {
     position: relative;
     cursor: help;
-    color: var(--color-primaryLight);
-    font-weight: var(--font-medium);
-    text-decoration: underline;
+    // color: var(--color-primaryLight);
+    // font-weight: var(--font-medium);
+    // text-decoration: underline;
 
     &:hover {
       .markdownImageHoverPopup_icon {
@@ -1090,7 +1090,9 @@ $shapeColor: var(--color-background);
     display: inline-block;
     margin-left: 8px;
     vertical-align: middle;
-    width: 20px;
+    width: 24px;
+    border: 1px solid white;
+    border-radius: 100%;
   }
 
   img {
