@@ -336,6 +336,7 @@ const esLocale = {
   ifInterestedPlease: 'Si está interesado, póngase en',
   us: 'con nosotros',
   bulletproof: 'a prueba de balas',
+  contactForPricing: 'Contáctenos para obtener información sobre precios',
 };
 
 export default esLocale;

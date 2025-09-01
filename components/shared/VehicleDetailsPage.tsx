@@ -329,10 +329,24 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
       offers: {
         '@type': 'Offer',
         url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
+        priceCurrency: 'USD',
+        price: '0',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'USD',
+          price: '0',
+        },
         availability:
-          data?.flag === null
+          data?.flag == null
             ? 'https://schema.org/InStock'
             : 'https://schema.org/OutOfStock',
+        priceValidUntil: new Date(
+          new Date().setFullYear(new Date().getFullYear() + 1)
+        )
+          .toISOString()
+          .split('T')[0],
+        description:
+          lang.contactForPricing || 'Contact us for pricing information',
         seller: {
           '@type': 'Organization',
           name: 'Alpine Armoring',

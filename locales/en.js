@@ -332,6 +332,7 @@ const enLocale = {
   ifInterestedPlease: 'If interested, please',
   us: 'us',
   bulletproof: 'bulletproof',
+  contactForPricing: 'Contact us for pricing information',
 };
 
 export default enLocale;
