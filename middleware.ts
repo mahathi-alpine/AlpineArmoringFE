@@ -68,10 +68,6 @@ const blockedPatterns: BlockedPattern[] = [
     exact: true,
   },
   {
-    pattern: '/sold-vehicles',
-    exact: true,
-  },
-  {
     pattern: '/vehiculos-vendidos',
     exact: true,
   },

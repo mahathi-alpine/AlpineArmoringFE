@@ -57,10 +57,64 @@ const Filters = ({ props, plain }: FiltersProps) => {
   );
 
   const sortFilterItems = (items: any[]) => {
+    // Special handling for items with sold vehicles category
+    const soldCategory = items.find(
+      (item) =>
+        item.attributes.slug?.includes('recently-sold-armored-vehicles') ||
+        item.attributes.slug?.includes(
+          'vehiculos-blindados-vendidos-recientemente'
+        )
+    );
+
+    if (soldCategory) {
+      // Remove sold category temporarily
+      const itemsWithoutSold = items.filter(
+        (item) =>
+          !item.attributes.slug?.includes('recently-sold-armored-vehicles') &&
+          !item.attributes.slug?.includes(
+            'vehiculos-blindados-vendidos-recientemente'
+          )
+      );
+
+      // Sort other items normally
+      const sortedItems = itemsWithoutSold.sort((a, b) => {
+        const aHasInventory = a.attributes.inventory_vehicles?.data.length > 0;
+        const bHasInventory = b.attributes.inventory_vehicles?.data.length > 0;
+        return aHasInventory === bHasInventory ? 0 : aHasInventory ? -1 : 1;
+      });
+
+      // Find where to insert sold category (after pre-owned, before rental)
+      const preOwnedIndex = sortedItems.findIndex(
+        (item) =>
+          item.attributes.slug === 'armored-pre-owned' ||
+          item.attributes.slug === 'blindados-pre-usados'
+      );
+
+      if (preOwnedIndex !== -1) {
+        // Insert after pre-owned
+        sortedItems.splice(preOwnedIndex + 1, 0, soldCategory);
+      } else {
+        // If no pre-owned, try to insert before rental
+        const rentalIndex = sortedItems.findIndex(
+          (item) =>
+            item.attributes.slug === 'armored-rental' ||
+            item.attributes.slug === 'alquiler-blindados'
+        );
+        if (rentalIndex !== -1) {
+          sortedItems.splice(rentalIndex, 0, soldCategory);
+        } else {
+          // As last resort, add at end
+          sortedItems.push(soldCategory);
+        }
+      }
+
+      return sortedItems;
+    }
+
+    // Normal sorting if no sold category
     return items.sort((a, b) => {
       const aHasInventory = a.attributes.inventory_vehicles?.data.length > 0;
       const bHasInventory = b.attributes.inventory_vehicles?.data.length > 0;
-
       return aHasInventory === bHasInventory ? 0 : aHasInventory ? -1 : 1;
     });
   };
@@ -579,7 +633,49 @@ const Filters = ({ props, plain }: FiltersProps) => {
                   )}
 
                   {filter === 'type'
-                    ? sortFilterItems(filterTypesByMake).map((item) => {
+                    ? (() => {
+                        const typesToProcess = [...filterTypesByMake];
+
+                        // Add sold vehicles category only on available now and armored vehicles for sale pages
+                        const isInventoryPage =
+                          router.pathname === '/armored-vehicles-for-sale' ||
+                          router.pathname === '/available-now' ||
+                          router.pathname.startsWith('/available-now/type/');
+
+                        const isSoldVehiclesPage =
+                          router.asPath.includes(
+                            'recently-sold-armored-vehicles'
+                          ) ||
+                          router.asPath.includes(
+                            'vehiculos-blindados-vendidos-recientemente'
+                          );
+
+                        if (isInventoryPage && !isSoldVehiclesPage) {
+                          // Add sold vehicles category between pre-owned and rental BEFORE sorting
+                          const soldCategory = {
+                            id: 'sold-category',
+                            attributes: {
+                              slug:
+                                router.locale === 'en'
+                                  ? 'recently-sold-armored-vehicles'
+                                  : 'vehiculos-blindados-vendidos-recientemente',
+                              title:
+                                router.locale === 'en'
+                                  ? 'Recently Sold Armored Vehicles'
+                                  : 'Vehículos Blindados Vendidos Recientemente',
+                              inventory_vehicles: { data: [] },
+                            },
+                          };
+
+                          // Just add it to the array - the sortFilterItems function will position it correctly
+                          typesToProcess.push(soldCategory);
+                        }
+
+                        // Apply sorting after insertion
+                        const sortedTypes = sortFilterItems(typesToProcess);
+
+                        return sortedTypes;
+                      })().map((item) => {
                         if (
                           (baseUrl.endsWith(lang.vehiclesWeArmorURL) &&
                             (item.attributes.title == lang.armoredRental ||
@@ -603,9 +699,15 @@ const Filters = ({ props, plain }: FiltersProps) => {
                           ? newUrl.substring(1)
                           : newUrl;
 
+                        const isSoldCategory =
+                          item.attributes.slug ===
+                            'recently-sold-armored-vehicles' ||
+                          item.attributes.slug ===
+                            'vehiculos-blindados-vendidos-recientemente';
+
                         return baseUrl.endsWith('/' + lang.availableNowURL) &&
-                          item.attributes.inventory_vehicles?.data.length <
-                            1 ? (
+                          item.attributes.inventory_vehicles?.data.length < 1 &&
+                          !isSoldCategory ? (
                           <span
                             className={`
                               ${styles.checkbox_link} 

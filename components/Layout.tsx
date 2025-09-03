@@ -60,7 +60,6 @@ const Layout = ({ children, seoData }) => {
     '/armored-vehicles-for-sale',
     '/rental-vehicles',
     '/manufacturing',
-    '/sold-vehicles',
     '/ballistic-testing',
   ];
   const pathsDarkFooter = ['/manufacturing', '/ballistic-testing'];

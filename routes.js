@@ -31,6 +31,10 @@ const vehicleTypes = {
     en: 'armored-pre-owned',
     es: 'blindados-pre-usados',
   },
+  'recently-sold-armored-vehicles': {
+    en: 'recently-sold-armored-vehicles',
+    es: 'vehiculos-blindados-vendidos-recientemente',
+  },
   'armored-rental': {
     en: 'armored-rental',
     es: 'alquiler-blindados',
@@ -218,14 +222,6 @@ const routes = {
     paths: {
       en: '/shipping-and-logistics',
       es: '/envio-y-logistica',
-    },
-  },
-  soldVehicles: {
-    collection: 'sold-vehicle',
-    collectionSingle: 'inventories',
-    paths: {
-      en: '/sold-vehicles',
-      es: '/vehiculos-vendidos',
     },
   },
   faqs: {

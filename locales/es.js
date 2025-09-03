@@ -42,6 +42,7 @@ const esLocale = {
   lawEnforcement: 'Fuerzas del Orden',
   CITNavigation: 'Transporte de valores (CIT)',
   armoredPreOwned: 'Blindados pre Usados',
+  recentlySoldArmoredVehicles: 'Vehículos Blindados Vendidos Recientemente',
   specialtyVehicles: 'Vehículos especiales',
   specialOfTheMonth: 'especial del mes',
   specialOfTheMonth2: 'especial-del-mes',
@@ -287,7 +288,6 @@ const esLocale = {
   pageNotFound: 'Página no encontrada',
   pageDoesNotExist: 'Lo sentimos, pero esta página no existe',
   goToHomepage: 'Ir a la página principal',
-  soldVehiclesURL: '/vehiculos-vendidos',
   chatWithUs: 'Chatea con nosotros',
   conversionMayVary:
     'La conversión de blindaje personalizada real puede variar según la configuración estructural de cada vehículo y las especificaciones finales del cliente',

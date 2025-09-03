@@ -7,9 +7,9 @@ import useLocale from 'hooks/useLocale';
 
 const TopBanner = ({ props, shape, small }: BannerProps) => {
   const router = useRouter();
-  const bannerImage = props.media.data?.attributes;
+  const bannerImage = props?.media?.data?.attributes;
   const bannerImageMobile = props.imageMobile?.data?.attributes;
-  const bannerMimeType = props.media.data?.attributes.mime;
+  const bannerMimeType = props?.media?.data?.attributes.mime;
   const bannerTitle = props.title;
   const bannerSubitle = props.subtitle;
   const videoRef = useRef<HTMLVideoElement>(null);

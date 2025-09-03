@@ -35,12 +35,12 @@
       padding: 0 rem(24) rem(20) rem(24);
 
       &_filtered {
-        flex: 1 0 320px;
+        flex: 1 0 325px;
         position: sticky;
         top: 80px;
         height: 100%;
         overflow-y: auto;
-        max-width: 320px;
+        max-width: 325px;
       }
 
       &_shown {

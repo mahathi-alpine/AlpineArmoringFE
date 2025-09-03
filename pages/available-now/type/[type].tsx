@@ -24,6 +24,7 @@ const isValidCategorySlug = (slug, locale = 'en') => {
       'armored-law-enforcement',
       'armored-specialty-vehicles',
       'armored-pre-owned',
+      'recently-sold-armored-vehicles',
       'armored-rental',
     ],
     es: [
@@ -34,6 +35,7 @@ const isValidCategorySlug = (slug, locale = 'en') => {
       'fuerzas-del-orden-blindadas',
       'vehiculos-blindados-especiales',
       'blindados-pre-usados',
+      'vehiculos-blindados-vendidos-recientemente',
       'alquiler-blindados',
     ],
   };
@@ -63,6 +65,7 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
       'armored-swat-trucks': 'Armored SWAT Trucks for Sale',
       'armored-limousines': 'Armored Limousines for Sale',
       'armored-specialty-vehicles': 'Armored Specialty Vehicles for Sale',
+      'recently-sold-armored-vehicles': 'Sold Vehicles',
     };
 
     return typeMap[categorySlug] || `Armored ${categoryTitle} for Sale`;
@@ -81,7 +84,13 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
               .join(' '),
             inventoryBanner: {
               title: getBannerTitle(categorySlug),
-              subtitle: lang.availableForImmediateShipping,
+              subtitle:
+                categorySlug === 'recently-sold-armored-vehicles' ||
+                categorySlug === 'vehiculos-blindados-vendidos-recientemente'
+                  ? locale === 'en'
+                    ? 'Browse our recently sold armored vehicles'
+                    : 'Explore nuestros vehículos blindados vendidos recientemente'
+                  : lang.availableForImmediateShipping,
               media: {
                 data: {
                   attributes: {
@@ -167,7 +176,17 @@ function Inventory(props) {
     if (!router.isReady || !allVehicles.length) return;
 
     const { q: searchQuery } = router.query;
-    let filtered = allVehicles.filter((vehicle) => !vehicle.attributes?.hide);
+    const isSoldPage =
+      query === 'recently-sold-armored-vehicles' ||
+      query === 'vehiculos-blindados-vendidos-recientemente';
+
+    // Filter hidden and sold vehicles except on sold page
+    let filtered = isSoldPage
+      ? allVehicles // Show all vehicles including hidden on sold page
+      : allVehicles.filter(
+          (vehicle) =>
+            !vehicle.attributes?.hide && vehicle.attributes?.flag !== 'sold'
+        );
 
     // Apply search filter if present
     if (searchQuery && typeof searchQuery === 'string') {
@@ -187,7 +206,7 @@ function Inventory(props) {
     } else {
       setItemsToRender(6); // Reset to initial amount
     }
-  }, [router.query.q, router.isReady, allVehicles]);
+  }, [router.query.q, router.isReady, allVehicles, query]);
 
   const fetchMoreItems = useCallback(() => {
     if (itemsToRender < (filteredVehicles?.length || 0)) {
@@ -296,7 +315,6 @@ function Inventory(props) {
 
   // Get vehicles to display based on current pagination
   const vehiclesToDisplay = filteredVehicles.slice(0, itemsToRender);
-
   const isRental = query === 'alquiler-blindados' || query === 'armored-rental';
 
   return (
@@ -467,9 +485,21 @@ export async function getStaticProps(context) {
     const localizedType = route.getLocalizedType(englishType, locale);
 
     // Fetch vehicles for this specific category
+    let vehicleParams;
+    if (
+      englishType === 'recently-sold-armored-vehicles' ||
+      englishType === 'vehiculos-blindados-vendidos-recientemente'
+    ) {
+      // For sold vehicles, filter by flag instead of category
+      vehicleParams = `filters[flag][$eq]=sold`;
+    } else {
+      // For regular categories, filter by category slug
+      vehicleParams = `filters[categories][slug][$eq]=${localizedType}`;
+    }
+
     const vehicles = await getPageData({
       route: route.collectionSingle,
-      params: `filters[categories][slug][$eq]=${localizedType}`,
+      params: vehicleParams,
       populate: 'featuredImage',
       fields:
         'fields[0]=VIN&fields[1]=armor_level&fields[2]=vehicleID&fields[3]=engine&fields[4]=title&fields[5]=slug&fields[6]=flag&fields[7]=label&fields[8]=ownPage&fields[9]=hide&fields[10]=rentalsVehicleID&fields[11]=trans&fields[12]=order&fields[13]=orderCategory',
@@ -500,12 +530,20 @@ export async function getStaticProps(context) {
       });
     }
 
-    // Filter out hidden vehicles at build time
+    // Filter out hidden and sold vehicles, except on sold vehicles page
+    const isSoldVehiclesPage =
+      englishType === 'recently-sold-armored-vehicles' ||
+      englishType === 'vehiculos-blindados-vendidos-recientemente';
+
     const filteredVehicles = {
       ...vehicles,
-      data:
-        vehicles.data?.filter((vehicle) => vehicle.attributes.hide !== true) ||
-        [],
+      data: isSoldVehiclesPage
+        ? vehicles.data || [] // Show all sold vehicles (including hidden) on sold page
+        : vehicles.data?.filter(
+            (vehicle) =>
+              vehicle.attributes.hide !== true &&
+              vehicle.attributes?.flag !== 'sold'
+          ) || [], // Filter hidden AND sold vehicles on other pages
     };
 
     // Fetching Types for the Filters
@@ -515,11 +553,106 @@ export async function getStaticProps(context) {
       locale,
     }).then((response) => response?.data || []);
 
-    const filters = type ? { type } : {};
+    let filters;
+
+    // Add sold vehicles category only when we're actually viewing the sold vehicles page (this is needed for currentCategory to be found
+    if (
+      (englishType === 'recently-sold-armored-vehicles' ||
+        englishType === 'vehiculos-blindados-vendidos-recientemente') &&
+      type
+    ) {
+      const soldCategory = {
+        id: 'sold-category',
+        attributes: {
+          slug: englishType,
+          title:
+            locale === 'en'
+              ? 'Recently Sold Armored Vehicles'
+              : 'Vehículos Blindados Vendidos Recientemente',
+          inventoryBanner: {
+            title: locale === 'en' ? 'Sold Vehicles' : 'Vehículos Vendidos',
+            subtitle:
+              locale === 'en'
+                ? 'Browse our recently sold armored vehicles'
+                : 'Explore nuestros vehículos blindados vendidos recientemente',
+            media: {
+              data: {
+                attributes: {
+                  mime: 'video/webm',
+                  url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+                },
+              },
+            },
+            mediaMP4: {
+              data: {
+                attributes: {
+                  mime: 'video/mp4',
+                  url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+                },
+              },
+            },
+          },
+          bottomTextInventory: null,
+          bottomTextDynamic: [],
+          faqs_stock: [],
+        },
+      };
+
+      // Create filters with sold category included for currentCategory lookup
+      const typeWithSold = [...type, soldCategory];
+      filters = { type: typeWithSold };
+    } else {
+      filters = type ? { type } : {};
+    }
 
     let seoData = filters.type?.find(
       (item) => item.attributes.slug === context.params.type
     );
+
+    // Handle sold vehicles category that doesn't exist in CMS
+    if (
+      !seoData &&
+      (englishType === 'recently-sold-armored-vehicles' ||
+        englishType === 'vehiculos-blindados-vendidos-recientemente')
+    ) {
+      seoData = {
+        attributes: {
+          seo: {
+            metaTitle:
+              locale === 'en'
+                ? 'Recently Sold Armored Vehicles'
+                : 'Vehículos Blindados Vendidos Recientemente',
+            metaDescription:
+              locale === 'en'
+                ? 'View recently sold armored vehicles by Alpine Armoring. Browse our completed sales of bulletproof SUVs, sedans, trucks and specialty vehicles.'
+                : 'Ver vehículos blindados vendidos recientemente por Alpine Armoring. Explore nuestras ventas completadas de SUVs, sedanes, camiones y vehículos especiales blindados.',
+          },
+          inventoryBanner: {
+            title: locale === 'en' ? 'Sold Vehicles' : 'Vehículos Vendidos',
+            subtitle:
+              locale === 'en'
+                ? 'Browse our recently sold armored vehicles'
+                : 'Explore nuestros vehículos blindados vendidos recientemente',
+            media: {
+              data: {
+                attributes: {
+                  mime: 'video/webm',
+                  url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+                },
+              },
+            },
+            mediaMP4: {
+              data: {
+                attributes: {
+                  mime: 'video/mp4',
+                  url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+                },
+              },
+            },
+          },
+        },
+      };
+    }
 
     // All languages urls
     let correctEnglishType;
@@ -561,14 +694,31 @@ export async function getStaticProps(context) {
     };
 
     if (seoData) {
-      // Modify meta title
-      seoData.metaTitle = `${seoData.metaTitle}${context.params.type !== lang.armoredRentalURL && context.params.type !== lang.preOwnedURL ? ` ${lang.forSale}` : ''} | Alpine Armoring`;
+      // Ensure metaTitle exists, add default if missing
+      if (!seoData.metaTitle) {
+        if (
+          englishType === 'recently-sold-armored-vehicles' ||
+          englishType === 'vehiculos-blindados-vendidos-recientemente'
+        ) {
+          seoData.metaTitle =
+            locale === 'en'
+              ? 'Recently Sold Armored Vehicles'
+              : 'Vehículos Blindados Vendidos Recientemente';
+        } else {
+          seoData.metaTitle = 'Armored Vehicles';
+        }
+      }
 
-      // Modify meta description only when not armored-rental
+      // Modify meta title
+      seoData.metaTitle = `${seoData.metaTitle}${context.params.type !== lang.armoredRentalURL && context.params.type !== lang.preOwnedURL && context.params.type !== 'recently-sold-armored-vehicles' && context.params.type !== 'vehiculos-blindados-vendidos-recientemente' ? ` ${lang.forSale}` : ''} | Alpine Armoring`;
+
+      // Modify meta description only when not armored-rental, pre-owned, or sold vehicles
       if (
         context.params.type &&
         context.params.type !== lang.armoredRentalURL &&
-        context.params.type !== lang.preOwnedURL
+        context.params.type !== lang.preOwnedURL &&
+        context.params.type !== 'recently-sold-armored-vehicles' &&
+        context.params.type !== 'vehiculos-blindados-vendidos-recientemente'
       ) {
         const vehicleTypeRaw = context.params.type
           .split('-')
@@ -601,7 +751,28 @@ export async function getStaticProps(context) {
           );
         }
 
-        seoData.metaDescription = updatedDescription;
+        seoData.metaDescription =
+          updatedDescription || seoData?.metaDescription || null;
+      }
+
+      // Ensure metaDescription exists, add default if missing
+      if (!seoData.metaDescription) {
+        if (
+          englishType === 'recently-sold-armored-vehicles' ||
+          englishType === 'vehiculos-blindados-vendidos-recientemente'
+        ) {
+          seoData.metaDescription =
+            locale === 'en'
+              ? 'View recently sold armored vehicles by Alpine Armoring. Browse our completed sales of bulletproof SUVs, sedans, trucks and specialty vehicles.'
+              : 'Ver vehículos blindados vendidos recientemente por Alpine Armoring. Explore nuestras ventas completadas de SUVs, sedanes, camiones y vehículos especiales blindados.';
+        } else {
+          seoData.metaDescription = null;
+        }
+      }
+
+      // Ensure metaDescription is never undefined
+      if (seoData.metaDescription === undefined) {
+        seoData.metaDescription = null;
       }
     }
 

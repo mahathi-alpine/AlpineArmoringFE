@@ -92,10 +92,14 @@ function Inventory(props) {
 
   useEffect(() => {
     const vehicleData = vehicles?.data || [];
-    setAllVehicles(vehicleData);
-    setFilteredVehicles(vehicleData);
+    // Filter out sold vehicles on the frontend
+    const nonSoldVehicles = vehicleData.filter(
+      (vehicle) => vehicle.attributes?.flag !== 'sold'
+    );
+    setAllVehicles(nonSoldVehicles);
+    setFilteredVehicles(nonSoldVehicles);
     setDisplayedVehicles(
-      searchQuery ? vehicleData : vehicleData.slice(0, ITEMS_TO_DISPLAY)
+      searchQuery ? nonSoldVehicles : nonSoldVehicles.slice(0, ITEMS_TO_DISPLAY)
     );
   }, [vehicles, searchQuery]);
 

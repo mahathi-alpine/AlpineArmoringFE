@@ -41,6 +41,7 @@ const enLocale = {
   lawEnforcement: 'Law Enforcement',
   CITNavigation: 'Cash-In-Transit (CIT)',
   armoredPreOwned: 'Armored Pre-Owned',
+  recentlySoldArmoredVehicles: 'Recently Sold Armored Vehicles',
   specialtyVehicles: 'Specialty Vehicles',
   specialOfTheMonth: 'special of the month',
   specialOfTheMonth2: 'special-of-the-month',
@@ -284,7 +285,6 @@ const enLocale = {
   pageNotFound: 'Page Not Found',
   pageDoesNotExist: 'We are sorry, but this page does not exist!',
   goToHomepage: 'Go to homepage',
-  soldVehiclesURL: '/sold-vehicles',
   chatWithUs: 'Chat with Us',
   conversionMayVary:
     'The actual custom-armoring conversion may vary per each vehicle’s structural configuration and client’s final specs',
