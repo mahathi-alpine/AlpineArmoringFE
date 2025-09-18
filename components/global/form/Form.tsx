@@ -374,6 +374,14 @@ const Form = () => {
     }
   };
 
+  const validateMessage = (value: string) => {
+    if (!value) {
+      return 'Message is required';
+    } else {
+      return '';
+    }
+  };
+
   const handleFieldChange = (field, value, validator, setter) => {
     setter(value);
     const errorMessage = validator(value);
@@ -392,6 +400,7 @@ const Form = () => {
       mobile: validateMobile(mobile),
       country: validateCountry(country),
       state: validateState(state), // Validate state if the country is United States
+      message: validateMessage(message)
     };
 
     setErrors(newErrors);
