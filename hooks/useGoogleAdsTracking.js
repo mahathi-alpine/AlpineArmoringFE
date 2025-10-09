@@ -5,6 +5,9 @@ const useGoogleAdsTracking = () => {
   const [gadsData, setGadsData] = useState(null);
 
   useEffect(() => {
+    // Reason: Ensure all browser APIs are only accessed on client-side
+    if (typeof window === 'undefined') return;
+
     // Function to get URL parameters
     const getUrlParams = () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -80,12 +83,14 @@ const useGoogleAdsTracking = () => {
 
   // Function to get current tracking data
   const getTrackingData = () => {
+    if (typeof window === 'undefined') return gadsData;
     const stored = sessionStorage.getItem('gads_tracking');
     return stored ? JSON.parse(stored) : gadsData;
   };
 
   // Function to clear tracking data (useful for testing)
   const clearTrackingData = () => {
+    if (typeof window === 'undefined') return;
     sessionStorage.removeItem('gads_tracking');
     setGadsData(null);
   };
