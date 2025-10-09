@@ -33,11 +33,11 @@ const HpBanner = ({ props }: HPBannerProps) => {
     return isSafari && isNotChrome && isNotFirefox;
   }, []);
 
-  const getSafariVersion = useCallback(() => {
-    const userAgent = navigator.userAgent;
-    const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
-    return versionMatch ? versionMatch[1] : null;
-  }, []);
+  // const getSafariVersion = useCallback(() => {
+  //   const userAgent = navigator.userAgent;
+  //   const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
+  //   return versionMatch ? versionMatch[1] : null;
+  // }, []);
 
   const isChrome = useCallback(() => {
     const userAgent =
@@ -46,16 +46,10 @@ const HpBanner = ({ props }: HPBannerProps) => {
   }, []);
 
   useEffect(() => {
-    const isSafariCondition =
-      isSafari() &&
-      (parseInt(getSafariVersion() || '0') < 17 ||
-        (parseInt(getSafariVersion() || '0') >= 17 &&
-          window.innerWidth >= 768));
-
     const isChromeOnIOSCondition = isChrome() && isIOS();
 
     if (
-      (props.video?.video_mp4?.data && isSafariCondition) ||
+      (props.video?.video_mp4?.data && isSafari()) ||
       isChromeOnIOSCondition
     ) {
       const videoElement = videoRef.current;
@@ -73,13 +67,7 @@ const HpBanner = ({ props }: HPBannerProps) => {
         }
       }
     }
-  }, [
-    props.video?.video_mp4?.data,
-    isChrome,
-    isIOS,
-    isSafari,
-    getSafariVersion,
-  ]);
+  }, [props.video?.video_mp4?.data, isChrome, isIOS, isSafari]);
 
   useEffect(() => {
     const videoElement = videoRef.current;
