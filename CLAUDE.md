@@ -91,7 +91,7 @@ This is a Next.js (Pages Router) multilingual website for Alpine Armoring with t
 - **Never assume missing context. Ask questions if uncertain.**
 - **Never hallucinate libraries or functions** – only use known, verified javascript packages.
 - **Always confirm file paths and module names** exist before referencing them in code or tests.
-- Use the context7 MCP to fetch up to date documentation that is not available in hex docs, like Next.js, MUI
+- Use the context7 MCP to fetch up to date documentation that is not available in hex docs, like Next.js
 - walk me through your thought process step by step
 - before you get started, ask me for any information you need to do a good job
 - in git commit, never mention AI or Claude

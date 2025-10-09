@@ -29,7 +29,6 @@ function Home({ homepageData, categories }) {
       naics: '336211',
       keywords:
         'Armored Vehicle Manufacturing, Ballistic Protection, Vehicle Armoring, Security Vehicles',
-      numberOfEmployees: '50-200',
       address: {
         '@type': 'PostalAddress',
         streetAddress: '4170 Lafayette Center Drive #100',
