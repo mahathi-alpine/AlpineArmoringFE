@@ -61,12 +61,6 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
     return isSafari && isNotChrome && isNotFirefox;
   }
 
-  function getSafariVersion() {
-    const userAgent = navigator.userAgent;
-    const versionMatch = userAgent.match(/Version\/(\d+(\.\d+)?)/);
-    return versionMatch ? versionMatch[1] : null;
-  }
-
   function isChrome() {
     const userAgent =
       typeof window !== 'undefined' ? navigator.userAgent : null;
@@ -74,15 +68,9 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   }
 
   useEffect(() => {
-    const isSafariCondition =
-      isSafari() &&
-      (parseInt(getSafariVersion() || '0') < 17 ||
-        (parseInt(getSafariVersion() || '0') >= 17 &&
-          window.innerWidth >= 768));
-
     const isChromeOnIOSCondition = isChrome() && isIOS();
 
-    if (videoMP4?.attributes && (isSafariCondition || isChromeOnIOSCondition)) {
+    if ((videoMP4 && isSafari()) || isChromeOnIOSCondition) {
       const videoElement = videoRef.current;
       if (videoElement) {
         const webmSource = videoElement.querySelector(
