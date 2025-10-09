@@ -17,6 +17,11 @@ export default function App({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
+  // Reason: Allow individual pages to override the default Layout
+  const getLayout =
+    Component.getLayout ??
+    ((page) => <Layout seoData={currentSeoData}>{page}</Layout>);
+
   // useEffect(() => {
   //   if (
   //     typeof window !== 'undefined' &&
@@ -116,11 +121,13 @@ export default function App({ Component, pageProps }) {
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
       )} */}
       <GoogleAdsTracking />
-      <Layout seoData={currentSeoData}>
-        {isLoading ? <Loader /> : null}
-        <Component {...pageProps} />
-        <CookieConsent />
-      </Layout>
+      {getLayout(
+        <>
+          {isLoading ? <Loader /> : null}
+          <Component {...pageProps} />
+          <CookieConsent />
+        </>
+      )}
     </>
   );
 }

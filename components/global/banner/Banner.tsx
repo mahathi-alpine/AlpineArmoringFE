@@ -49,10 +49,12 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
   }
 
   function isIOS() {
+    if (typeof window === 'undefined') return false;
     return /iPad|iPhone|iPod/i.test(navigator.userAgent);
   }
 
   function isSafari() {
+    if (typeof window === 'undefined') return false;
     const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
     const isNotChrome =
       navigator.userAgent.toLowerCase().indexOf('chrome') === -1;
