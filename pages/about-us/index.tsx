@@ -62,7 +62,9 @@ function About(props) {
       description:
         'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
       foundingDate: '1993',
-      industry: 'Armored Vehicle Manufacturing',
+      naics: '336211',
+      keywords:
+        'Armored Vehicle Manufacturing, Ballistic Protection, Vehicle Armoring, Security Vehicles',
       numberOfEmployees: '50-200',
       address: {
         '@type': 'PostalAddress',

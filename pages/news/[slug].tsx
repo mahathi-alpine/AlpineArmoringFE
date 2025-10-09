@@ -104,7 +104,7 @@ function NewsSingle(props) {
 
     const structuredData = {
       '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
+      '@type': 'NewsArticle',
       '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.newsURL || '/news'}/${data.slug}`,
       headline: data.title,
