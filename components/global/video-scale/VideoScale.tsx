@@ -46,24 +46,36 @@ const VideoScale = ({ videoWebm, videoMP4 }) => {
 
     const videoElement = videoRef.current;
     if (videoElement) {
-      const handleEnded = () => {
-        if (videoRef.current) {
-          videoRef.current.play();
-        }
-      };
-
-      const handleLoadedData = () => {
+      const playVideo = () => {
         if (videoRef.current) {
           videoRef.current.play().catch(console.error);
         }
       };
 
+      const handleEnded = () => {
+        playVideo();
+      };
+
+      const handleLoadedData = () => {
+        playVideo();
+      };
+
+      const handleCanPlay = () => {
+        playVideo();
+      };
+
+      if (videoElement.readyState >= 3) {
+        playVideo();
+      }
+
       videoElement.addEventListener('ended', handleEnded);
       videoElement.addEventListener('loadeddata', handleLoadedData);
+      videoElement.addEventListener('canplay', handleCanPlay);
 
       return () => {
         videoElement.removeEventListener('ended', handleEnded);
         videoElement.removeEventListener('loadeddata', handleLoadedData);
+        videoElement.removeEventListener('canplay', handleCanPlay);
       };
     }
   }, [shouldLoadVideo]);
@@ -83,7 +95,7 @@ const VideoScale = ({ videoWebm, videoMP4 }) => {
             playsInline={true}
             loop={true}
             autoPlay={true}
-            preload="metadata"
+            preload="auto"
           >
             {videoMP4 ? (
               <source src={`${videoMP4.url}`} type={`${videoMP4.mime}`} />
