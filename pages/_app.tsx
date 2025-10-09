@@ -3,7 +3,7 @@ import '/styles/globals.scss';
 import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-// import GoogleAdsTracking from 'components/GoogleAdsTracking';
+import GoogleAdsTracking from 'components/GoogleAdsTracking';
 import Layout from '../components/Layout';
 // import Seo from '../components/Seo';
 import useLocale from 'hooks/useLocale';
@@ -16,11 +16,6 @@ export default function App({ Component, pageProps }) {
   const [currentSeoData, setCurrentSeoData] = useState(pageProps.seoData);
   const [isLoading, setIsLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
-
-  // Reason: Allow individual pages to override the default Layout
-  const getLayout =
-    Component.getLayout ??
-    ((page) => <Layout seoData={currentSeoData}>{page}</Layout>);
 
   // useEffect(() => {
   //   if (
@@ -120,14 +115,12 @@ export default function App({ Component, pageProps }) {
       {/* {currentSeoData && (
         <Seo key={`seo-${router.locale}`} props={currentSeoData} />
       )} */}
-      {/* <GoogleAdsTracking /> */}
-      {getLayout(
-        <>
-          {isLoading ? <Loader /> : null}
-          <Component {...pageProps} />
-          <CookieConsent />
-        </>
-      )}
+      <GoogleAdsTracking />
+      <Layout seoData={currentSeoData}>
+        {isLoading ? <Loader /> : null}
+        <Component {...pageProps} />
+        <CookieConsent />
+      </Layout>
     </>
   );
 }

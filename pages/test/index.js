@@ -1,4 +1,4 @@
-const Downloads = () => {
+function Downloads() {
   return (
     <div>
       <video
@@ -14,9 +14,5 @@ const Downloads = () => {
       </video>
     </div>
   );
-};
-
-// Reason: Override default Layout to render page without header/footer
-Downloads.getLayout = (page) => page;
-
+}
 export default Downloads;
