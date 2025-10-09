@@ -400,7 +400,7 @@ const Form = () => {
       mobile: validateMobile(mobile),
       country: validateCountry(country),
       state: validateState(state), // Validate state if the country is United States
-      message: validateMessage(message)
+      message: validateMessage(message),
     };
 
     setErrors(newErrors);

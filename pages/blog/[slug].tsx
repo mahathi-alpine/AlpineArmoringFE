@@ -93,27 +93,6 @@ function BlogSingle(props) {
   const getBlogPostingtructuredData = () => {
     if (!data?.title || !data?.slug) return '{}';
 
-    // Reason: Create properly formatted image array for Google's Rich Results
-    const imageUrl = data.thumbnail.data?.attributes?.url;
-    const imageArray = imageUrl ? [imageUrl] : [];
-
-    // Reason: Extract plain text from content for articleBody (max 5000 chars for performance)
-    const getPlainTextContent = () => {
-      let textContent = data.content || '';
-      if (data.blogDynamic && Array.isArray(data.blogDynamic)) {
-        data.blogDynamic.forEach((zone) => {
-          if (zone.Content) textContent += ' ' + zone.Content;
-          if (zone.content) textContent += ' ' + zone.content;
-          if (zone.text) textContent += ' ' + zone.text;
-        });
-      }
-      const plainText = textContent
-        .replace(/<[^>]*>/g, '')
-        .replace(/[^\w\s.,!?;:()-]/g, '')
-        .trim();
-      return plainText.substring(0, 5000);
-    };
-
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
@@ -121,34 +100,24 @@ function BlogSingle(props) {
       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}/${data.slug}`,
       headline: data.title,
       description: data?.excerpt || `${data.title} | Alpine Armoring`,
-      image: imageArray,
+      image: data.thumbnail.data?.attributes.url,
       datePublished: data.publishedAt,
       dateModified: data.updatedAt,
       author: {
         '@type': 'Person',
-        name: data.authors.data?.attributes?.Name || 'Dan Diana',
-        ...(data.authors.data?.attributes?.linkedinURL && {
-          url: data.authors.data.attributes.linkedinURL,
-        }),
+        name: data.authors.data?.attributes.Name || 'Dan Diana',
       },
       publisher: {
         '@type': 'Organization',
         name: 'Alpine Armoring',
-        logo: {
-          '@type': 'ImageObject',
-          url: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Logo.png`,
-        },
       },
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}/${data.slug}`,
+        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang?.blogsURL || '/blog'}/${data.slug}`,
       },
-      articleBody: getPlainTextContent(),
+      // "articleSection": "Category Name",
       wordCount: props.wordCount || 1500,
-      ...(readTime && {
-        timeRequired: `PT${parseInt(readTime)}M`,
-      }),
-      inLanguage: router.locale === 'en' ? 'en-US' : router.locale,
+      inLanguage: `${router.locale === 'en' ? 'en' : `${router.locale}`}`,
     };
     return JSON.stringify(structuredData);
   };
