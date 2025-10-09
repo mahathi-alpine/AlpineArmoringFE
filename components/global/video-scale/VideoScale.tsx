@@ -82,13 +82,14 @@ const VideoScale = ({ videoWebm, videoMP4 }) => {
             muted={true}
             playsInline={true}
             loop={true}
+            autoPlay={true}
             preload="metadata"
           >
-            {videoWebm ? (
-              <source src={`${videoWebm.url}`} type={`${videoWebm.mime}`} />
-            ) : null}
             {videoMP4 ? (
               <source src={`${videoMP4.url}`} type={`${videoMP4.mime}`} />
+            ) : null}
+            {videoWebm ? (
+              <source src={`${videoWebm.url}`} type={`${videoWebm.mime}`} />
             ) : null}
           </video>
         ) : (
