@@ -3,12 +3,18 @@ import '/styles/globals.scss';
 import { install } from 'resize-observer';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import GoogleAdsTracking from 'components/GoogleAdsTracking';
+import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
 // import Seo from '../components/Seo';
 import useLocale from 'hooks/useLocale';
 import Loader from 'components/global/loader/Loader';
 import CookieConsent from 'components/global/cookie-consent/CookieConsent';
+
+// Load GoogleAdsTracking only on client-side to prevent Safari SSR issues
+const GoogleAdsTracking = dynamic(
+  () => import('components/GoogleAdsTracking'),
+  { ssr: false }
+);
 
 export default function App({ Component, pageProps }) {
   const { lang } = useLocale();
