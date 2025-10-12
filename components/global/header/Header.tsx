@@ -134,6 +134,7 @@ const Header = ({
 
           <div
             className={`${styles.header_burger}`}
+            id="header_burger"
             onClick={() => {
               setNavOpen((prevState) => !prevState);
               openSearchPopup(false);

@@ -85,6 +85,7 @@ const Layout = ({ children, seoData }) => {
   );
 
   const isHomepage = router.pathname === '/';
+  const isBlog = router.pathname.startsWith('/blog/');
 
   const pathsHeaderTransparent = ['/ballistic-testing'];
   const isHeaderGray = pathsHeaderTransparent.some(
@@ -154,6 +155,7 @@ const Layout = ({ children, seoData }) => {
           isPadding0={isPadding0}
           isHomepage={isHomepage}
           isHeaderGray={isHeaderGray}
+          isBlog={isBlog}
         />
       )}
 

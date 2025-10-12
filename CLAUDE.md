@@ -79,7 +79,7 @@ This is a Next.js (Pages Router) multilingual website for Alpine Armoring with t
 ### 📚 Documentation & Explainability
 
 - **Comment non-obvious code** and ensure everything is understandable to a mid-level developer.
-- When writing complex logic, **add an inline `# Reason:` comment** explaining the why, not just the what.
+<!-- - When writing complex logic, **add an inline `# Reason:` comment** explaining the why, not just the what. -->
 - Prefer arrow functions
 - Annotate return types
 - Always destructure props

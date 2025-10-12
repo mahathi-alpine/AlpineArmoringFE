@@ -1,11 +1,36 @@
 .blogSingle {
   position: relative;
-  overflow: hidden;
   padding-top: rem(80);
+
+  @include breakpoint(small) {
+    overflow: hidden;
+    &:before {
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      background: var(--color-white);
+      height: 250px;
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 250px;
+      background: var(--color-white);
+      height: 100px;
+      left: -100px;
+      right: -100px;
+      border-radius: 50%/0 0 100% 100%;
+      z-index: -1;
+    }
+  }
 
   @include breakpoint(large) {
     &_inner {
-      max-width: 1280px;
+      max-width: 1470px;
     }
   }
 
@@ -13,38 +38,17 @@
     padding-top: rem(100);
   }
 
-  &:before {
-    position: absolute;
-    content: '';
-    left: 0;
-    right: 0;
-    top: 0;
-    background: var(--color-white);
-    height: 250px;
+  &_layout {
     @include breakpoint(large) {
-      height: 450px;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: rem(20);
     }
+
     @include breakpoint(huge) {
-      height: 550px;
-    }
-  }
-  &:after {
-    position: absolute;
-    content: '';
-    left: 0;
-    right: 0;
-    top: 250px;
-    background: var(--color-white);
-    height: 100px;
-    left: -100px;
-    right: -100px;
-    border-radius: 50%/0 0 100% 100%;
-    z-index: -1;
-    @include breakpoint(large) {
-      top: 450px;
-    }
-    @include breakpoint(huge) {
-      top: 550px;
+      gap: rem(40);
     }
   }
 
@@ -56,6 +60,7 @@
     font-size: clamp(1.625rem, 1.2306rem + 1.6828vw, 3.25rem);
     font-weight: var(--font-demi);
     letter-spacing: -1px;
+
     @include breakpoint(large) {
       margin-bottom: rem(32);
     }
@@ -66,6 +71,11 @@
     border-radius: 8px;
     width: 100%;
     margin-bottom: rem(8);
+    
+    @include breakpoint(large) {
+      max-height: 800px;
+      object-fit: cover;
+    }
   }
 
   &_info {
@@ -154,10 +164,43 @@
   //   }
   // }
 
+  &_intro{
+    margin-bottom: 1.25rem;
+    padding: 25px 15px;
+    background: #c8c8c8;
+    border-radius: 8px;
+
+    @include breakpoint(medium) {
+      padding: 30px;
+    }
+
+    &_title{
+      font-size: rem(20) !important;
+      font-weight: var(--font-medium);
+
+      @include breakpoint(medium) {
+        font-size: rem(22) !important;
+      }
+    }
+
+    ul{
+      margin-left: 0;
+      margin-bottom: 0;
+
+      @include breakpoint(medium) {
+        margin-left: rem(10);
+      }
+    }
+  }
+
   &_content {
-    position: relative;
-    @include breakpoint(small) {
-      padding-top: rem(12);
+    padding-top: rem(12);
+
+    @include breakpoint(medium) {
+      position: relative;
+      width: 75%;
+      min-width: 0; 
+      padding-top: 0;
     }
   }
 

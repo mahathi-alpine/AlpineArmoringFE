@@ -46,7 +46,14 @@ const isFullUrl = (url) => {
   return url && (url.startsWith('http://') || url.startsWith('https://'));
 };
 
-const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
+const Seo = ({
+  props,
+  isDarkMode,
+  isPadding0,
+  isHomepage,
+  isHeaderGray,
+  isBlog,
+}) => {
   const router = useRouter();
   const [seoProps, setSeoProps] = useState(props);
 
@@ -301,6 +308,42 @@ const Seo = ({ props, isDarkMode, isPadding0, isHomepage, isHeaderGray }) => {
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} key="description" />
       <meta name="image" content={metaImgUrl} />
+
+      {isBlog && (
+        <style>{`
+          @media (min-width: 768px){
+            body{
+              overflow-x: hidden;
+            
+              &:before {
+                position: absolute;
+                content: '';
+                left: 0;
+                right: 0;
+                top: 0;
+                background: var(--color-white);
+                height: 550px;
+              }
+              &:after {
+                position: absolute;
+                content: '';
+                left: 0;
+                right: 0;
+                top: 550px;
+                background: var(--color-white);
+                height: 100px;
+                left: -100px;
+                right: -100px;
+                border-radius: 50%/0 0 100% 100%;
+                z-index: -1;
+              }
+            }   
+            #header_burger:before{
+              display: none;
+            }       
+          }
+        `}</style>
+      )}
 
       {isDarkMode && (
         <style>{`

@@ -333,6 +333,7 @@ const enLocale = {
   us: 'us',
   bulletproof: 'bulletproof',
   contactForPricing: 'Contact us for pricing information',
+  tableOfContents: 'Table of Contents',
 };
 
 export default enLocale;

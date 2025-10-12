@@ -82,6 +82,7 @@ small {
 
 .static {
   --bodySize: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
+  // --bodySize: clamp(0.875rem, 0.8598rem + 0.0647vw, 0.9375rem);
   word-wrap: break-word;
 
   h1,

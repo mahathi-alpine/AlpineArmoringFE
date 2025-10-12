@@ -12,6 +12,7 @@ import CustomMarkdown from 'components/CustomMarkdown';
 import SocialShare from 'components/global/social-share/SocialShare';
 import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
+import TableOfContents from 'components/blog/TableOfContents';
 
 const getWordCount = (content, dynamicZone) => {
   let totalText = content || '';
@@ -77,6 +78,7 @@ function BlogSingle(props) {
     dynamicZone: data?.blogDynamic || [],
   };
 
+  const intro = data?.Intro || '';
   const faqsTitle = data?.faqsTitle;
   const faqs = data?.faqs || [];
 
@@ -343,17 +345,33 @@ function BlogSingle(props) {
             )}
           </div>
 
-          <div
-            className={`${styles.blogSingle_content} static`}
-            id="blogContent"
-          >
-            {content && (
-              <div className={`${styles.blogSingle_content} static`}>
-                <CustomMarkdown>{content}</CustomMarkdown>
-              </div>
-            )}
+          <div className={`${styles.blogSingle_layout}`}>
+            <TableOfContents
+              contentId="blogContent"
+              showH3={data?.showH3InToc ?? false}
+            />
 
-            <Content data={contentData} />
+            <div
+              className={`${styles.blogSingle_content} static`}
+              id="blogContent"
+            >
+              {intro && (
+                <div className={`${styles.blogSingle_intro} static`}>
+                  <p className={`${styles.blogSingle_intro_title}`}>
+                    Key takeaways
+                  </p>
+                  <CustomMarkdown>{intro}</CustomMarkdown>
+                </div>
+              )}
+
+              {content && (
+                <div className={`${styles.blogSingle_content} static`}>
+                  <CustomMarkdown>{content}</CustomMarkdown>
+                </div>
+              )}
+
+              <Content data={contentData} />
+            </div>
           </div>
 
           {data?.videos?.map((item, index) => (
