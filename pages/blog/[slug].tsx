@@ -15,6 +15,7 @@ import Content from 'components/global/content/Content';
 import TableOfContents from 'components/blog/TableOfContents';
 import ScrollProgressBar from 'components/blog/ScrollProgressBar';
 import RelatedBlogs from 'components/blog/RelatedBlogs';
+import AuthorBox from 'components/blog/AuthorBox';
 
 const getWordCount = (content, dynamicZone) => {
   let totalText = content || '';
@@ -391,10 +392,22 @@ function BlogSingle(props) {
               />
             </div>
           ))}
+
+          {data?.authors?.data?.attributes && (
+            <AuthorBox
+              author={{
+                Name: data.authors.data.attributes.Name,
+                slug: data.authors.data.attributes.slug,
+                description: data.authors.data.attributes.shortDescription,
+                linkedinURL: data.authors.data.attributes.linkedinURL,
+                position: data.authors.data.attributes.position,
+              }}
+            />
+          )}
         </div>
 
         {faqs?.length > 0 && (
-          <div className={`mt4`}>
+          <div className={`mt3`}>
             <Accordion
               items={faqs}
               title={`${faqsTitle || lang?.faq || 'FAQ'}`}

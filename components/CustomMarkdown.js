@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function CustomMarkdown({ children }) {
   const [hoveredImage, setHoveredImage] = useState(null);
@@ -176,9 +177,9 @@ export default function CustomMarkdown({ children }) {
       }
 
       return (
-        <a href={href} {...props}>
+        <Link href={href} {...props}>
           {children}
-        </a>
+        </Link>
       );
     },
   };

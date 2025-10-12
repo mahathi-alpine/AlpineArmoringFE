@@ -55,19 +55,27 @@ function BlogSingle(props) {
     <>
       <div className={`${styles.news_authorHeading} container_small`}>
         <h1 className={`${styles.news_authorHeading_title}`}>
-          {lang.author}: <span>{data.Name}</span>
+          <span>{data.Name}</span>
         </h1>
-        {data.linkedinURL ? (
-          <Link href={data.linkedinURL} target="_blank">
-            <LinkedinIcon />
-          </Link>
-        ) : null}
+
+        <p className={`${styles.news_authorHeading_info}`}>
+          {data.position}
+
+          {data.linkedinURL ? (
+            <Link href={data.linkedinURL} target="_blank">
+              <LinkedinIcon />
+            </Link>
+          ) : null}
+        </p>
+
         {data.description ? (
           <div className={`${styles.news_authorHeading_description} static`}>
             <CustomMarkdown>{data.description}</CustomMarkdown>
           </div>
         ) : null}
       </div>
+
+      <h2 className={`c-title mt3`}>{lang.latestArticles}</h2>
 
       {posts && posts.length > 0 ? (
         <div className={`${styles.news}`}>

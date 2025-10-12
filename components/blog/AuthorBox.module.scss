@@ -1,0 +1,101 @@
+.authorBox {
+  position: relative;
+  margin-top: rem(48);
+  padding: rem(24) rem(16);
+  background: var(--color-grayLight);
+  border-radius: 8px;
+  border-left: 4px solid var(--color-primary);
+
+  @include breakpoint(medium) {
+    padding: rem(32) rem(24);
+  }
+
+  @include breakpoint(large) {
+    margin-top: rem(64);
+    padding: rem(40) rem(32);
+  }
+
+  &_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: rem(16);
+
+    @include breakpoint(medium) {
+      margin-bottom: rem(20);
+    }
+  }
+
+  &_title {
+    font-size: rem(20);
+    font-weight: var(--font-medium);
+    margin: 0;
+
+    @include breakpoint(medium) {
+      font-size: rem(24);
+    }
+  }
+
+  &_info{
+    display: flex;
+    align-items: center;
+  }
+
+  &_linkedin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-left: rem(10);
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    gap: rem(12);
+  }
+
+  &_name {
+    font-size: rem(16);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    transition: opacity 0.25s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &_description {
+    font-size: rem(14);
+    line-height: 1.6;
+    color: var(--color-text);
+
+    @include breakpoint(medium) {
+      font-size: rem(15);
+    }
+
+    p {
+      margin-bottom: rem(8);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: underline;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}

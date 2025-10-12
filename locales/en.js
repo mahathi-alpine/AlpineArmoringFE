@@ -335,6 +335,8 @@ const enLocale = {
   contactForPricing: 'Contact us for pricing information',
   tableOfContents: 'Table of Contents',
   youMightAlsoLike: 'You Might Also Like',
+  aboutTheAuthor: 'About the Author',
+  latestArticles: 'Latest Articles',
 };
 
 export default enLocale;

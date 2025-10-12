@@ -23,15 +23,35 @@
     }
 
     &_title {
-      font-size: 20px;
+      font-size: 24px;
       margin-bottom: 10px;
 
       @include breakpoint(large) {
-        font-size: 26px;
+        font-size: 30px;
       }
 
       span {
         font-weight: var(--font-medium);
+      }
+    }
+
+    &_info{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: rem(30);
+      font-weight: var(--font-medium);
+
+      @include breakpoint(small) {
+        font-size: 15px;
+      }
+
+      a{
+        line-height: 1;
+      }
+      
+      svg{
+        margin-left: 10px;
       }
     }
 

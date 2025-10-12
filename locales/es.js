@@ -339,6 +339,8 @@ const esLocale = {
   contactForPricing: 'Contáctenos para obtener información sobre precios',
   tableOfContents: 'Tabla de contenido',
   youMightAlsoLike: 'También te podría gustar',
+  aboutTheAuthor: 'Sobre el autor',
+  latestArticles: 'Últimos artículos',
 };
 
 export default esLocale;
