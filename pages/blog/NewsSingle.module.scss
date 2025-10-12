@@ -191,6 +191,14 @@
         margin-left: rem(10);
       }
     }
+
+    ul, p{
+      font-size: 13px;
+
+      @include breakpoint(large) {
+        font-size: 15px;
+      }
+    }
   }
 
   &_content {

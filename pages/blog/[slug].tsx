@@ -13,6 +13,7 @@ import SocialShare from 'components/global/social-share/SocialShare';
 import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
 import TableOfContents from 'components/blog/TableOfContents';
+import ScrollProgressBar from 'components/blog/ScrollProgressBar';
 
 const getWordCount = (content, dynamicZone) => {
   let totalText = content || '';
@@ -246,6 +247,8 @@ function BlogSingle(props) {
         {preview && <meta name="robots" content="noindex,nofollow" />}
       </Head>
 
+      <ScrollProgressBar targetId="blogLayout" />
+
       <div className={`${styles.blogSingle}`}>
         <div className={`${styles.blogSingle_inner} container_small`}>
           <div className={`b-breadcrumbs`}>
@@ -345,7 +348,7 @@ function BlogSingle(props) {
             )}
           </div>
 
-          <div className={`${styles.blogSingle_layout}`}>
+          <div className={`${styles.blogSingle_layout}`} id="blogLayout">
             <TableOfContents
               contentId="blogContent"
               showH3={data?.showH3InToc ?? false}
