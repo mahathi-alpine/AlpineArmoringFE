@@ -192,7 +192,8 @@
       }
     }
 
-    ul, p{
+    ul,
+    p {
       font-size: 13px;
 
       @include breakpoint(large) {
