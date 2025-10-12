@@ -71,7 +71,7 @@
     border-radius: 8px;
     width: 100%;
     margin-bottom: rem(8);
-    
+
     @include breakpoint(large) {
       max-height: 800px;
       object-fit: cover;
@@ -164,7 +164,7 @@
   //   }
   // }
 
-  &_intro{
+  &_intro {
     margin-bottom: 1.25rem;
     padding: 25px 15px;
     background: #c8c8c8;
@@ -174,7 +174,7 @@
       padding: 30px;
     }
 
-    &_title{
+    &_title {
       font-size: rem(20) !important;
       font-weight: var(--font-medium);
 
@@ -183,7 +183,7 @@
       }
     }
 
-    ul{
+    ul {
       margin-left: 0;
       margin-bottom: 0;
 
@@ -199,7 +199,7 @@
     @include breakpoint(medium) {
       position: relative;
       width: 75%;
-      min-width: 0; 
+      min-width: 0;
       padding-top: 0;
     }
   }
