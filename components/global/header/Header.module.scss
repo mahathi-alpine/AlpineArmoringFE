@@ -59,21 +59,21 @@
   &.down:not(.header_navOpen),
   &.up:not(.header_navOpen) {
     background: var(--color-dark);
-    
-    .header_burger{
-      &:before{
+
+    .header_burger {
+      &:before {
         background: transparent !important;
       }
-      &:hover{
-        &:before{
+      &:hover {
+        &:before {
           background: white !important;
         }
 
         & > div,
         & > div:before,
-        & > div:after{
+        & > div:after {
           background: black !important;
-        }  
+        }
       }
     }
     // .header_logo_gold {
