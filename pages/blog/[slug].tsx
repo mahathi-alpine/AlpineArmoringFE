@@ -14,6 +14,7 @@ import Accordion from 'components/global/accordion/Accordion';
 import Content from 'components/global/content/Content';
 import TableOfContents from 'components/blog/TableOfContents';
 import ScrollProgressBar from 'components/blog/ScrollProgressBar';
+import RelatedBlogs from 'components/blog/RelatedBlogs';
 
 const getWordCount = (content, dynamicZone) => {
   let totalText = content || '';
@@ -55,7 +56,7 @@ const calculateReadTime = () => {
 function BlogSingle(props) {
   const { lang } = useLocale();
   const router = useRouter();
-  const { preview = false } = props;
+  const { preview = false, relatedBlogs = [] } = props;
   const [readTime, setReadTime] = useState('1 min');
   const [pageUrl, setPageUrl] = useState('');
 
@@ -393,7 +394,7 @@ function BlogSingle(props) {
         </div>
 
         {faqs?.length > 0 && (
-          <div className={`mt2`}>
+          <div className={`mt4`}>
             <Accordion
               items={faqs}
               title={`${faqsTitle || lang?.faq || 'FAQ'}`}
@@ -401,6 +402,8 @@ function BlogSingle(props) {
           </div>
         )}
       </div>
+
+      <RelatedBlogs blogs={relatedBlogs} />
     </>
   );
 }
@@ -467,6 +470,7 @@ export async function getStaticProps({ params, locale, preview = false }) {
     }
 
     const currentPage = data.data[0]?.attributes;
+    const currentBlogId = data.data[0]?.id;
 
     const seoData = {
       ...(currentPage?.seo ?? {}),
@@ -486,6 +490,27 @@ export async function getStaticProps({ params, locale, preview = false }) {
       currentPage?.blogDynamic
     );
 
+    // Fetch related blogs or latest 4 as fallback
+    let relatedBlogs = currentPage?.relatedBlogs?.data || [];
+
+    if (relatedBlogs.length === 0) {
+      // Fetch 4 latest blogs excluding current blog
+      const latestBlogs = await getPageData({
+        route: route.collectionSingle,
+        populate: 'thumbnail',
+        fields: 'fields[0]=title&fields[1]=slug&fields[2]=locale',
+        sort: 'date',
+        sortType: 'desc',
+        pageSize: 5, // Fetch 4 to ensure we have 4 after filtering
+        locale,
+      });
+
+      // Filter out current blog and limit to 4
+      relatedBlogs = (latestBlogs?.data || [])
+        .filter((blog) => blog.id !== currentBlogId)
+        .slice(0, 4);
+    }
+
     return {
       props: {
         data,
@@ -493,6 +518,7 @@ export async function getStaticProps({ params, locale, preview = false }) {
         locale,
         preview,
         wordCount,
+        relatedBlogs,
       },
       revalidate: preview ? 1 : 7200,
     };

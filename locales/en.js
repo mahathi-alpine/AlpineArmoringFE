@@ -334,6 +334,7 @@ const enLocale = {
   bulletproof: 'bulletproof',
   contactForPricing: 'Contact us for pricing information',
   tableOfContents: 'Table of Contents',
+  youMightAlsoLike: 'You Might Also Like',
 };
 
 export default enLocale;

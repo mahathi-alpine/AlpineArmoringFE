@@ -338,6 +338,7 @@ const esLocale = {
   bulletproof: 'a prueba de balas',
   contactForPricing: 'Contáctenos para obtener información sobre precios',
   tableOfContents: 'Tabla de contenido',
+  youMightAlsoLike: 'También te podría gustar',
 };
 
 export default esLocale;

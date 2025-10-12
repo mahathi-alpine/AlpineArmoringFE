@@ -12,7 +12,8 @@
       "Bash(git show:*)",
       "Bash(git rebase:*)",
       "Bash(git reset:*)",
-      "Bash(yarn lint)"
+      "Bash(yarn lint)",
+      "Bash(yarn lint:ts)"
     ],
     "deny": [],
     "ask": []

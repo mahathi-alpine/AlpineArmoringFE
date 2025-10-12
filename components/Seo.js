@@ -339,8 +339,16 @@ const Seo = ({
               }
             }   
             #header_burger:before{
-              display: none;
+              background: white;
+            }
+            .b-header #header_burger:hover:before{
+              background: black;
             }       
+            .b-header #header_burger:hover > div,
+            .b-header #header_burger:hover > div:before,
+            .b-header #header_burger:hover > div:after{
+              background: white;
+            }  
           }
         `}</style>
       )}
