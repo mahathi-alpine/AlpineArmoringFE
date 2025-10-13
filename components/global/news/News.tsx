@@ -104,6 +104,16 @@ const Blog = ({
                       <time dateTime={item.attributes.publishedAt}>
                         {formattedDate}
                       </time>
+                      {item.attributes.authors?.data?.attributes?.Name && (
+                        <>
+                          {' • By '}
+                          <Link
+                            href={`${lang?.authorURL || '/author'}/${item.attributes.authors.data.attributes.slug}`}
+                          >
+                            {item.attributes.authors.data.attributes.Name}
+                          </Link>
+                        </>
+                      )}
                     </div>
 
                     <div className={`${styles.news_item_content_main}`}>

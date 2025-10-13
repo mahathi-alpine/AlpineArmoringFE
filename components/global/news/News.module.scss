@@ -155,18 +155,18 @@
       @include breakpoint(medium) {
         display: flex;
         flex-flow: column;
-        justify-content: space-evenly;
+        justify-content: center;
         width: 50%;
         padding-left: rem(16);
         padding-top: 0;
 
         &_main {
-          flex: 1;
+          // flex: 1;
           display: flex;
           flex-flow: column;
 
           &_inner {
-            margin: auto 0;
+            margin: 20px 0;
           }
         }
       }
@@ -180,10 +180,20 @@
     &_date {
       margin-bottom: rem(8);
       font-size: rem(12);
-      text-transform: uppercase;
       font-weight: var(--font-medium);
+
       @include breakpoint(medium) {
         font-size: rem(14);
+      }
+
+      time{
+        text-transform: uppercase;
+      }
+
+      a{
+        &:hover{
+          color: var(--color-primary);
+        }
       }
     }
 
@@ -278,6 +288,7 @@
               &_inner {
                 flex: 1;
                 padding-right: rem(16);
+                margin: 0;
               }
             }
           }
