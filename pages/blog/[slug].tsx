@@ -117,6 +117,9 @@ function BlogSingle(props) {
       return plainText.substring(0, 5000);
     };
 
+    const authorName = data.authors.data?.attributes?.Name || 'Dan Diana';
+    const authorSlug = data.authors.data?.attributes?.slug || 'dan-diana';
+
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
@@ -129,9 +132,23 @@ function BlogSingle(props) {
       dateModified: data.updatedAt,
       author: {
         '@type': 'Person',
-        name: data.authors.data?.attributes?.Name || 'Dan Diana',
+        '@id': `${process.env.NEXT_PUBLIC_URL}${lang?.authorURL || '/author'}/${authorSlug}`,
+        name: authorName,
+        ...(data.authors.data?.attributes?.position && {
+          jobTitle: data.authors.data.attributes.position,
+        }),
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Alpine Armoring',
+        },
+        ...(data.authors.data?.attributes?.education && {
+          alumniOf: data.authors.data.attributes.education,
+        }),
+        ...(data.authors.data?.attributes?.expertise && {
+          knowsAbout: data.authors.data.attributes.expertise,
+        }),
         ...(data.authors.data?.attributes?.linkedinURL && {
-          url: data.authors.data.attributes.linkedinURL,
+          sameAs: data.authors.data.attributes.linkedinURL,
         }),
       },
       publisher: {

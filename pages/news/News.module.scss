@@ -23,11 +23,11 @@
     }
 
     &_title {
-      font-size: 24px;
+      font-size: 28px;
       margin-bottom: 10px;
 
       @include breakpoint(large) {
-        font-size: 30px;
+        font-size: 38px;
       }
 
       span {
@@ -57,7 +57,14 @@
 
     &_description {
       margin-top: 10px;
-      font-size: 14px;
+
+      p{
+        font-size: 14px;
+
+        @include breakpoint(huge) {
+          font-size: 15px;
+        }
+      }
     }
   }
 }
