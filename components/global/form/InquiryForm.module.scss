@@ -71,10 +71,17 @@
     font-size: clamp(1rem, 0.9545rem + 0.1942vw, 1.1875rem);
     text-align: center;
     white-space: pre-wrap;
+    display: flex;
+    flex-flow: column;
+
+    @include breakpoint(medium) {
+      display: block;
+    }
 
     .inquiry_form_plain & {
       font-size: rem(16);
       font-size: clamp(1rem, 0.7928rem + 0.884vw, 1.5rem);
+
       @include breakpoint(large) {
         font-size: clamp(1.25rem, 0.75rem + 0.625vw, 1.5rem);
       }

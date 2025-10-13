@@ -137,7 +137,7 @@ const esLocale = {
   allRightsReserved: 'Todos los derechos reservados',
   homeOfArmoredVehicles: 'El hogar de ArmoredVehicles.com',
   inquiringAbout: 'Está consultando sobre',
-  thisReadyToShip: 'este listo para enviar',
+  thisReadyToShip: 'listo para enviar',
   rentalOfThis: 'Alquiler de este',
   the: 'el',
   vehicleID: 'ID del vehículo',

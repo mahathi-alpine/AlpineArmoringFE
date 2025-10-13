@@ -135,7 +135,7 @@ const enLocale = {
   allRightsReserved: 'All Rights Reserved',
   homeOfArmoredVehicles: 'The Home of ArmoredVehicles.com',
   inquiringAbout: 'You are inquiring about',
-  thisReadyToShip: 'this ready-to-ship',
+  thisReadyToShip: 'ready-to-ship',
   rentalOfThis: 'Rental of this',
   the: 'the',
   vehicleID: 'Vehicle ID',

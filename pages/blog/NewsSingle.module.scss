@@ -172,6 +172,7 @@
 
     @include breakpoint(medium) {
       padding: 30px;
+      margin-bottom: 2rem;
     }
 
     &_title {

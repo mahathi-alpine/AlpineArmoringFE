@@ -29,11 +29,21 @@ const InquiryForm = (props) => {
 
               {/* {!props.plain ? ' this ready-to-ship' : null} */}
               {/* Render Filters conditionally based on path and filter type */}
-              {!props.plain
-                ? !currentPath.includes('rental-vehicles')
-                  ? ` ${lang.thisReadyToShip} `
-                  : ` ${lang.rentalOfThis}`
-                : ` ${lang.the}`}
+              {!props.plain ? (
+                !currentPath.includes('rental-vehicles') ? (
+                  <>
+                    {' '}
+                    {(lang.this as string).toLowerCase()}{' '}
+                    <span className={`blockOnPhone`}>
+                      {lang.thisReadyToShip}
+                    </span>{' '}
+                  </>
+                ) : (
+                  ` ${lang.rentalOfThis}`
+                )
+              ) : (
+                ` ${lang.the}`
+              )}
               <span
                 dangerouslySetInnerHTML={{
                   __html: props?.title,

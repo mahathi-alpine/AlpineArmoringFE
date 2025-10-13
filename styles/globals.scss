@@ -1109,3 +1109,11 @@ $shapeColor: var(--color-background);
     display: block;
   }
 }
+
+.blockOnPhone{
+  display: initial !important;
+
+  @include breakpoint(small) {
+    display: block !important;
+  }
+}
