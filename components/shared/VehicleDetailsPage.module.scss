@@ -1,4 +1,3 @@
-// Import rental-specific styles but make them reusable
 .inventory {
   &_heading {
     padding: rem(24) rem(16) 0 rem(16);
@@ -167,7 +166,7 @@
 
     @include breakpoint(medium) {
       margin: auto;
-      margin-top: rem(60);
+      margin-top: rem(20);
       text-align: center;
       max-width: 600px;
     }
@@ -337,6 +336,16 @@
     justify-content: center;
     align-items: center;
     font-size: rem(15);
+    color: var(--color-primaryLight);
+
+    @include breakpoint(small) {
+      flex-flow: column;
+    }
+
+    @include breakpoint(medium) {
+      bottom: -40px;
+      gap: 30px;
+    }
 
     @include breakpoint(large) {
       bottom: 22px;
@@ -357,7 +366,9 @@
       position: relative;
 
       &:last-child {
-        margin-top: 10px;
+        @include breakpoint(small) {
+          margin-top: 10px;
+        }
 
         @include breakpoint(large) {
           margin-top: 0;
