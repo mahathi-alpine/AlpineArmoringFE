@@ -38,11 +38,9 @@ const TopBanner = ({ props, shape, small }: BannerProps) => {
       .replace('-', ' ')
       .split(' ')
       .map((word) => {
-        // Check if the word is in special uppercase cases (case-insensitive)
         if (specialUppercaseCases.includes(word.toLowerCase())) {
           return word.toUpperCase();
         }
-        // Otherwise, do standard capitalization
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
       })
       .join(' ');

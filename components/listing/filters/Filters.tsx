@@ -199,10 +199,12 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
     const baseUrl =
       router.locale === 'es'
-        ? router.pathname === '/vehicles-we-armor'
+        ? router.pathname === '/vehicles-we-armor' ||
+          router.pathname === '/vehicles-we-armor/type/[type]'
           ? '/es/vehiculos-que-blindamos'
           : '/es/vehiculos-blindados-en-venta'
-        : router.pathname === '/vehicles-we-armor'
+        : router.pathname === '/vehicles-we-armor' ||
+            router.pathname === '/vehicles-we-armor/type/[type]'
           ? '/vehicles-we-armor'
           : '/armored-vehicles-for-sale';
 

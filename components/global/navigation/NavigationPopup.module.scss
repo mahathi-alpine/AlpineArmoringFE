@@ -62,8 +62,9 @@
     height: 100%;
     display: flex;
     flex-flow: column;
-    padding: 0 rem(16);
+    padding: 0 rem(8);
     overflow: auto;
+
     @include breakpoint(large) {
       padding: 0 rem(48);
     }
@@ -91,12 +92,6 @@
   }
 
   &_list {
-    &_left {
-      margin-bottom: rem(32);
-      @include breakpoint(large) {
-        margin-bottom: 0;
-      }
-    }
     @include breakpoint(large) {
       &:hover .navigationPopup_item:not(:hover) .navigationPopup_link {
         opacity: 0.3;
@@ -111,7 +106,7 @@
 
   &_item {
     position: relative;
-    font-size: rem(20);
+    font-size: rem(17);
     text-transform: uppercase;
     font-weight: var(--font-medium);
     transform: translateX(-100%);
@@ -154,7 +149,7 @@
   &_link {
     display: inline-block;
     position: relative;
-    padding: rem(8);
+    padding: rem(8) 0;
     transition:
       opacity 0.2s ease,
       transform 0.2s ease;
