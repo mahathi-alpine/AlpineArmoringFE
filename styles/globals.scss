@@ -969,6 +969,16 @@ $shapeColor: var(--color-background);
     }
   }
 
+  &_availableNow {
+    @media(max-width: 768px){
+      bottom: rem(65);
+  
+      &.scrolled {
+        bottom: rem(100);
+      }
+    }
+  }
+
   &_text {
     margin-right: 6px;
     padding: 4px 6px;

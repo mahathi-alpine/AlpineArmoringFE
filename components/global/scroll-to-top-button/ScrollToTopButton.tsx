@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Chevron from 'components/icons/Chevron';
 import styles from './ScrollToTopButton.module.scss';
 
-const ScrollToTopButton = () => {
+const ScrollToTopButton = (isAvailableNowSlug) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const ScrollToTopButton = () => {
     <button
       className={`
         ${styles.scrollToTopButton} 
+        ${isAvailableNowSlug ? styles.scrollToTopButton_availableNow : ''}
         ${isVisible ? `${styles.scrollToTopButton_visible}` : ''}
       `}
       onClick={scrollToTop}

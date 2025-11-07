@@ -13,6 +13,12 @@
   transition: opacity 0.2s ease-in-out;
   cursor: pointer;
 
+  &_availableNow{
+    @media(max-width: 768px){
+      bottom: rem(58);
+    }
+  }
+
   @include breakpoint(large) {
     bottom: rem(7);
     right: rem(14);

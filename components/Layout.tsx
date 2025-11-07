@@ -96,6 +96,8 @@ const Layout = ({ children, seoData }) => {
     router.pathname.startsWith(path)
   );
 
+  const isAvailableNowSlug = router.pathname === '/available-now/[slug]';
+
   const [isNavOpen, setNavOpen] = useState(false);
 
   // Search
@@ -179,11 +181,11 @@ const Layout = ({ children, seoData }) => {
 
         {children}
 
-        <ScrollToTopButton />
+        <ScrollToTopButton isAvailableNowSlug />
 
         <a
           href="https://wa.me/message/ZKTQXXVR7PGQL1"
-          className="WABusiness"
+          className={`WABusiness ${isAvailableNowSlug ? 'WABusiness_availableNow' : ''}`}
           target="_blank"
           rel="nofollow"
           aria-label="WhatsApp Chat Button"
