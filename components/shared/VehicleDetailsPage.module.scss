@@ -332,29 +332,29 @@
         margin: 20px;
       }
 
-      &_inner{
+      &_inner {
         display: flex;
         justify-content: space-between;
         padding: 6px;
-        background: var(--color-secondary);   
+        background: var(--color-secondary);
 
         @include breakpoint(huge) {
           position: relative;
           right: rem(84);
         }
 
-        &>a{
+        & > a {
           width: 49%;
 
-          &>span{
+          & > span {
             background: var(--color-gray);
             font-weight: var(--font-medium);
 
-            &:hover{
+            &:hover {
               background: var(--color-white) !important;
             }
           }
-        }     
+        }
       }
     }
   }
