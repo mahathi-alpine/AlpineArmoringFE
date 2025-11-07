@@ -970,9 +970,9 @@ $shapeColor: var(--color-background);
   }
 
   &_availableNow {
-    @media(max-width: 768px){
+    @media (max-width: 768px) {
       bottom: rem(65);
-  
+
       &.scrolled {
         bottom: rem(100);
       }
