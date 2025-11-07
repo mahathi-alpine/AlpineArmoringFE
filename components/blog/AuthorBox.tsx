@@ -35,7 +35,7 @@ const AuthorBox = ({ author }: AuthorBoxProps): JSX.Element => {
             href={`${lang?.authorURL || '/author'}/${author.slug}`}
             className={styles.authorBox_name}
           >
-            {author.Name} | {author.position}
+            {author.Name} - {author.position}
           </Link>
 
           {author.linkedinURL && (

@@ -337,6 +337,7 @@ const enLocale = {
   youMightAlsoLike: 'You Might Also Like',
   aboutTheAuthor: 'About the Author',
   latestArticles: 'Latest Articles',
+  callUs: 'Call Us',
 };
 
 export default enLocale;

@@ -238,6 +238,51 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
     setupObserver();
   }, []);
 
+  // Parse engine data for structured data
+  const parseEngineData = (engineString: string) => {
+    if (!engineString) {
+      return { name: undefined, enginePower: undefined, fuelType: undefined };
+    }
+
+    const [namePart, powerPart] = engineString.split(/\s*[–-]\s*/); // Split on '–' or '-', handle both dashes
+    const name = namePart ? namePart.trim() : engineString;
+    let value = '';
+    let unitCode = '';
+    let fuelType = undefined;
+
+    // Extract fuel type from the name part (last word before the dash)
+    if (namePart) {
+      const fuelTypeMatch = namePart.match(
+        /\b(Gasoline|Diesel|Electric|Hybrid)\b/i
+      );
+      if (fuelTypeMatch) {
+        fuelType = fuelTypeMatch[1];
+      }
+    }
+
+    if (powerPart) {
+      const match = powerPart.match(/([0-9.]+)\s*(\w+)?/i); // Extract value and unit with regex, e.g., "420 hp"
+      if (match) {
+        value = match[1];
+        unitCode = match[2]?.toUpperCase() === 'HP' ? 'HP' : match[2] || '';
+      }
+    }
+
+    return {
+      name: name || undefined,
+      fuelType,
+      enginePower: value
+        ? {
+            '@type': 'QuantitativeValue' as const,
+            value,
+            ...(unitCode ? { unitCode } : {}),
+          }
+        : undefined,
+    };
+  };
+
+  const parsedEngineData = parseEngineData(data?.engine || '');
+
   // Structured data functions
   const getBreadcrumbStructuredData = () => {
     if (type === 'rental') {
@@ -303,56 +348,72 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
 
     return {
       '@context': 'https://schema.org/',
-      '@type': ['Product', 'Vehicle'],
+      '@type': ['Product', 'Car'],
+      '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
       name: data?.title?.replace('\n', ' '),
-      image: data?.featuredImage?.data?.attributes?.url,
+      sku: data?.vehicleID,
+      vehicleIdentificationNumber: data?.VIN,
       description:
         props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
-      url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
+      image: data?.featuredImage?.data?.attributes?.url,
       manufacturer: {
         '@type': 'Organization',
-        name: `Alpine Armoring`,
+        '@id': 'https://www.alpineco.com/#organization',
+        name: 'Alpine Armoring',
       },
-      sku: `Alpine-${data?.slug}`,
-      vehicleConfiguration:
-        data?.categories?.data[0]?.attributes.title || 'SUV',
-      bodyType: data?.categories?.data[0]?.attributes.title || 'SUV',
-      modelDate: data?.year || '2024',
+      brand: {
+        '@type': 'Brand',
+        name: 'Alpine Armoring',
+        logo: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Logo.png`,
+      },
+      // "isVariantOf": {
+      //   "@type": "Product",
+      //   "name":  data?.title?.replace('\n', ' '),
+      //   "manufacturer": {
+      //     "@type": "Organization",
+      //     "name": "Cadillac"
+      //   }
+      // },
+      modelDate: data?.year || '2025',
+      // vehicleConfiguration: data?.categories?.data[0]?.attributes.title || 'SUV',  //"vehicleConfiguration": "ESV Extended",
+      vehicleModelDate: data?.year || '2025',
+      bodyType: data?.categories?.data[0]?.attributes.title
+        ? data.categories.data[0].attributes.title
+            .replace(/\bArmored\b/i, '')
+            .replace(/\s+$/, '') // Remove possible trailing space after 'Armored'
+            .replace(/s$/, '') // Remove trailing 's'
+            .trim()
+        : 'SUV',
       vehicleTransmission: data?.trans || '6-Speed Automatic',
       driveWheelConfiguration: data?.driveTrain || '4WD',
-      color: data?.color_ext || 'Raptor Black',
-      vehicleInteriorColor: data?.color_int || 'Gray',
       vehicleEngine: {
         '@type': 'EngineSpecification',
-        name: data?.engine,
+        name: parsedEngineData.name,
+        enginePower: parsedEngineData.enginePower,
       },
-      offers: {
-        '@type': 'Offer',
-        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
-        priceCurrency: 'USD',
-        price: '0',
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          priceCurrency: 'USD',
-          price: '0',
-        },
-        availability:
-          data?.flag == null
-            ? 'https://schema.org/InStock'
-            : 'https://schema.org/OutOfStock',
-        priceValidUntil: new Date(
-          new Date().setFullYear(new Date().getFullYear() + 1)
-        )
-          .toISOString()
-          .split('T')[0],
-        description:
-          lang.contactForPricing || 'Contact us for pricing information',
-        seller: {
-          '@type': 'Organization',
-          name: 'Alpine Armoring',
-        },
+      // "vehicleSeatingCapacity": 7,
+      vehicleSpecialUsage: 'Armored/Bulletproof',
+      color: data?.color_ext || 'Raptor Black',
+      vehicleInteriorColor: data?.color_int || 'Gray',
+      fuelType: parsedEngineData.fuelType || 'Gasoline',
+      weight: {
+        '@type': 'QuantitativeValue',
+        value: data?.weight,
+        unitCode: 'lbs',
       },
       additionalProperty: [
+        // {
+        //   "@type": "PropertyValue",
+        //   "@id": "https://www.alpineco.com/#armor-level-property",
+        //   "name": "Ballistic Protection Level",
+        //   "value": {
+        //     "@type": "DefinedTerm",
+        //     "@id": "https://www.alpineco.com/ballistic-chart#level-A9",
+        //     "name": `Alpine Level ${data?.armor_level}`,
+        //     "description": "Protection against 7.62×51mm rifle rounds"
+        //   }
+        // },
         {
           '@type': 'PropertyValue',
           name: lang.armoringLevel,
@@ -409,6 +470,35 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
           value: `${data?.weight} lbs`,
         },
       ],
+      offers: {
+        '@type': 'Offer',
+        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
+        priceCurrency: 'USD',
+        // price: '0',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          description: 'Contact for pricing',
+          // priceCurrency: 'USD',
+          price: '0',
+        },
+        availability:
+          data?.flag == null
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+        priceValidUntil: new Date(
+          new Date().setFullYear(new Date().getFullYear() + 1)
+        )
+          .toISOString()
+          .split('T')[0],
+        // description:
+        //   lang.contactForPricing || 'Contact us for pricing information',
+        seller: {
+          '@type': 'Organization',
+          '@id': 'https://www.alpineco.com/#organization',
+          // name: 'Alpine Armoring',
+        },
+        warranty: 'Comprehensive Alpine Armoring Warranty',
+      },
     };
   };
 
@@ -745,14 +835,16 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
               )}
 
               <div className={`${styles.inventory_cta_wrap}`}>
-                <Button
-                  onClick={scroll}
-                  button={true}
-                  className={`${styles.inventory_cta} primary attention`}
-                  attention
-                >
-                  {lang.requestAQuote}
-                </Button>
+                <div className={`${styles.inventory_cta_wrap_inner}`}>
+                  <Button
+                    onClick={scroll}
+                    button={true}
+                    className={`${styles.inventory_cta} primary`}
+                  >
+                    {lang.requestAQuote}
+                  </Button>
+                  <Button href="tel:+17034710002">{lang.callUs}</Button>
+                </div>
               </div>
 
               <div

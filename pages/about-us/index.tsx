@@ -56,23 +56,96 @@ function About(props) {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'Organization',
+      '@id': 'https://www.alpineco.com/#organization',
       name: 'Alpine Armoring',
       url: process.env.NEXT_PUBLIC_URL,
       logo: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Logo.png`,
       description:
-        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, headquartered in Virginia, USA',
+        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, pioneer of A12 .50 BMG protection technology, headquartered in Virginia, USA',
       foundingDate: '1993',
       naics: '336211',
-      keywords:
+      isicV4: '2910',
+      keywords: [
+        'armored vehicles for sale',
+        'bulletproof cars',
+        'armored SUVs',
+        'ballistic protection',
+        'A12 armor level',
+        '.50 caliber protection',
+        'MASTIFF armored truck',
         'Armored Vehicle Manufacturing, Ballistic Protection, Vehicle Armoring, Security Vehicles',
+      ],
+      slogan: 'No one protects you better',
       address: {
         '@type': 'PostalAddress',
         streetAddress: '4170 Lafayette Center Drive #100',
         addressLocality: 'Chantilly',
-        addressCountry: 'US',
         addressRegion: 'Virginia',
         postalCode: '20151',
+        addressCountry: 'US',
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: '38.90491917326487',
+          longitude: '-77.4702548649953',
+        },
       },
+      serviceArea: {
+        '@type': 'GeoCircle',
+        geoMidpoint: {
+          '@type': 'GeoCoordinates',
+          latitude: '38.90491917326487',
+          longitude: '-77.4702548649953',
+        },
+        geoRadius: 'global',
+      },
+      areaServed: {
+        '@type': 'Place',
+        name: 'Worldwide',
+        description: 'Global delivery and service network',
+      },
+      knowsAbout: [
+        {
+          '@type': 'DefinedTermSet',
+          '@id':
+            'https://www.alpineco.com/ballistic-chart#alpine-protection-standards',
+        },
+        {
+          '@type': 'TechArticle',
+          '@id': 'https://www.alpineco.com/ballistic-chart#nij-standard',
+        },
+        {
+          '@type': 'TechArticle',
+          '@id': 'https://www.alpineco.com/ballistic-chart#cen-standard',
+        },
+      ],
+      makesOffer: [
+        {
+          '@type': 'Service',
+          name: 'Vehicle Armoring Service',
+          description: 'Custom armoring from A4 to A12 protection levels',
+        },
+        {
+          '@type': 'Product',
+          name: 'Armored Vehicles',
+          category: 'Bulletproof Cars and SUVs',
+        },
+      ],
+      hasCredential: [
+        {
+          '@type': 'EducationalOccupationalCredential',
+          name: 'VPAM VR7 Certification',
+          credentialCategory: 'Ballistic Testing Certification',
+        },
+        {
+          '@type': 'EducationalOccupationalCredential',
+          name: 'US Army Aberdeen Proving Ground Certification',
+          credentialCategory: 'Military Testing Standards',
+        },
+      ],
+      award: [
+        "World's First Civilian .50 BMG Protection (A12 Level)",
+        '30 Years of Armoring Excellence',
+      ],
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: '+1 703 471 0002',
@@ -88,16 +161,6 @@ function About(props) {
         'https://www.tiktok.com/@alpinearmoring',
         'https://www.threads.com/@alpinearmoring/',
       ],
-      areaServed: 'Worldwide',
-      serviceArea: {
-        '@type': 'GeoCircle',
-        geoMidpoint: {
-          '@type': 'GeoCoordinates',
-          latitude: '38.90491917326487',
-          longitude: '-77.4702548649953',
-        },
-        geoRadius: 'global',
-      },
     };
 
     return JSON.stringify(structuredData);

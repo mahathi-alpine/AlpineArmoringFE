@@ -341,6 +341,7 @@ const esLocale = {
   youMightAlsoLike: 'También te podría gustar',
   aboutTheAuthor: 'Sobre el autor',
   latestArticles: 'Últimos artículos',
+  callUs: 'Llámenos',
 };
 
 export default esLocale;

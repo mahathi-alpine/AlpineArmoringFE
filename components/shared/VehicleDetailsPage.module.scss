@@ -271,24 +271,57 @@
   }
 
   &_cta {
-    padding: rem(16) rem(24) !important;
+    padding: rem(14) rem(2) !important;
+    width: 49%;
+    font-weight: var(--font-medium);
+    // min-width: unset !important;
+
+    // @include breakpoint(untilLarge) {
+    //   span {
+    //     border-radius: 4px !important;
+    //     &:first-child,
+    //     &:nth-child(2),
+    //     &:nth-child(3),
+    //     &:nth-child(4) {
+    //       display: none;
+    //     }
+    //   }
+    // }
+
+    // @include breakpoint(large) {
+    //   justify-content: space-evenly;
+    //   padding: 26px 20px 26px 20px !important;
+    //   text-transform: uppercase;
+    // }
+
+    // @include breakpoint(huge) {
+    //   margin: 0 auto;
+    //   position: relative;
+    //   right: rem(84);
+    // }
 
     &_wrap {
       position: fixed;
-      bottom: rem(4);
-      left: rem(16);
-      right: rem(16);
+      left: 0;
+      right: 0;
+      bottom: 0;
       margin: auto;
       z-index: 2;
-      max-width: rem(200);
+
       @include breakpoint(medium) {
-        min-width: 287px;
+        max-width: 380px;
       }
+
       @include breakpoint(large) {
-        margin-top: rem(24) !important;
         position: sticky;
         bottom: 10px;
         margin: auto;
+        margin-top: rem(50);
+      }
+
+      @include breakpoint(huge) {
+        margin-top: rem(10);
+        // margin-left: 14.2vW;
       }
 
       &_static {
@@ -298,31 +331,31 @@
         right: 0;
         margin: 20px;
       }
-    }
 
-    @include breakpoint(untilLarge) {
-      min-width: unset !important;
-      width: 100%;
-      span {
-        &:first-child,
-        &:nth-child(2),
-        &:nth-child(3),
-        &:nth-child(4) {
-          display: none;
+      &_inner{
+        display: flex;
+        justify-content: space-between;
+        padding: 6px;
+        background: var(--color-secondary);   
+
+        @include breakpoint(huge) {
+          position: relative;
+          right: rem(84);
         }
+
+        &>a{
+          width: 49%;
+
+          &>span{
+            background: var(--color-gray);
+            font-weight: var(--font-medium);
+
+            &:hover{
+              background: var(--color-white) !important;
+            }
+          }
+        }     
       }
-    }
-
-    @include breakpoint(large) {
-      justify-content: space-evenly;
-      padding: 26px 24px 26px 24px !important;
-      text-transform: uppercase;
-    }
-
-    @include breakpoint(huge) {
-      margin: 0 auto;
-      position: relative;
-      right: rem(84);
     }
   }
 
@@ -348,13 +381,14 @@
     }
 
     @include breakpoint(large) {
-      bottom: 22px;
+      bottom: 80px;
       justify-content: unset;
       margin: 0;
     }
 
     @include breakpoint(huge) {
       right: 168px;
+      bottom: 22px;
     }
 
     &_button {
