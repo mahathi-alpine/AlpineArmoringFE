@@ -125,7 +125,7 @@ const Footer = (props) => {
                     rel="nofollow noreferrer noopener"
                   >
                     <PhoneIcon color="#2d2d27" />
-                    1.800.99ARMOR
+                    1.800.99ARMOR (1.800.992.7667)
                   </Link>
                 </li>
                 <li>

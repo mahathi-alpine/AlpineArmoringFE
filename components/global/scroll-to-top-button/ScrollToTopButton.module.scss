@@ -13,8 +13,8 @@
   transition: opacity 0.2s ease-in-out;
   cursor: pointer;
 
-  &_availableNow{
-    @media(max-width: 768px){
+  &_availableNow {
+    @media (max-width: 768px) {
       bottom: rem(58);
     }
   }
