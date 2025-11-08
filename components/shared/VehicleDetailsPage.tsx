@@ -351,11 +351,12 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
       '@type': ['Product', 'Car'],
       '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${data?.slug}`,
-      name: data?.title?.replace('\n', ' '),
+      name: data?.title?.replace(/\s+/g, ' ').replace('\n', ' ').trim(),
       sku: data?.vehicleID,
       vehicleIdentificationNumber: data?.VIN,
       description:
-        props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
+        props.seoData?.metaDescription ||
+        data?.title?.replace(/\s+/g, ' ').replace('\n', ' ').trim(),
       image: data?.featuredImage?.data?.attributes?.url,
       manufacturer: {
         '@type': 'Organization',

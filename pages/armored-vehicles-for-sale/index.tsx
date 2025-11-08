@@ -225,66 +225,140 @@ function Inventory(props) {
           isPartOf: {
             '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
           },
-          inLanguage: 'en',
-          primaryImageOfPage: {
-            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
+          about: {
+            '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
           },
+          mainEntity: {
+            '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#itemlist`,
+          },
+          inLanguage: 'en',
           image: {
             '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
           },
           breadcrumb: {
             '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#breadcrumb`,
           },
-          thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
-        },
-        {
-          '@type': 'ImageObject',
-          inLanguage: 'en',
-          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
-          url: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
-          contentUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
-          width: 2200,
-          height: 1200,
-          caption:
-            'Alpine Armoring armored vehicles inventory - bulletproof cars and trucks available for sale',
-        },
-        {
-          '@type': 'BreadcrumbList',
-          '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#breadcrumb`,
-          itemListElement: [
-            {
-              '@type': 'ListItem',
-              position: 1,
-              name: lang.home,
-              item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
-            },
-            {
-              '@type': 'ListItem',
-              position: 2,
-              name: lang.availableNowTitle,
-              item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
-            },
-          ],
-        },
-        {
-          '@type': 'WebSite',
-          '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
-          url: process.env.NEXT_PUBLIC_URL,
-          name: 'Alpine Armoring',
-          description: 'Alpine Armoring - Armored Vehicle Manufacturer',
-          potentialAction: [
-            {
-              '@type': 'SearchAction',
-              target: {
-                '@type': 'EntryPoint',
-                urlTemplate: `${process.env.NEXT_PUBLIC_URL}/?s={search_term_string}`,
-              },
-              'query-input': 'required name=search_term_string',
-            },
-          ],
-          inLanguage: 'en',
+          thumbnailUrl: `https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg`,
         },
       ],
+    };
+    return JSON.stringify(structuredData);
+  };
+
+  const getItemListStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#itemlist`,
+      name: 'Armored Vehicles that are completed and available for immediate shipping',
+      description: 'Complete inventory of armored vehicles in stock',
+      numberOfItems: allVehicles.length,
+      itemListElement: allVehicles.map((vehicle, index) => {
+        const vehicleUrl = `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${vehicle.attributes?.slug}`;
+
+        return {
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': ['Product', 'Car'],
+            '@id': `${vehicleUrl}#product`,
+            name: vehicle.attributes.title.replace(/\s+/g, ' ').trim() || '',
+            url: vehicleUrl,
+            image:
+              vehicle.attributes?.featuredImage?.data?.attributes?.url || '',
+            manufacturer: {
+              '@type': 'Organization',
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              name: 'Alpine Armoring',
+            },
+            brand: {
+              '@type': 'Brand',
+              name: 'Alpine Armoring',
+            },
+            offers: {
+              '@type': 'Offer',
+              url: vehicleUrl,
+              priceCurrency: 'USD',
+              price: '0',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
+              availability:
+                vehicle.attributes?.flag == null
+                  ? 'https://schema.org/InStock'
+                  : 'https://schema.org/OutOfStock',
+              seller: {
+                '@type': 'Organization',
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        };
+      }),
+    };
+    return JSON.stringify(structuredData);
+  };
+
+  const getImageObjectStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'ImageObject',
+      inLanguage: 'en',
+      '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
+      url: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
+      contentUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
+      width: 2200,
+      height: 1200,
+      caption:
+        'Alpine Armoring armored vehicles inventory - bulletproof cars and trucks available for sale',
+    };
+    return JSON.stringify(structuredData);
+  };
+
+  const getBreadcrumbStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: lang.home,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: lang.availableNowTitle,
+          item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${routes.inventory.paths[router.locale]}`,
+        },
+      ],
+    };
+    return JSON.stringify(structuredData);
+  };
+
+  const getWebSiteStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
+      url: process.env.NEXT_PUBLIC_URL,
+      name: 'Alpine Armoring',
+      description: 'Alpine Armoring - Armored Vehicle Manufacturer',
+      potentialAction: [
+        {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${process.env.NEXT_PUBLIC_URL}/?s={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      ],
+      inLanguage: 'en',
     };
     return JSON.stringify(structuredData);
   };
@@ -328,6 +402,34 @@ function Inventory(props) {
             __html: getCollectionPageStructuredData(),
           }}
           key="collectionPage-jsonld"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: getItemListStructuredData(),
+          }}
+          key="itemlist-jsonld"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: getImageObjectStructuredData(),
+          }}
+          key="imageobject-jsonld"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: getBreadcrumbStructuredData(),
+          }}
+          key="breadcrumb-jsonld"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: getWebSiteStructuredData(),
+          }}
+          key="website-jsonld"
         />
         {faqs?.length > 0 && (
           <script
