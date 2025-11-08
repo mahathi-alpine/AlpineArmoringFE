@@ -253,7 +253,7 @@ function Inventory(props) {
       name: 'Armored Vehicles that are completed and available for immediate shipping',
       description: 'Complete inventory of armored vehicles in stock',
       numberOfItems: allVehicles.length,
-      itemListElement: allVehicles.map((vehicle, index) => {
+      itemListElement: allVehicles.slice(0, 5).map((vehicle, index) => {
         const vehicleUrl = `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${vehicle.attributes?.slug}`;
 
         return {
@@ -305,10 +305,9 @@ function Inventory(props) {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'ImageObject',
-      inLanguage: 'en',
       '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
-      url: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
-      contentUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_suvs_b7657d92de.jpg&w=2200&q=100`,
+      url: `https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg`,
+      contentUrl: `https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg`,
       width: 2200,
       height: 1200,
       caption:
@@ -353,12 +352,11 @@ function Inventory(props) {
           '@type': 'SearchAction',
           target: {
             '@type': 'EntryPoint',
-            urlTemplate: `${process.env.NEXT_PUBLIC_URL}/?s={search_term_string}`,
+            urlTemplate: `${process.env.NEXT_PUBLIC_URL}/armored-vehicles-for-sale?q={search_term_string}`,
           },
           'query-input': 'required name=search_term_string',
         },
       ],
-      inLanguage: 'en',
     };
     return JSON.stringify(structuredData);
   };
