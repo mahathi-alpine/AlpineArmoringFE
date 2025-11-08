@@ -34,7 +34,7 @@ const esLocale = {
 
   // availableNowTitle: 'Disponible ahora',
   availableNowTitle: 'Vehículos blindados en venta',
-  vehiclesWeArmor: 'Vehículos que blindamos',
+  vehiclesWeArmor: 'Marcas y modelos que blindamos',
   suvsTitleHeader: 'SUVs',
   sedans: 'Sedanes',
   pickupTrucks: 'Camionetas',

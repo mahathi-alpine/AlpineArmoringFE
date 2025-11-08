@@ -49,7 +49,7 @@ function Sitemap({
         '': 'Home',
         'about-us': 'About Us',
         'armored-vehicles-for-sale': 'Armored Vehicles for Sale',
-        'vehicles-we-armor': 'Vehicles We Armor',
+        'vehicles-we-armor': 'Makes & Models We Armor',
         'ballistic-chart': 'Weapons & Ammunition Chart',
         'ballistic-testing': 'Ballistic Testing',
         news: 'News on Armored Vehicles',

@@ -33,7 +33,7 @@ const enLocale = {
 
   // availableNowTitle: 'Available Now',
   availableNowTitle: 'Armored Vehicles for Sale',
-  vehiclesWeArmor: 'Vehicles We Armor',
+  vehiclesWeArmor: 'Makes & Models We Armor',
   suvsTitleHeader: 'SUVs',
   sedans: 'Sedans',
   pickupTrucks: 'Pickup Trucks',

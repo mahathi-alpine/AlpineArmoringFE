@@ -248,7 +248,7 @@ function Vehicle(props) {
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Vehicles we armor',
+          name: 'Makes & Models We Armor',
           item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`,
         },
         // {

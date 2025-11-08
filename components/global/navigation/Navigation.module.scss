@@ -10,7 +10,8 @@
     &_list {
       display: grid;
       grid-auto-flow: column;
-      gap: 16px;
+      align-items: center;
+      gap: 10px;
 
       :global(.lang-es) & {
         gap: 10px;
