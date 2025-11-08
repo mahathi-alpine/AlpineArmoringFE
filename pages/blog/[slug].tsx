@@ -153,6 +153,7 @@ function BlogSingle(props) {
       },
       publisher: {
         '@type': 'Organization',
+        name: 'Alpine Armoring',
         logo: {
           '@type': 'ImageObject',
           url: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Logo.png`,

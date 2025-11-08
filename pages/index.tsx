@@ -19,7 +19,7 @@ function Home({ homepageData, categories }) {
   const getOrganizationStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
-      '@type': 'Organization',
+      '@type': 'LocalBusiness',
       '@id': 'https://www.alpineco.com/#organization',
       name: 'Alpine Armoring',
       url: process.env.NEXT_PUBLIC_URL,
@@ -82,16 +82,79 @@ function Home({ homepageData, categories }) {
           '@id': 'https://www.alpineco.com/ballistic-chart#cen-standard',
         },
       ],
+
       makesOffer: [
         {
-          '@type': 'Service',
-          name: 'Vehicle Armoring Service',
-          description: 'Custom armoring from A4 to A12 protection levels',
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Product',
+            name: 'Armored Vehicles In Stock',
+            description:
+              'Completed bulletproof SUVs, sedans, vans, and trucks available for immediate shipping',
+            category: [
+              'Armored SUVs',
+              'Armored Sedans',
+              'Armored Pickup Trucks',
+              'Armored Law Enforcement',
+              'Armored Specialty Vehicles',
+            ],
+          },
+          availability: 'https://schema.org/InStock',
+          price: '0',
+          priceCurrency: 'USD',
+          url: 'https://www.alpineco.com/armored-vehicles-for-sale',
+          seller: {
+            '@type': 'Organization',
+            '@id': 'https://www.alpineco.com/#organization',
+          },
         },
         {
-          '@type': 'Product',
-          name: 'Armored Vehicles',
-          category: 'Bulletproof Cars and SUVs',
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Custom Vehicle Armoring Service',
+            description:
+              'Custom armoring service for wide range of vehicle makes and models, from SUVs to luxury cars, with A4 to A12 protection levels',
+            category: 'Vehicle Armoring',
+          },
+          availability: 'https://schema.org/Available',
+          areaServed: {
+            '@type': 'Place',
+            name: 'Worldwide',
+          },
+          url: 'https://www.alpineco.com/vehicles-we-armor',
+          seller: {
+            '@type': 'Organization',
+            '@id': 'https://www.alpineco.com/#organization',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Product',
+            name: 'Armored Pre-Owned Vehicles',
+            description: 'Previously armored vehicles available for purchase',
+          },
+          availability: 'https://schema.org/LimitedAvailability',
+          url: 'https://www.alpineco.com/available-now/type/armored-pre-owned',
+          seller: {
+            '@type': 'Organization',
+            '@id': 'https://www.alpineco.com/#organization',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Armored Vehicle Rental',
+            description: 'Rental service for armored vehicles',
+          },
+          availability: 'https://schema.org/Available',
+          url: 'https://www.alpineco.com/available-now/type/armored-rental',
+          seller: {
+            '@type': 'Organization',
+            '@id': 'https://www.alpineco.com/#organization',
+          },
         },
       ],
       hasCredential: [
@@ -124,6 +187,82 @@ function Home({ homepageData, categories }) {
         'https://www.youtube.com/c/AlpineArmoring',
         'https://www.tiktok.com/@alpinearmoring',
         'https://www.threads.com/@alpinearmoring/',
+      ],
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
+  const getItemListStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Alpine Armoring Product Categories',
+      description: 'Complete range of armored vehicles and armoring services',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          item: {
+            '@type': 'Product',
+            name: 'Armored SUVs',
+            url: 'https://www.alpineco.com/available-now/type/armored-suvs',
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          item: {
+            '@type': 'Product',
+            name: 'Armored Sedans',
+            url: 'https://www.alpineco.com/available-now/type/armored-sedans',
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          item: {
+            '@type': 'Product',
+            name: 'Armored Pickup Trucks',
+            url: 'https://www.alpineco.com/available-now/type/armored-pickup-trucks',
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 4,
+          item: {
+            '@type': 'Product',
+            name: 'Armored Law Enforcement Vehicles',
+            url: 'https://www.alpineco.com/available-now/type/armored-law-enforcements',
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 5,
+          item: {
+            '@type': 'Product',
+            name: 'Armored Specialty Vehicles',
+            url: 'https://www.alpineco.com/available-now/type/armored-specialty-vehicles',
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 6,
+          item: {
+            '@type': 'Product',
+            name: 'Armored Pre-Owned Vehicles',
+            url: 'https://www.alpineco.com/available-now/type/armored-pre-owned',
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 7,
+          item: {
+            '@type': 'Service',
+            name: 'Armored Vehicle Rental',
+            url: 'https://www.alpineco.com/available-now/type/armored-rental',
+          },
+        },
       ],
     };
 
@@ -170,6 +309,11 @@ function Home({ homepageData, categories }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getOrganizationStructuredData() }}
           key="organization-jsonld"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getItemListStructuredData() }}
+          key="itemList-jsonld"
         />
       </Head>
 

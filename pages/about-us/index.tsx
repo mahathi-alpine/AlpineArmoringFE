@@ -55,111 +55,42 @@ function About(props) {
   const getAboutPageStructuredData = () => {
     const structuredData = {
       '@context': 'https://schema.org',
-      '@type': 'Organization',
-      '@id': 'https://www.alpineco.com/#organization',
-      name: 'Alpine Armoring',
-      url: process.env.NEXT_PUBLIC_URL,
-      logo: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Logo.png`,
-      description:
-        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, pioneer of A12 .50 BMG protection technology, headquartered in Virginia, USA',
-      foundingDate: '1993',
-      naics: '336211',
-      isicV4: '2910',
-      keywords: [
-        'armored vehicles for sale',
-        'bulletproof cars',
-        'armored SUVs',
-        'ballistic protection',
-        'A12 armor level',
-        '.50 caliber protection',
-        'MASTIFF armored truck',
-        'Armored Vehicle Manufacturing, Ballistic Protection, Vehicle Armoring, Security Vehicles',
-      ],
-      slogan: 'No one protects you better',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: '4170 Lafayette Center Drive #100',
-        addressLocality: 'Chantilly',
-        addressRegion: 'Virginia',
-        postalCode: '20151',
-        addressCountry: 'US',
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude: '38.90491917326487',
-          longitude: '-77.4702548649953',
-        },
-      },
-      serviceArea: {
-        '@type': 'GeoCircle',
-        geoMidpoint: {
-          '@type': 'GeoCoordinates',
-          latitude: '38.90491917326487',
-          longitude: '-77.4702548649953',
-        },
-        geoRadius: 'global',
-      },
-      areaServed: {
-        '@type': 'Place',
-        name: 'Worldwide',
-        description: 'Global delivery and service network',
-      },
-      knowsAbout: [
+      '@graph': [
         {
-          '@type': 'DefinedTermSet',
-          '@id':
-            'https://www.alpineco.com/ballistic-chart#alpine-protection-standards',
+          '@type': 'AboutPage',
+          '@id': 'https://www.alpineco.com/about-us#webpage',
+          url: 'https://www.alpineco.com/about-us',
+          name: 'About Alpine Armoring - Leading Armored Vehicle Manufacturer',
+          description:
+            'Learn about Alpine Armoring, an internationally recognized leader in custom-manufactured armored vehicles since 1993, pioneering A12 .50 BMG protection technology.',
+          about: {
+            '@id': 'https://www.alpineco.com/#organization',
+          },
+          isPartOf: {
+            '@id': 'https://www.alpineco.com/#website',
+          },
+          breadcrumb: {
+            '@id': 'https://www.alpineco.com/about-us#breadcrumb',
+          },
         },
         {
-          '@type': 'TechArticle',
-          '@id': 'https://www.alpineco.com/ballistic-chart#nij-standard',
+          '@type': 'BreadcrumbList',
+          '@id': 'https://www.alpineco.com/about-us#breadcrumb',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: 'https://www.alpineco.com',
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'About Us',
+              item: 'https://www.alpineco.com/about-us',
+            },
+          ],
         },
-        {
-          '@type': 'TechArticle',
-          '@id': 'https://www.alpineco.com/ballistic-chart#cen-standard',
-        },
-      ],
-      makesOffer: [
-        {
-          '@type': 'Service',
-          name: 'Vehicle Armoring Service',
-          description: 'Custom armoring from A4 to A12 protection levels',
-        },
-        {
-          '@type': 'Product',
-          name: 'Armored Vehicles',
-          category: 'Bulletproof Cars and SUVs',
-        },
-      ],
-      hasCredential: [
-        {
-          '@type': 'EducationalOccupationalCredential',
-          name: 'VPAM VR7 Certification',
-          credentialCategory: 'Ballistic Testing Certification',
-        },
-        {
-          '@type': 'EducationalOccupationalCredential',
-          name: 'US Army Aberdeen Proving Ground Certification',
-          credentialCategory: 'Military Testing Standards',
-        },
-      ],
-      award: [
-        "World's First Civilian .50 BMG Protection (A12 Level)",
-        '30 Years of Armoring Excellence',
-      ],
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+1 703 471 0002',
-        email: 'sales@alpineco.com',
-        contactType: 'customer service',
-      },
-      sameAs: [
-        'https://www.instagram.com/alpinearmoring/',
-        'https://x.com/AlpineArmoring',
-        'https://www.facebook.com/AlpineArmoring/',
-        'https://www.linkedin.com/company/alpinearmoring/',
-        'https://www.youtube.com/c/AlpineArmoring',
-        'https://www.tiktok.com/@alpinearmoring',
-        'https://www.threads.com/@alpinearmoring/',
       ],
     };
 
@@ -172,7 +103,7 @@ function About(props) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getAboutPageStructuredData() }}
-          key="organization-jsonld"
+          key="aboutPage-jsonld"
         />
       </Head>
 
