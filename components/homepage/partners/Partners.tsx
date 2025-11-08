@@ -1,10 +1,24 @@
 import styles from './Partners.module.scss';
 import Image from 'next/image';
-import Link from 'next/link';
 import useLocale from 'hooks/useLocale';
+import { useCallback } from 'react';
 
 const Partners = (props) => {
   const { lang } = useLocale();
+
+  const openPopupWindow = useCallback((url) => {
+    const width = Math.min(1500, window.innerWidth * 0.8);
+    const height = Math.min(1000, window.innerHeight * 0.8);
+
+    const left = (window.innerWidth - width) / 2 + window.screenX;
+    const top = (window.innerHeight - height) / 2 + window.screenY;
+
+    window.open(
+      url,
+      `popup_${Date.now()}`,
+      `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes,status=yes,location=yes`
+    );
+  }, []);
 
   return (
     <div className={`${styles.partners} container`}>
@@ -14,12 +28,16 @@ const Partners = (props) => {
       <div className={`${styles.partners_wrap}`}>
         {props.props.map((item) =>
           item.linkURL ? (
-            <Link
+            <a
               href={item.linkURL}
               className={`${styles.partners_item} fade-in observe`}
               key={item.id}
-              target="_blank"
+              onClick={(e) => {
+                e.preventDefault();
+                openPopupWindow(item.linkURL);
+              }}
               rel="noopener noreferrer"
+              aria-label={`${item.title} (opens in popup window)`}
             >
               <Image
                 src={
@@ -36,7 +54,7 @@ const Partners = (props) => {
                 className={`${styles.partners_image}`}
               />
               <h3>{item.title}</h3>
-            </Link>
+            </a>
           ) : (
             <div
               className={`${styles.partners_item} fade-in observe`}
