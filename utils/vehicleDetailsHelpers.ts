@@ -90,8 +90,21 @@ export const getVehicleDetailsServerSideProps = async (
     }
 
     const currentPage = data.data[0].attributes;
+
+    // Build fallback SEO data when not provided in Strapi
+    const fallbackMetaTitle = currentPage?.title
+      ? `${currentPage.title} | Alpine Armoring`
+      : 'Alpine Armoring';
+
+    const fallbackMetaDescription = currentPage?.title
+      ? `${currentPage.title} available for purchase from Alpine Armoring${currentPage.armor_level ? `. Alpine Level ${currentPage.armor_level} ballistic protection` : ''}. Contact us for pricing and availability.`
+      : 'Armored vehicle available for purchase from Alpine Armoring. Contact us for pricing and availability.';
+
     const seoData = {
       ...(currentPage?.seo ?? {}),
+      metaTitle: currentPage?.seo?.metaTitle || fallbackMetaTitle,
+      metaDescription:
+        currentPage?.seo?.metaDescription || fallbackMetaDescription,
       thumbnail: currentPage?.featuredImage?.data?.attributes ?? null,
       languageUrls: config.languageUrlBuilder(currentPage, locale),
       ...(config.canonicalUrlPath && {

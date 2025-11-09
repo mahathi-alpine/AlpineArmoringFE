@@ -438,7 +438,7 @@ const Seo = ({
 
       {/* Canonical URL - only render if not noindex and not explicitly set to false */}
       {shouldRenderCanonical && canonicalUrl && (
-        <link rel="canonical" href={canonicalUrl} data-seo-component="true" />
+        <link rel="canonical" href={canonicalUrl} />
       )}
 
       {/* Favicon */}
