@@ -319,6 +319,10 @@ function Home({ homepageData, categories }) {
               priceCurrency: 'USD',
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-suvs`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
@@ -346,6 +350,10 @@ function Home({ homepageData, categories }) {
               priceCurrency: 'USD',
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-sedans`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
@@ -373,6 +381,10 @@ function Home({ homepageData, categories }) {
               priceCurrency: 'USD',
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pickup-trucks`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
@@ -400,6 +412,10 @@ function Home({ homepageData, categories }) {
               priceCurrency: 'USD',
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-law-enforcement`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
@@ -427,6 +443,10 @@ function Home({ homepageData, categories }) {
               priceCurrency: 'USD',
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-specialty-vehicles`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
@@ -454,6 +474,10 @@ function Home({ homepageData, categories }) {
               priceCurrency: 'USD',
               availability: 'https://schema.org/LimitedAvailability',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
@@ -483,6 +507,10 @@ function Home({ homepageData, categories }) {
               priceCurrency: 'USD',
               availability: 'https://schema.org/Available',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-rental`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
