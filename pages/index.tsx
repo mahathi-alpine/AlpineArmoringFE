@@ -246,6 +246,11 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: 'https://www.alpineco.com/available-now/type/armored-suvs',
               seller: {
@@ -274,6 +279,11 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: 'https://www.alpineco.com/available-now/type/armored-sedans',
               seller: {
@@ -302,6 +312,11 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: 'https://www.alpineco.com/available-now/type/armored-pickup-trucks',
               seller: {
@@ -330,6 +345,11 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: 'https://www.alpineco.com/available-now/type/armored-law-enforcement',
               seller: {
@@ -358,6 +378,11 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: 'https://www.alpineco.com/available-now/type/armored-specialty-vehicles',
               seller: {
@@ -385,6 +410,11 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
               availability: 'https://schema.org/LimitedAvailability',
               url: 'https://www.alpineco.com/available-now/type/armored-pre-owned',
               seller: {
@@ -416,6 +446,11 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                description: 'Contact for pricing',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: 'https://www.alpineco.com/available-now/type/armored-rental',
               seller: {
