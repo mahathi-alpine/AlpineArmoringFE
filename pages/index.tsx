@@ -16,490 +16,6 @@ function Home({ homepageData, categories }) {
   const { lang } = useLocale();
   const data = homepageData.data?.attributes;
 
-  const getOrganizationStructuredData = () => {
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'LocalBusiness',
-      '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
-      name: 'Alpine Armoring',
-      url: process.env.NEXT_PUBLIC_URL,
-      logo: {
-        '@type': 'ImageObject',
-        '@id': `${process.env.NEXT_PUBLIC_URL}/#logo`,
-        url: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Logo.jpg`,
-        caption: 'Alpine Armoring Logo',
-      },
-      image: {
-        '@type': 'ImageObject',
-        url: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Logo.jpg`,
-      },
-      description:
-        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, pioneer of A12 .50 BMG protection technology, headquartered in Virginia, USA',
-      foundingDate: '1993',
-      naics: '336211',
-      isicV4: '2910',
-      keywords: [
-        'armored vehicles for sale',
-        'bulletproof cars',
-        'armored SUVs',
-        'ballistic protection',
-        'A12 armor level',
-        '.50 caliber protection',
-        'MASTIFF armored truck',
-        'Armored Vehicle Manufacturing',
-        'Ballistic Protection',
-        'Vehicle Armoring',
-        'Security Vehicles',
-      ],
-      slogan: 'No one protects you better',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: '4170 Lafayette Center Drive #100',
-        addressLocality: 'Chantilly',
-        addressRegion: 'Virginia',
-        postalCode: '20151',
-        addressCountry: 'US',
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude: '38.90491917326487',
-          longitude: '-77.4702548649953',
-        },
-      },
-      openingHoursSpecification: {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '08:30',
-        closes: '17:00',
-      },
-      telephone: '+1-703-471-0002',
-      email: 'sales@alpineco.com',
-      priceRange: '$$$',
-      serviceArea: {
-        '@type': 'GeoCircle',
-        geoMidpoint: {
-          '@type': 'GeoCoordinates',
-          latitude: '38.90491917326487',
-          longitude: '-77.4702548649953',
-        },
-        geoRadius: '20000000',
-      },
-      areaServed: {
-        '@type': 'Place',
-        name: 'Worldwide',
-        description: 'Global delivery and service network',
-      },
-      knowsAbout: [
-        {
-          '@type': 'DefinedTermSet',
-          '@id':
-            'https://www.alpineco.com/ballistic-chart#alpine-protection-standards',
-        },
-        {
-          '@type': 'TechArticle',
-          '@id': 'https://www.alpineco.com/ballistic-chart#nij-standard',
-        },
-        {
-          '@type': 'TechArticle',
-          '@id': 'https://www.alpineco.com/ballistic-chart#cen-standard',
-        },
-      ],
-      hasCredential: [
-        {
-          '@type': 'EducationalOccupationalCredential',
-          name: 'VPAM VR7 Certification',
-          credentialCategory: 'Ballistic Testing Certification',
-        },
-        {
-          '@type': 'EducationalOccupationalCredential',
-          name: 'US Army Aberdeen Proving Ground Certification',
-          credentialCategory: 'Military Testing Standards',
-        },
-      ],
-      award: [
-        "World's First Civilian .50 BMG Protection (A12 Level)",
-        '30 Years of Armoring Excellence',
-      ],
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+1-703-471-0002',
-        email: 'sales@alpineco.com',
-        contactType: 'customer service',
-        areaServed: 'US',
-        availableLanguage: ['English'],
-      },
-      sameAs: [
-        'https://www.instagram.com/alpinearmoring/',
-        'https://x.com/AlpineArmoring',
-        'https://www.facebook.com/AlpineArmoring/',
-        'https://www.linkedin.com/company/alpinearmoring/',
-        'https://www.youtube.com/c/AlpineArmoring',
-        'https://www.tiktok.com/@alpinearmoring',
-        'https://www.threads.com/@alpinearmoring/',
-      ],
-      makesOffer: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Product',
-            '@id': 'https://www.alpineco.com/armored-vehicles-for-sale#product',
-            name: 'Armored Vehicles In Stock',
-            description:
-              'Completed bulletproof SUVs, sedans, vans, and trucks available for immediate shipping',
-            category: [
-              'Armored SUVs',
-              'Armored Sedans',
-              'Armored Pickup Trucks',
-              'Armored Law Enforcement',
-              'Armored Specialty Vehicles',
-            ],
-          },
-          availability: 'https://schema.org/InStock',
-          price: '0',
-          priceCurrency: 'USD',
-          url: 'https://www.alpineco.com/armored-vehicles-for-sale',
-          seller: {
-            '@type': 'Organization',
-            '@id': 'https://www.alpineco.com/#organization',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            '@id': 'https://www.alpineco.com/vehicles-we-armor#service',
-            name: 'Custom Vehicle Armoring Service',
-            description:
-              'Custom armoring service for wide range of vehicle makes and models, from SUVs to luxury cars, with A4 to A12 protection levels',
-            category: 'Vehicle Armoring',
-          },
-          availability: 'https://schema.org/Available',
-          areaServed: {
-            '@type': 'Place',
-            name: 'Worldwide',
-          },
-          url: 'https://www.alpineco.com/vehicles-we-armor',
-          seller: {
-            '@type': 'Organization',
-            '@id': 'https://www.alpineco.com/#organization',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Product',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-pre-owned#product',
-            name: 'Armored Pre-Owned Vehicles',
-            description: 'Previously armored vehicles available for purchase',
-          },
-          availability: 'https://schema.org/LimitedAvailability',
-          url: 'https://www.alpineco.com/available-now/type/armored-pre-owned',
-          seller: {
-            '@type': 'Organization',
-            '@id': 'https://www.alpineco.com/#organization',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-rental#service',
-            name: 'Armored Vehicle Rental',
-            description: 'Rental service for armored vehicles',
-          },
-          availability: 'https://schema.org/Available',
-          url: 'https://www.alpineco.com/available-now/type/armored-rental',
-          seller: {
-            '@type': 'Organization',
-            '@id': 'https://www.alpineco.com/#organization',
-          },
-        },
-      ],
-    };
-
-    return JSON.stringify(structuredData);
-  };
-
-  const getItemListStructuredData = () => {
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      name: 'Alpine Armoring Product Categories',
-      description: 'Complete range of armored vehicles and armoring services',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          item: {
-            '@type': 'Product',
-            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-suvs#product`,
-            name: 'Armored SUVs',
-            description:
-              'Bulletproof SUVs for Sale with advanced protection and technology, perfect for personal, business, or government security needs.',
-            url: 'https://www.alpineco.com/available-now/type/armored-suvs',
-            image: `https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg`,
-            brand: {
-              '@type': 'Brand',
-              name: 'Alpine Armoring',
-            },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                description: 'Contact for pricing',
-                price: '0',
-              },
-              availability: 'https://schema.org/InStock',
-              url: 'https://www.alpineco.com/available-now/type/armored-suvs',
-              seller: {
-                '@type': 'Organization',
-                '@id': 'https://www.alpineco.com/#organization',
-              },
-            },
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          item: {
-            '@type': 'Product',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-sedans#product',
-            name: 'Armored Sedans',
-            description:
-              'Luxury armored sedans providing discreet protection and security',
-            url: 'https://www.alpineco.com/available-now/type/armored-sedans',
-            image: `https://d102sycao8uwt8.cloudfront.net/armored_sedans_df355f4cbe.jpg`,
-            brand: {
-              '@type': 'Brand',
-              name: 'Alpine Armoring',
-            },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                description: 'Contact for pricing',
-                price: '0',
-              },
-              availability: 'https://schema.org/InStock',
-              url: 'https://www.alpineco.com/available-now/type/armored-sedans',
-              seller: {
-                '@type': 'Organization',
-                '@id': 'https://www.alpineco.com/#organization',
-              },
-            },
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          item: {
-            '@type': 'Product',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-pickup-trucks#product',
-            name: 'Armored Pickup Trucks',
-            description:
-              'Heavy-duty armored pickup trucks for tactical and civilian use',
-            url: 'https://www.alpineco.com/available-now/type/armored-pickup-trucks',
-            image: `https://d102sycao8uwt8.cloudfront.net/armored_pickup_trucks_78270fd729.jpg`,
-            brand: {
-              '@type': 'Brand',
-              name: 'Alpine Armoring',
-            },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                description: 'Contact for pricing',
-                price: '0',
-              },
-              availability: 'https://schema.org/InStock',
-              url: 'https://www.alpineco.com/available-now/type/armored-pickup-trucks',
-              seller: {
-                '@type': 'Organization',
-                '@id': 'https://www.alpineco.com/#organization',
-              },
-            },
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 4,
-          item: {
-            '@type': 'Product',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-law-#product',
-            name: 'Armored Law Enforcement Vehicles',
-            description:
-              'Specialized armored vehicles for law enforcement and SWAT operations',
-            url: 'https://www.alpineco.com/available-now/type/armored-law-enforcement',
-            image: `https://d102sycao8uwt8.cloudfront.net/armored_SWAT_6263a15e32.jpg`,
-            brand: {
-              '@type': 'Brand',
-              name: 'Alpine Armoring',
-            },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                description: 'Contact for pricing',
-                price: '0',
-              },
-              availability: 'https://schema.org/InStock',
-              url: 'https://www.alpineco.com/available-now/type/armored-law-enforcement',
-              seller: {
-                '@type': 'Organization',
-                '@id': 'https://www.alpineco.com/#organization',
-              },
-            },
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 5,
-          item: {
-            '@type': 'Product',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-specialty-vehicles#product',
-            name: 'Armored Specialty Vehicles',
-            description:
-              'Custom armored specialty vehicles for unique security requirements',
-            url: 'https://www.alpineco.com/available-now/type/armored-specialty-vehicles',
-            image: `https://d102sycao8uwt8.cloudfront.net/armored_specialty_vehicles_7ccb22db0e.jpg`,
-            brand: {
-              '@type': 'Brand',
-              name: 'Alpine Armoring',
-            },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                description: 'Contact for pricing',
-                price: '0',
-              },
-              availability: 'https://schema.org/InStock',
-              url: 'https://www.alpineco.com/available-now/type/armored-specialty-vehicles',
-              seller: {
-                '@type': 'Organization',
-                '@id': 'https://www.alpineco.com/#organization',
-              },
-            },
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 6,
-          item: {
-            '@type': 'Product',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-pre-owned#product',
-            name: 'Armored Pre-Owned Vehicles',
-            description: `Alpine Armoring's certified pre-owned armored vehicles offer 30-50% savings with A4-A12 protection, rigorous 150-point inspection, and immediate availability.`,
-            url: 'https://www.alpineco.com/available-now/type/armored-pre-owned',
-            image: `https://d102sycao8uwt8.cloudfront.net/armored_preowned_ae26ef8dee.jpg`,
-            brand: {
-              '@type': 'Brand',
-              name: 'Alpine Armoring',
-            },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                description: 'Contact for pricing',
-                price: '0',
-              },
-              availability: 'https://schema.org/LimitedAvailability',
-              url: 'https://www.alpineco.com/available-now/type/armored-pre-owned',
-              seller: {
-                '@type': 'Organization',
-                '@id': 'https://www.alpineco.com/#organization',
-              },
-            },
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 7,
-          item: {
-            '@type': 'Service',
-            '@id':
-              'https://www.alpineco.com/available-now/type/armored-rental#service',
-            name: 'Armored Vehicle Rental',
-            description: `Explore Alpine Armoring's armored car rentals, offering short-term security solutions with top-tier protection for personal, corporate, or government needs.`,
-            url: 'https://www.alpineco.com/available-now/type/armored-rental',
-            provider: {
-              '@type': 'Organization',
-              name: 'Alpine Armoring',
-              '@id': 'https://www.alpineco.com/#organization',
-            },
-            areaServed: {
-              '@type': 'Place',
-              name: 'Worldwide',
-            },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                description: 'Contact for pricing',
-                price: '0',
-              },
-              availability: 'https://schema.org/InStock',
-              url: 'https://www.alpineco.com/available-now/type/armored-rental',
-              seller: {
-                '@type': 'Organization',
-                '@id': 'https://www.alpineco.com/#organization',
-              },
-            },
-          },
-        },
-      ],
-    };
-
-    return JSON.stringify(structuredData);
-  };
-
-  const getWebSiteStructuredData = () => {
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      '@id': 'https://www.alpineco.com/#website',
-      url: process.env.NEXT_PUBLIC_URL,
-      name: 'Alpine Armoring',
-      description:
-        'Leading manufacturer of armored vehicles and bulletproof cars',
-      publisher: {
-        '@id': 'https://www.alpineco.com/#organization',
-      },
-    };
-
-    return JSON.stringify(structuredData);
-  };
-
-  const getBreadcrumbStructuredData = () => {
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Home',
-          item: process.env.NEXT_PUBLIC_URL,
-        },
-      ],
-    };
-
-    return JSON.stringify(structuredData);
-  };
-
   const topBanner = {
     title: data?.topBannerTitle,
     description: data?.topBannerDescription,
@@ -533,6 +49,507 @@ function Home({ homepageData, categories }) {
     dependencies: [homepageData, categories],
   });
 
+  const getOrganizationStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+      name: 'Alpine Armoring',
+      url: process.env.NEXT_PUBLIC_URL,
+      logo: {
+        '@type': 'ImageObject',
+        '@id': `${process.env.NEXT_PUBLIC_URL}/#logo`,
+        url: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Logo.jpg`,
+        caption: 'Alpine Armoring Logo',
+        width: '721',
+        height: '300',
+      },
+      image: [
+        {
+          '@type': 'ImageObject',
+          url: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Logo.jpg`,
+          width: '721',
+          height: '300',
+        },
+        {
+          '@type': 'ImageObject',
+          url: `https://d102sycao8uwt8.cloudfront.net/medium_About_us_hompage_thumbnail_1_ea1c33f592.JPG`,
+          width: '750',
+          height: '583',
+        },
+      ],
+      description:
+        'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, pioneer of A12 .50 BMG protection technology, headquartered in Virginia, USA',
+      foundingDate: '1993',
+      founder: [
+        {
+          '@type': 'Person',
+          name: '[Fred Khoroushi]',
+          jobTitle: 'Founder & CEO',
+        },
+      ],
+      employees: [
+        {
+          '@type': 'Person',
+          name: '[Fred Khoroushi]',
+          jobTitle: 'Chief Executive Officer',
+        },
+        {
+          '@type': 'Person',
+          name: '[Cameron Khoroushi]',
+          jobTitle: 'Director of design engineering',
+        },
+        {
+          '@type': 'Person',
+          name: '[Dan Diana]',
+          jobTitle: 'General Manager',
+        },
+      ],
+      naics: '336211',
+      isicV4: '2910',
+      keywords: [
+        'armored vehicles for sale',
+        'bulletproof cars',
+        'armored SUVs',
+        'ballistic protection',
+        'A12 armor level',
+        '.50 caliber protection',
+        'MASTIFF armored truck',
+        'Armored Vehicle Manufacturing',
+        'Ballistic Protection',
+        'Vehicle Armoring',
+        'Security Vehicles',
+      ],
+      slogan: 'No one protects you better',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '4170 Lafayette Center Drive #100',
+        addressLocality: 'Chantilly',
+        addressRegion: 'VA',
+        postalCode: '20151',
+        addressCountry: 'US',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: '38.90491917326487',
+        longitude: '-77.4702548649953',
+      },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:30',
+        closes: '17:00',
+      },
+      telephone: '+1-703-471-0002',
+      email: 'sales@alpineco.com',
+      priceRange: '$$$',
+      serviceArea: {
+        '@type': 'GeoCircle',
+        geoMidpoint: {
+          '@type': 'GeoCoordinates',
+          latitude: '38.90491917326487',
+          longitude: '-77.4702548649953',
+        },
+        geoRadius: '20000000',
+      },
+      areaServed: {
+        '@type': 'Place',
+        name: 'Worldwide',
+        description: 'Global delivery and service network',
+      },
+      knowsAbout: [
+        'Ballistic Protection Standards',
+        'Vehicle Armoring Technology',
+        'A12 .50 BMG Protection',
+        'VPAM VR7 Certification',
+        'NIJ Standards',
+        'CEN Standards',
+      ],
+      hasCredential: [
+        {
+          '@type': 'EducationalOccupationalCredential',
+          name: 'VPAM VR7 Certification',
+          credentialCategory: 'Ballistic Testing Certification',
+        },
+        {
+          '@type': 'EducationalOccupationalCredential',
+          name: 'US Army Aberdeen Proving Ground Certification',
+          credentialCategory: 'Military Testing Standards',
+        },
+      ],
+      award: [
+        "World's First Civilian .50 BMG Protection (A12 Level)",
+        '30 Years of Armoring Excellence',
+      ],
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: '+1-703-471-0002',
+          email: 'sales@alpineco.com',
+          contactType: 'sales',
+          areaServed: 'Worldwide',
+          availableLanguage: ['English'],
+        },
+        {
+          '@type': 'ContactPoint',
+          telephone: '+1-703-471-0009',
+          contactType: 'Parts, Service & Warranty',
+          areaServed: 'US',
+          availableLanguage: ['English'],
+        },
+      ],
+      sameAs: [
+        'https://www.instagram.com/alpinearmoring/',
+        'https://x.com/AlpineArmoring',
+        'https://www.facebook.com/AlpineArmoring/',
+        'https://www.linkedin.com/company/alpinearmoring/',
+        'https://www.youtube.com/c/AlpineArmoring',
+        'https://www.tiktok.com/@alpinearmoring',
+        'https://www.threads.com/@alpinearmoring/',
+      ],
+      makesOffer: [
+        {
+          '@type': 'Offer',
+          '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-new-vehicles`,
+          itemOffered: {
+            '@type': 'Product',
+            name: 'New Armored Vehicles',
+            description:
+              'Brand new bulletproof vehicles with A4-A12 protection levels',
+            category: 'Armored Vehicles',
+          },
+          availability: 'https://schema.org/InStock',
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            priceCurrency: 'USD',
+            valueAddedTaxIncluded: false,
+          },
+          url: `${process.env.NEXT_PUBLIC_URL}/armored-vehicles-for-sale`,
+          seller: {
+            '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+          },
+        },
+        {
+          '@type': 'Offer',
+          '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-custom-armoring`,
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Custom Vehicle Armoring Service',
+            description:
+              'Professional armoring service for your existing vehicle',
+            serviceType: 'Vehicle Armoring',
+            provider: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+          },
+          availability: 'https://schema.org/Available',
+          areaServed: {
+            '@type': 'Place',
+            name: 'Worldwide',
+          },
+          url: `${process.env.NEXT_PUBLIC_URL}/vehicles-we-armor`,
+        },
+        {
+          '@type': 'Offer',
+          '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-preowned`,
+          itemOffered: {
+            '@type': 'Product',
+            name: 'Pre-Owned Armored Vehicles',
+            description:
+              'Certified pre-owned armored vehicles with 30-50% savings',
+            category: 'Used Armored Vehicles',
+          },
+          availability: 'https://schema.org/LimitedAvailability',
+          url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
+          seller: {
+            '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+          },
+        },
+        {
+          '@type': 'Offer',
+          '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-rental`,
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Armored Vehicle Rental',
+            description: 'Short-term armored vehicle rental service',
+            serviceType: 'Vehicle Rental',
+            provider: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+          },
+          availability: 'https://schema.org/Available',
+          url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-rental`,
+        },
+      ],
+      currenciesAccepted: 'USD',
+      paymentAccepted: 'Cash, Credit Card, Wire Transfer',
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
+  const getItemListStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      '@id': `${process.env.NEXT_PUBLIC_URL}/#product-categories`,
+      name: 'Alpine Armoring Product Categories',
+      description: 'Complete range of armored vehicle categories available',
+      numberOfItems: 7,
+
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          item: {
+            '@type': 'Product',
+            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-suvs#product`,
+            name: 'Armored SUVs',
+            description:
+              'Bulletproof SUVs for Sale with advanced protection and technology, perfect for personal, business, or government security needs.',
+            url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-suvs`,
+            image:
+              'https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg',
+            brand: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+            category: 'Armored SUVs',
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+              url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-suvs`,
+              seller: {
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          item: {
+            '@type': 'Product',
+            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-sedans#product`,
+            name: 'Armored Sedans',
+            description:
+              'Luxury armored sedans providing discreet protection and security',
+            url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-sedans`,
+            image:
+              'https://d102sycao8uwt8.cloudfront.net/armored_sedans_df355f4cbe.jpg',
+            brand: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+            category: 'Armored Sedans',
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+              url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-sedans`,
+              seller: {
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          item: {
+            '@type': 'Product',
+            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pickup-trucks#product`,
+            name: 'Armored Pickup Trucks',
+            description:
+              'Heavy-duty armored pickup trucks for tactical and civilian use',
+            url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pickup-trucks`,
+            image:
+              'https://d102sycao8uwt8.cloudfront.net/armored_pickup_trucks_78270fd729.jpg',
+            brand: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+            category: 'Armored Pickup Trucks',
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+              url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pickup-trucks`,
+              seller: {
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 4,
+          item: {
+            '@type': 'Product',
+            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-law-enforcement#product`,
+            name: 'Armored Law Enforcement Vehicles',
+            description:
+              'Specialized armored vehicles for law enforcement and SWAT operations',
+            url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-law-enforcement`,
+            image:
+              'https://d102sycao8uwt8.cloudfront.net/armored_SWAT_6263a15e32.jpg',
+            brand: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+            category: 'Law Enforcement Vehicles',
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+              url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-law-enforcement`,
+              seller: {
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 5,
+          item: {
+            '@type': 'Product',
+            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-specialty-vehicles#product`,
+            name: 'Armored Specialty Vehicles',
+            description:
+              'Custom armored specialty vehicles for unique security requirements',
+            url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-specialty-vehicles`,
+            image:
+              'https://d102sycao8uwt8.cloudfront.net/armored_specialty_vehicles_7ccb22db0e.jpg',
+            brand: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+            category: 'Specialty Vehicles',
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+              url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-specialty-vehicles`,
+              seller: {
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 6,
+          item: {
+            '@type': 'Product',
+            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned#product`,
+            name: 'Armored Pre-Owned Vehicles',
+            description:
+              "Alpine Armoring's certified pre-owned armored vehicles offer 30-50% savings with A4-A12 protection, rigorous 150-point inspection, and immediate availability.",
+            url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
+            image:
+              'https://d102sycao8uwt8.cloudfront.net/armored_preowned_ae26ef8dee.jpg',
+            brand: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+            category: 'Pre-Owned Vehicles',
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/LimitedAvailability',
+              url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
+              seller: {
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 7,
+          item: {
+            '@type': 'Service',
+            '@id': `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-rental#service`,
+            name: 'Armored Vehicle Rental',
+            description:
+              "Explore Alpine Armoring's armored car rentals, offering short-term security solutions with top-tier protection for personal, corporate, or government needs.",
+            url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-rental`,
+            serviceType: 'Vehicle Rental',
+            provider: {
+              '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+            },
+            areaServed: {
+              '@type': 'Place',
+              name: 'Worldwide',
+            },
+            offers: {
+              '@type': 'Offer',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/Available',
+              url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-rental`,
+              seller: {
+                '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+              },
+            },
+          },
+        },
+      ],
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
+  const getWebSiteStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': `${process.env.NEXT_PUBLIC_URL}/#website`,
+      url: process.env.NEXT_PUBLIC_URL,
+      name: 'Alpine Armoring',
+      alternateName: 'Alpine Armoring Inc.',
+      description:
+        'Leading manufacturer of armored vehicles and bulletproof cars',
+      publisher: {
+        '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
+      },
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
+  const getBreadcrumbStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      '@id': `${process.env.NEXT_PUBLIC_URL}/#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: process.env.NEXT_PUBLIC_URL,
+        },
+      ],
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
+  const getVideoStructuredData = () => {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: 'Alpine Armoring Homepage video',
+      description: 'Alpine Armoring Homepage vehicle showcase video',
+      thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Armoring-Logo.jpg`,
+      uploadDate: topBanner.video.video_mp4.data.attributes.createdAt,
+      contentUrl: topBanner.video.video_mp4.data.attributes.url,
+      embedUrl: topBanner.video.video_mp4.data.attributes.url,
+      duration: 'PT0M45S',
+      encodingFormat: topBanner.video.video_mp4.data.attributes.mime,
+      width: topBanner.video.video_mp4.data.attributes.width || '3840',
+      height: topBanner.video.video_mp4.data.attributes.height || '2160',
+    };
+
+    return JSON.stringify(structuredData);
+  };
+
   return (
     <>
       <Head>
@@ -555,6 +572,11 @@ function Home({ homepageData, categories }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: getVideoStructuredData() }}
+          key="video-jsonld"
         />
       </Head>
 
