@@ -207,22 +207,14 @@ function Home({ homepageData, categories }) {
         {
           '@type': 'Offer',
           '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-new-vehicles`,
-          url: `${process.env.NEXT_PUBLIC_URL}/armored-vehicles-for-sale`,
-          itemOffered: {
-            '@type': 'Product',
-            name: 'New Armored Vehicles',
-            description:
-              'Brand new bulletproof vehicles with A4-A12 protection levels',
-            category: 'Armored Vehicles',
-          },
+          name: 'New Armored Vehicles',
+          description:
+            'Brand new bulletproof vehicles with A4-A12 protection levels',
+          category: 'Armored Vehicles',
+          availability: 'https://schema.org/InStock',
           priceCurrency: 'USD',
           price: '0',
-          availability: 'https://schema.org/InStock',
-          priceSpecification: {
-            '@type': 'PriceSpecification',
-            priceCurrency: 'USD',
-            price: '0',
-          },
+          url: `${process.env.NEXT_PUBLIC_URL}/armored-vehicles-for-sale`,
           seller: {
             '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
           },
