@@ -186,7 +186,7 @@ export async function getServerSideProps({ params, locale }) {
       route: route.collection,
       params: `filters[slug][$eq]=${params.slug}`,
       populate:
-        'blogs, blogs.thumbnail, blog_evergreens, blog_evergreens.thumbnail, seo',
+        'blogs, blogs.thumbnail, blog_evergreens, blog_evergreens.thumbnail, seo, localizations',
       locale,
     });
 

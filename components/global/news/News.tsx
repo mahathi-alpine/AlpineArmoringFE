@@ -4,6 +4,7 @@ import Button from 'components/global/button/Button';
 import styles from './News.module.scss';
 import React from 'react';
 import useLocale from 'hooks/useLocale';
+import { useRouter } from 'next/router';
 // import XIcon from 'components/icons/X';
 
 const Blog = ({
@@ -18,6 +19,31 @@ const Blog = ({
   type = '',
 }) => {
   const { lang } = useLocale();
+  const router = useRouter();
+
+  // Helper function to get the correct slug for the current locale
+  const getLocalizedSlug = (item: any): string => {
+    const currentLocale = router.locale || 'en';
+    const data = item.attributes;
+
+    // If the blog is already in the current locale, use its slug
+    if (data.locale === currentLocale) {
+      return data.slug;
+    }
+
+    // Otherwise, look for the localization with the current locale
+    if (data.localizations?.data) {
+      const localized = data.localizations.data.find(
+        (loc: any) => loc.attributes.locale === currentLocale
+      );
+      if (localized) {
+        return localized.attributes.slug;
+      }
+    }
+
+    // Fallback: use the original slug (might result in 404 if no translation exists)
+    return data.slug;
+  };
 
   return (
     <div
@@ -51,6 +77,7 @@ const Blog = ({
 
         <div className={`${styles.news_list}`}>
           {(limit ? props.slice(0, limit) : props).map((item, index) => {
+            const localizedSlug = getLocalizedSlug(item);
             const blogDate = item.attributes.date
               ? item.attributes.date
               : item.attributes.publishedAt;
@@ -67,19 +94,19 @@ const Blog = ({
               <React.Fragment key={index}>
                 <div
                   className={`
-                    ${styles.news_item} 
-                    observe fade-in-up   
+                    ${styles.news_item}
+                    observe fade-in-up
                     ${
                       (index === 0 || index === 1) && featured
                         ? styles.news_item_featured
                         : ''
-                    }               
+                    }
                   `}
                   key={index}
                 >
                   {item.attributes.thumbnail.data?.attributes.url ? (
                     <Link
-                      href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
+                      href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${localizedSlug}`}
                       className={`${styles.news_item_image}`}
                     >
                       <Image
@@ -119,7 +146,7 @@ const Blog = ({
                     <div className={`${styles.news_item_content_main}`}>
                       <div className={`${styles.news_item_content_main_inner}`}>
                         <Link
-                          href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
+                          href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${localizedSlug}`}
                         >
                           {button ? (
                             <h3 className={`${styles.news_item_title}`}>
@@ -140,7 +167,7 @@ const Blog = ({
                       </div>
 
                       <Button
-                        href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${item.attributes.slug}`}
+                        href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${localizedSlug}`}
                         className={`${styles.news_item_button} rounded border desktop-only`}
                       >
                         {lang.readMore}

@@ -120,9 +120,9 @@ function VehicleWeArmor(props) {
       const newVehicles = await getPageData({
         route: routes.vehiclesWeArmor.collectionSingle,
         params: query + `&pagination[page]=${nextPage}&pagination[pageSize]=12`,
-        populate: 'featuredImage',
+        populate: 'featuredImage,localizations',
         fields:
-          'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=protectionLevel',
+          'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=protectionLevel&fields[4]=locale',
         sort: 'order',
         locale: router.locale,
       });
@@ -343,8 +343,8 @@ export async function getServerSideProps(context) {
     const vehicles = await getPageData({
       route: route.collectionSingle,
       params: query,
-      populate: 'featuredImage',
-      fields: 'fields[0]=title&fields[1]=slug&fields[2]=order',
+      populate: 'featuredImage,localizations',
+      fields: 'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=locale',
       pageSize: pageSize,
       sort: 'order',
       locale,

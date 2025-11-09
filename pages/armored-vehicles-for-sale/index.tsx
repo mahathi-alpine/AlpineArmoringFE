@@ -312,6 +312,13 @@ function Inventory(props) {
       height: 1200,
       caption:
         'Alpine Armoring armored vehicles inventory - bulletproof cars and trucks available for sale',
+      copyrightNotice: '© Alpine Armoring. All rights reserved.',
+      creator: {
+        '@type': 'Organization',
+        name: 'Alpine Armoring',
+      },
+      creditText: 'Alpine Armoring',
+      license: 'https://www.alpineco.com/privacy-policy',
     };
     return JSON.stringify(structuredData);
   };

@@ -81,28 +81,28 @@ function Home({ homepageData, categories }) {
       ],
       description:
         'An internationally recognized leader of high-quality, custom-manufactured armored vehicles, pioneer of A12 .50 BMG protection technology, headquartered in Virginia, USA',
-      foundingDate: '1993',
+      foundingDate: '1993-01-01',
       founder: [
         {
           '@type': 'Person',
-          name: '[Fred Khoroushi]',
+          name: 'Fred Khoroushi',
           jobTitle: 'Founder & CEO',
         },
       ],
-      employees: [
+      employee: [
         {
           '@type': 'Person',
-          name: '[Fred Khoroushi]',
+          name: 'Fred Khoroushi',
           jobTitle: 'Chief Executive Officer',
         },
         {
           '@type': 'Person',
-          name: '[Cameron Khoroushi]',
+          name: 'Cameron Khoroushi',
           jobTitle: 'Director of design engineering',
         },
         {
           '@type': 'Person',
-          name: '[Dan Diana]',
+          name: 'Dan Diana',
           jobTitle: 'General Manager',
         },
       ],
@@ -232,7 +232,7 @@ function Home({ homepageData, categories }) {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },
           },
-          availability: 'https://schema.org/Available',
+          availability: 'https://schema.org/InStock',
           areaServed: {
             '@type': 'Place',
             name: 'Worldwide',
@@ -266,7 +266,7 @@ function Home({ homepageData, categories }) {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },
           },
-          availability: 'https://schema.org/Available',
+          availability: 'https://schema.org/InStock',
           url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-rental`,
         },
       ],
@@ -506,7 +506,7 @@ function Home({ homepageData, categories }) {
             offers: {
               '@type': 'Offer',
               priceCurrency: 'USD',
-              availability: 'https://schema.org/Available',
+              availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-rental`,
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
@@ -655,6 +655,7 @@ export async function getStaticProps({ locale = 'en' }) {
 
   const homepageData = await getPageData({
     route: route.collection,
+    populate: 'deep',
     locale,
   });
 

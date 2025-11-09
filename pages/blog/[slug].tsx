@@ -528,7 +528,7 @@ export async function getStaticProps({ params, locale, preview = false }) {
       // Fetch 4 latest blogs excluding current blog
       const latestBlogs = await getPageData({
         route: route.collectionSingle,
-        populate: 'thumbnail',
+        populate: 'thumbnail,localizations',
         fields: 'fields[0]=title&fields[1]=slug&fields[2]=locale',
         sort: 'date',
         sortType: 'desc',
