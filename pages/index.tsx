@@ -55,6 +55,7 @@ function Home({ homepageData, categories }) {
       '@type': 'LocalBusiness',
       '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
       name: 'Alpine Armoring',
+      legalName: 'Alpine Armoring Inc.',
       url: process.env.NEXT_PUBLIC_URL,
       logo: {
         '@type': 'ImageObject',
@@ -134,12 +135,7 @@ function Home({ homepageData, categories }) {
         latitude: '38.90491917326487',
         longitude: '-77.4702548649953',
       },
-      openingHoursSpecification: {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '08:30',
-        closes: '17:00',
-      },
+      openingHours: ['Mo-Fr 08:30-17:00'],
       telephone: '+1-703-471-0002',
       email: 'sales@alpineco.com',
       priceRange: '$$$',
@@ -209,8 +205,9 @@ function Home({ homepageData, categories }) {
       ],
       makesOffer: [
         {
-          '@type': 'AggregateOffer',
+          '@type': 'Offer',
           '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-new-vehicles`,
+          url: `${process.env.NEXT_PUBLIC_URL}/armored-vehicles-for-sale`,
           itemOffered: {
             '@type': 'Product',
             name: 'New Armored Vehicles',
@@ -218,14 +215,14 @@ function Home({ homepageData, categories }) {
               'Brand new bulletproof vehicles with A4-A12 protection levels',
             category: 'Armored Vehicles',
           },
-          availability: 'https://schema.org/InStock',
           priceCurrency: 'USD',
+          price: '0',
+          availability: 'https://schema.org/InStock',
           priceSpecification: {
             '@type': 'PriceSpecification',
             priceCurrency: 'USD',
-            valueAddedTaxIncluded: false,
+            price: '0',
           },
-          url: `${process.env.NEXT_PUBLIC_URL}/armored-vehicles-for-sale`,
           seller: {
             '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
           },
@@ -251,7 +248,7 @@ function Home({ homepageData, categories }) {
           url: `${process.env.NEXT_PUBLIC_URL}/vehicles-we-armor`,
         },
         {
-          '@type': 'AggregateOffer',
+          '@type': 'Offer',
           '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-preowned`,
           itemOffered: {
             '@type': 'Product',
@@ -262,10 +259,11 @@ function Home({ homepageData, categories }) {
           },
           availability: 'https://schema.org/LimitedAvailability',
           priceCurrency: 'USD',
+          price: '0',
           priceSpecification: {
             '@type': 'PriceSpecification',
             priceCurrency: 'USD',
-            valueAddedTaxIncluded: false,
+            price: '0',
           },
           url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
           seller: {
@@ -355,11 +353,16 @@ function Home({ homepageData, categories }) {
             },
             category: 'Armored Sedans',
             offers: {
-              '@type': 'AggregateOffer',
+              '@type': 'Offer',
               priceCurrency: 'USD',
-              lowPrice: '90000',
+              price: '0',
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-sedans`,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+                price: '0',
+              },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
               },
@@ -383,10 +386,15 @@ function Home({ homepageData, categories }) {
             },
             category: 'Armored Pickup Trucks',
             offers: {
-              '@type': 'AggregateOffer',
+              '@type': 'Offer',
               priceCurrency: 'USD',
-              lowPrice: '110000',
+              price: '0',
               availability: 'https://schema.org/InStock',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+                price: '0',
+              },
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pickup-trucks`,
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
@@ -411,9 +419,14 @@ function Home({ homepageData, categories }) {
             },
             category: 'Law Enforcement Vehicles',
             offers: {
-              '@type': 'AggregateOffer',
+              '@type': 'Offer',
               priceCurrency: 'USD',
-              lowPrice: '150000',
+              price: '0',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-law-enforcement`,
               seller: {
@@ -439,9 +452,14 @@ function Home({ homepageData, categories }) {
             },
             category: 'Specialty Vehicles',
             offers: {
-              '@type': 'AggregateOffer',
+              '@type': 'Offer',
               priceCurrency: 'USD',
-              lowPrice: '120000',
+              price: '0',
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'USD',
+                price: '0',
+              },
               availability: 'https://schema.org/InStock',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-specialty-vehicles`,
               seller: {
@@ -467,13 +485,15 @@ function Home({ homepageData, categories }) {
             },
             category: 'Pre-Owned Vehicles',
             offers: {
-              '@type': 'AggregateOffer',
+              '@type': 'Offer',
               priceCurrency: 'USD',
               availability: 'https://schema.org/LimitedAvailability',
               url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
+              price: '0',
               priceSpecification: {
                 '@type': 'PriceSpecification',
                 priceCurrency: 'USD',
+                price: '0',
               },
               seller: {
                 '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
