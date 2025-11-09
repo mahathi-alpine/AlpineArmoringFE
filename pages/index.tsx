@@ -242,21 +242,13 @@ function Home({ homepageData, categories }) {
         {
           '@type': 'Offer',
           '@id': `${process.env.NEXT_PUBLIC_URL}/#offer-preowned`,
-          itemOffered: {
-            '@type': 'Product',
-            name: 'Pre-Owned Armored Vehicles',
-            description:
-              'Certified pre-owned armored vehicles with 30-50% savings',
-            category: 'Used Armored Vehicles',
-          },
+          name: 'Pre-Owned Armored Vehicles',
+          description:
+            'Certified pre-owned armored vehicles with 30-50% savings',
+          category: 'Used Armored Vehicles',
           availability: 'https://schema.org/LimitedAvailability',
           priceCurrency: 'USD',
           price: '0',
-          priceSpecification: {
-            '@type': 'PriceSpecification',
-            priceCurrency: 'USD',
-            price: '0',
-          },
           url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
           seller: {
             '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
