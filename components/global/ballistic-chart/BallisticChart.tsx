@@ -355,6 +355,49 @@ const BallisticChart = () => {
     }
   }, []);
 
+  // Auto-highlight and scroll to level from localStorage
+  useEffect(() => {
+    const highlightFromStorage = () => {
+      const storedLevel = localStorage.getItem('ballisticChartLevel');
+      if (!storedLevel || !tableRef.current) return;
+
+      // Clear the localStorage after reading
+      localStorage.removeItem('ballisticChartLevel');
+
+      // Parse the level - strip 'A' prefix and get the level number/letter
+      const levelMatch = storedLevel.match(/^A?(.+)$/i);
+      if (!levelMatch) return;
+
+      const targetLevel = levelMatch[1].toUpperCase();
+
+      // Find the matching item index
+      const matchingIndex = items.findIndex((item) =>
+        item.level.some((level) => level.toUpperCase() === targetLevel)
+      );
+
+      if (matchingIndex === -1) return;
+
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const row = tableRef.current?.children[matchingIndex];
+        if (row) {
+          // Highlight the row
+          row.classList.add(styles.ballistic_row_active);
+          setIsComparisonActive(true);
+
+          // Scroll to the row
+          row.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          });
+        }
+      }, 100);
+    };
+
+    highlightFromStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Render helpers
   const renderHeaderItems = () => (
     <div className={styles.ballistic_header_inner}>

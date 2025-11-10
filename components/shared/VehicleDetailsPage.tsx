@@ -735,16 +735,30 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
                   (config.showExtendedFeatures && data?.videoURL)) && (
                   <div className={`${styles.inventory_info}`}>
                     {data?.armor_level ? (
-                      <Link
+                      <a
                         href={`${lang.ballisticChartURL}`}
                         className={`${styles.inventory_armor}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          localStorage.setItem(
+                            'ballisticChartLevel',
+                            data.armor_level.split('/')[0]
+                          );
+                          window.open(
+                            `${lang.ballisticChartURL}`,
+                            '_blank',
+                            'noopener,noreferrer'
+                          );
+                        }}
                       >
                         <div className={`${styles.inventory_armor_box}`}>
                           {lang.armor}
                           <span>{lang.level}</span>
                         </div>
                         <strong>{data?.armor_level}</strong>
-                      </Link>
+                      </a>
                     ) : null}
 
                     {config.showExtendedFeatures && data?.videoURL && (

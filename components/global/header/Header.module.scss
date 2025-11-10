@@ -131,6 +131,10 @@
       width: 125px;
     }
 
+    @media(min-width: 1280px) and (max-width: 1480px){
+      left: 100px;
+    }
+
     // &_gold {
     //   display: none;
     // }

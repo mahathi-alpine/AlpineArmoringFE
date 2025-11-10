@@ -206,7 +206,7 @@
   &_content {
     padding-top: rem(12);
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
       position: relative;
       width: 75%;
       min-width: 0;
