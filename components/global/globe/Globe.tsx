@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Globe from 'react-globe.gl';
 import useLocale from 'hooks/useLocale';
+import { useRouter } from 'next/router';
 
 interface Location {
   name: string;
@@ -19,6 +20,24 @@ const LOCATION_COLORS = {
 
 const GlobeComponent: React.FC = () => {
   const { lang } = useLocale();
+  const router = useRouter();
+
+  // Convert location name to URL slug (lowercase with dashes)
+  const convertToSlug = (name: string): string => {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  };
+
+  // Handle location click - open location page in new tab
+  const handleLocationClick = (location: Location): void => {
+    const slug = convertToSlug(location.name);
+    const isSpanish = router.locale === 'es';
+    const baseUrl = isSpanish
+      ? '/es/ubicaciones-que-servimos'
+      : '/locations-we-serve';
+    const url = `${baseUrl}/${slug}`;
+
+    window.open(url, '_blank');
+  };
 
   const Legend = () => (
     <div className="b-globe-legend">
@@ -600,6 +619,7 @@ const GlobeComponent: React.FC = () => {
           labelDotOrientation={(d: Location) => d.position || 'right'}
           labelColor={(d: Location) => (d.color ? d.color : '#FFD700')}
           labelResolution={2}
+          onLabelClick={handleLocationClick}
         />
       </div>
 
