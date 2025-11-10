@@ -30,19 +30,19 @@ function Home({ homepageData, categories }) {
   const event = data?.event;
   // const ballistingTestings = data?.ballistingTestingsMedia;
 
-  const news =
-    data?.news?.data?.map((item) => ({
-      ...item,
-      category: lang.news.toLowerCase(),
-    })) || [];
-
   const blogs =
     data?.blog_evergreens?.data?.map((item) => ({
       ...item,
       category: lang.blog.toLowerCase(),
     })) || [];
 
-  const posts = news.concat(blogs);
+  const news =
+    data?.news?.data?.map((item) => ({
+      ...item,
+      category: lang.news.toLowerCase(),
+    })) || [];
+
+  const posts = blogs.concat(news);
 
   // Animations
   useAnimationObserver({
