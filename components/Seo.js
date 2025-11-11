@@ -100,6 +100,7 @@ const Seo = ({
 
   const metaTitle = seoProps?.metaTitle || 'Alpine Armoring';
   const metaDescription = seoProps?.metaDescription || 'Alpine Armoring';
+  const metaRobots = seoProps?.metaRobots || null;
   const metaImgUrl =
     seoProps?.metaImage?.data?.attributes.formats?.large?.url ||
     seoProps?.metaImage?.data?.attributes.url ||
@@ -308,6 +309,9 @@ const Seo = ({
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} key="description" />
       <meta name="image" content={metaImgUrl} />
+
+      {/* Meta Robots tag */}
+      {metaRobots && <meta name="robots" content={metaRobots} />}
 
       {isBlog && (
         <style>{`

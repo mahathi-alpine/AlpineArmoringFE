@@ -110,6 +110,10 @@ export const getVehicleDetailsServerSideProps = async (
       ...(config.canonicalUrlPath && {
         canonicalURL: `${config.canonicalUrlPath}/${currentPage.slug}`,
       }),
+      // Add noindex, follow for sold vehicles
+      ...(currentPage?.flag === 'sold' && {
+        metaRobots: 'noindex, follow',
+      }),
     };
 
     if (config.seoTransformations && seoData.metaDescription) {

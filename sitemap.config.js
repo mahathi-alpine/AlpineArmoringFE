@@ -232,7 +232,7 @@ const config = {
   baseUrl: process.env.NEXT_PUBLIC_URL,
   languages: ['en', 'es'],
   defaultLanguage: 'en',
-  defaultPriority: '0.5',
+  defaultPriority: '0.6',
   defaultChangefreq: 'weekly',
   customUrls: {
     en: [...additionalUrls.en, ...vehicleUrls.en],

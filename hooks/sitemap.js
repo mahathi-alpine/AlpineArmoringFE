@@ -22,6 +22,12 @@ async function fetchCollectionData(
         '&filters[categories][slug][$in][]=armored-rental&filters[categories][slug][$in][]=alquiler-blindados';
     }
 
+    // Filter out sold vehicles from inventories collection
+    let soldFilter = '';
+    if (collection === 'inventories') {
+      soldFilter = '&filters[flag][$ne]=sold';
+    }
+
     let url;
     if (collection === 'categories') {
       url = `${baseUrl}/api/categories?fields[0]=slug&fields[1]=updatedAt&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100`;
@@ -36,7 +42,7 @@ async function fetchCollectionData(
           ? '&populate[localizations][fields][3]=publishedAt'
           : '');
 
-      url = `${baseUrl}/api/${collection}?${fields}${publishedField}${populate}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100${publishFilter}${categoryFilter}`;
+      url = `${baseUrl}/api/${collection}?${fields}${publishedField}${populate}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=100${publishFilter}${categoryFilter}${soldFilter}`;
     }
 
     try {

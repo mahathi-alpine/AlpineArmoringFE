@@ -121,7 +121,7 @@ function generateVehicleUrls() {
   makes.forEach((make) => {
     urls.push({
       loc: `/vehicles-we-armor?make=${make}`,
-      priority: '0.5',
+      priority: '0.8',
       changefreq: 'monthly',
     });
   });
@@ -130,7 +130,7 @@ function generateVehicleUrls() {
     allowedMakes.forEach((make) => {
       urls.push({
         loc: `/vehicles-we-armor/type/${type}?make=${make}`,
-        priority: '0.5',
+        priority: '0.8',
         changefreq: 'monthly',
       });
     });

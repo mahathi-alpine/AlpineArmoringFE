@@ -630,6 +630,11 @@ export async function getStaticProps({ locale = 'en' }) {
           url = `${baseUrl}/api/${collection}?fields[0]=slug&fields[1]=title&fields[2]=date&fields[3]=${dateField}&locale=${currentLocale}&pagination[page]=${page}&pagination[pageSize]=100`;
         }
 
+        // Filter out sold vehicles from inventories collection
+        if (collection === 'inventories') {
+          url += '&filters[flag][$ne]=sold';
+        }
+
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`Failed to fetch ${collection}: ${response.status}`);
@@ -746,7 +751,7 @@ export async function getStaticProps({ locale = 'en' }) {
       const baseUrl =
         process.env.NEXT_PUBLIC_API_URL ||
         'https://alpinetesting.cloudflex-ha.com';
-      const rentalUrl = `${baseUrl}/api/inventories?fields[0]=slug&fields[1]=title&locale=${locale}&filters[categories][slug][$in][]=armored-rental&filters[categories][slug][$in][]=alquiler-blindados&pagination[pageSize]=100`;
+      const rentalUrl = `${baseUrl}/api/inventories?fields[0]=slug&fields[1]=title&locale=${locale}&filters[categories][slug][$in][]=armored-rental&filters[categories][slug][$in][]=alquiler-blindados&filters[flag][$ne]=sold&pagination[pageSize]=100`;
 
       const rentalResponse = await fetch(rentalUrl);
       if (rentalResponse.ok) {
