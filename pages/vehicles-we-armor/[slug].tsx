@@ -97,6 +97,19 @@ function Vehicle(props) {
 
   const faqs = data?.faqs;
 
+  const vehicleTitle = data?.title?.replace('\n', ' ') || '';
+  const bodyType = (data?.category?.data[0].attributes.title || '')
+    .replace(/^Armored\s+/i, '')
+    .replace(/s$/, '');
+  const vehicleMake = data?.make?.data.attributes.title || '';
+  const modelName =
+    vehicleTitle
+      ?.replace(/\bArmored\b/i, '')
+      .split(' ')
+      .slice(2)
+      .join(' ')
+      .trim() || vehicleTitle;
+
   let navItems = [
     {
       titleNav: lang.overview,
@@ -193,30 +206,58 @@ function Vehicle(props) {
   //     ],
   //   };
   // };
+
   const getProductStructuredData = () => {
     return {
       '@context': 'https://schema.org/',
-      '@type': 'Service',
-      name: `${data?.title?.replace('\n', ' ')} ${lang.armoringService || 'Armoring Service'}`,
+      '@type': ['Product', 'Vehicle'],
+      '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}#vehicle`,
+      name: vehicleTitle,
       description:
         props.seoData?.metaDescription ||
-        `Professional armoring service for ${data?.title?.replace('\n', ' ')}`,
+        `${vehicleTitle} available for custom armoring. Professional bulletproof protection with 4-12 weeks delivery time. ${data.protectionLevel ? `Available in protection levels: ${data.protectionLevel}` : 'Multiple armoring levels available'}.`,
       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
-      provider: {
-        '@type': 'Organization',
-        name: 'Alpine Armoring',
-        url: process.env.NEXT_PUBLIC_URL,
-      },
-      serviceType: 'Vehicle Armoring',
-      category: 'Automotive Security Services',
       image: data?.featuredImage?.data?.attributes?.url,
-      areaServed: {
-        '@type': 'Place',
-        name: 'Worldwide',
-      },
       brand: {
         '@type': 'Brand',
-        name: `Alpine Armoring® ${lang.armoredVehicles}`,
+        name: vehicleMake,
+      },
+      manufacturer: {
+        '@type': 'Organization',
+        name: 'Alpine Armoring',
+        url: `${process.env.NEXT_PUBLIC_URL}/#organization`,
+      },
+      model: modelName,
+      vehicleConfiguration: 'Armored Vehicle',
+      bodyType: bodyType,
+      category: 'Armored Vehicle',
+      additionalType: 'https://schema.org/Vehicle',
+      offers: {
+        '@type': 'Offer',
+        availability: 'https://schema.org/PreOrder',
+        itemCondition: 'https://schema.org/NewCondition',
+        url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
+        priceCurrency: 'USD',
+        businessFunction: 'https://purl.org/goodrelations/v1#Sell',
+        deliveryLeadTime: {
+          '@type': 'QuantitativeValue',
+          minValue: '4',
+          maxValue: '12',
+          unitCode: 'WEE', // Week code
+        },
+        seller: {
+          '@type': 'Organization',
+          name: 'Alpine Armoring',
+          url: `${process.env.NEXT_PUBLIC_URL}/#organization`,
+        },
+        areaServed: {
+          '@type': 'Place',
+          name: 'Worldwide',
+        },
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          priceCurrency: 'USD',
+        },
       },
       additionalProperty: [
         {
@@ -226,10 +267,45 @@ function Vehicle(props) {
         },
         {
           '@type': 'PropertyValue',
+          name: 'Production Type',
+          value: 'Made-to-Order / Custom Armoring',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Lead Time',
+          value: '4-12 weeks',
+        },
+        {
+          '@type': 'PropertyValue',
           name: 'Vehicle Model',
-          value: data?.title?.replace('\n', ' '),
+          value: vehicleTitle,
         },
       ],
+      isRelatedTo: {
+        '@type': 'Service',
+        name: `${vehicleTitle} ${lang.armoringService || 'Armoring Service'}`,
+        provider: {
+          '@type': 'Organization',
+          name: 'Alpine Armoring',
+          url: `${process.env.NEXT_PUBLIC_URL}/#organization`,
+        },
+        serviceType: 'Custom Vehicle Armoring',
+        category: 'Automotive Security Services',
+        areaServed: {
+          '@type': 'Place',
+          name: 'Worldwide',
+        },
+      },
+      material: [
+        'Ballistic Steel',
+        'Bulletproof Glass',
+        'Composite Armor Materials',
+      ],
+      audience: {
+        '@type': 'PeopleAudience',
+        audienceType:
+          'Government Officials, High-Profile Individuals, Security Personnel, Military Personnel, Law Enforcement',
+      },
     };
   };
 
@@ -260,7 +336,7 @@ function Vehicle(props) {
         {
           '@type': 'ListItem',
           position: 3,
-          name: data?.title?.replace(/\s+/g, ' ').replace(/\n/g, '').trim(),
+          name: vehicleTitle,
           item: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
         },
       ],
@@ -305,8 +381,7 @@ function Vehicle(props) {
       '@type': 'ImageObject',
       contentUrl: data?.featuredImage?.data?.attributes?.url,
       creditText:
-        data?.featuredImage?.data?.attributes?.alternativeText ||
-        data?.title?.replace('\n', ' '),
+        data?.featuredImage?.data?.attributes?.alternativeText || vehicleTitle,
       creator: {
         '@type': 'Person',
         name: 'Alpine Armoring',
@@ -373,7 +448,7 @@ function Vehicle(props) {
             className={`${styles.slug_description} anchor container_small`}
           >
             <h2 className={`c-title_small c-title`}>
-              {lang.overviewOf} {data?.title}
+              {lang.overviewOf} {vehicleTitle}
             </h2>
 
             <CustomMarkdown>{data.description}</CustomMarkdown>
@@ -395,7 +470,7 @@ function Vehicle(props) {
             id={lang.dimensions.toLowerCase().replace(/\s+/g, '-')}
           >
             <h2 className={`c-title_small c-title observe fade-in`}>
-              {lang.dimensionsFor} {data?.title}
+              {lang.dimensionsFor} {vehicleTitle}
             </h2>
             <div className={`${styles.slug_dimensions_wrap}`}>
               <div
@@ -455,7 +530,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
-              {lang.armoringFeaturesFor} {data?.title}
+              {lang.armoringFeaturesFor} {vehicleTitle}
             </h2>
             <StickyHorizontalSlider slides={data.armoringFeatures.data} />
             <div className={`divider_fade`}></div>
@@ -470,7 +545,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
-              {lang.conversionAccessoriesFor} {data?.title}
+              {lang.conversionAccessoriesFor} {vehicleTitle}
             </h2>
             <StickyHorizontalSlider slides={data.conversionAccessories.data} />
             <div className={`divider_fade`}></div>
@@ -487,7 +562,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
-              {lang.communicationsElectronicsFor} {data?.title}
+              {lang.communicationsElectronicsFor} {vehicleTitle}
             </h2>
             <StickyHorizontalSlider slides={data.communications.data} />
             <div className={`divider_fade`}></div>
@@ -502,7 +577,7 @@ function Vehicle(props) {
             <h2
               className={`${styles.slug_dimensions_title} c-title_small c-title observe fade-in`}
             >
-              {lang.otherOptionalEquipmentFor} {data?.title}
+              {lang.otherOptionalEquipmentFor} {vehicleTitle}
             </h2>
             <StickyHorizontalSlider slides={data.otherOptions.data} />
             <div className={`divider_fade`}></div>

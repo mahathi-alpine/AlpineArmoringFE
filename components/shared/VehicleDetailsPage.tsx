@@ -361,11 +361,11 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
       manufacturer: {
         '@type': 'Organization',
         '@id': 'https://www.alpineco.com/#organization',
-        name: 'Alpine Armoring',
+        name: 'Alpine Armoring®',
       },
       brand: {
         '@type': 'Brand',
-        name: 'Alpine Armoring',
+        name: 'Alpine Armoring®',
         logo: `${process.env.NEXT_PUBLIC_URL}/assets/Alpine-Logo.png`,
       },
       // "isVariantOf": {
