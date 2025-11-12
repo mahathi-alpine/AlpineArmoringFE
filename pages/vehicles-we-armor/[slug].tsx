@@ -101,7 +101,7 @@ function Vehicle(props) {
   const bodyType = (data?.category?.data[0].attributes.title || '')
     .replace(/^Armored\s+/i, '')
     .replace(/s$/, '');
-  const vehicleMake = data?.make?.data.attributes.title || '';
+  const vehicleMake = data?.make?.data?.attributes.title || '';
   const modelName =
     vehicleTitle
       ?.replace(/\bArmored\b/i, '')
