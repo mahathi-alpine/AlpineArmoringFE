@@ -203,10 +203,6 @@ small {
     margin: 0 auto;
     position: relative;
 
-    @include breakpoint(large) {
-      font-size: 14px;
-    }
-
     thead {
       tr {
         height: 60px;
@@ -218,16 +214,13 @@ small {
           line-height: 1.2;
           vertical-align: middle;
           text-align: center;
-
-          @include breakpoint(large) {
-            font-size: 18px;
-          }
+          font-weight: var(--font-medium);
 
           &:first-child {
             width: 120px;
 
             @include breakpoint(large) {
-              width: 260px;
+              width: 175px;
             }
           }
         }
@@ -242,15 +235,12 @@ small {
       }
 
       td {
-        padding: 14px 0;
+        padding: 14px 7px;
         vertical-align: middle;
+        text-align: center;
 
         &:first-child {
           font-weight: var(--font-medium);
-          text-align: center;
-        }
-        &:last-child {
-          padding-right: 40px;
         }
       }
     }
