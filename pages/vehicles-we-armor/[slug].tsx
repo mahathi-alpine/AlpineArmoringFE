@@ -238,6 +238,7 @@ function Vehicle(props) {
         itemCondition: 'https://schema.org/NewCondition',
         url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
         priceCurrency: 'USD',
+        price: '0',
         businessFunction: 'https://purl.org/goodrelations/v1#Sell',
         deliveryLeadTime: {
           '@type': 'QuantitativeValue',
