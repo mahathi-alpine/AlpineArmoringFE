@@ -598,11 +598,13 @@ function Home({ homepageData, categories }) {
           dangerouslySetInnerHTML={{ __html: getBreadcrumbStructuredData() }}
           key="breadcrumb-jsonld"
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: getVideoStructuredData() }}
-          key="video-jsonld"
-        />
+        {topBanner.video?.video_mp4 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: getVideoStructuredData() }}
+            key="video-jsonld"
+          />
+        )}
       </Head>
 
       {topBanner && <HpBanner props={topBanner} />}
