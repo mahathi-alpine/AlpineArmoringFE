@@ -26,6 +26,12 @@ body {
 .mt0 {
   margin-top: 0 !important;
 }
+.mt05{
+  margin-top: 0.5rem;
+  @include breakpoint(large) {
+    margin-top: 1rem;
+  }
+}
 .m2 {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -98,6 +104,9 @@ body {
 
 .center {
   text-align: center;
+}
+.alignVertical{
+  align-items: center;
 }
 
 .section_bordered {

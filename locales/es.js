@@ -342,6 +342,7 @@ const esLocale = {
   aboutTheAuthor: 'Sobre el autor',
   latestArticles: 'Últimos artículos',
   callUs: 'Llámenos',
+  exportOnly: 'Este vehículo es solo para exportación.',
 };
 
 export default esLocale;

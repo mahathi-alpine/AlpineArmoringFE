@@ -338,6 +338,7 @@ const enLocale = {
   aboutTheAuthor: 'About the Author',
   latestArticles: 'Latest Articles',
   callUs: 'Call Us',
+  exportOnly: 'This vehicle is for export only',
 };
 
 export default enLocale;

@@ -1,11 +1,11 @@
 import styles from './VehicleDetailsPage.module.scss';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import useLocale from 'hooks/useLocale';
 import { useRouter } from 'next/router';
 import routes from 'routes';
-import Link from 'next/link';
 import Button from 'components/global/button/Button';
 import Carousel from 'components/global/carousel/Carousel';
 import VideoScale, {
@@ -906,9 +906,25 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
               {type === 'rental' ? (
                 renderRentalDetails()
               ) : (
-                <VehicleDetailsList
-                  vehicleDetails={config.vehicleDetailsMapping}
-                />
+                <>
+                  <VehicleDetailsList
+                    vehicleDetails={config.vehicleDetailsMapping}
+                  />
+                  {data.exportField && (
+                    <Link
+                      href={
+                        router.locale === 'en'
+                          ? '/faqs/do-i-need-an-export-license-to-ship-armored-vehicles-outside-of-the-united-states'
+                          : '/es/preguntas-frecuentes/necesito-una-licencia-de-exportacion-para-transportar-vehiculos-blindados-fuera-de-los-estados-unidos'
+                      }
+                      target="_blank"
+                      className={`${styles.inventory_heading_description} alignVertical mt05`}
+                    >
+                      <InfoIcon />
+                      {lang.exportOnly}
+                    </Link>
+                  )}
+                </>
               )}
 
               {config.showExtendedFeatures && mediaPassword?.media.data && (
