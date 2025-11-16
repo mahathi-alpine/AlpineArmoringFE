@@ -8,7 +8,7 @@ import Layout from '../components/Layout';
 // import Seo from '../components/Seo';
 import useLocale from 'hooks/useLocale';
 import Loader from 'components/global/loader/Loader';
-import CookieConsent from 'components/global/cookie-consent/CookieConsent';
+// import CookieConsent from 'components/global/cookie-consent/CookieConsent';
 
 // Load GoogleAdsTracking only on client-side to prevent Safari SSR issues
 const GoogleAdsTracking = dynamic(
@@ -125,7 +125,7 @@ export default function App({ Component, pageProps }) {
       <Layout seoData={currentSeoData}>
         {isLoading ? <Loader /> : null}
         <Component {...pageProps} />
-        <CookieConsent />
+        {/* <CookieConsent /> */}
       </Layout>
     </>
   );

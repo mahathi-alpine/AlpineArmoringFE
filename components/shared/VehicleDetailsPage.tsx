@@ -145,6 +145,10 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
   const [videoSrc, setVideoSrc] = useState('');
   const [isLightboxPopupOpen, setLightboxPopupOpen] = useState(false);
 
+  // Call button state
+  const [isMobile, setIsMobile] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+
   // Common data extraction
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
@@ -236,6 +240,18 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
     };
 
     setupObserver();
+  }, []);
+
+  // Detect mobile vs desktop for call button behavior
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Parse engine data for structured data
@@ -858,7 +874,26 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
                   >
                     {lang.requestAQuote}
                   </Button>
-                  <Button href="tel:+17034710002">{lang.callUs}</Button>
+                  <div
+                    className={styles.call_button_wrapper}
+                    onMouseEnter={() => !isMobile && setShowTooltip(true)}
+                    onMouseLeave={() => !isMobile && setShowTooltip(false)}
+                  >
+                    <Button
+                      href={
+                        isMobile
+                          ? 'tel:+17034710002'
+                          : 'https://wa.me/message/ZKTQXXVR7PGQL1'
+                      }
+                      target={!isMobile}
+                      nofollow={!isMobile}
+                    >
+                      {lang.callUs}
+                    </Button>
+                    {showTooltip && !isMobile && (
+                      <div className={styles.phone_tooltip}>1.703.471.0002</div>
+                    )}
+                  </div>
                 </div>
               </div>
 

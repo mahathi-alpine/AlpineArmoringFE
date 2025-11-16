@@ -342,19 +342,6 @@
           position: relative;
           right: rem(84);
         }
-
-        & > a {
-          width: 49%;
-
-          & > span {
-            background: var(--color-gray);
-            font-weight: var(--font-medium);
-
-            &:hover {
-              background: var(--color-white) !important;
-            }
-          }
-        }
       }
     }
   }
@@ -613,5 +600,52 @@
 
   &_specs {
     padding-bottom: rem(60);
+  }
+}
+
+.call_button_wrapper {
+  position: relative;
+  display: inline-block;
+  width: 49%;
+
+  a{
+    width: 100%;
+
+    &>span{
+      background: var(--color-gray);
+      font-weight: var(--font-medium);
+      color: white;
+
+      &:hover {
+        background: var(--color-white) !important;
+      }
+    }
+  }
+}
+
+.phone_tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: rem(8) rem(12);
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  font-size: rem(14);
+  font-weight: var(--font-medium);
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--color-dark);
   }
 }
