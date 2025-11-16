@@ -26,7 +26,7 @@ body {
 .mt0 {
   margin-top: 0 !important;
 }
-.mt05{
+.mt05 {
   margin-top: 0.5rem;
   @include breakpoint(large) {
     margin-top: 1rem;
@@ -105,7 +105,7 @@ body {
 .center {
   text-align: center;
 }
-.alignVertical{
+.alignVertical {
   align-items: center;
 }
 
