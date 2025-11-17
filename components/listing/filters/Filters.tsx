@@ -27,6 +27,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [openFiltersClicked, setOpenFiltersClicked] = useState(false);
+  const [searchPopupOpen, setSearchPopupOpen] = useState(false);
 
   // Create a mapping from localized slugs to English slugs
   const localizedToEnglishMap = useMemo(
@@ -469,6 +470,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
 
   const filtersRef = useRef(null);
   const filtersMainRef = useRef(null);
+  const searchPopupRef = useRef(null);
 
   useEffect(() => {
     if (window.innerWidth >= 1280) {
@@ -512,6 +514,41 @@ const Filters = ({ props, plain }: FiltersProps) => {
     (router.query.make && (!router.query.type || router.query.type)) ||
     Boolean(router.query.q);
 
+  // Toggle search popup
+  const toggleSearchPopup = () => {
+    setSearchPopupOpen((prev) => !prev);
+  };
+
+  // Handle search popup click outside and ESC key
+  useEffect(() => {
+    if (!plain || window.innerWidth < 1280) return;
+
+    const handleClickOutside = (event) => {
+      if (
+        searchPopupRef.current &&
+        !searchPopupRef.current.contains(event.target)
+      ) {
+        setSearchPopupOpen(false);
+      }
+    };
+
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        setSearchPopupOpen(false);
+      }
+    };
+
+    if (searchPopupOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscKey);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [searchPopupOpen, plain]);
+
   return (
     <div
       className={`${styles.filters}
@@ -530,7 +567,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
             className={`${styles.filters_clear} bold`}
             onClick={handleClearFilters}
           >
-            {lang.clearAllFilters}
+            {lang.clearAll}
           </div>
         )}
       </div>
@@ -559,29 +596,73 @@ const Filters = ({ props, plain }: FiltersProps) => {
                 className={`${styles.filters_clear}`}
                 onClick={handleClearFilters}
               >
-                {lang.clearAllFilters}
+                {lang.clearAll}
               </div>
             )}
           </div>
 
-          <div className={`${styles.filters_search}`}>
-            <input
-              type="text"
-              value={query}
-              placeholder={lang.search}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearch();
-                }
-              }}
-            />
-            <div
-              onClick={handleSearch}
-              className={`${styles.filters_search_icon}`}
-            >
-              <SearchIcon />
-            </div>
+          <div
+            className={`${styles.filters_search} ${
+              plain ? styles.filters_search_plain : ''
+            }`}
+            ref={searchPopupRef}
+          >
+            {plain ? (
+              <>
+                <div
+                  onClick={toggleSearchPopup}
+                  className={`${styles.filters_search_icon_trigger}`}
+                >
+                  <SearchIcon />
+                </div>
+                {searchPopupOpen && (
+                  <div className={`${styles.filters_search_popup}`}>
+                    <input
+                      type="text"
+                      value={query}
+                      placeholder={lang.search}
+                      onChange={(e) => setQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleSearch();
+                          setSearchPopupOpen(false);
+                        }
+                      }}
+                      autoFocus
+                    />
+                    <div
+                      onClick={() => {
+                        handleSearch();
+                        setSearchPopupOpen(false);
+                      }}
+                      className={`${styles.filters_search_icon}`}
+                    >
+                      <SearchIcon />
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  value={query}
+                  placeholder={lang.search}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSearch();
+                    }
+                  }}
+                />
+                <div
+                  onClick={handleSearch}
+                  className={`${styles.filters_search_icon}`}
+                >
+                  <SearchIcon />
+                </div>
+              </>
+            )}
           </div>
 
           {Object.keys(props).map((filter) => {
@@ -602,14 +683,19 @@ const Filters = ({ props, plain }: FiltersProps) => {
                   {filter == 'type' ? lang.type : lang.make}
                   <ChevronIcon className={`${styles.filters_item_chevron}`} />
                 </span>
-                <span className={`${styles.filters_item_choice}`}>
-                  {filter == 'make'
-                    ? activeFilterTitles.make
-                    : activeFilterTitles.type
-                        .replace('Armored', '')
-                        .replace(/[Bb]lindado(s)?/g, '')
-                        .replace(/[Bb]lindada(s)?/g, '')}
-                </span>
+                {((filter === 'make' &&
+                  activeFilterTitles.make !== lang.select) ||
+                  (filter === 'type' &&
+                    activeFilterTitles.type !== lang.all)) && (
+                  <span className={`${styles.filters_item_choice}`}>
+                    {filter == 'make'
+                      ? activeFilterTitles.make
+                      : activeFilterTitles.type
+                          .replace('Armored', '')
+                          .replace(/[Bb]lindado(s)?/g, '')
+                          .replace(/[Bb]lindada(s)?/g, '')}
+                  </span>
+                )}
 
                 <div className={`${styles.filters_item_wrap}`}>
                   {filter == 'type' && (

@@ -6,6 +6,7 @@ import routes from 'routes';
 import Banner from 'components/global/banner/Banner';
 import Link from 'next/link';
 import Head from 'next/head';
+import Button from 'components/global/button/Button';
 import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
@@ -170,6 +171,7 @@ function Inventory(props) {
         <>
           <Link
             href={`${lang.vehiclesWeArmorURL}/${lang.type}/${categorySlug}`}
+            className="textWeightMedium"
           >
             {categoryTitle}
           </Link>
@@ -272,19 +274,41 @@ function Inventory(props) {
         {topBanner && <Banner props={topBanner} shape="white" small />}
 
         {vehiclesData?.length > 0 && (
-          <p className={`${styles.listing_heading} center container`}>
-            {lang.exploreDifferentModels}{' '}
-            <strong>{formatMakeName(make)}</strong>
-            {categoryTitle
-              ? ' ' + categoryTitle.replace('Armored', '').trim()
-              : ''}{' '}
-            {lang.weArmor}
-          </p>
+          <>
+            <p className={`${styles.listing_heading} center container`}>
+              {lang.exploreDifferentModels}{' '}
+              <strong>{formatMakeName(make)}</strong>
+              {categoryTitle
+                ? ' ' + categoryTitle.replace('Armored', '').trim()
+                : ''}{' '}
+              {lang.weArmor}
+            </p>
+            {/* <p className={`${styles.listing_heading_stock} center container`}>
+              See All 
+              {categoryTitle ? ' ' + categoryTitle.replace('Armored', '').trim() : ''}{' '}
+              that are in stock and available for immediate shipping
+            </p> */}
+          </>
         )}
 
         {props.filters.type && (
           <div className={`${styles.listing_all_filters} container`}>
             <Filters props={props.filters} plain />
+
+            {!(
+              categorySlug === lang.citURL ||
+              categorySlug === lang.vansURL ||
+              make
+            ) && (
+              <div className={`${styles.listing_heading_stock} center`}>
+                <Button
+                  href={`${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}/${lang.type}/${categorySlug}`}
+                  className={`${styles.listing_heading_button} shiny`}
+                >
+                  {lang.viewInStockAvailability}
+                </Button>
+              </div>
+            )}
           </div>
         )}
 

@@ -176,7 +176,7 @@ const enLocale = {
   videoTagNotSupported: 'Your browser does not support the video tag.',
   select: 'Select',
   all: 'All',
-  clearAllFilters: 'Clear all filters',
+  clearAll: 'Clear all',
   filters: 'Filters',
   search: 'Search',
   viewDetails: 'View Details',

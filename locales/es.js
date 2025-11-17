@@ -179,7 +179,7 @@ const esLocale = {
   videoTagNotSupported: 'Su navegador no soporta la etiqueta de video.',
   select: 'Seleccionar',
   all: 'Todo',
-  clearAllFilters: 'Borrar todos los filtros',
+  clearAllFilters: 'Borrar todos',
   filters: 'Filtros',
   search: 'Buscar',
   viewDetails: 'Ver detalles',

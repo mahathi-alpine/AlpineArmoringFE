@@ -1,15 +1,17 @@
 .banner {
   position: relative;
   overflow: hidden;
-  padding: 0 rem(10);
+  // padding: 0 rem(10);
   z-index: 1;
-  --border: 16px;
 
   @include breakpoint(large) {
-    padding: 0 rem(24);
     max-width: 2200px;
     margin: auto;
     --border: 32px;
+  }
+
+  @include breakpoint(huge) {
+    padding: 0 rem(24);
   }
 
   &_full {
@@ -101,6 +103,12 @@
     border-bottom-right-radius: 0;
     will-change: opacity;
 
+    @include breakpoint(small) {
+      .banner_small & {
+        top: -20px;
+      }
+    }
+
     &_desktop {
       display: none;
       @include breakpoint(medium) {
@@ -126,7 +134,7 @@
     width: 100%;
 
     @include breakpoint(large) {
-      padding: rem(16) 0 rem(103) rem(16);
+      padding: rem(16) 0 rem(107) rem(16);
     }
   }
 
@@ -140,7 +148,13 @@
     background: rgba(19, 19, 19, 0.7);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    @include breakpoint(small) {
+      .banner_small & {
+        padding: rem(16);
+      }
+    }
 
     @include breakpoint(medium) {
       max-width: 885px;
@@ -149,16 +163,22 @@
 
     @include breakpoint(large) {
       max-width: 950px;
+    }
 
-      .banner_small & {
-        max-width: calc(100% - 800px);
+    .banner_small & {
+      @include breakpoint(large) {
+        max-width: calc(100% - 790px);
         min-height: 70px;
         justify-content: center;
-        padding: rem(8) rem(16);
-
+        padding: rem(16);
+  
         :global(.lang-es) & {
           max-width: calc(100% - 900px);
         }
+      }
+
+      @include breakpoint(huge) {
+        max-width: 700px;
       }
     }
 

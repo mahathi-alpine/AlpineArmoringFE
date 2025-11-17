@@ -5,6 +5,7 @@ import Filters from 'components/listing/filters/Filters';
 import InventoryItem from 'components/listing/listing-item-all/ListingItemAll';
 import styles from '/components/listing/Listing.module.scss';
 import { getPageData } from 'hooks/api';
+import Button from 'components/global/button/Button';
 import routes from 'routes';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -254,6 +255,15 @@ function VehicleWeArmor(props) {
         {filters.type && (
           <div className={`${styles.listing_all_filters} container`}>
             <Filters props={filters} plain />
+
+            <div className={`${styles.listing_heading_stock} center`}>
+              <Button
+                href={`${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.availableNowURL}`}
+                className={`${styles.listing_heading_button} shiny`}
+              >
+                {lang.viewInStockAvailability}
+              </Button>
+            </div>
           </div>
         )}
 

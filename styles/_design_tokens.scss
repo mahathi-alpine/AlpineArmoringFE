@@ -375,6 +375,10 @@ small {
   }
 }
 
+.textWeightMedium{
+  font-weight: var(--font-medium);
+}
+
 .c-title {
   margin-bottom: rem(32);
   font-size: rem(26);
