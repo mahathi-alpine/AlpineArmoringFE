@@ -20,7 +20,7 @@
       text-transform: capitalize;
     }
 
-    &_button{
+    &_button {
       border-radius: 99px;
 
       @include breakpoint(small) {
@@ -225,7 +225,7 @@
     align-items: center;
     justify-content: space-around;
 
-    @media(min-width: 450px){
+    @media (min-width: 450px) {
       justify-content: center;
       gap: 30px;
     }

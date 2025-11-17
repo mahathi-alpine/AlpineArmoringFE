@@ -421,8 +421,8 @@
           );
         }
 
-        &:nth-child(3){
-          .filters_item_wrap{
+        &:nth-child(3) {
+          .filters_item_wrap {
             min-width: 204px;
           }
         }
@@ -513,7 +513,7 @@
           position: absolute;
           top: 42px;
           left: 0;
-          right: 1px;        
+          right: 1px;
           min-width: 165px;
           background: var(--color-white);
           border-top: 0;
