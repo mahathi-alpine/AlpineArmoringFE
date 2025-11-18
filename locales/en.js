@@ -339,6 +339,7 @@ const enLocale = {
   latestArticles: 'Latest Articles',
   callUs: 'Call Us',
   exportOnly: 'This vehicle is for export only',
+  readMoreAboutArmoringLevels: 'Read more about armoring levels',
 };
 
 export default enLocale;

@@ -343,6 +343,7 @@ const esLocale = {
   latestArticles: 'Últimos artículos',
   callUs: 'Llámenos',
   exportOnly: 'Este vehículo es solo para exportación.',
+  readMoreAboutArmoringLevels: 'Lea más sobre los niveles de blindaje.',
 };
 
 export default esLocale;

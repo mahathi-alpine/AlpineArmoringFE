@@ -1,13 +1,16 @@
 import styles from './BallisticChartBottom.module.scss';
 import BallisticChartBottomHeading from './BallisticChartBottomHeading';
 import { useState } from 'react';
+import Link from 'next/link';
 import useLocale from 'hooks/useLocale';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 const PopupPDF = dynamic(() => import('components/global/lightbox/PopupPDF'), {
   ssr: false,
 });
 
 const BallisticChartBottom = (props) => {
+  const router = useRouter();
   const { lang } = useLocale();
 
   const projectileAcronyms = [
@@ -213,6 +216,17 @@ const BallisticChartBottom = (props) => {
           </ul>
         </div>
       </div>
+
+      <Link
+        href={
+          router.locale === 'en'
+            ? '/blog/understanding-armor-levels-in-vehicles-nij-cen-and-vpam-standards-explained'
+            : '/es/blog/comprension-de-niveles-de-blindaje-en-vehiculos-nij-cen-y-vpam-normas-explicadas'
+        }
+        className={`${styles.ballistic_bottom_ammunition}`}
+      >
+        {lang.readMoreAboutArmoringLevels}
+      </Link>
 
       <div
         className={`${styles.ballistic_bottom_ammunition}`}
