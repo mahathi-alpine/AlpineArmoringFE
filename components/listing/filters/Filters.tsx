@@ -865,7 +865,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
           })}
 
           {router.pathname === '/armored-vehicles-for-sale' && (
-            <>
+            <div style={{ display: 'none' }}>
               <Button
                 href={`${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.vehiclesWeArmorURL}`}
                 className={`rounded shiny`}
@@ -874,7 +874,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
               </Button>
 
               <Link
-                href="/asd"
+                href={`${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.vehiclesWeArmorURL}`}
                 style={{
                   display: 'block',
                   fontSize: '14px',
@@ -885,7 +885,7 @@ const Filters = ({ props, plain }: FiltersProps) => {
               >
                 View all Armored Law Enforcement vehicles we can armor
               </Link>
-            </>
+            </div>
           )}
         </div>
       </div>
