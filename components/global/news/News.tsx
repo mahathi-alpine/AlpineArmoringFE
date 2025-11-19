@@ -92,7 +92,7 @@ const Blog = ({
 
             return (
               <React.Fragment key={index}>
-                <div
+                <article
                   className={`
                     ${styles.news_item}
                     observe fade-in-up
@@ -174,7 +174,7 @@ const Blog = ({
                       </Button>
                     </div>
                   </div>
-                </div>
+                </article>
 
                 {/* {isFeaturedAndThirdItem ? (
                   <Link

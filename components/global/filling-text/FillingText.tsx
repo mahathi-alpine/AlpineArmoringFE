@@ -58,7 +58,7 @@ const FillingText = ({ data, dark = false, className = '', small = false }) => {
   // });
 
   return (
-    <div
+    <section
       className={`
         ${styles.fillingText} container
         ${className
@@ -84,7 +84,7 @@ const FillingText = ({ data, dark = false, className = '', small = false }) => {
           </div>
         ) : null}
       </div>
-    </div>
+    </section>
   );
 };
 

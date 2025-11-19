@@ -83,7 +83,7 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ blogs }) => {
             const localizedSlug = getLocalizedSlug(blog);
 
             return (
-              <div
+              <article
                 key={blog.id || index}
                 className={`${styles.relatedBlogs_item}`}
               >
@@ -116,7 +116,7 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ blogs }) => {
                     </h3>
                   </Link>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

@@ -21,7 +21,7 @@ const Partners = (props) => {
   }, []);
 
   return (
-    <div className={`${styles.partners} container`}>
+    <section className={`${styles.partners} container`}>
       <h2 className={`${styles.partners_heading} block-reveal observe`}>
         {lang.industryPartners}
       </h2>
@@ -79,7 +79,7 @@ const Partners = (props) => {
           )
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -9,7 +9,7 @@ const Categories = ({ props, allVehiclesImage }) => {
   const { lang } = useLocale();
 
   return (
-    <div className={`${styles.categories} container`}>
+    <section className={`${styles.categories} container`}>
       {props.map((item) => {
         const data = item.attributes;
 
@@ -161,7 +161,7 @@ const Categories = ({ props, allVehiclesImage }) => {
           </div>
         </div>
       ) : null}
-    </div>
+    </section>
   );
 };
 

@@ -2,6 +2,7 @@ import styles from './Filters.module.scss';
 import Link from 'next/link';
 import FiltersIcon from 'components/icons/Filters';
 import ChevronIcon from 'components/icons/Chevron';
+import Button from 'components/global/button/Button';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import SearchIcon from 'components/icons/Search';
@@ -862,6 +863,30 @@ const Filters = ({ props, plain }: FiltersProps) => {
               </div>
             );
           })}
+
+          {router.pathname === '/armored-vehicles-for-sale' && (
+            <>
+              <Button
+                href={`${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.vehiclesWeArmorURL}`}
+                className={`rounded shiny`}
+              >
+                View all vehicles we can armor
+              </Button>
+
+              <Link
+                href="/asd"
+                style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  textDecoration: 'underline',
+                  marginTop: '20px',
+                  textAlign: 'center',
+                }}
+              >
+                View all Armored Law Enforcement vehicles we can armor
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

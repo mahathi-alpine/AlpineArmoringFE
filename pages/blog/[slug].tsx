@@ -93,6 +93,9 @@ function BlogSingle(props) {
     })
     .replace(/\//g, '/');
 
+  // ISO format for dateTime attribute (YYYY-MM-DD)
+  const isoDate = date.toISOString().split('T')[0];
+
   const content = data.content;
 
   const getBlogPostingtructuredData = () => {
@@ -269,7 +272,11 @@ function BlogSingle(props) {
 
       <ScrollProgressBar targetId="blogLayout" />
 
-      <div className={`${styles.blogSingle}`}>
+      <article
+        className={`${styles.blogSingle}`}
+        itemScope
+        itemType="https://schema.org/BlogPosting"
+      >
         <div className={`${styles.blogSingle_inner} container_small`}>
           <div className={`b-breadcrumbs`}>
             <Link href="/">{lang?.home || 'Home'}</Link>
@@ -281,92 +288,108 @@ function BlogSingle(props) {
             <span className={`b-breadcrumbs_current`}>{data.title}</span>
           </div>
 
-          <h1 className={`${styles.blogSingle_title}`}>
-            {data.title}
-            {preview && (
-              <span style={{ color: '#ff6b35', verticalAlign: 'middle' }}>
-                {' '}
-                (Preview)
-                <Link
-                  href="/api/exit-preview"
-                  style={{
-                    fontSize: '13px',
-                    border: '1px solid #ff6b35',
-                    padding: '5px',
-                    marginLeft: '10px',
-                  }}
-                >
-                  Exit Preview Mode
-                </Link>
-              </span>
+          <header>
+            <h1 className={`${styles.blogSingle_title}`} itemProp="headline">
+              {data.title}
+              {preview && (
+                <span style={{ color: '#ff6b35', verticalAlign: 'middle' }}>
+                  {' '}
+                  (Preview)
+                  <Link
+                    href="/api/exit-preview"
+                    style={{
+                      fontSize: '13px',
+                      border: '1px solid #ff6b35',
+                      padding: '5px',
+                      marginLeft: '10px',
+                    }}
+                  >
+                    Exit Preview Mode
+                  </Link>
+                </span>
+              )}
+            </h1>
+
+            {data?.thumbnail?.data?.attributes?.url && (
+              <Image
+                className={`${styles.blogSingle_thumbnail}`}
+                src={
+                  data.thumbnail.data.attributes.formats?.large?.url ||
+                  data.thumbnail.data.attributes.url
+                }
+                alt={
+                  data.thumbnail.data.attributes.alternativeText ||
+                  'Alpine Armoring'
+                }
+                width={1280}
+                height={700}
+                itemProp="image"
+              />
             )}
-          </h1>
 
-          {data?.thumbnail?.data?.attributes?.url && (
-            <Image
-              src={
-                data.thumbnail.data.attributes.formats?.large?.url ||
-                data.thumbnail.data.attributes.url
-              }
-              alt={
-                data.thumbnail.data.attributes.alternativeText ||
-                'Alpine Armoring'
-              }
-              width={1280}
-              height={700}
-              className={`${styles.blogSingle_thumbnail}`}
-            />
-          )}
+            <div className={`${styles.blogSingle_info}`}>
+              <div className={`${styles.blogSingle_info_wrap}`}>
+                {data?.authors?.data?.attributes && (
+                  <div
+                    className={`${styles.blogSingle_info_box}`}
+                    itemProp="author"
+                    itemScope
+                    itemType="https://schema.org/Person"
+                  >
+                    <span className={`${styles.blogSingle_info_box_heading}`}>
+                      {lang?.author || 'Author'}
+                      {data.authors.data.attributes.linkedinURL && (
+                        <Link
+                          href={data.authors.data.attributes.linkedinURL}
+                          target="_blank"
+                        >
+                          <LinkedinIcon />
+                        </Link>
+                      )}
+                    </span>
+                    <Link
+                      className={`${styles.blogSingle_info_box_name}`}
+                      itemProp="url"
+                      href={`${lang?.authorURL || '/author'}/${data.authors.data.attributes.slug}`}
+                    >
+                      <span itemProp="name">
+                        {data.authors.data.attributes.Name}
+                      </span>
+                    </Link>
+                  </div>
+                )}
 
-          <div className={`${styles.blogSingle_info}`}>
-            <div className={`${styles.blogSingle_info_wrap}`}>
-              {data?.authors?.data?.attributes && (
+                <div
+                  className={`${styles.blogSingle_info_box} ${styles.blogSingle_info_box_date}`}
+                >
+                  <span className={`${styles.blogSingle_info_box_heading}`}>
+                    {lang?.lastUpdated || 'Last Updated'}
+                  </span>
+                  <time
+                    itemProp="datePublished"
+                    dateTime={isoDate}
+                    className={`${styles.blogSingle_info_box_name}`}
+                  >
+                    {formattedDate}
+                  </time>
+                  <meta itemProp="dateModified" content={isoDate}></meta>
+                </div>
+
                 <div className={`${styles.blogSingle_info_box}`}>
                   <span className={`${styles.blogSingle_info_box_heading}`}>
-                    {lang?.author || 'Author'}
-                    {data.authors.data.attributes.linkedinURL && (
-                      <Link
-                        href={data.authors.data.attributes.linkedinURL}
-                        target="_blank"
-                      >
-                        <LinkedinIcon />
-                      </Link>
-                    )}
+                    {lang?.readTime || 'Read Time'}
                   </span>
-                  <Link
-                    className={`${styles.blogSingle_info_box_name}`}
-                    href={`${lang?.authorURL || '/author'}/${data.authors.data.attributes.slug}`}
-                  >
-                    {data.authors.data.attributes.Name}
-                  </Link>
+                  <span className={`${styles.blogSingle_info_box_name}`}>
+                    {readTime}
+                  </span>
                 </div>
+              </div>
+
+              {pageUrl && data.title && (
+                <SocialShare title={data.title} url={pageUrl} />
               )}
-
-              <div
-                className={`${styles.blogSingle_info_box} ${styles.blogSingle_info_box_date}`}
-              >
-                <span className={`${styles.blogSingle_info_box_heading}`}>
-                  {lang?.lastUpdated || 'Last Updated'}
-                </span>
-                <span className={`${styles.blogSingle_info_box_name}`}>
-                  {formattedDate}
-                </span>
-              </div>
-
-              <div className={`${styles.blogSingle_info_box}`}>
-                <span className={`${styles.blogSingle_info_box_heading}`}>
-                  {lang?.readTime || 'Read Time'}
-                </span>
-                <span className={`${styles.blogSingle_info_box_name}`}>
-                  {readTime}
-                </span>
-              </div>
             </div>
-
-            {pageUrl && data.title && (
-              <SocialShare title={data.title} url={pageUrl} />
-            )}
-          </div>
+          </header>
 
           <div className={`${styles.blogSingle_layout}`} id="blogLayout">
             <TableOfContents
@@ -377,6 +400,7 @@ function BlogSingle(props) {
             <div
               className={`${styles.blogSingle_content} static`}
               id="blogContent"
+              itemProp="articleBody"
             >
               {intro && (
                 <div className={`${styles.blogSingle_intro} static`}>
@@ -432,7 +456,7 @@ function BlogSingle(props) {
             />
           </div>
         )}
-      </div>
+      </article>
 
       <RelatedBlogs blogs={relatedBlogs} />
     </>

@@ -226,7 +226,7 @@ const Footer = (props) => {
               <p className={`${styles.footer_column_title}`}>
                 {lang.mostPopularServices}
               </p>
-              <ul
+              <nav
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
               >
                 {links2.map((link, index) => (
@@ -239,14 +239,14 @@ const Footer = (props) => {
                     </Link>
                   </li>
                 ))}
-              </ul>
+              </nav>
             </div>
 
             <div className={`${styles.footer_column}`}>
               <p className={`${styles.footer_column_title}`}>
                 {lang.quickLinks}
               </p>
-              <ul
+              <nav
                 className={`${styles.footer_column_list} ${styles.footer_nav}`}
               >
                 {links.map((link, index) => (
@@ -259,7 +259,7 @@ const Footer = (props) => {
                     </Link>
                   </li>
                 ))}
-              </ul>
+              </nav>
             </div>
           </div>
         </div>
