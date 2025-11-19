@@ -70,9 +70,63 @@ export const getVehicleDetailsServerSideProps = async (
   config: VehicleDetailsConfig
 ) => {
   try {
+    // Custom populate parameters for vehicle details
+    const customPopulate = [
+      'populate[featuredImage][populate]=*',
+      'populate[gallery][populate]=*',
+      'populate[video][populate]=*',
+      'populate[videoMP4][populate]=*',
+      'populate[categories][fields][0]=title',
+      'populate[categories][fields][1]=slug',
+      'populate[localizations][fields][0]=slug',
+      'populate[localizations][fields][1]=locale',
+      'populate[localizations][fields][2]=hide',
+      'populate[localizations][fields][3]=title',
+      'populate[seo][populate]=*',
+      'populate[faqs][populate]=*',
+      'populate[OEMWindowSticker][populate]=*',
+      'populate[OEMArmoringSpecs][populate]=*',
+      'populate[mediaPassword][populate]=*',
+      'populate[blogDynamic][populate]=*',
+      'fields[0]=VIN',
+      'fields[1]=armor_level',
+      'fields[2]=color_ext',
+      'fields[3]=color_int',
+      'fields[4]=createdAt',
+      'fields[5]=description',
+      'fields[6]=driveTrain',
+      'fields[7]=engine',
+      'fields[8]=exportField',
+      'fields[9]=flag',
+      'fields[10]=height',
+      'fields[11]=hide',
+      'fields[12]=label',
+      'fields[13]=length',
+      'fields[14]=locale',
+      'fields[15]=miles',
+      'fields[16]=order',
+      'fields[17]=orderCategory',
+      'fields[18]=ownPage',
+      'fields[19]=power',
+      'fields[20]=publishedAt',
+      'fields[21]=shortDescription',
+      'fields[22]=slug',
+      'fields[23]=title',
+      'fields[24]=trans',
+      'fields[25]=trim',
+      'fields[26]=updatedAt',
+      'fields[27]=vehicleID',
+      'fields[28]=videoURL',
+      'fields[29]=weight',
+      'fields[30]=wheelbase',
+      'fields[31]=wheels',
+      'fields[32]=width',
+      'fields[33]=year',
+    ].join('&');
+
     let data = await getPageData({
       route: config.route.collectionSingle,
-      params: `filters[slug][$eq]=${params.slug}`,
+      custom: `filters[slug][$eq]=${params.slug}&${customPopulate}`,
       locale,
     });
 
@@ -80,7 +134,7 @@ export const getVehicleDetailsServerSideProps = async (
       const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
       data = await getPageData({
         route: config.route.collectionSingle,
-        params: `filters[slug][$eq]=${baseSlug}`,
+        custom: `filters[slug][$eq]=${baseSlug}&${customPopulate}`,
         locale,
       });
     }
