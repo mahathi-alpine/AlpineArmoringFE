@@ -272,11 +272,7 @@ function BlogSingle(props) {
 
       <ScrollProgressBar targetId="blogLayout" />
 
-      <article
-        className={`${styles.blogSingle}`}
-        itemScope
-        itemType="https://schema.org/BlogPosting"
-      >
+      <article className={`${styles.blogSingle}`}>
         <div className={`${styles.blogSingle_inner} container_small`}>
           <div className={`b-breadcrumbs`}>
             <Link href="/">{lang?.home || 'Home'}</Link>
@@ -333,8 +329,6 @@ function BlogSingle(props) {
                   <div
                     className={`${styles.blogSingle_info_box}`}
                     itemProp="author"
-                    itemScope
-                    itemType="https://schema.org/Person"
                   >
                     <span className={`${styles.blogSingle_info_box_heading}`}>
                       {lang?.author || 'Author'}

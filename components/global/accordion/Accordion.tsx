@@ -15,11 +15,7 @@ const Accordion = ({ items, title = '', button = false }) => {
   };
 
   return (
-    <div
-      className={`${styles.accordion} container_small`}
-      itemScope
-      itemType="https://schema.org/FAQPage"
-    >
+    <div className={`${styles.accordion} container_small`}>
       {title ? <h2 className={`${styles.accordion_title}`}>{title}</h2> : null}
 
       {items.map((item, index) => (
