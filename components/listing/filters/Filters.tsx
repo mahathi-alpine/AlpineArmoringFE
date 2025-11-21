@@ -867,14 +867,14 @@ const Filters = ({ props, plain }: FiltersProps) => {
           {router.pathname === '/armored-vehicles-for-sale' && (
             <div style={{ display: 'none' }}>
               <Button
-                href={`${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.vehiclesWeArmorURL}`}
+                href={`${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`}
                 className={`rounded shiny`}
               >
                 View all vehicles we can armor
               </Button>
 
               <Link
-                href={`${router.locale === 'en' ? '' : `/${router.locale}`}/${lang.vehiclesWeArmorURL}`}
+                href={`${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}`}
                 style={{
                   display: 'block',
                   fontSize: '14px',
