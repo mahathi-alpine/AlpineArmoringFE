@@ -191,10 +191,21 @@ small {
     }
   }
 
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: rem(20) auto;
+
+    @include breakpoint(small) {
+      margin-left: rem(-15);
+      margin-right: rem(-15);
+      padding: 0 rem(15);
+    }
+  }
+
   table {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.2;
-    border-spacing: 1;
     border-collapse: collapse;
     background: white;
     border-radius: 10px;
@@ -203,13 +214,17 @@ small {
     margin: 0 auto;
     position: relative;
 
+    @include breakpoint(small) {
+      min-width: 600px; // Ensures table maintains minimum width for scrolling
+    }
+
     thead {
       tr {
-        height: 60px;
+        min-height: 60px;
         background: var(--color-primary);
 
         th {
-          font-size: 15px;
+          padding: 0 5px;
           color: #fff;
           line-height: 1.2;
           vertical-align: middle;
@@ -217,10 +232,10 @@ small {
           font-weight: var(--font-medium);
 
           &:first-child {
-            width: 120px;
+            min-width: 90px;
 
             @include breakpoint(large) {
-              width: 175px;
+              min-width: 150px;
             }
           }
         }

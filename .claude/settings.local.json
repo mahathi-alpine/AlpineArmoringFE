@@ -29,7 +29,8 @@
       "Bash(pip show:*)",
       "Bash(dir:*)",
       "Read(//c/Users/Este/AppData/Local/Programs/Python/Python313/Lib/site-packages/mcp_gsc/**)",
-      "Bash(python -m mcp_gsc:*)"
+      "Bash(python -m mcp_gsc:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

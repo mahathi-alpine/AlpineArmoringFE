@@ -182,6 +182,11 @@ export default function CustomMarkdown({ children }) {
         </Link>
       );
     },
+    table: ({ children }) => (
+      <div className="table-wrapper">
+        <table>{children}</table>
+      </div>
+    ),
   };
 
   if (!children) return null;

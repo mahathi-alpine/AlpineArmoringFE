@@ -116,12 +116,21 @@ export async function getStaticProps({ locale = 'en' }) {
     populate: 'thumbnail, authors, localizations',
     fields:
       'fields[0]=publishedAt&fields[1]=locale&fields[2]=title&fields[3]=slug&fields[4]=excerpt&fields[5]=title&fields[6]=date',
-    sort: 'date',
+    sort: 'publishedAt',
     sortType: 'desc',
     pageSize: 50,
     locale,
   });
   posts = posts?.data || null;
+
+  // Sort posts: prioritize custom 'date' field if set, otherwise use 'publishedAt'
+  if (posts && Array.isArray(posts)) {
+    posts = posts.sort((a, b) => {
+      const dateA = a.attributes?.date || a.attributes?.publishedAt;
+      const dateB = b.attributes?.date || b.attributes?.publishedAt;
+      return new Date(dateB).getTime() - new Date(dateA).getTime();
+    });
+  }
 
   const seoData = {
     ...(pageData?.seo || {}),
