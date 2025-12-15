@@ -469,6 +469,28 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  if (pathname === '/vehiculos-que-blindamos') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/vehicles-we-armor';
+    return NextResponse.rewrite(url);
+  }
+  if (pathname.startsWith('/vehiculos-que-blindamos/tipo/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(
+      '/vehiculos-que-blindamos/tipo/',
+      '/vehicles-we-armor/type/'
+    );
+    return NextResponse.rewrite(url);
+  }
+  if (pathname.startsWith('/vehiculos-que-blindamos/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(
+      '/vehiculos-que-blindamos/',
+      '/vehicles-we-armor/'
+    );
+    return NextResponse.rewrite(url);
+  }
+
   const lowerPathname = pathname.toLowerCase();
   const hasDuplicateDomain =
     lowerPathname.includes('www.alpineco.com/www.alpineco.com') ||

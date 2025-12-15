@@ -348,28 +348,39 @@ function Inventory(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
-  );
-
-  const { locale } = context;
+export async function getStaticPaths({ locales }) {
   const route = routes.vehiclesWeArmor;
-  const englishType = context.query.type;
+  const paths = [];
+
+  // Generate paths for all vehicle types in all locales
+  const vehicleTypeKeys = Object.keys(route.types || {});
+
+  locales.forEach((locale) => {
+    vehicleTypeKeys.forEach((typeKey) => {
+      const localizedType = route.types[typeKey][locale];
+      if (localizedType) {
+        paths.push({
+          params: { type: typeKey },
+          locale,
+        });
+      }
+    });
+  });
+
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
+
+export async function getStaticProps(context) {
+  const { locale, params } = context;
+  const route = routes.vehiclesWeArmor;
+  const englishType = params.type;
   const localizedType = route.getLocalizedType(englishType, locale);
-  const { make: queryMake, q: queryQ } = context.query;
 
-  let searchQuery = null;
-  let query = `filters[category][slug][$eq]=${localizedType}`;
-
-  if (queryMake) {
-    query += `&filters[make][slug][$eqi]=${queryMake}`;
-  }
-  if (queryQ) {
-    query += `&filters[slug][$notNull]=true`;
-    searchQuery = true;
-  }
+  // No query parameter filtering in getStaticProps - fetch all for this type
+  const query = `filters[category][slug][$eq]=${localizedType}`;
 
   try {
     const vehicles = await getPageData({
@@ -379,7 +390,6 @@ export async function getServerSideProps(context) {
       fields:
         'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=orderCategory',
       pageSize: 100,
-      // sort: ['orderCategory', 'order'],
       locale,
     });
 
@@ -387,6 +397,7 @@ export async function getServerSideProps(context) {
       throw new Error('Invalid vehicles data received from Strapi');
     }
 
+    // Sort vehicles by orderCategory or order
     if (vehicles.data) {
       vehicles.data.sort((a, b) => {
         const aSort =
@@ -404,21 +415,6 @@ export async function getServerSideProps(context) {
         return aSort - bSort;
       });
     }
-
-    const filteredVehicles = {
-      ...vehicles,
-      data:
-        vehicles.data.filter((vehicle) => {
-          if (!queryQ) return true;
-          const searchTerms = String(queryQ)
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
-          const slug = String(vehicle.attributes.slug || '')
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
-          return slug.includes(searchTerms);
-        }) || [],
-    };
 
     const [type, make] = await Promise.all([
       getPageData({
@@ -447,21 +443,14 @@ export async function getServerSideProps(context) {
     };
 
     const categoryData = type?.find(
-      (item) => item.attributes.slug === context.query.type
+      (item) => item.attributes.slug === params.type
     );
-
-    const makeMetaTitle = queryMake
-      ? ` ${queryMake
-          .split('-')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ')}`
-      : '';
 
     // Language URLs logic
     let correctEnglishType, correctSpanishType;
 
     if (locale === 'en') {
-      correctEnglishType = context.query.type;
+      correctEnglishType = params.type;
       correctSpanishType = route.getLocalizedType(correctEnglishType, 'es');
     } else {
       const types = route.types || {};
@@ -470,14 +459,14 @@ export async function getServerSideProps(context) {
           translations &&
           typeof translations === 'object' &&
           'es' in translations &&
-          translations.es === context.query.type
+          translations.es === params.type
         ) {
           correctEnglishType = engType;
           break;
         }
       }
       correctEnglishType = correctEnglishType || englishType;
-      correctSpanishType = context.query.type;
+      correctSpanishType = params.type;
     }
 
     const languageUrls = {
@@ -488,62 +477,8 @@ export async function getServerSideProps(context) {
     const seoData = {
       ...(categoryData?.attributes.seo || {}),
       languageUrls,
-      metaTitle: `${categoryData?.attributes.seo.metaTitle}${makeMetaTitle} | Alpine Armoring®`,
+      metaTitle: `${categoryData?.attributes.seo?.metaTitle || ''} | Alpine Armoring®`,
     };
-
-    // Update meta description for make-specific pages
-    if (queryMake && seoData?.metaDescription) {
-      const formattedMake = queryMake
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-
-      const specialReplacements = {
-        'armored-vans-and-buses': /Vans\s*(?:&|and)\s*Buses/i,
-        'armored-cash-in-transit-cit': /cash[-\s]in[-\s]transit/i,
-      };
-
-      const specialPattern = specialReplacements[context.query.type];
-      let updatedDescription = seoData.metaDescription;
-
-      if (specialPattern) {
-        updatedDescription = updatedDescription.replace(
-          specialPattern,
-          (match) => `${formattedMake} ${match}`
-        );
-      } else {
-        const vehicleTypeRaw = context.query.type
-          .split('-')
-          .slice(1)
-          .map(
-            (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-          )
-          .join('\\s*');
-
-        const vehicleTypeRegexWithArmored = new RegExp(
-          `(Armored\\s*${vehicleTypeRaw})\\b`,
-          'i'
-        );
-        const vehicleTypeRegexWithoutArmored = new RegExp(
-          `(${vehicleTypeRaw})\\b`,
-          'i'
-        );
-
-        updatedDescription = updatedDescription.replace(
-          vehicleTypeRegexWithArmored,
-          (match) => `${formattedMake} ${match}`
-        );
-
-        if (updatedDescription === seoData.metaDescription) {
-          updatedDescription = updatedDescription.replace(
-            vehicleTypeRegexWithoutArmored,
-            (match) => `${formattedMake} ${match}`
-          );
-        }
-      }
-
-      seoData.metaDescription = updatedDescription;
-    }
 
     if (!vehicles || vehicles.data === undefined) {
       const fallbackData = getFallbackData(locale, englishType || '');
@@ -557,18 +492,20 @@ export async function getServerSideProps(context) {
           ...fallbackData,
           locale,
         },
+        revalidate: 60,
       };
     }
 
     return {
       props: {
-        vehicles: filteredVehicles,
+        vehicles,
         filters,
         seoData,
         query: localizedType,
-        searchQuery,
+        searchQuery: null,
         locale,
       },
+      revalidate: 3600, // Revalidate every hour (ISR)
     };
   } catch (error) {
     console.error('Strapi connection failed:', error);
@@ -585,6 +522,7 @@ export async function getServerSideProps(context) {
         ...fallbackData,
         locale,
       },
+      revalidate: 60, // Retry more frequently on error
     };
   }
 }

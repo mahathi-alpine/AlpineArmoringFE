@@ -71,7 +71,7 @@ const getFallbackData = (locale = 'en') => {
 function VehicleWeArmor(props) {
   const router = useRouter();
   const { lang } = useLocale();
-  const { pageData, vehicles, filters, searchQuery } = props;
+  const { pageData, vehicles, filters } = props;
   const topBanner = { ...pageData?.banner, inventory: true };
   const bottomText = pageData?.bottomText;
 
@@ -89,41 +89,25 @@ function VehicleWeArmor(props) {
       : pageData?.faqs;
   })();
 
-  const [vehiclesData, setVehiclesData] = useState(
-    searchQuery ? vehicles.data : vehicles.data.slice(0, 12)
-  );
+  const [vehiclesData, setVehiclesData] = useState(vehicles.data.slice(0, 12));
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(
-    !searchQuery && vehicles.data.length === 12
-  );
+  const [hasMore, setHasMore] = useState(vehicles.data.length === 12);
 
   const fetchMoreVehicles = useCallback(async () => {
-    if (loading || !hasMore || searchQuery) return;
+    // Don't fetch more if we have query params (all results already loaded)
+    if (loading || !hasMore || router.query.make || router.query.q) return;
 
     setLoading(true);
     const nextPage = currentPage + 1;
 
     try {
-      let query = '';
-      if (router.query.category) {
-        query += `&filters[category][slug][$eq]=${router.query.category}`;
-      }
-      if (router.query.make) {
-        query +=
-          (query ? '&' : '') +
-          `&filters[make][slug][$eqi]=${router.query.make}`;
-      }
-      if (router.query.q) {
-        query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
-      }
-
       const newVehicles = await getPageData({
         route: routes.vehiclesWeArmor.collectionSingle,
-        params: query + `&pagination[page]=${nextPage}&pagination[pageSize]=12`,
+        params: `&pagination[page]=${nextPage}&pagination[pageSize]=12`,
         populate: 'featuredImage,localizations',
         fields:
-          'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=protectionLevel&fields[4]=locale',
+          'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=locale',
         sort: 'order',
         locale: router.locale,
       });
@@ -141,22 +125,79 @@ function VehicleWeArmor(props) {
     } finally {
       setLoading(false);
     }
-  }, [loading, hasMore, currentPage, router.query, router.locale, searchQuery]);
+  }, [
+    loading,
+    hasMore,
+    currentPage,
+    router.query.make,
+    router.query.q,
+    router.locale,
+  ]);
 
-  // Reset when filters change
+  // Fetch filtered data when query parameters change
   useEffect(() => {
-    if (searchQuery) {
-      setVehiclesData(vehicles.data);
-      setHasMore(false);
-    } else {
-      setVehiclesData(vehicles.data.slice(0, 12));
-      setHasMore(vehicles.data.length === 12);
-    }
-    setCurrentPage(1);
-  }, [router.query, vehicles.data, searchQuery]);
+    const fetchFilteredVehicles = async () => {
+      // If there are query params (make or search), fetch filtered results
+      if (router.query.make || router.query.q) {
+        setLoading(true);
+        try {
+          let query = '';
+          if (router.query.make) {
+            query += `&filters[make][slug][$eqi]=${router.query.make}`;
+          }
+          if (router.query.q) {
+            query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
+          }
+
+          const filteredVehicles = await getPageData({
+            route: routes.vehiclesWeArmor.collectionSingle,
+            params: query,
+            populate: 'featuredImage,localizations',
+            fields:
+              'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=locale',
+            pageSize: 100,
+            sort: 'order',
+            locale: router.locale,
+          });
+
+          if (filteredVehicles?.data) {
+            // Apply client-side search filtering if q param exists
+            let finalData = filteredVehicles.data;
+            if (router.query.q) {
+              const searchTerms = String(router.query.q || '')
+                .toLowerCase()
+                .replace(/[-\s]/g, '');
+              finalData = filteredVehicles.data.filter((vehicle) => {
+                const slug = String(vehicle.attributes.slug || '')
+                  .toLowerCase()
+                  .replace(/[-\s]/g, '');
+                return slug.includes(searchTerms);
+              });
+            }
+
+            setVehiclesData(finalData);
+            setHasMore(false);
+            setCurrentPage(1);
+          }
+        } catch (error) {
+          console.error('Error fetching filtered vehicles:', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        // No filters, show initial data
+        setVehiclesData(vehicles.data.slice(0, 12));
+        setHasMore(vehicles.data.length === 12);
+        setCurrentPage(1);
+      }
+    };
+
+    fetchFilteredVehicles();
+  }, [router.query.make, router.query.q, router.locale, vehicles.data]);
 
   useEffect(() => {
-    if (searchQuery) return;
+    // Don't set up infinite scroll if we have query params
+    if (router.query.make || router.query.q) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -174,7 +215,7 @@ function VehicleWeArmor(props) {
     if (target) observer.observe(target);
 
     return () => observer.disconnect();
-  }, [fetchMoreVehicles, searchQuery]);
+  }, [fetchMoreVehicles, router.query.make, router.query.q]);
 
   const getBreadcrumbStructuredData = () => {
     const structuredData = {
@@ -290,7 +331,9 @@ function VehicleWeArmor(props) {
         </div>
       </div>
 
-      {hasMore && !searchQuery && <div className="bottomObserver"></div>}
+      {hasMore && !router.query.make && !router.query.q && (
+        <div className="bottomObserver"></div>
+      )}
 
       {bottomText && (
         <div className="container_small">
@@ -315,16 +358,10 @@ function VehicleWeArmor(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
-  );
-
+export async function getStaticProps(context) {
   const { locale } = context;
   const lang = getLocaleStrings(locale);
   const route = routes.vehiclesWeArmor;
-  const queryMake = context.query.make;
 
   try {
     let pageData = await getPageData({
@@ -334,28 +371,12 @@ export async function getServerSideProps(context) {
     });
     pageData = pageData?.data?.attributes || null;
 
-    let query = '';
-    let pageSize = 12;
-    let searchQuery = null;
-
-    // if (context.query.category) {
-    //   query += `&filters[category][slug][$eq]=${context.query.category}`;
-    // }
-    if (queryMake) {
-      query += (query ? '&' : '') + `&filters[make][slug][$eqi]=${queryMake}`;
-    }
-    if (context.query.q) {
-      query += (query ? '&' : '') + `filters[slug][$notNull]=true`;
-      pageSize = 100;
-      searchQuery = true;
-    }
-
+    // Fetch all vehicles for static generation (no query filtering)
     const vehicles = await getPageData({
       route: route.collectionSingle,
-      params: query,
       populate: 'featuredImage,localizations',
       fields: 'fields[0]=title&fields[1]=slug&fields[2]=order&fields[3]=locale',
-      pageSize: pageSize,
+      pageSize: 12,
       sort: 'order',
       locale,
     });
@@ -363,22 +384,6 @@ export async function getServerSideProps(context) {
     if (!vehicles || !vehicles.data) {
       throw new Error('Invalid vehicles data received from Strapi');
     }
-
-    const filteredVehicles = {
-      ...vehicles,
-      data:
-        vehicles.data.filter((vehicle) => {
-          if (!context.query.q) return true;
-
-          const searchTerms = String(context.query.q || '')
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
-          const slug = String(vehicle.attributes.slug || '')
-            .toLowerCase()
-            .replace(/[-\s]/g, '');
-          return slug.includes(searchTerms);
-        }) || [],
-    };
 
     const [type, make] = await Promise.all([
       getPageData({
@@ -389,9 +394,8 @@ export async function getServerSideProps(context) {
       }).then((res) => res.data || []),
       getPageData({
         route: 'makes',
-        custom: queryMake
-          ? 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[faqs]=*&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug'
-          : 'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
+        custom:
+          'fields[0]=title&fields[1]=slug&pagination[pageSize]=100&sort[0]=title&populate[faqs]=*&populate[vehicles_we_armors][fields][0]=id&populate[vehicles_we_armors][populate][category][fields][0]=slug',
         locale,
       }).then((res) => res?.data || []),
     ]);
@@ -404,29 +408,19 @@ export async function getServerSideProps(context) {
     const seoData = {
       ...(pageData?.seo || {}),
       languageUrls: route.getIndexLanguageUrls(locale),
+      metaTitle: `${pageData?.seo?.metaTitle || lang.vehiclesWeArmor} | Alpine Armoring`,
     };
-
-    const makeMetaTitle = queryMake
-      ? `- ${queryMake
-          .split('-')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ')}`
-      : '';
-    seoData.metaTitle = `${seoData.metaTitle} ${makeMetaTitle} | Alpine Armoring`;
-
-    seoData.metaDescription = queryMake
-      ? `${lang.vwaMakesMetaDescription1} ${makeMetaTitle.replace('-', '').trim()} ${lang.vwaMakesMetaDescription2}.`
-      : seoData.metaDescription;
 
     return {
       props: {
         pageData,
-        vehicles: filteredVehicles,
+        vehicles,
         filters,
         seoData,
-        searchQuery,
+        searchQuery: null,
         locale,
       },
+      revalidate: 3600, // Revalidate every hour (ISR)
     };
   } catch (error) {
     console.error('Strapi connection failed:', error);
@@ -438,6 +432,7 @@ export async function getServerSideProps(context) {
         ...fallbackData,
         locale,
       },
+      revalidate: 60, // Retry more frequently on error
     };
   }
 }

@@ -56,7 +56,7 @@ const InventoryItem = ({
         {data.flag && data.label ? (
           <>
             {(() => {
-              const flagClass = `inventory_item_label_${data.flag}`;
+              const flagClass = `inventory_item_label_${String(data.flag).replace(/\s+/g, '-')}`;
               const getFlagTranslation = (flag: string) => {
                 const flagMap: Record<string, string> = {
                   sold: 'soldFlag',

@@ -305,7 +305,7 @@ const enLocale = {
   viewSomeCoolVideos: 'View some cool videos',
   isAvailableForRental: 'is now available for <span>RENTAL</span>',
   soldFlag: 'Sold',
-  comingSoonFlag: 'Coming Soon',
+  comingSoonFlag: 'In-production (coming soon)',
   preOwnedFlag: 'Pre-Owned',
   exportOnlyFlag: 'Export Only',
   allStaticPages: 'All Static Pages',

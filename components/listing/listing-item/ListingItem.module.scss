@@ -131,14 +131,12 @@
     bottom: 0;
     left: 0;
     right: 0;
-    // transform: translateY(-50%);
     font-weight: var(--font-medium);
     text-transform: uppercase;
     text-align: center;
     transition: opacity 0.3s ease;
 
     span {
-      // padding: rem(8) rem(24);
       border-radius: 8px;
       background: transparent;
       color: var(--color-green);
@@ -182,6 +180,27 @@
         color: black;
         font-size: rem(32);
         text-shadow: 2px 2px 2px #6f6044;
+      }
+    }
+
+    &_coming-soon{
+      bottom: 10px;
+
+      span{
+        background: white;
+        display: inline-flex;
+        font-size: 20px;
+        padding: 2px 9px;
+        text-shadow: none;
+        font-size: 13px;
+
+        @include breakpoint(large) {
+          font-size: 15px;
+        }
+
+        @include breakpoint(huge) {
+          font-size: 17px;
+        }
       }
     }
   }
