@@ -167,46 +167,6 @@ function Vehicle(props) {
     featuredImage: data?.featuredImage,
   };
 
-  // Product structured data
-  // const getProductStructuredData = () => {
-  //   return {
-  //     '@context': 'https://schema.org/',
-  //     '@type': ['Product'],
-  //     name: data?.title?.replace('\n', ' '),
-  //     image: data?.featuredImage?.data?.attributes?.url,
-  //     description:
-  //       props.seoData?.metaDescription || data?.title?.replace('\n', ' '),
-  //     url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
-  //     brand: {
-  //       '@type': 'Brand',
-  //       name: `Alpine Armoring® ${lang.armoredVehicles}`,
-  //     },
-  //     sku: `Alpine-${data?.slug}`,
-  //     offers: {
-  //       '@type': 'AggregateOffer',
-  //       url: `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}${lang.vehiclesWeArmorURL}/${data?.slug}`,
-  //       priceCurrency: 'USD',
-  //       lowPrice: '50000',
-  //       highPrice: '200000',
-  //       offerCount: '1',
-  //       availability: 'https://schema.org/InStock',
-  //       // itemCondition: 'https://schema.org/NewCondition',
-  //       seller: {
-  //         '@type': 'Organization',
-  //         name: 'Alpine Armoring',
-  //       },
-  //       description: 'Price available upon request. Contact us for details.',
-  //     },
-  //     additionalProperty: [
-  //       {
-  //         '@type': 'PropertyValue',
-  //         name: lang.offeredAtProtectionLevels,
-  //         value: data.protectionLevel || 'A4, A6, A9, A11',
-  //       },
-  //     ],
-  //   };
-  // };
-
   const getProductStructuredData = () => {
     return {
       '@context': 'https://schema.org/',
@@ -439,7 +399,7 @@ function Vehicle(props) {
             {lang.vehiclesWeArmor}
           </Link>
           <span>&gt;</span>
-          <span className={`b-breadcrumbs_current`}>{data?.slug}</span>
+          <span className={`b-breadcrumbs_current`}>{data?.title}</span>
         </div>
 
         <Banner props={banner} />
@@ -622,19 +582,81 @@ function Vehicle(props) {
   );
 }
 
-export async function getServerSideProps({ params, locale }) {
-  const route = routes.vehiclesWeArmor;
-
+export async function getStaticPaths({ locales }) {
   try {
+    const route = routes.vehiclesWeArmor;
+    const paths = [];
+
+    // Fetch paths for each locale
+    for (const locale of locales) {
+      let currentPage = 1;
+      let hasMorePages = true;
+
+      while (hasMorePages) {
+        const data = await getPageData({
+          route: route.collectionSingle,
+          params: '',
+          fields: 'fields[0]=slug',
+          populate: '/', // Disable auto-population
+          pageSize: 100,
+          page: currentPage,
+          locale,
+        });
+
+        if (data?.data && data.data.length > 0) {
+          data.data.forEach((vehicle) => {
+            paths.push({
+              params: { slug: vehicle.attributes.slug },
+              locale,
+            });
+          });
+
+          const pagination = data.meta?.pagination;
+          if (pagination && currentPage < pagination.pageCount) {
+            currentPage++;
+          } else {
+            hasMorePages = false;
+          }
+        } else {
+          hasMorePages = false;
+        }
+      }
+    }
+
+    // console.log(
+    //   `Generated ${paths.length} vehicle paths across ${locales.length} locales`
+    // );
+
+    return {
+      paths,
+      fallback: 'blocking',
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths for vehicles-we-armor:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
+}
+
+export async function getStaticProps({ params, locale }) {
+  try {
+    const route = routes.vehiclesWeArmor;
+
+    // Preserve dual-slug fallback logic from SSR version
     let data = await getPageData({
       route: route.collectionSingle,
       params: `filters[slug][$eq]=${params.slug}`,
       locale,
     });
 
-    // If no data found, try fetching without language suffix
     if (!data?.data?.length) {
       const baseSlug = params.slug.replace(/-[a-z]{2}$/, '');
+      // console.log(
+      //   `Trying base slug fallback: ${params.slug} -> ${baseSlug}`
+      // );
+
       data = await getPageData({
         route: route.collectionSingle,
         params: `filters[slug][$eq]=${baseSlug}`,
@@ -643,7 +665,11 @@ export async function getServerSideProps({ params, locale }) {
     }
 
     if (!data?.data?.length) {
-      return { notFound: true };
+      console.warn(`Vehicle not found: ${params.slug} (locale: ${locale})`);
+      return {
+        notFound: true,
+        revalidate: 60, // 1 minute
+      };
     }
 
     const currentPage = data?.data?.[0]?.attributes;
@@ -660,70 +686,16 @@ export async function getServerSideProps({ params, locale }) {
         seoData,
         locale,
       },
+
+      revalidate: 7200, // 2h
     };
   } catch (error) {
-    console.error('Error fetching inventory data:', error);
+    console.error('Error in getStaticProps for vehicles-we-armor:', error);
     return {
       notFound: true,
+      revalidate: 60, // Retry sooner on errors
     };
   }
 }
-
-// export async function getStaticPaths() {
-//   try {
-//     const slugsResponse = await getPageData({
-//       route: 'vehicles-we-armors',
-//       fields: 'fields[0]=slug',
-//       populate: '/',
-//     });
-
-//     if (!Array.isArray(slugsResponse.data)) {
-//       throw new Error('Invalid data format');
-//     }
-
-//     const paths = slugsResponse.data.reduce((acc, item) => {
-//       if (item?.attributes && item.attributes.slug) {
-//         acc.push({ params: { slug: item?.attributes.slug } });
-//       }
-//       return acc;
-//     }, []);
-
-//     return {
-//       paths,
-//       fallback: 'blocking',
-//     };
-//   } catch (error) {
-//     // console.error('Error fetching slugs:', error);
-//     return {
-//       paths: [],
-//       fallback: 'blocking',
-//     };
-//   }
-// }
-
-// export async function getStaticProps({ params }) {
-//   const data = await getPageData({
-//     route: 'vehicles-we-armors',
-//     params: `filters[slug][$eq]=${params.slug}`,
-//   });
-
-//   const seoData = data?.data?.[0]?.attributes?.seo ?? null;
-//   if (seoData) {
-//     seoData.thumbnail =
-//       data?.data?.[0]?.attributes?.featuredImage?.data.attributes ?? null;
-//   }
-
-//   if (!data || !data.data || data.data.length === 0) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-//   // console.log('Fetched data:', JSON.stringify(data, null, 2));
-
-//   return {
-//     props: { data, seoData },
-//     revalidate: 120,
-//   };
-// }
 
 export default Vehicle;

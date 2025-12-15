@@ -109,6 +109,7 @@ const routes = {
     //   es: 'vehiculos_que_blindamos',
     // },
     types: vehicleTypes,
+    usesStaticProps: true,
   },
   ballisticChart: {
     collection: 'ballistic-chart',
