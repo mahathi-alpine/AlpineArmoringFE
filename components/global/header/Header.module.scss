@@ -105,14 +105,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    @include breakpoint('large') {
+      padding: 0 rem(10);
+    }
 
-    :global(.lang-es) & {
-      @include breakpoint('large') {
-        padding: 0 rem(10);
-      }
-      @include breakpoint('huge') {
-        padding: 0 2rem;
-      }
+    @include breakpoint('huge') {
+      padding: 0 2rem;
     }
   }
 

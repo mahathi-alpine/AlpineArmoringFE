@@ -133,7 +133,7 @@ const enLocale = {
   quickLinks: 'Quick Links',
   privacyPolicy: 'Privacy Policy',
   allRightsReserved: 'All Rights Reserved',
-  homeOfArmoredVehicles: 'The Home of ArmoredVehicles.com',
+  homeOfArmoredVehicles: 'ArmoredVehicles.com',
   inquiringAbout: 'You are inquiring about',
   thisReadyToShip: 'ready-to-ship',
   rentalOfThis: 'Rental of this',
@@ -340,6 +340,7 @@ const enLocale = {
   callUs: 'Call Us',
   exportOnly: 'This vehicle is for export only',
   readMoreAboutArmoringLevels: 'Read more about armoring levels',
+  belongingToTheGroupOfCompaniesAt: 'Belonging to the group of companies at',
 };
 
 export default enLocale;

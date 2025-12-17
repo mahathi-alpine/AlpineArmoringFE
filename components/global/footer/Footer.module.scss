@@ -1,7 +1,7 @@
 .footer {
   position: relative;
   padding-top: rem(64);
-  padding-bottom: rem(32);
+  padding-bottom: rem(16);
   z-index: 3;
   background: var(--color-background);
   font-size: rem(14);
@@ -10,7 +10,7 @@
     z-index: 3;
   }
   @media (min-width: 1280px) and (max-width: 1379px) {
-    padding-bottom: rem(50);
+    padding-bottom: rem(80);
   }
   @media (min-width: 1380px) {
     padding-bottom: 0;
@@ -406,7 +406,7 @@
       }
 
       p {
-        margin-bottom: 1rem;
+        margin-bottom: 2.5rem;
       }
 
       p:last-child {
@@ -429,7 +429,8 @@
     display: inline-block;
     color: white;
     font-weight: var(--font-medium);
-    letter-spacing: -0.5px;
+    width: 100%;
+    max-width: 370px;
 
     @include breakpoint(large) {
       position: absolute;
@@ -486,6 +487,10 @@
         );
       }
 
+      .footer_flag_title{
+        color: white;
+      }
+
       .footer_flag_wrap {
         &:before {
           background: linear-gradient(
@@ -500,11 +505,22 @@
       }
     }
 
+    &_title{
+      position: absolute;
+      top: -20px;
+      text-align: center;
+      left: 0;
+      right: 0;
+      color: var(--color-secondary);
+    }
+
     &_wrap {
       display: block;
       position: relative;
       z-index: 1;
       padding: 15px 10px;
+      font-size: 16px;
+
       &:before,
       &:after {
         position: absolute;

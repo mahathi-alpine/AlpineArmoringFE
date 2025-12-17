@@ -291,6 +291,9 @@ const Footer = (props) => {
               }
             `}
           >
+            <p className={`${styles.footer_flag_title}`}>
+              {lang.belongingToTheGroupOfCompaniesAt}
+            </p>
             <Image
               src="/assets/footer-american-flag.gif"
               alt="armored vehicles"

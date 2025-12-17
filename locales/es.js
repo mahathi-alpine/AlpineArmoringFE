@@ -135,7 +135,7 @@ const esLocale = {
   quickLinks: 'Enlaces rápidos',
   privacyPolicy: 'Política de privacidad',
   allRightsReserved: 'Todos los derechos reservados',
-  homeOfArmoredVehicles: 'El hogar de ArmoredVehicles.com',
+  homeOfArmoredVehicles: 'ArmoredVehicles.com',
   inquiringAbout: 'Está consultando sobre',
   thisReadyToShip: 'listo para enviar',
   rentalOfThis: 'Alquiler de este',
@@ -344,6 +344,7 @@ const esLocale = {
   callUs: 'Llámenos',
   exportOnly: 'Este vehículo es solo para exportación.',
   readMoreAboutArmoringLevels: 'Lea más sobre los niveles de blindaje.',
+  belongingToTheGroupOfCompaniesAt: 'Perteneciente al grupo de empresas de',
 };
 
 export default esLocale;

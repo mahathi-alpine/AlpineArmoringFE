@@ -23,6 +23,10 @@
       font-size: clamp(0.6875rem, 0.3125rem + 0.4688vw, 0.875rem); // 11-14
       text-transform: uppercase;
 
+      @media (min-width: 1280px) and (max-width: 1800px) {
+        text-transform: unset;
+      }
+
       :global(.lang-es) & {
         letter-spacing: -0.8px;
       }
@@ -93,6 +97,15 @@
         &:hover {
           transform: translateX(8px);
         }
+      }
+    }
+  }
+
+  @include breakpoint('large') {
+    &_list {
+      gap: 24px;
+      :global(.lang-es) & {
+        gap: 24px;
       }
     }
   }
