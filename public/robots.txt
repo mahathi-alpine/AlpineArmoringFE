@@ -1,13 +1,4 @@
 User-agent: *
-Disallow: /stock/
-Disallow: /stock
-Disallow: /inventory/
-Disallow: /inventory
-Disallow: /available-now
-Allow: /available-now/
-Disallow: /vehicles-we-armor/inventory/
-Disallow: /vehicles-we-armor/inventory
-Disallow: /media/documents/
 Disallow: /*?*vehicles_we_armor=*
 Disallow: /*?*vehiculos_que_blindamos=*
 Disallow: /*?*brand=*

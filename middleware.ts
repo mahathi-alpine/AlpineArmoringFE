@@ -381,7 +381,7 @@ export function middleware(request: NextRequest) {
 
   // Check for blocked conditions BEFORE rewrites
   if (
-    pathname.startsWith('/inventory') ||
+    // pathname.startsWith('/inventory') ||
     searchParams.has('vehicles_we_armor') ||
     searchParams.has('vehiculos_que_blindamos') ||
     searchParams.has('type') ||
