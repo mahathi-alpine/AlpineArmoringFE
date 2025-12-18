@@ -693,6 +693,22 @@ export async function getStaticProps(context) {
       languageUrls,
     };
 
+    // Add canonical URL for pre-owned and specialty vehicles pages to the main inventory page
+    const isPreOwned =
+      context.params.type === 'armored-pre-owned' ||
+      context.params.type === 'blindados-pre-usados';
+
+    const isSpecialty =
+      context.params.type === 'armored-specialty-vehicles' ||
+      context.params.type === 'vehiculos-blindados-especiales';
+
+    if (isPreOwned || isSpecialty) {
+      seoData.canonicalURL =
+        locale === 'en'
+          ? '/armored-vehicles-for-sale'
+          : '/vehiculos-blindados-en-venta';
+    }
+
     if (seoData) {
       // Ensure metaTitle exists, add default if missing
       if (!seoData.metaTitle) {
