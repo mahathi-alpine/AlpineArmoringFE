@@ -71,7 +71,7 @@
     }
   }
 
-  &_breadcrumbs{
+  &_breadcrumbs {
     padding: 0;
   }
 
@@ -657,7 +657,7 @@
 .armoring_features {
   margin: 0 auto rem(60) auto;
 
-  &_wrap{
+  &_wrap {
     max-width: 1000px;
     margin: auto;
   }
@@ -672,7 +672,7 @@
       margin-bottom: rem(40);
     }
 
-    span{
+    span {
       color: var(--color-primaryLight);
     }
   }
@@ -716,7 +716,7 @@
 
     &:after {
       position: absolute;
-      content: "";
+      content: '';
       left: 0;
       right: 0;
       bottom: -1px;
@@ -776,7 +776,9 @@
     z-index: 10;
     border: 1px solid white;
     border-radius: 100%;
-    transition: color 0.3s ease, border-color 0.3s ease;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
 
     &:hover {
       color: var(--color-primaryLight);
@@ -806,7 +808,7 @@
       display: block;
     }
 
-    &_wrap{
+    &_wrap {
       position: fixed;
       bottom: 0;
       left: 0;
@@ -839,7 +841,7 @@
     }
   }
 
-  &_heading{
+  &_heading {
     position: relative;
     padding-bottom: rem(24);
     padding-left: rem(20);
