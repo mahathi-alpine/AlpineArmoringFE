@@ -2,6 +2,7 @@ import styles from './VehicleDetailsPage.module.scss';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import useLocale from 'hooks/useLocale';
 import { useRouter } from 'next/router';
@@ -149,6 +150,12 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
+  // Armoring features sidebar state
+  const [selectedFeatureIndex, setSelectedFeatureIndex] = useState<
+    number | null
+  >(null);
+  const [isFeaturesSidebarOpen, setIsFeaturesSidebarOpen] = useState(false);
+
   // Common data extraction
   const topGallery = data?.gallery?.data;
   const mainText = data?.description;
@@ -199,6 +206,36 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
       password: password,
     };
     togglePDFPopup(pdfData);
+  };
+
+  // Armoring features sidebar handlers
+  const handleFeatureClick = (index: number) => {
+    setSelectedFeatureIndex(index);
+    setIsFeaturesSidebarOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setIsFeaturesSidebarOpen(false);
+  };
+
+  const handlePrevFeature = () => {
+    if (selectedFeatureIndex !== null && data?.armoringFeatures?.data) {
+      const newIndex =
+        selectedFeatureIndex === 0
+          ? data.armoringFeatures.data.length - 1
+          : selectedFeatureIndex - 1;
+      setSelectedFeatureIndex(newIndex);
+    }
+  };
+
+  const handleNextFeature = () => {
+    if (selectedFeatureIndex !== null && data?.armoringFeatures?.data) {
+      const newIndex =
+        selectedFeatureIndex === data.armoringFeatures.data.length - 1
+          ? 0
+          : selectedFeatureIndex + 1;
+      setSelectedFeatureIndex(newIndex);
+    }
   };
 
   // Common useEffect for observer
@@ -673,7 +710,7 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
       <div className={`${styles.inventory} background-dark`}>
         <div className={`${styles.inventory_main}`}>
           <div className={`${styles.inventory_heading}`}>
-            <div className={`b-breadcrumbs`}>
+            <div className={`${styles.inventory_breadcrumbs} b-breadcrumbs`}>
               <Link href="/">{lang.home}</Link>
               <span>&gt;</span>
               <Link href={config.breadcrumbs.second.url}>
@@ -981,6 +1018,30 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
           </div>
         )}
 
+        {data?.armoringFeatures?.data &&
+          data.armoringFeatures.data.length > 0 && (
+            <div className={`${styles.armoring_features} container_small`}>
+              <h2 className={styles.armoring_features_title}>
+                {lang.installed} <span>{lang.optionsAndAccessories}</span>{' '}
+                {lang.forAddedSafetyOnThis} {data.title} {lang.include}:
+              </h2>
+              <div className={`${styles.armoring_features_wrap}`}>
+                <div className={styles.armoring_features_grid}>
+                  {data.armoringFeatures.data.map((feature, index) => (
+                    <div
+                      key={feature.id}
+                      onClick={() => handleFeatureClick(index)}
+                    >
+                      <span className={styles.armoring_features_item}>
+                        {feature.attributes.title}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
         {(videoWebm || videoMP4) && (
           <VideoScale videoWebm={videoWebm} videoMP4={videoMP4} />
         )}
@@ -1000,6 +1061,132 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
             setLightboxPopupOpen={setLightboxPopupOpen}
           />
         )}
+
+        {isFeaturesSidebarOpen &&
+          selectedFeatureIndex !== null &&
+          data?.armoringFeatures?.data && (
+            <>
+              <div
+                className={styles.armoring_sidebar_overlay}
+                onClick={handleCloseSidebar}
+              />
+              <div className={styles.armoring_sidebar}>
+                <button
+                  className={styles.armoring_sidebar_close}
+                  onClick={handleCloseSidebar}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+
+                <div className={styles.armoring_sidebar_content}>
+                  <h2 className={styles.armoring_sidebar_heading}>
+                    Armoring Features
+                  </h2>
+
+                  <h3 className={styles.armoring_sidebar_title}>
+                    {
+                      data.armoringFeatures.data[selectedFeatureIndex]
+                        .attributes.title
+                    }
+                  </h3>
+
+                  {data.armoringFeatures.data[selectedFeatureIndex].attributes
+                    .image?.data?.attributes && (
+                    <div className={styles.armoring_sidebar_image}>
+                      <Image
+                        src={
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.image.data.attributes.formats?.thumbnail
+                            ?.url ||
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.image.data.attributes.url
+                        }
+                        alt={
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.title
+                        }
+                        width={
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.image.data.attributes.formats?.thumbnail
+                            ?.width ||
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.image.data.attributes.width
+                        }
+                        height={
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.image.data.attributes.formats?.thumbnail
+                            ?.height ||
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.image.data.attributes.height
+                        }
+                      />
+                    </div>
+                  )}
+
+                  {data.armoringFeatures.data[selectedFeatureIndex].attributes
+                    .description && (
+                    <div className={styles.armoring_sidebar_description}>
+                      <CustomMarkdown>
+                        {
+                          data.armoringFeatures.data[selectedFeatureIndex]
+                            .attributes.description
+                        }
+                      </CustomMarkdown>
+                    </div>
+                  )}
+
+                  <div className={`${styles.armoring_sidebar_nav_wrap}`}>
+                    <button
+                      className={`${styles.armoring_sidebar_nav} ${styles.armoring_sidebar_nav_prev}`}
+                      onClick={handlePrevFeature}
+                      aria-label="Previous feature"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                      </svg>
+                    </button>
+
+                    <button
+                      className={`${styles.armoring_sidebar_nav} ${styles.armoring_sidebar_nav_next}`}
+                      onClick={handleNextFeature}
+                      aria-label="Next feature"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
       </div>
     </>
   );

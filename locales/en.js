@@ -341,6 +341,10 @@ const enLocale = {
   exportOnly: 'This vehicle is for export only',
   readMoreAboutArmoringLevels: 'Read more about armoring levels',
   belongingToTheGroupOfCompaniesAt: 'Belonging to the group of companies at',
+  installed: 'Installed',
+  optionsAndAccessories: 'options and accessories',
+  forAddedSafetyOnThis: 'for added safety on this',
+  include: 'include',
 };
 
 export default enLocale;

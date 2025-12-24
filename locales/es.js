@@ -345,6 +345,10 @@ const esLocale = {
   exportOnly: 'Este vehículo es solo para exportación.',
   readMoreAboutArmoringLevels: 'Lea más sobre los niveles de blindaje.',
   belongingToTheGroupOfCompaniesAt: 'Perteneciente al grupo de empresas de',
+  installed: 'Instalado',
+  optionsAndAccessories: 'opciones y accesorios',
+  forAddedSafetyOnThis: 'para mayor seguridad en esto',
+  include: 'incluir',
 };
 
 export default esLocale;

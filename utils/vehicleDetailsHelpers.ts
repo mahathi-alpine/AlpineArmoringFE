@@ -74,6 +74,7 @@ export const getVehicleDetailsServerSideProps = async (
     const customPopulate = [
       'populate[featuredImage][populate]=*',
       'populate[gallery][populate]=*',
+      'populate[armoringFeatures][populate]=*',
       'populate[video][populate]=*',
       'populate[videoMP4][populate]=*',
       'populate[categories][fields][0]=title',
