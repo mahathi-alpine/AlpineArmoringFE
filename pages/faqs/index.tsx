@@ -75,7 +75,7 @@ function KnowledgeBase(props) {
           image: {
             '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}/#primaryimage`,
           },
-          thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
+          thumbnailUrl: `https://assets.alpineco.com/armored_faqs_bc763eedba.jpg`,
           description:
             "Alpine Armoring FAQs - Find answers to frequently asked questions about Alpine Armoring's products and services.",
           breadcrumb: {
@@ -87,8 +87,8 @@ function KnowledgeBase(props) {
           '@type': 'ImageObject',
           inLanguage: 'en',
           '@id': `${process.env.NEXT_PUBLIC_URL}${lang.faqsURL}/#primaryimage`,
-          url: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
-          contentUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Farmored_faqs_bc763eedba.jpg&w=2200&q=100`,
+          url: `https://assets.alpineco.com/armored_faqs_bc763eedba.jpg`,
+          contentUrl: `https://assets.alpineco.com/armored_faqs_bc763eedba.jpg`,
           width: 2560,
           height: 1920,
           caption: 'Alpine Armoring FAQs',

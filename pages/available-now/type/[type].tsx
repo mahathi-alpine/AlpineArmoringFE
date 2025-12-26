@@ -95,7 +95,7 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
                 data: {
                   attributes: {
                     mime: 'video/webm',
-                    url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+                    url: 'https://assets.alpineco.com/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
                   },
                 },
               },
@@ -103,7 +103,7 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
                 data: {
                   attributes: {
                     mime: 'video/mp4',
-                    url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+                    url: 'https://assets.alpineco.com/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
                   },
                 },
               },
@@ -579,7 +579,7 @@ export async function getStaticProps(context) {
               data: {
                 attributes: {
                   mime: 'video/webm',
-                  url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+                  url: 'https://assets.alpineco.com/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
                 },
               },
             },
@@ -587,7 +587,7 @@ export async function getStaticProps(context) {
               data: {
                 attributes: {
                   mime: 'video/mp4',
-                  url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+                  url: 'https://assets.alpineco.com/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
                 },
               },
             },
@@ -637,7 +637,7 @@ export async function getStaticProps(context) {
               data: {
                 attributes: {
                   mime: 'video/webm',
-                  url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+                  url: 'https://assets.alpineco.com/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
                 },
               },
             },
@@ -645,7 +645,7 @@ export async function getStaticProps(context) {
               data: {
                 attributes: {
                   mime: 'video/mp4',
-                  url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+                  url: 'https://assets.alpineco.com/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
                 },
               },
             },

@@ -74,7 +74,7 @@ function Home({ homepageData, categories }) {
         },
         {
           '@type': 'ImageObject',
-          url: `https://d102sycao8uwt8.cloudfront.net/medium_About_us_hompage_thumbnail_1_ea1c33f592.JPG`,
+          url: `https://assets.alpineco.com/medium_About_us_hompage_thumbnail_1_ea1c33f592.JPG`,
           width: '750',
           height: '583',
         },
@@ -297,8 +297,7 @@ function Home({ homepageData, categories }) {
             description:
               'Bulletproof SUVs for Sale with advanced protection and technology, perfect for personal, business, or government security needs.',
             url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-suvs`,
-            image:
-              'https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg',
+            image: 'https://assets.alpineco.com/armored_suvs_b7657d92de.jpg',
             brand: {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },
@@ -330,8 +329,7 @@ function Home({ homepageData, categories }) {
             description:
               'Luxury armored sedans providing discreet protection and security',
             url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-sedans`,
-            image:
-              'https://d102sycao8uwt8.cloudfront.net/armored_sedans_df355f4cbe.jpg',
+            image: 'https://assets.alpineco.com/armored_sedans_df355f4cbe.jpg',
             brand: {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },
@@ -364,7 +362,7 @@ function Home({ homepageData, categories }) {
               'Heavy-duty armored pickup trucks for tactical and civilian use',
             url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pickup-trucks`,
             image:
-              'https://d102sycao8uwt8.cloudfront.net/armored_pickup_trucks_78270fd729.jpg',
+              'https://assets.alpineco.com/armored_pickup_trucks_78270fd729.jpg',
             brand: {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },
@@ -396,8 +394,7 @@ function Home({ homepageData, categories }) {
             description:
               'Specialized armored vehicles for law enforcement and SWAT operations',
             url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-law-enforcement`,
-            image:
-              'https://d102sycao8uwt8.cloudfront.net/armored_SWAT_6263a15e32.jpg',
+            image: 'https://assets.alpineco.com/armored_SWAT_6263a15e32.jpg',
             brand: {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },
@@ -430,7 +427,7 @@ function Home({ homepageData, categories }) {
               'Custom armored specialty vehicles for unique security requirements',
             url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-specialty-vehicles`,
             image:
-              'https://d102sycao8uwt8.cloudfront.net/armored_specialty_vehicles_7ccb22db0e.jpg',
+              'https://assets.alpineco.com/armored_specialty_vehicles_7ccb22db0e.jpg',
             brand: {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },
@@ -463,7 +460,7 @@ function Home({ homepageData, categories }) {
               "Alpine Armoring's certified pre-owned armored vehicles offer 30-50% savings with A4-A12 protection, rigorous 150-point inspection, and immediate availability.",
             url: `${process.env.NEXT_PUBLIC_URL}/available-now/type/armored-pre-owned`,
             image:
-              'https://d102sycao8uwt8.cloudfront.net/armored_preowned_ae26ef8dee.jpg',
+              'https://assets.alpineco.com/armored_preowned_ae26ef8dee.jpg',
             brand: {
               '@id': `${process.env.NEXT_PUBLIC_URL}/#organization`,
             },

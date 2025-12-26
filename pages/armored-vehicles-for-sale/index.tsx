@@ -37,7 +37,7 @@ const getFallbackData = (locale = 'en') => ({
         data: {
           attributes: {
             mime: 'video/webm',
-            url: 'https://d102sycao8uwt8.cloudfront.net/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
+            url: 'https://assets.alpineco.com/All_vehciles_filter_banner_8_26_9dbb6fe2dd.webm',
           },
         },
       },
@@ -45,7 +45,7 @@ const getFallbackData = (locale = 'en') => ({
         data: {
           attributes: {
             mime: 'video/mp4',
-            url: 'https://d102sycao8uwt8.cloudfront.net/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
+            url: 'https://assets.alpineco.com/All_Vehicles_Filter_Banner_8_26_10f8b42114.mp4',
           },
         },
       },
@@ -238,7 +238,7 @@ function Inventory(props) {
           breadcrumb: {
             '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#breadcrumb`,
           },
-          thumbnailUrl: `https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg`,
+          thumbnailUrl: `https://assets.alpineco.com/armored_suvs_b7657d92de.jpg`,
         },
       ],
     };
@@ -306,8 +306,8 @@ function Inventory(props) {
       '@context': 'https://schema.org',
       '@type': 'ImageObject',
       '@id': `${process.env.NEXT_PUBLIC_URL}${router.locale === 'en' ? '' : `/${router.locale}`}/${lang?.armoredVehiclesForSaleURL || '/inventory'}#primaryimage`,
-      url: `https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg`,
-      contentUrl: `https://d102sycao8uwt8.cloudfront.net/armored_suvs_b7657d92de.jpg`,
+      url: `https://assets.alpineco.com/armored_suvs_b7657d92de.jpg`,
+      contentUrl: `https://assets.alpineco.com/armored_suvs_b7657d92de.jpg`,
       width: 2200,
       height: 1200,
       caption:

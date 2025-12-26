@@ -75,6 +75,11 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: 'assets.alpineco.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
         hostname: 'alpine-backend-992382787275.s3.us-east-1.amazonaws.com',
         pathname: '**',
       },

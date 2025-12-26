@@ -459,11 +459,11 @@ const Seo = ({
         <>
           <meta
             property="og:video"
-            content="https://d102sycao8uwt8.cloudfront.net/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4"
+            content="https://assets.alpineco.com/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4"
           />
           <meta
             property="og:video:secure_url"
-            content="https://d102sycao8uwt8.cloudfront.net/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4"
+            content="https://assets.alpineco.com/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4"
           />
           <meta property="og:video:type" content="video/mp4" />
           <meta property="og:video:width" content="1920" />
@@ -473,22 +473,22 @@ const Seo = ({
           <meta name="twitter:card" content="player" />
           <meta
             name="twitter:player"
-            content="https://d102sycao8uwt8.cloudfront.net/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4"
+            content="https://assets.alpineco.com/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4"
           />
           <meta name="twitter:player:width" content="1920" />
           <meta name="twitter:player:height" content="1080" />
 
           {/* <link 
             rel="preload" 
-            href="https://d102sycao8uwt8.cloudfront.net/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4" 
+            href="https://assets.alpineco.com/Alpine_Armoring_homepage_video_10_23_6dfc97de70.mp4" 
             as="video" 
             type="video/mp4"
           /> */}
         </>
       )}
 
-      <link rel="preconnect" href="https://d102sycao8uwt8.cloudfront.net" />
-      <link rel="dns-prefetch" href="https://d102sycao8uwt8.cloudfront.net" />
+      <link rel="preconnect" href="https://assets.alpineco.com" />
+      <link rel="dns-prefetch" href="https://assets.alpineco.com" />
       <link rel="preconnect" href="https://www.googletagmanager.com" />
       <link rel="preconnect" href="https://www.google-analytics.com" />
     </Head>

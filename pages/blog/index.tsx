@@ -36,7 +36,7 @@ function Blog(props) {
           datePublished: props?.pageData?.createdAt,
           dateModified: props?.pageData?.updatedAt,
           inLanguage: 'en',
-          thumbnailUrl: `${process.env.NEXT_PUBLIC_URL}/_next/image?url=https%3A%2F%2Fd102sycao8uwt8.cloudfront.net%2Fblog_banner_top_a20093f7c5.jpg&w=2200&q=100`,
+          thumbnailUrl: `https://assets.alpineco.com/blog_banner_top_a20093f7c5.jpg`,
         },
         {
           '@type': 'BreadcrumbList',

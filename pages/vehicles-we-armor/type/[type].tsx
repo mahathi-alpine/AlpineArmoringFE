@@ -81,7 +81,7 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
                 data: {
                   attributes: {
                     mime: 'image/jpeg',
-                    url: 'https://d102sycao8uwt8.cloudfront.net/mobile_armored_all_vehicles_bulletproof_25af983bd4.jpg',
+                    url: 'https://assets.alpineco.com/mobile_armored_all_vehicles_bulletproof_25af983bd4.jpg',
                     alternativeText:
                       'A lineup of eight armored or heavily modified trucks and SUVs from Alpine Armoring is displayed on a black surface with a white patterned background. The vehicles vary in size, color, and modifications, including police, military, and utility models.',
                   },
@@ -91,7 +91,7 @@ const getFallbackData = (locale = 'en', categorySlug = '') => {
                 data: {
                   attributes: {
                     mime: 'image/jpeg',
-                    url: 'https://d102sycao8uwt8.cloudfront.net/Vehicles_We_Armor_All_64d38daf3b.jpg',
+                    url: 'https://assets.alpineco.com/Vehicles_We_Armor_All_64d38daf3b.jpg',
                     alternativeText:
                       'A lineup of eight armored or heavily modified trucks and SUVs from Alpine Armoring is displayed on a black surface with a white patterned background. The vehicles vary in size, color, and modifications, including police, military, and utility models.',
                   },
