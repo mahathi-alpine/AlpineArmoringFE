@@ -136,12 +136,21 @@ function Inventory(props) {
   const [vehiclesData, setVehiclesData] = useState(props.vehicles.data);
 
   useEffect(() => {
-    if (props.searchQuery) {
-      setVehiclesData(props.vehicles.data);
+    const makeFilter = router.query.make;
+
+    if (makeFilter && typeof makeFilter === 'string') {
+      // Filter vehicles by make slug when make query parameter is present
+      const filteredVehicles = props.vehicles.data.filter((vehicle) => {
+        const vehicleMakeSlug =
+          vehicle.attributes?.make?.data?.attributes?.slug;
+        return vehicleMakeSlug === makeFilter;
+      });
+      setVehiclesData(filteredVehicles);
     } else {
+      // Show all vehicles when no make filter is present
       setVehiclesData(props.vehicles.data);
     }
-  }, [router.query, props.vehicles.data, props.searchQuery]);
+  }, [router.query.make, props.vehicles.data, props.searchQuery]);
 
   const categoryTitle = currentCategory?.attributes.title || '';
   const categorySlug = currentCategory?.attributes.slug || '';
