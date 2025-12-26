@@ -44,7 +44,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: rem(32) rem(16) rem(72) rem(16);
+    padding: rem(32) rem(10) rem(72) rem(10);
     z-index: 3;
 
     @include breakpoint(small) {
@@ -61,13 +61,65 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      padding: rem(90) rem(32) rem(128) rem(32);
+      padding: rem(90) rem(16) rem(128) rem(16);
       max-width: 2010px;
       margin: auto;
     }
 
     @include breakpoint(huge) {
       padding: rem(90) rem(48) rem(128) rem(48);
+    }
+
+    &_left{
+
+      @include breakpoint(medium) {
+        margin-bottom: rem(30);
+      }
+      @include breakpoint(large) {
+        margin-bottom: 0;
+      }
+
+      &_buttons{
+        display: flex;
+        max-width: 400px;
+
+        @include breakpoint(small) {
+          flex-flow: column;
+        }
+
+        @include breakpoint(medium) {
+          max-width: 700px;
+        }
+        @include breakpoint(large) {
+          margin-top: rem(10);
+        }
+        @include breakpoint(huge) {
+          max-width: 830px;
+          margin-top: rem(20);
+        }
+
+        span{
+          padding: 13px 4px;
+          @include breakpoint(medium) {
+            padding: 16px 10px;
+          }
+          @include breakpoint(large) {
+            font-size: 13px;
+          }
+          @include breakpoint(huge) {
+            padding: 16px 32px;
+            font-size: 15px;
+          }
+        }
+      }
+      .hp_banner_button{
+        @include breakpoint(small) {
+          margin-bottom: 10px;
+        }
+        @include breakpoint(medium) {
+          margin-right: 10px;
+        }
+      }
     }
   }
 
@@ -85,14 +137,18 @@
     margin-bottom: rem(12);
     font-weight: var(--font-light);
     font-size: rem(24);
-    font-size: clamp(1.5rem, 1.3786rem + 0.5178vw, 2rem);
+    font-size: clamp(1.375rem, 0.125rem + 6.25vw, 3.125rem);
     text-transform: uppercase;
     white-space: pre-wrap;
 
     b {
-      font-size: rem(24);
-      font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
+      // font-size: rem(24);
+      // font-size: clamp(1.375rem, 0.125rem + 6.25vw, 3.125rem);
       font-weight: var(--font-regular);
+
+      // @include breakpoint(medium) {
+      //   font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);  
+      // }
     }
 
     @include breakpoint(small) {
@@ -112,6 +168,11 @@
     font-size: rem(14);
     font-size: clamp(0.875rem, 0.7612rem + 0.4854vw, 1.34375rem);
     font-weight: var(--font-light);
+
+    @include breakpoint(small) {
+      display: none;
+    }
+
     @include breakpoint(large) {
       text-align: right;
       padding-bottom: rem(8);

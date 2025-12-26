@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Button from 'components/global/button/Button';
 import useLocale from 'hooks/useLocale';
 
-const Categories = ({ props, allVehiclesImage }) => {
+const Categories = ({ props }) => {
   const { lang } = useLocale();
 
   return (
@@ -108,7 +108,7 @@ const Categories = ({ props, allVehiclesImage }) => {
         );
       })}
 
-      {allVehiclesImage ? (
+      {/* {allVehiclesImage ? (
         <div className={`${styles.categories_item} observe fade-in-up`}>
           <Image
             src={`${
@@ -153,14 +153,13 @@ const Categories = ({ props, allVehiclesImage }) => {
                   href={lang.vehiclesWeArmorURL}
                   className={`${styles.categories_item_buttons_plain} shiny`}
                 >
-                  {lang.explore}&nbsp;{lang.all}&nbsp;{lang.armored}&nbsp;
-                  {lang.vehiclesWeArmor}
+                  {lang.explore}&nbsp;{lang.all}&nbsp;{lang.vehiclesWeArmor}
                 </Button>
               </div>
             </div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
     </section>
   );
 };

@@ -2,9 +2,12 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import styles from './HpBanner.module.scss';
 import PlayIcon from 'components/icons/Play';
 import PauseIcon from 'components/icons/Pause';
+import Button from 'components/global/button/Button';
 import { HPBannerProps } from 'types';
+import useLocale from 'hooks/useLocale';
 
 const HpBanner = ({ props }: HPBannerProps) => {
+  const { lang } = useLocale();
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -116,14 +119,31 @@ const HpBanner = ({ props }: HPBannerProps) => {
         </div>
 
         <div className={`${styles.hp_banner_content}`}>
-          {props.title ? (
-            <h1
-              dangerouslySetInnerHTML={{
-                __html: props.title,
-              }}
-              className={`${styles.hp_banner_title}`}
-            ></h1>
-          ) : null}
+          <div className={`${styles.hp_banner_content_left}`}>
+            {props.title ? (
+              <h1
+                dangerouslySetInnerHTML={{
+                  __html: props.title,
+                }}
+                className={`${styles.hp_banner_title}`}
+              ></h1>
+            ) : null}
+
+            <div className={`${styles.hp_banner_content_left_buttons}`}>
+              <Button
+                href={'/' + lang.armoredVehiclesForSaleURL}
+                className={`${styles.hp_banner_button} rounded primary`}
+              >
+                {lang.explore}&nbsp;{lang.allArmoredVehiclesForSale}
+              </Button>
+              <Button
+                href={lang.vehiclesWeArmorURL}
+                className={`${styles.hp_banner_button} rounded`}
+              >
+                {lang.explore}&nbsp;{lang.all}&nbsp;{lang.vehiclesWeArmor}
+              </Button>
+            </div>
+          </div>
 
           {props.description ? (
             <h2

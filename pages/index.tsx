@@ -25,7 +25,7 @@ function Home({ homepageData, categories }) {
   const categoriesData = categories?.data;
   const hpMiddleText = data?.hpMiddleText;
   const tabSectionData = data?.tabSection;
-  const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
+  // const allVehiclesImage = data?.allVehiclesImage?.data?.attributes;
   const partners = data?.industryPartners;
   const event = data?.event;
   // const ballistingTestings = data?.ballistingTestingsMedia;
@@ -612,7 +612,7 @@ function Home({ homepageData, categories }) {
         {categoriesData && (
           <Categories
             props={categoriesData}
-            allVehiclesImage={allVehiclesImage}
+            // allVehiclesImage={allVehiclesImage}
           />
         )}
 
