@@ -21,14 +21,25 @@ const Blog = ({
   const { lang } = useLocale();
   const router = useRouter();
 
-  // Helper function to get the correct slug for the current locale
-  const getLocalizedSlug = (item: any): string => {
+  // Helper function to get the correct URL for the current locale
+  const getLocalizedUrl = (
+    item: any,
+    category?: string,
+    type?: string
+  ): string => {
     const currentLocale = router.locale || 'en';
     const data = item.attributes;
 
-    // If the blog is already in the current locale, use its slug
+    // Determine base path (blog, news, or custom category)
+    const basePath = category
+      ? `/${category}`
+      : type
+        ? `${lang.blogsURL}`
+        : `${lang.newsURL}`;
+
+    // If the item is already in the current locale, use its slug with locale-aware path
     if (data.locale === currentLocale) {
-      return data.slug;
+      return `${basePath}/${data.slug}`;
     }
 
     // Otherwise, look for the localization with the current locale
@@ -37,12 +48,19 @@ const Blog = ({
         (loc: any) => loc.attributes.locale === currentLocale
       );
       if (localized) {
-        return localized.attributes.slug;
+        // Found localized version, use locale-aware path
+        return `${basePath}/${localized.attributes.slug}`;
       }
     }
 
-    // Fallback: use the original slug (might result in 404 if no translation exists)
-    return data.slug;
+    // Fallback: no translation exists, use English URL (not Spanish URL with English slug)
+    // For blogs, use /blog; for news, use /news
+    const englishBasePath = category
+      ? `/${category}`
+      : type
+        ? '/blog'
+        : '/news';
+    return `${englishBasePath}/${data.slug}`;
   };
 
   return (
@@ -77,7 +95,7 @@ const Blog = ({
 
         <div className={`${styles.news_list}`}>
           {(limit ? props.slice(0, limit) : props).map((item, index) => {
-            const localizedSlug = getLocalizedSlug(item);
+            const itemUrl = getLocalizedUrl(item, item.category, type);
             const blogDate = item.attributes.date
               ? item.attributes.date
               : item.attributes.publishedAt;
@@ -106,7 +124,7 @@ const Blog = ({
                 >
                   {item.attributes.thumbnail.data?.attributes.url ? (
                     <Link
-                      href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${localizedSlug}`}
+                      href={itemUrl}
                       className={`${styles.news_item_image}`}
                     >
                       <Image
@@ -145,9 +163,7 @@ const Blog = ({
 
                     <div className={`${styles.news_item_content_main}`}>
                       <div className={`${styles.news_item_content_main_inner}`}>
-                        <Link
-                          href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${localizedSlug}`}
-                        >
+                        <Link href={itemUrl}>
                           {button ? (
                             <h3 className={`${styles.news_item_title}`}>
                               {item.attributes.title}
@@ -167,7 +183,7 @@ const Blog = ({
                       </div>
 
                       <Button
-                        href={`${item.category ? `/${item.category}` : type ? `${lang.blogsURL}` : `${lang.newsURL}`}/${localizedSlug}`}
+                        href={itemUrl}
                         className={`${styles.news_item_button} rounded border desktop-only`}
                       >
                         {lang.readMore}

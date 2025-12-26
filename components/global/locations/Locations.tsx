@@ -3,9 +3,19 @@ import styles from './Locations.module.scss';
 import React from 'react';
 import Image from 'next/image';
 import useLocale from 'hooks/useLocale';
+import { useRouter } from 'next/router';
 
 const Article = ({ props, limit = '' }) => {
   const { lang } = useLocale();
+  const router = useRouter();
+
+  // Helper function to build locale-aware URLs
+  const buildLocalizedUrl = (path: string): string => {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return router.locale === 'en'
+      ? normalizedPath
+      : `/${router.locale}${normalizedPath}`;
+  };
   // Categorize items into countries, states, and cities
   const countries = props.filter((item) => item.attributes.type === 'country');
   const states = props.filter((item) => item.attributes.type === 'state');
@@ -26,7 +36,9 @@ const Article = ({ props, limit = '' }) => {
                 <React.Fragment key={`country-${index}`}>
                   <Link
                     className={`${styles.locations_card} observe fade-in-up`}
-                    href={`${lang.locationsWeServeURL}/${item.attributes.slug}`}
+                    href={buildLocalizedUrl(
+                      `${lang.locationsWeServeURL}/${item.attributes.slug}`
+                    )}
                   >
                     <div className={`${styles.locations_card_region}`}>
                       {item.attributes.region}
@@ -66,7 +78,9 @@ const Article = ({ props, limit = '' }) => {
               <React.Fragment key={`state-${index}`}>
                 <Link
                   className={`${styles.locations_card} observe fade-in-up`}
-                  href={`${lang.locationsWeServeURL}/${item.attributes.slug}`}
+                  href={buildLocalizedUrl(
+                    `${lang.locationsWeServeURL}/${item.attributes.slug}`
+                  )}
                 >
                   <div className={`${styles.locations_card_region}`}>
                     United States
@@ -103,7 +117,9 @@ const Article = ({ props, limit = '' }) => {
               <React.Fragment key={`city-${index}`}>
                 <Link
                   className={`${styles.locations_card} observe fade-in-up`}
-                  href={`${lang.locationsWeServeURL}/${item.attributes.slug}`}
+                  href={buildLocalizedUrl(
+                    `${lang.locationsWeServeURL}/${item.attributes.slug}`
+                  )}
                 >
                   <div className={`${styles.locations_card_country}`}>
                     <h3>{item.attributes.excerpt}</h3>

@@ -44,13 +44,13 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ blogs }) => {
   const { lang } = useLocale();
   const router = useRouter();
 
-  // Helper function to get the correct slug for the current locale
-  const getLocalizedSlug = (blog: RelatedBlog): string => {
+  // Helper function to get the correct URL for the current locale
+  const getLocalizedBlogUrl = (blog: RelatedBlog): string => {
     const currentLocale = router.locale || 'en';
 
-    // If the blog is already in the current locale, use its slug
+    // If the blog is already in the current locale, use its slug with the locale-aware path
     if (blog.attributes.locale === currentLocale) {
-      return blog.attributes.slug;
+      return `${lang?.blogsURL || '/blog'}/${blog.attributes.slug}`;
     }
 
     // Otherwise, look for the localization with the current locale
@@ -59,12 +59,13 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ blogs }) => {
         (loc) => loc.attributes.locale === currentLocale
       );
       if (localized) {
-        return localized.attributes.slug;
+        // Found localized version, use locale-aware path
+        return `${lang?.blogsURL || '/blog'}/${localized.attributes.slug}`;
       }
     }
 
-    // Fallback: use the original slug (might result in 404 if no translation exists)
-    return blog.attributes.slug;
+    // Fallback: no translation exists, use English URL (not Spanish URL with English slug)
+    return `/blog/${blog.attributes.slug}`;
   };
 
   if (!blogs || blogs.length === 0) {
@@ -80,7 +81,7 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ blogs }) => {
 
         <div className={`${styles.relatedBlogs_list}`}>
           {blogs.map((blog, index) => {
-            const localizedSlug = getLocalizedSlug(blog);
+            const blogUrl = getLocalizedBlogUrl(blog);
 
             return (
               <article
@@ -89,7 +90,7 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ blogs }) => {
               >
                 {blog.attributes?.thumbnail?.data?.attributes?.url && (
                   <Link
-                    href={`${lang?.blogsURL || '/blog'}/${localizedSlug}`}
+                    href={blogUrl}
                     className={`${styles.relatedBlogs_item_image}`}
                   >
                     <Image
@@ -110,7 +111,7 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ blogs }) => {
                 )}
 
                 <div className={`${styles.relatedBlogs_item_content}`}>
-                  <Link href={`${lang?.blogsURL || '/blog'}/${localizedSlug}`}>
+                  <Link href={blogUrl}>
                     <h3 className={`${styles.relatedBlogs_item_title}`}>
                       {blog.attributes.title}
                     </h3>

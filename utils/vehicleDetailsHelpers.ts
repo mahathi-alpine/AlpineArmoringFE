@@ -208,7 +208,7 @@ export const getVehicleDetailsServerSideProps = async (
 
 export const buildRentalVehicleLanguageUrls = createLanguageUrlBuilder({
   en: routes.rentalVehicles?.paths?.en || '/rental-vehicles',
-  es: routes.rentalVehicles?.paths?.es || '/vehiculos-de-alquiler',
+  es: routes.rentalVehicles?.paths?.es || '/vehiculos-de-renta',
 });
 
 export const buildVehicleLanguageUrls = createLanguageUrlBuilder({

@@ -12,6 +12,14 @@ function Item(props) {
   const { lang } = useLocale();
   const router = useRouter();
 
+  // Helper function to build locale-aware URLs
+  const buildLocalizedUrl = (path: string): string => {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return router.locale === 'en'
+      ? normalizedPath
+      : `/${router.locale}${normalizedPath}`;
+  };
+
   const data =
     props && props.data && props.data.data[0] && props.data.data[0].attributes;
   const category = data?.knowledge_base_category?.data?.attributes;
@@ -52,36 +60,6 @@ function Item(props) {
     return JSON.stringify(structuredData);
   };
 
-  // FAQ structured data
-  // const getFAQStructuredData = () => {
-  //   if (!faqs || !Array.isArray(faqs)) {
-  //     console.error('FAQs is not an array:', faqs);
-  //     return null;
-  //   }
-
-  //   const structuredData = {
-  //     '@context': 'https://schema.org',
-  //     '@type': 'FAQPage',
-  //     mainEntity: faqs.map((faq, index) => {
-  //       const title =
-  //         faq?.attributes?.title || faq?.title || `FAQ ${index + 1}`;
-  //       const text =
-  //         faq?.attributes?.text || faq?.text || lang.noAnswerProvided;
-
-  //       return {
-  //         '@type': 'Question',
-  //         name: title,
-  //         acceptedAnswer: {
-  //           '@type': 'Answer',
-  //           text: text,
-  //         },
-  //       };
-  //     }),
-  //   };
-
-  //   return JSON.stringify(structuredData);
-  // };
-
   return (
     <>
       <Head>
@@ -91,25 +69,24 @@ function Item(props) {
           key="breadcrumb-jsonld"
         />
         <title>{`${props?.seoData?.metaTitle || props?.data?.data[0]?.attributes?.title}`}</title>
-        {/* {faqs?.length > 0 && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: getFAQStructuredData() }}
-            key="faq-jsonld"
-          />
-        )} */}
       </Head>
 
       <div className={`${styles.blogSingle}`}>
         <div className={`${styles.blogSingle_inner} container_small`}>
-          <div className={`b-breadcrumbs`}>
+          <div className={`b-breadcrumbs ${styles.blogSingle_breadcrumbs}`}>
             <Link href="/">{lang.home}</Link>
             <span>&gt;</span>
-            <Link href={`${lang.faqsURL}`}>{lang.footerFaqsTitle}</Link>
+            <Link href={buildLocalizedUrl(lang.faqsURL)}>
+              {lang.footerFaqsTitle}
+            </Link>
             <span>&gt;</span>
             {category && (
               <>
-                <Link href={`${category.slug}`}>{category.title}</Link>
+                <Link
+                  href={buildLocalizedUrl(`${lang.faqsURL}/${category.slug}`)}
+                >
+                  {category.title}
+                </Link>
                 <span>&gt;</span>
               </>
             )}

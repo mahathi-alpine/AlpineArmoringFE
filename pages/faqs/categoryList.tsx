@@ -8,6 +8,14 @@ function CategoryPage(props) {
   const { lang } = useLocale();
   const router = useRouter();
 
+  // Helper function to build locale-aware URLs
+  const buildLocalizedUrl = (path: string): string => {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return router.locale === 'en'
+      ? normalizedPath
+      : `/${router.locale}${normalizedPath}`;
+  };
+
   // Check if we have the category data
   const category = props?.category?.data?.[0]?.attributes;
   // Get all posts from this category
@@ -126,7 +134,9 @@ function CategoryPage(props) {
           <div className={`b-breadcrumbs`}>
             <Link href="/">{lang.home}</Link>
             <span>&gt;</span>
-            <Link href={`${lang.faqsURL}`}>{lang.footerFaqsTitle}</Link>
+            <Link href={buildLocalizedUrl(lang.faqsURL)}>
+              {lang.footerFaqsTitle}
+            </Link>
             <span>&gt;</span>
             <span className={`b-breadcrumbs_current`}>{category.title}</span>
           </div>
@@ -144,7 +154,9 @@ function CategoryPage(props) {
                 return (
                   <div key={post.id} className={styles.categoryPage_list_item}>
                     <Link
-                      href={`${lang.faqsURL}/${post.attributes?.slug || ''}`}
+                      href={buildLocalizedUrl(
+                        `${lang.faqsURL}/${post.attributes?.slug || ''}`
+                      )}
                       className={styles.postLink}
                     >
                       <h2 className={styles.categoryPage_list_item_title}>

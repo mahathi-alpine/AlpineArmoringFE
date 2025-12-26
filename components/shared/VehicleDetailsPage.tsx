@@ -65,6 +65,12 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
     pageData.data[0] &&
     pageData.data[0].attributes;
 
+  // Helper function to build locale-aware URLs
+  const buildLocalizedUrl = (locale: string, path: string): string => {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return locale === 'en' ? normalizedPath : `/${locale}${normalizedPath}`;
+  };
+
   // Configuration based on page type
   const getConfig = (): VehicleDetailsConfig => {
     switch (type) {
@@ -75,11 +81,14 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
           breadcrumbs: {
             second: {
               name: lang.availableNowTitle,
-              url: `/${lang.armoredVehiclesForSaleURL}`,
+              url: buildLocalizedUrl(locale, lang.armoredVehiclesForSaleURL),
             },
             third: {
               name: lang.rentalVehicles,
-              url: `/${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`,
+              url: buildLocalizedUrl(
+                locale,
+                `${lang.availableNowURL}/${lang.type}/${lang.armoredRentalURL}`
+              ),
             },
           },
           vehicleDetailsMapping: {
@@ -100,12 +109,15 @@ function VehicleDetailsPage(props: VehicleDetailsPageProps) {
           breadcrumbs: {
             second: {
               name: lang.availableNowTitle,
-              url: `/${lang.armoredVehiclesForSaleURL}`,
+              url: buildLocalizedUrl(locale, lang.armoredVehiclesForSaleURL),
             },
             third: data?.categories?.data[0]?.attributes
               ? {
                   name: data.categories.data[0].attributes.title,
-                  url: `/${lang.availableNowURL}/${lang.type}/${data.categories.data[0].attributes.slug}`,
+                  url: buildLocalizedUrl(
+                    locale,
+                    `${lang.availableNowURL}/${lang.type}/${data.categories.data[0].attributes.slug}`
+                  ),
                 }
               : undefined,
           },

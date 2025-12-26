@@ -16,6 +16,14 @@ function KnowledgeBase(props) {
   const posts = props?.posts || [];
   const router = useRouter();
 
+  // Helper function to build locale-aware URLs
+  const buildLocalizedUrl = (path: string): string => {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return router.locale === 'en'
+      ? normalizedPath
+      : `/${router.locale}${normalizedPath}`;
+  };
+
   // Animations
   useAnimationObserver({
     dependencies: [props.pageData],
@@ -154,7 +162,9 @@ function KnowledgeBase(props) {
             {categorizedPosts.map((category: any) => (
               <div key={category.id} className={styles.knowledgeBase_category}>
                 <Link
-                  href={`${lang.faqsURL}/${category.attributes?.slug || ''}`}
+                  href={buildLocalizedUrl(
+                    `${lang.faqsURL}/${category.attributes?.slug || ''}`
+                  )}
                 >
                   <h2 className={styles.knowledgeBase_category_title}>
                     {category.attributes?.title || 'Unknown Category'}
@@ -172,7 +182,9 @@ function KnowledgeBase(props) {
                       className={styles.knowledgeBase_list_item}
                     >
                       <Link
-                        href={`${lang.faqsURL}/${post.attributes?.slug || ''}`}
+                        href={buildLocalizedUrl(
+                          `${lang.faqsURL}/${post.attributes?.slug || ''}`
+                        )}
                       >
                         {post.attributes?.title}
                       </Link>
@@ -181,7 +193,9 @@ function KnowledgeBase(props) {
                 </ul>
 
                 <Link
-                  href={`${lang.faqsURL}/${category.attributes?.slug || ''}`}
+                  href={buildLocalizedUrl(
+                    `${lang.faqsURL}/${category.attributes?.slug || ''}`
+                  )}
                   className={styles.knowledgeBase_category_all}
                 >
                   {lang.viewAllQuestions}
