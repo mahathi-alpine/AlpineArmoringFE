@@ -70,8 +70,7 @@
       padding: rem(90) rem(48) rem(128) rem(48);
     }
 
-    &_left{
-
+    &_left {
       @include breakpoint(medium) {
         margin-bottom: rem(30);
       }
@@ -79,7 +78,7 @@
         margin-bottom: 0;
       }
 
-      &_buttons{
+      &_buttons {
         display: flex;
         max-width: 400px;
 
@@ -98,7 +97,7 @@
           margin-top: rem(20);
         }
 
-        span{
+        span {
           padding: 13px 4px;
           @include breakpoint(medium) {
             padding: 16px 10px;
@@ -112,7 +111,7 @@
           }
         }
       }
-      .hp_banner_button{
+      .hp_banner_button {
         @include breakpoint(small) {
           margin-bottom: 10px;
         }
@@ -147,7 +146,7 @@
       font-weight: var(--font-regular);
 
       // @include breakpoint(medium) {
-      //   font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);  
+      //   font-size: clamp(1.5rem, 1.1359rem + 1.5534vw, 3rem);
       // }
     }
 
