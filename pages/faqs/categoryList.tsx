@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useLocale from 'hooks/useLocale';
+import CustomMarkdown from 'components/CustomMarkdown';
 
 function CategoryPage(props) {
   const { lang } = useLocale();
@@ -151,22 +152,25 @@ function CategoryPage(props) {
                   post.attributes?.excerpt ||
                   extractExcerpt(post.attributes?.dynamicZone);
 
+                const postUrl = buildLocalizedUrl(
+                  `${lang.faqsURL}/${post.attributes?.slug || ''}`
+                );
+
                 return (
                   <div key={post.id} className={styles.categoryPage_list_item}>
-                    <Link
-                      href={buildLocalizedUrl(
-                        `${lang.faqsURL}/${post.attributes?.slug || ''}`
-                      )}
-                      className={styles.postLink}
-                    >
+                    <Link href={postUrl} className={styles.postLink}>
                       <h2 className={styles.categoryPage_list_item_title}>
                         {post.attributes?.title || 'Untitled'}
                       </h2>
-                      {postExcerpt && (
-                        <p className={styles.categoryPage_list_item_excerpt}>
+                    </Link>
+                    {postExcerpt && (
+                      <div className={styles.categoryPage_list_item_excerpt}>
+                        <CustomMarkdown>
                           {post.attributes.shortDescription || postExcerpt}
-                        </p>
-                      )}
+                        </CustomMarkdown>
+                      </div>
+                    )}
+                    <Link href={postUrl}>
                       <p className={styles.categoryPage_list_item_excerpt_more}>
                         Read More &gt;
                       </p>
