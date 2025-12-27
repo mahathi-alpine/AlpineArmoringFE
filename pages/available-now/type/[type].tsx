@@ -707,6 +707,8 @@ export async function getStaticProps(context) {
         locale === 'en'
           ? '/armored-vehicles-for-sale'
           : '/vehiculos-blindados-en-venta';
+      // Reason: Disable hreflang tags when canonical points to a different page to avoid SEO conflicts
+      seoData.languageUrls = false;
     }
 
     if (seoData) {

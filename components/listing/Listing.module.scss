@@ -83,16 +83,22 @@
   }
   &_list {
     padding-top: rem(32);
+
     @include breakpoint(medium) {
       display: flex;
+      column-gap: 12px;
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: space-evenly;
-      column-gap: 24px;
       flex: 1;
       max-width: 1165px;
       margin: auto;
+    }    
+
+    @media (min-width: 950px) {
+      column-gap: 24px;
     }
+
     @include breakpoint(large) {
       padding-top: 0;
       justify-content: flex-start;

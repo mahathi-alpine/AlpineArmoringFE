@@ -311,7 +311,11 @@ const Seo = ({
       <meta name="image" content={metaImgUrl} />
 
       {/* Meta Robots tag */}
-      {metaRobots && <meta name="robots" content={metaRobots} />}
+      {shouldNoIndex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        metaRobots && <meta name="robots" content={metaRobots} />
+      )}
 
       {isBlog && (
         <style>{`
