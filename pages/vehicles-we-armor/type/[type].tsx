@@ -501,7 +501,7 @@ export async function getStaticProps(context) {
           ...fallbackData,
           locale,
         },
-        revalidate: 60,
+        revalidate: 600,
       };
     }
 
@@ -514,7 +514,7 @@ export async function getStaticProps(context) {
         searchQuery: null,
         locale,
       },
-      revalidate: 3600, // Revalidate every hour (ISR)
+      revalidate: 43200, // Revalidate every hour (ISR)
     };
   } catch (error) {
     console.error('Strapi connection failed:', error);
@@ -531,7 +531,7 @@ export async function getStaticProps(context) {
         ...fallbackData,
         locale,
       },
-      revalidate: 60, // Retry more frequently on error
+      revalidate: 600, // Retry more frequently on error
     };
   }
 }

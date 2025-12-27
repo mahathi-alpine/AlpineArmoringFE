@@ -803,7 +803,7 @@ export async function getStaticProps(context) {
         seoData,
         locale,
       },
-      revalidate: 21600, // Revalidate every 6 hours
+      revalidate: 43200, // Revalidate every 6 hours
     };
   } catch (error) {
     console.error('Strapi connection failed:', error);

@@ -687,13 +687,13 @@ export async function getStaticProps({ params, locale }) {
         locale,
       },
 
-      revalidate: 7200, // 2h
+      revalidate: 43200, // 2h
     };
   } catch (error) {
     console.error('Error in getStaticProps for vehicles-we-armor:', error);
     return {
       notFound: true,
-      revalidate: 60, // Retry sooner on errors
+      revalidate: 600, // Retry sooner on errors
     };
   }
 }

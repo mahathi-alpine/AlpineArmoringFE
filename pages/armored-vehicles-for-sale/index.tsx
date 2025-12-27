@@ -589,7 +589,7 @@ export async function getStaticProps(context) {
         searchQuery: null,
         locale,
       },
-      revalidate: 21600,
+      revalidate: 43200,
     };
   } catch (error) {
     const fallbackData = getFallbackData(locale);
